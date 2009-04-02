@@ -1,2 +1,2 @@
 CC=gcc
-CFLAGS=-L../.. -lftd2xx
+CFLAGS=-m32 -L../.. -lftd2xx
