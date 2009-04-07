@@ -2,6 +2,8 @@
 
 import subprocess
 
+import executor
+
 UPDATE_COMMAND = "apt-get update"
 AVAILABLE_UPGRADE_COMMAND = "apt-get upgrade --assume-yes --simulate"
 UPGRADE_COMMAND = "apt-get upgrade --assume-yes"
@@ -11,44 +13,33 @@ class Upgrader():
     """
     """
     
-    def __init__(self, server_name):
+    def __init__(self, server_name, executor_class = executor.Executor):
         """
         """
         
         self.server_name = server_name
+        self.executor_class = executor_class
 
     def update(self):
         """
         """
         
-        p = subprocess.Popen(self.__prepare_update_command(), shell = False, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-        [out, err] = p.communicate()
-        returncode = p.returncode
-        if returncode != 0:
-            print returncode
-            print err
-        print len(out)
+        e = self.executor_class(self.__prepare_command( UPDATE_COMMAND ))
+        e.run(check = True)
 
     def available_upgrade(self):
         """
         """
         
-        p = subprocess.Popen(self.__prepare_available_upgrade_command())
-        [out, err] = p.communicate()
-        returncode = p.returncode
-        if returncode != 0:
-            raise CalledProcessError, [returncode, err]
-        return out
+        e = self.executor_class(self.__prepare_command( AVAILABLE_UPGRADE_COMMAND ))
+        return e.run(check = True)[1]
 
-    def available_upgrade(self):
+    def upgrade(self):
         """
         """
         
-        p = subprocess.Popen(self.__prepare_upgrade_command())
-        [out, err] = p.communicate()
-        returncode = p.returncode
-        if returncode != 0:
-            raise CalledProcessError, [returncode, err]
+        e = self.executor_class(self.__prepare_command( UPGRADE_COMMAND ))
+        e.run(check = True)
 
     def __prepare_update_command(self):
         """
