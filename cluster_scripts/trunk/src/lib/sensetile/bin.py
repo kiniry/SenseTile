@@ -17,8 +17,6 @@ def call_upgrade(args):
         default = 'available_upgrade', 
         help='action to be performed')
     (options, args) = parser.parse_args(args)
-    print options
-    print args
     
     upg = upgrader.Upgrader(options.target)
     if options.action == 'available_upgrade':
