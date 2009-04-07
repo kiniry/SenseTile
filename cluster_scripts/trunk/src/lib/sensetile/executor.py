@@ -14,7 +14,7 @@ class CommandFailedError(ExecutorError):
         self.message = message
     
     def __str__(self):
-        return str(self.errorcode) + " : " + self.err_str + "/n" + self.message
+        return str(self.errorcode) + " : " + self.err_str + "\n" + self.message
 
 class ExecutionError(ExecutorError):
     
@@ -23,7 +23,7 @@ class ExecutionError(ExecutorError):
         self.message = message
     
     def __str__(self):
-        return str(self.exception) + "/n" + self.message
+        return str(self.exception) + "\n" + self.message
 
 
 class Executor():
