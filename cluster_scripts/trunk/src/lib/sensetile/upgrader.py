@@ -2,7 +2,8 @@
 
 import subprocess
 
-import executor
+from sensetile import executor
+
 
 UPDATE_COMMAND = "apt-get update"
 AVAILABLE_UPGRADE_COMMAND = "apt-get upgrade --assume-yes --simulate"

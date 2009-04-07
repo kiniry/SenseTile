@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import executor
+from sensetile import executor
 
 class ExecutorTestCase(unittest.TestCase):
     """
