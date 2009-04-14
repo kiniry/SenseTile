@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path, shutil
-#from os import path
-# defered class DirectoryHelper
+
 class DirectoryHelper():
     """
     Provides helper method(s) for directory manipulation.      
