@@ -45,6 +45,21 @@ class ExecutorTestCase(unittest.TestCase):
         e = executor.Executor(["lsxxzzss", "--lxzzz", "-A"])
         self.assertRaises(executor.ExecutionError, e.run, check = True)
 
+    def test_concatenate(self):
+        e = executor.Executor([])
+        self.assertEqual("abba b", e._Executor__concatenate(["abba", "b"]))
+    
+    def test__concatenate_empty_list(self):
+        e = executor.Executor([])
+        self.assertEqual("", e._Executor__concatenate([]))
+    
+    def test__concatenate_empty_parameter(self):
+        e = executor.Executor([])
+        self.assertEqual("a b", e._Executor__concatenate(["a", "", "b"]))
+        
+    def test__build_ssh_command(self):
+        e = executor.Executor(["-firstParameter","-secondParameter"])
+        self.assertEqual(["ssh","root@alpha.ucd.ie","-firstParameter -secondParameter"], e._Executor__build_ssh_command("root", "alpha.ucd.ie"))
 
 def suite():
     return unittest.makeSuite([ExecutorTestCase])
