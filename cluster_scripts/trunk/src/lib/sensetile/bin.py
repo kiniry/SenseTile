@@ -44,6 +44,4 @@ def call_backup_etc(args):
     bcp = backup_etc.BackupEtc(options.target, options.d)
     bcp.mk_dir()
     bcp.perform_backup_etc()
-    
-    
-        
+

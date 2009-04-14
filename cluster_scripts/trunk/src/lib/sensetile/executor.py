@@ -44,33 +44,22 @@ class Executor():
         If check = True checks for error and raises ExecutorError if any erro is found.
         """
         
-        if check:
-            returnvalue = self.__run_checked()
-        else:
-            returnvalue = self.__run_unchecked()
-        return returnvalue
+        return self.__run(check)
     
-    def __run_unchecked(self):
-        
-        p = subprocess.Popen(
-            self.command_and_parameters, 
-            shell = False, 
-            stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-        (out, err) = p.communicate()
-        returncode = p.returncode
-        return (returncode, out, err)
-
-    def __run_checked(self):
+    def __run(self, check):
         
         try:
             p = subprocess.Popen(
                 self.command_and_parameters, 
                 shell = False, 
                 stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-            [out, err] = p.communicate()
+            (out, err) = p.communicate()
             returncode = p.returncode
         except Exception, exception:
-            raise ExecutionError, exception
-        if returncode != 0:
+            if check:
+                raise ExecutionError, exception
+            else:
+                raise exception
+        if check and (returncode != 0):
             raise CommandFailedError, (returncode, err)
         return (returncode, out, err)
