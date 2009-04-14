@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import optparse
-from sensetile import upgrader
+from sensetile import upgrader,backup_etc
 
 def call_upgrade(args):
     parser = optparse.OptionParser()
@@ -27,3 +27,23 @@ def call_upgrade(args):
         upg.upgrade()
     else:
         print parser.print_help()
+        
+def call_backup_etc(args):
+    parser = optparse.OptionParser()
+    parser.add_option(
+        '--target', 
+        action = 'store' , 
+        dest = 'target', 
+        help='target machine for backup')
+    parser.add_option(
+        '--d', 
+        action = 'store' , 
+        dest = 'd', 
+        help='directory for backup')
+    (options, args) = parser.parse_args(args)
+    bcp = backup_etc.BackupEtc(options.target, options.d)
+    bcp.mk_dir()
+    bcp.perform_backup_etc()
+    
+    
+        
