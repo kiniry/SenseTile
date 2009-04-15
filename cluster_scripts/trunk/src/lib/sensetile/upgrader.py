@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import subprocess
-
 from sensetile import executor
 
 
@@ -12,6 +10,8 @@ UPGRADE_COMMAND = "apt-get upgrade --assume-yes"
 
 class Upgrader():
     """
+    Check or install available upgrades on Ubuntu boxes.
+    Prerequisite: ssh able to access to root with key authentication.
     """
     
     def __init__(self, server_name, executor_class = executor.Executor):
