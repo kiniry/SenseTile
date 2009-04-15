@@ -74,8 +74,7 @@ class Executor():
     
     def ssh_run(self, target, user, check = False):
         """
-        Execute the ssh command. Returns a tuple: [error_code, output_str, error_str].
-        If check = True checks for error and raises ExecutorError if any error is found.
+        Serves for ssh command execution.
         """
         
         self.__build_ssh_command(target, user)
