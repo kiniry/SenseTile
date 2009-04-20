@@ -57,27 +57,20 @@ class Executor():
             returncode = p.returncode
         except Exception, exception:
             if check:
-                raise ExecutionError, exception
+                raise ExecutionError(exception)
             else:
                 raise exception
         if check and (returncode != 0):
-            raise CommandFailedError, (returncode, err)
+            raise CommandFailedError(returncode, err)
         return (returncode, out, err)
-    
-    def __concatenate(self, command_and_parameters):
-        result = ""
-        for element in command_and_parameters:
-            if (element != None) and (element != ""):
-                result = result + " " + element
-        result = result.lstrip()
-        return result
     
     def ssh_run(self, target, user, check = False):
         """
-        Serves for ssh command execution.
+        Execute a remote command through ssh. Returns a tuple: [error_code, output_str, error_str].
+        Note that output_str and error_str are str.
+        If check = True checks for error and raises ExecutorError if any error is found.
         """
         
-        self.__build_ssh_command(target, user)
         return self.__run(self.__build_ssh_command(user,target),check)
     
     def __build_ssh_command(self, user, target):
@@ -88,4 +81,13 @@ class Executor():
         ssh_command_and_parameters.append(user + "@" + target)
         ssh_command_and_parameters.append(self.__concatenate(self.command_and_parameters))
         return ssh_command_and_parameters
+    
+    def __concatenate(self, command_and_parameters):
         
+        result = ""
+        for element in command_and_parameters:
+            if (element != None) and (element != ""):
+                result = result + " " + element
+        result = result.lstrip()
+        return result
+    
