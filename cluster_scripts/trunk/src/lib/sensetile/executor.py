@@ -61,7 +61,7 @@ class Executor():
             else:
                 raise exception
         if check and (returncode != 0):
-            raise CommandFailedError(returncode, err)
+            raise CommandFailedError(returncode, err, out)
         return (returncode, out, err)
     
     def ssh_run(self, target, user, check = False):

@@ -73,6 +73,13 @@ def call_image(args):
         dest = 'reboot', 
         default = False, 
         help = 'reboot after image, default = False')
+    parser.add_option(
+        '--autoinstall', 
+        action = 'store_true' , 
+        dest = 'autoinstall', 
+        default = False, 
+        help = 'complete image with reboot, default = False')
+    
     (options, args) = parser.parse_args(args)
     if ((not options.server) or (not options.target)):
         print parser.print_help()
@@ -80,8 +87,7 @@ def call_image(args):
     
     try:
         img = imager.Imager(options.server)
-        img.image(options.target, reboot = options.reboot)
+        img.image(options.target, reboot = options.reboot, autoinstall = options.autoinstall)
     except Exception, exception:
         print exception.err_str
         exit(exception.errorcode)
-        

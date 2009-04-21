@@ -9,7 +9,7 @@ class ImagerTestCase(unittest.TestCase):
     """
     """
 
-    def test_create(self):
+    def test__create(self):
         """
         image creation
         """
@@ -18,9 +18,9 @@ class ImagerTestCase(unittest.TestCase):
         img = imager.Imager(image_server_name)
         self.failIfEqual(None, imager)
     
-    def test_image_update(self):
+    def test__image_incremental_update(self):
         """
-        image target
+        incremental image target
         """
         
         image_server_name = "image_server.ucd.ie"
@@ -30,7 +30,7 @@ class ImagerTestCase(unittest.TestCase):
         mock_executor_class = mock.Mock()
         mock_executor_class.return_value = mock_executor
         img = imager.Imager(image_server_name, executor_class = mock_executor_class)
-        img._image_update(target_name)
+        img._image_incremental_update(target_name)
         self.assertEqual( 
             ((["si_updateclient", "--server " + imager._remove_domain(image_server_name), "--yes"],), {}),
             mock_executor_class.call_args_list[0])
@@ -38,7 +38,31 @@ class ImagerTestCase(unittest.TestCase):
             ("ssh_run", (target_name, "root"), {"check": True}), 
             mock_executor.method_calls[0])
     
-    def test_push_overrides(self):
+    def test__image_complete_update(self):
+        """
+        complete image target
+        """
+        
+        image_server_name = "image_server.ucd.ie"
+        target_name = "target.ucd.ie"
+        fake_return = (0, "", "")
+        mock_executor = mock.Mock( methods = "ssh_run" )
+        mock_executor_class = mock.Mock()
+        mock_executor_class.return_value = mock_executor
+        img = imager.Imager(image_server_name, executor_class = mock_executor_class)
+        img._image_complete_update(target_name)
+        self.assertEqual( 
+            ((["si_updateclient", 
+               "--server " + imager._remove_domain(image_server_name), 
+               "--yes", 
+               "--autoinstall"],), 
+             {}),
+            mock_executor_class.call_args_list[0])
+        self.assertEqual(
+            ("ssh_run", (target_name, "root"), {"check": True}), 
+            mock_executor.method_calls[0])
+    
+    def test__push_overrides(self):
         """
         push overrides on target
         """
@@ -58,7 +82,7 @@ class ImagerTestCase(unittest.TestCase):
             ("ssh_run", (image_server_name, "root"), {"check": True}), 
             mock_executor.method_calls[0])
     
-    def test_update_grub_menu(self):
+    def test__update_grub_menu(self):
         """
         test upgrade grub menu
         """
@@ -76,7 +100,7 @@ class ImagerTestCase(unittest.TestCase):
             ("ssh_run", (target_name, "root"), {"check": True}), 
             mock_executor.method_calls[0])
     
-    def test_reboot(self):
+    def test__reboot(self):
         """
         test reboot
         """
@@ -94,9 +118,9 @@ class ImagerTestCase(unittest.TestCase):
             ("ssh_run", (target_name, "root"), {"check": True}), 
             mock_executor.method_calls[0])
     
-    def test_image(self):
+    def test_image_incremental(self):
         """
-        test reboot
+        test image incremental
         """
         
         image_server_name = "image_server.ucd.ie"
@@ -109,7 +133,22 @@ class ImagerTestCase(unittest.TestCase):
         img.image(target_name)
         self.assertEqual(3, len(mock_executor_class.call_args_list))
         self.assertEqual(3, len(mock_executor.method_calls))
-
+    
+    def test_image_complete(self):
+        """
+        test image complete
+        """
+        
+        image_server_name = "image_server.ucd.ie"
+        target_name = "target.ucd.ie"
+        fake_return = (0, "", "")
+        mock_executor = mock.Mock( methods = "ssh_run" )
+        mock_executor_class = mock.Mock()
+        mock_executor_class.return_value = mock_executor
+        img = imager.Imager(image_server_name, executor_class = mock_executor_class)
+        img.image(target_name, autoinstall = True)
+        self.assertEqual(2, len(mock_executor_class.call_args_list))
+        self.assertEqual(2, len(mock_executor.method_calls))
 
 class RemoveDomainTestCase(unittest.TestCase):
     """

@@ -4,7 +4,10 @@ import string
 
 from sensetile import executor
 
-IMAGE_UPDATE_COMMAND = ["si_updateclient", string.Template('--server ${server}'), "--yes"]
+IMAGE_INCREMENTAL_UPDATE_COMMAND = \
+    ["si_updateclient", string.Template('--server ${server}'), "--yes"]
+IMAGE_COMPLETE_UPDATE_COMMAND = \
+    ["si_updateclient", string.Template('--server ${server}'), "--yes", "--autoinstall"]
 PUSH_OVERRIDES_COMMAND = ["si_pushoverrides", string.Template('${target}')]
 UPDATE_GRUB_MENU_COMMAND = [
     "unset UCF_FORCE_CONFFOLD; " + 
@@ -26,16 +29,33 @@ class Imager():
     
     def image(self, target_name, autoinstall = False, reboot = False):
         """
+        image the target machine
         """
         
-        self._image_update(target_name)
+        if autoinstall:
+            self._image_complete(target_name)
+        else:
+            self._image_incremental(target_name, reboot)
+    
+    def _image_incremental(self, target_name, reboot):
+        self._image_incremental_update(target_name)
         self._push_overrides(target_name)
         self._update_grub_menu(target_name)
         if reboot:
             self._reboot(target_name)
     
-    def _image_update(self, target_name):
-        command = IMAGE_UPDATE_COMMAND[:]
+    def _image_complete(self, target_name):
+        self._image_complete_update(target_name)
+        self._reboot(target_name)
+    
+    def _image_complete_update(self, target_name):
+        command = IMAGE_COMPLETE_UPDATE_COMMAND[:]
+        command[1] = command[1].substitute( server = _remove_domain(self.image_server_name) )
+        e = self.executor_class(command)
+        e.ssh_run(target_name, "root", check = True)
+    
+    def _image_incremental_update(self, target_name):
+        command = IMAGE_INCREMENTAL_UPDATE_COMMAND[:]
         command[1] = command[1].substitute( server = _remove_domain(self.image_server_name) )
         e = self.executor_class(command)
         e.ssh_run(target_name, "root", check = True)
