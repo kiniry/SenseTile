@@ -91,7 +91,7 @@ public class BytePatternTest {
   public void testMatchSingleByteSingleData() {
     byte[] dataPattern = { 6 };
     BytePattern pattern = BytePattern.createPattern(dataPattern);
-    byte[] data = { 6};
+    byte[] data = { 6 };
     assertEquals(0, pattern.match(data));
   }
 
@@ -149,7 +149,7 @@ public class BytePatternTest {
     byte[] data = { 0, 1, 2, 3, 4, 0, 1, 2};
     assertEquals(3, pattern.match(data));
   }
-
+  
   @Test
   public void testMatchRepeatedTruncated() {
     byte[] dataPattern = { 3, 4 };
@@ -159,25 +159,39 @@ public class BytePatternTest {
     byte[] data = { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3 };
     assertEquals(3, pattern.match(data));
   }
-
+  
   @Test
   public void testMatchRepeatedRecursiveTruncated() {
     byte[] dataPattern = { 4, 0 };
     int repetitionStep = 5;
     BytePattern pattern = BytePattern.createPattern(
         dataPattern, repetitionStep);
-    byte[] data = { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
+    byte[] data = { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3 };
     assertEquals(4, pattern.match(data));
   }
-
+  
   @Test
   public void testMatchRepeatedNotFound() {
     byte[] dataPattern = { 3, 4 };
     int repetitionStep = 5;
     BytePattern pattern = BytePattern.createPattern(
         dataPattern, repetitionStep);
-    byte[] data = { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1, 2, 3, 3 };
+    byte[] data = { 0, 1, 2, 3, 4, 
+                    0, 1, 2, 3, 4, 
+                    0, 1, 2, 3, 3 };
     assertEquals(-1, pattern.match(data));
   }
-
+  
+  @Test
+  public void testMatchRepeatedFalsePositive() {
+    byte[] dataPattern = { 3, 4 };
+    int repetitionStep = 5;
+    BytePattern pattern = BytePattern.createPattern(
+        dataPattern, repetitionStep);
+    byte[] data = { 0, 3, 4, 3, 4, 
+                    0, 3, 4, 3, 4, 
+                    0, 1, 2, 3, 4 };
+    assertEquals(3, pattern.match(data));
+  }
+  
 }

@@ -66,26 +66,37 @@ public class BytePattern {
    * found.
    */
   public int match(byte[] data) {
+    int index = -1;
     if (data.length == 0) {
-      return -1;
+      return index;
     }
-    int repetitionStep = (isPatternRepeated() ? this.repetitionStep
-        : data.length);
-    int index = matchSingle(data, repetitionStep);
-    if (index != -1 && isPatternRepeated()) {
-      index = checkNextRepetitions(index, data);
+    if (isPatternRepeated()) {
+      index = matchRepeated(data);
+    }
+    else {
+      index = matchSingle(data, data.length, 0);
     }
     return index;
   }
-
+  
+  private int matchRepeated(byte[] data) {
+    int index = matchSingle(data, this.repetitionStep, 0);
+    int repetitionIndex = checkNextRepetitions(index, data);
+    while ((index != -1) && (repetitionIndex == -1 )) {
+      index = matchSingle(data, this.repetitionStep, index + 1);
+      repetitionIndex = checkNextRepetitions(index, data);
+    }
+    return repetitionIndex;
+  }
+  
   private boolean isPatternRepeated() {
     return (repetitionStep != -1);
   }
-
-  private int matchSingle(byte[] data, int length) {
+  
+  private int matchSingle(byte[] data, int length, int startPosition) {
     int match_count = 0;
     int iRecursive;
-    for (int i = 0; i < (length + pattern.length); i++) {
+    for (int i = startPosition; i < (length + pattern.length); i++) {
       iRecursive = i % length;
       byte b = data[iRecursive];
       if (b == pattern[match_count]) {
@@ -101,7 +112,7 @@ public class BytePattern {
     }
     return -1;
   }
-
+  
   private int checkNextRepetitions(int start, byte[] data) {
     int dataIndex = start + repetitionStep;
     int patternIndex = 0;
@@ -118,7 +129,7 @@ public class BytePattern {
     }
     return start;
   }
-
+  
   private static void checkPattern(byte[] pattern) {
     if (pattern == null || pattern.length == 0) {
       throw new IllegalArgumentException();
