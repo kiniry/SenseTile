@@ -79,6 +79,49 @@ def call_image(args):
         dest = 'autoinstall', 
         default = False, 
         help = 'complete image with reboot, default = False')
+    parser.add_option(
+        '--flavor', 
+        action = 'store' , 
+        dest = 'flavor', 
+        help = 'flavor to be used for complete image')
+    
+    (options, args) = parser.parse_args(args)
+    if (
+            ((not options.server) or (not options.target)) or
+            ((options.autoinstall) and (not options.flavor))):
+        print parser.print_help()
+        exit(-1)
+    
+    try:
+        img = imager.Imager(options.server)
+        img.image(options.target, reboot = options.reboot, autoinstall = options.autoinstall)
+    except Exception, exception:
+        print exception.err_str
+        exit(exception.errorcode)
+
+def call_create_image(args):
+    parser = optparse.OptionParser()
+    parser.add_option(
+        '--server', 
+        action = 'store' , 
+        dest = 'server', 
+        help = 'image server, required')
+    parser.add_option(
+        '--target', 
+        action = 'store' , 
+        dest = 'target', 
+        help = 'machine to get the image from, required')
+    parser.add_option(
+        '--image', 
+        action = 'store' , 
+        dest = 'image', 
+        help = 'image name')
+    parser.add_option(
+        '--backup', 
+        action = 'store_true' , 
+        dest = 'backup', 
+        default = False, 
+        help = 'image to be used as a backup')
     
     (options, args) = parser.parse_args(args)
     if ((not options.server) or (not options.target)):
@@ -87,7 +130,7 @@ def call_image(args):
     
     try:
         img = imager.Imager(options.server)
-        img.image(options.target, reboot = options.reboot, autoinstall = options.autoinstall)
+        img.create_image(options.target, image_name = options.image, backup = options.backup)
     except Exception, exception:
         print exception.err_str
         exit(exception.errorcode)

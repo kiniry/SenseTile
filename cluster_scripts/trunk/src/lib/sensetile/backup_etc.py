@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import subprocess,executor,dir_helper,os
+import subprocess
+import dir_helper
+import os
 import time
 from time import strftime
 
+from sensetile import executor
 
 #backup parameters needed in process of command building.
 BACKUP_PARAMETERS = ["-aHISzv",
@@ -30,6 +33,7 @@ class BackupEtc():
         self.server_name = server_name
         self.executor_class = executor_class
         self.path = path
+
         self.dir_helper = dir_helper.DirectoryHelper()# see DirectoryHelper
   
     def mk_dir(self):

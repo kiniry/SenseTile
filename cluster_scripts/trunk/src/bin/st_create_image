@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+if __name__ == "__main__":
+    import os
+    import sys
+    sensetile_path = os.getenv('SENSETILE_PYTHON_PATH')
+    sys.path.append(sensetile_path)
+    from sensetile.bin import call_create_image
+    call_create_image(sys.argv)
