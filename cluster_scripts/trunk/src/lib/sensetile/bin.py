@@ -83,7 +83,7 @@ def call_image(args):
         '--flavor', 
         action = 'store' , 
         dest = 'flavor', 
-        help = 'flavor to be used for complete image')
+        help = 'flavor to be used for complete image, if autoinstall required else ignored')
     
     (options, args) = parser.parse_args(args)
     if (

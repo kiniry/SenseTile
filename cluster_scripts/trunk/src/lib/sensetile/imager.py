@@ -75,9 +75,6 @@ class Imager():
         self._prepare_image(target_name)
         self._get_image(target_name, image_name, ip_assignment)
     
-    def _create_default_image_name(self, target_name, time_tuple = time.localtime()):
-        return target_name + '.' + time.strftime(FORMAT_DATE_TIME, time_tuple)
-    
     def _image_incremental(self, target_name, reboot):
         self._image_incremental_update(target_name)
         self._push_overrides(target_name)
@@ -131,6 +128,9 @@ class Imager():
         command[5] = command[5].substitute( ip_assignment = ip_assignment )
         e = self.executor_class(command)
         e.ssh_run(self.image_server_name, "root", check = True)
+    
+    def _create_default_image_name(self, target_name, time_tuple = time.localtime()):
+        return target_name + '.' + time.strftime(FORMAT_DATE_TIME, time_tuple)
 
 def _remove_domain(target_name):
     try:
