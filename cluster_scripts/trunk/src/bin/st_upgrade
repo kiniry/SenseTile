@@ -3,14 +3,25 @@
 import os
 import sys
 
-def append_sensetile_python_path():
+def import_sensetile_module():
+    # sensetile path in SENSETILE_PYTHON_PATH environment variable
     if os.environ.has_key('SENSETILE_PYTHON_PATH'):
         python_path = os.getenv('SENSETILE_PYTHON_PATH')
-    else: 
-        python_path = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))) + '/lib'
+        sys.path.insert(0, python_path)
+        import sensetile
+        return
+    # sensetile path in predefined path
+    try:
+        import sensetile
+        return
+    except:
+        pass
+    # sensetile path in relative directory
+    python_path = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0]))) + '/lib'
     sys.path.append(python_path)
+    import sensetile
 
 if __name__ == "__main__":
-    append_sensetile_python_path()
+    import_sensetile_module()
     from sensetile.bin import call_upgrade
     call_upgrade(sys.argv)

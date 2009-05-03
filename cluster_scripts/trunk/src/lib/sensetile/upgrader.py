@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from sensetile import executor
 
-UPDATE_COMMAND = ["apt","-get","update"]
-AVAILABLE_UPGRADE_COMMAND = ["apt","-get","upgrade","--assume-yes","--simulate"]
-UPGRADE_COMMAND = ["apt","-get","upgrade","--assume-yes"]
+UPDATE_COMMAND = ["apt-get","update"]
+AVAILABLE_UPGRADE_COMMAND = ["apt-get","upgrade","--assume-yes","--simulate"]
+UPGRADE_COMMAND = ["apt-get","upgrade","--assume-yes"]
 
 
 class Upgrader():
@@ -21,17 +21,17 @@ class Upgrader():
     def update(self):
         """
         """
-        e = self.executor_class(self.__prepare_command( UPDATE_COMMAND ))
-        e.ssh_run("root",self.server_name,check = True)
+        e = self.executor_class(UPDATE_COMMAND)
+        e.ssh_run(self.server_name, "root", check = True)
 
     def available_upgrade(self):
         """
         """
         e = self.executor_class(AVAILABLE_UPGRADE_COMMAND)
-        return e.ssh_run("root",self.server_name,check = True)[1]
+        return e.ssh_run(self.server_name, "root", check = True)[1]
 
     def upgrade(self):
         """
         """
         e = self.executor_class(UPGRADE_COMMAND)
-        e.ssh_run("root",self.server_name ,check = True)
+        e.ssh_run(self.server_name, "root", check = True)

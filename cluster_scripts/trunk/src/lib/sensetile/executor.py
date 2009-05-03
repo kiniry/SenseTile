@@ -71,9 +71,9 @@ class Executor():
         If check = True checks for error and raises ExecutorError if any error is found.
         """
         
-        return self.__run(self.__build_ssh_command(user,target),check)
+        return self.__run(self.__build_ssh_command(target, user), check)
     
-    def __build_ssh_command(self, user, target):
+    def __build_ssh_command(self, target, user):
         """
         """
         ssh_command_and_parameters = []
@@ -90,4 +90,3 @@ class Executor():
                 result = result + " " + element
         result = result.lstrip()
         return result
-    

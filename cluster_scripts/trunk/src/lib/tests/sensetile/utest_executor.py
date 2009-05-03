@@ -59,7 +59,7 @@ class ExecutorTestCase(unittest.TestCase):
         
     def test__build_ssh_command(self):
         e = executor.Executor(["-firstParameter","-secondParameter"])
-        self.assertEqual(["ssh","root@alpha.ucd.ie","-firstParameter -secondParameter"], e._Executor__build_ssh_command("root", "alpha.ucd.ie"))
+        self.assertEqual(["ssh","root@alpha.ucd.ie","-firstParameter -secondParameter"], e._Executor__build_ssh_command("alpha.ucd.ie", "root"))
 
 def suite():
     return unittest.makeSuite([ExecutorTestCase])
