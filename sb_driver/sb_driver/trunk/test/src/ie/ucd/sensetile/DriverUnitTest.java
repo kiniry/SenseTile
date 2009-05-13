@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.ftdichip.ftd2xx.Device;
 
-public class DriverTest {
+public class DriverUnitTest {
   
   private Mockery context;
   private Device device;

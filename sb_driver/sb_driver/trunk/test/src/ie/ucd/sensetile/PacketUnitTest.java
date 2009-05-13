@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class PacketTest {
+public class PacketUnitTest {
   
   private byte[] rawPacket;
   private Packet current;
