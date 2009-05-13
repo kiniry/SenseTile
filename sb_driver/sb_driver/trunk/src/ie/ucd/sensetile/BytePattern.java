@@ -17,7 +17,7 @@ public class BytePattern {
   private byte[] pattern;
   private int repetitionStep;
 
-  private BytePattern() {
+  BytePattern() {
   }
 
   
@@ -29,11 +29,11 @@ public class BytePattern {
    * @param pattern to be matched. pattern cannot be null or empty.
    * @return created pattern matcher.
    */
-  static public BytePattern createPattern(byte[] pattern) {
+  static public BytePattern createPattern(final byte[] pattern) {
     checkPattern(pattern);
-    BytePattern creation = new BytePattern();
-    creation.pattern = Arrays.copyOf(pattern, pattern.length);
-    creation.repetitionStep = -1;
+    final BytePattern creation = new BytePattern();
+    creation.setPattern(pattern);
+    creation.setRepetitionStep(-1);
     return creation;
   }
   
@@ -47,12 +47,14 @@ public class BytePattern {
    * @param repetitionStep.
    * @return created pattern matcher.
    */
-  public static BytePattern createPattern(byte[] pattern, int repetitionStep) {
+  public static BytePattern createPattern(
+      final byte[] pattern, 
+      final int repetitionStep) {
     checkPattern(pattern);
     checkRepetitionStep(repetitionStep);
-    BytePattern creation = new BytePattern();
-    creation.pattern = Arrays.copyOf(pattern, pattern.length);
-    creation.repetitionStep = repetitionStep;
+    final BytePattern creation = new BytePattern();
+    creation.setPattern(pattern);
+    creation.setRepetitionStep(repetitionStep);
     return creation;
   }
   
@@ -65,24 +67,23 @@ public class BytePattern {
    * @return index of begin of pattern found in data, or -1 if pattern is not 
    * found.
    */
-  public int match(byte[] data) {
+  public int match(final byte[] data) {
     int index = -1;
     if (data.length == 0) {
-      return index;
+      return index; // NOPMD by delbianc on 4/30/09 12:12 PM
     }
     if (isPatternRepeated()) {
-      index = matchRepeated(data);
-    }
-    else {
-      index = matchSingle(data, data.length, 0);
+      index = matchRepeated(data); 
+    } else {
+      index = matchSingle(data, data.length, 0); 
     }
     return index;
   }
   
-  private int matchRepeated(byte[] data) {
-    int index = matchSingle(data, this.repetitionStep, 0);
+  private int matchRepeated(final byte[] data) {
+    int index = matchSingle(data, getRepetitionStep(), 0);
     int repetitionIndex = checkNextRepetitions(index, data);
-    while ((index != -1) && (repetitionIndex == -1 )) {
+    while ((index != -1) && (repetitionIndex == -1)) {
       index = matchSingle(data, this.repetitionStep, index + 1);
       repetitionIndex = checkNextRepetitions(index, data);
     }
@@ -90,19 +91,23 @@ public class BytePattern {
   }
   
   private boolean isPatternRepeated() {
-    return (repetitionStep != -1);
+    return (getRepetitionStep() != -1);
   }
   
-  private int matchSingle(byte[] data, int length, int startPosition) {
+  private int matchSingle(
+      final byte[] data, 
+      final int length, 
+      final int startPosition) {
     int match_count = 0;
     int iRecursive;
-    for (int i = startPosition; i < (length + pattern.length); i++) {
+    byte b; // NOPMD by delbianc on 4/30/09 12:14 PM
+    for (int i = startPosition; i < (length + getPattern().length); i++) {
       iRecursive = i % length;
-      byte b = data[iRecursive];
+      b = data[iRecursive];
       if (b == pattern[match_count]) {
         match_count++;
         if (match_count == pattern.length) {
-          return (i - pattern.length + 1);
+          return (i - pattern.length + 1); // NOPMD by delbianc on 4/30/09 12:15 PM
         }
       } else {
         if (match_count > 0) {
@@ -113,33 +118,49 @@ public class BytePattern {
     return -1;
   }
   
-  private int checkNextRepetitions(int start, byte[] data) {
-    int dataIndex = start + repetitionStep;
+  private int checkNextRepetitions(final int start, final byte[] data) {
+    int dataIndex = start + getRepetitionStep();
     int patternIndex = 0;
     while (dataIndex < data.length) {
-      if (pattern[patternIndex] != data[dataIndex]) {
-        return -1;
+      if (getPattern()[patternIndex] != data[dataIndex]) {
+        return -1; // NOPMD by delbianc on 4/30/09 12:15 PM
       }
       dataIndex++;
       patternIndex++;
-      if (patternIndex >= pattern.length) {
-        dataIndex = (dataIndex - patternIndex) + repetitionStep;
+      if (patternIndex >= getPattern().length) {
+        dataIndex = (dataIndex - patternIndex) + getRepetitionStep();
         patternIndex = 0;
       }
     }
     return start;
   }
   
-  private static void checkPattern(byte[] pattern) {
+  private static void checkPattern(final byte[] pattern) {
     if (pattern == null || pattern.length == 0) {
       throw new IllegalArgumentException();
     }
   }
 
-  private static void checkRepetitionStep(int repetition) {
+  private static void checkRepetitionStep(final int repetition) {
     if (repetition <= 0) {
       throw new IllegalArgumentException();
     }
+  }
+  
+  private byte[] getPattern() {
+    return Arrays.copyOf(pattern, pattern.length);
+  }
+
+  private void setPattern(final byte[] pattern) {
+    this.pattern = Arrays.copyOf(pattern, pattern.length);
+  }
+
+  private int getRepetitionStep() {
+    return repetitionStep;
+  }
+
+  private void setRepetitionStep(final int repetitionStep) {
+    this.repetitionStep = repetitionStep;
   }
 
 }
