@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
   BytePatternUnitTest.class,
   DriverUnitTest.class,
+  PacketInputStreamUnitTest.class,
   PacketUnitTest.class,
   UnsignedByteArrayUnitTest.class})
 

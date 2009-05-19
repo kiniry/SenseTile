@@ -73,6 +73,9 @@ public class BytePattern {
       return index; // NOPMD by delbianc on 4/30/09 12:12 PM
     }
     if (isPatternRepeated()) {
+      if (data.length < getRepetitionStep()) {
+        return index;
+      }
       index = matchRepeated(data); 
     } else {
       index = matchSingle(data, data.length, 0); 
