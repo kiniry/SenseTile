@@ -29,7 +29,7 @@ public class BytePatternUnitTest {
     BytePattern.createPattern(dataPattern);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = NullPointerException.class)
   public void testCreateNull() {
     byte[] dataPattern = null;
     BytePattern.createPattern(dataPattern);
@@ -111,16 +111,7 @@ public class BytePatternUnitTest {
         dataPattern, repetitionStep);
     assertNotNull(pattern);
   }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testCreateRepeated0Repetition() {
-    byte[] dataPattern = {3, 4};
-    int repetitionStep = 0;
-    BytePattern pattern = BytePattern.createPattern(
-        dataPattern, repetitionStep);
-    assertNotNull(pattern);
-  }
-
+  
   @Test(expected = IllegalArgumentException.class)
   public void testCreateRepeatedNegativeRepetition() {
     byte[] dataPattern = {3, 4};
@@ -129,7 +120,7 @@ public class BytePatternUnitTest {
         dataPattern, repetitionStep);
     assertNotNull(pattern);
   }
-
+  
   @Test
   public void testMatchRepeated() {
     byte[] dataPattern = {3, 4};
@@ -141,12 +132,21 @@ public class BytePatternUnitTest {
   }
   
   @Test
-  public void testMatchRepeatedSingleRepetition() {
+  public void testMatchRepeatedRepetition1() {
     byte[] dataPattern = {3, 4};
     int repetitionStep = 5;
     BytePattern pattern = BytePattern.createPattern(
         dataPattern, repetitionStep);
     byte[] data = {0, 1, 2, 3, 4, 0, 1, 2};
+    assertEquals(3, pattern.match(data));
+  }
+  
+  public void testMatchRepeatedRepetition2() {
+    byte[] dataPattern = {3, 4};
+    int repetitionStep = 5;
+    BytePattern pattern = BytePattern.createPattern(
+        dataPattern, repetitionStep);
+    byte[] data = {0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1};
     assertEquals(3, pattern.match(data));
   }
   

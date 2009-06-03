@@ -2,6 +2,8 @@ package ie.ucd.sensetile;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,8 +21,8 @@ public class PacketUnitTest {
       rawPacket[(index + Packet.PATTERN_OFFSET) % Packet.LENGTH] = 
         Packet.PATTERN[index];
     }
-    current = Packet.createPacket(rawPacket);
-    previous = Packet.createPacket(rawPacket);
+    current = Packet.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
+    previous = Packet.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
     int packetIndex = 100;
     current.setIndex(packetIndex);
     previous.setIndex(packetIndex - 1);
@@ -36,7 +38,7 @@ public class PacketUnitTest {
   
   @Test
   public void testConstructor() {
-    new Packet(new byte[1024]);
+    new Packet(UnsignedByteArray.create(new byte[1024]));
   }
   
   @Test (expected = SenseTileException.class)

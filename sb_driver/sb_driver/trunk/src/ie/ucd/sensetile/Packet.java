@@ -1,7 +1,5 @@
 package ie.ucd.sensetile;
 
-import java.util.Arrays;
-
 public class Packet {
   
   final static int LENGTH = 1024;
@@ -20,25 +18,26 @@ public class Packet {
   
   final static int INDEX_POSITION = 10;
   
-  final byte[] rawPacket;
+  final UnsignedByteArray raw;
   
-  Packet(final byte[] rawPacket) {
-    byte[] rawPacketCopy = Arrays.copyOf(rawPacket, rawPacket.length);
-    this.rawPacket = rawPacketCopy;
+  Packet(UnsignedByteArray raw) {
+    this.raw = raw;
   }
   
   public static Packet createPacket(final byte[] rawPacket) throws SenseTileException {
-    checkLength(rawPacket);
-    checkPattern(rawPacket);
-    return new Packet(rawPacket);
+    UnsignedByteArray raw = UnsignedByteArray.create(rawPacket);
+    checkLength(raw);
+    raw = UnsignedByteArray.create(raw, 0, LENGTH);
+    checkPattern(raw);
+    return new Packet(raw);
   }
   
   public int getIndex() {
-    return UnsignedByteArray.bytes2ToInt(rawPacket, INDEX_POSITION);
+    return raw.getInt(INDEX_POSITION);
   }
   
   void setIndex(int value) {
-    UnsignedByteArray.intToBytes2(rawPacket, INDEX_POSITION, value);
+    raw.setInt(INDEX_POSITION, value);
   }
   
   static public Packet createPacket(
@@ -50,20 +49,21 @@ public class Packet {
     return packet;
   }
   
-  private static void checkLength(final byte[] rawPacket) 
-  throws SenseTileException {
-    if (rawPacket.length != LENGTH) {
+  private static void checkLength(UnsignedByteArray raw) 
+      throws SenseTileException {
+    if (raw.length() < LENGTH) {
       throw new SenseTileException("Wrong packet length.");
     }
   }
 
-  private static void checkPattern(final byte[] rawPacket) throws SenseTileException {
+  private static void checkPattern(UnsignedByteArray raw) 
+      throws SenseTileException {
     BytePattern bp = BytePattern.createPattern(PATTERN);
-    int offset = bp.match(rawPacket);
-    if (offset == -1) {
+    int relativeOffset = bp.match(UnsignedByteArray.create(raw, PATTERN_OFFSET, raw.length()));
+    if (relativeOffset == -1) {
       throw new SenseTileException("Packet pattern not found.");
     }
-    if (offset != PATTERN_OFFSET) {
+    if (relativeOffset != 0) {
       throw new SenseTileException("Packet pattern misplaced.");
     }
   }
