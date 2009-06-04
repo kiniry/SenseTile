@@ -8,7 +8,6 @@ if [ -n ${JAVA_HOME} ] ; then
 else
   java="java"
 fi
-echo ${java}
 
 ftd2xxj_variables="-Djava.util.logging.config.file=logging.properties -Djava.library.path=lib"
 ftd2xxj_classpath="-cp lib/javax.util.property-2_0.jar:ftd2xxj-2.1.jar"
