@@ -1,0 +1,17 @@
+#!/bin/bash
+
+LD_LIBRARY_PATH="lib"
+export LD_LIBRARY_PATH
+
+if [ -n ${JAVA_HOME} ] ; then
+  java="${JAVA_HOME}/bin/java"
+else
+  java="java"
+fi
+echo ${java}
+
+ftd2xxj_variables="-Djava.util.logging.config.file=logging.properties -Djava.library.path=lib"
+ftd2xxj_classpath="-cp lib/javax.util.property-2_0.jar:ftd2xxj-2.1.jar"
+ftd2xxj_main="com.ftdichip.ftd2xx.ui.Main"
+
+${java} ${ftd2xxj_variables} ${ftd2xxj_classpath} ${ftd2xxj_main}
