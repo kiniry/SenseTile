@@ -194,4 +194,22 @@ public class UnsignedByteArrayUnitTest {
     uba.setInt(2, (byte) 1);
   }
   
+  @Test
+  public void testGetEndOffset() {
+    byte[] ba = new byte[10];
+    UnsignedByteArray uba; 
+    uba = UnsignedByteArray.create(ba, 4, 4);
+    assertEquals(8, uba.getEndOffset());
+    uba = UnsignedByteArray.create(ba, 8, 4);
+    assertEquals(2, uba.getEndOffset());
+    uba = UnsignedByteArray.create(ba, 0, 2);
+    assertEquals(2, uba.getEndOffset());
+    uba = UnsignedByteArray.create(ba, 5, 0);
+    assertEquals(5, uba.getEndOffset());
+    uba = UnsignedByteArray.create(ba, 5, 5);
+    assertEquals(0, uba.getEndOffset());
+    uba = UnsignedByteArray.create(ba, 5, 10);
+    assertEquals(5, uba.getEndOffset());
+  }
+  
 }
