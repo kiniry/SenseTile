@@ -1,3 +1,8 @@
+/*
+ * BytePattern.java
+ *
+ * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ */
 
 package ie.ucd.sensetile;
 
@@ -55,7 +60,7 @@ public class BytePattern {
   /**
    * Find a match.
    * 
-   * Finds whether data matches the pattern.
+   * <p>Finds whether data matches the pattern.
    * 
    * @param raw to be searched for pattern.
    * @return index of begin of pattern found in data, or -1 if pattern is not 
@@ -68,6 +73,15 @@ public class BytePattern {
     return match(UnsignedByteArray.createFolding(raw));
   }
   
+  /**
+   * Find a match.
+   * 
+   * <p>Finds whether data matches the pattern.
+   * 
+   * @param raw to be searched for pattern.
+   * @return index of begin of pattern found in data, or -1 if pattern is not 
+   * found.
+   */
   public int match(UnsignedByteArray data) {
     int index = -1;
     if (data == null || data.length() == 0) {
@@ -106,7 +120,7 @@ public class BytePattern {
     int dataIndex = getRepetitionStep();
     int patternIndex = 0;
     while (dataIndex < data.length()) {
-      if (pattern.get(patternIndex) != data.get(dataIndex)) {
+      if (pattern.getByte(patternIndex) != data.getByte(dataIndex)) {
         return false; // NOPMD by delbianc on 4/30/09 12:15 PM
       }
       dataIndex++;
@@ -130,7 +144,7 @@ public class BytePattern {
   
   private boolean checkPatternMatch(UnsignedByteArray data) {
     for (int index = 0; index < pattern.length() && index < data.length() ; index++) {
-      if (data.get(index) != pattern.get(index)) {
+      if (data.getByte(index) != pattern.getByte(index)) {
         return false;
       }
     }

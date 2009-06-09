@@ -1,3 +1,9 @@
+/*
+ * SenseTileException.java
+ *
+ * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ */
+
 package ie.ucd.sensetile;
 
 public class SenseTileException extends Exception {

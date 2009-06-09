@@ -1,3 +1,9 @@
+/*
+ * Packet.java
+ *
+ * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ */
+
 package ie.ucd.sensetile;
 
 public class Packet {
@@ -53,11 +59,11 @@ public class Packet {
   }
   
   public int getIndex() {
-    return raw.getInt(INDEX_POSITION);
+    return raw.getUnsignedShort(INDEX_POSITION);
   }
   
   void setIndex(int value) {
-    raw.setInt(INDEX_POSITION, value);
+    raw.setUnsignedShort(INDEX_POSITION, value);
   }
   
   private static void checkLength(UnsignedByteArray raw) 

@@ -1,10 +1,22 @@
+/*
+ * UnsignedByteArray.java
+ *
+ * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ */
+
 package ie.ucd.sensetile;
 
-
+/**
+ * Byte array manipulation utility.
+ * 
+ * <p>Build a window over a raw byte array and work inside the window.
+ * 
+ * @author delbianc
+ */
 public class UnsignedByteArray {
   
   private byte[] array;
-  int offset;
+  private int offset;
   private int length;
   private boolean folding;
   
@@ -17,42 +29,86 @@ public class UnsignedByteArray {
     this.folding = folding;
   }
   
-  public byte get(int index){
+  /**
+   * Get byte.
+   * 
+   * @param index
+   * @return byte
+   */
+  public byte getByte(int index){
     index = checkAndNormalizeIndex(index, 1);
     return array[(index + offset) % array.length];
   }
   
-  public void set(int index, byte value){
+  /**
+   * Set byte.
+   * 
+   * @param index
+   * @param value
+   */
+  public void setByte(int index, byte value){
     index = checkAndNormalizeIndex(index, 1);
     array[(index + offset) % array.length] = value;
   }
   
-  public int getInt(int index) {
+  /**
+   * Get unsigned short.
+   * 
+   * @param index
+   * @return unsigned short
+   */
+  public int getUnsignedShort(int index) {
     index = checkAndNormalizeIndex(index, 2);
     return 
-      ((0xff & get(index)) << 8) | 
-      (0xff & get(index+1));
+      ((0xff & getByte(index)) << 8) | 
+      (0xff & getByte(index+1));
   }
   
-  public void setInt(int index, int value) {
+  /**
+   * Set unsigned short.
+   * 
+   * @param index
+   * @param value
+   */
+  public void setUnsignedShort(int index, int value) {
     index = checkAndNormalizeIndex(index, 2);
-    set(index, (byte) (0xff & value >>> 8));
-    set(index + 1, (byte) (0xff & value));
+    setByte(index, (byte) (0xff & value >>> 8));
+    setByte(index + 1, (byte) (0xff & value));
   }
   
+  /**
+   * Byte array length.
+   * 
+   * @return length
+   */
   public int length() {
     return length;
   }
   
-  public int getOffset() {
+  /**
+   * Begin offset
+   * 
+   * @return offset
+   */
+  public int getBeginOffset() {
     return offset;
   }
   
+  /**
+   * End offset
+   * 
+   * @return offset
+   */
   public int getEndOffset() {
     return UnsignedByteArray.normalizeIndex(
-        getOffset() + length(), array.length);
+        getBeginOffset() + length(), array.length);
   }
   
+  /**
+   * Internal raw array
+   * 
+   * @return array
+   */
   public byte[] getArray() {
     return array;
   }
@@ -68,14 +124,34 @@ public class UnsignedByteArray {
     return index;
   }
   
+  /**
+   * Create UnsignedByteArray from raw array.
+   * 
+   * @param array
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray create(byte[] array) {
     return create(array, 0, array.length, false);
   }
   
+  /**
+   * Create folding UnsignedByteArray from raw array.
+   * 
+   * @param array
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray createFolding(byte[] array) {
     return create(array, 0, array.length, true);
   }
   
+  /**
+   * Create UnsignedByteArray from UnsignedByteArray.
+   * 
+   * @param array
+   * @param offset
+   * @param length
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray create
       (UnsignedByteArray uba, int offset, int length) {
     byte[] ba = uba.array;
@@ -83,6 +159,14 @@ public class UnsignedByteArray {
     return create(ba, realOffset, length, false);
   }
   
+  /**
+   * Create folding UnsignedByteArray from UnsignedByteArray.
+   * 
+   * @param array
+   * @param offset
+   * @param length
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray createFolding
       (UnsignedByteArray uba, int offset, int length) {
     byte[] ba = uba.array;
@@ -90,17 +174,33 @@ public class UnsignedByteArray {
     return create(ba, realOffset, length, true);
   }
   
+  /**
+   * Create UnsignedByteArray from raw array.
+   * 
+   * @param array
+   * @param offset
+   * @param length
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray create
       (byte[] array, int offset, int length) {
     return create(array, offset, length, false);
   }
   
+  /**
+   * Create folding UnsignedByteArray from raw array.
+   * 
+   * @param array
+   * @param offset
+   * @param length
+   * @return unsigned byte array
+   */
   public static UnsignedByteArray createFolding
       (byte[] array, int offset, int length) {
     return create(array, offset, length, true);
   }
   
-  public static UnsignedByteArray create
+  private static UnsignedByteArray create
       (byte[] array, int offset, int length, boolean folding) {
     checkParameters(array, offset, length);
     return new UnsignedByteArray(array, offset, length, folding);
