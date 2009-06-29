@@ -1,0 +1,146 @@
+%
+% "The UCD CASL SenseTile System", for IEEE Pervasive Computing
+% Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic
+% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
+%
+
+\documentclass[times,10pt,twocolumn]{article} 
+\usepackage{latex8}
+\usepackage{times}
+
+\usepackage{ifpdf}
+\usepackage{a4wide}
+\usepackage{pdfsync}
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+
+%\usepackage{todonotes}
+
+% \usepackage{html}
+% \usepackage{url}
+\usepackage{xspace}
+%\usepackage{doublespace}
+\usepackage{tabularx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+\usepackage{stmaryrd}
+% \ifpdf
+% \usepackage[centredisplay]{diagrams}
+% \else
+% \usepackage[centredisplay,PostScript=dvips]{diagrams}
+% \fi
+\usepackage{float}
+
+\ifpdf
+\usepackage[pdftex,bookmarks=false,a4paper=false,
+            plainpages=false,naturalnames=true,
+            colorlinks=true,pdfstartview=FitV,
+            linkcolor=blue,citecolor=blue,urlcolor=blue,
+            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan Stosic"]{hyperref}
+\else
+\usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\fi
+
+\newcommand{\tablesize}{\footnotesize}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
+%\newcommand{\myhref}[2]{\emph{#2}}
+\newcommand{\todo}{\textbf{TODO:}}
+
+%---------------------------------------------------------------------
+% New commands, macros, \etc
+%---------------------------------------------------------------------
+
+%% \input{kt}
+
+%=====================================================================
+
+\begin{document}
+
+\title{The UCD CASL SenseTile System}
+
+\author{Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic\\
+UCD CASL: Complex and Adaptive Systems Laboratory and\\
+School of Computer Science and Informatics,\\
+University College Dublin,\\
+Belfield, Dublin 4, Ireland,\\
+kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
+}
+
+\maketitle
+
+%======================================================================
+%\thispagestyle{empty}
+\begin{abstract}
+  
+\todo{\emph{We probably have only 8 pages, in the IEEE format, if this is going to
+\myhref{http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7756}{IEEE Pervasive Computing}}.}
+
+An abstract.
+
+\end{abstract}
+
+%======================================================================
+\Section{Introduction}
+
+An introduction.
+
+%=====================================================================
+\Section{Conclusion}
+
+A conclusion.
+
+%======================================================================
+%% \nocite{ex1,ex2}
+\bibliographystyle{latex8}
+\bibliography{extra,%
+              abbrev,%
+              ads,%
+              category,%
+              complexity,%
+              hypertext,%
+              icsr,%
+              knowledge,%
+              languages,%
+              linguistics,%
+              meta,%
+              metrics,%
+              misc,%
+              modeling,%
+              modeltheory,%
+              reuse,%
+              rewriting,%
+              softeng,%
+              specification,%
+              ssr,%
+              technology,%
+              theory,%
+              web,%
+              upcoming,%
+              upcoming_conferences,%
+              conferences,%
+              workshops,%
+              verification,%
+              escjava,%
+              jml,%
+              nijmegen}
+
+%======================================================================
+% Fin
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% eval: 
+%%% TeX-master: t
+%%% End: 
