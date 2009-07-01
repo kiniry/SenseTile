@@ -13,3 +13,19 @@ description
   \with the sensor board and to understand the structure of the data stream."
   
 end
+
+cluster_chart SENSOR_BOARD_DRIVER
+indexing
+  author: "Vieri del Bianco";
+  keywords: "driver", "java", "API", "packet", "data", "data stream"
+
+ cluster FTDI_DRIVER
+ description
+   "FTDI driver to communicate with devices based on FTDI FT2232 USB chip."
+ 
+ cluster SENSETILE_JAVA_DRIVER
+ description
+   "Java driver that communicates with the ftdi driver, understand the data \
+   \format and build a packet stream from a raw data stream accordingly."
+ end
+ 
