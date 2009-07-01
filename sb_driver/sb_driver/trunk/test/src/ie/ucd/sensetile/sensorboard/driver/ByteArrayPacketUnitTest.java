@@ -1,8 +1,6 @@
-package ie.ucd.sensetile.sensorboard;
+package ie.ucd.sensetile.sensorboard.driver;
 
 import static org.junit.Assert.assertEquals;
-
-import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
@@ -12,21 +10,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class PacketUnitTest {
+public class ByteArrayPacketUnitTest {
   
   private byte[] rawPacket;
-  private Packet current;
-  private Packet previous;
+  private ByteArrayPacket current;
+  private ByteArrayPacket previous;
   
   @Before
   public void setUp() throws SenseTileException {
     rawPacket = new byte[1024];
-    for (int index = 0; index < Packet.PATTERN.length; index++) {
-      rawPacket[(index + Packet.PATTERN_OFFSET) % Packet.LENGTH] = 
-        Packet.PATTERN[index];
+    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
+      rawPacket[(index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH] = 
+        ByteArrayPacket.PATTERN[index];
     }
-    current = Packet.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
-    previous = Packet.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
+    current = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
+    previous = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
     int packetIndex = 100;
     current.setIndex(packetIndex);
     previous.setIndex(packetIndex - 1);
@@ -35,48 +33,48 @@ public class PacketUnitTest {
   @Test
   public void testConstructorNullArrayNotChecked() {
     try {
-      new Packet(null);
+      new ByteArrayPacket(null);
     } catch (Exception e) {
     }
   }
   
   @Test
   public void testConstructor() {
-    new Packet(UnsignedByteArray.create(new byte[1024]));
+    new ByteArrayPacket(UnsignedByteArray.create(new byte[1024]));
   }
   
   @Test (expected = SenseTileException.class)
   public void testCreatePacketWrongLength() throws Exception {
-    Packet.createPacket(new byte[1023]);
+    ByteArrayPacket.createPacket(new byte[1023]);
   }
   
   @Test (expected = SenseTileException.class)
   public void testCreatePacketPatternNotFound() throws Exception {
-    Packet.createPacket(new byte[1024]);
+    ByteArrayPacket.createPacket(new byte[1024]);
   }
   
   @Test (expected = SenseTileException.class)
   public void testCreatePacketPatternMisplaced() throws Exception {
     byte[] rawPacket = new byte[1024];
-    for (int index = 0; index < Packet.PATTERN.length; index++) {
-      rawPacket[index] = Packet.PATTERN[index];
+    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
+      rawPacket[index] = ByteArrayPacket.PATTERN[index];
     }
-    Packet.createPacket(rawPacket);
+    ByteArrayPacket.createPacket(rawPacket);
   }
   
   @Test
   public void testCreatePacketPatternOk() throws Exception {
     byte[] rawPacket = new byte[1024];
-    for (int index = 0; index < Packet.PATTERN.length; index++) {
-      rawPacket[(index + Packet.PATTERN_OFFSET) % Packet.LENGTH] = 
-        Packet.PATTERN[index];
+    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
+      rawPacket[(index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH] = 
+        ByteArrayPacket.PATTERN[index];
     }
-    Packet.createPacket(rawPacket);
+    ByteArrayPacket.createPacket(rawPacket);
   }
   
   @Test
   public void testCheckIndexSequential() throws Exception {
-    Packet.checkIndex(previous, current);
+    ByteArrayPacket.checkIndex(previous, current);
   }
   
   @Test

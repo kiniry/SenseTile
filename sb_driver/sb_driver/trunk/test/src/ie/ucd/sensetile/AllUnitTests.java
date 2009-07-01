@@ -6,7 +6,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   ie.ucd.sensetile.util.AllUnitTests.class,
-  ie.ucd.sensetile.sensorboard.AllUnitTests.class})
+  ie.ucd.sensetile.sensorboard.AllUnitTests.class,
+  ie.ucd.sensetile.sensorboard.driver.AllUnitTests.class})
 
 public class AllUnitTests {
   
