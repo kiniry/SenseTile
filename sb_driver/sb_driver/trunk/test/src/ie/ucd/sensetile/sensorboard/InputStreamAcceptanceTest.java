@@ -1,4 +1,4 @@
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 //import java.io.OutputStream;
 //import org.junit.Test;

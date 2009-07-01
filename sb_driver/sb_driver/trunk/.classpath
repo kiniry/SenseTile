@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test/bin" path="test/src"/>
+	<classpathentry kind="lib" path="lib/ftd2xxj.jar" sourcepath="/home/delbianc/document/repository/loose/project/r_SenseTile/resources/ftd2xxj 2.1/ftd2xxj-2.1-src/src/application">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/delbianc/document/repository/loose/project/r_SenseTile/resources/ftd2xxj 2.1/ftd2xxj-2.1-doc/docs"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Sensor Board Driver Java/lib/x86"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/javax.util.property.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JMock 2.5.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/ia32-java-6-sun-1.6.0.13"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,6 +1,7 @@
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 import static org.junit.Assert.*;
+import ie.ucd.sensetile.sensorboard.BytePattern;
 
 import org.junit.After;
 import org.junit.Before;

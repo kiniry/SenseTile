@@ -1,9 +1,9 @@
 /*
  * PacketInputStream.java
  *
- * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 import java.io.Closeable;
 import java.io.DataInputStream;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author delbianc
+ * @author Vieri del Bianco
  *
  */
 /**

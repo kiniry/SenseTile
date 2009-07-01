@@ -1,10 +1,10 @@
 /*
  * BytePattern.java
  *
- * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 /**
  * Byte pattern matcher.
@@ -12,7 +12,7 @@ package ie.ucd.sensetile;
  * Find a pattern of bytes into a ByteArray.
  * The pattern can be repeated.
  * 
- * @author delbianc
+ * @author Vieri del Bianco
  *
  */
 public class BytePattern {

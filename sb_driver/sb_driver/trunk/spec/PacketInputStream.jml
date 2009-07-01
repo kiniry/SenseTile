@@ -1,0 +1,219 @@
+/*
+ * PacketInputStream.java
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile;
+
+//@ model import org.jmlspecs.models.JMLValueSequence;
+//@ model import org.jmlspecs.models.JMLByte;
+
+/** 
+ * JML's specification of PacketInputStream.
+ * @author Vieri del Bianco
+ *  (following David Cok spec of InputStream)
+ */
+public class PacketInputStream implements Closeable{
+
+  //@ public model JMLDataGroup input; in objectState;
+
+  //@ public model non_null JMLValueSequence inputPackets; in input;
+  //@ public constraint inputBytes == \old(inputBytes);
+  /*@ 
+    @ public invariant (\forall 
+    @   int i; 
+    @   0 <= i && i < inputPackets.size();
+    @   inputPackets.get(i) instanceof Packet);
+    @*/
+
+  //@ public model \bigint readPosition; in input;
+  //@ public initially readPosition == 0;
+
+  //@ public invariant readPosition >= 0 && readPosition <= inputPackets.length();
+
+  //@ public model int availablePackets; in input;
+  //@ public invariant availablePackets >= 0;
+
+  //@ public model boolean isOpen; in input;
+  //@ public model boolean wasClosed; in input;
+  //@ public invariant isOpen ==> !wasClosed;
+  //@ public invariant wasClosed ==> !isOpen;
+  /*@ 
+    @ public normal_behavior
+    @   assignable isOpen, wasClosed;
+    @   ensures isOpen && !wasClosed;
+    @*/
+  
+  /*@ 
+    @ public pure model boolean readRequires(Packet[] array, int offset, int length)
+    @   ensures (
+    @     ((inputPackets.length() >= readPosition) ||
+    @     (requires !isOpen)) == 
+    @     (\result)
+    @   )
+    @*/
+  
+  
+  
+  /*@
+    @ public pure model boolean readEnsures(Packet[] arrayOld, Packet[] arrayNew, int offset, int length, JMLDataGroup objectStateOld, JMLDataGroup objectStateNew, result)
+    @  ensures ((
+    @      ((isOpen && (inputPackets.length() == readPosition)) && result == -1) ==> 
+    @      (\result == true)
+    @    ) && (
+    @      
+     
+    @ 
+    @ 
+   @ also public normal_behavior
+   @   old \bigint data = inputPackets.length() - readPosition;
+   @   requires isOpen && (inputPackets.length() > readPosition);
+   @   assignable readPosition, objectState, availablePackets, array[offset .. offset+length-1];
+   @   ensures isOpen; // is this really necessary? see assignable
+   @   ensures \result >= 0;
+   @   ensures \result <= length;
+   @   ensures \result <= data;
+   @   ensures readPosition == \old(readPosition) + \result;
+   @   ensures (\forall 
+   @     int i; 
+   @     0<=i && i<\result; 
+   @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
+   @   ensures (\forall  // is this really necessary? see assignable
+   @     int i; 
+   @     (0<=i && i<offset) || (offset+\result<=i && i<array.length); 
+   @     array[i] == \old(array[i]));
+   @ also public exceptional_behavior
+   @   requires !isOpen;
+   @   assignable \nothing;
+   @   signals_only IOException;    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @ 
+    @*/
+
+  
+  
+  // TODO if needed. specify behaviour on is. intutition: spec difficulty raise a lot.
+  // TODO probably needed. specify requires on is, behaviour if null
+  PacketInputStream(InputStream is)
+
+  /*@ public behavior
+    @   assignable isOpen, wasClosed;
+    @   ensures !isOpen && wasClosed;
+    @   signals_only IOException;
+    @   signals (IOException) (* an IO error occured *);
+    @*/
+  public void close() throws IOException;
+
+  // TODO needed. specify SenseTileException on malformed packets
+
+  /*@ 
+    @ public normal_behavior
+    @   requires isOpen && (inputPackets.length() == readPosition);
+    @   assignable \nothing;
+    @   ensures \result == -1;
+    @ also public normal_behavior
+    @   old \bigint data = inputPackets.length() - readPosition;
+    @   requires isOpen && (inputPackets.length() > readPosition);
+    @   assignable readPosition, objectState, availablePackets, array[offset .. offset+length-1];
+    @   ensures isOpen; // is this really necessary? see assignable
+    @   ensures \result >= 0;
+    @   ensures \result <= length;
+    @   ensures \result <= data;
+    @   ensures readPosition == \old(readPosition) + \result;
+    @   ensures (\forall 
+    @     int i; 
+    @     0<=i && i<\result; 
+    @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
+    @   ensures (\forall  // is this really necessary? see assignable
+    @     int i; 
+    @     (0<=i && i<offset) || (offset+\result<=i && i<array.length); 
+    @     array[i] == \old(array[i]));
+    @ also public exceptional_behavior
+    @   requires !isOpen;
+    @   assignable \nothing;
+    @   signals_only IOException;
+    @*/
+  public int read(Packet[] array, int offset, int length)
+      throws IOException, SenseTileException;
+
+  // TODO as if: read(array, 0, array.length)
+  public void read(Packet[] array)
+  
+  /@ 
+   @ public normal_behavior
+   @   requires isOpen && (inputPackets.length() >= readPosition + length);
+   @   assignable readPosition, objectState, availablePackets, array[offset .. offset+length-1];
+   @   ensures isOpen; // is this really necessary? see assignable
+   @   ensures readPosition == \old(readPosition) + length;
+   @   ensures (\forall 
+   @     int i; 
+   @     0<=i && i<length; 
+   @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
+   @   ensures (\forall  // is this really necessary? see assignable
+   @     int i; 
+   @     (0<=i && i<offset) || (offset+length<=i && i<array.length); 
+   @     array[i] == \old(array[i]));
+   @ also public exceptional_behavior
+   @   requires !isOpen;
+   @   assignable \nothing;
+   @   signals_only IOException;
+   @ also public exceptional_behavior
+   @   old \bigint data = inputPackets.length() - readPosition;
+   @   requires isOpen && data < length);
+   @   assignable readPosition, objectState, availablePackets, array[offset .. offset+data];
+   @   ensures isOpen; // is this really necessary? see assignable
+   @   ensures readPosition == inputPackets.length();
+   @   ensures (\forall 
+   @     int i; 
+   @     0<=i && i<data; 
+   @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
+   @   ensures (\forall  // is this really necessary? see assignable
+   @     int i; 
+   @     (0<=i && i<offset) || (offset+data<=i && i<array.length); 
+   @     array[i] == \old(array[i]));
+   @   signals_only EOFException;
+   @/
+  public void readFully(Packet[] array, int offset, int length)
+      throws IOException, SenseTileException;
+  
+  // TODO as if: readFully(array, 0, array.length)
+  public void readFully(Packet[] array)
+  
+  // TODO as if:
+  //   Packet[] array = new Packet[1];
+  //   readFully(array);
+  //   return array[0];
+  public Packet read() throws IOException;
+
+  /@ 
+   @ public normal_behavior
+   @   requires isOpen;
+   @   ensures \result == availablePackets;
+   @ pure
+   @/
+  public int available() throws IOException;
+
+  /@
+   @ public normal_behavior
+   @   assignable isOpen, wasClosed;
+   @   ensures !isOpen && wasClosed;
+   @/
+  public void close() throws IOException
+
+  // FIXME availableBytes may change asynchronously, but presumably only increases
+  // FIXME This spec does not reflect the blocking that can occur (needs when clauses)
+
+}

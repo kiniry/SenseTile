@@ -1,5 +1,7 @@
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
+
+import ie.ucd.sensetile.sensorboard.Driver;
 
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;

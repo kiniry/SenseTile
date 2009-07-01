@@ -1,4 +1,4 @@
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

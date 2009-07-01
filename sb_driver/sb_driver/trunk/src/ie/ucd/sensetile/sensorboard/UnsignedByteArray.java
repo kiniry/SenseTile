@@ -1,17 +1,17 @@
 /*
  * UnsignedByteArray.java
  *
- * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 /**
  * Byte array manipulation utility.
  * 
  * <p>Build a window over a raw byte array and work inside the window.
  * 
- * @author delbianc
+ * @author Vieri del Bianco
  */
 public class UnsignedByteArray {
   

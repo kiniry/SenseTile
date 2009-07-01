@@ -1,10 +1,10 @@
 /*
  * SenseTileException.java
  *
- * Copyright 2009 Vieri del Bianco, SenseTile, UCD. All rights reserved.
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 public class SenseTileException extends Exception {
   

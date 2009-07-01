@@ -1,8 +1,12 @@
-package ie.ucd.sensetile;
+package ie.ucd.sensetile.sensorboard;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.PacketInputStream;
+import ie.ucd.sensetile.sensorboard.SenseTileException;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
