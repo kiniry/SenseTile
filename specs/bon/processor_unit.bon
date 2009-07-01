@@ -1,0 +1,15 @@
+cluster_chart PROCESSOR_UNIT
+indexing
+  author: "Vieri del Bianco";
+  keywords: "operative system", "driver", "test", "API", "rule", 
+    "rule manager", "data store", "packet", "data", "configuration", 
+    "experiment", "zero configuration", "network", "deployment", "component", 
+    "WIFI", "ethernet", "CPU", "mobility", "GUI", "connection", "Bluetooth", 
+    "IR", "node", "pipe", "meadata", "chain", "data stream"
+
+cluster SENSOR_BOARD_DRIVER
+description
+  "The sensor board driver is a software driver that is able to communicate \
+  \with the sensor board and to understand the structure of the data stream."
+  
+end
