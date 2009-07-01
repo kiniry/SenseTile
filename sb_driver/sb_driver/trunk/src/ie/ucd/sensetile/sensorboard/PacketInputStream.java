@@ -5,6 +5,9 @@
  */
 package ie.ucd.sensetile.sensorboard;
 
+import ie.ucd.sensetile.util.BytePattern;
+import ie.ucd.sensetile.util.UnsignedByteArray;
+
 import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.EOFException;

@@ -6,6 +6,9 @@
 
 package ie.ucd.sensetile.sensorboard;
 
+import ie.ucd.sensetile.util.BytePattern;
+import ie.ucd.sensetile.util.UnsignedByteArray;
+
 public class Packet {
   
   final static int LENGTH = 1024;

@@ -1,7 +1,7 @@
-package ie.ucd.sensetile.sensorboard;
+package ie.ucd.sensetile.util;
 
 import static org.junit.Assert.*;
-import ie.ucd.sensetile.sensorboard.UnsignedByteArray;
+import ie.ucd.sensetile.util.UnsignedByteArray;
 
 import org.junit.After;
 import org.junit.Before;

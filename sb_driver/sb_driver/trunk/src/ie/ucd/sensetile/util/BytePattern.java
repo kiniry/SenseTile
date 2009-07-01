@@ -4,7 +4,8 @@
  * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 
-package ie.ucd.sensetile.sensorboard;
+package ie.ucd.sensetile.util;
+
 
 /**
  * Byte pattern matcher.

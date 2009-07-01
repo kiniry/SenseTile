@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.UnsignedByteArray;
+import ie.ucd.sensetile.util.UnsignedByteArray;
 
 import java.util.Arrays;
 

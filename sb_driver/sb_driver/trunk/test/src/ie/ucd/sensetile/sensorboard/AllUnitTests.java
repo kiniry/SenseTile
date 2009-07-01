@@ -5,15 +5,13 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  BytePatternUnitTest.class,
   DriverUnitTest.class,
   PacketInputStreamUnitTest.class,
-  PacketUnitTest.class,
-  UnsignedByteArrayUnitTest.class})
+  PacketUnitTest.class})
 
 public class AllUnitTests {
   
   public static void main(String args[]) {
-    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.AllTests");
+    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.sensorboard.AllTests");
   }
 }
