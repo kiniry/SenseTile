@@ -1,0 +1,109 @@
+-- Informal cluster charts
+cluster_chart SENSOR_BOARD
+indexing
+  author: "Dragan Stosic";
+  keywords: "sensor","supply","interface","discrete",
+            "analogue","bus","synchronisation","storage",
+            "signal","measure","asynchronous";
+  note: "These clusters have been partially specified."
+explanation
+  "The main function is to host or interface with a number \
+  \of sensors, and to partially process captured data. \
+  \This cluster contains a set of subclusters, each of which \
+  \is an implementation of the sensetile board architecture."
+  
+cluster SENSOR
+description
+  "This cluster contains a set of classes designed for measuring \
+  \and converting a physical quantity into a signal which can be \
+  \read by an observer AMPLIFIER cluster."
+
+cluster AMPLIFIER
+description
+  "This cluster contains a set of subclusters designed for increasing, \
+  \the amplitude of a signal."
+
+cluster GATE_ARRAY
+description
+  "This cluster contains  a set of subclusters designed to perform \ 
+  \all interface function between BUS, CODEC, STRAGE and CONVERTER \
+  \clusters."
+
+cluster MICRO
+description
+"This cluster have not yet specified."
+
+cluster CONVERTER
+description
+  "This cluster contains  a set of subclusters, each of which is \
+  \an implementation of the signal converter. The converter \
+  \converts signals and their levels to discrete/analogue signals \
+  \and vice versa." 
+
+cluster POWER_SUPPLY
+description
+  "This cluster contains a set of classes that provides or translates \
+  \the different voltage levels in order to supply components."
+  
+cluster BUS
+description
+  "This cluster contains  a set of subclusters, each of which is an \
+   \implementation of transfer data mechanism between clusters."
+  
+cluster STORAGE
+description
+  "This cluster represents an additional local storage \
+  \which provides the highest speed, low power consumption \
+  \and simple interfacing."
+end
+
+cluster_chart GATE_ARRAY
+indexing
+  author: "Dragan Stosic";
+  keywords: "slave","interface","serial","control","status","read/write";
+explanation
+  "This cluster provides two main user interfaces, \ 
+  \a slave SPI(Serial Peripheral Interface) interface, \
+  \used mainly for supervisory control \
+  \and status monitoring of GATE_ARRAY operation, \
+  \and an asynchronous interface to a BUS cluster."
+
+cluster SPI
+description
+  "The SPI interface is a slave only interface. \
+  \It is the only interface through which the user can \
+  \directly access the CONTROL_REGISTER cluster. The SPI cluster \
+  \is connected only to the CONTROL_REGISTER cluster."
+
+cluster REGISTER
+description
+  "This cluster provides SPI addressable registers and integrates \
+  \the set of classes to aid in gate array operations."
+  
+end
+  
+cluster_chart REGISTER
+indexing
+  author: "Dragan Stosic";
+  keywords: "enable","error","increment","read/write";
+explanation
+""
+class CONTROL_REGISTER
+description "This class provides enabling signals \
+             \for data sampling functionality."
+class STATUS_REGISTER
+description "This class provides mode information \
+             \ and some input packet error detection."
+class PACKET_COUNTER_REGISTER
+description "This register is incremented every time \
+              \a output packet is created, the value of \
+              \the Packet Counter is also one of the \
+              \characters in the output packet. The packet \
+              \counter value is reset every time there is a \
+              \register write to the control module via \
+              \the SPI slave cluster."
+class IO_REGISTER
+description "This class allow general purpose command data \
+            \transfer between the MICRO and GATE_ARRAY clusters."
+
+end
