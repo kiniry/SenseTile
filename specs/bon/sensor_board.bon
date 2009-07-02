@@ -141,7 +141,7 @@ cluster_chart SENSOR
 indexing
   author: "Dragan Stosic";
   keywords: "temperature","pressure","light","motion",
-            "sound","ultrasonic","type";
+            "sound","ultrasonic","type","piezoresistive";
 explanation
 ""
 class THERMISTOR_SENSOR
@@ -153,14 +153,28 @@ description
 
 class THERMISTOR_TYPE
 description
-"This class describes thermistor type. There are two type of thermistors: \
+"This class describes thermistor type. \
+\There are two type of thermistors: \
 \a) NTC -Negative temperature coefficient thermistor. \
     \For NTCs, the resistance decreases with temperature. \
 \b) PTC -Positive temperature coefficient thermistor. \
     \For PTCs, the resistance increases with temperature."
 
 class PRESSURE_SENSOR
-description "N.Y.S"
+description "This class describes pressure sensor based on semiconductor \
+             \piezoresistive technology which uses the change in conductivity \
+             \of semiconductors due to the change in pressure to measure the pressure."
+
+class PRESSURE_TYPE
+description
+"This class describes pressure sensor type. \
+\There are five type of pressure sensors: \
+\a) APS - Absolute pressure sensor. \
+\b) GPS - Gauge pressure sensor. \
+\c) VPS - Vacuum pressure sensor. \
+\d) DPS - Differential pressure sensor. \
+\e) SPS - Sealed pressure sensor."
+
 
 class LIGHT_SENSOR
 description "N.Y.S"
