@@ -115,8 +115,8 @@ explanation
 
 class REGISTER
 description
-"This class represents register component.NFY"
-
+"This class represents register component which stores bits of information, \
+\in a way that all the bits can be written to or read out simultaneously."
 
 class REGISTER_TYPE
 description
