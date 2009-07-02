@@ -161,9 +161,10 @@ description
     \For PTCs, the resistance increases with temperature."
 
 class PRESSURE_SENSOR
-description "This class describes pressure sensor based on semiconductor \
-             \piezoresistive technology which uses the change in conductivity \
-             \of semiconductors due to the change in pressure to measure the pressure."
+description 
+"This class describes pressure sensor based on semiconductor \
+\piezoresistive technology which uses the change in conductivity \
+\of semiconductors due to the change in pressure to measure the pressure."
 
 class PRESSURE_TYPE
 description
