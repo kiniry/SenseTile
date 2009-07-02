@@ -79,7 +79,22 @@ cluster REGISTER
 description
   "This cluster provides SPI addressable registers and integrates \
   \the set of classes to aid in gate array operations."
-  
+
+cluster FRAMER
+description
+  "Under construction."
+
+cluster BUS_CONTROLER
+description
+  "Under construction."
+    
+cluster DEFRAMER
+description
+  "Under construction."
+
+cluster ASYNC_COMMAND
+description
+  "Under construction."  
 end
   
 cluster_chart REGISTER
@@ -103,7 +118,7 @@ description "This register is incremented every time \
               \register write to the control module via \
               \the SPI slave cluster."
 class IO_REGISTER
-description "This class allow general purpose command data \
+description "This class allow general purpose command (read/write) data \
             \transfer between the MICRO and GATE_ARRAY clusters."
 
 end
