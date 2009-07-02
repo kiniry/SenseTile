@@ -92,9 +92,11 @@ cluster DEFRAMER
 description
   "Under construction."
 
-cluster ASYNC_COMMAND
+cluster ASYNC_DATA_STREAMING_INTERFACE
 description
-  "Under construction."  
+  "This cluster represents Data Streaming Interface. \
+  \All data streamed from/to CONVERTOR cluster travels \
+  \through the this interface."  
 end
   
 cluster_chart REGISTER
