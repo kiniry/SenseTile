@@ -141,11 +141,23 @@ cluster_chart SENSOR
 indexing
   author: "Dragan Stosic";
   keywords: "temperature","pressure","light","motion",
-            "sound","ultrasonic";
+            "sound","ultrasonic","type";
 explanation
 ""
 class THERMISTOR_SENSOR
-description "N.Y.S"
+description 
+"Thermistor is thermally sensitive resistors \
+\whose prime function is to exhibit a large, predictable \
+\and precise change in electrical resistance when subjected \
+\to a corresponding change in body temperature."
+
+class THERMISTOR_TYPE
+description
+"This class describes thermistor type. There are two type of thermistors: \
+\a) NTC -Negative temperature coefficient thermistor. \
+    \For NTCs, the resistance decreases with temperature. \
+\b) PTC -Positive temperature coefficient thermistor. \
+    \For PTCs, the resistance increases with temperature."
 
 class PRESSURE_SENSOR
 description "N.Y.S"
