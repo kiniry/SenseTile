@@ -10,6 +10,7 @@ indexing
     "USB", 
     "WIFI", 
     "chain", 
+    "chipset", 
     "component", 
     "configuration", 
     "connection", 
@@ -20,6 +21,7 @@ indexing
     "driver", 
     "ethernet", 
     "experiment", 
+    "interface", 
     "metadata", 
     "mobility", 
     "network", 
@@ -27,6 +29,7 @@ indexing
     "operative system", 
     "packet", 
     "pipe", 
+    "power supply", 
     "rule manager", 
     "rule", 
     "run-time reconfiguration", 
@@ -34,7 +37,10 @@ indexing
     "sensor data", 
     "sensor", 
     "test", 
+    "test bench", 
     "upload", 
+    "wireless sensor network node", 
+    "wireless sensor network", 
     "zero configuration"
   
 cluster SENSOR_BOARD_DRIVER
