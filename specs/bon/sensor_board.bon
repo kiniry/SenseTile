@@ -103,9 +103,11 @@ end
 cluster_chart REGISTER
 indexing
   author: "Dragan Stosic";
-  keywords: "enable","error","increment","read/write";
+  keywords: "enable","error","increment",
+            "read/write","status","count";
 explanation
-"This cluster holds two classes: The registar class and registar type class."
+"This cluster holds two classes: \
+\The registar class and registar type class."
 
 class REGISTER
 description
@@ -133,4 +135,30 @@ description
  \This type describes general purpose command(s) \
  \(read/write) data and transfer between the MICRO and \ 
  \GATE_ARRAY clusters."
+end
+
+cluster_chart SENSOR
+indexing
+  author: "Dragan Stosic";
+  keywords: "temperature","pressure","light","motion",
+            "sound","ultrasonic";
+explanation
+""
+class THERMISTOR_SENSOR
+description "N.Y.S"
+
+class PRESSURE_SENSOR
+description "N.Y.S"
+
+class LIGHT_SENSOR
+description "N.Y.S"
+
+class MOTION_SENSOR
+description "N.Y.S"
+
+class ULTRASONIC_SENSOR
+description "N.Y.S"
+
+class SOUND_SENSOR
+description "N.Y.S"
 end
