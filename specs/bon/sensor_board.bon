@@ -60,7 +60,8 @@ end
 cluster_chart GATE_ARRAY
 indexing
   author: "Dragan Stosic";
-  keywords: "slave","interface","serial","control","status","read/write";
+  keywords: "slave","interface","serial","control",
+            "status","read/write","asynchronous";
 explanation
   "This cluster provides two main user interfaces, \ 
   \a slave SPI(Serial Peripheral Interface) interface, \
@@ -78,23 +79,23 @@ description
 cluster REGISTER
 description
   "This cluster provides SPI addressable registers and integrates \
-  \the set of classes to aid in gate array operations."
+  \the two classes to aid in gate array operations."
 
 cluster FRAMER
 description
-  "Under construction."
+  "Under construction.NFY"
 
 cluster BUS_CONTROLER
 description
-  "Under construction."
+  "Under construction.NFY"
     
 cluster DEFRAMER
 description
-  "Under construction."
+  "Under construction.NFY"
 
-cluster ASYNC_DATA_STREAMING_INTERFACE
+cluster ASYNCI
 description
-  "This cluster represents Data Streaming Interface. \
+  "This cluster represents asynchronous Data Streaming Interface. \
   \All data streamed from/to CONVERTOR cluster travels \
   \through the this interface."  
 end
@@ -104,23 +105,32 @@ indexing
   author: "Dragan Stosic";
   keywords: "enable","error","increment","read/write";
 explanation
-""
-class CONTROL_REGISTER
-description "This class provides enabling signals \
-             \for data sampling functionality."
-class STATUS_REGISTER
-description "This class provides mode information \
-             \ and some input packet error detection."
-class PACKET_COUNTER_REGISTER
-description "This register is incremented every time \
-              \a output packet is created, the value of \
-              \the Packet Counter is also one of the \
-              \characters in the output packet. The packet \
-              \counter value is reset every time there is a \
-              \register write to the control module via \
-              \the SPI slave cluster."
-class IO_REGISTER
-description "This class allow general purpose command (read/write) data \
-            \transfer between the MICRO and GATE_ARRAY clusters."
+"This cluster holds two classes: The registar class and registar type class."
 
+class REGISTER
+description
+"This class represents register component.NFY"
+
+
+class REGISTER_TYPE
+description
+"CONTROL: \
+ \This type describes enabling signals \
+ \for data sampling functionality. \
+ \STATUS : \
+ \This type describes mode information \
+ \and some input packet error detection. \
+ \PACKET_COUNTER : \
+ \This type describes the following process: \
+ \The counter is incremented every time \
+ \a output packet is created, the value of \
+ \the Packet Counter is also one of the \
+ \characters in the output packet. The packet \
+ \counter value is reset every time there is a \
+ \register write to the control module via \
+ \the SPI slave cluster. \
+ \I/O: \
+ \This type describes general purpose command(s) \
+ \(read/write) data and transfer between the MICRO and \ 
+ \GATE_ARRAY clusters."
 end
