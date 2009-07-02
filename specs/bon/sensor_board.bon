@@ -10,10 +10,7 @@ explanation
   "The main function is to host or interface with a number \
   \of sensors, and to partially process captured data. \
   \This cluster contains a set of subclusters, each of which \
-  \is an implementation of the sensetile board architecture. \
-  \From matematical point of view this board represents the graf \
-  \structure.(need detailed explanation of graf model presentation \
-  \of the board.) to be continued...talk with Joe and Vieri.."
+  \is an implementation of the sensetile board architecture."
 
 cluster SENSOR
 description
