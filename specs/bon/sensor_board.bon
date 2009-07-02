@@ -26,7 +26,8 @@ description
 cluster GATE_ARRAY
 description
   "This cluster contains  a set of subclusters designed to perform \ 
-  \all interface function between BUS, CODEC, STORAGE and CONVERTER \
+  \all interface function between BUS, CODEC (what is \
+  \a purpose of CODEC ?), STORAGE and CONVERTER \
   \clusters."
 
 cluster MICRO
