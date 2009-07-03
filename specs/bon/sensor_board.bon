@@ -176,7 +176,7 @@ description
 \and precise change in electrical resistance when subjected \
 \to a corresponding change in body temperature."
 
-class THERMISTOR_TYPE
+class THERMISTOR_SENSOR_TYPE
 description
 "This class describes thermistor type. \
 \There are two type of thermistors: \
@@ -261,4 +261,94 @@ description
 \g) MEMS - MEMS microphone sensor. \
 \h) SMS - Speaker as microphone sensor. \
 \i) CCEM - Condenser, capacitor or electrostatic microphone sensor."
+end
+-- Informal sensor type charts
+
+class_chart THERMISTOR_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A Thermistor sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
+end
+
+class_chart PRESSURE_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A Pressure sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
+end
+
+class_chart LIGHT_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A Light sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
+end
+
+class_chart MOTION_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A Motion sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
+end
+class_chart ULTRASONIC_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A Ultrasonic sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
+end
+
+class_chart SOUND_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "A sound sensor type data object."
+query
+"NYS"
+command
+"NYS"
+constraint
+"NYS"
 end
