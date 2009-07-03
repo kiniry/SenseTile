@@ -196,6 +196,18 @@ public class BytePatternUnitTest {
   }
   
   @Test
+  public void testMatchRepeatedNoMatch() {
+    byte[] dataPattern = {7, 7};
+    int repetitionStep = 5;
+    BytePattern pattern = BytePattern.createPattern(
+        dataPattern, repetitionStep);
+    byte[] data = {0, 3, 4, 3, 4, 
+                   0, 3, 4, 3, 4, 
+                   0, 1, 2, 3, 4 };
+    assertEquals(-1, pattern.match(data));
+  }
+  
+  @Test
   public void testMatchRepeatedSingleData() {
     byte[] dataPattern = {3, 4};
     int repetitionStep = 5;

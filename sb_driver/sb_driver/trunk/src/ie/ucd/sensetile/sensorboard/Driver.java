@@ -7,6 +7,8 @@
 
 package ie.ucd.sensetile.sensorboard;
 
+import ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStream;
+
 import java.io.InputStream;
 
 import com.ftdichip.ftd2xx.BitBangMode;
@@ -50,8 +52,8 @@ public class Driver {
     device.setBitBangMode(BITBANG_MASK, BITBANG_MODE);
   }
   
-  public InputStream getInputStream() {
-    return device.getInputStream();
+  public PacketInputStream getStream() {
+    return new InputStreamPacketInputStream(device.getInputStream());
   }
   
 }

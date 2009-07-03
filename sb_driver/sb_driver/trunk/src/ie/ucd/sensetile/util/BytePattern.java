@@ -103,6 +103,9 @@ public class BytePattern {
     int index = 0;
     boolean check = false;
     index = matchSingle(UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), 0);
+    if (index == -1) {
+      return index;
+    }
     check = checkRepetitions(UnsignedByteArray.create(data, index, data.length() - index));
     while ((index != -1) && (! check)) {
       index = matchSingle(UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), index + 1);

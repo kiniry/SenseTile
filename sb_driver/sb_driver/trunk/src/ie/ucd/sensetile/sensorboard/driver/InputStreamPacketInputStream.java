@@ -66,7 +66,7 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
    */
   private boolean isValid;
   
-  InputStreamPacketInputStream(InputStream is) {
+  public InputStreamPacketInputStream(InputStream is) {
     // input stream
     this.is = new DataInputStream(is);
     // buffer
