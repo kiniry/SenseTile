@@ -224,7 +224,10 @@ description
 class MOTION_TYPE
 description
 "This class describes motion sensor type. \
-\There are four type of motion sensors: \
+\There are three type of motion sensors: \
+\a) PIR - Pyroelectric infrared sensors motion sensor. \
+\b) UAC - Ultrasonic (Active) motion sensor. \
+\c) MAC - Microwave (Active) motion sensor."
 
 class ULTRASONIC_SENSOR
 description 
