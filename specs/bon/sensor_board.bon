@@ -217,7 +217,14 @@ description
 \d) PJU - Photo-junction light sensor."
 
 class MOTION_SENSOR
-description "N.Y.S"
+description 
+"The motion sensor transforms the detection \
+\of motion into an electric signal."
+
+class MOTION_TYPE
+description
+"This class describes motion sensor type. \
+\There are four type of motion sensors: \
 
 class ULTRASONIC_SENSOR
 description 
