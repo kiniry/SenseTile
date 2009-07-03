@@ -51,13 +51,6 @@ cluster BUS
 description
   "This cluster contains  a set of subclusters, each of which is an \
    \implementation of transfer data mechanism between clusters."
-  
-cluster STORAGE
-description
-  "This cluster represents an additional local storage \
-  \which provides the highest speed, low power consumption \
-  \and simple interfacing."
-end
 
 cluster CHANNEL
 description
@@ -66,7 +59,15 @@ description
    \implementaton of the medium used to convey \
    \packet stream from a sender-GATE_ARRAY cluster \
    \(or transmitter?) to a receiver."
+  
+cluster STORAGE
+description
+  "This cluster represents an additional local storage \
+  \which provides the highest speed, low power consumption \
+  \and simple interfacing."
 end
+
+
 
 cluster_chart CHANNEL
 indexing
@@ -234,7 +235,7 @@ class ULTRASONIC_SENSOR
 description 
 "Ultrasonic sensor evaluate attributes of a target \
 \by interpreting the echoes from radio or sound waves respectively. \
-There are two tipes of sensor: proximity and ranging u sen."
+\There are two tipes of sensor: proximity and ranging u sen."
 
 class ULTRASONIC_SENSOR_TYPE
 description
@@ -273,13 +274,13 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type \"
+ "For all types, appropriate index is a valid and unique per type."
 end
 
 class_chart PRESSURE_SENSOR_TYPE
@@ -291,13 +292,13 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type \"
+ "For all types, appropriate index is a valid and unique per type."
 end
 
 class_chart LIGHT_SENSOR_TYPE
@@ -309,13 +310,13 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type \"
+ "For all types, appropriate index is a valid and unique per type."
 end
 
 class_chart MOTION_SENSOR_TYPE
@@ -327,13 +328,13 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type \"
+ "For all types, appropriate index is a valid and unique per type."
 end
 class_chart ULTRASONIC_SENSOR_TYPE
 indexing
@@ -344,13 +345,13 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type \"
+ "For all types, appropriate index is a valid and unique per type."
 end
 
 class_chart SOUND_SENSOR_TYPE
@@ -362,11 +363,11 @@ explanation
   "An ordered set of constants which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?"
-"What is the index for this enumerated type?"
+"What is a string presentation for this type?",
+"What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type.\"
+ "For all types, appropriate index is a valid and unique per type."
 end
