@@ -4,7 +4,7 @@ indexing
   author: "Dragan Stosic";
   keywords: "sensor","supply","interface","discrete",
             "analogue","bus","synchronisation","storage",
-            "signal","measure","asynchronous";
+            "signal","measure","asynchronous","packet stream";
   note: "These clusters have been partially specified."
 explanation
   "The main function is to host or interface with a number \
@@ -58,6 +58,29 @@ description
   \and simple interfacing."
 end
 
+cluster CHANNEL
+description
+  "This cluster represents communication channel, \
+   \and holds two subclusters, each of which is an \
+   \implementaton of the medium used to convey \
+   \packet stream from a sender-GATE_ARRAY cluster \
+   \(or transmitter?) to a receiver."
+end
+
+cluster_chart CHANNEL
+indexing
+  author: "Dragan Stosic";
+  keywords: "asynchronous";
+explanation
+"NYS"
+cluster USB_CHANNEL
+description
+"NYS"
+cluster I2R_CHANNEL
+description
+"NYS"
+end
+
 cluster_chart GATE_ARRAY
 indexing
   author: "Dragan Stosic";
@@ -84,15 +107,15 @@ description
 
 cluster FRAMER
 description
-  "Under construction.NFY"
+  "Under construction.NYS"
 
 cluster BUS_CONTROLER
 description
-  "Under construction.NFY"
+  "Under construction.NYS"
     
 cluster DEFRAMER
 description
-  "Under construction.NFY"
+  "Under construction.NYS"
 
 cluster ASYNCI
 description
@@ -185,7 +208,17 @@ class MOTION_SENSOR
 description "N.Y.S"
 
 class ULTRASONIC_SENSOR
-description "N.Y.S"
+description 
+"Ultrasonic sensor evaluate attributes of a target \
+\by interpreting the echoes from radio or sound waves respectively. \
+There are two tipes of sensor: proximity and ranging u sen."
+
+class ULTRASONIC_TYPE
+description
+"This class describes ultrasonic sensor type. \
+\There are two type of ultrasonic sensors: \
+\a) PROX - Proximity ultrasonic sensor. \
+\b) RANG - Ranging ultrasonic sensor."
 
 class SOUND_SENSOR
 description "N.Y.S"
