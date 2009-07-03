@@ -70,7 +70,7 @@ end
 cluster_chart CHANNEL
 indexing
   author: "Dragan Stosic";
-  keywords: "asynchronous";
+  keywords: "asynchronous?";
 explanation
 "NYS"
 cluster USB_CHANNEL
@@ -202,7 +202,19 @@ description
 
 
 class LIGHT_SENSOR
-description "N.Y.S"
+description 
+"Light sensors are passive devices that convert \
+\light energy whether visible or in the infrared parts \
+\of the spectrum into an electrical signal output."
+
+class LIGHT_TYPE
+description
+"This class describes light sensor type. \
+\There are four type of pressure sensors: \
+\a) PEC - Photo-emissive Cells light sensor. \
+\b) PCC - Photo-conductive Cells light sensor. \
+\c) PVC - Photo-voltaic Cells light sensor. \
+\d) PJU - Photo-junction light sensor."
 
 class MOTION_SENSOR
 description "N.Y.S"
