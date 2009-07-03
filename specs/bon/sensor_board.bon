@@ -270,13 +270,16 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A Thermistor sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type \"
 end
 
 class_chart PRESSURE_SENSOR_TYPE
@@ -285,13 +288,16 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A Pressure sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type \"
 end
 
 class_chart LIGHT_SENSOR_TYPE
@@ -300,13 +306,16 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A Light sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type \"
 end
 
 class_chart MOTION_SENSOR_TYPE
@@ -315,13 +324,16 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A Motion sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type \"
 end
 class_chart ULTRASONIC_SENSOR_TYPE
 indexing
@@ -329,13 +341,16 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A Ultrasonic sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type \"
 end
 
 class_chart SOUND_SENSOR_TYPE
@@ -344,11 +359,14 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "A sound sensor type data object."
+  "An ordered set of constants which represents an \
+   \holder of types."
 query
-"NYS"
+"What is a string presentation for this type?"
+"What is the index for this enumerated type?"
+"Get all possible types."
 command
-"NYS"
+"Create all mentioned types."
 constraint
-"NYS"
+ "For all types, appropriate index is a valid and unique per type.\"
 end
