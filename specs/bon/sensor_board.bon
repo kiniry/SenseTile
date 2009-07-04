@@ -179,7 +179,7 @@ description
 
 class THERMISTOR_SENSOR_TYPE
 description
-"This class describes thermistor type. \
+"This class represents thermistor types. \
 \There are two type of thermistors: \
 \a) NTC -Negative temperature coefficient thermistor. \
     \For NTCs, the resistance decreases with temperature. \
@@ -194,7 +194,7 @@ description
 
 class PRESSURE_SENSOR_TYPE
 description
-"This class describes pressure sensor type. \
+"This class represents pressure sensor types. \
 \There are five type of pressure sensors: \
 \a) APS - Absolute pressure sensor. \
 \b) GPS - Gauge pressure sensor. \
@@ -211,7 +211,7 @@ description
 
 class LIGHT_SENSOR_TYPE
 description
-"This class describes light sensor type. \
+"This class represents light sensor types. \
 \There are four type of pressure sensors: \
 \a) PEC - Photo-emissive Cells light sensor. \
 \b) PCC - Photo-conductive Cells light sensor. \
@@ -225,7 +225,7 @@ description
 
 class MOTION_SENSOR_TYPE
 description
-"This class describes motion sensor type. \
+"This class represents motion sensor types. \
 \There are three type of motion sensors: \
 \a) PIR - Pyroelectric infrared sensors motion sensor. \
 \b) UAC - Ultrasonic (Active) motion sensor. \
@@ -239,7 +239,7 @@ description
 
 class ULTRASONIC_SENSOR_TYPE
 description
-"This class describes ultrasonic sensor type. \
+"This class represents ultrasonic sensor types. \
 \There are two type of ultrasonic sensors: \
 \a) PROX - Proximity ultrasonic sensor. \
 \b) RANG - Ranging ultrasonic sensor."
@@ -251,7 +251,7 @@ description "This class represents a sound sensor - microphone. \
 
 class SOUND_SENSOR_TYPE
 description
-"This class describes microphone sensor type. \
+"This class represents microphone sensor types. \
 \There are nine type of microphone sensors: \
 \a) DMS - Dynamic microphone sensor. \
 \b) CMS - Carbon microphone sensor. \
