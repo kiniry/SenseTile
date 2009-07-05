@@ -274,8 +274,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
@@ -291,8 +290,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
@@ -308,8 +306,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
@@ -325,8 +322,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
@@ -341,8 +337,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
@@ -358,8 +353,7 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?",
-"Get all possible types."
+"What is the index for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
