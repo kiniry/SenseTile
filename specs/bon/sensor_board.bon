@@ -271,16 +271,15 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+  "All indices belongs in defined range."
 end
 
 class_chart PRESSURE_SENSOR_TYPE
@@ -289,16 +288,15 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An finite ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+ "All indices belongs in defined range."
 end
 
 class_chart LIGHT_SENSOR_TYPE
@@ -307,16 +305,15 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An finite ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+ "All indices belongs in defined range."
 end
 
 class_chart MOTION_SENSOR_TYPE
@@ -325,16 +322,15 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An finite ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+ "All indices belongs in defined range."
 end
 class_chart ULTRASONIC_SENSOR_TYPE
 indexing
@@ -342,16 +338,15 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An finite ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+ "All indices belongs in defined range."
 end
 
 class_chart SOUND_SENSOR_TYPE
@@ -360,14 +355,13 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An finite ordered set of constants which represents an \
+  "An enumerator which represents an \
    \holder of types."
 query
-"What is a string presentation for this type?",
 "What is the index for this enumerated type?",
 "Get all possible types."
 command
 "Create all mentioned types."
 constraint
- "For all types, appropriate index is a valid and unique per type."
+ "All indices belongs in defined range."
 end
