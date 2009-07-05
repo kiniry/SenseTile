@@ -289,7 +289,7 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An finite ordered set of constants which represents an \
    \holder of types."
 query
 "What is a string presentation for this type?",
@@ -307,7 +307,7 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An finite ordered set of constants which represents an \
    \holder of types."
 query
 "What is a string presentation for this type?",
@@ -325,7 +325,7 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An finite ordered set of constants which represents an \
    \holder of types."
 query
 "What is a string presentation for this type?",
@@ -342,7 +342,7 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An finite ordered set of constants which represents an \
    \holder of types."
 query
 "What is a string presentation for this type?",
@@ -360,7 +360,7 @@ indexing
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An ordered set of constants which represents an \
+  "An finite ordered set of constants which represents an \
    \holder of types."
 query
 "What is a string presentation for this type?",
