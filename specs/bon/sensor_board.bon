@@ -274,11 +274,12 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
-  "All indices belongs in defined range."
+   "All indices are greater than zero."
 end
 
 class_chart PRESSURE_SENSOR_TYPE
@@ -290,11 +291,12 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices belongs in defined range."
+ "All indices are greater than zero."
 end
 
 class_chart LIGHT_SENSOR_TYPE
@@ -306,11 +308,12 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices belongs in defined range."
+ "All indices are greater than zero."
 end
 
 class_chart MOTION_SENSOR_TYPE
@@ -322,11 +325,12 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices belongs in defined range."
+ "All indices are greater than zero."
 end
 class_chart ULTRASONIC_SENSOR_TYPE
 indexing
@@ -337,11 +341,12 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices belongs in defined range."
+ "All indices are greater than zero."
 end
 
 class_chart SOUND_SENSOR_TYPE
@@ -353,9 +358,10 @@ explanation
   "An enumerator which represents an \
    \holder of types."
 query
-"What is the index for this enumerated type?"
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices belongs in defined range."
+ "All indices are greater than zero."
 end
