@@ -9,8 +9,6 @@ package ie.ucd.sensetile.sensorboard;
 
 import ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStream;
 
-import java.io.InputStream;
-
 import com.ftdichip.ftd2xx.BitBangMode;
 import com.ftdichip.ftd2xx.Device;
 import com.ftdichip.ftd2xx.FTD2xxException;

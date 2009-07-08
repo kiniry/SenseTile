@@ -11,12 +11,11 @@ public class BoardCommunicationAcceptanceTest {
     PacketInputStream in = driver.getStream();
     in.read();
     Packet[] array = new Packet[10];
-    int read;
-    read = in.read(array);
-    read = in.read(array, 2, 6);
+    in.read(array);
+    in.read(array, 2, 6);
     int available = in.availablePackets();
     array = new Packet[available];
-    read = in.read(array, 0, available);
+    in.read(array, 0, available);
     driver.close();
   }
   
