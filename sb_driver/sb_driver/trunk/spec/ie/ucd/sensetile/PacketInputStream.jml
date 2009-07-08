@@ -6,10 +6,10 @@
 
 package ie.ucd.sensetile;
 
-//@ model import org.jmlspecs.models.JMLValueSequence;
 //@ model import ie.ucd.sensetile.Packet;
 
 import java.io.IOException;
+import java.io.EOFException;
 import ie.ucd.sensetile.SenseTileException;
 
 /** 
@@ -21,21 +21,22 @@ public interface PacketInputStream {
 
   // TODO if needed? specify SenseTileException on malformed packets
 
-  //@ public model JMLDataGroup input; in objectState;
+  //@public model JMLDataGroup input; in objectState;
 
   /*@ 
-    @ public model non_null JMLValueSequence inputPackets; in input;
+    @ public model non_null Packet[] inputPackets; in input;
     @ public constraint inputPackets == \old(inputPackets);
+    @ public invariant inputPackets.owner == this;
     @ public invariant (\forall 
     @   int i; 
-    @   0 <= i && i < inputPackets.size();
-    @   inputPackets.get(i) instanceof Packet);
+    @   0 <= i && i < inputPackets.length;
+    @   inputPackets[i] != null);
     @*/
 
   /*@
     @ public model \bigint readPosition; in input;
     @ public initially readPosition == 0;
-    @ public invariant readPosition >= 0 && readPosition <= inputPackets.length();
+    @ public invariant readPosition >= 0 && readPosition <= inputPackets.length;
     @*/
 
   /*@
@@ -49,138 +50,204 @@ public interface PacketInputStream {
     @ public invariant isOpen ==> !wasClosed;
     @ public invariant wasClosed ==> !isOpen;
     @*/
-    
+  
+  /*@
+    @ requires a != null && b != null;
+    @ requires a.length >= length && b.length >= length;
+    @ ensures (\forall int i; 0<=i && i < length; a[i] == b[i]);
+    @ public static model boolean equalPackets(Packet[] a, Packet[] b, \bigint length);
+    @*/
+  
   /*@ public behavior
     @   assignable isOpen, wasClosed;
     @   ensures !isOpen && wasClosed;
     @   signals_only IOException;
-    @   signals (IOException) (* an IO error occured *);
+    @   signals (IOException) !isOpen && wasClosed && (* an IO error occured *);
     @*/
   public void close() throws IOException;
 
   /*@ 
     @ public normal_behavior
-    @   requires isOpen && (inputPackets.length() == readPosition);
-    @   assignable \nothing;
+    @   requires array!= null;
+    @   requires isOpen;
+    @   requires availablePackets == 0;
+    @   modifies \nothing;
     @   ensures \result == -1;
-    @ also public normal_behavior
-    @   old \bigint data = inputPackets.length() - readPosition;
-    @   requires isOpen && (inputPackets.length() > readPosition);
-    @   assignable readPosition, objectState, availablePackets, array[offset .. offset+length-1];
-    @   ensures isOpen; // is this really necessary? see assignable
+    @ also public behavior
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires length > 0 ==> isOpen;
+    @   requires availablePackets > 0;
+    @   modifies objectState, array[offset .. offset+length-1];
+    @   ensures isOpen && \not_modified(wasClosed);
+    @   ensures readPosition == \old(readPosition) + \result;
     @   ensures \result >= 0;
     @   ensures \result <= length;
-    @   ensures \result <= data;
-    @   ensures readPosition == \old(readPosition) + \result;
+    @   ensures \result <= availablePacketsOld;
+    @   ensures length > 0 ==> \result > 0;
+    @   ensures length >= availablePacketsOld ==> \result == availablePacketsOld;
     @   ensures (\forall 
     @     int i; 
-    @     0<=i && i<\result; 
-    @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
-    @   ensures (\forall  // is this really necessary? see assignable
-    @     int i; 
-    @     (0<=i && i<offset) || (offset+\result<=i && i<array.length); 
+    @     offset <= i && i< offset + \result; 
+    @     array[i] == \old(inputPackets[i - offset + (int)readPosition]));
+    @   ensures (\forall
+    @     int i;
+    @     (0 <= i && i < offset) || (offset + \result <= i && i < array.length); 
     @     array[i] == \old(array[i]));
-    @ also public exceptional_behavior
-    @   requires !isOpen;
-    @   assignable \nothing;
     @   signals_only IOException;
+    @ also public exceptional_behavior
+    @   requires (length > 0 && !isOpen) ||
+    @     array == null ||
+    @     offset < 0 || length < 0 ||
+    @     offset + length > array.length;
+    @   modifies \nothing;
+    @   signals_only IOException, NullPointerException, IllegalArgumentException;
+    @   signals (IOException) length > 0 && !isOpen;
+    @   signals (NullPointerException) array == null;
+    @   signals (IllegalArgumentException) offset < 0 || length < 0 ||
+    @     (array != null && offset + length > array.length);
     @*/
   public int read(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
 
   /*@ 
     @ public normal_behavior
-    @   requires isOpen && (inputPackets.length() == readPosition);
-    @   assignable \nothing;
+    @   requires array!= null;
+    @   requires isOpen;
+    @   requires availablePackets == 0;
+    @   modifies \nothing;
     @   ensures \result == -1;
-    @ also public normal_behavior
-    @   old \bigint data = inputPackets.length() - readPosition;
-    @   requires isOpen && (inputPackets.length() > readPosition);
-    @   assignable readPosition, objectState, availablePackets, array;
-    @   ensures isOpen;
-    @   ensures \result >= 0;
-    @   ensures \result <= array.length;
-    @   ensures \result <= data;
+    @ also public behavior
+    @   old int offset = 0;
+    @   old int length = array.length;
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires length > 0 ==> isOpen;
+    @   requires availablePackets > 0;
+    @   modifies objectState, array[offset .. offset+length-1];
+    @   ensures isOpen && \not_modified(wasClosed);
     @   ensures readPosition == \old(readPosition) + \result;
+    @   ensures \result >= 0;
+    @   ensures \result <= length;
+    @   ensures \result <= availablePacketsOld;
+    @   ensures length > 0 ==> \result > 0;
+    @   ensures length >= availablePacketsOld ==> \result == availablePacketsOld;
     @   ensures (\forall 
     @     int i; 
-    @     0<=i && i<\result; 
-    @     array[i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
+    @     offset <= i && i< offset + \result; 
+    @     array[i] == \old(inputPackets[i - offset + (int)readPosition]));
     @   ensures (\forall
     @     int i; 
-    @     (0<=i && i<array.length) || (\result<=i && i<array.length); 
+    @     (0 <= i && i < offset) || (offset + \result <= i && i < array.length); 
     @     array[i] == \old(array[i]));
-    @ also public exceptional_behavior
-    @   requires !isOpen;
-    @   assignable \nothing;
     @   signals_only IOException;
+    @ also public exceptional_behavior
+    @   requires array == null || (array.length>0 && !isOpen);
+    @   modifies \nothing;
+    @   signals_only IOException, NullPointerException;
+    @   signals (IOException) !isOpen;
+    @   signals (NullPointerException) array == null;
     @*/
-  public void read(Packet[] array);
+  public int read(Packet[] array)
+      throws IOException;
 
   /*@ 
-    @ public normal_behavior
-    @   requires isOpen && (inputPackets.length() >= readPosition + length);
-    @   assignable readPosition, objectState, availablePackets, array[offset .. offset+length-1];
-    @   ensures isOpen; // is this really necessary? see assignable
+    @ public behavior
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires length > 0 ==> isOpen;
+    @   requires availablePackets >= readPosition + length;
+    @   modifies objectState, array[offset .. offset+length-1];
+    @   ensures isOpen && \not_modified(wasClosed);
     @   ensures readPosition == \old(readPosition) + length;
     @   ensures (\forall 
     @     int i; 
-    @     0<=i && i<length; 
-    @     array[offset+i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
-    @   ensures (\forall  // is this really necessary? see assignable
-    @     int i; 
-    @     (0<=i && i<offset) || (offset+length<=i && i<array.length); 
+    @     offset <= i && i< offset + length; 
+    @     array[i] == \old(inputPackets[i - offset + (int)readPosition]));
+    @   ensures (\forall
+    @     int i;
+    @     (0 <= i && i < offset) || (offset + length <= i && i < array.length); 
     @     array[i] == \old(array[i]));
-    @ also public exceptional_behavior
-    @   requires !isOpen;
-    @   assignable \nothing;
     @   signals_only IOException;
     @ also public exceptional_behavior
-    @   old \bigint data = inputPackets.length() - readPosition;
-    @   requires isOpen && data < length;
-    @   assignable readPosition, objectState, availablePackets, array;
+    @   requires (length > 0 && !isOpen) ||
+    @     array == null ||
+    @     offset < 0 || length < 0 ||
+    @     offset + length > array.length;
+    @   modifies \nothing;
+    @   signals_only IOException, NullPointerException, IllegalArgumentException;
+    @   signals (IOException) length > 0 && !isOpen;
+    @   signals (NullPointerException) array == null;
+    @   signals (IllegalArgumentException) offset < 0 || length < 0 ||
+    @     (array != null && offset + length > array.length);
+    @ also public exceptional_behavior
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires isOpen;
+    @   requires availablePacketsOld < length;
+    @   modifies objectState, array[offset .. offset+length-1];
     @   signals_only EOFException;
     @*/
   public void readFully(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
   
-  /*@ 
-    @ public normal_behavior
-    @   requires isOpen && (inputPackets.length() >= readPosition + array.length);
-    @   assignable readPosition, objectState, availablePackets, array;
-    @   ensures isOpen;
-    @   ensures readPosition == \old(readPosition) + array.length;
+  /*@
+    @ public behavior
+    @   old int offset = 0;
+    @   old int length = array.length;
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires length > 0 ==> isOpen;
+    @   requires availablePackets >= readPosition + length;
+    @   modifies objectState, array[offset .. offset+length-1];
+    @   ensures isOpen && \not_modified(wasClosed);
+    @   ensures readPosition == \old(readPosition) + length;
     @   ensures (\forall 
     @     int i; 
-    @     0<=i && i<array.length; 
-    @     array[i] == \old((Packet)inputPackets.itemAt(i+readPosition)));
-    @ also public exceptional_behavior
-    @   requires !isOpen;
-    @   assignable \nothing;
+    @     offset <= i && i< offset + length; 
+    @     array[i] == \old(inputPackets[i - offset + (int)readPosition]));
+    @   ensures (\forall
+    @     int i;
+    @     (0 <= i && i < offset) || (offset + length <= i && i < array.length); 
+    @     array[i] == \old(array[i]));
     @   signals_only IOException;
     @ also public exceptional_behavior
-    @   old \bigint data = inputPackets.length() - readPosition;
-    @   requires isOpen && data < length;
-    @   assignable readPosition, objectState, availablePackets, array;
+    @   requires !isOpen || array == null;
+    @   modifies \nothing;
+    @   signals_only IOException, NullPointerException;
+    @   signals (IOException) !isOpen;
+    @   signals (NullPointerException) array == null;
+    @ also public exceptional_behavior
+    @   old int offset = 0;
+    @   old int length = array.length;
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires array!= null;
+    @   requires isOpen;
+    @   requires availablePacketsOld < length;
+    @   modifies objectState, array[offset .. offset+length-1];
     @   signals_only EOFException;
     @*/
-  public void readFully(Packet[] array);
+  public void readFully(Packet[] array) throws IOException;
 
-  /*@ 
-    @ public normal_behavior
-    @   requires isOpen && (inputPackets.length() >= readPosition + 1);
-    @   assignable readPosition, objectState, availablePackets;
-    @   ensures isOpen;
+  /*@
+    @ public behavior
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires isOpen;
+    @   requires availablePackets >= readPosition + 1;
+    @   modifies objectState;
+    @   ensures isOpen && \not_modified(wasClosed);
     @   ensures readPosition == \old(readPosition) + 1;
-    @   ensures \result == \old((Packet)inputPackets.itemAt(readPosition)));
-    @ also public exceptional_behavior
-    @   requires !isOpen;
-    @   assignable \nothing;
+    @   ensures \result == \old(inputPackets[(int)readPosition]);
     @   signals_only IOException;
     @ also public exceptional_behavior
-    @   old \bigint data = inputPackets.length() - readPosition;
-    @   requires isOpen && data < 1;
-    @   assignable \nothing;
+    @   requires !isOpen;
+    @   modifies \nothing;
+    @   signals_only IOException;
+    @   signals (IOException) !isOpen;
+    @ also public exceptional_behavior
+    @   old \bigint availablePacketsOld = availablePackets;
+    @   requires isOpen;
+    @   requires availablePacketsOld == 0;
     @   signals_only EOFException;
     @*/
   public Packet read() throws IOException;
