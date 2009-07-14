@@ -12,15 +12,15 @@ public class SenseTileException extends Exception {
     super();
   }
   
-  public SenseTileException(String message, Throwable innerException) {
+  public SenseTileException(final String message, final Throwable innerException) {
     super(message, innerException);
   }
   
-  public SenseTileException(String message) {
+  public SenseTileException(final String message) {
     super(message);
   }
   
-  public SenseTileException(Throwable innerException) {
+  public SenseTileException(final Throwable innerException) {
     super(innerException);
   }
   

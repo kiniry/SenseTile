@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 
 public class AllAcceptanceTests {
   
-  public static void main(String args[]) {
+  public static void main(final String args[]) {
     org.junit.runner.JUnitCore.main("ie.ucd.sensetile.sensorboard.BoardCommunicationAcceptanceTest");
   }
 }

@@ -11,6 +11,7 @@
         <pathelement location="test/bin"/>
         <pathelement location="lib/ftd2xxj.jar"/>
         <pathelement location="lib/javax.util.property.jar"/>
+    	<pathelement location="lib/junit.jar"/>
     </path>
     
     <target name="init">
@@ -41,7 +42,12 @@
             <src path="src"/>
             <classpath refid="Sensor Board Driver Java.classpath"/>
         </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="test/bin" source="${source}" target="${target}">
+            <src path="test/src"/>
+            <classpath refid="Sensor Board Driver Java.classpath"/>
+        </javac>
     </target>
     
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	
 </project>

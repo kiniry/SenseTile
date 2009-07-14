@@ -1,21 +1,23 @@
 package ie.ucd.sensetile.sensorboard;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 public class BoardCommunicationAcceptanceTest {
   
   @Test
-  public void testOpen() throws Exception{
-    Driver driver = new Driver(0);
+  public void testOpen() throws IOException, SenseTileException{
+    final Driver driver = new Driver(0);
     driver.open();
-    PacketInputStream in = driver.getStream();
-    in.read();
+    final PacketInputStream input = driver.getStream();
+    input.read();
     Packet[] array = new Packet[10];
-    in.read(array);
-    in.read(array, 2, 6);
-    int available = in.availablePackets();
+    input.read(array);
+    input.read(array, 2, 6);
+    final int available = input.availablePackets();
     array = new Packet[available];
-    in.read(array, 0, available);
+    input.read(array, 0, available);
     driver.close();
   }
   

@@ -1,30 +1,20 @@
 package ie.ucd.jdk.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ByteArrayInputStreamUnitTest {
 
-  @Before
-  public void setUp() throws Exception {
-  }
-
-  @After
-  public void tearDown() throws Exception {
-  }
-
   @Test
   public void testReadOverEOF() {
-    byte[] raw = {1,2};
-    ByteArrayInputStream is = new ByteArrayInputStream(raw);
-    is.read();
-    is.read();
-    assertEquals(0, is.read());
+    final byte[] raw = {1,2};
+    final ByteArrayInputStream input = new ByteArrayInputStream(raw);
+    input.read();
+    input.read();
+    assertEquals("wrong value read", 0, input.read());
   }
 
 //  @Test

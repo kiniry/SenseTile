@@ -13,7 +13,7 @@ public interface PacketInputStream {
    * input stream without blocking.
    * @exception IOException if an I/O error occurs.
    */
-  public abstract int availablePackets() throws IOException;
+  int availablePackets() throws IOException;
 
   /**
    * Reads some number of packets from the contained input stream and stores 
@@ -28,7 +28,7 @@ public interface PacketInputStream {
    * @throws IOException
    * @throws SenseTileException data is malformed
    */
-  public abstract int read(Packet[] array) throws IOException,
+  int read(Packet[] array) throws IOException,
       SenseTileException;
 
   /**
@@ -51,7 +51,7 @@ public interface PacketInputStream {
    * @throws IOException
    * @throws SenseTileExcpetion if an invalid packet is read.
    */
-  public abstract int read(Packet[] array, int offset, int length)
+  int read(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
 
   /**
@@ -73,7 +73,7 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileExcpetion if an invalid packet is read.
    */
-  public abstract Packet read() throws IOException, SenseTileException;
+  Packet read() throws IOException, SenseTileException;
 
   /**
    * Reads packets from an input stream.
@@ -98,7 +98,7 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileExcpetion if an invalid packet is read.
    **/
-  public abstract void readFully(Packet[] array) throws IOException,
+  void readFully(Packet[] array) throws IOException,
       SenseTileException;
 
   /**
@@ -124,9 +124,9 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileExcpetion if an invalid packet is read.
    **/
-  public abstract void readFully(Packet[] array, int offset, int length)
+  void readFully(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
 
-  public abstract void close() throws IOException;
+  void close() throws IOException;
 
 }

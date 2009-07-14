@@ -49,9 +49,9 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Before
   public void setUp() {
-    InputStreamPacketInputStream.BUFFER_PACKETS = 6;
-    InputStreamPacketInputStream.VALIDATE_MINIMUM_PACKETS = 3;
-    InputStreamPacketInputStream.TRIM_PACKETS = 2;
+    InputStreamPacketInputStream.bufferPackets = 6;
+    InputStreamPacketInputStream.validateMinimumPackets = 3;
+    InputStreamPacketInputStream.trimPackets = 2;
   }
   
   @Test
@@ -94,8 +94,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testReadArray1() throws IOException, SenseTileException {
-    InputStreamPacketInputStream.VALIDATE_MINIMUM_PACKETS = 1;
-    InputStreamPacketInputStream.TRIM_PACKETS = 1;
+    InputStreamPacketInputStream.validateMinimumPackets = 1;
+    InputStreamPacketInputStream.trimPackets = 1;
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = new InputStreamPacketInputStream( is );

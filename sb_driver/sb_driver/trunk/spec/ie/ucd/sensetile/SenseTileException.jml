@@ -1,9 +1,0 @@
-/*
- * SenseTileException.jml
- *
- * Copyright 2009 SenseTile, UCD. All rights reserved.
- */
-
-package ie.ucd.sensetile;
-
-public class SenseTileException extends Exception {}

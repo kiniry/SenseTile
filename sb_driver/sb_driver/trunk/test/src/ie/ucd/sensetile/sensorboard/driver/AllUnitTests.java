@@ -1,8 +1,5 @@
 package ie.ucd.sensetile.sensorboard.driver;
 
-import ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStreamUnitTest;
-import ie.ucd.sensetile.sensorboard.driver.ByteArrayPacketUnitTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -13,7 +10,7 @@ import org.junit.runners.Suite;
 
 public class AllUnitTests {
   
-  public static void main(String args[]) {
+  public static void main(final String args[]) {
     org.junit.runner.JUnitCore.main("ie.ucd.sensetile.sensorboard.AllTests");
   }
 }

@@ -1,0 +1,13 @@
+/*
+ * Packet.jml
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile.sensorboard;
+
+/** 
+ * JML's specification of Packet.
+ * @author Vieri del Bianco
+ */
+public interface Packet{}

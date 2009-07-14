@@ -23,13 +23,13 @@ public class Driver {
   static private final int BITBANG_MASK = 0xff;
   static private final BitBangMode BITBANG_MODE = BitBangMode.ASYNCHRONOUS;
   
-  private final Device device;
+  final private Device device;
   
   public Driver(final Device device) {
     this.device = device;
   }
   
-  public Driver(int deviceNumber) throws FTD2xxException {
+  public Driver(final int deviceNumber) throws FTD2xxException {
     this.device = Service.listDevices()[deviceNumber];
   }
   

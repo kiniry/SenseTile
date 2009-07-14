@@ -11,7 +11,6 @@ import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.BytePattern;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
-import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
@@ -31,19 +30,27 @@ import java.io.InputStream;
  * @version 0
  * @see 
  */
-public class InputStreamPacketInputStream implements Closeable, PacketInputStream {
+public class InputStreamPacketInputStream implements PacketInputStream {
   
   /**
    * constants
    */
-  static int BUFFER_PACKETS = 6;
-  static int VALIDATE_MINIMUM_PACKETS = 3;
-  static int TRIM_PACKETS = 2;
+  static int bufferPackets = 6;
+  static int validateMinimumPackets = 3;
+  static int trimPackets = 2;
+  
+  /*@
+    @ public invariant bufferPackets > 0;
+    @ public invariant 
+    @   (validateMinimumPackets > 0) && 
+    @   (validateMinimumPackets <= bufferPackets);
+    @ public invariant (trimPackets > 0) && (trimPackets <= bufferPackets);
+    @*/
   
   /**
    * raw input stream
    */
-  final private DataInputStream is;
+  final private DataInputStream input;
   
   /**
    * buffer
@@ -66,11 +73,14 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
    */
   private boolean isValid;
   
+  /*@
+    @ requires bufferPackets > 0;
+    @*/
   public InputStreamPacketInputStream(InputStream is) {
     // input stream
-    this.is = new DataInputStream(is);
+    this.input = new DataInputStream(is);
     // buffer
-    raw = new byte[getPacketLength() * BUFFER_PACKETS];
+    raw = new byte[getPacketLength() * bufferPackets];
     byteArray = UnsignedByteArray.create(raw, 0, 0);
     // pattern
     pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
@@ -83,7 +93,7 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#availablePackets()
    */
   public int availablePackets() throws IOException {
-   return (byteArray.length() + is.available()) / getPacketLength();
+   return (byteArray.length() + input.available()) / getPacketLength();
   }
   
   /* (non-Javadoc)
@@ -148,18 +158,18 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#close()
    */
   public void close() throws IOException {
-    is.close();
+    input.close();
   }
   
   private void readToValidate() throws IOException {
     readIntoBuffer();
-    if (byteArray.length() < VALIDATE_MINIMUM_PACKETS * getPacketLength()) {
+    if (byteArray.length() < validateMinimumPackets * getPacketLength()) {
       return;
     }
     if (validateAndTrimBuffer()) {
       this.isValid = true;
     } else {
-      trimBuffer(TRIM_PACKETS * getPacketLength());
+      trimBuffer(trimPackets * getPacketLength());
     }
   }
   
@@ -181,11 +191,11 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
     int end = byteArray.getEndOffset();
     int read = 0;
     if (end < begin) {
-      read = is.read(raw, end, raw.length - byteArray.length());
+      read = input.read(raw, end, raw.length - byteArray.length());
     } else {
-      read = is.read(raw, end, raw.length - end);
+      read = input.read(raw, end, raw.length - end);
       if (read == (raw.length - end)) {
-        read = read + is.read(raw, 0, begin);
+        read = read + input.read(raw, 0, begin);
       }
     }
     if (read == -1) {
@@ -199,11 +209,11 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
   
   private void waitReadToValidate() throws IOException {
     while(this.isValid == false) {
-      waitReadIntoBuffer(ByteArrayPacket.LENGTH * VALIDATE_MINIMUM_PACKETS);
+      waitReadIntoBuffer(ByteArrayPacket.LENGTH * validateMinimumPackets);
       if (validateAndTrimBuffer()) {
         this.isValid = true;
       } else {
-        trimBuffer(TRIM_PACKETS * getPacketLength());
+        trimBuffer(trimPackets * getPacketLength());
       }
     }
   }
@@ -211,7 +221,7 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
   private void waitReadToReturn(ReturnPacketArray array) throws IOException, SenseTileException {
     do {
       int toBeRead = array.toBeRead();
-      toBeRead = toBeRead > BUFFER_PACKETS ? BUFFER_PACKETS : toBeRead;
+      toBeRead = toBeRead > bufferPackets ? bufferPackets : toBeRead;
       waitReadIntoBuffer(toBeRead * ByteArrayPacket.LENGTH);
       bufferToReturn(array);
     } while (! array.isFull());
@@ -228,10 +238,10 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
     int end = byteArray.getEndOffset();
     int readEnd = begin + length % ByteArrayPacket.LENGTH;
     if(readEnd > end) {
-      is.readFully(raw, end, length);
+      input.readFully(raw, end, length);
     } else {
-      is.readFully(raw, end, raw.length - end);
-      is.readFully(raw, 0, readEnd);
+      input.readFully(raw, end, raw.length - end);
+      input.readFully(raw, 0, readEnd);
     }
     byteArray = UnsignedByteArray.create(
         byteArray, 0, byteArray.length() + length);
@@ -290,6 +300,7 @@ public class InputStreamPacketInputStream implements Closeable, PacketInputStrea
     return isValid;
   }
   
+  //@ ensures \result > 0;
   private int getPacketLength() {
     return ByteArrayPacket.LENGTH;
   }

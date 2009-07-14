@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 
 public class AllAcceptanceTests {
   
-  public static void main(String args[]) {
-    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.AllTests");
+  public static void main(final String args[]) {
+    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.AllAcceptanceTests");
   }
 }

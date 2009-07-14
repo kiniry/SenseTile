@@ -13,7 +13,7 @@ package ie.ucd.sensetile.util;
  * 
  * @author Vieri del Bianco
  */
-public class UnsignedByteArray {
+final public class UnsignedByteArray {
   
   private byte[] array;
   private int offset;
@@ -36,8 +36,8 @@ public class UnsignedByteArray {
    * @return byte
    */
   public byte getByte(int index){
-    index = checkAndNormalizeIndex(index, 1);
-    return array[(index + offset) % array.length];
+    int newIndex = checkAndNormalizeIndex(index, 1);
+    return array[(newIndex + offset) % array.length];
   }
   
   /**
@@ -47,8 +47,8 @@ public class UnsignedByteArray {
    * @param value
    */
   public void setByte(int index, byte value){
-    index = checkAndNormalizeIndex(index, 1);
-    array[(index + offset) % array.length] = value;
+    int newIndex = checkAndNormalizeIndex(index, 1);
+    array[(newIndex + offset) % array.length] = value;
   }
   
   /**
@@ -58,10 +58,10 @@ public class UnsignedByteArray {
    * @return unsigned short
    */
   public int getUnsignedShort(int index) {
-    index = checkAndNormalizeIndex(index, 2);
+    int newIndex = checkAndNormalizeIndex(index, 2);
     return 
-      ((0xff & getByte(index)) << 8) | 
-      (0xff & getByte(index+1));
+      ((0xff & getByte(newIndex)) << 8) | 
+      (0xff & getByte(newIndex+1));
   }
   
   /**
@@ -71,9 +71,9 @@ public class UnsignedByteArray {
    * @param value
    */
   public void setUnsignedShort(int index, int value) {
-    index = checkAndNormalizeIndex(index, 2);
-    setByte(index, (byte) (0xff & value >>> 8));
-    setByte(index + 1, (byte) (0xff & value));
+    int newIndex = checkAndNormalizeIndex(index, 2);
+    setByte(newIndex, (byte) (0xff & value >>> 8));
+    setByte(newIndex + 1, (byte) (0xff & value));
   }
   
   /**
@@ -114,14 +114,15 @@ public class UnsignedByteArray {
   }
   
   private int checkAndNormalizeIndex(int index, int operationLength){
+    int newIndex = index;
     if (folding) {
-      index = normalizeIndex(index, length);
+      newIndex = normalizeIndex(index, length);
     } else {
       if ((index + operationLength - 1) >= length) {
         throw new IndexOutOfBoundsException();
       }
     }
-    return index;
+    return newIndex;
   }
   
   /**
@@ -207,22 +208,20 @@ public class UnsignedByteArray {
   }
   
   private static void checkParameters(byte[] array, int offset, int length) {
-    if (array == null){
-      throw new NullPointerException();
-    }
     if ((length < 0) || (length > array.length)) {
       throw new IllegalArgumentException("length: " + length);
     }
   }
   
   private static int normalizeIndex(int index, int length){
+    int newIndex = index;
     if (index >= length) {
-      index = index % length;
+      newIndex = index % length;
     }
     if (index < 0) {
-      index = index % length + length;
+      newIndex = index % length + length;
     }
-    return index;
+    return newIndex;
   }
   
 }

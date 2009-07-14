@@ -1,12 +1,8 @@
 package ie.ucd.sensetile.sensorboard;
 
-
-import ie.ucd.sensetile.sensorboard.Driver;
-
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,12 +12,11 @@ public class DriverUnitTest {
   
   private Mockery context;
   private Device device;
-  private Driver driver;
   
   @Before
   public void setUp() throws Exception {
     setUpMockDevice();
-    driver = new Driver(device);
+    new Driver(device);
   }
   
   private void setUpMockDevice() {
@@ -29,10 +24,6 @@ public class DriverUnitTest {
       setImposteriser(ClassImposteriser.INSTANCE);
     } };
     device = context.mock(Device.class);
-  }
-  
-  @After
-  public void tearDown() throws Exception {
   }
   
   @Test

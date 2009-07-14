@@ -125,7 +125,7 @@ public class BytePattern {
     int patternIndex = 0;
     while (dataIndex < data.length()) {
       if (pattern.getByte(patternIndex) != data.getByte(dataIndex)) {
-        return false; // NOPMD by delbianc on 4/30/09 12:15 PM
+        return false; 
       }
       dataIndex++;
       patternIndex++;

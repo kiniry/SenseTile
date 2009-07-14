@@ -58,9 +58,9 @@ public class ByteArrayPacket implements Packet {
       UnsignedByteArray raw) 
       throws SenseTileException {
     checkLength(raw);
-    raw = UnsignedByteArray.create(raw, 0, LENGTH);
-    checkPattern(raw);
-    return new ByteArrayPacket(raw);
+    UnsignedByteArray newRaw = UnsignedByteArray.create(raw, 0, LENGTH);
+    checkPattern(newRaw);
+    return new ByteArrayPacket(newRaw);
   }
   
   /* (non-Javadoc)
