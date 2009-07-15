@@ -1,0 +1,1540 @@
+static_diagram STATIC_DIAGRAM
+component
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_CLUSTER cluster classes
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  cluster SENSOR_CLUSTER
+
+    deferred class ISENSOR  
+    feature
+      
+      mod_enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      mod_index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      mod_max: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      mod_min: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      mod_type: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      mod_value: INTEGER
+        ensure
+          Result /= Void;
+        end
+    feature{SENSOR_CLUSTER}
+      
+      deferred getMax: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_max;
+        end
+      
+      deferred getMin: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_min;
+        end
+      
+      deferred getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+          -- \result instanceof SensorType;
+        end
+      
+      deferred getValue: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_value;
+        end
+      
+      deferred isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      deferred measure
+        require
+          isEnabled;
+        ensure
+          delta {mod_index, mod_value};
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+        end
+      
+      deferred setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          delta mod_enabled;
+          mod_enabled = theFlag;
+        end
+        --invariant
+      -- @.Model @.Instance public int mod_value;
+      -- @.Model @.Instance public int mod_max;
+      -- @.Model @.Instance public int mod_min;
+      -- @.Model @.Instance public SensorType mod_type;
+      -- @.Model @.Instance public int mod_index;
+      -- @.Model @.Instance @.NonNull public int[] mod_set;
+      -- @.Model @.Instance public boolean mod_enabled;
+    end
+  -- MEASUREMENT_UNIT--
+  
+  class MEASUREMENT_UNIT
+   indexing
+      about: "This class represents typesafe implementation of measurement units.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00"; 
+
+    feature
+      AMPER: MEASUREMENT_UNIT
+        ensure
+          Result = old AMPER;
+        end
+      CELSIUS: MEASUREMENT_UNIT
+        ensure
+          Result = old CELSIUS;
+        end
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      DECIBEL: MEASUREMENT_UNIT
+        ensure
+          Result = old DECIBEL;
+        end
+      HERTZ: MEASUREMENT_UNIT
+        ensure
+          Result = old HERTZ;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      LUX: MEASUREMENT_UNIT
+        ensure
+          Result = old LUX;
+        end
+      MVOLT: MEASUREMENT_UNIT
+        ensure
+          Result = old MVOLT;
+        end
+      name: STRING
+        ensure
+          Result /= Void;
+        end
+      PASCAL: MEASUREMENT_UNIT
+        ensure
+          Result = old PASCAL;
+        end
+      VOLT: MEASUREMENT_UNIT
+        ensure
+          Result = old VOLT;
+        end
+    feature{NONE}
+      make
+        -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+    invariant
+      index = 0 or index > 0;
+      count = 0 or count > 0;
+    end
+    
+    MEASUREMENT_UNIT client:(1) MEASUREMENT_UNIT
+    
+    --ULTRASONIC_SENSOR----
+    
+    
+    effective class ULTRASONIC_SENSOR inherit ISENSOR
+      indexing
+      about: "About Ultrasonic sensor.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";  
+        
+    feature{NONE}
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_type: ULTRASONIC_SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = "-43";
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-51";
+        end
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      setUltraSound
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;          
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = -43;
+          mod_min = -51;
+        end
+        
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          mod_max = -43;
+          mod_min = -51;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      getType: ULTRASONIC_SENSOR_TYPE
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = UltrasonicSensorType.PROX;
+        end
+      
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.DECIBEL;
+        end
+      measure
+        ensure
+          mod_max = -43;
+          mod_min = -51;
+        end
+      
+      setEnable
+        -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = -43;
+          mod_min = -51;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    
+    invariant
+      mod_type = SensorType.ULTRA;
+      a_type = UltrasonicSensorType.PROX;
+      a_unit = MeasurementUnit.DECIBEL;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+    end
+    
+    ULTRASONIC_SENSOR client:(1) MEASUREMENT_UNIT
+    ULTRASONIC_SENSOR client:(1) ULTRASONIC_SENSOR_TYPE
+    
+    --LIGHT_SENSOR--
+    effective class LIGHT_SENSOR inherit ISENSOR
+    indexing
+      about: "About Light sensor.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+      
+      feature{NONE}
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+        
+      a_type: LIGHT_SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      MAX: INTEGER
+        ensure
+          Result = 1000;
+        end
+      
+      MIN: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      setLight -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 1000;
+          mod_min = 0;
+        end
+       
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          mod_max = 1000;
+          mod_min = 0;
+        end
+        
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      getType: LIGHT_SENSOR_TYPE
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = LightSensorType.PEC;
+        end
+      
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.LUX;
+        end
+      
+      measure
+        ensure
+          mod_max = 1000;
+          mod_min = 0;
+        end
+      
+      setEnable
+        -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 1000;
+          mod_min = 0;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    invariant
+      mod_type = SensorType.LIGHT;
+      a_type = LightSensorType.PEC;
+      a_unit = MeasurementUnit.LUX;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+    end
+    
+    LIGHT_SENSOR client:(1) LIGHT_SENSOR_TYPE
+    LIGHT_SENSOR client:(1) MEASUREMENT_UNIT
+    
+    --PRESSURE-SENSOR--
+     effective class PRESSURE_SENSOR  inherit ISENSOR
+     indexing
+      about: "About Pressure sensor.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+     feature{NONE}
+     
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: PRESSURE_SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      MAX: INTEGER
+        ensure
+          Result = 115000;
+        end
+      
+      MIN: INTEGER
+        ensure
+          Result = 15000;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      setPressure -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 115000;
+          mod_min = 15000;
+        end
+        
+     feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          mod_max = 115000;
+          mod_min = 15000;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      getType: PRESSURE_SENSOR_TYPE
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = PressureSensorType.APS;
+        end
+      
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.PASCAL;
+        end
+      
+      measure
+        ensure
+          mod_max = 115000;
+          mod_min = 15000;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 115000;
+          mod_min = 15000;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    invariant
+      mod_type = SensorType.PRESS;
+      a_type = PressureSensorType.APS;
+      a_unit = MeasurementUnit.PASCAL;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+    end
+    
+    PRESSURE_SENSOR client:(1) MEASUREMENT_UNIT
+    PRESSURE_SENSOR client:(1) PRESSURE_SENSOR_TYPE
+    
+    --ACCELEROMETER_SENSOR--
+    effective class AXIS_ACCELEROMETER_SENSOR  inherit ISENSOR
+      indexing
+      about: "About Acc sensor.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+      feature{NONE}
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 15300;
+        end
+      MIN: INTEGER
+        ensure
+          Result = 14700;
+        end
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      setVoltage
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 15300;
+          mod_min = 14700;
+        end
+    feature
+      make -> arr: SEQUENCE[INTEGER] -> type: SENSOR_TYPE
+        require
+          arr /= Void;
+          type /= Void;
+          type = SensorType.ACCEL_X or type = SensorType.ACCEL_Y or type = SensorType.ACCEL_Z;
+        ensure
+          delta {mod_enabled, mod_set, mod_type};
+          mod_type = type;
+          mod_enabled = true;
+          mod_max = 15300;
+          mod_min = 14700;
+        end
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.MVOLT;
+        end
+      measure
+        ensure
+          mod_max = 15300;
+          mod_min = 14700;
+        end
+      setEnable
+        -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 15300;
+          mod_min = 14700;
+        end
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    invariant
+      mod_type = SensorType.ACCEL_X or mod_type = SensorType.ACCEL_Y or mod_type = SensorType.ACCEL_Z;
+      a_unit = MeasurementUnit.MVOLT;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+
+    end
+    
+    AXIS_ACCELEROMETER_SENSOR client:(1) MEASUREMENT_UNIT
+    
+    --SOUND_SENSOR--
+    
+    effective class SOUND_SENSOR  inherit ISENSOR
+      indexing
+      about: "About Pressure sensor.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+       
+    feature{NONE}
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_type: SOUND_SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = "-31";
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-39";
+        end
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      setSound -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = -31;
+          mod_min = -39;
+        end
+    
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          mod_max = -31;
+          mod_min = -39;
+        end
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      getType: SOUND_SENSOR_TYPE
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = SoundSensorType.DMS;
+        end
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.DECIBEL;
+        end
+      measure
+        ensure
+          mod_max = -31;
+          mod_min = -39;
+        end
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = -31;
+          mod_min = -39;
+        end
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    invariant
+      mod_type = SensorType.SOUND;
+      a_type = SoundSensorType.DMS;
+      a_unit = MeasurementUnit.DECIBEL;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+    end
+    
+    SOUND_SENSOR client:(1) MEASUREMENT_UNIT
+    SOUND_SENSOR client:(1) SOUND_SENSOR_TYPE
+    
+    --THERMISTOR_SENSOR--
+    
+        effective class THERMISTOR_SENSOR  inherit ISENSOR
+        indexing
+        about: "About Thermistor sensor.";
+        author: "Dragan Stosic";
+        version: "Revision: 1.00";
+        
+      feature{NONE}
+      a_sensType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_type: THERMISTOR_SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      a_unit: MEASUREMENT_UNIT
+        ensure
+          Result /= Void;
+        end
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 127;
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-55";
+        end
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      setTemp
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 127;
+          mod_min = -55;
+        end
+        
+    feature
+      make
+        -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_max = 127;
+          mod_min = -55;
+        end
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      getType: THERMISTOR_SENSOR_TYPE
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = ThermistorSensorType.NTC;
+        end
+      getUnit: MEASUREMENT_UNIT
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.CELSIUS;
+        end
+      measure
+        ensure
+          mod_max = 127;
+          mod_min = -55;
+        end
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 127;
+          mod_min = -55;
+        end
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      getSensorType: SENSOR_TYPE
+        ensure
+          Result /= Void;
+        end
+      getValue: INTEGER
+        ensure
+          Result /= Void;
+        end
+      isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+    
+    invariant
+      mod_type = SensorType.THERM;
+      a_type = ThermistorSensorType.NTC;
+      a_unit = MeasurementUnit.CELSIUS;
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+      --   //@ represents mod_value = value;
+      --   //@ represents mod_enabled = enabled;
+      --   //@ represents mod_max = MAX;
+      --   //@ represents mod_min = MIN;
+      --   //@ represents mod_index = index;
+      --   //@ represents mod_set = a_set;
+      --   //@ represents mod_type = a_sensType;
+    end
+    
+    THERMISTOR_SENSOR client:(1) MEASUREMENT_UNIT
+    THERMISTOR_SENSOR client:(1) THERMISTOR_SENSOR_TYPE
+    
+    --MISSING_SENSOR_EXCEPTION--
+       
+    effective class MISSING_SENSOR_EXCEPTION  inherit RUNTIME_EXCEPTION
+    indexing
+      about: "Class implementation of sensor.MissingSensorException. Exception used",
+        "during measurement operations.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.1";
+    
+    feature
+      make
+      make0 -> message: STRING
+        require
+          message /= Void;
+        end
+      make1 -> cause: THROWABLE
+        require
+          cause /= Void;
+        end
+      make2 -> message: STRING -> cause: THROWABLE
+        require
+          message /= Void;
+          cause /= Void;
+        end
+    feature{MISSING_SENSOR_EXCEPTION}
+      serialVersionUID: INTEGER
+        ensure
+          Result = 22119747101947789;
+        end
+    end
+    
+    -- the end 
+   end
+   
+  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -- TYPE_CLUSTER cluster classes
+  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   cluster TYPE_CLUSTER
+
+    class THERMISTOR_SENSOR_TYPE 
+    indexing
+      about: "This class represents thermistor sensor types."
+      author: "Dragan Stosic"
+      version: "Revision: 1.00"
+      
+      feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+     feature
+     count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER -- The index of thermistor sensor type.
+        ensure
+          Result /= Void;
+        end
+      name: STRING -- The name of thermistor sensor type.
+        ensure
+          Result /= Void;
+        end
+        
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+      
+      -- The Negative temperature coefficient thermistor.
+      -- For NTCs, the resistance decreases with temperature. 
+      NTC: THERMISTOR_SENSOR_TYPE   
+        ensure
+          Result = old NTC;
+        end
+      -- The Positive temperature coefficient thermistor. 
+	  -- For PTCs, the resistance increases with temperature.
+      PTC: THERMISTOR_SENSOR_TYPE
+        ensure
+          Result = old PTC;
+        end
+        
+    invariant
+      index = 0 or index > 0; -- All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    THERMISTOR_SENSOR_TYPE client:(1) THERMISTOR_SENSOR_TYPE
+    
+    class LIGHT_SENSOR_TYPE 
+    indexing
+      about: "This class represents light sensor types.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+    feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+    feature
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER -- The index of light sensor type.
+        ensure
+          Result /= Void;
+        end
+      name: STRING -- The name of light sensor type.
+        ensure
+          Result /= Void;
+        end
+
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+              
+      PCC: LIGHT_SENSOR_TYPE --The Photo-conductive Cells light sensor.
+        ensure
+          Result = old PCC;
+        end
+      PEC: LIGHT_SENSOR_TYPE --The Photo-emissive Cells light sensor.
+        ensure
+          Result = old PEC;
+        end
+      PJU: LIGHT_SENSOR_TYPE -- The Photo-junction light sensor.
+        ensure
+          Result = old PJU;
+        end
+      PVC: LIGHT_SENSOR_TYPE -- The Photo-voltaic Cells light sensor.
+        ensure
+          Result = old PVC;
+        end
+    
+    invariant
+      index = 0 or index > 0; -- All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    LIGHT_SENSOR_TYPE client:(1) LIGHT_SENSOR_TYPE
+    
+    class ACCELEROMETER_SENSOR_TYPE 
+    indexing
+      about: "This class represents accelerometer sensor types.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+      
+    feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+    feature
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      index: INTEGER -- The index of accelerometer sensor type.
+        ensure
+          Result /= Void;
+        end
+      
+      name: STRING -- The name of accelerometer sensor type.
+        ensure
+          Result /= Void;
+        end
+          
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+      
+      MEMS: ACCELEROMETER_SENSOR_TYPE --The Surface Micromachined Capacitive.
+        ensure
+          Result = old MEMS;
+        end
+      
+      PFPS: ACCELEROMETER_SENSOR_TYPE -- The Piezo-film or piezoelectric sensor.
+        ensure
+          Result = old PFPS;
+        end
+      SMA: ACCELEROMETER_SENSOR_TYPE -- The Shear Mode Accelerometer
+        ensure
+          Result = old SMA;
+        end
+      TCMOS: ACCELEROMETER_SENSOR_TYPE -- Thermal (submicrometre CMOS process).
+        ensure
+          Result = old TCMOS;
+        end
+    
+    invariant
+      index = 0 or index > 0; -- All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    ACCELEROMETER_SENSOR_TYPE client:(1) ACCELEROMETER_SENSOR_TYPE
+    
+    class SOUND_SENSOR_TYPE 
+    indexing
+      about: "This class represents microphone sensor types.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+     
+     feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+    feature
+      index: INTEGER --The index of sound sensor type.
+        ensure
+          Result /= Void;
+        end
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      name: STRING -- The name of sound sensor type.
+        ensure
+          Result /= Void;
+        end
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+        
+      -- Condenser, capacitor or 
+	  -- electrostatic microphone sensor.
+      CCEM: SOUND_SENSOR_TYPE
+        ensure
+          Result = old CCEM;
+        end
+        
+      -- The Carbon microphone sensor.
+      CMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old CMS;
+        end
+        
+      -- The Dynamic microphone sensor.
+      DMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old DMS;
+        end
+        
+      -- The Fiber optical microphone sensor.  
+      FOS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old FOS;
+        end
+        
+      -- The Laser microphone sensor.
+      LMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old LMS;
+        end
+        
+      -- The Liquid microphone sensor.  
+      LQMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old LQMS;
+        end
+      
+      -- The MEMS microphone sensor.  
+      MEMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old MEMS;
+        end
+        
+      -- The Piezoelectric microphone sensor.  
+      PMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old PMS;
+        end
+        
+      -- The Speaker as microphone sensor.  
+      SMS: SOUND_SENSOR_TYPE
+        ensure
+          Result = old SMS;
+        end
+    
+    invariant
+      index = 0 or index > 0; -- All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    SOUND_SENSOR_TYPE client:(1) SOUND_SENSOR_TYPE
+    
+    class PRESSURE_SENSOR_TYPE 
+    indexing
+      about: "The index of pressure sensor type.";
+      author: "Dragan Stosic";
+      version: " Revision: 1.00 ";
+      
+    feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+    feature
+      index: INTEGER  --The index of pressure sensor type.
+        ensure
+          Result /= Void;
+        end
+      name: STRING -- The name of pressure sensor type.
+        ensure
+          Result /= Void;
+        end
+      
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+      
+      APS: PRESSURE_SENSOR_TYPE --The Absolute pressure sensor.
+        ensure
+          Result = old APS;
+        end
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      DPS: PRESSURE_SENSOR_TYPE --The Differential pressure sensor.
+        ensure
+          Result = old DPS; 
+        end
+      GPS: PRESSURE_SENSOR_TYPE --The Gauge pressure sensor.
+        ensure
+          Result = old GPS;
+        end
+      SPS: PRESSURE_SENSOR_TYPE --The Sealed pressure sensor.
+        ensure
+          Result = old SPS;
+        end
+      VPS: PRESSURE_SENSOR_TYPE --The Vacuum pressure sensor.
+        ensure
+          Result = old VPS;
+        end
+    
+    invariant
+      index = 0 or index > 0; --All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    PRESSURE_SENSOR_TYPE client:(1) PRESSURE_SENSOR_TYPE
+    
+    class SENSOR_TYPE 
+    indexing
+      about: "This class represents typesafe implementation of sensor types.";
+      author: "Dragan Stosic";
+      version: "Revision: 1.00";
+    
+    feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+    feature
+      ACCEL_X: SENSOR_TYPE
+        ensure
+          Result = old ACCEL_X;
+        end
+      ACCEL_Y: SENSOR_TYPE
+        ensure
+          Result = old ACCEL_Y;
+        end
+      ACCEL_Z: SENSOR_TYPE
+        ensure
+          Result = old ACCEL_Z;
+        end
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      LIGHT: SENSOR_TYPE
+        ensure
+          Result = old LIGHT;
+        end
+      name: STRING
+        ensure
+          Result /= Void;
+        end
+      PRESS: SENSOR_TYPE
+        ensure
+          Result = old PRESS;
+        end
+      SOUND: SENSOR_TYPE
+        ensure
+          Result = old SOUND;
+        end
+      THERM: SENSOR_TYPE
+        ensure
+          Result = old THERM;
+        end
+      ULTRA: SENSOR_TYPE
+        ensure
+          Result = old ULTRA;
+        end
+    
+    invariant
+      index = 0 or index > 0;
+      count = 0 or count > 0;
+    end
+    
+    
+    class ULTRASONIC_SENSOR_TYPE 
+    indexing
+      about: "This class represents ultrasonic sensor types.";
+      author: "Dragan Stosic";
+      version: " Revision: 1.00";
+      
+      feature{NONE}
+      make -> theName: STRING
+        require
+          theName /= Void;
+        ensure
+          delta {count, index, name};
+          name = theName;
+          index = old(count);
+        end
+        
+    feature
+      count: INTEGER
+        ensure
+          Result /= Void;
+        end
+      index: INTEGER -- The index of ultrasonic sensor type.
+        ensure
+          Result /= Void;
+        end
+      name: STRING -- The name of ultrasonic sensor type.
+        ensure
+          Result /= Void;
+        end
+      getIndex: INTEGER --"What is the index for this enumerated type?"
+       ensure
+          Result == 0 or Result > 0;   
+       end
+     
+       getName: STRING --"What is the name for this enumerated type?"
+        ensure
+          Result /= Void;
+        end
+        
+      PROX: ULTRASONIC_SENSOR_TYPE -- The Proximity ultrasonic sensor.
+        ensure
+          Result = old PROX;
+        end
+      RANG: ULTRASONIC_SENSOR_TYPE -- The Ranging ultrasonic sensor.
+        ensure
+          Result = old RANG;
+        end
+
+    invariant
+      index = 0 or index > 0; -- All indices are greater than zero.
+      count = 0 or count > 0;
+    end
+    
+    ULTRASONIC_SENSOR_TYPE client:(1) ULTRASONIC_SENSOR_TYPE
+    
+  end
+   
+end
+
+
