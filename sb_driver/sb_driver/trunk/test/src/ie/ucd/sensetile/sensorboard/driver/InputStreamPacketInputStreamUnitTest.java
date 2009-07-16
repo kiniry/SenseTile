@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.sensorboard.driver.ByteArrayPacket;
@@ -59,7 +59,6 @@ public class InputStreamPacketInputStreamUnitTest {
     InputStream is = new ByteArrayInputStream(new byte[0]);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
     assertNotNull(pis);
-    assertTrue(pis instanceof Closeable);
   }
   
   @Test
@@ -99,7 +98,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
-    Packet[] array = new Packet[10];
+    SensorBoardPacket[] array = new SensorBoardPacket[10];
     assertEquals(1, pis.read(array));
     assertNotNull(array[0]);
   }
@@ -109,7 +108,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 3 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
-    Packet[] array = new Packet[10];
+    SensorBoardPacket[] array = new SensorBoardPacket[10];
     assertEquals(3, pis.read(array));
     assertNotNull(array[2]);
   }
@@ -119,7 +118,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 20 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
-    Packet[] array = new Packet[30];
+    SensorBoardPacket[] array = new SensorBoardPacket[30];
     assertEquals(20, pis.read(array, 3, 25));
     assertNotNull(array[22]);
   }

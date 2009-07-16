@@ -5,7 +5,7 @@
  */
 package ie.ucd.sensetile.sensorboard.driver;
 
-import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.BytePattern;
@@ -38,9 +38,8 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   static int bufferPackets = 6;
   static int validateMinimumPackets = 3;
   static int trimPackets = 2;
-  
   /*@
-    @ public invariant bufferPackets > 0;
+    @ public constraint bufferPackets == 6;
     @ public invariant 
     @   (validateMinimumPackets > 0) && 
     @   (validateMinimumPackets <= bufferPackets);
@@ -51,6 +50,9 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    * raw input stream
    */
   final private DataInputStream input;
+  /*@
+    @ public invariant input != null;
+  @*/
   
   /**
    * buffer
@@ -76,7 +78,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /*@
     @ requires bufferPackets > 0;
     @*/
-  public InputStreamPacketInputStream(InputStream is) {
+  public InputStreamPacketInputStream(/*@ non_null */ InputStream is) {
     // input stream
     this.input = new DataInputStream(is);
     // buffer
@@ -99,7 +101,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read(ie.ucd.sensetile.sensorboard.Packet[])
    */
-  public int read(Packet[] array) 
+  public int read(SensorBoardPacket[] array) 
       throws IOException, SenseTileException{
     return read(array, 0, array.length);
   }
@@ -107,7 +109,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read(ie.ucd.sensetile.sensorboard.Packet[], int, int)
    */
-  public int read(Packet[] array, int offset, int length) 
+  public int read(SensorBoardPacket[] array, int offset, int length) 
       throws IOException, SenseTileException{
     if (isEOF()) {
       return -1;
@@ -124,8 +126,8 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read()
    */
-  public Packet read() throws IOException, SenseTileException{
-    Packet[] array = new Packet[1];
+  public SensorBoardPacket read() throws IOException, SenseTileException{
+    SensorBoardPacket[] array = new SensorBoardPacket[1];
     readFully(array);
     return array[0];
   }
@@ -133,7 +135,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#readFully(ie.ucd.sensetile.sensorboard.Packet[])
    */
-  public void readFully(Packet[] array) 
+  public void readFully(SensorBoardPacket[] array) 
       throws IOException, SenseTileException{
     readFully(array, 0, array.length);
   }
@@ -141,7 +143,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#readFully(ie.ucd.sensetile.sensorboard.Packet[], int, int)
    */
-  public void readFully(Packet[] array, int offset, int length) 
+  public void readFully(SensorBoardPacket[] array, int offset, int length) 
       throws IOException, SenseTileException{
     if (isEOF()) {
       throw new EOFException();
@@ -252,7 +254,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       if (byteArray.length() < getPacketLength()) {
         return;
       }
-      Packet packet;
+      SensorBoardPacket packet;
       packet = readPacketFromBuffer();
       array.add(packet);
     } while (! array.isFull());
@@ -270,7 +272,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return true;
   }
   
-  private Packet readPacketFromBuffer() throws SenseTileException {
+  private SensorBoardPacket readPacketFromBuffer() throws SenseTileException {
     UnsignedByteArray raw = extractBuffer(getPacketLength());
     return ByteArrayPacket.createPacket(raw);
   }  
@@ -301,7 +303,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   //@ ensures \result > 0;
-  private int getPacketLength() {
+  private /*@ pure */ int getPacketLength() {
     return ByteArrayPacket.LENGTH;
   }
   
@@ -311,12 +313,12 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   
   private class ReturnPacketArray {
     
-    private Packet[] array; 
+    private SensorBoardPacket[] array; 
     private int offset; 
     private int length;
     private int internalOffset;
     
-    private ReturnPacketArray(Packet[] array, int offset, int length) {
+    private ReturnPacketArray(SensorBoardPacket[] array, int offset, int length) {
       this.array = array;
       this.offset = offset;
       this.length = length;
@@ -331,7 +333,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       return internalOffset - offset;
     }
     
-    public void add(Packet packet) {
+    public void add(SensorBoardPacket packet) {
       if (isFull()) {
         throw new IndexOutOfBoundsException();
       }

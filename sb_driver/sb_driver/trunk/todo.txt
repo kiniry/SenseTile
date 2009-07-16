@@ -1,0 +1,24 @@
+
+place into svn
+ junit libraries
+  make tags
+  copy to project kib
+ jmock libraries
+  make tags
+  copy to project kib
+
+create ant
+ unit tests
+ acceptance tests
+ esc java check
+ future: unit tests generation
+
+prepare testbench
+ configure cron
+  svn update
+  make (c code)
+  ant (java code)
+
+bugfixing
+ glibc fault
+ 
