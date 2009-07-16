@@ -1601,7 +1601,6 @@ component
           Result = old LIGHT;
         end
       
-     
       PRESS: SENSOR_TYPE
         ensure
           Result = old PRESS;

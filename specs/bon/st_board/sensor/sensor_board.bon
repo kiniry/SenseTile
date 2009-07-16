@@ -167,10 +167,16 @@ end
 -- SENSOR_TYPE cluster 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
 cluster_chart SENSOR_TYPE
-indexing
-  author: "Dragan Stosic";
-  keywords: "thermistor","pressure","light","accelerometer",
-            "sound","ultrasonic","type";
+"This class represents  sensor types. \
+\There are eight type of pressure sensors: \
+\a) THERM - The Thermistor sensor. \
+\b) LIGHT - The Light sensor. \
+\c) PRESS - The Pressure sensor. \
+\d) SOUND - The Sound sensor. \
+\e) ULTRA - The Ultrasonic sensor. \
+\f) ACCEL_X - Accelerometer sensor - X axe orientation. \
+\g) ACCEL_Y - Accelerometer sensor - Y axe orientation. \
+\h) ACCEL_Z - Accelerometer sensor - Z axe orientation. "
             
 class THERMISTOR_SENSOR_TYPE
 description
@@ -230,22 +236,7 @@ description
 \h) SMS - Speaker as microphone sensor. \
 \i) CCEM - Condenser, capacitor or electrostatic microphone sensor."
 end            
-class_chart THERMISTOR_SENSOR_TYPE
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-03 Dragan Stosic";
-  revised: ""
-explanation
-  "An enumerator which represents an \
-   \holder of types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
-command
-"Create all mentioned types."
-constraint
-   "All indices are greater than or equal zero and less than or equal 1."
-end           
+          
                      
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- SENSOR_CLUSTER cluster 
@@ -359,7 +350,22 @@ constraint
 \ The measurement temperature must be in appropriate range. "   
 end
 
-
+class_chart THERMISTOR_SENSOR_TYPE
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "An enumerator which represents an \
+   \holder of types."
+query
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
+command
+"Create all mentioned types."
+constraint
+   "All indices are greater than or equal zero and less than or equal 1."
+end 
 -- Informal pressure
 
 class_chart PRESSURE_SENSOR
