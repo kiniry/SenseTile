@@ -68,9 +68,6 @@ public class BytePattern {
    * found.
    */
   public int match(final byte[] raw) {
-    if (raw == null) {
-      return -1;
-    }
     return match(UnsignedByteArray.createFolding(raw));
   }
   

@@ -17,37 +17,39 @@ public interface SensorBoardPacket {
   int getTemperatureRaw();
   
   int getPressure();
-
+  
   int getPressureRaw();
-
+  
   int getLightLevel();
-
+  
   int getLighLevelRaw();
-
+  
   int getAccelerometerX();
-
+  
   int getAccelerometerXRaw();
-
+  
   int getAccelerometerY();
-
+  
   int getAccelerometerYRaw();
-
+  
   int getAccelerometerZ();
-
+  
   int getAccelerometerZRaw();
   
   // supply
-
+  
   int getSupplyVoltage();
-
+  
   int getSupplyVoltageRaw();
-
+  
   int getSupplyCurrent();
-
+  
   int getSupplyCurrentRaw();
   
   // ADC channels fragments
   
+  int[] getFastADC(int channel);
   
+  int[] getSlowADC(int channel);
   
 }

@@ -27,7 +27,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   /**
    * packet pattern
    */
-  public final static byte[] PATTERN = {
+  final static byte[] PATTERN = {
       (byte) 0xff, (byte) 0xee, 
       (byte) 0xff, (byte) 0xee, 
       (byte) 0xff, (byte) 0xee, 
@@ -178,6 +178,21 @@ public class ByteArrayPacket implements SensorBoardPacket {
     return raw.getUnsignedShort(PRESSURE_POSITION);
   }
   
+  /**
+   * ADC data
+   */
+  public final static int ADC_DATA_OFFSET = -1;
+  
+  public int[] getFastADC(int channel) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public int[] getSlowADC(int channel) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+  
   private final UnsignedByteArray raw;
   
   ByteArrayPacket(UnsignedByteArray raw) {
@@ -245,4 +260,5 @@ public class ByteArrayPacket implements SensorBoardPacket {
           "current is" + current.getIndex() + ".");
     }
   }
+
 }

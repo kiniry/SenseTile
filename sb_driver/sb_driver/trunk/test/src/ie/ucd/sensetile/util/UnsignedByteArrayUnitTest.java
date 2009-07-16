@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class UnsignedByteArrayUnitTest {
   
-  byte[] ba;
+  byte[] ba = new byte[0];
   
   @Before
   public void setUp() throws Exception {
@@ -97,6 +97,18 @@ public class UnsignedByteArrayUnitTest {
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
     uba.setByte(2, (byte) 1);
     assertEquals(1, ba[0]);
+  }
+  
+  @Test
+  public void testCreateUnsignedByteArrayFolding(){
+    int offset = 3;
+    int length = 3;
+    ba[4] = 1;
+    UnsignedByteArray ubaTemp = UnsignedByteArray.create(ba);
+    UnsignedByteArray uba = 
+      UnsignedByteArray.createFolding(ubaTemp, offset, length);
+    assertEquals(1, uba.getByte(4));
+    assertEquals(1, uba.getByte(-2));
   }
   
   @Test
@@ -212,5 +224,12 @@ public class UnsignedByteArrayUnitTest {
     uba = UnsignedByteArray.create(ba, 5, 10);
     assertEquals(5, uba.getEndOffset());
   }
+  
+  @Test
+  public void testGetArray() {
+    UnsignedByteArray uba = UnsignedByteArray.create(ba);
+    assertEquals(ba, uba.getArray());
+  }
+  
   
 }

@@ -2,16 +2,11 @@ package ie.ucd.sensetile.sensorboard.driver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.driver.ByteArrayPacket;
-import ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStream;
+import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 
 import java.io.ByteArrayInputStream;
-import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +22,7 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @BeforeClass 
   static public void initRawPacketArray() {
-    InputStreamPacketInputStreamUnitTest.rawPacketArray = new byte[ByteArrayPacket.LENGTH * 50];
+    InputStreamPacketInputStreamUnitTest.rawPacketArray = new byte[ByteArrayPacket.LENGTH * 200];
     byte[] array = rawPacketArray;
     for (
         int packetIndex = 0; 
@@ -59,6 +54,35 @@ public class InputStreamPacketInputStreamUnitTest {
     InputStream is = new ByteArrayInputStream(new byte[0]);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
     assertNotNull(pis);
+  }
+  
+  @Test
+  public void testNotValidLongRead() throws IOException, SenseTileException{
+    InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    assertEquals(0, pis.read(packets));
+  }
+  
+  @Test (expected = EOFException.class)
+  public void testNotValidLongFullRead() throws IOException, SenseTileException{
+    InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    pis.readFully(packets);
+  }
+  
+  @Test
+  public void testNotValidLongThanValidFullRead() throws IOException, SenseTileException{
+    byte[] invalid = new byte[ByteArrayPacket.LENGTH * 100];
+    byte[] valid = prepareRawPacketArray(ByteArrayPacket.LENGTH * 100 + 100, 50);
+    byte[] total = new byte[invalid.length + valid.length];
+    System.arraycopy(invalid, 0, total, 0, invalid.length);
+    System.arraycopy(valid, 0, total, invalid.length, valid.length);
+    InputStream is = new ByteArrayInputStream(total);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    pis.readFully(packets);
   }
   
   @Test
@@ -114,13 +138,55 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testReadArray20() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 20 + 100, 50);
+  public void testReadArray20ToEmpty() throws IOException, SenseTileException {
+    final int limit = 20;
+    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = new InputStreamPacketInputStream( is );
     SensorBoardPacket[] array = new SensorBoardPacket[30];
-    assertEquals(20, pis.read(array, 3, 25));
-    assertNotNull(array[22]);
+    final int offset = 3;
+    assertEquals(limit, pis.read(array, 3, 25));
+    assertNotNull(array[offset]);
+    assertNotNull(array[limit + offset - 1]);
+  }
+  
+  @Test
+  public void testReadArray25ToPartial() throws IOException, SenseTileException {
+    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
+    InputStream is = new ByteArrayInputStream(rawPacket);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    final int offset = 3;
+    final int length = 25;
+    assertEquals(length, pis.read(array, 3, 25));
+    assertNotNull(array[offset]);
+    assertNotNull(array[offset + length - 1]);
+  }
+  
+  @Test
+  public void testReadFullyArray20ToEmpty() throws IOException, SenseTileException {
+    final int limit = 20;
+    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
+    InputStream is = new ByteArrayInputStream(rawPacket);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    final int offset = 3;
+    assertEquals(limit, pis.read(array, 3, limit));
+    assertNotNull(array[offset]);
+    assertNotNull(array[limit + offset - 1]);
+  }
+  
+  @Test
+  public void testReadFullyArray25ToPartial() throws IOException, SenseTileException {
+    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
+    InputStream is = new ByteArrayInputStream(rawPacket);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    final int offset = 3;
+    final int length = 25;
+    pis.readFully(array, offset, length);
+    assertNotNull(array[offset]);
+    assertNotNull(array[offset + length - 1]);
   }
   
   @Test
@@ -150,6 +216,15 @@ public class InputStreamPacketInputStreamUnitTest {
     pis.read();
     pis.read();
     pis.read();
+    pis.read();
+  }
+  
+  @Test (expected = IOException.class)
+  public void testClose() throws IOException, SenseTileException {
+    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 5, 0);
+    InputStream is = new ByteArrayInputStream(rawPacket);
+    PacketInputStream pis = new InputStreamPacketInputStream( is );
+    pis.close();
     pis.read();
   }
   

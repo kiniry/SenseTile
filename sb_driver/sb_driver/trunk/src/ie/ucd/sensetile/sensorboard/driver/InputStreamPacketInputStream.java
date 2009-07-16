@@ -66,6 +66,11 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   final private BytePattern pattern;
   
   /**
+   * flag: input stream closed
+   */
+  private boolean isClose;
+  
+  /**
    * flag: input stream EOF
    */
   private boolean isEOF;
@@ -111,6 +116,9 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    */
   public int read(SensorBoardPacket[] array, int offset, int length) 
       throws IOException, SenseTileException{
+    if (isClose()) {
+      throw new IOException();
+    }
     if (isEOF()) {
       return -1;
     }
@@ -145,6 +153,9 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    */
   public void readFully(SensorBoardPacket[] array, int offset, int length) 
       throws IOException, SenseTileException{
+    if (isClose()) {
+      throw new IOException();
+    }
     if (isEOF()) {
       throw new EOFException();
     }
@@ -160,6 +171,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#close()
    */
   public void close() throws IOException {
+    isClose = true;
     input.close();
   }
   
@@ -233,20 +245,20 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     if (length > raw.length) {
       throw new IndexOutOfBoundsException();
     }
-    if (byteArray.length() >= length) {
+    if (length - byteArray.length() <= 0) {
       return;
     }
     int begin = byteArray.getBeginOffset();
     int end = byteArray.getEndOffset();
     int readEnd = begin + length % ByteArrayPacket.LENGTH;
     if(readEnd > end) {
-      input.readFully(raw, end, length);
+      input.readFully(raw, end, readEnd - end);
     } else {
       input.readFully(raw, end, raw.length - end);
       input.readFully(raw, 0, readEnd);
     }
     byteArray = UnsignedByteArray.create(
-        byteArray, 0, byteArray.length() + length);
+        byteArray, 0, length);
   }
   
   private void bufferToReturn(ReturnPacketArray array) throws SenseTileException {
@@ -291,6 +303,10 @@ public class InputStreamPacketInputStream implements PacketInputStream {
         byteArray, length, byteArray.length() - length);
   }
   
+  private boolean isClose() {
+    return isClose;
+  }
+  
   private boolean isEOF() {
     return isEOF;
   }
@@ -311,7 +327,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return ByteArrayPacket.PATTERN;
   }
   
-  private class ReturnPacketArray {
+  private static class ReturnPacketArray {
     
     private SensorBoardPacket[] array; 
     private int offset; 
@@ -325,15 +341,15 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       this.internalOffset = offset;
     }
     
-    public int toBeRead() {
+    private int toBeRead() {
       return offset + length - internalOffset;
     }
     
-    public int read() {
+    private int read() {
       return internalOffset - offset;
     }
     
-    public void add(SensorBoardPacket packet) {
+    private void add(SensorBoardPacket packet) {
       if (isFull()) {
         throw new IndexOutOfBoundsException();
       }
@@ -341,7 +357,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       internalOffset++;
     }
     
-    public boolean isFull() {
+    private boolean isFull() {
       if (internalOffset - offset == length) {
         return true;
       }
