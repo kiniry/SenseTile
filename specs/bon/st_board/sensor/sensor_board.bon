@@ -244,7 +244,7 @@ query
 command
 "Create all mentioned types."
 constraint
-   "All indices are greater than zero."
+   "All indices are greater than or equal zero and less than or equal 1."
 end           
                      
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
