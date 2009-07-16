@@ -3,7 +3,7 @@ package sensor;
 /**
  * Class implementation of sensor.MissingSensorException. 
  * Exception is used during measurement operations.
- * @title         "MIssingTypeException"
+ * @title         "MissingSensorException"
  * @date          "2009/07/16 11:05:33"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
