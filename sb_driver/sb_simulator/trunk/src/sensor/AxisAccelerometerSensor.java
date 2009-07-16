@@ -1,44 +1,48 @@
 package sensor;
 
+
 import sensor.type.SensorType;
 
 
 public final class AxisAccelerometerSensor implements ISensor 
 {
  
-	private  transient int value= 15000;//@ in mod_value;
+	//@spec_public
+	private   transient int value= 15000;//@ in mod_value;
 	  //@ represents mod_value <- value;
 	
-	private transient boolean enabled;//@ in mod_enabled;
+	//@spec_public
+	private  transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
-	private final static transient int MAX = 15300;
+	//@spec_public
+	private  final static transient int MAX = 15300;
 	  //@ represents mod_max <-MAX;
 	
 	private final static transient int MIN = 14700;
 	  //@ represents mod_min <-MIN;
 	
-	private transient int index = 0;//@ in mod_index;
+	private /*@spec_public@*/ transient int index = 0;//@ in mod_index;
 	  //@ represents mod_index <- index;
 	
 	//@spec_public non_null
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 		
-	//@non_null  
+	//@spec_public non_null  
 	private final transient  MeasurementUnit a_unit = 
 		MeasurementUnit.MVOLT;
 	
-	//@non_null
+	//@spec_public non_null
 	private final transient  SensorType a_sensType; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
 	
 	  //@ constraint mod_max == 15300;
 	  //@ constraint mod_min == 14700;
 	
-	  /*@ private invariant (mod_type == SensorType.ACCEL_X ||
+	  /*@ private invariant( mod_type == SensorType.ACCEL_X ||
 	    @           		 mod_type == SensorType.ACCEL_Y ||
-	    @           		 mod_type ==  SensorType.ACCEL_Z);
+	    @           		 mod_type ==  SensorType.ACCEL_Z );
 	    @*/
 	  
 	  //@ private invariant a_unit == MeasurementUnit.MVOLT;
@@ -48,13 +52,13 @@ public final class AxisAccelerometerSensor implements ISensor
 	   * Create component in initial state.
 	   */
 	  /*@ requires (type == SensorType.ACCEL_X ||
-	    @          type ==  SensorType.ACCEL_Y ||
+	    @          type == SensorType.ACCEL_Y ||
 	    @          type ==  SensorType.ACCEL_Z);
 	    @ assignable  mod_enabled, mod_set, mod_set[*], mod_type; 
 	    @ ensures mod_type == type;
 	    @ ensures mod_enabled == true;
 	    @*/
-	  public AxisAccelerometerSensor(final /*@non_null@*/ int[] arr, 
+	  public  AxisAccelerometerSensor(final /*@non_null@*/ int[] arr, 
 			  final /*@non_null@*/ SensorType type) 
 	  {
 		  enabled = true;
@@ -97,10 +101,11 @@ public final class AxisAccelerometerSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	
 	  /*@ also
-	    @ ensures \result == SensorType.ACCEL_X ||
-	    @         \result == SensorType.ACCEL_X ||
-	    @         \result == SensorType.ACCEL_Z;
+	    @ ensures (\result == SensorType.ACCEL_X ||
+	    @          \result == SensorType.ACCEL_Y ||
+	    @          \result == SensorType.ACCEL_Z);
 	    @*/
 	  public SensorType getSensorType()
 	  {

@@ -5,9 +5,11 @@ import sensor.type.UltrasonicSensorType;
 
 public final class UltrasonicSensor implements ISensor 
 {
+	//@spec_public
 	private  transient int value= -44;//@ in mod_value;
 	  //@ represents mod_value <- value;
 	
+	//@spec_public
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
@@ -17,6 +19,7 @@ public final class UltrasonicSensor implements ISensor
 	private final static transient int MIN = -51;
 	  //@ represents mod_min <-MIN;
 	
+	//@spec_public
 	private transient int index = 0;//@ in mod_index;
 	  //@ represents mod_index <- index;
 	
@@ -32,7 +35,7 @@ public final class UltrasonicSensor implements ISensor
 	private final transient  MeasurementUnit a_unit = 
 		MeasurementUnit.DECIBEL;
 	
-	//@non_null
+	//@spec_public non_null
 	private final transient  SensorType a_sensType = 
 		SensorType.ULTRA; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
