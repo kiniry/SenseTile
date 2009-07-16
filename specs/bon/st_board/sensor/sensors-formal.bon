@@ -1185,9 +1185,11 @@ component
       version: "Revision: 1.00";
       
     feature{NONE}
-      make -> theName: STRING
+      make
+        -> theName: STRING
         require
           theName /= Void;
+          count <= 3;
         ensure
           delta {count, index, name};
           name = theName;
@@ -1212,7 +1214,7 @@ component
           
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result == 0 or Result > 0;   
+          Result >= 0 and  Result <= 3;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1239,8 +1241,10 @@ component
         end
     
     invariant
-      index = 0 or index > 0; -- All indices are greater than zero.
-      count = 0 or count > 0;
+      index >= 0; --All indices are greater than or equal 0 and less than or equal 3.
+      index <= 3;
+      count >= 0;
+      count <= 4;
     end
     
     ACCELEROMETER_SENSOR_TYPE client:(1) ACCELEROMETER_SENSOR_TYPE
@@ -1342,7 +1346,7 @@ component
         end
     
     invariant
-      index >= 0; -- All indices are greater than or zero and less than or equal 7.
+      index >= 0; -- All indices are greater than or equal 0 and less than or equal 7.
       index <= 7;
       count >= 0;
       count <= 8;
@@ -1472,7 +1476,7 @@ component
         end
 
     invariant
-      index >= 0; -- All indices are greater than or equal zero and less than or equal 1.
+      index >= 0; -- All indices are greater than or equal 0 and less than or equal 1.
       index <= 1;
       count >= 0;
       count <= 2;
@@ -1565,7 +1569,7 @@ component
           Result = old ULTRA;
         end
     
-    invariant  -- All indices are greater than or 0 and less than or equal 7.
+    invariant  -- All indices are greater than or equal 0 and less than or equal 7.
       index >= 0;
       index <= 7;
       count >= 0;
