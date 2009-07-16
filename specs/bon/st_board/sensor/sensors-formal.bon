@@ -1427,6 +1427,7 @@ component
       make -> theName: STRING
         require
           theName /= Void;
+          count <= 1;
         ensure
           delta {count, index, name};
           name = theName;
@@ -1448,7 +1449,7 @@ component
         end
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result == 0 or Result > 0;   
+          Result => 0 and Result <= 1;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1466,8 +1467,10 @@ component
         end
 
     invariant
-      index = 0 or index > 0; -- All indices are greater than zero.
-      count = 0 or count > 0;
+      index >= 0; -- All indices are greater than or equal zero and less than or equal 1.
+      index <= 1;
+      count >= 0;
+      count <= 2;
     end
     
     ULTRASONIC_SENSOR_TYPE client:(1) ULTRASONIC_SENSOR_TYPE
@@ -1564,8 +1567,6 @@ component
       count <= 8;
     end
     
-    
-  end
   end
    
 end
