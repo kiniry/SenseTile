@@ -1106,7 +1106,7 @@ component
           Result = old PTC;
         end
         
-    invariant  -- All indices are greater than or equal zero and less than or equal 1.
+    invariant  -- All indices are greater than or equal 0 and less than or equal 1.
       index >= 0;
       index <= 1;
       count >= 0;
@@ -1355,6 +1355,7 @@ component
       make -> theName: STRING
         require
           theName /= Void;
+          count <= 4;
         ensure
           delta {count, index, name};
           name = theName;
@@ -1373,7 +1374,7 @@ component
       
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result == 0 or Result > 0;   
+          Result >= 0 and Result <= 4;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1407,78 +1408,13 @@ component
         end
     
     invariant
-      index = 0 or index > 0; --All indices are greater than zero.
-      count = 0 or count > 0;
+      index >= 0; --"All indices are greater than or equal 0 and less than or equal 4.
+      index <= 4;
+      count >= 0;
+      count <= 5;
     end
     
     PRESSURE_SENSOR_TYPE client:(1) PRESSURE_SENSOR_TYPE
-    
-    class SENSOR_TYPE 
-    indexing
-      about: "This class represents typesafe implementation of sensor types.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";
-    
-    feature{NONE}
-      make -> theName: STRING
-        require
-          theName /= Void;
-        ensure
-          delta {count, index, name};
-          name = theName;
-          index = old(count);
-        end
-        
-    feature
-      ACCEL_X: SENSOR_TYPE
-        ensure
-          Result = old ACCEL_X;
-        end
-      ACCEL_Y: SENSOR_TYPE
-        ensure
-          Result = old ACCEL_Y;
-        end
-      ACCEL_Z: SENSOR_TYPE
-        ensure
-          Result = old ACCEL_Z;
-        end
-      count: INTEGER
-        ensure
-          Result /= Void;
-        end
-      index: INTEGER
-        ensure
-          Result /= Void;
-        end
-      LIGHT: SENSOR_TYPE
-        ensure
-          Result = old LIGHT;
-        end
-      name: STRING
-        ensure
-          Result /= Void;
-        end
-      PRESS: SENSOR_TYPE
-        ensure
-          Result = old PRESS;
-        end
-      SOUND: SENSOR_TYPE
-        ensure
-          Result = old SOUND;
-        end
-      THERM: SENSOR_TYPE
-        ensure
-          Result = old THERM;
-        end
-      ULTRA: SENSOR_TYPE
-        ensure
-          Result = old ULTRA;
-        end
-    
-    invariant
-      index = 0 or index > 0;
-      count = 0 or count > 0;
-    end
     
     
     class ULTRASONIC_SENSOR_TYPE 
@@ -1572,7 +1508,7 @@ component
     
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result => 0 && Result <= 7;   
+          Result => 0 and Result <= 7;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1621,7 +1557,7 @@ component
           Result = old ULTRA;
         end
     
-    invariant  -- All indices are greater than or zero and less than or equal 7.
+    invariant  -- All indices are greater than or 0 and less than or equal 7.
       index >= 0;
       index <= 7;
       count >= 0;
