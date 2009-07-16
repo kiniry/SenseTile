@@ -32,10 +32,7 @@ public class ByteArrayPacketUnitTest {
   
   @Test
   public void testConstructorNullArrayNotChecked() {
-    try {
-      new ByteArrayPacket(null);
-    } catch (Exception e) {
-    }
+    new ByteArrayPacket(null);
   }
   
   @Test
