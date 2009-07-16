@@ -1,8 +1,7 @@
 package sensor.type;
 
 /**
- * This class represents typesafe implementation of
- * sensor types.
+ * This class represents an implementation of sensor types.
  * @title         "SensorType"
  * @date          "2009/07/05 11:05:33"
  * @author        "Dragan Stosic"
@@ -22,10 +21,11 @@ public final class SensorType {
 	
    // "All indices are greater than zero."
 
-   //@ invariant index == 0 || index > 0;
-   //@ static invariant count == 0 || count > 0;
+   //@ invariant index >= 0 && index <= 7;
+   //@ static invariant count >= 0 && count <= 8;
 	
-   /*@ assignable index, name, count;
+   /*@ requires  count <= 7;
+     @ assignable index, name, count;
 	 @ ensures name == theName;
 	 @ ensures index == \old(count);
 	 @*/
@@ -70,7 +70,7 @@ public final class SensorType {
 	 * @return "What is the index 
 	 * for this enumerated type?"
 	 */	
-	//@ ensures \result == 0 || \result > 0;
+	//@ ensures \result >= 0 && \result <= 7;
 	public /*@pure*/ int  getIndex() 
 	{
 		return index;

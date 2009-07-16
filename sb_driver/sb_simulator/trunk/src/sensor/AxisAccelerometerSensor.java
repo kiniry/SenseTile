@@ -36,9 +36,9 @@ public final class AxisAccelerometerSensor implements ISensor
 	  //@ constraint mod_max == 15300;
 	  //@ constraint mod_min == 14700;
 	
-	  /*@ private invariant mod_type == SensorType.ACCEL_X ||
-	    @           		mod_type == SensorType.ACCEL_Y ||
-	    @           		mod_type ==  SensorType.ACCEL_Z;
+	  /*@ private invariant (mod_type == SensorType.ACCEL_X ||
+	    @           		 mod_type == SensorType.ACCEL_Y ||
+	    @           		 mod_type ==  SensorType.ACCEL_Z);
 	    @*/
 	  
 	  //@ private invariant a_unit == MeasurementUnit.MVOLT;
@@ -47,9 +47,9 @@ public final class AxisAccelerometerSensor implements ISensor
 	  /**
 	   * Create component in initial state.
 	   */
-	  /*@ requires type == SensorType.ACCEL_X ||
-	    @          type == SensorType.ACCEL_Y ||
-	    @          type ==  SensorType.ACCEL_Z;
+	  /*@ requires (type == SensorType.ACCEL_X ||
+	    @          type ==  SensorType.ACCEL_Y ||
+	    @          type ==  SensorType.ACCEL_Z);
 	    @ assignable  mod_enabled, mod_set, mod_set[*], mod_type; 
 	    @ ensures mod_type == type;
 	    @ ensures mod_enabled == true;
@@ -97,6 +97,11 @@ public final class AxisAccelerometerSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	  /*@ also
+	    @ ensures \result == SensorType.ACCEL_X ||
+	    @         \result == SensorType.ACCEL_X ||
+	    @         \result == SensorType.ACCEL_Z;
+	    @*/
 	  public SensorType getSensorType()
 	  {
 		  return a_sensType;

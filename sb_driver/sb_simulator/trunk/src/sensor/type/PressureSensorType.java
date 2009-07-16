@@ -21,10 +21,11 @@ public final class PressureSensorType {
 
    // "All indices are greater than zero."
 
-   //@ invariant index == 0 || index > 0;
-   //@ static invariant count == 0 || count > 0;
+	//@ invariant index >= 0 && index <= 4;
+	//@ static invariant count >= 0 && count <= 5;
 	
-   /*@ assignable index, name, count;
+   /*@ requires  count <= 4;
+     @ assignable index, name, count;
 	 @ ensures name == theName;
 	 @ ensures index == \old(count);
 	 @*/
@@ -58,7 +59,7 @@ public final class PressureSensorType {
 	 * @return "What is the index 
 	 * for this enumerated type?"
 	 */	
-	//@ ensures \result == 0 || \result > 0;
+	//@ ensures \result >= 0 && \result <= 4;
 	public /*@pure*/ int  getIndex() 
 	{
 		return index;

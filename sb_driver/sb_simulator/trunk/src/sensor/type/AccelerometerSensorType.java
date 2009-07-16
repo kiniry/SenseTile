@@ -1,7 +1,7 @@
 package sensor.type;
 
 /**
- * This class represents typesafe implementation of accelerometer sensor types.
+ * This class represents accelerometer sensor types.
  * @title         "MotionSensorType"
  * @date          "2009/07/05 11:05:33"
  * @author        "Dragan Stosic"

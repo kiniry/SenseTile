@@ -112,6 +112,8 @@ public final class LightSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	  //@also
+	  //@ensures \result == SensorType.LIGHT;
 	  public SensorType getSensorType()
 	  {
 		  return a_sensType;

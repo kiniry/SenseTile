@@ -102,6 +102,8 @@ public final class UltrasonicSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	  //@also
+	  //@ensures \result == SensorType.ULTRA;
 	  public SensorType getSensorType()
 	  {
 		  return a_sensType;

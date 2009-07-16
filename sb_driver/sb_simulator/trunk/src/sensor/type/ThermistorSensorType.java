@@ -19,12 +19,13 @@ public final class ThermistorSensorType {
     
 	private  static/*@spec_public@*/ int count = 0;
 	
-   // "All indices are greater than zero."
+   // "All indices are greater than or equal zero and less than or equal 1."
 
-   //@ invariant index == 0 || index > 0;
-   //@ static invariant count == 0 || count > 0;
+	//@ invariant index >= 0 && index <= 1;
+	//@ static invariant count >= 0 && count <= 2;
 	
-   /*@ assignable index, name, count;
+   /*@ requires  count <= 1;
+     @ assignable index, name, count;
 	 @ ensures name == theName;
 	 @ ensures index == \old(count);
 	 @*/
@@ -50,7 +51,7 @@ public final class ThermistorSensorType {
 	 * @return "What is the index 
 	 * for this enumerated type?"
 	 */	
-	//@ ensures \result == 0 || \result > 0;
+	//@ ensures \result >= 0 && \result <= 1;
 	public /*@pure*/ int  getIndex() 
 	{
 		return index;

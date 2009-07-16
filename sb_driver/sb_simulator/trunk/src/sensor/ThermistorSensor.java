@@ -126,6 +126,8 @@ public final class ThermistorSensor implements ISensor
 	 * The {@link sensor.Isensor#getSensorType()}
 	 * specification.
 	 */
+	 //@also
+	 //@ensures \result == SensorType.THERM;
 	 public SensorType getSensorType()
 	 {
 		 return a_sensType;

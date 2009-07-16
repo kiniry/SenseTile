@@ -103,6 +103,8 @@ public final class SoundSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	  //@also
+	  //@ensures \result == SensorType.SOUND;
 	  public SensorType getSensorType()
 	  {
 		  return a_sensType;

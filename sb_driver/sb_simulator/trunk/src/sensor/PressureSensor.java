@@ -112,6 +112,8 @@ public final class PressureSensor implements ISensor
 	  * The {@link sensor.Isensor#getSensorType()}
 	  * specification.
 	  */
+	  //@also
+	  //@ensures \result == SensorType.PRESS;
 	  public SensorType getSensorType()
 	  {
 		  return a_sensType;
