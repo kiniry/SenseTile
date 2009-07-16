@@ -1559,12 +1559,12 @@ component
           Result /= Void;
         end
       
-      index: INTEGER
+      index: INTEGER -- The index of sensor type.
         ensure
           Result /= Void;
         end
         
-      name: STRING
+      name: STRING -- The name of  sensor type.
         ensure
           Result /= Void;
         end
@@ -1580,43 +1580,43 @@ component
           Result /= Void;
         end
       
-      ACCEL_X: SENSOR_TYPE
+      ACCEL_X: SENSOR_TYPE -- Accelerometer sensor - X axe orientation.
         ensure
           Result = old ACCEL_X;
         end
         
-      ACCEL_Y: SENSOR_TYPE
+      ACCEL_Y: SENSOR_TYPE -- Accelerometer sensor - Y axe orientation.
         ensure
           Result = old ACCEL_Y;
         end
       
-      ACCEL_Z: SENSOR_TYPE
+      ACCEL_Z: SENSOR_TYPE  -- Accelerometer sensor - Z axe orientation.
         ensure
           Result = old ACCEL_Z;
         end
       
             
-      LIGHT: SENSOR_TYPE
+      LIGHT: SENSOR_TYPE -- The Light sensor.
         ensure
           Result = old LIGHT;
         end
       
-      PRESS: SENSOR_TYPE
+      PRESS: SENSOR_TYPE -- The Pressure sensor.
         ensure
           Result = old PRESS;
         end
       
-      SOUND: SENSOR_TYPE
+      SOUND: SENSOR_TYPE -- The Sound sensor.
         ensure
           Result = old SOUND;
         end
       
-      THERM: SENSOR_TYPE
+      THERM: SENSOR_TYPE -- The Thermistor sensor.
         ensure
           Result = old THERM;
         end
       
-      ULTRA: SENSOR_TYPE
+      ULTRA: SENSOR_TYPE -- The Ultrasonic sensor.
         ensure
           Result = old ULTRA;
         end
