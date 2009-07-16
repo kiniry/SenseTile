@@ -548,5 +548,5 @@ query
 command
 "Create all mentioned types."
 constraint
- "All indices are greater than zero."
+ "All indices are greater than or zero and less than or equal 7."
 end

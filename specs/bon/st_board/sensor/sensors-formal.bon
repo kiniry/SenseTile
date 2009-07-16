@@ -1252,14 +1252,17 @@ component
       version: "Revision: 1.00";
      
      feature{NONE}
-      make -> theName: STRING
+      make
+        -> theName: STRING
         require
           theName /= Void;
+          count <= 7;
         ensure
           delta {count, index, name};
           name = theName;
           index = old(count);
         end
+        
     feature
       index: INTEGER --The index of sound sensor type.
         ensure
@@ -1275,7 +1278,7 @@ component
         end
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result == 0 or Result > 0;   
+          Result => 0 and Result <= 7;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1339,8 +1342,10 @@ component
         end
     
     invariant
-      index = 0 or index > 0; -- All indices are greater than zero.
-      count = 0 or count > 0;
+      index >= 0; -- All indices are greater than or zero and less than or equal 7.
+      index <= 7;
+      count >= 0;
+      count <= 8;
     end
     
     SOUND_SENSOR_TYPE client:(1) SOUND_SENSOR_TYPE
