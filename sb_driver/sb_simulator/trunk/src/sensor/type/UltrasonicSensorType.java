@@ -19,7 +19,7 @@ public  final class UltrasonicSensorType {
     
 	private static/*@spec_public@*/ int count = 0;
 
-	// "All indices are greater than or equal zero and less than or equal 1."
+	// "All indices are greater than or equal 0 and less than or equal 1."
 
 	//@ invariant index >= 0 && index <= 1;
 	//@ static invariant count >= 0 && count <= 2;

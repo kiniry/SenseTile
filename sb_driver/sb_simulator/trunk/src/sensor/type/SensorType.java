@@ -19,7 +19,7 @@ public final class SensorType {
     
 	private  static/*@spec_public@*/ int count = 0;
 	
-   // "All indices are greater than zero."
+   // "All indices are greater than or equal 0 and less than or equal 7."
 
    //@ invariant index >= 0 && index <= 7;
    //@ static invariant count >= 0 && count <= 8;
@@ -62,7 +62,7 @@ public final class SensorType {
 	public static final  SensorType ACCEL_Y = 
 		 new SensorType("ACCEL_Y");
 	
-	/** Accelerometer sensor - Z axe orientation..*/
+	/** Accelerometer sensor - Z axe orientation.*/
 	public static final  SensorType ACCEL_Z = 
 		 new SensorType("ACCEL_Z");
 	

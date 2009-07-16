@@ -19,7 +19,7 @@ public final class PressureSensorType {
     
 	private static/*@spec_public*/ int count = 0;
 
-   // "All indices are greater than zero."
+	// "All indices are greater than or equal 0 and less than or equal 4."
 
 	//@ invariant index >= 0 && index <= 4;
 	//@ static invariant count >= 0 && count <= 5;

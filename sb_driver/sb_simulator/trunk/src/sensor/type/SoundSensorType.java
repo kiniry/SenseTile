@@ -19,7 +19,7 @@ public final class SoundSensorType {
     
 	private static/*@spec_public@*/ int count = 0;
 
-	// "All indices are greater than or zero and less than or equal 7."
+	// "All indices are greater than or equal 0 and less than or equal 7."
 
 	//@ invariant index >= 0 && index <= 7;
 	//@ static invariant count >= 0 && count <= 8;
