@@ -19,15 +19,16 @@ public final class LightSensorType {
     
 	private static/*@spec_public@*/ int count = 0;
 
-	// "All indices are greater than zero."
+    // "All indices are greater than or equal 0 and less than or equal 3."
 	
-	//@ invariant index == 0 || index > 0;
-	//@ static invariant count == 0 || count > 0;
+	//@ invariant index >= 0 && index <= 3;
+	//@ static invariant count >= 0 && count <= 4;
 	
-    /*@ assignable index, name, count;
-	  @ ensures name == theName;
-	  @ ensures index == \old(count);
-	  @*/
+   /*@ requires  count <= 3;
+     @ assignable index, name, count;
+	 @ ensures name == theName;
+	 @ ensures index == \old( count );
+	 @*/
 	private LightSensorType(final /*@non_null*/String theName) 
 	{
 		name = theName;
@@ -54,7 +55,7 @@ public final class LightSensorType {
 	 * @return "What is the index 
 	 * for this enumerated type?"
 	 */	
-	//@ ensures \result == 0 || \result > 0;
+	//@ ensures \result >= 0 && \result <= 3;
 	public /*@pure*/ int  getIndex() 
 	{
 		return index;
