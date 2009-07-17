@@ -39,8 +39,7 @@ public final class PressureSensor implements ISensor
 	//@spec_public non_null
 	private final transient  SensorType a_sensType = 
 		SensorType.PRESS; //@ in mod_type;
-	//@ represents mod_type <-a_sensType;
-	
+	  //@ represents mod_type <-a_sensType;
 	
 	  //@ constraint mod_max == 115000;
 	  //@ constraint mod_min == 15000;
@@ -48,20 +47,30 @@ public final class PressureSensor implements ISensor
 	  //@ private invariant mod_type == SensorType.PRESS;
 	  //@ private invariant a_type == PressureSensorType.APS;
 	  //@ private invariant a_unit == MeasurementUnit.PASCAL;
-	  
-	  //@ public invariant mod_min <= mod_value && mod_value <= mod_max;
-	  
 	
 	  /**
 	   * Create component in initial state.
 	   */
-	  //@ assignable  mod_enabled, mod_set, mod_set[*];
-	  //@ ensures mod_enabled == true;
+	/*@ assignable  mod_enabled, mod_set, mod_set[*];
+      @ ensures mod_enabled == true;
+      @ ensures (\forall int i; 0 <= i && i < arr.length;
+      @          arr[i] == a_set[i]);
+      @*/
 	  public PressureSensor(final /*@non_null@*/ int[] arr) 
 	  {
 		  enabled = true;
 		  a_set = new int[arr.length];
-		  System.arraycopy(arr, 0, a_set, 0, arr.length);
+		  int i = 0;
+		/*@ loop_invariant
+		  @ 0 <= i  && i<= arr.length &&
+	      @ (\forall int j; 0 <= j && j < i; a_set[j] == arr[j]);
+	      @ decreases arr.length - i;
+	      @*/
+	      while (i >=0 && i< arr.length ) 
+	      {
+	         a_set[i] = arr[i];
+	         i++;
+	      }
 	  }
 	    	  
 	  /**
