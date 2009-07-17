@@ -486,3 +486,32 @@ end
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- SENSOR_BOARD ---> cluster chart SENSOR ---> classes  
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class_chart THERMISTOR_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of NTC thermistor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+
+"Measured temperature must be in temperture range. \
+\Maximum teperature must be as initial maximum temperature. \
+\Minimum teperature must be as initial minimum temperature. \
+\The Thermistor type is NTC. \
+\The measurement temperature must be in appropriate range. \
+\The measurement unit is CELSIUS."   
+end
