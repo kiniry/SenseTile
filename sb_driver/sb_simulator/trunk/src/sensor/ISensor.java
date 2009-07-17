@@ -76,7 +76,7 @@ public interface ISensor {
 	   * Which type of sensor are you?
 	   * @return mod_type - sensor type.
 	   */
-	  //@ ensures \result instanceof SensorType;
+	  //@ ensures \result == mod_type;
 	  /*@ pure*/ SensorType getSensorType();
 		
 }
