@@ -4,8 +4,7 @@
 % $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
 %
 
-\documentclass[times,10pt,twocolumn]{article} 
-\usepackage{latex8}
+\documentclass{article} 
 \usepackage{times}
 
 \usepackage{ifpdf}
@@ -55,6 +54,13 @@
 \newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
 %\newcommand{\myhref}[2]{\emph{#2}}
 \newcommand{\todo}{\textbf{TODO:}}
+\newcommand{\ST}{\emph{SenseTile}\xspace}
+\newcommand{\STs}{\emph{SenseTiles}\xspace}
+\newcommand{\STS}{\emph{SenseTile Simulator}\xspace}
+\newcommand{\datastore}{\STs Scientific Datastore\xspace}
+\newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
+\newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
+\newcommand{\sensorfarm}{The \STs\xspace}
 
 %---------------------------------------------------------------------
 % New commands, macros, \etc
@@ -66,7 +72,8 @@
 
 \begin{document}
 
-\title{The UCD CASL SenseTile System}
+\title{Deriving an Executable Model of a Data Stream Protocol from its
+Specification}
 
 \author{Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic\\
 UCD CASL: Complex and Adaptive Systems Laboratory and\\
@@ -82,6 +89,7 @@ kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
 %\thispagestyle{empty}
 \begin{abstract}
 
+\begin{verbatim}
 OBJECTIVE: 
 Specifications used as a blueprint for system development.
 Specifications to generate test suite to validate the developed system.
@@ -101,16 +109,56 @@ Proof developed system and simulator verify the specifications.
 
 CONCLUSIONS:
 Specifications serves two purposes, and indirectly a third one.
+\end{verbatim}
 
-\todo{\emph{We probably have only 8 pages, in the IEEE format, if this is going to
-\myhref{http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7756}{IEEE Pervasive Computing}}.}
+  Sensor packages typically communicate (control sensors and report
+  sensor measurements) with a streaming packet-based network protocol.
+  The \ST device is an example of such a sensor package, as it
+  communicates with an arbitrary computer system (running Linux or
+  Windows, at the moment) over a USB bus using a streaming
+  packet-based protocol.  This sensor platform is a custom-designed,
+  but inexpensive, sensor platform (called the \ST) paired with
+  general-purpose small-scale compute nodes, including everything from
+  low-power PDAs to powerful touchscreen-based portable computers.
+  There are over a dozen sensors on the \ST itself, and new sensors
+  can be added by adding them to the USB bus.  A third-party low-level
+  C driver, provided by the USB chip vendor, creates and parses
+  generic USB communication packets, and a custom medium-level Java
+  driver creates and parses \ST streaming communication packets.  This
+  latter Java driver is formally specified, validated with rigorous
+  unit testing, and verified using extended static checking.  However,
+  because of this process and combination of technologies, using this
+  specification we are able to both communicate with a real \ST
+  \textbf{and} generate a formally specified, executable, functional
+  model-based specification for the protocol itself written in the
+  Java Modeling Language.  This protocol model is itself an executable
+  stream simulator that can be used to develop new \ST user
+  applications without having the \ST hardware at all.  Consequently,
+  from this single specification, we can test that the \ST hardware
+  communicates as expected, test that our \ST simulator communicates
+  as expected, and simulate the \ST protocol stream itself.
 
 \end{abstract}
 
 %======================================================================
 \Section{Introduction}
 
-An introduction.
+The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
+sensor system installed at the University College Dublin in Dublin,
+Ireland.  \textbf{Our facility provides a capability---unique in the world in
+terms of its scale and flexibility---for performing in-depth
+investigation of both the specific and general issues in large-scale
+sensor networking.}
+
+This system integrates a sensor platform, a datastore, and a compute
+farm.  The sensor platform is a custom-designed, but inexpensive,
+sensor platform (called the \ST) paired with general-purpose
+small-scale compute nodes, including everything from low-power PDAs to
+powerful touchscreen-based portable computers.  There are over a dozen
+sensors on the \ST itself, and new sensors can be added by adding them
+to the USB bus.
+
+
 
 %=====================================================================
 \Section{Conclusion}
