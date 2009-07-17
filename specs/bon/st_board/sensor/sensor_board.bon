@@ -224,10 +224,14 @@ end
 cluster_chart SENSOR
 indexing
   author: "Dragan Stosic";
-  keywords: "temperature","pressure","light","motion",
-            "sound","ultrasonic","type","piezoresistive";
+  keywords: "temperature","pressure","light","accelerometer",
+            "sound","ultrasonic","sensor","type","measurement";
 explanation
 "Represents various sensors and sensor types."
+
+class MISSING_SENSOR_EXCEPTION
+description
+"Exception is used during measurement operations."
 
 class I_SENSOR
 description 
@@ -242,7 +246,7 @@ description
 
 class MEASUREMENT_UNIT
 description 
-"This class represents typesafe implementation of measurement units. \
+"This class represents  measurement units. \
 \There are several measurment units: \
 \a) AMPER -Amper (currency). \
 \b) VOLT -Voltage (power supply). \
@@ -690,5 +694,34 @@ constraint
 \The Ultrasonic Sensor  type is PFPS. \
 \The measurement voltage must be in appropriate range. \
 \The measurement unit is MVOLT. \
-\The type is ACCEL_X or ACCEL_Y or ACCEL_Z."   
+\The type is (ACCEL_X or ACCEL_Y or ACCEL_Z)."   
 end
+
+class_chart MEASUREMENT_UNIT
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "This class represents measurement units."
+query
+"What is the index for this enumerated type?",
+"What is the name for this enumerated type?"
+command
+"Create all units."
+constraint
+   "All indices are greater than or equal 0 and less than or equal 7."
+end
+
+class_chart  MISSING_SENSOR_EXCEPTION 
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "This class represents implementation of \
+  \ exception which is used during measurement operations."
+command
+"Create all missing sensor exceptions."
+end
+  
