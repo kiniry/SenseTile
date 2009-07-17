@@ -2,10 +2,17 @@ package sensor;
 
 
 import sensor.type.AccelerometerSensorType;
-import sensor.type.LightSensorType;
 import sensor.type.SensorType;
 
-
+/**
+ * This class represents typesafe implementation of measurement units.
+ * @title         "AxisAccelerometerSensor"
+ * @date          "2009/07/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
+ */
 public final class AxisAccelerometerSensor implements ISensor 
 {
  

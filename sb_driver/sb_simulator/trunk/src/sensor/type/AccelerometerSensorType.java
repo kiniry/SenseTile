@@ -1,7 +1,10 @@
 package sensor.type;
-
 /**
- * This class represents accelerometer sensor types.
+ * An accelerometer measures the acceleration it experiences
+ * relative to freefall. Single model is available
+ * to detect magnitude and direction of the acceleration as 
+ * a vector quantity, and can be used to sense orientation, 
+ * vibration and shock.
  * @title         "MotionSensorType"
  * @date          "2009/07/05 11:05:33"
  * @author        "Dragan Stosic"
