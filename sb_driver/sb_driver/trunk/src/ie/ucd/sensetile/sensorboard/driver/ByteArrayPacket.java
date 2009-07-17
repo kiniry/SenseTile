@@ -59,11 +59,11 @@ public class ByteArrayPacket implements SensorBoardPacket {
    * @see ie.ucd.sensetile.sensorboard.PacketI#getIndex()
    */
   public int getIndex() {
-    return raw.getUnsignedShort(INDEX_POSITION);
+    return raw.getShortUnsigned(INDEX_POSITION);
   }
   
   void setIndex(int value) {
-    raw.setUnsignedShort(INDEX_POSITION, value);
+    raw.setShortUnsigned(INDEX_POSITION, value);
   }
   
   /**
@@ -71,13 +71,8 @@ public class ByteArrayPacket implements SensorBoardPacket {
    */
   public final static int TEMPERATURE_POSITION = 4;
   
-  public int getTemperature() {
-    // TODO te be implemented
-    return getTemperatureRaw();
-  }
-
   public int getTemperatureRaw() {
-    return raw.getUnsignedShort(TEMPERATURE_POSITION);
+    return raw.get12BitsSigned(TEMPERATURE_POSITION);
   }
   
   /**
@@ -91,7 +86,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   public int getPressureRaw() {
-    return raw.getUnsignedShort(PRESSURE_POSITION);
+    return raw.getShortUnsigned(PRESSURE_POSITION);
   }
   
   /**
@@ -105,7 +100,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
 
   public int getLighLevelRaw() {
-    return raw.getUnsignedShort(LIGHT_LEVEL_POSITION);
+    return raw.getShortUnsigned(LIGHT_LEVEL_POSITION);
   }
   
   /**
@@ -119,7 +114,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
 
   public int getAccelerometerXRaw() {
-    return raw.getUnsignedShort(ACCELEROMETER_X_POSITION);
+    return raw.getShortUnsigned(ACCELEROMETER_X_POSITION);
   }
 
   /**
@@ -133,7 +128,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
 
   public int getAccelerometerYRaw() {
-    return raw.getUnsignedShort(ACCELEROMETER_Y_POSITION);
+    return raw.getShortUnsigned(ACCELEROMETER_Y_POSITION);
   }
 
   /**
@@ -147,7 +142,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
 
   public int getAccelerometerZRaw() {
-    return raw.getUnsignedShort(ACCELEROMETER_Z_POSITION);
+    return raw.getShortUnsigned(ACCELEROMETER_Z_POSITION);
   }
 
   /**
@@ -161,7 +156,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   public int getSupplyVoltageRaw() {
-    return raw.getUnsignedShort(SUPPLY_VOLTAGE_POSITION);
+    return raw.getShortUnsigned(SUPPLY_VOLTAGE_POSITION);
   }
   
   /**
@@ -175,7 +170,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   public int getSupplyCurrentRaw() {
-    return raw.getUnsignedShort(PRESSURE_POSITION);
+    return raw.getShortUnsigned(PRESSURE_POSITION);
   }
   
   /**

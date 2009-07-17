@@ -52,12 +52,32 @@ final public class UnsignedByteArray {
   }
   
   /**
+   * Get signed 12 bits.
+   * 
+   * @param index
+   * @return signed 12 bits
+   */
+  public int get12BitsSigned(int index) {
+    return (getShortUnsigned(index) << 20) >> 20;
+  }
+  
+  /**
+   * Set signed 12 bits.
+   * 
+   * @param index
+   * @param value
+   */
+  public void set12BitsSigned(int index, int value) {
+    setShortUnsigned(index, (value << 20) >>> 20);
+  }
+  
+  /**
    * Get unsigned short.
    * 
    * @param index
    * @return unsigned short
    */
-  public int getUnsignedShort(int index) {
+  public int getShortUnsigned(int index) {
     int newIndex = checkAndNormalizeIndex(index, 2);
     return 
       ((0xff & getByte(newIndex)) << 8) | 
@@ -70,7 +90,7 @@ final public class UnsignedByteArray {
    * @param index
    * @param value
    */
-  public void setUnsignedShort(int index, int value) {
+  public void setShortUnsigned(int index, int value) {
     int newIndex = checkAndNormalizeIndex(index, 2);
     setByte(newIndex, (byte) (0xff & value >>> 8));
     setByte(newIndex + 1, (byte) (0xff & value));
@@ -223,5 +243,5 @@ final public class UnsignedByteArray {
     }
     return newIndex;
   }
-  
+
 }

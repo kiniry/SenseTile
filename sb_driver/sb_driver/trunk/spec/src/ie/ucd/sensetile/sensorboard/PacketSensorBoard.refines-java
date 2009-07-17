@@ -1,0 +1,85 @@
+/*
+ * PacketInputStream.jml
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile.sensorboard;
+
+import java.util.Date;
+
+/** 
+ * JML's specification of SensorBoardPacket.
+ * @author Vieri del Bianco
+ */
+public interface SensorBoardPacket {
+  
+  // indexes
+  
+  Date getDate();
+  
+  int getIndex();
+  
+  // sensors
+  
+  /*@ 
+    @ ensures \result >= -880;
+    @ ensures \result <= 2047;
+    @*/
+  int getTemperatureRaw();
+  
+  /*@ 
+    @ ensures \result >= 310;
+    @ ensures \result <= 5585;
+    @*/
+  int getPressureRaw();
+  
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result <= 1000;
+    @*/
+  int getLighLevelRaw();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  int getAccelerometerXRaw();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  int getAccelerometerYRaw();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  int getAccelerometerZRaw();
+  
+  // supply
+  
+  int getSupplyVoltageRaw();
+  
+  int getSupplyCurrentRaw();
+  
+  // ADC channels fragments
+  
+  /*@
+    @ requires channel >= 0;
+    @ requires channel <= 3;
+    @ ensures \result != null;
+    @ ensures \result.length = 81;
+    @*/
+  int[] getFastADC(int channel);
+  
+  /*@
+    @ requires channel >= 0;
+    @ requires channel <= 7;
+    @ ensures \result != null;
+    @ ensures \result.length = 81;
+    @*/
+  int[] getSlowADC(int channel);
+  
+}
