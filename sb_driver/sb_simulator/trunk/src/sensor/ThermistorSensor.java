@@ -23,6 +23,7 @@ public final class ThermistorSensor implements ISensor
 	private transient int index = 0;//@ in mod_index;
 	  //@ represents mod_index <- index;
 	
+	//@ public model non_null int[] mod_set;
 	//@spec_public non_null
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;

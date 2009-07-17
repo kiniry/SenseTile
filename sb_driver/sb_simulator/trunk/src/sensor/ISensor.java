@@ -1,16 +1,23 @@
 package sensor;
 
 import sensor.type.SensorType;
-
+/**
+ * This class represents an abstraction of sensor component.
+ * @title         "ISensor"
+ * @date          "2009/07/05 11:05:33"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
+ */
 public interface ISensor {
 	
 	//@ public model instance int mod_value;
 	//@ public model instance int mod_max;
 	//@ public model instance int mod_min;
 	//@ public model instance SensorType mod_type;
-	
+
 	//@ public model instance int mod_index;
-	//@ public model instance non_null int[] mod_set;
 	//@ public model instance boolean mod_enabled;
 	
 	  /**
