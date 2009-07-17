@@ -629,3 +629,33 @@ constraint
 \The measurement unit is DECIBEL. \
 \The type is SOUND."   
 end
+
+
+class_chart ULTRASONIC_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of proximity ultrasonic sensor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+"Measured sound must be in  range. \
+\Maximum sound must be as initial maximum sound value. \
+\Minimum sound must be as initial minimum sound value. \
+\The Ultrasonic Sensor  type is PROX. \
+\The measurement sound must be in appropriate range. \
+\The measurement unit is DECIBEL. \
+\The type is ULTRA."   
+end
