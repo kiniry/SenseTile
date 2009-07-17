@@ -18,12 +18,13 @@ public final class MeasurementUnit {
     
 	private static/*@spec_public@*/ int count = 0;
 
-   // "All indices are greater than zero."
+	// "All indices are greater than or equal 0 and less than or equal 7."
 
-   //@ invariant index == 0 || index > 0;
-   //@ static invariant count == 0 || count > 0;
+	//@ invariant index >= 0 && index <= 7;
+	//@ static invariant count >= 0 && count <= 8;
 	
-   /*@ assignable index, name, count;
+   /*@ requires  count <= 7;
+     @ assignable index, name, count;
 	 @ ensures name == theName;
 	 @ ensures index == \old( count );
 	 @*/
@@ -73,7 +74,7 @@ public final class MeasurementUnit {
 	 * @return "What is the index 
 	 * for this enumerated type?"
 	 */	
-	//@ ensures \result == 0 || \result > 0;
+	//@ ensures \result >= 0 && \result <= 7;
 	public /*@pure*/ int  getIndex() 
 	{
 		return index;
