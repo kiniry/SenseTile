@@ -2,7 +2,7 @@ package sensor;
 
 import sensor.type.SensorType;
 /**
- * This class represents an abstraction of sensor component.
+ * This interface represents an abstraction of sensor component.
  * @title         "ISensor"
  * @date          "2009/07/05 11:05:33"
  * @author        "Dragan Stosic"

@@ -1,6 +1,8 @@
 package sensor;
 
 
+import sensor.type.AccelerometerSensorType;
+import sensor.type.LightSensorType;
 import sensor.type.SensorType;
 
 
@@ -34,6 +36,11 @@ public final class AxisAccelerometerSensor implements ISensor
 	private final transient  MeasurementUnit a_unit = 
 		MeasurementUnit.MVOLT;
 	
+	//@non_null
+	private final transient  AccelerometerSensorType a_type= 
+		AccelerometerSensorType.PFPS;
+	
+	
 	//@spec_public non_null
 	private final transient  SensorType a_sensType; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
@@ -47,6 +54,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	    @*/
 	  
 	  //@ private invariant a_unit == MeasurementUnit.MVOLT;
+	  //@ private invariant a_type == AccelerometerSensorType.PFPS;
 	  //@ public invariant mod_min <= mod_value && mod_value <= mod_max;
 	  
 	  /**
@@ -79,6 +87,16 @@ public final class AxisAccelerometerSensor implements ISensor
 		  return a_unit;
 	  }
 	  
+	  /**
+	   * What is the type for this component ?
+	   * @return a_type- NTC type.
+	   */
+	 //@ requires isEnabled();
+	 //@ ensures \result == AccelerometerSensorType.PFPS;
+	  public/*@pure non_null@*/ AccelerometerSensorType getType()
+	  {
+		  return a_type;
+	  }
 	  
 	 /**
 	  * The {@link sensor.Isensor#getMax()}
