@@ -179,11 +179,7 @@ component
     
     
     effective class ULTRASONIC_SENSOR inherit ISENSOR
-      indexing
-      about: "About Ultrasonic sensor.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";  
-        
+         
     feature{NONE}
       a_sensType: SENSOR_TYPE
         ensure
@@ -324,11 +320,7 @@ component
     
     --LIGHT_SENSOR--
     effective class LIGHT_SENSOR inherit ISENSOR
-    indexing
-      about: "About Light sensor.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";
-      
+          
       feature{NONE}
       a_sensType: SENSOR_TYPE
         ensure
@@ -475,10 +467,6 @@ component
     
     --PRESSURE-SENSOR--
      effective class PRESSURE_SENSOR  inherit ISENSOR
-     indexing
-      about: "About Pressure sensor.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";
      feature{NONE}
      
       a_sensType: SENSOR_TYPE
@@ -625,11 +613,7 @@ component
     
     --ACCELEROMETER_SENSOR--
     effective class AXIS_ACCELEROMETER_SENSOR  inherit ISENSOR
-      indexing
-      about: "About Acc sensor.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";
-      feature{NONE}
+     feature{NONE}
       a_sensType: SENSOR_TYPE
         ensure
           Result /= Void;
@@ -748,12 +732,7 @@ component
     
     --SOUND_SENSOR--
     
-    effective class SOUND_SENSOR  inherit ISENSOR
-      indexing
-      about: "About Pressure sensor.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.00";
-       
+    effective class SOUND_SENSOR  inherit ISENSOR       
     feature{NONE}
       a_sensType: SENSOR_TYPE
         ensure
@@ -881,12 +860,7 @@ component
     
     --THERMISTOR_SENSOR--
     
-        effective class THERMISTOR_SENSOR  inherit ISENSOR
-        indexing
-        about: "About Thermistor sensor.";
-        author: "Dragan Stosic";
-        version: "Revision: 1.00";
-        
+     effective class THERMISTOR_SENSOR  inherit ISENSOR
       feature{NONE}
       a_sensType: SENSOR_TYPE
         ensure
@@ -1015,13 +989,7 @@ component
     
     --MISSING_SENSOR_EXCEPTION--
        
-    effective class MISSING_SENSOR_EXCEPTION  inherit RUNTIME_EXCEPTION
-    indexing
-      about: "Class implementation of sensor.MissingSensorException. Exception used",
-        "during measurement operations.";
-      author: "Dragan Stosic";
-      version: "Revision: 1.1";
-    
+    effective class MISSING_SENSOR_EXCEPTION  inherit RUNTIME_EXCEPTION 
     feature
       make
       make0 -> message: STRING
@@ -1039,9 +1007,7 @@ component
         end
     feature{MISSING_SENSOR_EXCEPTION}
       serialVersionUID: INTEGER
-        ensure
-          Result = 22119747101947789;
-        end
+        
     end
     
     -- the end 
@@ -1085,7 +1051,7 @@ component
         
       getIndex: INTEGER --"What is the index for this enumerated type?"
        ensure
-          Result => 0 && Result <= 1;   
+          Result => 0 and Result <= 1;   
        end
      
        getName: STRING --"What is the name for this enumerated type?"
@@ -1580,8 +1546,38 @@ component
       count <= 8;
     end
     
+   effective class INVALID_SENSOR_TYPE_EXCEPTION  inherit RUNTIME_EXCEPTION
+    indexing
+      about: "Class implementation of sensor.type.InvalidSensorTypeException."
+        "Exception is used during creation phase."
+      author: "Dragan Stosic"
+      version: "Revision: 1.00"
+    feature
+      make
+      make0
+        -> message: STRING
+        require
+          message /= Void;
+        end
+      make1
+        -> cause: THROWABLE
+        require
+          cause /= Void;
+        end
+      make2
+        -> message: STRING
+        -> cause: THROWABLE
+        require
+          message /= Void;
+          cause /= Void;
+        end
+    feature{INVALID_SENSOR_TYPE_EXCEPTION}
+      serialVersionUID: INTEGER
+        ensure
+          Result = 22119747101947799;
+        end
+   end
   end
-   
 end
 
 

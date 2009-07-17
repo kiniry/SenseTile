@@ -1,5 +1,7 @@
--- Informal cluster charts
-cluster_chart SENSOR_BOARD
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD system chart
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+system_chart SENSOR_BOARD
 indexing
   author: "Dragan Stosic";
   keywords: "sensor","supply","interface","discrete",
@@ -18,7 +20,6 @@ description
   "This cluster contains a set of classes designed for measuring \
   \and converting a physical quantity into a signal which can be \
   \read by an observer AMPLIFIER cluster."
-
 cluster AMPLIFIER
 description
   "This cluster contains a set of subclusters designed for increasing, \
@@ -33,7 +34,7 @@ description
 
 cluster MICRO
 description
-"This cluster have not yet specified."
+"This cluster serves to manage GATE_ARRAY cluster  operation."
 
 cluster CONVERTER
 description
@@ -66,8 +67,9 @@ description
   \which provides the highest speed, low power consumption \
   \and simple interfacing."
 end
-
-
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart CHANNEL -semi-specification.
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 cluster_chart CHANNEL
 indexing
@@ -83,11 +85,15 @@ description
 "NYS"
 end
 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart GATE_ARRAY
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 cluster_chart GATE_ARRAY
 indexing
   author: "Dragan Stosic";
   keywords: "slave","interface","serial","control",
-            "status","read/write","asynchronous";
+            "status","Rx,Tx","FIFO","asynchronous";
 explanation
   "This cluster provides two main user interfaces, \ 
   \a slave SPI(Serial Peripheral Interface) interface, \
@@ -109,23 +115,37 @@ description
 
 cluster FRAMER
 description
-  "Under construction.NYS"
+  "The FRAMER cluster is the cluster responsible for packing output \
+  \sub sequence packets into the OUTPUT_PACKET format outlined \
+  \in the OUTPUT_PACKET class."
 
 cluster BUS_CONTROLER
 description
-  "Under construction.NYS"
+ "The Bus Controller cluster provides simple Byte transfer signals \
+ \from the Rx (receive) interface of the ASYNCI cluster to the DEFRAMER cluster.\
+ \The Bus controller cluster also controls output packet transmission timing \
+ \and controls the transfer of data from the Tx packet FIFO to the Tx \
+ \(transmit) interface of the ASYNCI cluster."
     
 cluster DEFRAMER
 description
-  "Under construction.NYS"
+  "The DEFRAMER cluster firstly assembles bytes from the Rx interface \
+  \of the ASYNCI interface into 16 bit characters, using latching \
+  \signals from the bus controller module. These 16 bit characters are \
+  \assembled in MS Byte first format. The packet decode logic then \
+  \operates on this sequence of 16 bit characters, either decoding \
+  \character values as commands or writing the characters directly \
+  \to the CONVERTER cluster via a buffer or storing them in STORAGE cluster,\
+  \depending on the state of the decode state machine and the bit fields in the charcter."
 
 cluster ASYNCI
 description
-  "This cluster represents asynchronous Data Streaming Interface. \
-  \All data streamed from/to CONVERTOR cluster travels \
-  \through the this interface."  
+  "The ASYNCI cluster joins an internal GATE_ARRAY Tx  byte interface \
+  \and an internal GATE_ARRAY Rx byte interface to the  USB_CHANNEL \
+  \ Asynchronous byte transfer interface."  
 end
-  
+
+----------------------------cluster_chart REGISTER ----------------------------
 cluster_chart REGISTER
 indexing
   author: "Dragan Stosic";
@@ -162,11 +182,120 @@ description
  \(read/write) data and transfer between the MICRO and \ 
  \GATE_ARRAY clusters."
 end
+-----cluster_chart SPI -----
+-----Not yet specified------
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- SENSOR_TYPE cluster 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-cluster_chart SENSOR_TYPE
+-----cluster_chart FRAMER --
+-----Not yet specified------
+
+-----cluster_chart BUS_CONTROLER
+-----Not yet specified------
+
+-----cluster_chart DEFRAMER
+-----Not yet specified------
+
+-----cluster_chart ASYNCI --
+-----Not yet specified------
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart MICRO - not yet specified
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart AMPLIFIER - not yet specified
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart CONVERTER - not yet specified
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart BUS - not yet specified
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart STORAGE - not yet specified
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart SENSOR 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+cluster_chart SENSOR
+indexing
+  author: "Dragan Stosic";
+  keywords: "temperature","pressure","light","motion",
+            "sound","ultrasonic","type","piezoresistive";
+explanation
+"Represents various sensors and sensor types."
+
+class THERMISTOR_SENSOR
+description 
+"Thermistor is thermally sensitive resistors \
+\whose prime function is to exhibit a large, predictable \
+\and precise change in electrical resistance when subjected \
+\to a corresponding change in body temperature."
+
+class MEASUREMENT_UNIT
+description 
+"This class represents typesafe implementation of measurement units. \
+\There are several measurment units: \
+\a) AMPER -Amper (currency). \
+\b) VOLT -Voltage (power supply). \
+\c) HERTZ - Hertz (frequency). \
+\d) DECIBEL - Decibel. \
+\e) CELSIUS - Celsius (temperature).\
+\f) PASCAL - Pascal (pressure). \
+\g) LUX - Lux (light). \
+\e) MVOLT -milivolt (voltage)."
+
+class PRESSURE_SENSOR
+description 
+"This class describes pressure sensor based on semiconductor \
+\piezoresistive technology which uses the change in conductivity \
+\of semiconductors due to the change in pressure to measure the pressure."
+
+class LIGHT_SENSOR
+description 
+"Light sensors are passive devices that convert \
+\light energy whether visible or in the infrared parts \
+\of the spectrum into an electrical signal output."
+
+class ACCELEROMETER_SENSOR
+description 
+"An accelerometer measures the acceleration it experiences \
+\relative to freefall. Single- and multi-axis models are available \
+\to detect magnitude and direction of the acceleration as a vector quantity, \
+\and can be used to sense orientation, vibration and shock."
+
+class ULTRASONIC_SENSOR
+description 
+"Ultrasonic sensor evaluate attributes of a target \
+\by interpreting the echoes from radio or sound waves respectively. \
+\There are two tipes of sensor: proximity and ranging u sen."
+
+class SOUND_SENSOR
+description 
+"This class represents a sound sensor - microphone. \
+\Microphone is an acoustic-to-electric sensor that converts \
+\sound into an electrical signal."
+cluster  TYPE
+description "Represents various sensor types."
+end
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD cluster chart SENSOR cluster chart SENSOR_TYPE  
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+cluster_chart TYPE
+indexing
+  author: "Dragan Stosic";
+  keywords: "temperature","pressure","light","motion",
+            "sound","ultrasonic","type","piezoresistive";
+explanation
+"Represents various sensor types."
+class SENSOR_TYPE
+description
 "This class represents  sensor types. \
 \There are eight type of pressure sensors: \
 \a) THERM - The Thermistor sensor. \
@@ -176,7 +305,7 @@ cluster_chart SENSOR_TYPE
 \e) ULTRA - The Ultrasonic sensor. \
 \f) ACCEL_X - Accelerometer sensor - X axe orientation. \
 \g) ACCEL_Y - Accelerometer sensor - Y axe orientation. \
-\h) ACCEL_Z - Accelerometer sensor - Z axe orientation. "
+\h) ACCEL_Z - Accelerometer sensor - Z axe orientation."
             
 class THERMISTOR_SENSOR_TYPE
 description
@@ -235,236 +364,79 @@ description
 \g) MEMS - MEMS microphone sensor. \
 \h) SMS - Speaker as microphone sensor. \
 \i) CCEM - Condenser, capacitor or electrostatic microphone sensor."
-end            
-          
-                     
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- SENSOR_CLUSTER cluster 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~            
-            
-cluster_chart SENSOR
+end  
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD ---> cluster chart TYPE ---> classes  
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class_chart SENSOR_TYPE
 indexing
-  author: "Dragan Stosic";
-  keywords: "temperature","pressure","light","motion",
-            "sound","ultrasonic","type","piezoresistive";
-explanation
-""
-class THERMISTOR_SENSOR
-description 
-"Thermistor is thermally sensitive resistors \
-\whose prime function is to exhibit a large, predictable \
-\and precise change in electrical resistance when subjected \
-\to a corresponding change in body temperature."
-
-class MEASUREMENT_UNIT
-description 
-"This class represents typesafe implementation of measurement units. \
-\There are several measurment units: \
-\a) AMPER -Amper (currency). \
-\b) VOLT -Voltage (power supply). \
-\c) HERTZ - Hertz (frequency). \
-\d) DECIBEL - Decibel. \
-\e) CELSIUS - Celsius (temperature).\
-\f) PASCAL - Pascal (pressure). \
-\g) LUX - Lux (light). \
-\e) MVOLT -milivolt (voltage)."
-
-class PRESSURE_SENSOR
-description 
-"This class describes pressure sensor based on semiconductor \
-\piezoresistive technology which uses the change in conductivity \
-\of semiconductors due to the change in pressure to measure the pressure."
-
-class LIGHT_SENSOR
-description 
-"Light sensors are passive devices that convert \
-\light energy whether visible or in the infrared parts \
-\of the spectrum into an electrical signal output."
-
-class ACCELEROMETER_SENSOR
-description 
-"An accelerometer measures the acceleration it experiences \
-\relative to freefall. Single- and multi-axis models are available \
-\to detect magnitude and direction of the acceleration as a vector quantity, \
-\and can be used to sense orientation, vibration and shock."
-
-class ULTRASONIC_SENSOR
-description 
-"Ultrasonic sensor evaluate attributes of a target \
-\by interpreting the echoes from radio or sound waves respectively. \
-\There are two tipes of sensor: proximity and ranging u sen."
-
-class SOUND_SENSOR
-description 
-"This class represents a sound sensor - microphone. \
-\Microphone is an acoustic-to-electric sensor that converts \
-\sound into an electrical signal."
-
-
--- Informal sensor and sensor type charts
-
-class_chart MEASUREMENT_UNIT
-indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of measurement units."
+  "This class represents an implementation of sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
 command
-"Create all mentioned types."
+"Create all sensor types."
 constraint
-   "All indices are greater than zero."
-end
-
--- Informal temperature
-
-class_chart THERMISTOR_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of NTC thermistor."
-query
-"What is the type for this component ?",
-"What is the measurement unit for this component ?",
-"Are you enabled ?",
-"What is the minimal temperature for this component ?",
-"What is the maximal temperature for this component ?",
-"What is the measured temperature for this component ?",
-
-command
-"Create component in initial state.",
-"Calculate current temperature.",
-"Turn off / on this component."
-constraint
-
-"Measured temperature must be in temperture range. \
-\Maximum teperature must be as initial maximum temperature. \
-\ Minimum teperature must be as initial minimum temperature. \
-\ The Thermistor type is NTC. \
-\ The measurement temperature must be in appropriate range. "   
-end
+   "All indices are greater than or equal 0 and less than or equal 7."
+end 
 
 class_chart THERMISTOR_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of types."
+  "This class represents thermistor sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
 command
-"Create all mentioned types."
+"Create all thermistor types."
 constraint
    "All indices are greater than or equal 0 and less than or equal 1."
 end 
--- Informal pressure
-
-class_chart PRESSURE_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of absolute pressure sensor."
-query
-"What is the type for this component ?",
-"Are you enabled ?",
-"What is the pressure range for this component ?",
-"What is the accuracy (pressure error) for this component ?",
-
-command
-"Create component in initial state."
-constraint
-"Measured pressure must be in pressure range \
- \Difference between maximum pressure and measured pressure \
- \must be less than or equal to accuracy pressure."   
-end
-
 
 class_chart PRESSURE_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of types."
+  "This class represents pressure sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
 command
-"Create all mentioned types."
+"Create all pressure types."
 constraint
 "All indices are greater than or 0 and less than or equal 4."
 end
 
--- Informal light
-
-class_chart LIGHT_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of photo-emissive cells light sensor."
-query
-"What is the type for this component ?",
-"Are you enabled ?",
-"What is the selected range for this component ?",
-command
-"Create component in initial state."
-constraint
-"Measured pressure must be in pressure range."   
-end
-
 class_chart LIGHT_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of types."
+  "This class represents light sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
 command
-"Create all mentioned types."
+"Create all light types."
 constraint
- "All indices are greater than zero."
+ "All indices are greater than or equal 0 and less than or equal 3."
 end
 
--- Informal accelerometer
-
-class_chart ACCELEROMETER_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of MEMS sensor."
-query
-"What is the type for this component ?",
-"Are you enabled ?",
-"What is the selected range for this component ?",
-command
-"Create component in initial state."
-constraint
-"Measured frequency must be in frequency range."   
-end
 
 class_chart ACCELEROMETER_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
@@ -474,38 +446,18 @@ query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
 command
-"Create all mentioned types."
+"Create all accelerometer types."
 constraint
- "All indices are greater than zero."
-end
--- Informal Ultrasonic
-
-class_chart ULTRASONIC_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of proximity ultrasonic sensor."
-query
-"What is the type for this component ?",
-"Are you enabled ?",
-"What is the frequency (in Hz) range for this component ?",
-"What is the sensitivity (in dB) range for this component ?",
-command
-"Create component in initial state."
-constraint
-"Measured frequency must be in frequency range."   
+ "All indices are greater than or equal 0 and less than or equal 3."
 end
 
 class_chart ULTRASONIC_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of types."
+  "This class represents ultrasonic sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
@@ -515,33 +467,13 @@ constraint
  "All indices are greater than or equal zero and less than or equal 1."
 end
 
--- Informal Sound
-class_chart SOUND_SENSOR
-indexing
-  in_cluster: "SENSOR";
-  created: "2009-06-07 Dragan Stosic";
-  revised: ""
-explanation
-  "An simulated implementation of sound sensor."
-query
-"What is the type for this component ?",
-"Are you enabled ?",
-"What is the frequency (in Hz) range for this component ?",
-"What is the sensitivity (in dB) range for this component ?",
-command
-"Create component in initial state."
-constraint
-"Measured frequency must be in frequency range."   
-end
-
 class_chart SOUND_SENSOR_TYPE
 indexing
-  in_cluster: "SENSOR";
+  in_cluster: "TYPE";
   created: "2009-06-03 Dragan Stosic";
   revised: ""
 explanation
-  "An enumerator which represents an \
-   \holder of types."
+  "This class represents microphone sensor types."
 query
 "What is the index for this enumerated type?",
 "What is the name for this enumerated type?"
@@ -550,3 +482,7 @@ command
 constraint
  "All indices are greater than or zero and less than or equal 7."
 end
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- SENSOR_BOARD ---> cluster chart SENSOR ---> classes  
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
