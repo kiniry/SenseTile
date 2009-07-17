@@ -265,7 +265,7 @@ description
 \light energy whether visible or in the infrared parts \
 \of the spectrum into an electrical signal output."
 
-class ACCELEROMETER_SENSOR
+class  AXIS_ACCELEROMETER_SENSOR
 description 
 "An accelerometer measures the acceleration it experiences \
 \relative to freefall. Single- and multi-axis models are available \
@@ -283,6 +283,7 @@ description
 "This class represents a sound sensor - microphone. \
 \Microphone is an acoustic-to-electric sensor that converts \
 \sound into an electrical signal."
+
 cluster  TYPE
 description "Represents various sensor types."
 end
@@ -658,4 +659,36 @@ constraint
 \The measurement sound must be in appropriate range. \
 \The measurement unit is DECIBEL. \
 \The type is ULTRA."   
+end
+
+
+-- AxisAccelerometerSensor
+
+class_chart AXIS_ACCELEROMETER_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of The Piezo-film or piezoelectric sensor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+"Measured orientation (in mili voltage ) must be in  range. \
+\Maximum voltage must be as initial maximum voltage value. \
+\Minimum voltage must be as initial minimum voltage value. \
+\The Ultrasonic Sensor  type is PFPS. \
+\The measurement voltage must be in appropriate range. \
+\The measurement unit is MVOLT. \
+\The type is ACCEL_X or ACCEL_Y or ACCEL_Z."   
 end
