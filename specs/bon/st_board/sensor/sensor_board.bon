@@ -229,6 +229,10 @@ indexing
 explanation
 "Represents various sensors and sensor types."
 
+class I_SENSOR
+description 
+"This class represents an abstraction of sensor component."
+
 class THERMISTOR_SENSOR
 description 
 "Thermistor is thermally sensitive resistors \
@@ -486,6 +490,27 @@ end
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- SENSOR_BOARD ---> cluster chart SENSOR ---> classes  
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class_chart I_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "This interface represents an abstraction of sensor component."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+""   
+end
 
 class_chart THERMISTOR_SENSOR
 indexing
@@ -513,5 +538,94 @@ constraint
 \Minimum teperature must be as initial minimum temperature. \
 \The Thermistor type is NTC. \
 \The measurement temperature must be in appropriate range. \
-\The measurement unit is CELSIUS."   
+\The measurement unit is CELSIUS.\
+\The type is THERM."   
+end
+
+
+class_chart LIGHT_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of Photo-emissive Cells light sensor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+"Measured light must be in  range. \
+\Maximum light must be as initial maximum light value. \
+\Minimum light must be as initial minimum light value. \
+\The Light Sensor  type is PEC. \
+\The measurement light must be in appropriate range. \
+\The measurement unit is LUX.\
+\The type is LIGHT."   
+end
+
+class_chart PRESSURE_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of absolute pressure sensor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+"Measured pressure must be in  range. \
+\Maximum pressure must be as initial maximum pressure value. \
+\Minimum pressure must be as initial minimum pressure value. \
+\The Light Sensor  type is APS. \
+\The measurement pressure must be in appropriate range. \
+\The measurement unit is PASCAL. \
+\The type is PRESS."   
+end
+
+class_chart SOUND_SENSOR
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-06-07 Dragan Stosic";
+  revised: ""
+explanation
+  "An simulated implementation of dynamic microphone sensor."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create component in initial state.",
+" Measure current value.If sensor is not available then notify client class.",
+"Turn off / on this component."
+constraint
+"Measured sound must be in  range. \
+\Maximum sound must be as initial maximum sound value. \
+\Minimum sound must be as initial minimum sound value. \
+\The Sound Sensor  type is DMS. \
+\The measurement sound must be in appropriate range. \
+\The measurement unit is DECIBEL. \
+\The type is SOUND."   
 end
