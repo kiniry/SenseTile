@@ -1,0 +1,181 @@
+%
+% "Refining from the BON High-level Specification Language to the
+% VHDL Hardware Description Language" for UNKNOWN09.
+% Joseph R. Kiniry, Dragan Stosic
+% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
+%
+
+\documentclass{article} 
+\usepackage{times}
+
+\usepackage{ifpdf}
+\usepackage{a4wide}
+\usepackage{pdfsync}
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+
+%\usepackage{todonotes}
+
+% \usepackage{html}
+% \usepackage{url}
+\usepackage{xspace}
+%\usepackage{doublespace}
+\usepackage{tabularx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+\usepackage{stmaryrd}
+% \ifpdf
+% \usepackage[centredisplay]{diagrams}
+% \else
+% \usepackage[centredisplay,PostScript=dvips]{diagrams}
+% \fi
+\usepackage{float}
+
+\ifpdf
+\usepackage[pdftex,bookmarks=false,a4paper=false,
+            plainpages=false,naturalnames=true,
+            colorlinks=true,pdfstartview=FitV,
+            linkcolor=blue,citecolor=blue,urlcolor=blue,
+            pdfauthor="Joseph R. Kiniry and Dragan Stosic"]{hyperref}
+\else
+\usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\fi
+
+\newcommand{\tablesize}{\footnotesize}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
+%\newcommand{\myhref}[2]{\emph{#2}}
+\newcommand{\todo}{\textbf{TODO:}}
+\newcommand{\ST}{\emph{SenseTile}\xspace}
+\newcommand{\STs}{\emph{SenseTiles}\xspace}
+\newcommand{\STS}{\emph{SenseTile Simulator}\xspace}
+\newcommand{\datastore}{\STs Scientific Datastore\xspace}
+\newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
+\newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
+\newcommand{\sensorfarm}{The \STs\xspace}
+
+%---------------------------------------------------------------------
+% New commands, macros, \etc
+%---------------------------------------------------------------------
+
+%% \input{kt}
+
+%=====================================================================
+
+\begin{document}
+
+\title{Refining from the BON High-level Specification Language to the
+  VHDL Hardware Description Language}
+
+\author{Joseph R. Kiniry and Dragan Stosic\\
+UCD CASL: Complex and Adaptive Systems Laboratory and\\
+School of Computer Science and Informatics,\\
+University College Dublin,\\
+Belfield, Dublin 4, Ireland,\\
+kiniry@acm.org and dragan.stosic@gmail.com\\
+}
+
+\maketitle
+
+%======================================================================
+%\thispagestyle{empty}
+\begin{abstract}
+  
+The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
+sensor system installed at the University College Dublin in Dublin,
+Ireland.  \textbf{Our facility provides a capability---unique in the world in
+terms of its scale and flexibility---for performing in-depth
+investigation of both the specific and general issues in large-scale
+sensor networking.}
+
+This system integrates a sensor platform, a datastore, and a compute
+farm.  The sensor platform is a custom-designed, but inexpensive,
+sensor platform (called the \ST) paired with general-purpose
+small-scale compute nodes, including everything from low-power PDAs to
+powerful touchscreen-based portable computers.  The datastore is a
+multi-terabyte scale scientific datastore into which sensor data
+flows, and in which online and offline scientific computation of
+sensor and other scientific data takes place.  The compute farm is a
+large-scale Linux, Solaris, and OS~X-based compute farm used by
+scientists for these online and offline scientific computations.
+
+The \STs have several unusual built-in sensors and emitters, sensor
+nodes can be extended via a general-purpose USB bus, and \STs contain
+an FPGA that is dynamically updated on a per-experiment basis.  \STs
+are custom-designed in VHDL.  Like many hardware-based systems, to
+write new software for or against the \ST architecture one either uses
+the actual hardware or one runs a \STS.  But this simulator emulates a
+piece of hardware, one would like to know if the simulator
+\emph{actually} simulates the hardware.  We have developed an approach
+through which we refine the VHDL specification up to the formal BON
+specification language, and from this specification we generate an
+executable, functional model-based specification in the JML language.
+We have used this specification to implement a fully validated and
+verified \ST simulator.
+
+\end{abstract}
+
+%======================================================================
+\section{Introduction}
+
+An introduction.
+
+%=====================================================================
+\section{Conclusion}
+
+A conclusion.
+
+%======================================================================
+%% \nocite{ex1,ex2}
+\bibliographystyle{plain}
+\bibliography{extra,%
+              abbrev,%
+              ads,%
+              category,%
+              complexity,%
+              hypertext,%
+              icsr,%
+              knowledge,%
+              languages,%
+              linguistics,%
+              meta,%
+              metrics,%
+              misc,%
+              modeling,%
+              modeltheory,%
+              reuse,%
+              rewriting,%
+              softeng,%
+              specification,%
+              ssr,%
+              technology,%
+              theory,%
+              web,%
+              upcoming,%
+              upcoming_conferences,%
+              conferences,%
+              workshops,%
+              verification,%
+              escjava,%
+              jml,%
+              nijmegen}
+
+%======================================================================
+% Fin
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% eval: 
+%%% TeX-master: t
+%%% End: 

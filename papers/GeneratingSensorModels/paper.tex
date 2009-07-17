@@ -1,0 +1,206 @@
+%
+% "Generating Formal Executable Sensor Models from their Descriptions"
+% for UNKNOWN09
+% Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic
+% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
+%
+
+\documentclass{article} 
+\usepackage{times}
+
+\usepackage{ifpdf}
+\usepackage{a4wide}
+\usepackage{pdfsync}
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+
+%\usepackage{todonotes}
+
+% \usepackage{html}
+% \usepackage{url}
+\usepackage{xspace}
+%\usepackage{doublespace}
+\usepackage{tabularx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+\usepackage{stmaryrd}
+% \ifpdf
+% \usepackage[centredisplay]{diagrams}
+% \else
+% \usepackage[centredisplay,PostScript=dvips]{diagrams}
+% \fi
+\usepackage{float}
+
+\ifpdf
+\usepackage[pdftex,bookmarks=false,a4paper=false,
+            plainpages=false,naturalnames=true,
+            colorlinks=true,pdfstartview=FitV,
+            linkcolor=blue,citecolor=blue,urlcolor=blue,
+            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan Stosic"]{hyperref}
+\else
+\usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\fi
+
+\newcommand{\tablesize}{\footnotesize}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
+%\newcommand{\myhref}[2]{\emph{#2}}
+\newcommand{\todo}{\textbf{TODO:}}
+\newcommand{\ST}{\emph{SenseTile}\xspace}
+\newcommand{\STs}{\emph{SenseTiles}\xspace}
+\newcommand{\STS}{\emph{SenseTile Simulator}\xspace}
+\newcommand{\datastore}{\STs Scientific Datastore\xspace}
+\newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
+\newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
+\newcommand{\sensorfarm}{The \STs\xspace}
+
+%---------------------------------------------------------------------
+% New commands, macros, \etc
+%---------------------------------------------------------------------
+
+%% \input{kt}
+
+%=====================================================================
+
+\begin{document}
+
+\title{Generating Formal Executable Sensor Models\\ from their Descriptions}
+
+\author{Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic\\
+UCD CASL: Complex and Adaptive Systems Laboratory and\\
+School of Computer Science and Informatics,\\
+University College Dublin,\\
+Belfield, Dublin 4, Ireland,\\
+kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
+}
+
+\maketitle
+
+%======================================================================
+%\thispagestyle{empty}
+\begin{abstract}
+
+  In this work, rather than writing sensor simulators by hand, we
+  automatically refine a SensorML specification through a series of
+  stages to a formally specified, executable, functional
+  model-based specification written in the Java Modeling Language.
+  This resulting simulator implementation is completely validated with
+  (for the most part, automatically generated) unit tests and is
+  verified with the Extended Static Checker for Java, ESC/Java2.
+
+\end{abstract}
+
+%======================================================================
+\section{Introduction}
+
+The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
+sensor system installed at the University College Dublin in Dublin,
+Ireland.  \textbf{Our facility provides a capability---unique in the world in
+terms of its scale and flexibility---for performing in-depth
+investigation of both the specific and general issues in large-scale
+sensor networking.}
+
+This system integrates a sensor platform, a datastore, and a compute
+farm.  The sensor platform is a custom-designed, but inexpensive,
+sensor platform (called the \ST) paired with general-purpose
+small-scale compute nodes, including everything from low-power PDAs to
+powerful touchscreen-based portable computers.  There are over a dozen
+sensors on the \ST itself, and new sensors can be added by adding them
+to the USB bus.
+
+A software-based \STS has been designed and implemented that is meant
+to mimic the \ST hardware.  A part of this simulation is, of course,
+simulating the sensors themselves.  The challenge in such simulation
+is to ensure that a sensor simulator properly mimics the behavior of
+the actual hardware sensor.  While one can specify the behavior of
+such a sensor from a hardware data sheet and then hand-implement the
+sensor simulator, this process is problematic on several fronts.  Not
+only is one concerned about the accuracy of the simulation, but
+writing and maintaining these simulations is labor-intensive.
+
+A popular means by which to describe sensor data is to the use the
+SensorML specification language.  Using SensorML one can describe
+sensors and measurement processes, including an electronic
+specification sheet for a sensor, the lineage of an observation, etc.
+We would hope that this declarative specification is directly related
+to its simulation---in other words, the simulation must be a
+refinement of the SensorML specification.  But at the moment the is no
+way one can define or perform this refinement other than programming
+against a SensorML API by hand.
+
+To overcome this challenge, we: (1) formally define a sensor
+meta-model in the BON specification language; (2) define a formal
+refinement relation between the (XML) meta-model of SensorML and this
+BON meta-model; (3) using this refinement, we automatically generate
+an informal and formal BON model from any SensorML model; (4) using
+the Beetlz tool, from the formal BON model, we generate a formally
+specified, executable, functional model-based specification written in
+the Java Modeling Language, and; (5) we validate and verify, using
+unit testing and extended static checking respectively, this JML
+sensor model.
+
+Consequently, using formal BON, we can define a \emph{sensor system}
+as a composition of sensor models, and thus derive a complete formally
+specified and verified, executable sensor system model.  To
+demonstrate this process we describe an interesting slice of the \ST
+specification and its simulator.
+
+%=====================================================================
+\section{Conclusion}
+
+A conclusion.
+
+%======================================================================
+%% \nocite{ex1,ex2}
+\bibliographystyle{latex8}
+\bibliography{extra,%
+              abbrev,%
+              ads,%
+              category,%
+              complexity,%
+              hypertext,%
+              icsr,%
+              knowledge,%
+              languages,%
+              linguistics,%
+              meta,%
+              metrics,%
+              misc,%
+              modeling,%
+              modeltheory,%
+              reuse,%
+              rewriting,%
+              softeng,%
+              specification,%
+              ssr,%
+              technology,%
+              theory,%
+              web,%
+              upcoming,%
+              upcoming_conferences,%
+              conferences,%
+              workshops,%
+              verification,%
+              escjava,%
+              jml,%
+              nijmegen}
+
+%======================================================================
+% Fin
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% eval: 
+%%% TeX-master: t
+%%% End: 
