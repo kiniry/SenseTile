@@ -10,7 +10,7 @@ package sensor.type;
  * @version       "$ Revision: 1.00 $"
  */
 public final class ThermistorSensorType {
-
+	
 	/** The index of thermistor sensor type. */
 	private  final transient /*@spec_public@*/int index;
 	
@@ -19,7 +19,7 @@ public final class ThermistorSensorType {
     
 	private  static/*@spec_public@*/ int count = 0;
 	
-   // "All indices are greater than or equal 0 and less than or equal 1."
+   // "All indices are greater than zero."
 
 	//@ invariant index >= 0 && index <= 1;
 	//@ static invariant count >= 0 && count <= 2;
@@ -27,7 +27,7 @@ public final class ThermistorSensorType {
    /*@ requires  count <= 1;
      @ assignable index, name, count;
 	 @ ensures name == theName;
-	 @ ensures index == \old(count);
+	 @ ensures index == \old( count );
 	 @*/
 	private ThermistorSensorType(final /*@non_null@*/String theName) 
 	{
@@ -46,7 +46,10 @@ public final class ThermistorSensorType {
     */
 	public static final  ThermistorSensorType PTC = 
 		 new ThermistorSensorType("PTC");  
-			
+	
+	
+	ThermistorSensorType[] thermistorSensorType = {NTC,PTC};
+	
 	/**
 	 * @return "What is the index 
 	 * for this enumerated type?"
