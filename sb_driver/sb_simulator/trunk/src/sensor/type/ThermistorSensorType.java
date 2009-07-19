@@ -53,9 +53,6 @@ public final class ThermistorSensorType {
 	public static final  ThermistorSensorType PTC = 
 		 new ThermistorSensorType("PTC");  
 	
-	
-	ThermistorSensorType[] thermistorSensorType = {NTC,PTC};
-	
 	/**
 	 * @return "What is the index 
 	 * for this enumerated type?"
