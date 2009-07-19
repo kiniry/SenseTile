@@ -31,8 +31,8 @@ public final class AxisAccelerometerSensor implements ISensor
 	private final static transient int MIN = 14700;
 	  //@ represents mod_min <-MIN;
 	
-	private /*@spec_public@*/ transient int index = 0;//@ in mod_index;
-	  //@ represents mod_index <- index;
+	private /*@spec_public@*/ transient int index = 0;//@ in mod_mesure;
+
 	
 	//@ public model non_null int[] mod_set;
 	//@spec_public non_null

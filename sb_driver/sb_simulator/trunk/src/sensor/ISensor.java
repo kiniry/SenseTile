@@ -12,12 +12,12 @@ import sensor.type.SensorType;
  */
 public interface ISensor {
 	
-	//@ public model instance int mod_value;
+	//@ public model instance JMLDataGroup mod_mesure;
+	//@ public model instance int mod_value; in mod_mesure; 
 	//@ public model instance int mod_max;
 	//@ public model instance int mod_min;
 	//@ public model instance SensorType mod_type;
-
-	//@ public model instance int mod_index;
+	
 	//@ public model instance boolean mod_enabled;
 	
 	//@ public invariant mod_min <= mod_value && mod_value <= mod_max;
@@ -50,7 +50,7 @@ public interface ISensor {
 	   * throws an MissingSensorException.
 	   */
 	  /*@ requires isEnabled();
-	    @ assignable mod_value, mod_index;
+	    @ assignable mod_value, mod_mesure;
 	    @ ensures mod_min <= mod_value && mod_value <= mod_max;
 	    @ also
 	    @ requires !isEnabled();

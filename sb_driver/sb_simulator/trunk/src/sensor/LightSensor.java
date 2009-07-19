@@ -20,8 +20,8 @@ public final class LightSensor implements ISensor
 	  //@ represents mod_min <-MIN;
 	
 	//@spec_public
-	private transient int index = 0;//@ in mod_index;
-	  //@ represents mod_index <- index;
+	private transient int index = 0;//@ in mod_mesure;
+	 
 	
 	//@ public model non_null int[] mod_set;
 	//@spec_public non_null
@@ -63,7 +63,7 @@ public final class LightSensor implements ISensor
 		  a_set = new int[arr.length];
 		  int i = 0;
 		/*@ loop_invariant
-		  @ i >= 0 && i<= arr.length &&
+		  @ 0 <= i  && i<= arr.length &&
 	      @ (\forall int j; 0 <= j && j < i; a_set[j] == arr[j]);
 	      @ decreases arr.length - i;
 	      @*/
