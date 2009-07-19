@@ -19,8 +19,14 @@ public final class ThermistorSensorType {
     
 	private  static/*@spec_public@*/ int count = 0;
 	
-   // "All indices are greater than zero."
+   // "All indices are greater than 0 and less that 1."
 
+	//@ ensures \result <==> ((e.index == NTC.index) || (e.index == PTC.index));
+	//@ pure model boolean legal_MyEnumType(final ThermistorSensorType e);
+	
+	//@ invariant legal_MyEnumType(NTC);
+	//@ invariant legal_MyEnumType(PTC);
+	
 	//@ invariant index >= 0 && index <= 1;
 	//@ static invariant count >= 0 && count <= 2;
 	
@@ -64,7 +70,7 @@ public final class ThermistorSensorType {
 	 * @return ""What is the name for 
 	 * this enumerated type?""
 	 */	
-	
+
 	public /*@pure non_null@*/ String  getName() 
 	{
 		return name;
