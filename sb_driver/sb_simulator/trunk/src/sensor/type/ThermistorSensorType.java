@@ -21,12 +21,6 @@ public final class ThermistorSensorType {
 	
    // "All indices are greater than 0 and less that 1."
 
-	//@ ensures \result <==> ((e.index == NTC.index) || (e.index == PTC.index));
-	//@ pure model boolean legal_ThermType(final ThermistorSensorType e);
-	
-	//@ invariant legal_ThermType(NTC);
-	//@ invariant legal_ThermType(PTC);
-	
 	//@ invariant index >= 0 && index <= 1;
 	//@ static invariant count >= 0 && count <= 2;
 	
