@@ -17,6 +17,8 @@ import sensor.type.AccelerometerSensorType;
  */
 public final class AxisAccelerometerSensor implements ISensor 
 {
+	//@ ensures \result <==> (e >= SensorType.ACCEL_X && e <= SensorType.ACCEL_Z );
+	//@ pure model boolean legal_SensorType(final int e);
  
 	//@spec_public
 	private   transient int value= 15000;//@ in mod_value;
@@ -59,10 +61,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	  //@ constraint a_unit == MeasurementUnit.MVOLT;
 	  //@ constraint a_type == AccelerometerSensorType.PFPS;
 	  
-	
-	  /*@ private invariant ( mod_type >= SensorType.ACCEL_X &&
-	    @           		  mod_type <=  SensorType.ACCEL_Z );
-	    @*/
+	  //@ private invariant legal_SensorType( mod_type );
 	  
 	  /**
 	   * Create component in initial state.
@@ -140,8 +139,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	  */
 	
 	  /*@ also
-	    @ ensures (\result >= SensorType.ACCEL_X && 
-	    @          \result <= SensorType.ACCEL_Z);
+	    @ ensures legal_SensorType( \result );
 	    @*/
 	  public int getSensorType()
 	  {
