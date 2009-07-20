@@ -20,9 +20,9 @@ component
     feature
       -- The enum values, which are stored in an array, is constant and that 
       -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]  
+      array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
       						-- The Negative temperature coefficient thermistor.
       						-- For NTCs, the resistance decreases with temperature.
@@ -49,8 +49,8 @@ component
         end
     
     invariant
-      legal_ThermSensorType(0);
-      legal_ThermSensorType(1);
+      legal_ThermSensorType(NTC);
+      legal_ThermSensorType(PTC);
     end
     class ULTRASONIC_SENSOR_TYPE 
     indexing
@@ -68,8 +68,9 @@ component
       -- all fields declared as that type are of that type.
       array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
+        
       PROX: INTEGER			--The Proximity ultrasonic sensor.
         ensure
           Result = 0;
@@ -89,8 +90,8 @@ component
         end
 
     invariant
-      legal_UltraSensorType(0);
-      legal_UltraSensorType(1);
+      legal_UltraSensorType(PROX);
+      legal_UltraSensorType(RANG);
       end
       
    class SOUND_SENSOR_TYPE 
@@ -107,9 +108,9 @@ component
     -- The enum values, which are stored in an array, is constant and that 
     -- all fields declared as that type are of that type.
     feature
-      array: SEQUENCE[INTEGER]
+       array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
       CCEM: INTEGER		--Condenser, capacitor or electrostatic microphone sensor.
         ensure
@@ -161,15 +162,15 @@ component
         end
 
     invariant
-      legal_SoundSensorType(0);
-      legal_SoundSensorType(1);
-      legal_SoundSensorType(2);
-      legal_SoundSensorType(3);
-      legal_SoundSensorType(4);
-      legal_SoundSensorType(5);
-      legal_SoundSensorType(6);
-      legal_SoundSensorType(7);
-      legal_SoundSensorType(8);
+      legal_SoundSensorType(DMS);
+      legal_SoundSensorType(CMS);
+      legal_SoundSensorType(PMS);
+      legal_SoundSensorType(FOS);
+      legal_SoundSensorType(LMS);
+      legal_SoundSensorType(LQMS);
+      legal_SoundSensorType(MEMS);
+      legal_SoundSensorType(SMS);
+      legal_SoundSensorType(CCEM);
      end
    
    class SENSOR_TYPE 
@@ -186,9 +187,9 @@ component
     feature
     -- The enum values, which are stored in an array, is constant and that 
     -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]
+       array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
       ACCEL_X: INTEGER		-- Accelerometer sensor - X axe orientation.
         ensure
@@ -236,14 +237,14 @@ component
         end
 
     invariant
-      legal_SensorType(0);
-      legal_SensorType(1);
-      legal_SensorType(2);
-      legal_SensorType(3);
-      legal_SensorType(4);
-      legal_SensorType(5);
-      legal_SensorType(6);
-      legal_SensorType(7);
+      legal_SensorType(THERM);
+      legal_SensorType(LIGHT);
+      legal_SensorType(PRESS);
+      legal_SensorType(SOUND);
+      legal_SensorType(ULTRA);
+      legal_SensorType(ACCEL_X);
+      legal_SensorType(ACCEL_Y);
+      legal_SensorType(ACCEL_Z);
     end
     
     class PRESSURE_SENSOR_TYPE 
@@ -261,9 +262,9 @@ component
     feature
     -- The enum values, which are stored in an array, is constant and that 
     -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]
+     array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
       
       APS: INTEGER		-- The Absolute pressure sensor.
@@ -299,11 +300,11 @@ component
         end
    
     invariant
-      legal_PressSensorType(0);
-      legal_PressSensorType(1);
-      legal_PressSensorType(2);
-      legal_PressSensorType(3);
-      legal_PressSensorType(4);
+      legal_PressSensorType(APS);
+      legal_PressSensorType(GPS);
+      legal_PressSensorType(VPS);
+      legal_PressSensorType(DPS);
+      legal_PressSensorType(SPS);
       end
       
     class LIGHT_SENSOR_TYPE 
@@ -321,9 +322,9 @@ component
     feature
      -- The enum values, which are stored in an array, is constant and that 
     -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]
+     array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
       
       PCC: INTEGER		--The Photo-conductive Cells light sensor.
@@ -357,10 +358,10 @@ component
         end
 
     invariant
-      legal_LightSensorType(0);
-      legal_LightSensorType(1);
-      legal_LightSensorType(2);
-      legal_LightSensorType(3);
+      legal_LightSensorType(PEC);
+      legal_LightSensorType(PCC);
+      legal_LightSensorType(PVC);
+      legal_LightSensorType(PJU);
     end
        class ACCELEROMETER_SENSOR_TYPE 
     indexing
@@ -378,7 +379,7 @@ component
     -- all fields declared as that type are of that type.    
       array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
         
       MEMS: INTEGER		--The Surface Micromachined Capacitive.
@@ -411,10 +412,10 @@ component
         end
 
     invariant
-      legal_AccSensorType(0);
-      legal_AccSensorType(1);
-      legal_AccSensorType(2);
-      legal_AccSensorType(3);
+      legal_AccSensorType(PFPS);
+      legal_AccSensorType(SMA);
+      legal_AccSensorType(MEMS);
+      legal_AccSensorType(TCMOS)
       end
   -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   -- SENSOR_CLUSTER cluster classes
