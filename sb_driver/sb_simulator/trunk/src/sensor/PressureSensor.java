@@ -13,9 +13,11 @@ public final class PressureSensor implements ISensor
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
+	//@spec_public
 	private final static transient int MAX = 115000;
 	  //@ represents mod_max <-MAX;
 	
+	//@spec_public
 	private final static transient int MIN = 15000;
 	  //@ represents mod_min <-MIN;
 	
@@ -28,16 +30,16 @@ public final class PressureSensor implements ISensor
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 	
-	//@non_null
-	private final transient  PressureSensorType a_type= 
+	//@spec_public
+	private final transient  int a_type= 
 		PressureSensorType.APS;
 	
-	//@non_null  
-	private final transient  MeasurementUnit a_unit = 
+	//@spec_public  
+	private final transient  int a_unit = 
 		MeasurementUnit.PASCAL;
 	
-	//@spec_public non_null
-	private final transient  SensorType a_sensType = 
+	//@spec_public
+	private final transient  int a_sensType = 
 		SensorType.PRESS; //@ in mod_type;
 	  //@ represents mod_type <-a_sensType;
 	
@@ -79,7 +81,7 @@ public final class PressureSensor implements ISensor
 	   */
 	  //@ requires isEnabled();
 	  //@ ensures \result == MeasurementUnit.PASCAL;
-	  public/*@pure non_null@*/ MeasurementUnit getUnit()
+	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
 	  }
@@ -89,7 +91,7 @@ public final class PressureSensor implements ISensor
 	   */
 	 //@ requires isEnabled();
 	 //@ ensures \result == PressureSensorType.APS;
-	  public/*@pure non_null@*/ PressureSensorType getType()
+	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
 	  }
@@ -127,7 +129,7 @@ public final class PressureSensor implements ISensor
 	  */
 	  //@also
 	  //@ensures \result == SensorType.PRESS;
-	  public SensorType getSensorType()
+	  public int getSensorType()
 	  {
 		  return a_sensType;
 	  }

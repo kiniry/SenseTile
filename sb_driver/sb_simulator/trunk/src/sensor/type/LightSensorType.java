@@ -10,64 +10,34 @@ package sensor.type;
  * @version       "$ Revision: 1.00 $"
  */
 public final class LightSensorType {
-
-	/** The index of light sensor type. */
-	private final transient/*@spec_public@*/int index;
 	
-	/** The name of light sensor type. */
-	private final transient/*@spec_public non_null@*/String name;
-    
-	private static/*@spec_public@*/ int count = 0;
-
-    // "All indices are greater than or equal 0 and less than or equal 3."
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1] || 
+	  @						  e == array[2] ||
+	  @						  e == array[3]);
+	  @ pure model boolean legal_LightSensorType(final int e);
+	  @ */	
 	
-	//@ invariant index >= 0 && index <= 3;
-	//@ static invariant count >= 0 && count <= 4;
+	//@ invariant legal_LightSensorType(0);
+	//@ invariant legal_LightSensorType(1);
+	//@ invariant legal_LightSensorType(2);
+	//@ invariant legal_LightSensorType(3);
 	
-   /*@ requires  count <= 3;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old( count );
-	 @*/
-	private LightSensorType(final /*@non_null*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	private LightSensorType(){}
 		
 	/** The Photo-emissive Cells light sensor.*/
-	public static final LightSensorType PEC = 
-		 new LightSensorType("PEC");
+	public static final int PEC  = 0;
 	
 	/** The Photo-conductive Cells light sensor.*/
-	public static final  LightSensorType PCC = 
-		 new LightSensorType("PCC");
+	public static final  int PCC = 1;
 
 	/** The Photo-voltaic Cells light sensor.*/
-	public static final LightSensorType PVC = 
-		 new LightSensorType("PVC");
+	public static final int PVC  = 2;
 
 	/** The Photo-junction light sensor.*/
-	public static final LightSensorType PJU = 
-		 new LightSensorType("PJU");
+	public static final int PJU  = 3;
 	
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 3;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
-
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
+	public  final  /*@non_null*/ int[] array = {PEC, PCC, PVC, PJU };
+	
 }
 

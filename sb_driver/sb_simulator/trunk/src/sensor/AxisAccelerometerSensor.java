@@ -1,11 +1,13 @@
 package sensor;
 
-
 import sensor.type.AccelerometerSensorType;
-import sensor.type.SensorType;
-
+//@ model import sensor.type.SensorType;
 /**
- * This class represents typesafe implementation of measurement units.
+ * An accelerometer measures the acceleration it experiences
+ * relative to freefall. Single model is available
+ * to detect magnitude and direction of the acceleration as 
+ * a vector quantity, and can be used to sense orientation, 
+ * vibration and shock.
  * @title         "AxisAccelerometerSensor"
  * @date          "2009/07/07"
  * @author        "Dragan Stosic"
@@ -28,6 +30,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	private  final static transient int MAX = 15300;
 	  //@ represents mod_max <-MAX;
 	
+	//@spec_public
 	private final static transient int MIN = 14700;
 	  //@ represents mod_min <-MIN;
 	
@@ -39,23 +42,22 @@ public final class AxisAccelerometerSensor implements ISensor
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 		
-	//@spec_public non_null  
-	private final transient  MeasurementUnit a_unit = 
+	//@spec_public  
+	private final transient  int a_unit = 
 		MeasurementUnit.MVOLT;
 	
-	//@non_null
-	private final transient  AccelerometerSensorType a_type= 
+	//@spec_public
+	private final transient  int a_type= 
 		AccelerometerSensorType.PFPS;
 	
-	
-	//@spec_public non_null
-	private final transient  SensorType a_sensType; //@ in mod_type;
+	//@ spec_public
+	private final transient  int a_sensType; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
 	
 	  //@ constraint mod_max == 15300;
 	  //@ constraint mod_min == 14700;
 	
-	  /*@ private invariant( mod_type == SensorType.ACCEL_X ||
+	  /*@ public invariant( mod_type == SensorType.ACCEL_X ||
 	    @           		 mod_type == SensorType.ACCEL_Y ||
 	    @           		 mod_type ==  SensorType.ACCEL_Z );
 	    @*/
@@ -76,7 +78,7 @@ public final class AxisAccelerometerSensor implements ISensor
         @          arr[i] == a_set[i]);
 	    @*/
 	  public  AxisAccelerometerSensor(final /*@non_null@*/ int[] arr, 
-			  final /*@non_null@*/ SensorType type) 
+			  final  int type) 
 	  {
 		  enabled = true;
 		  a_sensType = type;
@@ -100,7 +102,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	   */
 	  //@ requires isEnabled();
 	  //@ ensures \result == MeasurementUnit.MVOLT;
-	  public/*@pure non_null@*/ MeasurementUnit getUnit()
+	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
 	  }
@@ -111,7 +113,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	   */
 	 //@ requires isEnabled();
 	 //@ ensures \result == AccelerometerSensorType.PFPS;
-	  public/*@pure non_null@*/ AccelerometerSensorType getType()
+	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
 	  }
@@ -144,7 +146,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	    @          \result == SensorType.ACCEL_Y ||
 	    @          \result == SensorType.ACCEL_Z);
 	    @*/
-	  public SensorType getSensorType()
+	  public int getSensorType()
 	  {
 		  return a_sensType;
 	  }

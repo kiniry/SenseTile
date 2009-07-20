@@ -12,10 +12,10 @@ public final class SoundSensor implements ISensor
 	//@spec_public
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
-	
+	//@spec_public
 	private final static transient int MAX = -31;
 	  //@ represents mod_max <-MAX;
-	
+	//@spec_public
 	private final static transient int MIN = -39;
 	  //@ represents mod_min <-MIN;
 	
@@ -27,16 +27,16 @@ public final class SoundSensor implements ISensor
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 	
-	//@non_null
-	private final transient  SoundSensorType a_type= 
+	//@spec_public
+	private final transient  int a_type= 
 		SoundSensorType.DMS;
 	
-	//@non_null  
-	private final transient  MeasurementUnit a_unit = 
+	//@spec_public  
+	private final transient  int a_unit = 
 		MeasurementUnit.DECIBEL;
 	
-	//@spec_public non_null
-	private final transient  SensorType a_sensType = 
+	//@spec_public
+	private final transient  int a_sensType = 
 		SensorType.SOUND; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
 	
@@ -79,7 +79,7 @@ public final class SoundSensor implements ISensor
 	   */
 	  //@ requires isEnabled();
 	  //@ ensures \result == MeasurementUnit.DECIBEL;
-	  public/*@pure non_null@*/ MeasurementUnit getUnit()
+	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
 	  }
@@ -89,7 +89,7 @@ public final class SoundSensor implements ISensor
 	   */
 	 //@ requires isEnabled();
 	 //@ ensures \result == SoundSensorType.DMS;
-	  public/*@pure non_null@*/ SoundSensorType getType()
+	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
 	  }
@@ -118,7 +118,7 @@ public final class SoundSensor implements ISensor
 	  */
 	  //@also
 	  //@ensures \result == SensorType.SOUND;
-	  public SensorType getSensorType()
+	  public int getSensorType()
 	  {
 		  return a_sensType;
 	  }

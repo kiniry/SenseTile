@@ -13,9 +13,11 @@ public final class UltrasonicSensor implements ISensor
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
+	//@spec_public
 	private final static transient int MAX = -43;
 	  //@ represents mod_max <-MAX;
 	
+	//@spec_public
 	private final static transient int MIN = -51;
 	  //@ represents mod_min <-MIN;
 	
@@ -28,22 +30,23 @@ public final class UltrasonicSensor implements ISensor
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 	
-	//@non_null
-	private final transient  UltrasonicSensorType a_type= 
+	//@spec_public
+	private final transient  int a_type= 
 		UltrasonicSensorType.PROX;
 	
-	//@non_null  
-	private final transient  MeasurementUnit a_unit = 
+	//@spec_public
+	private final transient  int a_unit = 
 		MeasurementUnit.DECIBEL;
 	
-	//@spec_public non_null
-	private final transient  SensorType a_sensType = 
+	//@spec_public
+	private final transient  int a_sensType = 
 		SensorType.ULTRA; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
 	
 	
 	  //@ constraint mod_max == -43;
 	  //@ constraint mod_min == -51;
+	
 	
 	  //@ private invariant mod_type == SensorType.ULTRA;
 	  //@ private invariant a_type == UltrasonicSensorType.PROX;
@@ -80,7 +83,7 @@ public final class UltrasonicSensor implements ISensor
 	   */
 	  //@ requires isEnabled();
 	  //@ ensures \result == MeasurementUnit.DECIBEL;
-	  public/*@pure non_null@*/ MeasurementUnit getUnit()
+	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
 	  }
@@ -90,7 +93,7 @@ public final class UltrasonicSensor implements ISensor
 	   */
 	 //@ requires isEnabled();
 	 //@ ensures \result == UltrasonicSensorType.PROX;
-	  public/*@pure non_null@*/ UltrasonicSensorType getType()
+	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
 	  }
@@ -118,7 +121,7 @@ public final class UltrasonicSensor implements ISensor
 	  */
 	  //@also
 	  //@ensures \result == SensorType.ULTRA;
-	  public SensorType getSensorType()
+	  public int getSensorType()
 	  {
 		  return a_sensType;
 	  }

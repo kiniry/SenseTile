@@ -11,60 +11,29 @@ package sensor.type;
  */
 public final class ThermistorSensorType {
 	
-	/** The index of thermistor sensor type. */
-	private  final transient /*@spec_public@*/int index;
-	
-	/** The name of thermistor sensor type. */
-	private transient final/*@spec_public non_null@*/String name;
-    
-	private  static/*@spec_public@*/ int count = 0;
-	
-   // "All indices are greater than 0 and less that 1."
 
-	//@ invariant index >= 0 && index <= 1;
-	//@ static invariant count >= 0 && count <= 2;
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1]);
+	  @ pure model boolean legal_ThermSensorType(final int e);
+	  @ */	
 	
-   /*@ requires  count <= 1;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old( count );
-	 @*/
-	private ThermistorSensorType(final /*@non_null@*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	//@ invariant legal_ThermSensorType(0);
+	//@ invariant legal_ThermSensorType(1);
+	
+	private ThermistorSensorType() {}
 		
    /** The Negative temperature coefficient thermistor.
 	* For NTCs, the resistance decreases with temperature. 
     */
-	public static final  ThermistorSensorType NTC = 
-		 new ThermistorSensorType("NTC");
-	
+	public static final  int NTC = 0;
+		 
    /** The Positive temperature coefficient thermistor. 
 	* For PTCs, the resistance increases with temperature.
     */
-	public static final  ThermistorSensorType PTC = 
-		 new ThermistorSensorType("PTC");  
+	public static final  int PTC = 1;
 	
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 1;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
+	public  final  /*@non_null*/ int[] array = {NTC, PTC};
+	
 
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
-
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
 }
 

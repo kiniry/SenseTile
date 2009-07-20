@@ -10,83 +10,53 @@ package sensor;
  */
 public final class MeasurementUnit {
 
-	/** The index of measurement unit. */
-	private transient final /*@spec_public@*/int index;
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1] || 
+	  @						  e == array[2] ||
+	  @						  e == array[3] ||
+	  @						  e == array[4] ||
+	  @						  e == array[5] ||
+	  @						  e == array[6] ||
+	  @						  e == array[7]);
+	  @ pure model boolean legal_unit(final int e);
+	  @ */	
 	
-	/** The name of measurement unit. */
-	private transient final /*@spec_public non_null@*/String name;
-    
-	private static/*@spec_public@*/ int count = 0;
+	//@ invariant legal_unit(0);
+	//@ invariant legal_unit(1);
+	//@ invariant legal_unit(2);
+	//@ invariant legal_unit(3);
+	//@ invariant legal_unit(4);
+	//@ invariant legal_unit(5);
+	//@ invariant legal_unit(6);
+	//@ invariant legal_unit(7);
 
-	// "All indices are greater than or equal 0 and less than or equal 7."
-
-	//@ invariant index >= 0 && index <= 7;
-	//@ static invariant count >= 0 && count <= 8;
-	
-   /*@ requires  count <= 7;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old( count );
-	 @*/
-	private MeasurementUnit (final /*@non_null@*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	private MeasurementUnit () {}
 		
 	/** A -Amper (currency).*/
-	public static final  MeasurementUnit  AMPER = 
-		 new MeasurementUnit ("Amper");
+	public static final  int  AMPER = 0;
 	
 	/** V -Voltage (voltage).*/
-	public static final  MeasurementUnit  VOLT = 
-		 new MeasurementUnit ("Volt");
+	public static final  int  VOLT  = 1;
 
 	/** mV -mili Voltage (voltage).*/
-	public static final  MeasurementUnit  MVOLT = 
-		 new MeasurementUnit ("Mvolt");
+	public static final  int  MVOLT = 2;
 
-	
 	/** Hz - Hertz (frequency)*/
-	public static final  MeasurementUnit  HERTZ = 
-		 new MeasurementUnit ("Hertz");
+	public static final  int  HERTZ = 3;
 	
 	/** dB - Decibel*/
-	public static final  MeasurementUnit  DECIBEL = 
-		 new MeasurementUnit ("Decibel");
+	public static final  int  DECIBEL = 4;
 	
 	/** C - Temperature - Celsius.*/
-	
-	public static final  MeasurementUnit  CELSIUS = 
-		 new MeasurementUnit ("Celsius");
+	public static final  int  CELSIUS = 5;
 	
     /** pa - pressure - Pascal.*/
-	
-	public static final  MeasurementUnit  PASCAL = 
-		 new MeasurementUnit ("PASCAL");
+	public static final  int  PASCAL = 6;
 	
 	/** lux - light - lux.*/
+	public static final  int  LUX = 7;
 	
-	public static final  MeasurementUnit  LUX = 
-		 new MeasurementUnit ("LUX");
+	public  final  /*@non_null*/ int[] array = {AMPER, VOLT, MVOLT, HERTZ, DECIBEL, CELSIUS, PASCAL, LUX};
 
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 7;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
-
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
 }
 

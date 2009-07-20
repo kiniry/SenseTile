@@ -9,81 +9,59 @@ package sensor.type;
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-public final class SensorType {
-
-	/** The index of sensor type. */
-	private  final transient /*@spec_public@*/int index;
-	
-	/** The name of sensor type. */
-	private transient final/*@spec_public non_null@*/String name;
-    
-	private  static/*@spec_public@*/ int count = 0;
-	
-   // "All indices are greater than zero."
-
-   //@ invariant index >= 0 && index <= 7;
-   //@ static invariant count >= 0 && count <= 8;
-	
-   /*@ requires  count <= 7;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old(count);
-	 @*/
-	private SensorType(final /*@non_null@*/String theName) 
+public final class SensorType 
+{
+	private SensorType ()
 	{
-		name = theName;
-		index = count++;
-	}
 		
-   /** The Thermistor sensor.*/
-	public static final  SensorType THERM = 
-		 new SensorType("THERMISTOR");
+	}
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1] || 
+	  @						  e == array[2] ||
+	  @						  e == array[3] ||
+	  @						  e == array[4] ||
+	  @						  e == array[5] ||
+	  @						  e == array[6] ||
+	  @						  e == array[7]);
+	  @ pure model boolean legal_SensorType(final int e);
+	  @ */	
 	
-   /** The Light sensor.*/
-	public static final  SensorType LIGHT = 
-		 new SensorType("LIGHT");  
+	//@ invariant legal_SensorType(0);
+	//@ invariant legal_SensorType(1);
+	//@ invariant legal_SensorType(2);
+	//@ invariant legal_SensorType(3);
+	//@ invariant legal_SensorType(4);
+	//@ invariant legal_SensorType(5);
+	//@ invariant legal_SensorType(6);
+	//@ invariant legal_SensorType(7);
+	
+   /** The Thermistor sensor type.*/
+	public static final  int THERM = 0;
+	
+   /** The Light sensor type.*/
+	public static final  int LIGHT = 1;  
 
-	/** The Pressure sensor.*/
-	public static final  SensorType PRESS = 
-		 new SensorType("PRESSURE");
+	/** The Pressure sensor type.*/
+	public static final  int PRESS = 2;
 	
-	/** The Sound sensor.*/
-	public static final  SensorType SOUND = 
-		 new SensorType("SOUND");
-	/** The Ultrasonic sensor.*/
-	public static final  SensorType ULTRA = 
-		 new SensorType("ULTRA");
+	/** The Sound sensor type.*/
+	public static final  int SOUND = 3;
+	
+	/** The Ultrasonic sensor type.*/
+	public static final  int ULTRA = 4;
 	
 	/** Accelerometer sensor - X axe orientation.*/
-	public static final  SensorType ACCEL_X = 
-		 new SensorType("ACCEL_X");
+	public static final  int ACCEL_X = 5;
 	
 	/** Accelerometer sensor - Y axe orientation.*/
-	public static final  SensorType ACCEL_Y = 
-		 new SensorType("ACCEL_Y");
+	public static final  int ACCEL_Y = 6;
 	
 	/** Accelerometer sensor - Z axe orientation..*/
-	public static final  SensorType ACCEL_Z = 
-		 new SensorType("ACCEL_Z");
+	public static final  int ACCEL_Z = 7;
 	
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 7;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
+	public  final  /*@non_null*/ int[] array = {THERM, LIGHT, PRESS, SOUND, ULTRA, ACCEL_X, ACCEL_Y, ACCEL_Z};
+	
+	
 
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
-	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
 }
 

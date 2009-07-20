@@ -28,16 +28,16 @@ public final class LightSensor implements ISensor
 	private transient  final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
 	
-	//@non_null
-	private final transient  LightSensorType a_type= 
+	//@spec_public
+	private final transient  int a_type= 
 		LightSensorType.PEC;
 	
-	//@non_null  
-	private final transient  MeasurementUnit a_unit = 
+	//@spec_public
+	private final transient  int a_unit = 
 		MeasurementUnit.LUX;
 	
-	//@spec_public non_null
-	private final transient  SensorType a_sensType = 
+	//@spec_public
+	private final transient  int a_sensType = 
 		SensorType.LIGHT; //@ in mod_type;
 	//@ represents mod_type <-a_sensType;
 	
@@ -80,7 +80,7 @@ public final class LightSensor implements ISensor
 	   */
 	  //@ requires isEnabled();
 	  //@ ensures \result == MeasurementUnit.LUX;
-	  public/*@pure non_null@*/ MeasurementUnit getUnit()
+	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
 	  }
@@ -90,7 +90,7 @@ public final class LightSensor implements ISensor
 	   */
 	 //@ requires isEnabled();
 	 //@ ensures \result == LightSensorType.PEC;
-	  public/*@pure non_null@*/ LightSensorType getType()
+	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
 	  }
@@ -128,7 +128,7 @@ public final class LightSensor implements ISensor
 	  */
 	  //@also
 	  //@ensures \result == SensorType.LIGHT;
-	  public SensorType getSensorType()
+	  public int getSensorType()
 	  {
 		  return a_sensType;
 	  }

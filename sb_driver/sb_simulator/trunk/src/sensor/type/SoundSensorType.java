@@ -11,84 +11,59 @@ package sensor.type;
  */
 public final class SoundSensorType {
 
-	/** The index of sound sensor type. */
-	private final transient /*@spec_public@*/int index;
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1] || 
+	  @						  e == array[2] ||
+	  @						  e == array[3] ||
+	  @						  e == array[4] ||
+	  @						  e == array[5] ||
+	  @						  e == array[6] ||
+	  @						  e == array[7] ||
+	  @						  e == array[8]);
+	  @ pure model boolean legal_SoundSensorType(final int e);
+	  @ */	
 	
-	/** The name of sound sensor type. */
-	private final transient /*@spec_public non_null@*/String name;
-    
-	private static/*@spec_public@*/ int count = 0;
-
-	// "All indices are greater than or equal 0 and less than or equal 7."
-
-	//@ invariant index >= 0 && index <= 7;
-	//@ static invariant count >= 0 && count <= 8;
+	//@ invariant legal_SoundSensorType(0);
+	//@ invariant legal_SoundSensorType(1);
+	//@ invariant legal_SoundSensorType(2);
+	//@ invariant legal_SoundSensorType(3);
+	//@ invariant legal_SoundSensorType(4);
+	//@ invariant legal_SoundSensorType(5);
+	//@ invariant legal_SoundSensorType(6);
+	//@ invariant legal_SoundSensorType(7);
+	//@ invariant legal_SoundSensorType(8);
 	
-   /*@ requires  count <= 7;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old( count );
-	 @*/
-	private SoundSensorType(final /*@non_null@*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	private SoundSensorType() {}
 		
 	/** The Dynamic microphone sensor.*/
-	public static final  SoundSensorType DMS = 
-		 new SoundSensorType("DMS");
+	public static final  int DMS = 0;
 	
 	/** The Carbon microphone sensor.*/
-	public static final  SoundSensorType CMS = 
-		 new SoundSensorType("CMS"); 
+	public static final  int CMS = 1;
 	
 	/** The Piezoelectric microphone sensor.*/
-	public static final  SoundSensorType PMS = 
-		 new SoundSensorType("PMS");   
+	public static final  int PMS = 2;
 	
 	/** The Fiber optical microphone sensor.*/
-	public static final  SoundSensorType FOS = 
-		 new SoundSensorType("FOS");  
-	
+	public static final  int FOS = 3;
+ 	
 	/** The Laser microphone sensor.*/
-	public static final  SoundSensorType LMS = 
-		 new SoundSensorType("LMS"); 
+	public static final  int LMS = 4;
 	
 	/** The Liquid microphone sensor.*/
-	public static final  SoundSensorType LQMS = 
-		 new SoundSensorType("LQMS");
+	public static final  int LQMS = 5;
 	
 	/** The MEMS microphone sensor.*/
-	public static final  SoundSensorType MEMS = 
-		 new SoundSensorType("MEMS"); 
+	public static final  int MEMS = 6;
 	
 	/** The Speaker as microphone sensor.*/
-	public static final  SoundSensorType SMS = 
-		 new SoundSensorType("SMS");   
+	public static final  int SMS = 7;  
 	
 	/** Condenser, capacitor or 
 	 * electrostatic microphone sensor.
 	 */
-	public static final  SoundSensorType CCEM = 
-		 new SoundSensorType("CCEM");  
+	public static final  int CCEM = 8;
 		
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 7;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
-
-	/**
-	 * @return "What is the name for 
-	 * this enumerated type?"
-	 */	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
+	public  final  /*@non_null*/ int[] array = {DMS, CMS, PMS, FOS, LMS, LQMS, MEMS, SMS, CCEM};
+	
 }

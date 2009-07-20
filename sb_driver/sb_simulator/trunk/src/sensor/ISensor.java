@@ -1,6 +1,5 @@
 package sensor;
 
-import sensor.type.SensorType;
 /**
  * This interface represents an abstraction of sensor component.
  * @title         "ISensor"
@@ -16,7 +15,7 @@ public interface ISensor {
 	//@ public model instance int mod_value; in mod_mesure; 
 	//@ public model instance int mod_max;
 	//@ public model instance int mod_min;
-	//@ public model instance SensorType mod_type;
+	//@ public model instance int mod_type;
 	
 	//@ public model instance boolean mod_enabled;
 	
@@ -79,6 +78,6 @@ public interface ISensor {
 	   * @return mod_type - sensor type.
 	   */
 	  //@ ensures \result == mod_type;
-	  /*@ pure*/ SensorType getSensorType();
+	  /*@ pure*/ int getSensorType();
 		
 }

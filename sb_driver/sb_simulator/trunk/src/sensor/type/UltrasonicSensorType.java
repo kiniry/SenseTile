@@ -10,57 +10,25 @@ package sensor.type;
  * @version       "$ Revision: 1.00 $"
  */
 public  final class UltrasonicSensorType {
-
-	/** The index of ultrasonic sensor type. */
-	private final transient /*@spec_public@*/int index;
 	
-	/** The name of ultrasonic sensor type. */
-	private final transient /*@spec_public non_null@*/String name;
-    
-	private static/*@spec_public@*/ int count = 0;
 
-	// "All indices are greater than or equal 0 and less than or equal 1."
-
-	//@ invariant index >= 0 && index <= 1;
-	//@ static invariant count >= 0 && count <= 2;
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1]);
+	  @ pure model boolean legal_ThermSensorType(final int e);
+	  @ */	
 	
-   /*@ requires  count <= 1;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old( count );
-	 @*/
-	private UltrasonicSensorType(final /*@non_null@*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	//@ invariant legal_ThermSensorType(0);
+	//@ invariant legal_ThermSensorType(1);
+
+	private UltrasonicSensorType() {}
 		
 	/** The Proximity ultrasonic sensor.*/
-	public static final  UltrasonicSensorType PROX =
-		 new UltrasonicSensorType("PROX");
+	public static final  int PROX = 0;
 	
 	/** The Ranging ultrasonic sensor.*/
-	public static final  UltrasonicSensorType RANG = 
-		 new UltrasonicSensorType("RANG");  
-			
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 1;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
-
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
+	public static final  int RANG = 1; 
 	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
+	public  final  /*@non_null*/ int[] array = {PROX, RANG};
+		   
 }
 

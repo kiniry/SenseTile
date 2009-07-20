@@ -11,67 +11,38 @@ package sensor.type;
  */
 public final class PressureSensorType {
 
-	/** The index of pressure sensor type. */
-	private final transient /*@spec_public@*/int index;
-	
-	/** The name of pressure sensor type. */
-	private final transient /*@spec_public non_null@*/String name;
-    
-	private static/*@spec_public*/ int count = 0;
 
-	// "All indices are greater than or equal 0 and less than or equal 4."
-
-	//@ invariant index >= 0 && index <= 4;
-	//@ static invariant count >= 0 && count <= 5;
+	/*@ ensures \result <==> (e == array[0] || 
+	  @						  e == array[1] || 
+	  @						  e == array[2] ||
+	  @						  e == array[3] ||
+	  @						  e == array[4]);
+	  @ pure model boolean legal_PressSensorType(final int e);
+	  @ */	
 	
-   /*@ requires  count <= 4;
-     @ assignable index, name, count;
-	 @ ensures name == theName;
-	 @ ensures index == \old(count);
-	 @*/
-	private PressureSensorType (final /*@non_null@*/String theName) 
-	{
-		name = theName;
-		index = count++;
-	}
+	//@ invariant legal_PressSensorType(0);
+	//@ invariant legal_PressSensorType(1);
+	//@ invariant legal_PressSensorType(2);
+	//@ invariant legal_PressSensorType(3);
+	//@ invariant legal_PressSensorType(4);
+	
+	private PressureSensorType () {}
 		
 	/** The Absolute pressure sensor.*/
-	public static final  PressureSensorType  APS = 
-		 new PressureSensorType ("APS");
+	public static final  int  APS = 0;
 	
 	/** The Gauge pressure sensor.*/
-	public static final  PressureSensorType  GPS = 
-		 new PressureSensorType ("GPS");
+	public static final  int  GPS = 1;
 	
 	/** The Vacuum pressure sensor.*/
-	public static final  PressureSensorType  VPS = 
-		 new PressureSensorType ("VPS");
+	public static final  int VPS  = 2;
 	
 	/** The Differential pressure sensor.*/
-	public static final  PressureSensorType  DPS = 
-		 new PressureSensorType ("DPS");
+	public static final  int  DPS = 3;
 
 	/** The Sealed pressure sensor.*/
-	public static final  PressureSensorType  SPS = 
-		 new PressureSensorType ("SPS");
+	public static final  int  SPS = 4;
 	
-	/**
-	 * @return "What is the index 
-	 * for this enumerated type?"
-	 */	
-	//@ ensures \result >= 0 && \result <= 4;
-	public /*@pure*/ int  getIndex() 
-	{
-		return index;
-	}
-
-	/**
-	 * @return ""What is the name for 
-	 * this enumerated type?""
-	 */	
-	public /*@pure non_null@*/ String  getName() 
-	{
-		return name;
-	}
+	public  final  /*@non_null*/ int[] array = {APS, GPS, VPS, DPS, SPS };
 }
 
