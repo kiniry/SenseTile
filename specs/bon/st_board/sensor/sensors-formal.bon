@@ -13,7 +13,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
       
@@ -60,7 +60,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
     feature
@@ -101,7 +101,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
     -- The enum values, which are stored in an array, is constant and that 
@@ -180,7 +180,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
     feature
@@ -254,7 +254,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
       
@@ -314,7 +314,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
   	feature{NONE}
       make
     
@@ -370,7 +370,7 @@ component
   		copyright:    "none";
   		organisation: "School of Computer Science and Informatics, UCD";
   		date:         "2009/07/05";
-  		version:      "Revision: 1.00"
+  		version:      "Revision: 1.00";
     feature{NONE}
       make
     feature
@@ -416,5 +416,221 @@ component
       legal_AccSensorType(2);
       legal_AccSensorType(3);
       end
+  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -- SENSOR_CLUSTER cluster classes
+  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
+    cluster SENSOR_CLUSTER
+
+    deferred class ISENSOR interfaced 
+    indexing
+    	about:        "This deffered class represents an abstract sensor.";
+  		title:        "ISensor";
+  		author:       "Dragan Stosic";
+  		copyright:    "none";
+  		organisation: "School of Computer Science and Informatics, UCD";
+  		date:         "2009/07/05";
+  		version:      "Revision: 1.00";
+    feature
+
+      mod_enabled: BOOLEAN      -- @.Model @.Instance boolean mod_enabled;
+        ensure
+          Result /= Void;
+        end
+      mod_max: INTEGER 			-- @.Model @.Instance int mod_max;
+        ensure
+          Result /= Void;
+        end
+      mod_mesure: JMLDATA_GROUP -- @.Model @.Instance JMLDataGroup mod_mesure;
+        ensure
+          Result /= Void;
+        end
+      mod_min: INTEGER			-- @.Model @.Instance int mod_min;
+        ensure
+          Result /= Void;
+        end
+      mod_type: INTEGER			-- @.Model @.Instance int mod_type;
+        ensure
+          Result /= Void;
+        end
+      mod_value: INTEGER		-- @.Model @.Instance int mod_value;
+        ensure
+          Result /= Void;
+        end
+    
+     feature{ISENSOR}
+      
+      deferred getMax: INTEGER --What is the maximal value for this component ?
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_max;
+        end
+      
+      deferred getMin: INTEGER --What is the minimal value for this component ?
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_min;
+        end
+      deferred getSensorType: INTEGER --Which type of sensor are you?
+        ensure
+          Result /= Void;
+          Result = mod_type;
+        end
+        
+      deferred getValue: INTEGER --What is the measured value for this component ?
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = mod_value;
+        end
+      
+      deferred isEnabled: BOOLEAN --Are you enabled ?
+        ensure
+          Result /= Void;
+        end
+      
+      deferred measure --Measure current value.If sensor is not available notify client class.
+        require
+          isEnabled;
+        ensure
+          delta {mod_mesure, mod_value};
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+        end
+      
+      deferred setEnable		--Turn off / on this component.
+        -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          delta mod_enabled;
+          mod_enabled = theFlag;
+        end
+     
+     invariant					--Measured value must to be between minimum and maximum value.
+      mod_min <= mod_value;
+      mod_value <= mod_max;
+    end
+    
+    class MEASUREMENT_UNIT 
+    indexing
+      about: "This class represents typesafe implementation of measurement units.";
+      title:        "MeasurementUnit";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+	feature{NONE}
+      make    
+    
+    feature
+    -- The enum values, which are stored in an array, is constant and that 
+    -- all fields declared as that type are of that type.   
+      array: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+        
+      AMPER: INTEGER	--A -Amper (currency).
+        ensure
+          Result = 0;
+        end
+      
+      CELSIUS: INTEGER	--C - Temperature - Celsius.
+        ensure
+          Result = 5;
+        end
+      
+      DECIBEL: INTEGER	--dB - Decibel.
+        ensure
+          Result = 4;
+        end
+      
+      HERTZ: INTEGER	--Hz - Hertz (frequency).
+        ensure
+          Result = 3;
+        end
+      
+      LUX: INTEGER		--lux - light - lux.
+        ensure
+          Result = 7;
+        end
+      
+      MVOLT: INTEGER	--mV -mili Voltage (voltage).
+        ensure
+          Result = 2;
+        end
+      
+      PASCAL: INTEGER	--pa - pressure - Pascal.
+        ensure
+          Result = 6;
+        end
+      
+      VOLT: INTEGER		--V -Voltage (voltage).
+        ensure
+          Result = 1;
+        end
+        
+    feature{MEASUREMENT_UNIT}
+      legal_unit: BOOLEAN -> e: INTEGER
+        require
+          e /= Void;
+        ensure
+          Result /= Void;
+          (e = array.item(0) or e = array.item(1) or 
+           e = array.item(2) or e = array.item(3) or 
+           e = array.item(4) or e = array.item(5) or 
+           e = array.item(6) or e = array.item(7)) <-> Result;
+        end
+
+    invariant
+      legal_unit(0);
+      legal_unit(1);
+      legal_unit(2);
+      legal_unit(3);
+      legal_unit(4);
+      legal_unit(5);
+      legal_unit(6);
+      legal_unit(7);
+      end
+      
+     effective class MISSING_SENSOR_EXCEPTION  
+     indexing
+      about: "Class implementation of sensor.MissingSensorException. Exception is used during measurement operations.";
+      title:        "MeasurementUnit";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	  
+     feature
+      make
+      make0 -> message: STRING
+        require
+          message /= Void;
+        end
+        
+      make1 -> cause: THROWABLE
+        require
+          cause /= Void;
+        end
+        
+      make2 -> message: STRING -> cause: THROWABLE
+        require
+          message /= Void;
+          cause /= Void;
+        end
+        
+    feature{MISSING_SENSOR_EXCEPTION}
+      serialVersionUID: INTEGER
+    end
+    
+    
       
   end

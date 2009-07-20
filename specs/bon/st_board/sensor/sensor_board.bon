@@ -508,7 +508,7 @@ command
 " Measure current value.If sensor is not available then notify client class.",
 "Turn off / on this component."
 constraint
-""   
+"Measured value must to be between minimum and maximum value."   
 end
 
 class_chart THERMISTOR_SENSOR
