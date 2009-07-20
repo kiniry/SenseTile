@@ -13,13 +13,15 @@ public final class LightSensor implements ISensor
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
+	
 	private final static transient int MAX = 1000;
 	  //@ represents mod_max <-MAX;
+	
 	
 	private final static transient int MIN = 0;
 	  //@ represents mod_min <-MIN;
 	
-	//@spec_public
+	
 	private transient int index = 0;//@ in mod_mesure;
 	 
 	

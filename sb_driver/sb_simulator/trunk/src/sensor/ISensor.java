@@ -16,7 +16,6 @@ public interface ISensor {
 	//@ public model instance int mod_max;
 	//@ public model instance int mod_min;
 	//@ public model instance int mod_type;
-	
 	//@ public model instance boolean mod_enabled;
 	
 	//@ public invariant mod_min <= mod_value && mod_value <= mod_max;

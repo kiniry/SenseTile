@@ -13,15 +13,12 @@ public final class UltrasonicSensor implements ISensor
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
-	//@spec_public
 	private final static transient int MAX = -43;
 	  //@ represents mod_max <-MAX;
 	
-	//@spec_public
 	private final static transient int MIN = -51;
 	  //@ represents mod_min <-MIN;
 	
-	//@spec_public
 	private transient int index = 0;//@ in mod_mesure;
 	  
 	
