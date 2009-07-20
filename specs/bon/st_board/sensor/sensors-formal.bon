@@ -632,6 +632,886 @@ component
       serialVersionUID: INTEGER
     end
     
+    effective class ULTRASONIC_SENSOR 
+    indexing
+      about: "This class represents Ultrasonic sensor.";
+      title:        "UltrasonicSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	  
+  	  inherit ISENSOR
     
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = "-43";
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-51";
+        end
+      setUltraSound -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = -43;
+          mod_min = -51;
+          mod_type = SensorType.ULTRA;
+          a_type = UltrasonicSensorType.PROX;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+        
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = -43;
+          mod_min = -51;
+          mod_type = SensorType.ULTRA;
+          a_type = UltrasonicSensorType.PROX;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+        
+      a_sensType: INTEGER
+        ensure
+          Result = 4;
+        end
+        
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+        
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
       
-  end
+      a_unit: INTEGER
+        ensure
+          Result = 4;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = UltrasonicSensorType.PROX;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.DECIBEL;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      measure
+        ensure
+          mod_max = -43;
+          mod_min = -51;
+          mod_type = SensorType.ULTRA;
+          a_type = UltrasonicSensorType.PROX;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = -43;
+          mod_min = -51;
+          mod_type = SensorType.ULTRA;
+          a_type = UltrasonicSensorType.PROX;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          Result = SensorType.ULTRA;
+        end
+   end
+   
+   effective class LIGHT_SENSOR 
+    indexing
+      about: "This class represents Light sensor.";
+      title:        "LightSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	  
+  	 inherit ISENSOR
+  	      
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 1000;
+        end
+      MIN: INTEGER
+        ensure
+          Result = 0;
+        end
+      setLight
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 1000;
+          mod_min = 0;
+          mod_type = SensorType.LIGHT;
+          a_type = LightSensorType.PEC;
+          a_unit = MeasurementUnit.LUX;
+        end
+        
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = 1000;
+          mod_min = 0;
+          mod_type = SensorType.LIGHT;
+          a_type = LightSensorType.PEC;
+          a_unit = MeasurementUnit.LUX;
+        end
+      
+      a_sensType: INTEGER
+        ensure
+          Result = 1;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      a_unit: INTEGER
+        ensure
+          Result = 7;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = LightSensorType.PEC;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.LUX;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      measure
+        ensure
+          mod_max = 1000;
+          mod_min = 0;
+          mod_type = SensorType.LIGHT;
+          a_type = LightSensorType.PEC;
+          a_unit = MeasurementUnit.LUX;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 1000;
+          mod_min = 0;
+          mod_type = SensorType.LIGHT;
+          a_type = LightSensorType.PEC;
+          a_unit = MeasurementUnit.LUX;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          Result = SensorType.LIGHT;
+        end
+    end
+    
+   effective class PRESSURE_SENSOR
+       indexing
+      about: "This class represents pressure sensor.";
+      title:        "PressureSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	 
+  	 inherit ISENSOR
+  	  
+  	  
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 115000;
+        end
+      MIN: INTEGER
+        ensure
+          Result = 15000;
+        end
+      setPressure -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 115000;
+          mod_min = 15000;
+          mod_type = SensorType.PRESS;
+          a_type = PressureSensorType.APS;
+          a_unit = MeasurementUnit.PASCAL;
+        end
+    
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = 115000;
+          mod_min = 15000;
+          mod_type = SensorType.PRESS;
+          a_type = PressureSensorType.APS;
+          a_unit = MeasurementUnit.PASCAL;
+        end
+      
+      a_sensType: INTEGER
+        ensure
+          Result = 2;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      a_unit: INTEGER
+        ensure
+          Result = 6;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = PressureSensorType.APS;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.PASCAL;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      measure
+        ensure
+          mod_max = 115000;
+          mod_min = 15000;
+          mod_type = SensorType.PRESS;
+          a_type = PressureSensorType.APS;
+          a_unit = MeasurementUnit.PASCAL;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 115000;
+          mod_min = 15000;
+          mod_type = SensorType.PRESS;
+          a_type = PressureSensorType.APS;
+          a_unit = MeasurementUnit.PASCAL;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          Result = SensorType.PRESS;
+        end
+      end
+      
+    effective class SOUND_SENSOR 
+      indexing
+      about: "This class represents sound sensor.";
+      title:        "SoundSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	  
+  	  inherit ISENSOR
+  	  
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = "-31";
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-39";
+        end
+      setSound
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = -31;
+          mod_min = -39;
+          mod_type = SensorType.SOUND;
+          a_type = SoundSensorType.DMS;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = -31;
+          mod_min = -39;
+          mod_type = SensorType.SOUND;
+          a_type = SoundSensorType.DMS;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+        
+      a_sensType: INTEGER
+        ensure
+          Result = 3;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      a_unit: INTEGER
+        ensure
+          Result = 4;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = SoundSensorType.DMS;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.DECIBEL;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      measure
+        ensure
+          mod_max = -31;
+          mod_min = -39;
+          mod_type = SensorType.SOUND;
+          a_type = SoundSensorType.DMS;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = -31;
+          mod_min = -39;
+          mod_type = SensorType.SOUND;
+          a_type = SoundSensorType.DMS;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          Result = SensorType.SOUND;
+        end
+      end
+   effective class THERMISTOR_SENSOR
+       indexing
+      about: "This class represents thermistor sensor.";
+      title:        "ThermistorSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	
+  	inherit ISENSOR
+  	
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 127;
+        end
+      MIN: INTEGER
+        ensure
+          Result = "-55";
+        end
+      setTemp
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 127;
+          mod_min = -55;
+          mod_type = SensorType.THERM;
+          a_type = ThermistorSensorType.NTC;
+          a_unit = MeasurementUnit.CELSIUS;
+        end
+    
+    feature
+      make -> arr: SEQUENCE[INTEGER]
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = 127;
+          mod_min = -55;
+          mod_type = SensorType.THERM;
+          a_type = ThermistorSensorType.NTC;
+          a_unit = MeasurementUnit.CELSIUS;
+        end
+        
+      a_sensType: INTEGER
+        ensure
+          Result = 0;
+        end
+        
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      a_unit: INTEGER
+        ensure
+          Result = 5;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = ThermistorSensorType.NTC;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.CELSIUS;
+        end
+      
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      measure
+        ensure
+          mod_max = 127;
+          mod_min = -55;
+          mod_type = SensorType.THERM;
+          a_type = ThermistorSensorType.NTC;
+          a_unit = MeasurementUnit.CELSIUS;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 127;
+          mod_min = -55;
+          mod_type = SensorType.THERM;
+          a_type = ThermistorSensorType.NTC;
+          a_unit = MeasurementUnit.CELSIUS;
+        end
+      
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          Result = SensorType.THERM;
+        end
+      end
+    
+   effective class AXIS_ACCELEROMETER_SENSOR 
+    indexing
+      about: "An accelerometer measures the acceleration it experiences",
+      		 "relative to freefall. Single model is available",
+        	 "to detect magnitude and direction of the acceleration as",
+        	 "a vector quantity, and can be used to sense orientation,",
+             "vibration and shock.";
+      title:        "AxisAccelerometerSensor";
+  	  author:       "Dragan Stosic";
+  	  copyright:    "none";
+  	  organisation: "School of Computer Science and Informatics, UCD";
+  	  date:         "2009/07/05";
+  	  version:      "Revision: 1.00";
+  	  
+    inherit
+      ISENSOR
+    
+    feature{NONE}
+      index: INTEGER
+        ensure
+          Result /= Void;
+        end
+      MAX: INTEGER
+        ensure
+          Result = 15300;
+        end
+      MIN: INTEGER
+        ensure
+          Result = 14700;
+        end
+      setVoltage
+        -> index: INTEGER
+        require
+          index /= Void;
+          index >= 0;
+          index < mod_set.count;
+        ensure
+          delta mod_value;
+          mod_min <= mod_value;
+          mod_value <= mod_max;
+          mod_max = 15300;
+          mod_min = 14700;
+          a_unit = MeasurementUnit.MVOLT;
+          a_type = AccelerometerSensorType.PFPS;
+        end
+      
+    feature
+      make -> arr: SEQUENCE[INTEGER] -> type: INTEGER
+        require
+          arr /= Void;
+          type /= Void;
+          type >= SensorType.ACCEL_X;
+          type <= SensorType.ACCEL_Z;
+        ensure
+          delta {mod_enabled, mod_set, mod_type};
+          mod_type = type;
+          mod_enabled = true;
+          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
+          mod_max = 15300;
+          mod_min = 14700;
+          a_unit = MeasurementUnit.MVOLT;
+          a_type = AccelerometerSensorType.PFPS;
+        end
+        
+      a_sensType: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      a_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      a_type: INTEGER
+        ensure
+          Result = 0;
+        end
+      
+      a_unit: INTEGER
+        ensure
+          Result = 2;
+        end
+      
+      enabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+      
+      getType: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = AccelerometerSensorType.PFPS;
+        end
+      
+      getUnit: INTEGER
+        require
+          isEnabled;
+        ensure
+          Result /= Void;
+          Result = MeasurementUnit.MVOLT;
+        end
+      
+      legal_SensorType: BOOLEAN -> e: INTEGER
+        require
+          e /= Void;
+        ensure
+          Result /= Void;
+          (e >= SensorType.ACCEL_X and e <= SensorType.ACCEL_Z) <-> Result;
+        end
+        
+      mod_set: SEQUENCE[INTEGER]
+        ensure
+          Result /= Void;
+        end
+      
+      value: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      measure
+        ensure
+          mod_max = 15300;
+          mod_min = 14700;
+          a_unit = MeasurementUnit.MVOLT;
+          a_type = AccelerometerSensorType.PFPS;
+        end
+      
+      setEnable -> theFlag: BOOLEAN
+        require
+          theFlag /= Void;
+        ensure
+          mod_max = 15300;
+          mod_min = 14700;
+          a_unit = MeasurementUnit.MVOLT;
+          a_type = AccelerometerSensorType.PFPS;
+        end
+        
+      getMax: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getMin: INTEGER
+        ensure
+          Result /= Void;
+        end
+      
+      getSensorType: INTEGER
+        ensure
+          Result /= Void;
+          legal_SensorType(Result);
+        end
+    
+    
+    invariant
+      legal_SensorType(mod_type);
+    end
+end
