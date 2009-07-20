@@ -532,9 +532,9 @@ component
     feature
     -- The enum values, which are stored in an array, is constant and that 
     -- all fields declared as that type are of that type.   
-      array: SEQUENCE[INTEGER]
+       array: SEQUENCE[INTEGER]
         ensure
-          Result /= Void;
+          Result = old array;
         end
         
       AMPER: INTEGER	--A -Amper (currency).
@@ -590,14 +590,14 @@ component
         end
 
     invariant
-      legal_unit(0);
-      legal_unit(1);
-      legal_unit(2);
-      legal_unit(3);
-      legal_unit(4);
-      legal_unit(5);
-      legal_unit(6);
-      legal_unit(7);
+      legal_unit(AMPER);
+      legal_unit(VOLT);
+      legal_unit(MVOLT);
+      legal_unit(HERTZ);
+      legal_unit(DECIBEL);
+      legal_unit(CELSIUS);
+      legal_unit(PASCAL);
+      legal_unit(LUX);
       end
       
      effective class MISSING_SENSOR_EXCEPTION  
