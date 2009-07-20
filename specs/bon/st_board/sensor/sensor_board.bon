@@ -385,13 +385,12 @@ indexing
   revised: ""
 explanation
   "This class represents an implementation of sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all sensor types."
 constraint
-   "All indices are greater than or equal 0 and less than or equal 7."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end 
 
 class_chart THERMISTOR_SENSOR_TYPE
@@ -401,13 +400,12 @@ indexing
   revised: ""
 explanation
   "This class represents thermistor sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all thermistor types."
 constraint
-   "All indices are greater than or equal 0 and less than or equal 1."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end 
 
 class_chart PRESSURE_SENSOR_TYPE
@@ -417,13 +415,12 @@ indexing
   revised: ""
 explanation
   "This class represents pressure sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all pressure types."
 constraint
-"All indices are greater than or 0 and less than or equal 4."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end
 
 class_chart LIGHT_SENSOR_TYPE
@@ -433,13 +430,12 @@ indexing
   revised: ""
 explanation
   "This class represents light sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all light types."
 constraint
- "All indices are greater than or equal 0 and less than or equal 3."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end
 
 
@@ -451,13 +447,12 @@ indexing
 explanation
   "An enumerator which represents an \
    \holder of types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all accelerometer types."
 constraint
- "All indices are greater than or equal 0 and less than or equal 3."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end
 
 class_chart ULTRASONIC_SENSOR_TYPE
@@ -467,13 +462,13 @@ indexing
   revised: ""
 explanation
   "This class represents ultrasonic sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
+
 command
 "Create all mentioned types."
 constraint
- "All indices are greater than or equal zero and less than or equal 1."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end
 
 class_chart SOUND_SENSOR_TYPE
@@ -483,13 +478,12 @@ indexing
   revised: ""
 explanation
   "This class represents microphone sensor types."
-query
-"What is the index for this enumerated type?",
-"What is the name for this enumerated type?"
 command
 "Create all mentioned types."
 constraint
- "All indices are greater than or zero and less than or equal 7."
+   "The enum values, which are stored in an array, \
+   \is constant and that all fields declared as that \
+   \type are of that type."
 end
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
