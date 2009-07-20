@@ -14,13 +14,13 @@ public final class AccelerometerSensorType {
 	  @						  e == array[1] || 
 	  @						  e == array[2] ||
 	  @						  e == array[3]);
-	  @ pure model boolean legal_AccSensorType(final int e);
+	  @ pure static model boolean legal_AccSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_AccSensorType(0);
-	//@ invariant legal_AccSensorType(1);
-	//@ invariant legal_AccSensorType(2);
-	//@ invariant legal_AccSensorType(3);
+	//@ static invariant legal_AccSensorType(PFPS);
+	//@ static invariant legal_AccSensorType(SMA);
+	//@ static invariant legal_AccSensorType(MEMS);
+	//@ static invariant legal_AccSensorType(TCMOS);
 	
 	private AccelerometerSensorType(){}
 	
@@ -37,7 +37,9 @@ public final class AccelerometerSensorType {
 	/** Thermal (submicrometre CMOS process).*/
 	public static final  int TCMOS = 3;
 	
-	public  final  /*@non_null*/ int[] array = {PFPS, SMA, MEMS, TCMOS };
+	public  static final  /*@non_null*/ int[] array = {PFPS, SMA, MEMS, TCMOS };
+	
+	
 	
 }
 

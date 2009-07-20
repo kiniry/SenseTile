@@ -14,11 +14,11 @@ public final class ThermistorSensorType {
 
 	/*@ ensures \result <==> (e == array[0] || 
 	  @						  e == array[1]);
-	  @ pure model boolean legal_ThermSensorType(final int e);
+	  @ pure public static model boolean legal_ThermSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_ThermSensorType(0);
-	//@ invariant legal_ThermSensorType(1);
+	//@ static invariant legal_ThermSensorType(NTC);
+	//@ static invariant legal_ThermSensorType(PTC);
 	
 	private ThermistorSensorType() {}
 		
@@ -32,7 +32,7 @@ public final class ThermistorSensorType {
     */
 	public static final  int PTC = 1;
 	
-	public  final  /*@non_null*/ int[] array = {NTC, PTC};
+	public  static final  /*@non_null*/ int[] array = {NTC, PTC};
 	
 
 }

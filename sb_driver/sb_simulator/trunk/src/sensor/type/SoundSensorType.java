@@ -20,18 +20,18 @@ public final class SoundSensorType {
 	  @						  e == array[6] ||
 	  @						  e == array[7] ||
 	  @						  e == array[8]);
-	  @ pure model boolean legal_SoundSensorType(final int e);
+	  @ pure public static model boolean legal_SoundSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_SoundSensorType(0);
-	//@ invariant legal_SoundSensorType(1);
-	//@ invariant legal_SoundSensorType(2);
-	//@ invariant legal_SoundSensorType(3);
-	//@ invariant legal_SoundSensorType(4);
-	//@ invariant legal_SoundSensorType(5);
-	//@ invariant legal_SoundSensorType(6);
-	//@ invariant legal_SoundSensorType(7);
-	//@ invariant legal_SoundSensorType(8);
+	//@ static invariant legal_SoundSensorType(DMS);
+	//@ static invariant legal_SoundSensorType(CMS);
+	//@ static invariant legal_SoundSensorType(PMS);
+	//@ static invariant legal_SoundSensorType(FOS);
+	//@ static invariant legal_SoundSensorType(LMS);
+	//@ static invariant legal_SoundSensorType(LQMS);
+	//@ static invariant legal_SoundSensorType(MEMS);
+	//@ static invariant legal_SoundSensorType(SMS);
+	//@ static invariant legal_SoundSensorType(CCEM);
 	
 	private SoundSensorType() {}
 		
@@ -64,6 +64,6 @@ public final class SoundSensorType {
 	 */
 	public static final  int CCEM = 8;
 		
-	public  final  /*@non_null*/ int[] array = {DMS, CMS, PMS, FOS, LMS, LQMS, MEMS, SMS, CCEM};
+	public  static final  /*@non_null*/ int[] array = {DMS, CMS, PMS, FOS, LMS, LQMS, MEMS, SMS, CCEM};
 	
 }

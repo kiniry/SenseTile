@@ -23,17 +23,17 @@ public final class SensorType
 	  @						  e == array[5] ||
 	  @						  e == array[6] ||
 	  @						  e == array[7]);
-	  @ pure model boolean legal_SensorType(final int e);
+	  @ pure public model static boolean legal_SensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_SensorType(0);
-	//@ invariant legal_SensorType(1);
-	//@ invariant legal_SensorType(2);
-	//@ invariant legal_SensorType(3);
-	//@ invariant legal_SensorType(4);
-	//@ invariant legal_SensorType(5);
-	//@ invariant legal_SensorType(6);
-	//@ invariant legal_SensorType(7);
+	//@ static invariant legal_SensorType(THERM);
+	//@ static invariant legal_SensorType(LIGHT);
+	//@ static invariant legal_SensorType(PRESS);
+	//@ static invariant legal_SensorType(SOUND);
+	//@ static invariant legal_SensorType(ULTRA);
+	//@ static invariant legal_SensorType(ACCEL_X);
+	//@ static invariant legal_SensorType(ACCEL_Y);
+	//@ static invariant legal_SensorType(ACCEL_Z);
 	
    /** The Thermistor sensor type.*/
 	public static final  int THERM = 0;
@@ -59,7 +59,7 @@ public final class SensorType
 	/** Accelerometer sensor - Z axe orientation..*/
 	public static final  int ACCEL_Z = 7;
 	
-	public  final  /*@non_null*/ int[] array = {THERM, LIGHT, PRESS, SOUND, ULTRA, ACCEL_X, ACCEL_Y, ACCEL_Z};
+	public  static final  /*@non_null*/ int[] array = {THERM, LIGHT, PRESS, SOUND, ULTRA, ACCEL_X, ACCEL_Y, ACCEL_Z};
 	
 	
 

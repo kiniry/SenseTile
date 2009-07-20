@@ -14,11 +14,11 @@ public  final class UltrasonicSensorType {
 
 	/*@ ensures \result <==> (e == array[0] || 
 	  @						  e == array[1]);
-	  @ pure model boolean legal_UltraSensorType(final int e);
+	  @ pure public static model boolean legal_UltraSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_UltraSensorType(0);
-	//@ invariant legal_UltraSensorType(1);
+	//@ static invariant legal_UltraSensorType(PROX);
+	//@ static invariant legal_UltraSensorType(RANG);
 
 	private UltrasonicSensorType() {}
 		
@@ -28,7 +28,7 @@ public  final class UltrasonicSensorType {
 	/** The Ranging ultrasonic sensor.*/
 	public static final  int RANG = 1; 
 	
-	public  final  /*@non_null*/ int[] array = {PROX, RANG};
+	public static final  /*@non_null*/ int[] array = {PROX, RANG};
 		   
 }
 

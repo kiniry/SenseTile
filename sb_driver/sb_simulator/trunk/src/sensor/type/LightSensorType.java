@@ -15,13 +15,13 @@ public final class LightSensorType {
 	  @						  e == array[1] || 
 	  @						  e == array[2] ||
 	  @						  e == array[3]);
-	  @ pure model boolean legal_LightSensorType(final int e);
+	  @ pure public static model boolean legal_LightSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_LightSensorType(0);
-	//@ invariant legal_LightSensorType(1);
-	//@ invariant legal_LightSensorType(2);
-	//@ invariant legal_LightSensorType(3);
+	//@ static invariant legal_LightSensorType(PEC);
+	//@ static invariant legal_LightSensorType(PCC);
+	//@ static invariant legal_LightSensorType(PVC);
+	//@ static invariant legal_LightSensorType(PJU);
 	
 	private LightSensorType(){}
 		
@@ -37,7 +37,7 @@ public final class LightSensorType {
 	/** The Photo-junction light sensor.*/
 	public static final int PJU  = 3;
 	
-	public  final  /*@non_null*/ int[] array = {PEC, PCC, PVC, PJU };
+	public static  final  /*@non_null*/ int[] array = {PEC, PCC, PVC, PJU };
 	
 }
 

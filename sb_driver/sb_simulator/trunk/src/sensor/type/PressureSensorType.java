@@ -17,14 +17,14 @@ public final class PressureSensorType {
 	  @						  e == array[2] ||
 	  @						  e == array[3] ||
 	  @						  e == array[4]);
-	  @ pure model boolean legal_PressSensorType(final int e);
+	  @ pure public static model boolean legal_PressSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_PressSensorType(0);
-	//@ invariant legal_PressSensorType(1);
-	//@ invariant legal_PressSensorType(2);
-	//@ invariant legal_PressSensorType(3);
-	//@ invariant legal_PressSensorType(4);
+	//@ static invariant legal_PressSensorType(APS);
+	//@ static invariant legal_PressSensorType(GPS);
+	//@ static invariant legal_PressSensorType(VPS);
+	//@ static invariant legal_PressSensorType(DPS);
+	//@ static invariant legal_PressSensorType(SPS);
 	
 	private PressureSensorType () {}
 		
@@ -43,6 +43,6 @@ public final class PressureSensorType {
 	/** The Sealed pressure sensor.*/
 	public static final  int  SPS = 4;
 	
-	public  final  /*@non_null*/ int[] array = {APS, GPS, VPS, DPS, SPS };
+	public static  final  /*@non_null*/ int[] array = {APS, GPS, VPS, DPS, SPS };
 }
 
