@@ -18,7 +18,7 @@ import sensor.type.AccelerometerSensorType;
 public final class AxisAccelerometerSensor implements ISensor 
 {
 	//@ ensures \result <==> (e >= SensorType.ACCEL_X && e <= SensorType.ACCEL_Z );
-	//@ pure model boolean legal_SensorType(final int e);
+	//@ pure public model boolean legal_SensorType(final int e);
  
 	//@spec_public
 	private   transient int value= 15000;//@ in mod_value;

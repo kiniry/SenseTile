@@ -21,6 +21,8 @@ public interface ISensor {
 	
 	//@ public invariant mod_min <= mod_value && mod_value <= mod_max;
 	
+	
+	
 	  /**
 	   * Are you enabled ?
 	   * @return enabled.
