@@ -42,10 +42,9 @@ public final class ThermistorSensor implements ISensor
 	
 	  //@ constraint mod_max == 127;
 	  //@ constraint mod_min == -55;
-	  
-	  //@ private invariant mod_type == SensorType.THERM;
-	  //@ private invariant a_type == ThermistorSensorType.NTC;
-	  //@ private invariant a_unit == MeasurementUnit.CELSIUS;
+	  //@ constraint mod_type == SensorType.THERM;
+	  //@ constraint a_type == ThermistorSensorType.NTC;
+	  //@ constraint a_unit == MeasurementUnit.CELSIUS;
 	  
 	  /**
 	   * Create component in initial state.

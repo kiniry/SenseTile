@@ -56,15 +56,15 @@ public final class AxisAccelerometerSensor implements ISensor
 	
 	  //@ constraint mod_max == 15300;
 	  //@ constraint mod_min == 14700;
+	  //@ constraint a_unit == MeasurementUnit.MVOLT;
+	  //@ constraint a_type == AccelerometerSensorType.PFPS;
+	  
 	
-	  /*@ public invariant( mod_type == SensorType.ACCEL_X ||
-	    @           		 mod_type == SensorType.ACCEL_Y ||
-	    @           		 mod_type ==  SensorType.ACCEL_Z );
+	  /*@ private invariant ( mod_type == SensorType.ACCEL_X ||
+	    @           		  mod_type == SensorType.ACCEL_Y ||
+	    @           		  mod_type ==  SensorType.ACCEL_Z );
 	    @*/
 	  
-	  //@ private invariant a_unit == MeasurementUnit.MVOLT;
-	  //@ private invariant a_type == AccelerometerSensorType.PFPS;
-	  	  
 	  /**
 	   * Create component in initial state.
 	   */

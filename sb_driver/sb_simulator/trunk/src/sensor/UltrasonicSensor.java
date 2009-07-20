@@ -46,11 +46,10 @@ public final class UltrasonicSensor implements ISensor
 	
 	  //@ constraint mod_max == -43;
 	  //@ constraint mod_min == -51;
+	  //@ constraint mod_type == SensorType.ULTRA;
+	  //@ constraint a_type == UltrasonicSensorType.PROX;
+	  //@ constraint a_unit == MeasurementUnit.DECIBEL;
 	
-	
-	  //@ private invariant mod_type == SensorType.ULTRA;
-	  //@ private invariant a_type == UltrasonicSensorType.PROX;
-	  //@ private invariant a_unit == MeasurementUnit.DECIBEL;
 	  /**
 	   * Create component in initial state.
 	   */

@@ -45,10 +45,9 @@ public final class PressureSensor implements ISensor
 	
 	  //@ constraint mod_max == 115000;
 	  //@ constraint mod_min == 15000;
-	
-	  //@ private invariant mod_type == SensorType.PRESS;
-	  //@ private invariant a_type == PressureSensorType.APS;
-	  //@ private invariant a_unit == MeasurementUnit.PASCAL;
+	  //@ constraint mod_type == SensorType.PRESS;
+	  //@ constraint a_type == PressureSensorType.APS;
+	  //@ constraint a_unit == MeasurementUnit.PASCAL;
 	
 	  /**
 	   * Create component in initial state.

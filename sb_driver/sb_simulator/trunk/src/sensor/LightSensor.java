@@ -44,10 +44,9 @@ public final class LightSensor implements ISensor
 	
 	  //@ constraint mod_max == 1000;
 	  //@ constraint mod_min == 0;
-	
-	  //@ private invariant mod_type == SensorType.LIGHT;
-	  //@ private invariant a_type == LightSensorType.PEC;
-	  //@ private invariant a_unit == MeasurementUnit.LUX;
+	  //@ constraint mod_type == SensorType.LIGHT;
+	  //@ constraint a_type == LightSensorType.PEC;
+	  //@ constraint a_unit == MeasurementUnit.LUX;
 	   
 	  /**
 	   * Create component in initial state.

@@ -43,10 +43,9 @@ public final class SoundSensor implements ISensor
 	
 	  //@ constraint mod_max == -31;
 	  //@ constraint mod_min == -39;
-	
-	  //@ private invariant mod_type == SensorType.SOUND;
-	  //@ private invariant a_type == SoundSensorType.DMS;
-	  //@ private invariant a_unit == MeasurementUnit.DECIBEL;
+	  //@ constraint mod_type == SensorType.SOUND;
+	  //@ constraint a_type == SoundSensorType.DMS;
+	  //@ constraint a_unit == MeasurementUnit.DECIBEL;
 	  
 	  /**
 	   * Create component in initial state.
