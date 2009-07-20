@@ -14,11 +14,11 @@ public  final class UltrasonicSensorType {
 
 	/*@ ensures \result <==> (e == array[0] || 
 	  @						  e == array[1]);
-	  @ pure model boolean legal_ThermSensorType(final int e);
+	  @ pure model boolean legal_UltraSensorType(final int e);
 	  @ */	
 	
-	//@ invariant legal_ThermSensorType(0);
-	//@ invariant legal_ThermSensorType(1);
+	//@ invariant legal_UltraSensorType(0);
+	//@ invariant legal_UltraSensorType(1);
 
 	private UltrasonicSensorType() {}
 		
