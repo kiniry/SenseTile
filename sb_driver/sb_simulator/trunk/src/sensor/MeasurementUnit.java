@@ -18,17 +18,17 @@ public final class MeasurementUnit {
 	  @						  e == array[5] ||
 	  @						  e == array[6] ||
 	  @						  e == array[7]);
-	  @ pure model boolean legal_unit(final int e);
+	  @ pure public static model boolean legal_unit(final int e);
 	  @ */	
 	
-	//@ invariant legal_unit(0);
-	//@ invariant legal_unit(1);
-	//@ invariant legal_unit(2);
-	//@ invariant legal_unit(3);
-	//@ invariant legal_unit(4);
-	//@ invariant legal_unit(5);
-	//@ invariant legal_unit(6);
-	//@ invariant legal_unit(7);
+	//@ static invariant legal_unit(AMPER);
+	//@ static invariant legal_unit(VOLT);
+	//@ static invariant legal_unit(MVOLT);
+	//@ static invariant legal_unit(HERTZ);
+	//@ static invariant legal_unit(DECIBEL);
+	//@ static invariant legal_unit(CELSIUS);
+	//@ static invariant legal_unit(PASCAL);
+	//@ static invariant legal_unit(LUX);
 
 	private MeasurementUnit () {}
 		
@@ -56,7 +56,7 @@ public final class MeasurementUnit {
 	/** lux - light - lux.*/
 	public static final  int  LUX = 7;
 	
-	public  final  /*@non_null*/ int[] array = {AMPER, VOLT, MVOLT, HERTZ, DECIBEL, CELSIUS, PASCAL, LUX};
+	public  static final  /*@non_null*/ int[] array = {AMPER, VOLT, MVOLT, HERTZ, DECIBEL, CELSIUS, PASCAL, LUX};
 
 }
 
