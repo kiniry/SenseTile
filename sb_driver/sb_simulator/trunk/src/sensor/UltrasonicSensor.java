@@ -60,16 +60,16 @@ public final class UltrasonicSensor implements ISensor
 	  {
 		  enabled = true;
 		  a_set = new int[arr.length];
-		  int i = 0;		
+		  int count = 0;		
 		/*@ loop_invariant
-		  @ 0 <= i  && i<= arr.length &&
-	      @ (\forall int j; 0 <= j && j < i; a_set[j] == arr[j]);
-	      @ decreases arr.length - i;
+		  @ 0 <= count  && count <= arr.length &&
+	      @ (\forall int j; 0 <= j && j < count; a_set[j] == arr[j]);
+	      @ decreases arr.length - count;
 	      @*/
-	      while (i >=0 && i< arr.length ) 
+	      while (count >= 0 && count< arr.length ) 
 	      {
-	         a_set[i] = arr[i];
-	         i++;
+	         a_set[count] = arr[count];
+	         count++;
 	      }
 
 	  }
