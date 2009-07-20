@@ -1,7 +1,9 @@
 package sensor;
 
 import sensor.type.AccelerometerSensorType;
+
 //@ model import sensor.type.SensorType;
+
 /**
  * An accelerometer measures the acceleration it experiences
  * relative to freefall. Single model is available
@@ -17,9 +19,7 @@ import sensor.type.AccelerometerSensorType;
  */
 public final class AxisAccelerometerSensor implements ISensor 
 {
-	//@ ensures \result <==> (e >= SensorType.ACCEL_X && e <= SensorType.ACCEL_Z );
-	//@ pure public model boolean legal_SensorType(final int e);
- 
+
 	//@spec_public
 	private   transient int value= 15000;//@ in mod_value;
 	  //@ represents mod_value <- value;
@@ -59,13 +59,12 @@ public final class AxisAccelerometerSensor implements ISensor
 	  //@ constraint a_unit == MeasurementUnit.MVOLT;
 	  //@ constraint a_type == AccelerometerSensorType.PFPS;
 	  
-	  //@ private invariant legal_SensorType( mod_type );
+	  //@ private invariant SensorType.isValidAxis( mod_type );
 	  
 	  /**
 	   * Create component in initial state.
 	   */
-	  /*@ requires (type >= SensorType.ACCEL_X &&
-	    @           type <=  SensorType.ACCEL_Z);
+	  /*@ requires SensorType.isValidAxis(type);
 	    @ assignable  mod_enabled, mod_set, mod_set[*], mod_type; 
 	    @ ensures mod_type == type;
 	    @ ensures mod_enabled == true;
@@ -137,7 +136,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	  */
 	
 	  /*@ also
-	    @ ensures legal_SensorType( \result );
+	    @ ensures SensorType.isValidAxis( \result );
 	    @*/
 	  public int getSensorType()
 	  {

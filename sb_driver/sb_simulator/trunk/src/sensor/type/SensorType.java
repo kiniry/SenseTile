@@ -11,11 +11,15 @@ package sensor.type;
  */
 public final class SensorType 
 {
-	private SensorType ()
-	{
-		
-	}
-	/*@ ensures \result <==> (e == array[0] || 
+	private SensorType (){}
+	
+	//@ requires e >= ACCEL_X && e <= ACCEL_Z;
+	//@ ensures  \result <==> (legal_SensorType(5) || legal_SensorType(6) || legal_SensorType(7));
+	//@ pure public static model boolean isValidAxis(final int e);
+	
+	
+	/*@ requires e >= THERM && e <= ACCEL_Z;
+	  @ ensures \result <==> (e == array[0] || 
 	  @						  e == array[1] || 
 	  @						  e == array[2] ||
 	  @						  e == array[3] ||
@@ -61,7 +65,5 @@ public final class SensorType
 	
 	public  static final  /*@non_null*/ int[] array = {THERM, LIGHT, PRESS, SOUND, ULTRA, ACCEL_X, ACCEL_Y, ACCEL_Z};
 	
-	
-
 }
 
