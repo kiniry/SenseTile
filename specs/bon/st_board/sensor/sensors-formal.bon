@@ -192,6 +192,7 @@ component
           Result = old array;
         end
       ACCEL_X: INTEGER		-- Accelerometer sensor - X axe orientation.
+        require ACCEL_X /=Void;
         ensure
           Result = 5;
         end
@@ -234,6 +235,15 @@ component
            e = array.item(2) or e = array.item(3) or 
            e = array.item(4) or e = array.item(5) or 
            e = array.item(6) or e = array.item(7)) <-> Result;
+        end
+        isValidAxis: BOOLEAN -> e: INTEGER
+        require
+          e /= Void;
+          e >= ACCEL_X;
+          e <= ACCEL_Z;
+        ensure
+          Result /= Void;
+          (legal_SensorType(5) or legal_SensorType(6) or legal_SensorType(7)) <-> Result;
         end
 
     invariant
@@ -417,6 +427,8 @@ component
       legal_AccSensorType(MEMS);
       legal_AccSensorType(TCMOS)
       end
+      
+      
   -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   -- SENSOR_CLUSTER cluster classes
   -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
@@ -1463,8 +1475,7 @@ component
         require
           arr /= Void;
           type /= Void;
-          type >= SensorType.ACCEL_X;
-          type <= SensorType.ACCEL_Z;
+          SensorType.isValidAxis(type);
         ensure
           delta {mod_enabled, mod_set, mod_type};
           mod_type = type;
@@ -1575,13 +1586,13 @@ component
           Result /= Void;
         end
       
-      getSensorType: INTEGER
+       getSensorType: INTEGER
         ensure
           Result /= Void;
-          legal_SensorType(Result);
+          SensorType.isValidAxis(Result);
         end
 
     invariant
-      legal_SensorType(mod_type);
+       SensorType.isValidAxis(mod_type);
     end
 end
