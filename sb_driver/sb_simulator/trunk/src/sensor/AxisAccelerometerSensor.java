@@ -60,17 +60,15 @@ public final class AxisAccelerometerSensor implements ISensor
 	  //@ constraint a_type == AccelerometerSensorType.PFPS;
 	  
 	
-	  /*@ private invariant ( mod_type == SensorType.ACCEL_X ||
-	    @           		  mod_type == SensorType.ACCEL_Y ||
-	    @           		  mod_type ==  SensorType.ACCEL_Z );
+	  /*@ private invariant ( mod_type >= SensorType.ACCEL_X &&
+	    @           		  mod_type <=  SensorType.ACCEL_Z );
 	    @*/
 	  
 	  /**
 	   * Create component in initial state.
 	   */
-	  /*@ requires (type == SensorType.ACCEL_X ||
-	    @          type == SensorType.ACCEL_Y ||
-	    @          type ==  SensorType.ACCEL_Z);
+	  /*@ requires (type >= SensorType.ACCEL_X &&
+	    @           type <=  SensorType.ACCEL_Z);
 	    @ assignable  mod_enabled, mod_set, mod_set[*], mod_type; 
 	    @ ensures mod_type == type;
 	    @ ensures mod_enabled == true;
@@ -142,9 +140,8 @@ public final class AxisAccelerometerSensor implements ISensor
 	  */
 	
 	  /*@ also
-	    @ ensures (\result == SensorType.ACCEL_X ||
-	    @          \result == SensorType.ACCEL_Y ||
-	    @          \result == SensorType.ACCEL_Z);
+	    @ ensures (\result >= SensorType.ACCEL_X && 
+	    @          \result <= SensorType.ACCEL_Z);
 	    @*/
 	  public int getSensorType()
 	  {
