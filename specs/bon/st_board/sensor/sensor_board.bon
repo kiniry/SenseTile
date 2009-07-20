@@ -1,7 +1,7 @@
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- SENSOR_BOARD system chart
+-- SENSOR_BOARD cluster chart
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-system_chart SENSOR_BOARD
+cluster_chart SENSOR_BOARD
 indexing
   author: "Dragan Stosic";
   keywords: "sensor","supply","interface","discrete",

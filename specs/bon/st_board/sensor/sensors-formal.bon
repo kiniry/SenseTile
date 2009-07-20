@@ -720,7 +720,14 @@ component
           Result /= Void;
           Result = UltrasonicSensorType.PROX;
         end
-      
+        
+        getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
+        
       getUnit: INTEGER
         require
           isEnabled;
@@ -728,7 +735,12 @@ component
           Result /= Void;
           Result = MeasurementUnit.DECIBEL;
         end
-      
+       
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+        
       mod_set: SEQUENCE[INTEGER]
         ensure
           Result /= Void;
@@ -874,6 +886,18 @@ component
           Result = MeasurementUnit.LUX;
         end
       
+      getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
+      
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+        
       mod_set: SEQUENCE[INTEGER]
         ensure
           Result /= Void;
@@ -1017,7 +1041,19 @@ component
           Result /= Void;
           Result = MeasurementUnit.PASCAL;
         end
+        
+        getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
       
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+        
       mod_set: SEQUENCE[INTEGER]
         ensure
           Result /= Void;
@@ -1160,6 +1196,18 @@ component
         ensure
           Result /= Void;
           Result = MeasurementUnit.DECIBEL;
+        end
+      
+      getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
+      
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
         end
       
       mod_set: SEQUENCE[INTEGER]
@@ -1306,6 +1354,18 @@ component
           Result = MeasurementUnit.CELSIUS;
         end
       
+      getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
+      
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+        
       mod_set: SEQUENCE[INTEGER]
         ensure
           Result /= Void;
@@ -1383,8 +1443,7 @@ component
         ensure
           Result = 14700;
         end
-      setVoltage
-        -> index: INTEGER
+      setVoltage -> index: INTEGER
         require
           index /= Void;
           index >= 0;
@@ -1458,6 +1517,18 @@ component
           Result = MeasurementUnit.MVOLT;
         end
       
+      getValue: INTEGER
+		require
+          isEnabled;        
+        ensure
+          Result /= Void;
+        end
+      
+       isEnabled: BOOLEAN
+        ensure
+          Result /= Void;
+        end
+        
       legal_SensorType: BOOLEAN -> e: INTEGER
         require
           e /= Void;
@@ -1509,8 +1580,7 @@ component
           Result /= Void;
           legal_SensorType(Result);
         end
-    
-    
+
     invariant
       legal_SensorType(mod_type);
     end
