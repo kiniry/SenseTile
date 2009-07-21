@@ -6,8 +6,6 @@
 
 package ie.ucd.sensetile.sensorboard.driver;
 
-import java.util.Date;
-
 import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.BytePattern;
@@ -40,30 +38,20 @@ public class ByteArrayPacket implements SensorBoardPacket {
    */
   public final static int DATE_POSITION = -1;
   
-  public Date getDate() {
-    // TODO te be implemented
-    return null;
-  }
-  
-  public int getDateRaw() {
-    // TODO te be implemented
-    return -1;
-  }
-  
   /**
    * field position: index
    */
-  public final static int INDEX_POSITION = 20;
+  public final static int COUNTER_POSITION = 20;
   
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketI#getIndex()
    */
-  public int getIndex() {
-    return raw.getShortUnsigned(INDEX_POSITION);
+  public int getCounter() {
+    return raw.getShortUnsigned(COUNTER_POSITION);
   }
   
-  void setIndex(int value) {
-    raw.setShortUnsigned(INDEX_POSITION, value);
+  void setCounter(int value) {
+    raw.setShortUnsigned(COUNTER_POSITION, value);
   }
   
   /**
@@ -75,18 +63,21 @@ public class ByteArrayPacket implements SensorBoardPacket {
     return raw.get12BitsSigned(TEMPERATURE_POSITION);
   }
   
+  void setTemperatureRaw(int value) {
+    raw.set12BitsSigned(TEMPERATURE_POSITION, value);
+  }
+  
   /**
    * field position: pressure
    */
   public final static int PRESSURE_POSITION = 6;
   
-  public int getPressure() {
-    // TODO te be implemented
-    return getPressureRaw();
-  }
-  
   public int getPressureRaw() {
     return raw.getShortUnsigned(PRESSURE_POSITION);
+  }
+  
+  void setPressureRaw(int value) {
+    raw.setShortUnsigned(PRESSURE_POSITION, value);
   }
   
   /**
@@ -94,13 +85,12 @@ public class ByteArrayPacket implements SensorBoardPacket {
    */
   public final static int LIGHT_LEVEL_POSITION = 8;
   
-  public int getLightLevel() {
-    // TODO te be implemented
-    return getLighLevelRaw();
-  }
-
   public int getLighLevelRaw() {
     return raw.getShortUnsigned(LIGHT_LEVEL_POSITION);
+  }
+  
+  public void setLighLevelRaw(int value) {
+    raw.setShortUnsigned(LIGHT_LEVEL_POSITION, value);
   }
   
   /**
@@ -108,53 +98,45 @@ public class ByteArrayPacket implements SensorBoardPacket {
    */
   public final static int ACCELEROMETER_X_POSITION = 10;
   
-  public int getAccelerometerX() {
-    // TODO te be implemented
-    return getAccelerometerXRaw();
-  }
-
   public int getAccelerometerXRaw() {
     return raw.getShortUnsigned(ACCELEROMETER_X_POSITION);
   }
-
+  
+  public void setAccelerometerXRaw(int value) {
+    raw.setShortUnsigned(ACCELEROMETER_X_POSITION, value);
+  }
+  
   /**
    * field position: accelerometer y
    */
   public final static int ACCELEROMETER_Y_POSITION = 12;
   
-  public int getAccelerometerY() {
-    // TODO te be implemented
-    return getAccelerometerYRaw();
-  }
-
   public int getAccelerometerYRaw() {
     return raw.getShortUnsigned(ACCELEROMETER_Y_POSITION);
   }
 
+  public void setAccelerometerYRaw(int value) {
+    raw.setShortUnsigned(ACCELEROMETER_Y_POSITION, value);
+  }
+  
   /**
    * field position: accelerometer z
    */
   public final static int ACCELEROMETER_Z_POSITION = 14;
   
-  public int getAccelerometerZ() {
-    // TODO te be implemented
-    return getAccelerometerZRaw();
-  }
-
   public int getAccelerometerZRaw() {
     return raw.getShortUnsigned(ACCELEROMETER_Z_POSITION);
   }
 
+  public void setAccelerometerZRaw(int value) {
+    raw.setShortUnsigned(ACCELEROMETER_Z_POSITION, value);
+  }
+  
   /**
    * field position: supply voltage
    */
-  public final static int SUPPLY_VOLTAGE_POSITION = 20;
+  public final static int SUPPLY_VOLTAGE_POSITION = 16;
 
-  public int getSupplyVoltage() {
-    // TODO te be implemented
-    return getSupplyVoltageRaw();
-  }
-  
   public int getSupplyVoltageRaw() {
     return raw.getShortUnsigned(SUPPLY_VOLTAGE_POSITION);
   }
@@ -162,15 +144,50 @@ public class ByteArrayPacket implements SensorBoardPacket {
   /**
    * field position: supply current
    */
-  public final static int SUPPLY_CURRENT_POSITION = 20;
-  
-  public int getSupplyCurrent() {
-    // TODO te be implemented
-    return getSupplyCurrentRaw();
-  }
+  public final static int SUPPLY_CURRENT_POSITION = 18;
   
   public int getSupplyCurrentRaw() {
-    return raw.getShortUnsigned(PRESSURE_POSITION);
+    return raw.getShortUnsigned(SUPPLY_CURRENT_POSITION);
+  }
+  
+  /**
+   * field position: hours
+   */
+  public final static int HOURS_POSITION = 20;
+  
+  /**
+   * field position: minutes
+   */
+  public final static int MINUTES_POSITION = 21;
+  
+  /**
+   * field position: seconds
+   */
+  public final static int SECONDS_POSITION = 22;
+  
+  /**
+   * field position: centiseconds
+   */
+  public final static int CENTISECONDS_POSITION = 23;
+  
+  public Time getTime() {
+    return new Time(){
+      public int getHours() {
+        return getRaw().getByte(HOURS_POSITION);
+      };
+      
+      public int getMinutes() {
+        return getRaw().getByte(MINUTES_POSITION);
+      };
+      
+      public int getSeconds() {
+        return getRaw().getByte(SECONDS_POSITION);
+      };
+      
+      public int getCentiSeconds() {
+        return getRaw().getByte(CENTISECONDS_POSITION);
+      };
+    };
   }
   
   /**
@@ -248,12 +265,15 @@ public class ByteArrayPacket implements SensorBoardPacket {
   
   static void checkIndex(SensorBoardPacket previous, SensorBoardPacket current) 
   throws SenseTileException {
-    if (!((previous.getIndex() + 1) == current.getIndex())) {
+    if (!((previous.getCounter() + 1) == current.getCounter())) {
       throw new SenseTileException(
           "Packet indexes are not sequential: " + 
-          "previous is " + previous.getIndex() + ", " + 
-          "current is" + current.getIndex() + ".");
+          "previous is " + previous.getCounter() + ", " + 
+          "current is" + current.getCounter() + ".");
     }
   }
 
+  UnsignedByteArray getRaw() {
+    return raw;
+  }
 }

@@ -1,8 +1,10 @@
 
+insert static attributes as instance in InputStreamPacket
+
 place into svn
  junit libraries
   make tags
-  copy to project kib
+  copy to project lib
  jmock libraries
   make tags
   copy to project kib
@@ -21,4 +23,3 @@ prepare testbench
 
 bugfixing
  glibc fault
- 

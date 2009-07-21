@@ -1,14 +1,31 @@
 package ie.ucd.sensetile.sensorboard;
 
-import java.util.Date;
-
+/**
+ * Sensor board output packet data.
+ * 
+ * @author delbianc
+ *
+ */
 public interface SensorBoardPacket {
   
   // indexes
   
-  Date getDate();
+  /**
+   * Get time.
+   * 
+   * @return time
+   */
+  Time getTime();
   
-  int getIndex();
+  
+  /**
+   * Get packet counter.
+   * 
+   * Maximum: 65535
+   * 
+   * @return counter
+   */
+  int getCounter();
   
   // sensors
   
@@ -99,5 +116,45 @@ public interface SensorBoardPacket {
   int[] getFastADC(int channel);
   
   int[] getSlowADC(int channel);
+  
+  public interface Time {
+    
+    /**
+     * Get hours.
+     * 
+     * Minimum: 0 , Maxmimum: 23
+     * 
+     * @return hours
+     */
+    int getHours();
+    
+    /**
+     * Get minutes.
+     * 
+     * Minimum: 0 , Maxmimum: 59
+     * 
+     * @return minutes
+     */
+    int getMinutes();
+    
+    /**
+     * Get seconds.
+     * 
+     * Minimum: 0 , Maxmimum: 59
+     * 
+     * @return seconds
+     */
+    int getSeconds();
+    
+    /**
+     * Get centiseconds.
+     * 
+     * Minimum: 0 , Maxmimum: 99
+     * 
+     * @return centiseconds
+     */
+    int getCentiSeconds();
+    
+  }
   
 }

@@ -16,47 +16,49 @@ public interface SensorBoardPacket {
   
   // indexes
   
-  Date getDate();
+  //@ pure not_null @// Time getTime();
   
-  int getIndex();
-  
-  // sensors
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result < 65536;
+    @*/
+  //@ pure @// int getCounter();
   
   /*@ 
     @ ensures \result >= -880;
     @ ensures \result <= 2047;
     @*/
-  int getTemperatureRaw();
+  //@ pure @// int getTemperatureRaw();
   
   /*@ 
     @ ensures \result >= 310;
     @ ensures \result <= 5585;
     @*/
-  int getPressureRaw();
+  //@ pure @// int getPressureRaw();
   
   /*@ 
     @ ensures \result >= 0;
     @ ensures \result <= 1000;
     @*/
-  int getLighLevelRaw();
+  //@ pure @// int getLighLevelRaw();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  int getAccelerometerXRaw();
+  //@ pure @// int getAccelerometerXRaw();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  int getAccelerometerYRaw();
+  //@ pure @// int getAccelerometerYRaw();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  int getAccelerometerZRaw();
+  //@ pure @// int getAccelerometerZRaw();
   
   // supply
   
@@ -81,5 +83,33 @@ public interface SensorBoardPacket {
     @ ensures \result.length = 81;
     @*/
   int[] getSlowADC(int channel);
+  
+  public interface Time {
+    
+    /*@ 
+      @ ensures \result >= 0;
+      @ ensures \result < 24;
+      @*/
+    //@ pure @// int getHours();
+    
+     /*@ 
+      @ ensures \result >= 0;
+      @ ensures \result < 60;
+      @*/
+    //@ pure @// int getMinutes();
+    
+    /*@ 
+      @ ensures \result >= 0;
+      @ ensures \result < 60;
+      @*/
+    //@ pure @// int getSeconds();
+    
+    /*@ 
+      @ ensures \result >= 0;
+      @ ensures \result < 100;
+      @*/
+    //@ pure @// int getCentiSeconds();
+    
+  }
   
 }

@@ -26,8 +26,8 @@ public class ByteArrayPacketUnitTest {
     current = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
     previous = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
     int packetIndex = 100;
-    current.setIndex(packetIndex);
-    previous.setIndex(packetIndex - 1);
+    current.setCounter(packetIndex);
+    previous.setCounter(packetIndex - 1);
   }
   
   @Test
@@ -77,7 +77,7 @@ public class ByteArrayPacketUnitTest {
   @Test
   public void testGetIndex(){
     int value = 256*200 + 201;
-    current.setIndex(value);
-    assertEquals(value, current.getIndex());
+    current.setCounter(value);
+    assertEquals(value, current.getCounter());
   }
 }
