@@ -1,440 +1,481 @@
 static_diagram STATIC_DIAGRAM
-component
-  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  -- TYPE_CLUSTER cluster classes
-  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  cluster TYPE_CLUSTER
-
-    class THERMISTOR_SENSOR_TYPE 
-    indexing
-    	about:        "This class represents an implementation of sensor types.";
-  		title:        "SensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-      
-    feature
-      -- The enum values, which are stored in an array, is constant and that 
-      -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-      						-- The Negative temperature coefficient thermistor.
-      						-- For NTCs, the resistance decreases with temperature.
-      NTC: INTEGER
-        ensure
-          Result = 0;
-        end
-      
-                            -- The Positive temperature coefficient thermistor. 
-	  						-- For PTCs, the resistance increases with temperature.
-      PTC: INTEGER
-        ensure
-          Result = 1;
-        end
-    
-    feature{THERMISTOR_SENSOR_TYPE}
-    
-      legal_ThermSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1)) <-> Result;
-        end
-    
-    invariant
-      legal_ThermSensorType(NTC);
-      legal_ThermSensorType(PTC);
-    end
-    class ULTRASONIC_SENSOR_TYPE 
-    indexing
-    	about:        "This class represents ultrasonic sensor type.";
-  		title:        "UltrasonicSensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-    feature
-      -- The enum values, which are stored in an array, is constant and that 
-      -- all fields declared as that type are of that type.
-      array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-        
-      PROX: INTEGER			--The Proximity ultrasonic sensor.
-        ensure
-          Result = 0;
-        end
-      RANG: INTEGER			--The Ranging ultrasonic sensor.
-        ensure
-          Result = 1;
-        end
-        
-    feature{ULTRASONIC_SENSOR_TYPE}
-      legal_UltraSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1)) <-> Result;
-        end
-
-    invariant
-      legal_UltraSensorType(PROX);
-      legal_UltraSensorType(RANG);
-      end
-      
-   class SOUND_SENSOR_TYPE 
-    indexing
-    	about:        "This class represents microphone sensor type.";
-  		title:        "SoundSensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-    -- The enum values, which are stored in an array, is constant and that 
-    -- all fields declared as that type are of that type.
-    feature
-       array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-      CCEM: INTEGER		--Condenser, capacitor or electrostatic microphone sensor.
-        ensure
-          Result = 8;
-        end
-      CMS: INTEGER		--The Carbon microphone sensor.
-        ensure
-          Result = 1;
-        end
-      DMS: INTEGER		--The Dynamic microphone sensor.
-        ensure
-          Result = 0;
-        end
-      FOS: INTEGER		--The Fiber optical microphone sensor.    
-        ensure
-          Result = 3;
-        end
-      LMS: INTEGER		--The Laser microphone sensor.
-        ensure
-          Result = 4;
-        end
-      LQMS: INTEGER		--The Liquid microphone sensor.
-        ensure
-          Result = 5;
-        end
-      MEMS: INTEGER		--The MEMS microphone sensor.
-        ensure
-          Result = 6;
-        end
-      PMS: INTEGER		--The Piezoelectric microphone sensor.
-        ensure
-          Result = 2;
-        end
-      SMS: INTEGER 		--The Speaker as microphone sensor.
-        ensure
-          Result = 7;
-        end
-    feature{SOUND_SENSOR_TYPE}
-      legal_SoundSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1) or 
-           e = array.item(2) or e = array.item(3) or 
-           e = array.item(4) or e = array.item(5) or 
-           e = array.item(6) or e = array.item(7) or 
-           e = array.item(8)) <-> Result;
-        end
-
-    invariant
-      legal_SoundSensorType(DMS);
-      legal_SoundSensorType(CMS);
-      legal_SoundSensorType(PMS);
-      legal_SoundSensorType(FOS);
-      legal_SoundSensorType(LMS);
-      legal_SoundSensorType(LQMS);
-      legal_SoundSensorType(MEMS);
-      legal_SoundSensorType(SMS);
-      legal_SoundSensorType(CCEM);
-     end
-   
-   class SENSOR_TYPE 
-    indexing
-    	about:        "This class represents an implementation of sensor types.";
-  		title:        "SensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-    feature
-    -- The enum values, which are stored in an array, is constant and that 
-    -- all fields declared as that type are of that type.
-       array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-      ACCEL_X: INTEGER		-- Accelerometer sensor - X axe orientation.
-        require ACCEL_X /=Void;
-        ensure
-          Result = 5;
-        end
-      ACCEL_Y: INTEGER		-- Accelerometer sensor - Y axe orientation.
-        ensure
-          Result = 6;
-        end
-      ACCEL_Z: INTEGER		-- Accelerometer sensor - Z axe orientation.
-        ensure
-          Result = 7;
-        end
-      
-      LIGHT: INTEGER		-- The Light sensor type.
-        ensure
-          Result = 1;
-        end
-      PRESS: INTEGER		-- The Pressure sensor type.
-        ensure
-          Result = 2;
-        end
-      SOUND: INTEGER		-- The Sound sensor type.
-        ensure
-          Result = 3;
-        end
-      THERM: INTEGER		-- The Thermistor sensor type.
-        ensure
-          Result = 0;
-        end
-      ULTRA: INTEGER		-- The Ultrasonic sensor type.
-        ensure
-          Result = 4;
-        end
-    feature{SENSOR_TYPE}
-      legal_SensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1) or 
-           e = array.item(2) or e = array.item(3) or 
-           e = array.item(4) or e = array.item(5) or 
-           e = array.item(6) or e = array.item(7)) <-> Result;
-        end
-        isValidAxis: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-          e >= ACCEL_X;
-          e <= ACCEL_Z;
-        ensure
-          Result /= Void;
-          (legal_SensorType(5) or legal_SensorType(6) or legal_SensorType(7)) <-> Result;
-        end
-
-    invariant
-      legal_SensorType(THERM);
-      legal_SensorType(LIGHT);
-      legal_SensorType(PRESS);
-      legal_SensorType(SOUND);
-      legal_SensorType(ULTRA);
-      legal_SensorType(ACCEL_X);
-      legal_SensorType(ACCEL_Y);
-      legal_SensorType(ACCEL_Z);
-    end
-    
-    class PRESSURE_SENSOR_TYPE 
-    indexing
-    	about:        "This class represents pressure sensor type.";
-  		title:        "PressureSensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-      
-    feature
-    -- The enum values, which are stored in an array, is constant and that 
-    -- all fields declared as that type are of that type.
-     array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-      
-      APS: INTEGER		-- The Absolute pressure sensor.
-        ensure
-          Result = 0;
-        end
-      
-      DPS: INTEGER		--The Differential pressure sensor.
-        ensure
-          Result = 3;
-        end
-      GPS: INTEGER		--The Gauge pressure sensor.
-        ensure
-          Result = 1;
-        end
-      SPS: INTEGER		--The Sealed pressure sensor.
-        ensure
-          Result = 4;
-        end
-      VPS: INTEGER		--The Vacuum pressure sensor.
-        ensure
-          Result = 2;
-        end
-    feature{PRESSURE_SENSOR_TYPE}
-      legal_PressSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1) or 
-           e = array.item(2) or e = array.item(3) or 
-           e = array.item(4)) <-> Result;
-        end
-   
-    invariant
-      legal_PressSensorType(APS);
-      legal_PressSensorType(GPS);
-      legal_PressSensorType(VPS);
-      legal_PressSensorType(DPS);
-      legal_PressSensorType(SPS);
-      end
-      
-    class LIGHT_SENSOR_TYPE 
-     indexing
-    	about:        "This class represents light sensor type.";
-  		title:        "LightSensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-  	feature{NONE}
-      make
-    
-    feature
-     -- The enum values, which are stored in an array, is constant and that 
-    -- all fields declared as that type are of that type.
-     array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-      
-      PCC: INTEGER		--The Photo-conductive Cells light sensor.
-        ensure
-          Result = 1;
-        end
-      
-      PEC: INTEGER		--The Photo-emissive Cells light sensor.
-        ensure
-          Result = 0;
-        end
-      
-      PJU: INTEGER		--The Photo-junction light sensor.
-        ensure
-          Result = 3;
-        end
-      
-      PVC: INTEGER		--The Photo-voltaic Cells light sensor.
-        ensure
-          Result = 2;
-        end
-    
-    feature{LIGHT_SENSOR_TYPE}
-      legal_LightSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1) or 
-           e = array.item(2) or e = array.item(3)) <-> Result;
-        end
-
-    invariant
-      legal_LightSensorType(PEC);
-      legal_LightSensorType(PCC);
-      legal_LightSensorType(PVC);
-      legal_LightSensorType(PJU);
-    end
-       class ACCELEROMETER_SENSOR_TYPE 
-    indexing
-    	about:        "This class represents accelerometer sensor type.";
-  		title:        "AccelerometerSensorType";
-  		author:       "Dragan Stosic";
-  		copyright:    "none";
-  		organisation: "School of Computer Science and Informatics, UCD";
-  		date:         "2009/07/05";
-  		version:      "Revision: 1.00";
-    feature{NONE}
-      make
-    feature
-     -- The enum values, which are stored in an array, is constant and that 
-    -- all fields declared as that type are of that type.    
-      array: SEQUENCE[INTEGER]
-        ensure
-          Result = old array;
-        end
-        
-      MEMS: INTEGER		--The Surface Micromachined Capacitive.
-        ensure
-          Result = 2;
-        end
-      
-      PFPS: INTEGER		--The Piezo-film or piezoelectric sensor.
-        ensure
-          Result = 0;
-        end
-      
-      SMA: INTEGER		--The Shear Mode Accelerometer.
-        ensure
-          Result = 1;
-        end
-      
-      TCMOS: INTEGER	--Thermal (submicrometre CMOS process).
-        ensure
-          Result = 3;
-        end
-    feature{ACCELEROMETER_SENSOR_TYPE}
-      legal_AccSensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e = array.item(0) or e = array.item(1) or 
-           e = array.item(2) or e = array.item(3)) <-> Result;
-        end
-
-    invariant
-      legal_AccSensorType(PFPS);
-      legal_AccSensorType(SMA);
-      legal_AccSensorType(MEMS);
-      legal_AccSensorType(TCMOS)
-      end
-      
-      
+component 
+	cluster SENSOR
   -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   -- SENSOR_CLUSTER cluster classes
-  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
-    cluster SENSOR_CLUSTER
-
-    deferred class ISENSOR interfaced 
+  -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   
+		component
+  			-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  			-- TYPE cluster classes
+  			-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+  		cluster TYPE
+ 			component
+	
+			class LIGHT_SENSOR_TYPE 
+		     indexing
+		    	about:        "This class represents light sensor type.";
+		  		title:        "LightSensorType";
+		  		author:       "Dragan Stosic";
+		  		copyright:    "none";
+		  		organisation: "School of Computer Science and Informatics, UCD";
+		  		date:         "2009/07/05";
+		  		version:      "Revision: 1.00";
+		  	feature{NONE}
+		      make
+		    
+		    feature
+		     -- The enum values, which are stored in an array, is constant and that 
+		    -- all fields declared as that type are of that type.
+		     array: SEQUENCE[INTEGER]
+		        ensure
+		          Result = old array;
+		          Result /=Void;
+		        end
+		      
+		      PCC: INTEGER		--The Photo-conductive Cells light sensor.
+		        ensure
+		          Result = 1;
+		          Result /=Void;
+		        end
+		      
+		      PEC: INTEGER		--The Photo-emissive Cells light sensor.
+		        ensure
+		          Result = 0;
+		          Result /=Void;
+		        end
+		      
+		      PJU: INTEGER		--The Photo-junction light sensor.
+		        ensure
+		          Result = 3;
+		          Result /=Void;
+		        end
+		      
+		      PVC: INTEGER		--The Photo-voltaic Cells light sensor.
+		        ensure
+		          Result = 2;
+		          Result /=Void;
+		        end
+		    
+		    feature
+		      
+		      legal_LightSensorType: BOOLEAN -> e: INTEGER
+		        require
+		          e /= Void;
+		        ensure
+		          Result /= Void;
+		          (e = array.item(0) or e = array.item(1) or e = array.item(2) or e = array.item(3)) <-> Result;
+		        end
+		
+		    invariant
+		      legal_LightSensorType(PEC);
+		      legal_LightSensorType(PCC);
+		      legal_LightSensorType(PVC);
+		      legal_LightSensorType(PJU);
+		    end
+    
+		    class THERMISTOR_SENSOR_TYPE 
+		    indexing
+		    	about:        "This class represents an implementation of sensor types.";
+		  		title:        "SensorType";
+		  		author:       "Dragan Stosic";
+		  		copyright:    "none";
+		  		organisation: "School of Computer Science and Informatics, UCD";
+		  		date:         "2009/07/05";
+		  		version:      "Revision: 1.00";
+		    feature{NONE}
+		      make  
+		    feature
+		      -- The enum values, which are stored in an array, is constant and that 
+		      -- all fields declared as that type are of that type.
+		      array: SEQUENCE[INTEGER]
+		        ensure
+		          Result = old array;
+		          Result /=Void;
+		        end
+		       -- The Negative temperature coefficient thermistor.
+		       -- For NTCs, the resistance decreases with temperature.
+		      NTC: INTEGER
+		        ensure
+		          Result = 0;
+		          Result /=Void;
+		        end
+		      
+		       -- The Positive temperature coefficient thermistor. 
+			   -- For PTCs, the resistance increases with temperature.
+		      PTC: INTEGER
+		        ensure
+		          Result = 1;
+		          Result /=Void;
+		        end
+		       
+		      legal_ThermSensorType: BOOLEAN -> e: INTEGER
+		        require
+		          e /= Void;
+		        ensure
+		          Result /= Void;
+		          (e = array.item(0) or e = array.item(1)) <-> Result;
+		        end
+		    
+		    invariant
+		      legal_ThermSensorType(NTC);
+		      legal_ThermSensorType(PTC);
+		    end
+		    
+		    class ULTRASONIC_SENSOR_TYPE 
+		    indexing
+		    	about:        "This class represents ultrasonic sensor type.";
+		  		title:        "UltrasonicSensorType";
+		  		author:       "Dragan Stosic";
+		  		copyright:    "none";
+		  		organisation: "School of Computer Science and Informatics, UCD";
+		  		date:         "2009/07/05";
+		  		version:      "Revision: 1.00";
+		    feature{NONE}
+		      make
+		    feature
+		      -- The enum values, which are stored in an array, is constant and that 
+		      -- all fields declared as that type are of that type.
+		      array: SEQUENCE[INTEGER]
+		        ensure
+		          Result = old array;
+		          Result /=Void;
+		        end
+		        
+		      PROX: INTEGER			--The Proximity ultrasonic sensor.
+		        ensure
+		          Result = 0;
+		          Result /=Void;
+		        end
+		      RANG: INTEGER			--The Ranging ultrasonic sensor.
+		        ensure
+		          Result = 1;
+		          Result /=Void;
+		        end
+		        
+		    
+		      legal_UltraSensorType: BOOLEAN -> e: INTEGER
+		        require
+		          e /= Void;
+		        ensure
+		          Result /= Void;
+		          (e = array.item(0) or e = array.item(1)) <-> Result;
+		        end
+		
+		    invariant
+		      legal_UltraSensorType(PROX);
+		      legal_UltraSensorType(RANG);
+		      end
+    
+		    class SOUND_SENSOR_TYPE 
+		    indexing
+		    	about:        "This class represents microphone sensor type.";
+		  		title:        "SoundSensorType";
+		  		author:       "Dragan Stosic";
+		  		copyright:    "none";
+		  		organisation: "School of Computer Science and Informatics, UCD";
+		  		date:         "2009/07/05";
+		  		version:      "Revision: 1.00";
+		    feature{NONE}
+		      make
+		    -- The enum values, which are stored in an array, is constant and that 
+		    -- all fields declared as that type are of that type.
+		    feature
+		       arraySound: SEQUENCE[INTEGER]
+		        ensure
+		          Result = old arraySound;
+		          Result /=Void;
+		        end
+		      CCEM: INTEGER		--Condenser, capacitor or electrostatic microphone sensor.
+		        ensure
+		          Result = 8;
+		          Result /=Void;
+		        end
+		      CMS: INTEGER		--The Carbon microphone sensor.
+		        ensure
+		          Result = 1;
+		          Result /=Void;
+		        end
+		      DMS: INTEGER		--The Dynamic microphone sensor.
+		        ensure
+		          Result = 0;
+		          Result /=Void;
+		        end
+		      FOS: INTEGER		--The Fiber optical microphone sensor.    
+		        ensure
+		          Result = 3;
+		          Result /=Void;
+		        end
+		      LMS: INTEGER		--The Laser microphone sensor.
+		        ensure
+		          Result = 4;
+		          Result /=Void;
+		        end
+		      LQMS: INTEGER		--The Liquid microphone sensor.
+		        ensure
+		          Result = 5;
+		          Result /=Void;
+		        end
+		      MEMS: INTEGER		--The MEMS microphone sensor.
+		        ensure
+		          Result = 6;
+		          Result /=Void;
+		        end
+		      PMS: INTEGER		--The Piezoelectric microphone sensor.
+		        ensure
+		          Result = 2;
+		          Result /=Void;
+		        end
+		      SMS: INTEGER 		--The Speaker as microphone sensor.
+		        ensure
+		          Result = 7;
+		          Result /=Void;
+		        end
+		      
+		      legal_SoundSensorType: BOOLEAN -> e: INTEGER
+		        require
+		          e /= Void;
+		        ensure
+		          Result <-> (e = arraySound.item(0) or e = arraySound.item(1) or e = arraySound.item(2) or e = arraySound.item(3) or 
+		          e = arraySound.item(4) or e = arraySound.item(5) or e = arraySound.item(6) or e = arraySound.item(7) or e = arraySound.item(8));
+		       	  Result /= Void;
+		        end
+		
+		    invariant
+				legal_SoundSensorType(CMS);
+				legal_SoundSensorType(PMS);
+				legal_SoundSensorType(FOS);
+				legal_SoundSensorType(LMS);
+				legal_SoundSensorType(LQMS);
+				legal_SoundSensorType(MEMS);
+				legal_SoundSensorType(SMS);
+				legal_SoundSensorType(CCEM);
+				legal_SoundSensorType(DMS);  
+		     end
+		     
+		    class PRESSURE_SENSOR_TYPE 
+		    indexing
+		    	about:        "This class represents pressure sensor type.";
+		  		title:        "PressureSensorType";
+		  		author:       "Dragan Stosic";
+		  		copyright:    "none";
+		  		organisation: "School of Computer Science and Informatics, UCD";
+		  		date:         "2009/07/05";
+		  		version:      "Revision: 1.00";
+		    feature{NONE}
+		      make
+      
+		    feature
+		    -- The enum values, which are stored in an array, is constant and that 
+		    -- all fields declared as that type are of that type.
+		     array: SEQUENCE[INTEGER]
+		        ensure
+		          Result = old array;
+		          Result /= Void;
+		        end
+		      
+		      APS: INTEGER		-- The Absolute pressure sensor.
+		        ensure
+		          Result = 0;
+		          Result /= Void;
+		        end
+		      
+		      DPS: INTEGER		--The Differential pressure sensor.
+		        ensure
+		          Result = 3;
+		          Result /= Void;
+		        end
+		      GPS: INTEGER		--The Gauge pressure sensor.
+		        ensure
+		          Result = 1;
+		          Result /= Void;
+		        end
+		      SPS: INTEGER		--The Sealed pressure sensor.
+		        ensure
+		          Result = 4;
+		          Result /= Void;
+		        end
+		      VPS: INTEGER		--The Vacuum pressure sensor.
+		        ensure
+		          Result = 2;
+		          Result /= Void;
+		        end
+		    
+		    
+		      legal_PressSensorType: BOOLEAN -> e: INTEGER
+		        require
+		          e /= Void;
+		        ensure
+		          Result /= Void; 
+		          (e = array.item(0) or e = array.item(1) or e = array.item(2) or e = array.item(3) or e = array.item(4)) <-> Result;
+		        end
+		   
+		    invariant
+		      legal_PressSensorType(APS);
+		      legal_PressSensorType(GPS);
+		      legal_PressSensorType(VPS);
+		      legal_PressSensorType(DPS);
+		      legal_PressSensorType(SPS);
+		      end
+		      
+		      class ACCELEROMETER_SENSOR_TYPE 
+			    indexing
+			    	about:        "This class represents accelerometer sensor type.";
+			  		title:        "AccelerometerSensorType";
+			  		author:       "Dragan Stosic";
+			  		copyright:    "none";
+			  		organisation: "School of Computer Science and Informatics, UCD";
+			  		date:         "2009/07/05";
+			  		version:      "Revision: 1.00";
+			    feature{NONE}
+			      make
+			    feature
+			     -- The enum values, which are stored in an array, is constant and that 
+			    -- all fields declared as that type are of that type.    
+			      array: SEQUENCE[INTEGER]
+			        ensure
+			          Result = old array;
+			          Result /= Void;
+			        end
+			        
+			      MEMS: INTEGER		--The Surface Micromachined Capacitive.
+			        ensure
+			          Result = 2;
+			          Result /= Void;
+			        end
+			      
+			      PFPS: INTEGER		--The Piezo-film or piezoelectric sensor.
+			        ensure
+			          Result = 0;
+			          Result /= Void;
+			        end
+			      
+			      SMA: INTEGER		--The Shear Mode Accelerometer.
+			        ensure
+			          Result = 1;
+			          Result /= Void;
+			        end
+			      
+			      TCMOS: INTEGER	--Thermal (submicrometre CMOS process).
+			        ensure
+			          Result = 3;
+			          Result /= Void;
+			        end
+			    
+			      legal_AccSensorType: BOOLEAN -> e: INTEGER
+			        require
+			          e /= Void;
+			        ensure
+			          Result /= Void;
+			          (e = array.item(0) or e = array.item(1) or 
+			           e = array.item(2) or e = array.item(3)) <-> Result;
+			        end
+			
+			    invariant
+			      legal_AccSensorType(PFPS);
+			      legal_AccSensorType(SMA);
+			      legal_AccSensorType(MEMS);
+			      legal_AccSensorType(TCMOS)
+			      end
+	            class SENSOR_TYPE 
+			    indexing
+			    	about:        "This class represents an implementation of sensor types.";
+			  		title:        "SensorType";
+			  		author:       "Dragan Stosic";
+			  		copyright:    "none";
+			  		organisation: "School of Computer Science and Informatics, UCD";
+			  		date:         "2009/07/05";
+			  		version:      "Revision: 1.00";
+			    feature{NONE}
+			      make
+			    feature
+			    -- The enum values, which are stored in an array, is constant and that 
+			    -- all fields declared as that type are of that type.
+			       array: SEQUENCE[INTEGER]
+			        ensure
+			          Result = old array;
+			          Result /= Void;
+			        end
+			      ACCEL_X: INTEGER		-- Accelerometer sensor - X axe orientation.
+			        ensure
+			          Result = 5;
+			          Result /= Void;
+			        end
+			      ACCEL_Y: INTEGER		-- Accelerometer sensor - Y axe orientation.
+			        ensure
+			          Result = 6;
+			          Result /= Void;
+			        end
+			      ACCEL_Z: INTEGER		-- Accelerometer sensor - Z axe orientation.
+			        ensure
+			          Result = 7;
+			          Result /= Void;
+			        end
+			      
+			      LIGHT: INTEGER		-- The Light sensor type.
+			        ensure
+			          Result = 1;
+			          Result /= Void;
+			        end
+			      PRESS: INTEGER		-- The Pressure sensor type.
+			        ensure
+			          Result = 2;
+			          Result /= Void;
+			        end
+			      SOUND: INTEGER		-- The Sound sensor type.
+			        ensure
+			          Result = 3;
+			          Result /= Void;
+			        end
+			      THERM: INTEGER		-- The Thermistor sensor type.
+			        ensure
+			          Result = 0;
+			          Result /= Void;
+			        end
+			      ULTRA: INTEGER		-- The Ultrasonic sensor type.
+			        ensure
+			          Result = 4;
+			          Result /= Void;
+			        end
+			    
+			      legal_SensorType: BOOLEAN -> e: INTEGER
+			        require
+			          e /= Void;
+			          e >= THERM;
+			          e <= ACCEL_Z;
+			        ensure
+			          (e = array.item(0) or e = array.item(1) or 
+			           e = array.item(2) or e = array.item(3) or 
+			           e = array.item(4) or e = array.item(5) or 
+			           e = array.item(6) or e = array.item(7)) <-> Result;
+			           Result /= Void;
+			        end
+			        
+			        isValidAxis: BOOLEAN -> e: INTEGER
+			        require
+			          e /= Void;
+			          e >= ACCEL_X;
+			          e <= ACCEL_Z;
+			        ensure
+			          Result /= Void;
+			          (legal_SensorType(5) or legal_SensorType(6) or legal_SensorType(7)) <-> Result;
+			        end
+			
+			    invariant
+			      
+			      legal_SensorType(THERM);
+			      legal_SensorType(LIGHT);
+			      legal_SensorType(PRESS);
+			      legal_SensorType(SOUND);
+			      legal_SensorType(ULTRA);
+			      legal_SensorType(ACCEL_X);
+			      legal_SensorType(ACCEL_Y);
+			      legal_SensorType(ACCEL_Z);
+			    end
+		      
+     
+   end -- end cluster type
+   
+   deferred class ISENSOR
     indexing
     	about:        "This deffered class represents an abstract sensor.";
   		title:        "ISensor";
@@ -444,7 +485,6 @@ component
   		date:         "2009/07/05";
   		version:      "Revision: 1.00";
     feature
-
       mod_enabled: BOOLEAN      -- @.Model @.Instance boolean mod_enabled;
         ensure
           Result /= Void;
@@ -469,12 +509,16 @@ component
         ensure
           Result /= Void;
         end
-    
-     feature{ISENSOR}
+      feature {SENSOR }
+      
+      deferred isEnabled : BOOLEAN --Are you enabled ?
+        ensure
+          Result /= Void;
+        end
       
       deferred getMax: INTEGER --What is the maximal value for this component ?
-        require
-          isEnabled;
+        require 
+           isEnabled;
         ensure
           Result /= Void;
           Result = mod_max;
@@ -495,15 +539,10 @@ component
         
       deferred getValue: INTEGER --What is the measured value for this component ?
         require
-          isEnabled;
+          isEnabled ;
         ensure
           Result /= Void;
           Result = mod_value;
-        end
-      
-      deferred isEnabled: BOOLEAN --Are you enabled ?
-        ensure
-          Result /= Void;
         end
       
       deferred measure --Measure current value.If sensor is not available notify client class.
@@ -515,8 +554,7 @@ component
           mod_value <= mod_max;
         end
       
-      deferred setEnable		--Turn off / on this component.
-        -> theFlag: BOOLEAN
+      deferred setEnable -> theFlag: BOOLEAN		--Turn off / on this component.
         require
           theFlag /= Void;
         ensure
@@ -538,6 +576,7 @@ component
   	  organisation: "School of Computer Science and Informatics, UCD";
   	  date:         "2009/07/05";
   	  version:      "Revision: 1.00";
+	
 	feature{NONE}
       make    
     
@@ -547,49 +586,58 @@ component
        array: SEQUENCE[INTEGER]
         ensure
           Result = old array;
+          Result /=Void;
         end
         
       AMPER: INTEGER	--A -Amper (currency).
         ensure
           Result = 0;
+          Result /=Void;
         end
       
       CELSIUS: INTEGER	--C - Temperature - Celsius.
         ensure
           Result = 5;
+          Result /=Void;
         end
       
       DECIBEL: INTEGER	--dB - Decibel.
         ensure
           Result = 4;
+          Result /=Void;
         end
       
       HERTZ: INTEGER	--Hz - Hertz (frequency).
         ensure
           Result = 3;
+          Result /=Void;
         end
       
       LUX: INTEGER		--lux - light - lux.
         ensure
           Result = 7;
+          Result /=Void;
         end
       
       MVOLT: INTEGER	--mV -mili Voltage (voltage).
         ensure
           Result = 2;
+          Result /=Void;
         end
       
       PASCAL: INTEGER	--pa - pressure - Pascal.
         ensure
           Result = 6;
+          Result /=Void;
         end
       
       VOLT: INTEGER		--V -Voltage (voltage).
         ensure
           Result = 1;
+          Result /=Void;
         end
         
-    feature{MEASUREMENT_UNIT}
+    
       legal_unit: BOOLEAN -> e: INTEGER
         require
           e /= Void;
@@ -611,8 +659,8 @@ component
       legal_unit(PASCAL);
       legal_unit(LUX);
       end
-      
-     effective class MISSING_SENSOR_EXCEPTION  
+   
+   effective class MISSING_SENSOR_EXCEPTION  
      indexing
       about: "Class implementation of sensor.MissingSensorException. Exception is used during measurement operations.";
       title:        "MeasurementUnit";
@@ -633,15 +681,13 @@ component
         require
           cause /= Void;
         end
-        
-      make2 -> message: STRING -> cause: THROWABLE
-        require
-          message /= Void;
-          cause /= Void;
-        end
-        
+             
     feature{MISSING_SENSOR_EXCEPTION}
       serialVersionUID: INTEGER
+      ensure
+          Result = 98723497;
+          Result /=Void;
+        end
     end
     
     effective class ULTRASONIC_SENSOR 
@@ -655,7 +701,20 @@ component
   	  version:      "Revision: 1.00";
   	  
   	  inherit ISENSOR
-    
+  	  
+  	  feature 
+    	make -> arr: SEQUENCE
+        require
+          arr /= Void;
+        ensure
+          delta {mod_enabled, mod_set};
+          mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
+          mod_type = SensorType.ULTRA;
+          a_type = UltrasonicSensorType.PROX;
+          a_unit = MeasurementUnit.DECIBEL;
+        end
+        
     feature{NONE}
       index: INTEGER
         ensure
@@ -686,23 +745,10 @@ component
         end
         
     feature
-      make -> arr: SEQUENCE[INTEGER]
-        require
-          arr /= Void;
-        ensure
-          delta {mod_enabled, mod_set};
-          mod_enabled = true;
-          -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
-          mod_max = -43;
-          mod_min = -51;
-          mod_type = SensorType.ULTRA;
-          a_type = UltrasonicSensorType.PROX;
-          a_unit = MeasurementUnit.DECIBEL;
-        end
-        
       a_sensType: INTEGER
         ensure
           Result = 4;
+          Result /= Void;
         end
         
       a_set: SEQUENCE[INTEGER]
@@ -713,11 +759,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 4;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -729,15 +777,16 @@ component
         require
           isEnabled;
         ensure
-          Result /= Void;
           Result = UltrasonicSensorType.PROX;
+          Result /= Void;
         end
-        
-        getValue: INTEGER
+       
+       getValue: INTEGER
 		require
           isEnabled;        
         ensure
           Result /= Void;
+         
         end
         
       getUnit: INTEGER
@@ -765,8 +814,6 @@ component
       
       measure
         ensure
-          mod_max = -43;
-          mod_min = -51;
           mod_type = SensorType.ULTRA;
           a_type = UltrasonicSensorType.PROX;
           a_unit = MeasurementUnit.DECIBEL;
@@ -776,8 +823,6 @@ component
         require
           theFlag /= Void;
         ensure
-          mod_max = -43;
-          mod_min = -51;
           mod_type = SensorType.ULTRA;
           a_type = UltrasonicSensorType.PROX;
           a_unit = MeasurementUnit.DECIBEL;
@@ -793,13 +838,15 @@ component
           Result /= Void;
         end
       
+      
       getSensorType: INTEGER
         ensure
           Result /= Void;
           Result = SensorType.ULTRA;
         end
-   end
-   
+        
+      end
+      
    effective class LIGHT_SENSOR 
     indexing
       about: "This class represents Light sensor.";
@@ -843,12 +890,13 @@ component
         end
         
     feature
-      make -> arr: SEQUENCE[INTEGER]
+      make -> arr: SEQUENCE
         require
           arr /= Void;
         ensure
           delta {mod_enabled, mod_set};
           mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
           -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
           mod_max = 1000;
           mod_min = 0;
@@ -860,6 +908,7 @@ component
       a_sensType: INTEGER
         ensure
           Result = 1;
+          Result /= Void;
         end
       
       a_set: SEQUENCE[INTEGER]
@@ -870,11 +919,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 7;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -956,7 +1007,7 @@ component
         end
     end
     
-   effective class PRESSURE_SENSOR
+    effective class PRESSURE_SENSOR
        indexing
       about: "This class represents pressure sensor.";
       title:        "PressureSensor";
@@ -999,12 +1050,13 @@ component
         end
     
     feature
-      make -> arr: SEQUENCE[INTEGER]
+      make -> arr: SEQUENCE
         require
           arr /= Void;
         ensure
           delta {mod_enabled, mod_set};
           mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
           -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
           mod_max = 115000;
           mod_min = 15000;
@@ -1016,6 +1068,7 @@ component
       a_sensType: INTEGER
         ensure
           Result = 2;
+          Result /= Void;
         end
       
       a_set: SEQUENCE[INTEGER]
@@ -1026,11 +1079,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 6;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -1132,11 +1187,13 @@ component
         end
       MAX: INTEGER
         ensure
-          Result = "-31";
+          Result = -31;
+          Result /= Void;
         end
       MIN: INTEGER
         ensure
-          Result = "-39";
+          Result = -39;
+          Result /= Void;
         end
       setSound
         -> index: INTEGER
@@ -1155,12 +1212,13 @@ component
           a_unit = MeasurementUnit.DECIBEL;
         end
     feature
-      make -> arr: SEQUENCE[INTEGER]
+      make -> arr: SEQUENCE
         require
           arr /= Void;
         ensure
           delta {mod_enabled, mod_set};
           mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
           -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
           mod_max = -31;
           mod_min = -39;
@@ -1172,6 +1230,7 @@ component
       a_sensType: INTEGER
         ensure
           Result = 3;
+          Result /= Void;
         end
       
       a_set: SEQUENCE[INTEGER]
@@ -1182,11 +1241,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 4;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -1234,8 +1295,7 @@ component
       
       measure
         ensure
-          mod_max = -31;
-          mod_min = -39;
+          
           mod_type = SensorType.SOUND;
           a_type = SoundSensorType.DMS;
           a_unit = MeasurementUnit.DECIBEL;
@@ -1245,8 +1305,6 @@ component
         require
           theFlag /= Void;
         ensure
-          mod_max = -31;
-          mod_min = -39;
           mod_type = SensorType.SOUND;
           a_type = SoundSensorType.DMS;
           a_unit = MeasurementUnit.DECIBEL;
@@ -1268,7 +1326,8 @@ component
           Result = SensorType.SOUND;
         end
       end
-   effective class THERMISTOR_SENSOR
+      
+      effective class THERMISTOR_SENSOR
        indexing
       about: "This class represents thermistor sensor.";
       title:        "ThermistorSensor";
@@ -1291,7 +1350,7 @@ component
         end
       MIN: INTEGER
         ensure
-          Result = "-55";
+          Result = -55;
         end
       setTemp
         -> index: INTEGER
@@ -1311,12 +1370,13 @@ component
         end
     
     feature
-      make -> arr: SEQUENCE[INTEGER]
+      make -> arr: SEQUENCE
         require
           arr /= Void;
         ensure
           delta {mod_enabled, mod_set};
           mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
           -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
           mod_max = 127;
           mod_min = -55;
@@ -1328,6 +1388,7 @@ component
       a_sensType: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
         
       a_set: SEQUENCE[INTEGER]
@@ -1338,11 +1399,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 5;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -1391,7 +1454,6 @@ component
       measure
         ensure
           mod_max = 127;
-          mod_min = -55;
           mod_type = SensorType.THERM;
           a_type = ThermistorSensorType.NTC;
           a_unit = MeasurementUnit.CELSIUS;
@@ -1402,7 +1464,6 @@ component
           theFlag /= Void;
         ensure
           mod_max = 127;
-          mod_min = -55;
           mod_type = SensorType.THERM;
           a_type = ThermistorSensorType.NTC;
           a_unit = MeasurementUnit.CELSIUS;
@@ -1424,8 +1485,9 @@ component
           Result = SensorType.THERM;
         end
       end
-    
-   effective class AXIS_ACCELEROMETER_SENSOR 
+      
+      
+     effective class AXIS_ACCELEROMETER_SENSOR 
     indexing
       about: "An accelerometer measures the acceleration it experiences",
       		 "relative to freefall. Single model is available",
@@ -1471,7 +1533,7 @@ component
         end
       
     feature
-      make -> arr: SEQUENCE[INTEGER] -> type: INTEGER
+      make -> arr: SEQUENCE -> type: INTEGER
         require
           arr /= Void;
           type /= Void;
@@ -1480,6 +1542,7 @@ component
           delta {mod_enabled, mod_set, mod_type};
           mod_type = type;
           mod_enabled = true;
+          for_all i:INTEGER such_that 0 <= i and i < arr.length it_holds a_set.item(i) = arr.item(i);
           -- ((\forall  int i,;0 <= i && i < arr.length;arr[i] == a_set[i]));
           mod_max = 15300;
           mod_min = 14700;
@@ -1500,11 +1563,13 @@ component
       a_type: INTEGER
         ensure
           Result = 0;
+          Result /= Void;
         end
       
       a_unit: INTEGER
         ensure
           Result = 2;
+          Result /= Void;
         end
       
       enabled: BOOLEAN
@@ -1540,13 +1605,6 @@ component
           Result /= Void;
         end
         
-      legal_SensorType: BOOLEAN -> e: INTEGER
-        require
-          e /= Void;
-        ensure
-          Result /= Void;
-          (e >= SensorType.ACCEL_X and e <= SensorType.ACCEL_Z) <-> Result;
-        end
         
       mod_set: SEQUENCE[INTEGER]
         ensure
@@ -1595,4 +1653,6 @@ component
     invariant
        SensorType.isValidAxis(mod_type);
     end
-end
+      
+ end -- end cluster Sensor 
+end -- end static-diagram
