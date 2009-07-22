@@ -261,7 +261,7 @@ component
 		  		organisation: "School of Computer Science and Informatics, UCD";
 		  		date:         "2009/07/05";
 		  		version:      "Revision: 1.00";
-		    feature{NONE}
+		    feature{NONE}Result /= Void;
 		      make
       
 		    feature
