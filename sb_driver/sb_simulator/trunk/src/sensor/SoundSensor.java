@@ -181,9 +181,13 @@ public final class SoundSensor implements ISensor
 	  @*/
 	 private void  setSound ( final int index )
 	 {
-		 if( a_set[index] < MIN || a_set[index]> MAX )
+		 if( a_set[index] < MIN )
 		 {
 			  value = MIN;
+		 }
+		 else if (a_set[index]> MAX ) 
+		 {
+			 value = MAX;
 		 }
 		 else 
 		 {

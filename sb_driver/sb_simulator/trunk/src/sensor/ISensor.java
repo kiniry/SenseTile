@@ -21,7 +21,6 @@ public interface ISensor {
 	//@ public invariant mod_min <= mod_value && mod_value <= mod_max;
 	
 	
-	
 	  /**
 	   * Are you enabled ?
 	   * @return enabled.
@@ -53,8 +52,9 @@ public interface ISensor {
 	    @ assignable mod_value, mod_mesure;
 	    @ ensures mod_min <= mod_value && mod_value <= mod_max;
 	    @ also
+	    @ exceptional_behavior
 	    @ requires !isEnabled();
-        @ signals_only MissingSensorException;
+        @ signals(MissingSensorException e) true; 
         @*/ 
 	  void measure() throws MissingSensorException; 
 	  

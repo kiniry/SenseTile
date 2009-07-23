@@ -184,9 +184,13 @@ public final class LightSensor implements ISensor
 	  @*/
 	 private void  setLight ( final int index )
 	 {
-		 if( a_set[index] < MIN || a_set[index]> MAX )
+		 if( a_set[index] < MIN )
 		 {
 			  value = MIN;
+		 }
+		 else if (a_set[index]> MAX ) 
+		 {
+			 value = MAX;
 		 }
 		 else 
 		 {

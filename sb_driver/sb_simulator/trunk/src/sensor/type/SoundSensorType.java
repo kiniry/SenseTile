@@ -11,15 +11,15 @@ package sensor.type;
  */
 public final class SoundSensorType {
 
-	/*@ ensures \result <==> (e == array[0] || 
-	  @						  e == array[1] || 
-	  @						  e == array[2] ||
-	  @						  e == array[3] ||
-	  @						  e == array[4] ||
-	  @						  e == array[5] ||
-	  @						  e == array[6] ||
-	  @						  e == array[7] ||
-	  @						  e == array[8]);
+	/*@ ensures \result <==> (e == arraySound[0] || 
+	  @						  e == arraySound[1] || 
+	  @						  e == arraySound[2] ||
+	  @						  e == arraySound[3] ||
+	  @						  e == arraySound[4] ||
+	  @						  e == arraySound[5] ||
+	  @						  e == arraySound[6] ||
+	  @						  e == arraySound[7] ||
+	  @						  e == arraySound[8]);
 	  @ pure public static model boolean legal_SoundSensorType(final int e);
 	  @ */	
 	
@@ -64,6 +64,6 @@ public final class SoundSensorType {
 	 */
 	public static final  int CCEM = 8;
 		
-	public  static final  /*@non_null*/ int[] array = {DMS, CMS, PMS, FOS, LMS, LQMS, MEMS, SMS, CCEM};
+	public  static final  /*@non_null*/ int[] arraySound = {DMS, CMS, PMS, FOS, LMS, LQMS, MEMS, SMS, CCEM};
 	
 }

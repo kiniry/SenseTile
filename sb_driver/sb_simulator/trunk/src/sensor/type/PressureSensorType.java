@@ -44,5 +44,6 @@ public final class PressureSensorType {
 	public static final  int  SPS = 4;
 	
 	public static  final  /*@non_null*/ int[] array = {APS, GPS, VPS, DPS, SPS };
+
 }
 

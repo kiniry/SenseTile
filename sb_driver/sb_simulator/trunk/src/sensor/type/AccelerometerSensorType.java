@@ -14,7 +14,7 @@ public final class AccelerometerSensorType {
 	  @						  e == array[1] || 
 	  @						  e == array[2] ||
 	  @						  e == array[3]);
-	  @ pure static model boolean legal_AccSensorType(final int e);
+	  @ public pure static model boolean legal_AccSensorType(final int e);
 	  @ */	
 	
 	//@ static invariant legal_AccSensorType(PFPS);
