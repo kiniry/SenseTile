@@ -52,6 +52,38 @@ final public class UnsignedByteArray {
   }
   
   /**
+   * Get bit.
+   * 
+   * @param index
+   * @param bit index
+   * @return
+   */
+  public boolean getBit(int index, int bitIndex) {
+    if (bitIndex < 0 || bitIndex >= 8) {
+      throw new IndexOutOfBoundsException();
+    }
+    int newIndex = checkAndNormalizeIndex(index, 1);
+    return (array[newIndex] & (1<<bitIndex)) > 0;
+  }
+  
+  /**
+   * Set bit.
+   * 
+   * @param index
+   * @param bit index
+   * @param bit value
+   */
+  public void setBit(int index, int bitIndex, boolean value) {
+    if (bitIndex < 0 || bitIndex >= 8) {
+      throw new IndexOutOfBoundsException();
+    }
+    int newIndex = checkAndNormalizeIndex(index, 1);
+    byte oldByteWithHole = (byte) (array[newIndex] & (~ (1<<bitIndex)));
+    byte newValue = (byte) ((value ? 1 : 0)<<bitIndex);
+    array[newIndex] = (byte) (oldByteWithHole | newValue);
+  }
+  
+  /**
    * Get signed 12 bits.
    * 
    * @param index
@@ -243,5 +275,4 @@ final public class UnsignedByteArray {
     }
     return newIndex;
   }
-
 }

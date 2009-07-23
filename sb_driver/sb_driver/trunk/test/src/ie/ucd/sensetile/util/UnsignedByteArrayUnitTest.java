@@ -107,6 +107,24 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
+  public void testGetBit(){
+    ba[0] = (byte)0x01;
+    ba[1] = (byte)0x80;
+    UnsignedByteArray uba = UnsignedByteArray.create(ba);
+    assertEquals(true, uba.getBit(0, 0));
+    assertEquals(true, uba.getBit(1, 7));
+  }
+  
+  @Test
+  public void testSetBit(){
+    UnsignedByteArray uba = UnsignedByteArray.create(ba);
+    uba.setBit(0, 0, true);
+    assertEquals(true, uba.getBit(0, 0));
+    uba.setBit(1, 7, true);
+    assertEquals(true, uba.getBit(1, 7));
+  }
+  
+  @Test
   public void testGetOffsetFold(){
     int offset = 8;
     int length = 4;
@@ -255,6 +273,4 @@ public class UnsignedByteArrayUnitTest {
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     assertEquals(ba, uba.getArray());
   }
-  
-  
 }

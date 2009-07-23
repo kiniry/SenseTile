@@ -25,7 +25,7 @@ public interface SensorBoardPacket {
    * 
    * @return counter
    */
-  int getCounter();
+  char getCounter();
   
   // sensors
   
@@ -40,7 +40,7 @@ public interface SensorBoardPacket {
    * 
    * @return temperature
    */
-  int getTemperatureRaw();
+  short getTemperature();
   
   /**
    * Get pressure.
@@ -53,7 +53,7 @@ public interface SensorBoardPacket {
    * 
    * @return pressure
    */
-  int getPressureRaw();
+  short getPressure();
   
   /**
    * Get light level.
@@ -64,7 +64,7 @@ public interface SensorBoardPacket {
    * 
    * @return light level
    */
-  int getLighLevelRaw();
+  short getLighLevel();
   
   /**
    * Get acceleration on X axis.
@@ -77,7 +77,7 @@ public interface SensorBoardPacket {
    * 
    * @return acceleration
    */
-  int getAccelerometerXRaw();
+  short getAccelerometerX();
   
   /**
    * Get acceleration on Y axis.
@@ -90,7 +90,7 @@ public interface SensorBoardPacket {
    * 
    * @return acceleration
    */
-  int getAccelerometerYRaw();
+  short getAccelerometerY();
   
   /**
    * Get acceleration on Z axis.
@@ -103,19 +103,25 @@ public interface SensorBoardPacket {
    * 
    * @return acceleration
    */
-  int getAccelerometerZRaw();
+  short getAccelerometerZ();
   
   // supply
   
-  int getSupplyVoltageRaw();
+  int getSupplyVoltage();
   
-  int getSupplyCurrentRaw();
+  int getSupplyCurrent();
   
-  // ADC channels fragments
+  // Frames
   
-  int[] getFastADC(int channel);
-  
-  int[] getSlowADC(int channel);
+  /**
+   * Get frame.
+   * 
+   * index >= 0, index < 82.
+   * 
+   * @param frame index
+   * @return frame
+   */
+  Frame getFrame(int index);
   
   public interface Time {
     
@@ -126,7 +132,7 @@ public interface SensorBoardPacket {
      * 
      * @return hours
      */
-    int getHours();
+    byte getHours();
     
     /**
      * Get minutes.
@@ -135,7 +141,7 @@ public interface SensorBoardPacket {
      * 
      * @return minutes
      */
-    int getMinutes();
+    byte getMinutes();
     
     /**
      * Get seconds.
@@ -144,7 +150,7 @@ public interface SensorBoardPacket {
      * 
      * @return seconds
      */
-    int getSeconds();
+    byte getSeconds();
     
     /**
      * Get centiseconds.
@@ -153,7 +159,76 @@ public interface SensorBoardPacket {
      * 
      * @return centiseconds
      */
-    int getCentiSeconds();
+    byte getCentiSeconds();
+  }
+  
+  public interface Frame {
+    
+    /**
+     * IRD synch signal active. 
+     * 
+     * @return signal active
+     */
+    boolean isIRDSynachronizationActive();
+    
+    /**
+     * Audio active. 
+     * 
+     * @return audio active
+     */
+    boolean isAudioActive();
+    
+    /**
+     * Audio frequency.
+     * 
+     * @return audio frequency
+     */
+    int getAudioFrequency();
+    
+    /**
+     * Audio frequency: 48 KHz.
+     */
+    static final int AUDIO_FREQUENCY_48KHZ = 0; 
+    
+    /**
+     * Audio frequency: 96 KHz.
+     */
+    static final int AUDIO_FREQUENCY_96KHZ = 1; 
+    
+    /**
+     * Get audio sample.
+     * 
+     * channel >= 0, channel < 4 
+     * 
+     * @param channel audio channel
+     * @return audio sample
+     */
+    char getAudio(int channel);
+    
+    /**
+     * ADC active. 
+     * 
+     * @return ADC active
+     */
+    boolean isADCActive();
+    
+    /**
+     * Get slow ADC channel.
+     * 
+     * Minimum: 0, Maximum: 8
+     * 
+     * @return ADC channel
+     */
+    int getADCChannel();
+    
+    /**
+     * Get slow ADC sample.
+     * 
+     * @return ADC sample
+     */
+    char getADC();
+    
+    
     
   }
   

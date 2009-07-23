@@ -1,6 +1,7 @@
 package ie.ucd.sensetile.sensorboard.driver;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
@@ -75,9 +76,15 @@ public class ByteArrayPacketUnitTest {
   }
   
   @Test
-  public void testGetIndex(){
+  public void testGetCounter(){
     int value = 256*200 + 201;
     current.setCounter(value);
     assertEquals(value, current.getCounter());
   }
+  
+  @Test 
+  public void testGetFrame() {
+    assertNotNull(current.getFrame(0));
+  }
+  
 }
