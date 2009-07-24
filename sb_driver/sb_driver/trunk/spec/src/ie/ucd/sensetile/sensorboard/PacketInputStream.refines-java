@@ -6,7 +6,7 @@
 
 package ie.ucd.sensetile.sensorboard;
 
-//@ model import ie.ucd.sensetile.sensorboard.Packet;
+//@ model import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
 
 import java.io.IOException;
 import java.io.EOFException;
@@ -27,7 +27,7 @@ public interface PacketInputStream {
     @*/
 
   /*@ 
-    @ public model non_null Packet[] inputPackets; in input;
+    @ public model non_null SensorBoardPacket[] inputPackets; in input;
     @ public constraint inputPackets == \old(inputPackets);
     @ public invariant inputPackets.owner == this;
     @ public invariant (\forall 
@@ -58,7 +58,7 @@ public interface PacketInputStream {
     @ requires a != null && b != null;
     @ requires a.length >= length && b.length >= length;
     @ ensures (\forall int i; 0<=i && i < length; a[i] == b[i]);
-    @ public static model boolean equalPackets(Packet[] a, Packet[] b, \bigint length);
+    @ public static model boolean equalPackets(SensorBoardPacket[] a, SensorBoardPacket[] b, \bigint length);
     @*/
   
   /*@ public behavior
@@ -110,7 +110,7 @@ public interface PacketInputStream {
     @   signals (IllegalArgumentException) offset < 0 || length < 0 ||
     @     (array != null && offset + length > array.length);
     @*/
-  public int read(Packet[] array, int offset, int length)
+  public int read(SensorBoardPacket[] array, int offset, int length)
       throws IOException, SenseTileException;
 
   /*@ 
@@ -151,7 +151,7 @@ public interface PacketInputStream {
     @   signals (IOException) !isOpen;
     @   signals (NullPointerException) array == null;
     @*/
-  public int read(Packet[] array)
+  public int read(SensorBoardPacket[] array)
       throws IOException;
 
   /*@ 
@@ -191,7 +191,7 @@ public interface PacketInputStream {
     @   modifies state, array[offset .. offset+length-1];
     @   signals_only EOFException;
     @*/
-  public void readFully(Packet[] array, int offset, int length)
+  public void readFully(SensorBoardPacket[] array, int offset, int length)
       throws IOException, SenseTileException;
   
   /*@
@@ -230,7 +230,7 @@ public interface PacketInputStream {
     @   modifies state, array[offset .. offset+length-1];
     @   signals_only EOFException;
     @*/
-  public void readFully(Packet[] array) throws IOException;
+  public void readFully(SensorBoardPacket[] array) throws IOException;
 
   /*@
     @ public behavior
@@ -253,7 +253,7 @@ public interface PacketInputStream {
     @   requires availablePacketsOld == 0;
     @   signals_only EOFException;
     @*/
-  public Packet read() throws IOException;
+  public SensorBoardPacket read() throws IOException;
 
   /*@ 
     @ public normal_behavior

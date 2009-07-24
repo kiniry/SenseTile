@@ -16,49 +16,49 @@ public interface SensorBoardPacket {
   
   // indexes
   
-  //@ pure not_null @// Time getTime();
+  /*@ pure non_null */ Time getTime();
   
   /*@ 
     @ ensures \result >= 0;
     @ ensures \result < 65536;
     @*/
-  //@ pure @// char getCounter();
+  /*@ pure */ char getCounter();
   
   /*@ 
     @ ensures \result >= -880;
     @ ensures \result <= 2047;
     @*/
-  //@ pure @// short getTemperature();
+  /*@ pure */ short getTemperature();
   
   /*@ 
     @ ensures \result >= 310;
     @ ensures \result <= 5585;
     @*/
-  //@ pure @// short getPressure();
+  /*@ pure */ short getPressure();
   
   /*@ 
     @ ensures \result >= 0;
     @ ensures \result <= 1000;
     @*/
-  //@ pure @// short getLighLevel();
+  /*@ pure */ short getLighLevel();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// short getAccelerometerX();
+  /*@ pure */ short getAccelerometerX();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// short getAccelerometerY();
+  /*@ pure */ short getAccelerometerY();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// short getAccelerometerZ();
+  /*@ pure */ short getAccelerometerZ();
   
   // supply
   
@@ -70,7 +70,7 @@ public interface SensorBoardPacket {
     @ requires index >= 0;
     @ requires index < 82;
     @*/
-  //@ pure not_null @// Frame getFrame(int index);
+  /*@ pure non_null */ Frame getFrame(int index);
   
   public interface Time {
     
@@ -78,47 +78,47 @@ public interface SensorBoardPacket {
       @ ensures \result >= 0;
       @ ensures \result < 24;
       @*/
-    //@ pure @// byte getHours();
+    /*@ pure */ byte getHours();
     
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 60;
       @*/
-    //@ pure @// byte getMinutes();
+    /*@ pure */ byte getMinutes();
     
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 100;
       @*/
-    //@ pure @// byte getCentiSeconds();
+    /*@ pure */ byte getCentiSeconds();
   }
   
     public interface Frame {
     
-    //@ pure @// boolean isIRDSynachronizationActive();
+    /*@ pure */ boolean isIRDSynachronizationActive();
     
-    //@ pure @// boolean isAudioActive();
+    /*@ pure */ boolean isAudioActive();
     
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 2;
       @*/
-    //@ pure @// int getAudioFrequency();
+    /*@ pure */ int getAudioFrequency();
     
     /*@
-     *@ requires channel >= 0;
+      @ requires channel >= 0;
       @ requires channel < 4;
       @*/
-    //@ pure @// char getAudio(int channel);
+    /*@ pure */ char getAudio(int channel);
     
-    //@ pure @// boolean isADCActive();
+    /*@ pure */ boolean isADCActive();
     
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 8;
       @*/
-    //@ pure @// int getADCChannel();
+    /*@ pure */ int getADCChannel();
     
-    //@ pure @// char getADC();
+    /*@ pure */ char getADC();
   }
 }
