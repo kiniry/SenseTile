@@ -22,43 +22,43 @@ public interface SensorBoardPacket {
     @ ensures \result >= 0;
     @ ensures \result < 65536;
     @*/
-  //@ pure @// int getCounter();
+  //@ pure @// char getCounter();
   
   /*@ 
     @ ensures \result >= -880;
     @ ensures \result <= 2047;
     @*/
-  //@ pure @// int getTemperatureRaw();
+  //@ pure @// short getTemperature();
   
   /*@ 
     @ ensures \result >= 310;
     @ ensures \result <= 5585;
     @*/
-  //@ pure @// int getPressureRaw();
+  //@ pure @// short getPressure();
   
   /*@ 
     @ ensures \result >= 0;
     @ ensures \result <= 1000;
     @*/
-  //@ pure @// int getLighLevelRaw();
+  //@ pure @// short getLighLevel();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// int getAccelerometerXRaw();
+  //@ pure @// short getAccelerometerX();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// int getAccelerometerYRaw();
+  //@ pure @// short getAccelerometerY();
   
   /*@
     @ ensures \result >= 1488;
     @ ensures \result >= 2232;
     @*/
-  //@ pure @// int getAccelerometerZRaw();
+  //@ pure @// short getAccelerometerZ();
   
   // supply
   
@@ -66,50 +66,59 @@ public interface SensorBoardPacket {
   
   int getSupplyCurrentRaw();
   
-  // ADC channels fragments
-  
   /*@
-    @ requires channel >= 0;
-    @ requires channel <= 3;
-    @ ensures \result != null;
-    @ ensures \result.length = 81;
+    @ requires index >= 0;
+    @ requires index < 82;
     @*/
-  int[] getFastADC(int channel);
-  
-  /*@
-    @ requires channel >= 0;
-    @ requires channel <= 7;
-    @ ensures \result != null;
-    @ ensures \result.length = 81;
-    @*/
-  int[] getSlowADC(int channel);
+  //@ pure not_null @// Frame getFrame(int index);
   
   public interface Time {
     
-    /*@ 
+    /*@
       @ ensures \result >= 0;
       @ ensures \result < 24;
       @*/
-    //@ pure @// int getHours();
+    //@ pure @// byte getHours();
     
-     /*@ 
+    /*@
       @ ensures \result >= 0;
       @ ensures \result < 60;
       @*/
-    //@ pure @// int getMinutes();
+    //@ pure @// byte getMinutes();
     
-    /*@ 
-      @ ensures \result >= 0;
-      @ ensures \result < 60;
-      @*/
-    //@ pure @// int getSeconds();
-    
-    /*@ 
+    /*@
       @ ensures \result >= 0;
       @ ensures \result < 100;
       @*/
-    //@ pure @// int getCentiSeconds();
-    
+    //@ pure @// byte getCentiSeconds();
   }
   
+    public interface Frame {
+    
+    //@ pure @// boolean isIRDSynachronizationActive();
+    
+    //@ pure @// boolean isAudioActive();
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 2;
+      @*/
+    //@ pure @// int getAudioFrequency();
+    
+    /*@
+     *@ requires channel >= 0;
+      @ requires channel < 4;
+      @*/
+    //@ pure @// char getAudio(int channel);
+    
+    //@ pure @// boolean isADCActive();
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 8;
+      @*/
+    //@ pure @// int getADCChannel();
+    
+    //@ pure @// char getADC();
+  }
 }
