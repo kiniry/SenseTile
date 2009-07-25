@@ -18,10 +18,10 @@ import org.junit.Test;
 
 public class InputStreamPacketInputStreamUnitTest {
   
-  static private byte[] rawPacketArray;
+  private static byte[] rawPacketArray;
   
   @BeforeClass 
-  static public void initRawPacketArray() {
+  public static void initRawPacketArray() {
     InputStreamPacketInputStreamUnitTest.rawPacketArray = new byte[ByteArrayPacket.LENGTH * 200];
     byte[] array = rawPacketArray;
     for (
@@ -228,11 +228,11 @@ public class InputStreamPacketInputStreamUnitTest {
     pis.read();
   }
   
-  private byte[] prepareRawPacketArray(int length) {
+  private byte[] prepareRawPacketArray(final int length) {
     return prepareRawPacketArray(length, 0);
   }
   
-  private byte[] prepareRawPacketArray(int length, int offset) {
+  private byte[] prepareRawPacketArray(final int length, final int offset) {
     int realOffset = (ByteArrayPacket.LENGTH  - offset) % ByteArrayPacket.LENGTH;
     if (realOffset < 0) {
       realOffset = realOffset + ByteArrayPacket.LENGTH;

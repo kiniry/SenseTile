@@ -14,16 +14,16 @@ import com.ftdichip.ftd2xx.Device;
 import com.ftdichip.ftd2xx.FTD2xxException;
 import com.ftdichip.ftd2xx.Service;
 
-public class Driver {
+public final class Driver {
   
-  static private final int RX_BUFFER_SIZE = 1024 * 1024;
-  static private final int TX_BUFFER_SIZE = 1024 * 1024;
-  static private final int TIMEOUT = 500;
-  static private final int PORT_BAUDRATE = 12000000;
-  static private final int BITBANG_MASK = 0xff;
-  static private final BitBangMode BITBANG_MODE = BitBangMode.ASYNCHRONOUS;
+  private static final int RX_BUFFER_SIZE = 1024 * 1024;
+  private static final int TX_BUFFER_SIZE = 1024 * 1024;
+  private static final int TIMEOUT = 500;
+  private static final int PORT_BAUDRATE = 12000000;
+  private static final int BITBANG_MASK = 0xff;
+  private static final BitBangMode BITBANG_MODE = BitBangMode.ASYNCHRONOUS;
   
-  final private Device device;
+  private final Device device;
   
   public Driver(final Device device) {
     this.device = device;

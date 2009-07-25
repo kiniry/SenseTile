@@ -21,7 +21,7 @@ public class BytePattern {
   private UnsignedByteArray pattern;
   private int repetitionStep;
   
-  BytePattern(UnsignedByteArray pattern, int repetitionStep) {
+  BytePattern(final UnsignedByteArray pattern, final int repetitionStep) {
     this.pattern = pattern;
     this.repetitionStep = repetitionStep;
   }
@@ -31,11 +31,11 @@ public class BytePattern {
    * 
    * Creates a pattern matcher based on pattern.
    * 
-   * @param pattern to be matched. pattern cannot be null or empty.
+   * @param pattern pattern to be matched. pattern cannot be null or empty.
    * @return created pattern matcher.
    */
-  static public BytePattern createPattern(byte[] ba_pattern) {
-    return createPattern(ba_pattern, 0);
+  public static BytePattern createPattern(final byte[] pattern) {
+    return createPattern(pattern, 0);
   }
   
   /**
@@ -44,14 +44,14 @@ public class BytePattern {
    * Creates a repetitive pattern matcher based on pattern, with a repetition
    * of repetitionStep.
    * 
-   * @param ba_pattern to be matched. pattern cannot be null or empty.
+   * @param rawPattern pattern to be matched. pattern cannot be null or empty.
    * @param repetitionStep 0 means no repetition step.
    * @return created pattern matcher.
    */
   public static BytePattern createPattern(
-      byte[] ba_pattern, 
-      int repetitionStep) {
-    UnsignedByteArray pattern = UnsignedByteArray.create(ba_pattern);
+      final byte[] rawPattern, 
+      final int repetitionStep) {
+    UnsignedByteArray pattern = UnsignedByteArray.create(rawPattern);
     checkPattern(pattern);
     checkRepetitionStep(repetitionStep);
     BytePattern creation = new BytePattern(pattern, repetitionStep);
@@ -76,11 +76,11 @@ public class BytePattern {
    * 
    * <p>Finds whether data matches the pattern.
    * 
-   * @param raw to be searched for pattern.
+   * @param data array to be searched for pattern.
    * @return index of begin of pattern found in data, or -1 if pattern is not 
    * found.
    */
-  public int match(UnsignedByteArray data) {
+  public int match(final UnsignedByteArray data) {
     int index = -1;
     if (data == null || data.length() == 0) {
       return index;
@@ -96,7 +96,7 @@ public class BytePattern {
     return index;
   }
   
-  private int matchRepeated(UnsignedByteArray data) {
+  private int matchRepeated(final UnsignedByteArray data) {
     int index = 0;
     boolean check = false;
     index = matchSingle(UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), 0);
@@ -117,7 +117,7 @@ public class BytePattern {
     return (getRepetitionStep() != 0);
   }
   
-  private boolean checkRepetitions(UnsignedByteArray data) {
+  private boolean checkRepetitions(final UnsignedByteArray data) {
     int dataIndex = getRepetitionStep();
     int patternIndex = 0;
     while (dataIndex < data.length()) {
@@ -134,7 +134,7 @@ public class BytePattern {
     return true;
   }
   
-  private int matchSingle(UnsignedByteArray data, int startPosition) {
+  private int matchSingle(final UnsignedByteArray data, final int startPosition) {
     for (int index = startPosition; index < data.length(); index++) {
       if (checkPatternMatch(UnsignedByteArray.create(data, index, data.length()))) {
         return index;
@@ -143,7 +143,7 @@ public class BytePattern {
     return -1;
   }
   
-  private boolean checkPatternMatch(UnsignedByteArray data) {
+  private boolean checkPatternMatch(final UnsignedByteArray data) {
     for (int index = 0; index < pattern.length() && index < data.length() ; index++) {
       if (data.getByte(index) != pattern.getByte(index)) {
         return false;
@@ -152,7 +152,7 @@ public class BytePattern {
     return true;
   }
   
-  private static void checkPattern(UnsignedByteArray pattern) {
+  private static void checkPattern(final UnsignedByteArray pattern) {
     if (pattern.length() == 0) {
       throw new IllegalArgumentException();
     }

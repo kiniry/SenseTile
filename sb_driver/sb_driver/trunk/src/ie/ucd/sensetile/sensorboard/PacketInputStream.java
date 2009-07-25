@@ -1,6 +1,5 @@
 package ie.ucd.sensetile.sensorboard;
 
-import java.io.EOFException;
 import java.io.IOException;
 
 public interface PacketInputStream {
@@ -25,7 +24,7 @@ public interface PacketInputStream {
    * 
    * @param array the buffer into which the data is read.
    * @return the total number of packets read into the buffer.
-   * @throws IOException
+   * @throws IOException I/O error
    * @throws SenseTileException data is malformed
    */
   int read(SensorBoardPacket[] array) throws IOException,
@@ -48,8 +47,8 @@ public interface PacketInputStream {
    * @param offset the start offset in the destination array.
    * @param length the maximum number of packets read. 
    * @return the total number of packets read into the buffer.
-   * @throws IOException
-   * @throws SenseTileExcpetion if an invalid packet is read.
+   * @throws IOException I/O error
+   * @throws SenseTileException if an invalid packet is read.
    */
   int read(SensorBoardPacket[] array, int offset, int length)
       throws IOException, SenseTileException;
@@ -71,7 +70,7 @@ public interface PacketInputStream {
    * @return the next packet of data.
    * @throws EOFException if EOF reached.
    * @throws IOException if an I/O error occurs.
-   * @throws SenseTileExcpetion if an invalid packet is read.
+   * @throws SenseTileException if an invalid packet is read.
    */
   SensorBoardPacket read() throws IOException, SenseTileException;
 
@@ -80,15 +79,22 @@ public interface PacketInputStream {
    * 
    * <p>This method blocks until one of the following conditions occurs:
    * <ul>
-   *   <li>array.length packets of input data are available, in which case a normal return is made.</li>
-   *   <li>end of file is detected, in which case an EOFException is thrown.</li>
-   *   <li>an I/O error occurs, in which case an IOException other than EOFException is thrown.</li>
-   *   <li>an invalid packet is detected, in which case a SenseTileException is thrown.</li>
+   *   <li>array.length packets of input data are available, in which case a 
+   *   normal return is made.</li>
+   *   <li>end of file is detected, in which case an EOFException is 
+   *   thrown.</li>
+   *   <li>an I/O error occurs, in which case an IOException other than 
+   *   EOFException is thrown.</li>
+   *   <li>an invalid packet is detected, in which case a SenseTileException 
+   *   is thrown.</li>
    * </ul>
    * 
    * If array is null, a NullPointerException is thrown. 
-   * If offset is negative, or length is negative, or offset + length is greater than the length of the array, then an IndexOutOfBoundsException is thrown. 
-   * The first byte packet is stored into element array[offset], the next one into array[offset+1], and so on. 
+   * If offset is negative, or length is negative, or offset + length is 
+   * greater than the length of the array, then an IndexOutOfBoundsException 
+   * is thrown. 
+   * The first byte packet is stored into element array[offset], the next one 
+   * into array[offset+1], and so on. 
    * The number of packets read is equal to length.
    * 
    * @param array the buffer into which the data is read.
@@ -96,25 +102,32 @@ public interface PacketInputStream {
    * @param length an int specifying the number of bytes to read.
    * @throws EOFException if this stream reaches the end before reading all the bytes.
    * @throws IOException if an I/O error occurs.
-   * @throws SenseTileExcpetion if an invalid packet is read.
+   * @throws SenseTileException if an invalid packet is read.
    **/
   void readFully(SensorBoardPacket[] array) throws IOException,
       SenseTileException;
-
+  
   /**
    * Reads length packets from an input stream.
    * 
    * <p>This method blocks until one of the following conditions occurs:
    * <ul>
-   *   <li>array.length packets of input data are available, in which case a normal return is made.</li>
-   *   <li>end of file is detected, in which case an EOFException is thrown.</li>
-   *   <li>an I/O error occurs, in which case an IOException other than EOFException is thrown.</li>
-   *   <li>an invalid packet is detected, in which case a SenseTileException is thrown.</li>
+   *   <li>array.length packets of input data are available, in which case a 
+   *   normal return is made.</li>
+   *   <li>end of file is detected, in which case an EOFException is 
+   *   thrown.</li>
+   *   <li>an I/O error occurs, in which case an IOException other than 
+   *   EOFException is thrown.</li>
+   *   <li>an invalid packet is detected, in which case a SenseTileException 
+   *   is thrown.</li>
    * </ul>
    * 
    * If array is null, a NullPointerException is thrown. 
-   * If offset is negative, or length is negative, or offset + length is greater than the length of the array, then an IndexOutOfBoundsException is thrown. 
-   * The first byte packet is stored into element array[offset], the next one into array[offset+1], and so on. 
+   * If offset is negative, or length is negative, or offset + length is 
+   * greater than the length of the array, then an IndexOutOfBoundsException 
+   * is thrown. 
+   * The first byte packet is stored into element array[offset], the next one 
+   * into array[offset+1], and so on. 
    * The number of packets read is equal to length.
    * 
    * @param array the buffer into which the data is read.
@@ -122,7 +135,7 @@ public interface PacketInputStream {
    * @param length an int specifying the number of bytes to read.
    * @throws EOFException if this stream reaches the end before reading all the bytes.
    * @throws IOException if an I/O error occurs.
-   * @throws SenseTileExcpetion if an invalid packet is read.
+   * @throws SenseTileException if an invalid packet is read.
    **/
   void readFully(SensorBoardPacket[] array, int offset, int length)
       throws IOException, SenseTileException;

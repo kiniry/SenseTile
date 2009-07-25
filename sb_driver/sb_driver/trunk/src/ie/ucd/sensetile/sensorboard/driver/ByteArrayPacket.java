@@ -15,33 +15,37 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
  * @author delbianc
  *
  */
-public class ByteArrayPacket implements SensorBoardPacket {
+public final class ByteArrayPacket implements SensorBoardPacket {
   
   /**
-   * packet bytes length
+   * packet bytes length.
    */
-  public final static int LENGTH = 1024;
+  public static final int LENGTH = 1024;
   
   /**
-   * packet pattern
+   * packet pattern.
    */
-  final static byte[] PATTERN = {
+  static final byte[] PATTERN = {
       (byte) 0xff, (byte) 0xee, 
       (byte) 0xff, (byte) 0xee, 
       (byte) 0xff, (byte) 0xee, 
       (byte) 0xff, (byte) 0xff, 
       (byte) 0xff, (byte) 0xff };
-  public final static int PATTERN_OFFSET = 1018;
   
   /**
-   * field position: date
+   * packet pattern offset.
    */
-  public final static int DATE_POSITION = -1;
+  public static final int PATTERN_OFFSET = 1018;
   
   /**
-   * field position: index
+   * field position: date.
    */
-  public final static int COUNTER_POSITION = 20;
+  public static final int DATE_POSITION = -1;
+  
+  /**
+   * field position: index.
+   */
+  public static final int COUNTER_POSITION = 20;
   
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketI#getIndex()
@@ -50,133 +54,133 @@ public class ByteArrayPacket implements SensorBoardPacket {
     return (char) raw.getShortUnsigned(COUNTER_POSITION);
   }
   
-  void setCounter(int value) {
+  void setCounter(final int value) {
     raw.setShortUnsigned(COUNTER_POSITION, value);
   }
   
   /**
-   * field position: temperature
+   * field position: temperature.
    */
-  public final static int TEMPERATURE_POSITION = 4;
+  public static final int TEMPERATURE_POSITION = 4;
   
   public short getTemperature() {
     return (short) raw.get12BitsSigned(TEMPERATURE_POSITION);
   }
   
-  void setTemperature(int value) {
+  void setTemperature(final int value) {
     raw.set12BitsSigned(TEMPERATURE_POSITION, value);
   }
   
   /**
-   * field position: pressure
+   * field position: pressure.
    */
-  public final static int PRESSURE_POSITION = 6;
+  public static final int PRESSURE_POSITION = 6;
   
   public short getPressure() {
     return (short) raw.getShortUnsigned(PRESSURE_POSITION);
   }
   
-  void setPressure(int value) {
+  void setPressure(final int value) {
     raw.setShortUnsigned(PRESSURE_POSITION, value);
   }
   
   /**
-   * field position: light level
+   * field position: light level.
    */
-  public final static int LIGHT_LEVEL_POSITION = 8;
+  public static final int LIGHT_LEVEL_POSITION = 8;
   
   public short getLighLevel() {
     return (short) raw.getShortUnsigned(LIGHT_LEVEL_POSITION);
   }
   
-  void setLighLevel(int value) {
+  void setLighLevel(final int value) {
     raw.setShortUnsigned(LIGHT_LEVEL_POSITION, value);
   }
   
   /**
-   * field position: accelerometer x
+   * field position: accelerometer x.
    */
-  public final static int ACCELEROMETER_X_POSITION = 10;
+  public static final int ACCELEROMETER_X_POSITION = 10;
   
   public short getAccelerometerX() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_X_POSITION);
   }
   
-  void setAccelerometerX(int value) {
+  void setAccelerometerX(final int value) {
     raw.setShortUnsigned(ACCELEROMETER_X_POSITION, value);
   }
   
   /**
-   * field position: accelerometer y
+   * field position: accelerometer y.
    */
-  public final static int ACCELEROMETER_Y_POSITION = 12;
+  public static final int ACCELEROMETER_Y_POSITION = 12;
   
   public short getAccelerometerY() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_Y_POSITION);
   }
 
-  void setAccelerometerY(int value) {
+  void setAccelerometerY(final int value) {
     raw.setShortUnsigned(ACCELEROMETER_Y_POSITION, value);
   }
   
   /**
-   * field position: accelerometer z
+   * field position: accelerometer z.
    */
-  public final static int ACCELEROMETER_Z_POSITION = 14;
+  public static final int ACCELEROMETER_Z_POSITION = 14;
   
   public short getAccelerometerZ() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_Z_POSITION);
   }
 
-  void setAccelerometerZ(int value) {
+  void setAccelerometerZ(final int value) {
     raw.setShortUnsigned(ACCELEROMETER_Z_POSITION, value);
   }
   
   /**
-   * field position: supply voltage
+   * field position: supply voltage.
    */
-  public final static int SUPPLY_VOLTAGE_POSITION = 16;
+  public static final int SUPPLY_VOLTAGE_POSITION = 16;
 
   public int getSupplyVoltage() {
     return raw.getShortUnsigned(SUPPLY_VOLTAGE_POSITION);
   }
   
-  void setSupplyVoltage(int value) {
+  void setSupplyVoltage(final int value) {
     raw.setShortUnsigned(SUPPLY_VOLTAGE_POSITION, value);
   }
   
   /**
-   * field position: supply current
+   * field position: supply current.
    */
-  public final static int SUPPLY_CURRENT_POSITION = 18;
+  public static final int SUPPLY_CURRENT_POSITION = 18;
   
   public int getSupplyCurrent() {
     return raw.getShortUnsigned(SUPPLY_CURRENT_POSITION);
   }
   
-  void setSupplyCurrent(int value) {
+  void setSupplyCurrent(final int value) {
     raw.setShortUnsigned(SUPPLY_CURRENT_POSITION, value);
   }
   
   /**
-   * field position: hours
+   * field position: hours.
    */
-  public final static int HOURS_POSITION = 20;
+  public static final int HOURS_POSITION = 20;
   
   /**
-   * field position: minutes
+   * field position: minutes.
    */
-  public final static int MINUTES_POSITION = 21;
+  public static final int MINUTES_POSITION = 21;
   
   /**
-   * field position: seconds
+   * field position: seconds.
    */
-  public final static int SECONDS_POSITION = 22;
+  public static final int SECONDS_POSITION = 22;
   
   /**
-   * field position: centiseconds
+   * field position: centiseconds.
    */
-  public final static int CENTISECONDS_POSITION = 23;
+  public static final int CENTISECONDS_POSITION = 23;
   
   public Time getTime() {
     return new Time(){
@@ -199,16 +203,16 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   /**
-   * frame position: 
+   * frame position. 
    */
-  public final static int ADC_DATA_OFFSET = 34;
+  public static final int ADC_DATA_OFFSET = 34;
   
   /**
-  * frame length
+  * frame length.
    */
-  public final static int FRAME_LENGTH = 12;
+  public static final int FRAME_LENGTH = 12;
   
-  public ByteArrayFrame getFrame(int index) {
+  public ByteArrayFrame getFrame(final int index) {
     return new ByteArrayFrame(index);
   }
   
@@ -216,13 +220,13 @@ public class ByteArrayPacket implements SensorBoardPacket {
   
   private final UnsignedByteArray raw;
   
-  ByteArrayPacket(UnsignedByteArray raw) {
+  ByteArrayPacket(final UnsignedByteArray raw) {
     this.raw = raw;
   }
   
   public static SensorBoardPacket createPacket(
       final byte[] rawPacket, 
-      SensorBoardPacket previousPacket) 
+      final SensorBoardPacket previousPacket) 
       throws SenseTileException {
     SensorBoardPacket packet = createPacket(rawPacket);
     checkIndex(previousPacket, packet);
@@ -236,8 +240,8 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   public static SensorBoardPacket createPacket(
-      UnsignedByteArray raw, 
-      SensorBoardPacket previousPacket) 
+      final UnsignedByteArray raw, 
+      final SensorBoardPacket previousPacket) 
       throws SenseTileException {
     SensorBoardPacket packet = createPacket(raw);
     checkIndex(previousPacket, packet);
@@ -245,7 +249,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
   }
   
   public static ByteArrayPacket createPacket(
-      UnsignedByteArray raw) 
+      final UnsignedByteArray raw) 
       throws SenseTileException {
     checkLength(raw);
     UnsignedByteArray newRaw = UnsignedByteArray.create(raw, 0, LENGTH);
@@ -253,14 +257,14 @@ public class ByteArrayPacket implements SensorBoardPacket {
     return new ByteArrayPacket(newRaw);
   }
   
-  private static void checkLength(UnsignedByteArray raw) 
+  private static void checkLength(final UnsignedByteArray raw) 
       throws SenseTileException {
     if (raw.length() < LENGTH) {
       throw new SenseTileException("Wrong packet length.");
     }
   }
 
-  private static void checkPattern(UnsignedByteArray raw) 
+  private static void checkPattern(final UnsignedByteArray raw) 
       throws SenseTileException {
     BytePattern bp = BytePattern.createPattern(PATTERN);
     int relativeOffset = bp.match(UnsignedByteArray.create(raw, PATTERN_OFFSET, raw.length()));
@@ -272,7 +276,8 @@ public class ByteArrayPacket implements SensorBoardPacket {
     }
   }
   
-  static void checkIndex(SensorBoardPacket previous, SensorBoardPacket current) 
+  static void checkIndex(
+      final SensorBoardPacket previous, final SensorBoardPacket current) 
   throws SenseTileException {
     if (!((previous.getCounter() + 1) == current.getCounter())) {
       throw new SenseTileException(
@@ -286,37 +291,37 @@ public class ByteArrayPacket implements SensorBoardPacket {
     return raw;
   }
   
-  public class ByteArrayFrame implements Frame{
+  public final class ByteArrayFrame implements Frame{
     
     private final UnsignedByteArray rawFrame; 
     
-    public ByteArrayFrame(int index) {
+    public ByteArrayFrame(final int index) {
       rawFrame = UnsignedByteArray.create(
           getRaw(), ADC_DATA_OFFSET + FRAME_LENGTH * index, FRAME_LENGTH);
     }
     
     /**
-     * IRD synchronisation bit position: 
+     * IRD synchronisation bit position. 
      */
-    public final static int IRD_BIT_POSITION = 2;
+    public static final int IRD_BIT_POSITION = 2;
     
     public boolean isIRDSynachronizationActive() {
       return getBit(IRD_BIT_POSITION);
     }
     
-    void setIRDSynachronizationActive(boolean value) {
+    void setIRDSynachronizationActive(final boolean value) {
       setBit(IRD_BIT_POSITION, value);
     }
     
     /**
-     * audio enable bit position: 
+     * audio enable bit position. 
      */
-    public final static int AUDIO_ENABLE_BIT_POSITION = 0;
+    public static final int AUDIO_ENABLE_BIT_POSITION = 0;
     
     /**
-     * audio valid bit position: 
+     * audio valid bit position. 
      */
-    public final static int AUDIO_VALID_BIT_POSITION = 1;
+    public static final int AUDIO_VALID_BIT_POSITION = 1;
     
     public boolean isAudioActive() {
       return 
@@ -324,16 +329,16 @@ public class ByteArrayPacket implements SensorBoardPacket {
           getBit(AUDIO_VALID_BIT_POSITION);
     }
     
-    void setAudioActive(boolean value) {
+    void setAudioActive(final boolean value) {
       setBit(AUDIO_ENABLE_BIT_POSITION, value);
       setBit(AUDIO_VALID_BIT_POSITION, value);
     }
     
     /**
-     * audio frequency bit position and length:
+     * audio frequency bit position and length.
      */
-    public final static int AUDIO_FREQUENCY_BIT_POSITION = 14;
-    public final static int AUDIO_FREQUENCY_BIT_LENGTH = 15;
+    public static final int AUDIO_FREQUENCY_BIT_POSITION = 14;
+    public static final int AUDIO_FREQUENCY_BIT_LENGTH = 15;
     
     public int getAudioFrequency() {
       return getBits(
@@ -341,7 +346,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
           AUDIO_FREQUENCY_BIT_LENGTH);
     }
     
-    void setAudioFrequency(int frequency) {
+    void setAudioFrequency(final int frequency) {
       setBits(
           AUDIO_FREQUENCY_BIT_POSITION, 
           AUDIO_FREQUENCY_BIT_LENGTH, 
@@ -349,18 +354,18 @@ public class ByteArrayPacket implements SensorBoardPacket {
     }
     
     /**
-     * audio position: 
+     * audio position.
      */
-    public final static int AUDIO_POSITION = 4;
+    public static final int AUDIO_POSITION = 4;
     
-    public char getAudio(int channel) {
+    public char getAudio(final int channel) {
       if (channel < 0 || channel >= 4) {
         throw new IndexOutOfBoundsException();
       }
       return (char) rawFrame.getShortUnsigned(ADC_POSITION + channel * 2);
     }
     
-    public void setAudio(int channel, int value) {
+    public void setAudio(final int channel, final int value) {
       if (channel < 0 || channel >= 4) {
         throw new IndexOutOfBoundsException();
       }
@@ -368,19 +373,19 @@ public class ByteArrayPacket implements SensorBoardPacket {
     }
     
     /**
-     * ADC enable bit position: 
+     * ADC enable bit position.
      */
-    public final static int ADC_ENABLE_BIT_POSITION = 5;
+    public static final int ADC_ENABLE_BIT_POSITION = 5;
     
     /**
-     * ADC valid bit position: 
+     * ADC valid bit position.
      */
-    public final static int ADC_VALID_BIT_POSITION = 7;
+    public static final int ADC_VALID_BIT_POSITION = 7;
     
     /**
-     * ADC used bit position: 
+     * ADC used bit position.
      */
-    public final static int ADC_USED_BIT_POSITION = 6;
+    public static final int ADC_USED_BIT_POSITION = 6;
     
     public boolean isADCActive() {
       return 
@@ -389,17 +394,17 @@ public class ByteArrayPacket implements SensorBoardPacket {
           getBit(ADC_USED_BIT_POSITION);
     }
     
-    void setADCActive(boolean value) {
+    void setADCActive(final boolean value) {
       setBit(ADC_ENABLE_BIT_POSITION, value);
       setBit(ADC_VALID_BIT_POSITION, value);
       setBit(ADC_USED_BIT_POSITION, value);
     }
     
     /**
-     * ADC channel bit position and length: 
+     * ADC channel bit position and length.
      */
-    public final static int ADC_CHANNEL_BIT_POSITION = 8;
-    public final static int ADC_CHANNEL_BIT_LENGTH = 3;
+    public static final int ADC_CHANNEL_BIT_POSITION = 8;
+    public static final int ADC_CHANNEL_BIT_LENGTH = 3;
     
     public int getADCChannel() {
       return getBits(
@@ -407,7 +412,7 @@ public class ByteArrayPacket implements SensorBoardPacket {
           ADC_CHANNEL_BIT_LENGTH);
     }
     
-    void setADCChannel(int channel) {
+    void setADCChannel(final int channel) {
       setBits(
           ADC_CHANNEL_BIT_POSITION, 
           ADC_CHANNEL_BIT_LENGTH, 
@@ -415,33 +420,33 @@ public class ByteArrayPacket implements SensorBoardPacket {
     }
     
     /**
-     * ADC position: 
+     * ADC position.
      */
-    public final static int ADC_POSITION = 2;
+    public static final int ADC_POSITION = 2;
     
     public char getADC() {
       return (char) rawFrame.getShortUnsigned(ADC_POSITION);
     }
     
-    void setADC(int value) {
+    void setADC(final int value) {
       rawFrame.setShortUnsigned(ADC_POSITION, value);
     }
     
-    boolean getBit(int index) {
+    boolean getBit(final int index) {
       return rawFrame.getBit(1 - index / 8, index % 8);
     }
     
-    void setBit(int index, boolean value) {
+    void setBit(final int index, final boolean value) {
       rawFrame.setBit(1 - index / 8, index % 8, value);
     }
     
-    int getBits(int index, int length) {
+    int getBits(final int index, final int length) {
       int mask = (int) (Math.pow(2, length) - 1) << index;
       int value = ((mask & rawFrame.getShortUnsigned(0)) >>> index) & 0xFFFF;
       return value;
     }
     
-    void setBits(int index, int length, int value) {
+    void setBits(final int index, final int length, final int value) {
       if (value < 0 || value >= (int) (Math.pow(2, length))) {
         throw new IllegalArgumentException();
       }

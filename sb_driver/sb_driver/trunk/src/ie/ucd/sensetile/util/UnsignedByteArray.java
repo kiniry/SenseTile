@@ -13,7 +13,7 @@ package ie.ucd.sensetile.util;
  * 
  * @author Vieri del Bianco
  */
-final public class UnsignedByteArray {
+public final class UnsignedByteArray {
   
   private byte[] array;
   private int offset;
@@ -21,7 +21,10 @@ final public class UnsignedByteArray {
   private boolean folding;
   
   private UnsignedByteArray(
-      byte[] array, int offset, int length, boolean folding) {
+      final byte[] array, 
+      final int offset, 
+      final int length, 
+      final boolean folding) {
     this.array = array;
     this.length = length;
     this.offset = 
@@ -32,10 +35,10 @@ final public class UnsignedByteArray {
   /**
    * Get byte.
    * 
-   * @param index
-   * @return byte
+   * @param index byte index
+   * @return value
    */
-  public byte getByte(int index){
+  public byte getByte(final int index){
     int newIndex = checkAndNormalizeIndex(index, 1);
     return array[(newIndex + offset) % array.length];
   }
@@ -43,10 +46,10 @@ final public class UnsignedByteArray {
   /**
    * Set byte.
    * 
-   * @param index
-   * @param value
+   * @param index byte index
+   * @param value byte value
    */
-  public void setByte(int index, byte value){
+  public void setByte(final int index, final byte value){
     int newIndex = checkAndNormalizeIndex(index, 1);
     array[(newIndex + offset) % array.length] = value;
   }
@@ -54,11 +57,11 @@ final public class UnsignedByteArray {
   /**
    * Get bit.
    * 
-   * @param index
-   * @param bit index
-   * @return
+   * @param index byte index
+   * @param bitIndex bit index
+   * @return bit value
    */
-  public boolean getBit(int index, int bitIndex) {
+  public boolean getBit(final int index, final int bitIndex) {
     if (bitIndex < 0 || bitIndex >= 8) {
       throw new IndexOutOfBoundsException();
     }
@@ -69,11 +72,12 @@ final public class UnsignedByteArray {
   /**
    * Set bit.
    * 
-   * @param index
-   * @param bit index
-   * @param bit value
+   * @param index byte index
+   * @param bitIndex bit index
+   * @param value bit value
    */
-  public void setBit(int index, int bitIndex, boolean value) {
+  public void setBit(
+      final int index, final int bitIndex, final boolean value) {
     if (bitIndex < 0 || bitIndex >= 8) {
       throw new IndexOutOfBoundsException();
     }
@@ -86,30 +90,30 @@ final public class UnsignedByteArray {
   /**
    * Get signed 12 bits.
    * 
-   * @param index
+   * @param index byte index
    * @return signed 12 bits
    */
-  public int get12BitsSigned(int index) {
+  public int get12BitsSigned(final int index) {
     return (getShortUnsigned(index) << 20) >> 20;
   }
   
   /**
    * Set signed 12 bits.
    * 
-   * @param index
-   * @param value
+   * @param index byte index
+   * @param value signed 12 bits value
    */
-  public void set12BitsSigned(int index, int value) {
+  public void set12BitsSigned(final int index, final int value) {
     setShortUnsigned(index, (value << 20) >>> 20);
   }
   
   /**
    * Get unsigned short.
    * 
-   * @param index
+   * @param index byte index
    * @return unsigned short
    */
-  public int getShortUnsigned(int index) {
+  public int getShortUnsigned(final int index) {
     int newIndex = checkAndNormalizeIndex(index, 2);
     return 
       ((0xff & getByte(newIndex)) << 8) | 
@@ -119,10 +123,10 @@ final public class UnsignedByteArray {
   /**
    * Set unsigned short.
    * 
-   * @param index
-   * @param value
+   * @param index byte index
+   * @param value unsigned short value
    */
-  public void setShortUnsigned(int index, int value) {
+  public void setShortUnsigned(final int index, final int value) {
     int newIndex = checkAndNormalizeIndex(index, 2);
     setByte(newIndex, (byte) (0xff & value >>> 8));
     setByte(newIndex + 1, (byte) (0xff & value));
@@ -138,7 +142,7 @@ final public class UnsignedByteArray {
   }
   
   /**
-   * Begin offset
+   * Begin offset.
    * 
    * @return offset
    */
@@ -147,7 +151,7 @@ final public class UnsignedByteArray {
   }
   
   /**
-   * End offset
+   * End offset.
    * 
    * @return offset
    */
@@ -157,7 +161,7 @@ final public class UnsignedByteArray {
   }
   
   /**
-   * Internal raw array
+   * Internal raw array.
    * 
    * @return array
    */
@@ -165,7 +169,7 @@ final public class UnsignedByteArray {
     return array;
   }
   
-  private int checkAndNormalizeIndex(int index, int operationLength){
+  private int checkAndNormalizeIndex(final int index, final int operationLength){
     int newIndex = index;
     if (folding) {
       newIndex = normalizeIndex(index, length);
@@ -180,33 +184,33 @@ final public class UnsignedByteArray {
   /**
    * Create UnsignedByteArray from raw array.
    * 
-   * @param array
+   * @param array raw byte array
    * @return unsigned byte array
    */
-  public static UnsignedByteArray create(byte[] array) {
+  public static UnsignedByteArray create(final byte[] array) {
     return create(array, 0, array.length, false);
   }
   
   /**
    * Create folding UnsignedByteArray from raw array.
    * 
-   * @param array
+   * @param array byte array
    * @return unsigned byte array
    */
-  public static UnsignedByteArray createFolding(byte[] array) {
+  public static UnsignedByteArray createFolding(final byte[] array) {
     return create(array, 0, array.length, true);
   }
   
   /**
    * Create UnsignedByteArray from UnsignedByteArray.
    * 
-   * @param array
-   * @param offset
-   * @param length
+   * @param uba byte array
+   * @param offset array offset
+   * @param length array length
    * @return unsigned byte array
    */
   public static UnsignedByteArray create
-      (UnsignedByteArray uba, int offset, int length) {
+      (final UnsignedByteArray uba, final int offset, final int length) {
     byte[] ba = uba.array;
     int realOffset = (offset + uba.offset) % ba.length;
     return create(ba, realOffset, length, false);
@@ -215,13 +219,13 @@ final public class UnsignedByteArray {
   /**
    * Create folding UnsignedByteArray from UnsignedByteArray.
    * 
-   * @param array
-   * @param offset
-   * @param length
+   * @param uba byte array
+   * @param offset array offset
+   * @param length array length
    * @return unsigned byte array
    */
   public static UnsignedByteArray createFolding
-      (UnsignedByteArray uba, int offset, int length) {
+      (final UnsignedByteArray uba, final int offset, final int length) {
     byte[] ba = uba.array;
     int realOffset = (offset + uba.offset) % ba.length;
     return create(ba, realOffset, length, true);
@@ -230,42 +234,46 @@ final public class UnsignedByteArray {
   /**
    * Create UnsignedByteArray from raw array.
    * 
-   * @param array
-   * @param offset
-   * @param length
+   * @param array raw byte array
+   * @param offset array offset
+   * @param length array length
    * @return unsigned byte array
    */
   public static UnsignedByteArray create
-      (byte[] array, int offset, int length) {
+      (final byte[] array, final int offset, final int length) {
     return create(array, offset, length, false);
   }
   
   /**
    * Create folding UnsignedByteArray from raw array.
    * 
-   * @param array
-   * @param offset
-   * @param length
+   * @param array raw byte array
+   * @param offset array offset
+   * @param length array length
    * @return unsigned byte array
    */
-  public static UnsignedByteArray createFolding
-      (byte[] array, int offset, int length) {
+  public static UnsignedByteArray createFolding(
+      final byte[] array, final int offset, final int length) {
     return create(array, offset, length, true);
   }
   
-  private static UnsignedByteArray create
-      (byte[] array, int offset, int length, boolean folding) {
+  private static UnsignedByteArray create(
+      final byte[] array, 
+      final int offset, 
+      final int length, 
+      final boolean folding) {
     checkParameters(array, offset, length);
     return new UnsignedByteArray(array, offset, length, folding);
   }
   
-  private static void checkParameters(byte[] array, int offset, int length) {
+  private static void checkParameters(
+      final byte[] array, final int offset, final int length) {
     if ((length < 0) || (length > array.length)) {
       throw new IllegalArgumentException("length: " + length);
     }
   }
   
-  private static int normalizeIndex(int index, int length){
+  private static int normalizeIndex(final int index, final int length){
     int newIndex = index;
     if (index >= length) {
       newIndex = index % length;

@@ -1,7 +1,7 @@
 package ie.ucd.sensetile.util;
 
-import static org.junit.Assert.*;
-import ie.ucd.sensetile.util.BytePattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;

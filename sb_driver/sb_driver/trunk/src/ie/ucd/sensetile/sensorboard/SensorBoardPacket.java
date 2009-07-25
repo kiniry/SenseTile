@@ -118,7 +118,7 @@ public interface SensorBoardPacket {
    * 
    * index >= 0, index < 82.
    * 
-   * @param frame index
+   * @param index frame index
    * @return frame
    */
   Frame getFrame(int index);
@@ -188,12 +188,12 @@ public interface SensorBoardPacket {
     /**
      * Audio frequency: 48 KHz.
      */
-    static final int AUDIO_FREQUENCY_48KHZ = 0; 
+    int AUDIO_FREQUENCY_48KHZ = 0; 
     
     /**
      * Audio frequency: 96 KHz.
      */
-    static final int AUDIO_FREQUENCY_96KHZ = 1; 
+    int AUDIO_FREQUENCY_96KHZ = 1; 
     
     /**
      * Get audio sample.

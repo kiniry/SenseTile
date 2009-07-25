@@ -32,58 +32,45 @@ import java.io.InputStream;
  */
 public class InputStreamPacketInputStream implements PacketInputStream {
   
-  /**
+  /*
    * constants
    */
   static int bufferPackets = 6;
   static int validateMinimumPackets = 3;
   static int trimPackets = 2;
-  /*@
-    @ public constraint bufferPackets == 6;
-    @ public invariant 
-    @   (validateMinimumPackets > 0) && 
-    @   (validateMinimumPackets <= bufferPackets);
-    @ public invariant (trimPackets > 0) && (trimPackets <= bufferPackets);
-    @*/
   
-  /**
+  /*
    * raw input stream
    */
-  final private DataInputStream input;
-  /*@
-    @ public invariant input != null;
-  @*/
+  private final DataInputStream input;
   
-  /**
+  /*
    * buffer
    */
   private byte[] raw;
   private UnsignedByteArray byteArray;
   
-  /**
+  /*
    * byte pattern matcher
    */
-  final private BytePattern pattern;
+  private final BytePattern pattern;
   
-  /**
+  /*
    * flag: input stream closed
    */
   private boolean isClose;
   
-  /**
+  /*
    * flag: input stream EOF
    */
   private boolean isEOF;
   
-  /**
+  /*
    * flag: input stream has been validates
    */
   private boolean isValid;
   
-  /*@
-    @ requires bufferPackets > 0;
-    @*/
-  public InputStreamPacketInputStream(/*@ non_null */ InputStream is) {
+  public InputStreamPacketInputStream(final InputStream is) {
     // input stream
     this.input = new DataInputStream(is);
     // buffer
@@ -96,25 +83,17 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     isEOF = false;
   }
 
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#availablePackets()
-   */
-  public int availablePackets() throws IOException {
+  public final int availablePackets() throws IOException {
    return (byteArray.length() + input.available()) / getPacketLength();
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read(ie.ucd.sensetile.sensorboard.Packet[])
-   */
-  public int read(SensorBoardPacket[] array) 
+  public int read(final SensorBoardPacket[] array) 
       throws IOException, SenseTileException{
     return read(array, 0, array.length);
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read(ie.ucd.sensetile.sensorboard.Packet[], int, int)
-   */
-  public int read(SensorBoardPacket[] array, int offset, int length) 
+  public int read(
+      final SensorBoardPacket[] array, final int offset, final int length) 
       throws IOException, SenseTileException{
     if (isClose()) {
       throw new IOException();
@@ -131,27 +110,21 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return returnArray.read();
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#read()
-   */
   public SensorBoardPacket read() throws IOException, SenseTileException{
     SensorBoardPacket[] array = new SensorBoardPacket[1];
     readFully(array);
     return array[0];
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#readFully(ie.ucd.sensetile.sensorboard.Packet[])
-   */
-  public void readFully(SensorBoardPacket[] array) 
+  public void readFully(final SensorBoardPacket[] array) 
       throws IOException, SenseTileException{
     readFully(array, 0, array.length);
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#readFully(ie.ucd.sensetile.sensorboard.Packet[], int, int)
-   */
-  public void readFully(SensorBoardPacket[] array, int offset, int length) 
+  public void readFully(
+      final SensorBoardPacket[] array, 
+      final int offset, 
+      final int length) 
       throws IOException, SenseTileException{
     if (isClose()) {
       throw new IOException();
@@ -170,7 +143,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#close()
    */
-  public void close() throws IOException {
+  public final void close() throws IOException {
     isClose = true;
     input.close();
   }
@@ -187,7 +160,8 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     }
   }
   
-  private void readToReturn(ReturnPacketArray array) throws IOException, SenseTileException {
+  private void readToReturn(final ReturnPacketArray array) 
+      throws IOException, SenseTileException {
     do {
       readIntoBuffer();
       if (byteArray.length() < getPacketLength()) {
@@ -222,17 +196,18 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private void waitReadToValidate() throws IOException {
-    while(this.isValid == false) {
+    while(! isValid) {
       waitReadIntoBuffer(ByteArrayPacket.LENGTH * validateMinimumPackets);
       if (validateAndTrimBuffer()) {
-        this.isValid = true;
+        isValid = true;
       } else {
         trimBuffer(trimPackets * getPacketLength());
       }
     }
   }
   
-  private void waitReadToReturn(ReturnPacketArray array) throws IOException, SenseTileException {
+  private void waitReadToReturn(final ReturnPacketArray array) 
+      throws IOException, SenseTileException {
     do {
       int toBeRead = array.toBeRead();
       toBeRead = toBeRead > bufferPackets ? bufferPackets : toBeRead;
@@ -241,7 +216,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     } while (! array.isFull());
   }
   
-  private void waitReadIntoBuffer(int length) throws IOException {
+  private void waitReadIntoBuffer(final int length) throws IOException {
     if (length > raw.length) {
       throw new IndexOutOfBoundsException();
     }
@@ -261,7 +236,8 @@ public class InputStreamPacketInputStream implements PacketInputStream {
         byteArray, 0, length);
   }
   
-  private void bufferToReturn(ReturnPacketArray array) throws SenseTileException {
+  private void bufferToReturn(final ReturnPacketArray array) 
+      throws SenseTileException {
     do {
       if (byteArray.length() < getPacketLength()) {
         return;
@@ -278,8 +254,10 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       return false;
     }
     // calculate packet start position
-    int absoluteIndex = 
-      (index+(getPacketLength()-ByteArrayPacket.PATTERN_OFFSET))%getPacketLength();
+    int absoluteIndex = (
+          index + 
+          (getPacketLength() - ByteArrayPacket.PATTERN_OFFSET)
+        ) % getPacketLength();
     trimBuffer(absoluteIndex);
     return true;
   }
@@ -289,7 +267,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return ByteArrayPacket.createPacket(raw);
   }  
   
-  private UnsignedByteArray extractBuffer(int length) {
+  private UnsignedByteArray extractBuffer(final int length) {
     byte[] array = new byte[length];
     for (int i = 0; i < array.length; i++) {
       array[i] = byteArray.getByte(i);
@@ -298,7 +276,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return UnsignedByteArray.create(array);
   }
   
-  private void trimBuffer(int length) {
+  private void trimBuffer(final int length) {
     byteArray = UnsignedByteArray.create(
         byteArray, length, byteArray.length() - length);
   }
@@ -327,14 +305,17 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return ByteArrayPacket.PATTERN;
   }
   
-  private static class ReturnPacketArray {
+  private static final class ReturnPacketArray {
     
     private SensorBoardPacket[] array; 
     private int offset; 
     private int length;
     private int internalOffset;
     
-    private ReturnPacketArray(SensorBoardPacket[] array, int offset, int length) {
+    private ReturnPacketArray(
+        final SensorBoardPacket[] array, 
+        final int offset, 
+        final int length) {
       this.array = array;
       this.offset = offset;
       this.length = length;
@@ -349,7 +330,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       return internalOffset - offset;
     }
     
-    private void add(SensorBoardPacket packet) {
+    private void add(final SensorBoardPacket packet) {
       if (isFull()) {
         throw new IndexOutOfBoundsException();
       }
