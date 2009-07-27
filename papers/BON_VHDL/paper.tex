@@ -149,16 +149,7 @@ and software simulation.
 
 
 \section{VHDL-ASM}
-VHDL-AMS , as an extension of VHDL, was developed to allow designers 
-to represent both analog and digital functionality of a system in 
-the same model. Existing hardware description languages, such as VHDL 
-and Verilog, support digital systems modeling, while languages such as 
-SPICE and its numerous variants support analog systems modeling. 
-Integrating these two modeling domains is a significant new capability 
-for designers. VHDL-AMS supports the differential and algebraic equations 
-(DAEs) where the solution varies continuously with time and, in addition, 
-supports both structural composition and behavioural descriptions of 
-analogue systems. 
+ 
 \section{Choice of BON as the modeling tool}
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation 
@@ -220,11 +211,14 @@ presentation of \ent is shown in Figure.1
 \label{figure:adc-entity}
 \end{figure}
 
+
+
 The \arch body represents description of the internal implementation 
 of an \ent including only process statements, which are collections 
 of actions to be executed in sequence, or simultaneous statements, 
 which describe equations of analogue system behaviour. 
 The graphical presentation of \arch is shown in Figure.2
+
 \begin{figure}[htp]
 \centering
 \include{adc-arch}
