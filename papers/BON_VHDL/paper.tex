@@ -149,8 +149,16 @@ and software simulation.
 
 
 \section{VHDL-ASM}
-\subsection{Hardware description language}
-
+VHDL-AMS , as an extension of VHDL, was developed to allow designers 
+to represent both analog and digital functionality of a system in 
+the same model. Existing hardware description languages, such as VHDL 
+and Verilog, support digital systems modeling, while languages such as 
+SPICE and its numerous variants support analog systems modeling. 
+Integrating these two modeling domains is a significant new capability 
+for designers. VHDL-AMS supports the differential and algebraic equations 
+(DAEs) where the solution varies continuously with time and, in addition, 
+supports both structural composition and behavioural descriptions of 
+analogue systems. 
 \section{Choice of BON as the modeling tool}
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation 
@@ -167,7 +175,7 @@ throughout the software lifecycle.
 backward development process: from analysis to design 
 and implementation, and back.
 In VHDL-AMS, modelling represents an continious top-down-bottom-up
-process. Top-down approach serves for design whereas bottom-up
+process. Top-down approach serves for design while bottom-up
 serves for verification. The possibility of seamlessly translating 
 changes made during a certain development phase back into earlier phases,
 facilitates a stable and predictable environment and ensures the various 
