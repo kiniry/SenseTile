@@ -62,7 +62,12 @@
 \newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
 \newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
 \newcommand{\sensorfarm}{The \STs\xspace}
-
+\newcommand{\Sc}{\emph{system\_chart}\xspace}
+\newcommand{\Clc}{\emph{cluster\_chart}\xspace}
+\newcommand{\Csc}{\emph{class\_chart}\xspace}
+\newcommand{\Ft}{\emph{feature}\xspace}
+\newcommand{\ent}{\emph{entity}\xspace}
+\newcommand{\arch}{\emph{architecture}\xspace}
 %---------------------------------------------------------------------
 % New commands, macros, \etc
 %---------------------------------------------------------------------
@@ -74,7 +79,7 @@
 \begin{document}
 
 \title{Refining from the BON High-level Specification Language to the
-  VHDL Hardware Description Language}
+  VHDL-ASM Hardware Description Language}
 
 \author{Joseph R. Kiniry and Dragan Stosic\\
 UCD CASL: Complex and Adaptive Systems Laboratory and\\
@@ -111,7 +116,7 @@ scientists for these online and offline scientific computations.
 The \STs, as an embedded system, have several unusual built-in sensors 
 and emitters, sensor nodes can be extended via a general-purpose USB bus, 
 and \STs contain an FPGA that is dynamically updated on a per-experiment 
-basis.  \STs are custom-designed in VHDL.  Like many hardware-based systems,
+basis.  \STs are custom-designed in VHDL and VHDL-ASM.  Like many hardware-based systems,
  to write new software for or against the \ST architecture one either uses
 the actual hardware or one runs a \STS.  But this simulator emulates a
 piece of hardware, one would like to know if the simulator
@@ -126,21 +131,19 @@ verified \ST simulator.
 
 %======================================================================
 \section{Introduction}
-The Embedded system is composed of a heterogeneous collection of digital,
-analog and mixed signal hardware components.The development of complex 
-embedded system requires sophisticated tool and methodology in order to 
-be able to complete a correct design in time. Embedded system complexity 
-requires the need to strive for abstract specification and formal 
-descriptions each component separatelly in order to produce formal 
-specification of the whole system. The main goal is fast design approach 
-in order to produce simulator and to minimize the time spent.  
-
-The \STs represents an embedded system designed in VHDL.
-
+The \STs, represents heterogeneous collection of digital, analog 
+and mixed signal hardware components. Embedded system complexity 
+requires the need to strive for formal descriptions each component 
+separatelly in order to produce specification of the \STs simulator. 
+The development of complex system requires sophisticated tool and methodology 
+in order to be able to complete a correct design in time.  
 
 The authors will illustrate in this paper how BON can represent a high 
 level analogue mapping and will further illustrate a procedure for 
-transformation from BON to VHDL-ASM.
+transformation from BON to VHDL-ASM. As an example, 
+we will give practical aspect of refinement from BON to VHDL-ASM,
+applied on A/D convertor, in order to produce formal specification 
+and software simulation.
 %=====================================================================
 
 
@@ -151,36 +154,43 @@ transformation from BON to VHDL-ASM.
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation for 
 object-oriented systems  which emphasizes \emph{seamlessness}, \emph{reversibility} and software \emph{contracting}.
+Let us define these principles precisely and point out why the principles are important in VHDL-ASM simulation.
 
 \begin{itemize}
 \item \emph{Seamlessness} is the use of a continuous process throughout the software lifecycle.
-%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-ASM}
-\item \emph{Reversibility} is the support for both forward and backward engineering: from analysis to
+\item \emph{Reversibility} is the support for both forward and backward development process: from analysis to
 design and implementation, and back.
-%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-ASM. Why is Reversibility important in VHDL design.}
+In VHDL-AMS, modelling represents an continious top-down-bottom-up process. Top-down approach serves for design whereas bottom-up
+serves for verification.
+The possibility of seamlessly translating changes made during a certain development phase back into earlier phases,
+facilitates a stable and predictable environment and ensures the various models consistent with the code.
+
+
 \item \emph{Contracting} is the precise definition, for each software element, of the associated semantic properties. 
-BON is the only one among the popular analysis methods to use a full assertion
-mechanism, allowing analysts to specify not only the structure of a system but also its
-semantics ( preconditions, postconditions and invariants of the expected results ).
+BON use a full assertion mechanism, allowing analysts to specify not only the structure of a system but also its
+semantics ( constraints and invariants of the expected results ).VHDL-AMS provides strongly typed interface constructs 
+that ensure clarity in the interface specifications. 
+
 \end{itemize}
 
-BON focuses on the fundamental elements of analysis and design, and the method is
-meant to be integrated with and adapted to the various development frameworks
-including embedded system.
 
-Because of its flexibility, it is not difficult to find mappings into other domains
-which would seem to indicate that object-oriented modeling is really equivalent
-to process modeling with signal passing, or refinement of VHDL language.
 
-Therefore as a distillation of best modelling practices, and as the 
-language based on contract design and refinement calculus, BON
-is the obvious choice for the current work.
+%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-ASM}
+%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-ASM. Why is Reversibility important in VHDL design.}
+Therefore as an approach of best modelling practices, and as the language based on contract design 
+and refinement calculus, BON is the obvious choice for the our simulator.
 
-\subsection{Mapping between BON and VHDL}
+\subsection{Mapping between BON and VHDL-ASM}
 %\todo{dragan 25/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
-\subsection{Adapting BON for VHDL modeling }
-
-\section{Example}
+\begin{itemize}
+\item \Sc: can be represented with high abstract level of the topmost entity in a design hierarchy.
+\item \Clc: to be described.
+\item \Csc: can be equated with the primary unit(\ent) and secondary unit (\arch) structure in VHDL-AMS.
+The \Csc's name corresponds to the name of the entity in VHDL-AMS.
+\item \Ft: The feature section of the \Csc, where the mathematical transfer function of the component
+is entered, holds the same information as the \arch section of the VHDL-AMS.
+\end{itemize}
+\subsection{Refinement from BON to VHDL-ASM}
 
 %=====================================================================
 \section{Conclusion}
