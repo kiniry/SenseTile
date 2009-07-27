@@ -1,0 +1,29 @@
+{\small
+\begin{tabbing}
+\ \ \ \= \textbf{architecture} simple \textbf{of} adc \textbf{is} \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{constant} ref : real := 5.0; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} v\_in across a; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} quantity v\_amplified : voltage; \\
+\ \ \ \= \textbf{begin} \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= v\_amplified == v\_in * gain; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= adc\_behavior:\textbf{process is} \\
+\> \> \ \ \ \ \ \ \ \ \ \ \= \textbf{variable} stored\_d : bit; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{begin} \\
+\> \> \ \ \ \ \ \ \ \ \ \ \= \textbf{if} clk = '1' \textbf{then} \\
+\> \> \> \ \ \ \ \ \ \ \ \ \= \textbf{if} v\_amplified $>$ ref / 2.0 \textbf{then} \\
+\> \> \> \> \ \ \ \ \ \ \ \ \= stored\_d := '1'; \\
+\> \> \> \ \ \ \ \ \ \ \ \ \= \textbf{else} \\
+\> \> \> \> \ \ \ \ \ \ \ \ \= stored\_d := '0'; \\
+\> \> \> \ \ \ \ \ \ \ \ \ \= \textbf{end if}; \\
+\> \> \ \ \ \ \ \ \ \ \ \ \=\textbf{end if};\\
+\> \> \ \ \ \ \ \ \ \ \ \ \= d\_out $<$= stored\_d \textbf{after} 5 ns;\\ \\
+\> \> \ \ \ \ \ \ \ \ \ \ \= \textbf{wait on} clk;\\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{end process} adc\_behavior;\\
+\ \ \ \= \textbf{end architecture} simple;
+\end{tabbing}
+}
+
+
+
+
+
