@@ -68,6 +68,7 @@
 \newcommand{\Ft}{\emph{feature}\xspace}
 \newcommand{\ent}{\emph{entity}\xspace}
 \newcommand{\arch}{\emph{architecture}\xspace}
+\newcommand{\archs}{\emph{architectures}\xspace}
 %---------------------------------------------------------------------
 % New commands, macros, \etc
 %---------------------------------------------------------------------
@@ -152,45 +153,78 @@ and software simulation.
 
 \section{Choice of BON as the modeling tool}
 %Brief description and motivation.
-The Business Object Notation (BON) is an analysis and design notation for 
-object-oriented systems  which emphasizes \emph{seamlessness}, \emph{reversibility} and software \emph{contracting}.
-Let us define these principles precisely and point out why the principles are important in VHDL-ASM simulation.
-
+The Business Object Notation (BON) is an analysis and design notation 
+for object-oriented systems  which emphasizes \emph{seamlessness}, 
+\emph{reversibility} and software \emph{contracting}. Let us define 
+these principles precisely and point out why the principles are 
+important in VHDL-ASM simulation.
+%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-ASM}
 \begin{itemize}
-\item \emph{Seamlessness} is the use of a continuous process throughout the software lifecycle.
-\item \emph{Reversibility} is the support for both forward and backward development process: from analysis to
-design and implementation, and back.
-In VHDL-AMS, modelling represents an continious top-down-bottom-up process. Top-down approach serves for design whereas bottom-up
-serves for verification.
-The possibility of seamlessly translating changes made during a certain development phase back into earlier phases,
-facilitates a stable and predictable environment and ensures the various models consistent with the code.
-
-
-\item \emph{Contracting} is the precise definition, for each software element, of the associated semantic properties. 
-BON use a full assertion mechanism, allowing analysts to specify not only the structure of a system but also its
-semantics ( constraints and invariants of the expected results ).VHDL-AMS provides strongly typed interface constructs 
-that ensure clarity in the interface specifications. 
-
+\item \emph{Seamlessness} is the use of a continuous process 
+throughout the software lifecycle.
+%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-ASM. Why is Reversibility important in VHDL design.}
+\item \emph{Reversibility} is the support for both forward and 
+backward development process: from analysis to design 
+and implementation, and back.
+In VHDL-AMS, modelling represents an continious top-down-bottom-up
+process. Top-down approach serves for design whereas bottom-up
+serves for verification. The possibility of seamlessly translating 
+changes made during a certain development phase back into earlier phases,
+facilitates a stable and predictable environment and ensures the various 
+models consistent with the code.
+\item \emph{Contracting} is the precise definition, for each software element, 
+of the associated semantic properties. BON use a full assertion mechanism, 
+allowing analysts to specify not only the structure of a system but also its
+semantics ( constraints and invariants of the expected results ).
 \end{itemize}
 
-
-
-%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-ASM}
-%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-ASM. Why is Reversibility important in VHDL design.}
-Therefore as an approach of best modelling practices, and as the language based on contract design 
-and refinement calculus, BON is the obvious choice for the our simulator.
+Therefore as an approach of best modelling practices, and as the notation 
+based on contract design and refinement calculus, BON is the obvious choice 
+for the our simulator.
 
 \subsection{Mapping between BON and VHDL-ASM}
 %\todo{dragan 25/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
 \begin{itemize}
-\item \Sc: can be represented with high abstract level of the topmost entity in a design hierarchy.
+\item \Sc: can be represented with high abstract level of the topmost 
+entity in a design hierarchy.
 \item \Clc: to be described.
-\item \Csc: can be equated with the primary unit(\ent) and secondary unit (\arch) structure in VHDL-AMS.
+\item \Csc: can be identify with the primary unit(\ent) and secondary 
+unit (\arch) structure in VHDL-AMS.
 The \Csc's name corresponds to the name of the entity in VHDL-AMS.
-\item \Ft: The feature section of the \Csc, where the mathematical transfer function of the component
-is entered, holds the same information as the \arch section of the VHDL-AMS.
+\item \Ft: The feature section of the \Csc, where the mathematical 
+transfer function of the component is entered, holds the same information 
+as the \arch section of the VHDL-AMS.
 \end{itemize}
+
 \subsection{Refinement from BON to VHDL-ASM}
+
+An VHDL-AMS component are described using an \ent-\arch structure. 
+The component model contains an \ent and one or more \archs. 
+The \ent specifies the interface of the model to the outside world. 
+In other words, \ent introduces a name, list of input/output ports 
+and the definition of the generic parameters. The graphical 
+presentation of \ent is shown in Figure.1 
+
+\begin{figure}[htp]
+\centering
+\include{adc-entity}
+\caption{An \ent body for a A/D converter.}
+\label{figure:adc-entity}
+\end{figure}
+
+The \arch body represents description of the internal implementation 
+of an \ent including only process statements, which are collections 
+of actions to be executed in sequence, or simultaneous statements, 
+which describe equations of analogue system behaviour. 
+The graphical presentation of \ent is shown in Figure.2
+\begin{figure}[htp]
+\centering
+\include{adc-arch}
+\caption{An \arch body for a A/D converter.}
+\label{figure:adc-entity}
+\end{figure} 
+
+
 
 %=====================================================================
 \section{Conclusion}
