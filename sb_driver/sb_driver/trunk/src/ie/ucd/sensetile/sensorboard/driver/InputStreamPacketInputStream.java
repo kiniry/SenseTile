@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * @author Vieri del Bianco
@@ -33,16 +34,32 @@ import java.io.InputStream;
 public class InputStreamPacketInputStream implements PacketInputStream {
   
   /*
-   * constants
+   * property names
    */
-  static int bufferPackets = 6;
-  static int validateMinimumPackets = 3;
-  static int trimPackets = 2;
+  public static final String TRIM_PACKETS_PROPERTY = "trimPackets";
+  public static final String VALIDATE_MINIMUM_PACKETS_PROPERTY = "validateMinimumPackets";
+  public static final String BUFFER_PACKETS_PROPERTY = "bufferPackets";
+
+  /*
+   * default properties
+   */
+  private static final Properties DEFAULT_PROPERTIES = new Properties();
+  
+  static {
+    DEFAULT_PROPERTIES.setProperty(BUFFER_PACKETS_PROPERTY, "6");
+    DEFAULT_PROPERTIES.setProperty(VALIDATE_MINIMUM_PACKETS_PROPERTY, "3");
+    DEFAULT_PROPERTIES.setProperty(TRIM_PACKETS_PROPERTY, "2");
+  }
   
   /*
    * raw input stream
    */
   private final DataInputStream input;
+  
+  /*
+   * properties
+   */
+  private final Properties properties;
   
   /*
    * buffer
@@ -70,11 +87,21 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    */
   private boolean isValid;
   
-  public InputStreamPacketInputStream(final InputStream is) {
+  public InputStreamPacketInputStream(
+      final InputStream is) {
+    this(is, new Properties());
+  }
+  
+  public InputStreamPacketInputStream(
+      final InputStream is, final Properties properties) {
     // input stream
     this.input = new DataInputStream(is);
+    // properties
+    this.properties = 
+      new Properties(InputStreamPacketInputStream.DEFAULT_PROPERTIES);
+    this.properties.putAll(properties);
     // buffer
-    raw = new byte[getPacketLength() * bufferPackets];
+    raw = new byte[getPacketLength() * getBufferPackets()];
     byteArray = UnsignedByteArray.create(raw, 0, 0);
     // pattern
     pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
@@ -83,6 +110,18 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     isEOF = false;
   }
 
+  private int getBufferPackets() {
+    return Integer.parseInt(properties.getProperty(BUFFER_PACKETS_PROPERTY));
+  }
+  
+  private int getValidateMinimumPackets() {
+    return Integer.parseInt(properties.getProperty(VALIDATE_MINIMUM_PACKETS_PROPERTY));
+  }
+  
+  private int getTrimPackets() {
+    return Integer.parseInt(properties.getProperty(TRIM_PACKETS_PROPERTY));
+  }
+  
   public final int availablePackets() throws IOException {
    return (byteArray.length() + input.available()) / getPacketLength();
   }
@@ -140,9 +179,6 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     waitReadToReturn(returnArray);
   }
   
-  /* (non-Javadoc)
-   * @see ie.ucd.sensetile.sensorboard.PacketInputStreamI#close()
-   */
   public final void close() throws IOException {
     isClose = true;
     input.close();
@@ -150,13 +186,13 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   
   private void readToValidate() throws IOException {
     readIntoBuffer();
-    if (byteArray.length() < validateMinimumPackets * getPacketLength()) {
+    if (byteArray.length() < getValidateMinimumPackets() * getPacketLength()) {
       return;
     }
     if (validateAndTrimBuffer()) {
       this.isValid = true;
     } else {
-      trimBuffer(trimPackets * getPacketLength());
+      trimBuffer(getTrimPackets() * getPacketLength());
     }
   }
   
@@ -197,11 +233,11 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   
   private void waitReadToValidate() throws IOException {
     while(! isValid) {
-      waitReadIntoBuffer(ByteArrayPacket.LENGTH * validateMinimumPackets);
+      waitReadIntoBuffer(ByteArrayPacket.LENGTH * getValidateMinimumPackets());
       if (validateAndTrimBuffer()) {
         isValid = true;
       } else {
-        trimBuffer(trimPackets * getPacketLength());
+        trimBuffer(getTrimPackets() * getPacketLength());
       }
     }
   }
@@ -210,7 +246,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       throws IOException, SenseTileException {
     do {
       int toBeRead = array.toBeRead();
-      toBeRead = toBeRead > bufferPackets ? bufferPackets : toBeRead;
+      toBeRead = toBeRead > getBufferPackets() ? getBufferPackets() : toBeRead;
       waitReadIntoBuffer(toBeRead * ByteArrayPacket.LENGTH);
       bufferToReturn(array);
     } while (! array.isFull());
@@ -296,8 +332,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return isValid;
   }
   
-  //@ ensures \result > 0;
-  private /*@ pure */ int getPacketLength() {
+  private int getPacketLength() {
     return ByteArrayPacket.LENGTH;
   }
   
