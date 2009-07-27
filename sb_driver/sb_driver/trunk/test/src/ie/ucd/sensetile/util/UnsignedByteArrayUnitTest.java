@@ -26,6 +26,7 @@ public class UnsignedByteArrayUnitTest {
   
   @Test (expected=NullPointerException.class)
   public void testCreateNullArray(){
+    //@SuppressWarnings
     UnsignedByteArray.create(null);
   }
   

@@ -33,6 +33,7 @@ public class BytePatternUnitTest {
   @Test(expected = NullPointerException.class)
   public void testCreateNull() {
     byte[] dataPattern = null;
+    //@SuppressWarnings
     BytePattern.createPattern(dataPattern);
   }
   

@@ -166,6 +166,7 @@ public final class UnsignedByteArray {
    * @return array
    */
   public byte[] getArray() {
+    //@SuppressWarnings
     return array;
   }
   
