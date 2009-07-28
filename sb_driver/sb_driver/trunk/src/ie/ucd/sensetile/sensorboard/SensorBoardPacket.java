@@ -64,7 +64,7 @@ public interface SensorBoardPacket {
    * 
    * @return light level
    */
-  short getLighLevel();
+  short getLightLevel();
   
   /**
    * Get acceleration on X axis.
@@ -114,9 +114,14 @@ public interface SensorBoardPacket {
   // Frames
   
   /**
+   * Frame number in packet.
+   */
+  int FRAMES = 82;
+  
+  /**
    * Get frame.
    * 
-   * index >= 0, index < 82.
+   * index >= 0, index < FRAME_NUMBER
    * 
    * @param index frame index
    * @return frame
@@ -164,8 +169,8 @@ public interface SensorBoardPacket {
   
   public interface Frame {
     
-    /**
-     * IRD synch signal active. 
+   /*
+     * IRD synch signal active
      * 
      * @return signal active
      */
@@ -196,9 +201,14 @@ public interface SensorBoardPacket {
     int AUDIO_FREQUENCY_96KHZ = 1; 
     
     /**
+     * Audio channels.
+     */
+    int AUDIO_CHANNNELS = 4;
+    
+    /**
      * Get audio sample.
      * 
-     * channel >= 0, channel < 4 
+     * channel >= 0, channel < AUDIO_CHANNELS 
      * 
      * @param channel audio channel
      * @return audio sample
@@ -220,6 +230,11 @@ public interface SensorBoardPacket {
      * @return ADC channel
      */
     int getADCChannel();
+    
+    /**
+     * ADC channels.
+     */
+    int ADC_CHANNNELS = 8;
     
     /**
      * Get slow ADC sample.

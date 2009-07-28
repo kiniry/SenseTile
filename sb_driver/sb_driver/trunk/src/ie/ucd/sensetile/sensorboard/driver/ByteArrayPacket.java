@@ -89,11 +89,11 @@ public final class ByteArrayPacket implements SensorBoardPacket {
    */
   public static final int LIGHT_LEVEL_POSITION = 8;
   
-  public short getLighLevel() {
+  public short getLightLevel() {
     return (short) raw.getShortUnsigned(LIGHT_LEVEL_POSITION);
   }
   
-  void setLighLevel(final int value) {
+  void setLightLevel(final int value) {
     raw.setShortUnsigned(LIGHT_LEVEL_POSITION, value);
   }
   
@@ -359,14 +359,14 @@ public final class ByteArrayPacket implements SensorBoardPacket {
     public static final int AUDIO_POSITION = 4;
     
     public char getAudio(final int channel) {
-      if (channel < 0 || channel >= 4) {
+      if (channel < 0 || channel >= AUDIO_CHANNNELS) {
         throw new IndexOutOfBoundsException();
       }
       return (char) rawFrame.getShortUnsigned(ADC_POSITION + channel * 2);
     }
     
     public void setAudio(final int channel, final int value) {
-      if (channel < 0 || channel >= 4) {
+      if (channel < 0 || channel >= AUDIO_CHANNNELS) {
         throw new IndexOutOfBoundsException();
       }
       rawFrame.setShortUnsigned(ADC_POSITION + channel * 2, value);

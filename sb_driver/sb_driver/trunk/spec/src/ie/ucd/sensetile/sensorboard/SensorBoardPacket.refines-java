@@ -68,7 +68,7 @@ public interface SensorBoardPacket {
   
   /*@
     @ requires index >= 0;
-    @ requires index < 82;
+    @ requires index < FRAMES;
     @*/
   /*@ pure non_null */ Frame getFrame(int index);
   
@@ -100,14 +100,16 @@ public interface SensorBoardPacket {
     /*@ pure */ boolean isAudioActive();
     
     /*@
-      @ ensures \result >= 0;
-      @ ensures \result < 2;
+      @ ensures 
+      @   (\result == AUDIO_FREQUENCY_48KHZ) || 
+      @   (\result == AUDIO_FREQUENCY_96KHZ);
       @*/
     /*@ pure */ int getAudioFrequency();
     
     /*@
       @ requires channel >= 0;
-      @ requires channel < 4;
+      @ requires channel < AUDIO_CHANNELS;
+      @ requires isAudioActive();
       @*/
     /*@ pure */ char getAudio(int channel);
     
@@ -115,10 +117,13 @@ public interface SensorBoardPacket {
     
     /*@
       @ ensures \result >= 0;
-      @ ensures \result < 8;
+      @ ensures \result < ADC_CHANNELS;
       @*/
     /*@ pure */ int getADCChannel();
     
+    /*@
+      @ requires isADCActive();
+      @*/
     /*@ pure */ char getADC();
   }
 }
