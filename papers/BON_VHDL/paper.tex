@@ -149,7 +149,9 @@ and software simulation.
 
 
 \section{VHDL-ASM}
- 
+VHDL-AMS is the IEEE standard modeling language (standard 1076.1) created 
+to provide compatibility and capability in an open language for modern analog, 
+mixed-signal, multi-domain designs.
 \section{Choice of BON as the modeling tool}
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation 
@@ -180,6 +182,8 @@ semantics ( constraints and invariants of the expected results ).
 Therefore as an approach of best modelling practices, and as the notation 
 based on contract design and refinement calculus, BON is the obvious choice 
 for the our simulator.
+Throughout this paper we will try to make this clear.  
+\section{Refinement from BON to VHDL-ASM}
 
 \subsection{Mapping between BON and VHDL-ASM}
 %\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
@@ -194,37 +198,21 @@ The \Csc's name corresponds to the name of the entity in VHDL-AMS.
 transfer function of the component is entered, holds the same information 
 as the \arch section of the VHDL-AMS.
 \end{itemize}
-
-\subsection{Refinement from BON to VHDL-ASM}
-
 An VHDL-AMS component are described using an \ent-\arch structure. 
 The component model contains an \ent and one or more \archs. 
 The \ent specifies the interface of the model to the outside world. 
 In other words, \ent introduces a name, list of input/output ports 
 and the definition of the generic parameters. The textual 
-presentation of \ent is shown in Figure.1 
-
-\begin{figure}[htp]
-\centering
-\include{adc-entity}
-\caption{An \ent body for A/D converter.}
-\label{figure:adc-entity}
-\end{figure}
-
-
-
+presentation of \ent is shown in Figure.1. 
+\input{adc-entity}
+ 
 The \arch body represents description of the internal implementation 
 of an \ent including only process statements, which are collections 
 of actions to be executed in sequence, or simultaneous statements, 
 which describe equations of analogue system behaviour. 
-The textual presentation of \arch is shown in Figure.2
-
-\begin{figure}[htp]
-\centering
-\include{adc-arch}
-\caption{An \arch body for A/D converter.}
-\label{figure:adc-entity}
-\end{figure} 
+The textual presentation of \arch is shown in Figure.2.
+\input{adc-arch}
+ 
 %\todo{dragan 27/07/2009 - Start with:1) BON charts and diagrams.}
 
 
