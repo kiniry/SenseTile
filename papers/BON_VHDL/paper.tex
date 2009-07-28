@@ -80,7 +80,7 @@
 \begin{document}
 
 \title{Refining from the BON High-level Specification Language to the
-  VHDL-ASM Hardware Description Language}
+  VHDL-AMS Hardware Description Language}
 
 \author{Joseph R. Kiniry and Dragan Stosic\\
 UCD CASL: Complex and Adaptive Systems Laboratory and\\
@@ -117,7 +117,7 @@ scientists for these online and offline scientific computations.
 The \STs, as an embedded system, have several unusual built-in sensors 
 and emitters, sensor nodes can be extended via a general-purpose USB bus, 
 and \STs contain an FPGA that is dynamically updated on a per-experiment 
-basis.  \STs are custom-designed in VHDL and VHDL-ASM.  Like many hardware-based systems,
+basis.  \STs are custom-designed in VHDL and VHDL-AMS.  Like many hardware-based systems,
  to write new software for or against the \ST architecture one either uses
 the actual hardware or one runs a \STS.  But this simulator emulates a
 piece of hardware, one would like to know if the simulator
@@ -141,14 +141,14 @@ in order to be able to complete a correct design in time.
 
 The authors will illustrate in this paper how BON can represent a high 
 level analogue mapping and will further illustrate a procedure for 
-transformation from BON to VHDL-ASM. As an example, 
-we will give practical aspect of refinement from BON to VHDL-ASM,
+transformation from BON to VHDL-AMS. As an example, 
+we will give practical aspect of refinement from BON to VHDL-AMS,
 applied on A/D convertor, in order to produce formal specification 
 and software simulation.
 %=====================================================================
 
 
-\section{VHDL-ASM}
+\section{VHDL-AMS}
 VHDL-AMS is the IEEE standard modeling language (standard 1076.1) created 
 to provide compatibility and capability in an open language for modern analog, 
 mixed-signal, multi-domain designs.
@@ -158,12 +158,12 @@ The Business Object Notation (BON) is an analysis and design notation
 for object-oriented systems  which emphasizes \emph{seamlessness}, 
 \emph{reversibility} and software \emph{contracting}. Let us define 
 these principles precisely and point out why the principles are 
-important in VHDL-ASM simulation.
-%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-ASM}
+important in VHDL-AMS simulation.
+%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-AMS}
 \begin{itemize}
 \item \emph{Seamlessness} is the use of a continuous process 
 throughout the software lifecycle.
-%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-ASM. Why is Reversibility important in VHDL design.}
+%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-AMS. Why is Reversibility important in VHDL design.}
 \item \emph{Reversibility} is the support for both forward and 
 backward development process: from analysis to design 
 and implementation, and back.
@@ -183,9 +183,9 @@ Therefore as an approach of best modelling practices, and as the notation
 based on contract design and refinement calculus, BON is the obvious choice 
 for the our simulator.
 Throughout this paper we will try to make this clear.  
-\section{Refinement from BON to VHDL-ASM}
+\section{Refinement from BON to VHDL-AMS}
 
-\subsection{Mapping between BON and VHDL-ASM}
+\subsection{Mapping between BON and VHDL-AMS}
 %\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
 \begin{itemize}
 \item \Sc: can be represented with high abstract level of the topmost 
