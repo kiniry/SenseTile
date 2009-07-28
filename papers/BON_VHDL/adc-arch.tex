@@ -2,8 +2,8 @@
 \begin{tabbing}
 \ \ \ \= \textbf{architecture} simple \textbf{of} adc \textbf{is} \\
 \> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{constant} ref : real := 5.0; \\
-\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} v\_in across a; \\
-\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} quantity v\_amplified : voltage; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} v\_in \textbf{across} a; \\
+\> \ \ \ \ \ \ \ \ \ \ \ \= \textbf{quantity} v\_amplified : voltage; \\
 \ \ \ \= \textbf{begin} \\
 \> \ \ \ \ \ \ \ \ \ \ \ \= v\_amplified == v\_in * gain; \\
 \> \ \ \ \ \ \ \ \ \ \ \ \= adc\_behavior:\textbf{process is} \\
@@ -22,7 +22,7 @@
 \ \ \ \= \textbf{end architecture} simple;
 \ \ \ \     \\
 \ \ \ \     \\
-\ \ \ \ Figure 2. An \arch body for A/D converter.
+\ \ \ \ Figure 2. A behavioral \arch body for A/D converter.
 \end{tabbing}
 }
 
