@@ -69,6 +69,9 @@
 \newcommand{\ent}{\emph{entity}\xspace}
 \newcommand{\arch}{\emph{architecture}\xspace}
 \newcommand{\archs}{\emph{architectures}\xspace}
+\newcommand{\duc}{\emph{design units collection}\xspace}
+\newcommand{\ducs}{\emph{design units collections}\xspace}
+\newcommand{\du}{\emph{design unit}\xspace}
 %---------------------------------------------------------------------
 % New commands, macros, \etc
 %---------------------------------------------------------------------
@@ -141,7 +144,7 @@ in order to be able to complete a correct design in time.
 
 The authors will illustrate in this paper how BON can represent a high 
 level analogue mapping and will further illustrate a procedure for 
-transformation from BON to VHDL-AMS. As an example, 
+transformation from BON to VHDL-AMS. As an extremly simple example, 
 we will give practical aspect of refinement from BON to VHDL-AMS,
 applied on A/D convertor, in order to produce formal specification 
 and software simulation.
@@ -149,9 +152,38 @@ and software simulation.
 
 
 \section{VHDL-AMS}
-VHDL-AMS is the IEEE standard modeling language (standard 1076.1) created 
-to provide compatibility and capability in an open language for modern analog, 
-mixed-signal, multi-domain designs.
+IEEE VHDL-AMS 1076.1 is the industry standard mixed-signal 
+high-level description language for electronic and multi-domain 
+systems. VHDL-AMS, as an superset of VHDL, supports modeling and 
+simulation of analog and mixed-signal systems. The main contribution 
+of VHDL-AMS is ability to describe the behavior of complex system 
+trought differential and algebraic equations (DAEs). For this purpose, 
+VHDL-AMS introduces the following capabilities and therms:
+
+\begin{itemize}
+\item 
+\emph{Terminals} represents phisical connection points or circuit nodes 
+of a network connectivity. Terminals are declared to be of various 
+\emph{natures}, which represent different energy domains of a system.
+\item
+The \emph{simultaneous statements} creates one or more characteristic 
+equations that are used by the "analog solver" to model continuously 
+valued behaviour.  
+\item
+The \emph{quantities} denote a waveform or a time series of values.
+The behaviour of the \emph{quantities} is given by the \emph{simultaneous
+ statements}. They take values as a result of solving the set of simultaneous 
+ordinary differential and algebraic equations (DAEs). To simplify, 
+quantities can be understood as analog unknowns of (DAEs) that specify 
+analog behavior. 
+\item
+The \emph{break statement} is an construct which allows to 
+initialize the DAE system at the beginning of a transient 
+simulation and to mark discontinuities during such a transient 
+simulation.
+
+\end{itemize} 
+ 
 \section{Choice of BON as the modeling tool}
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation 
@@ -188,10 +220,12 @@ Throughout this paper we will try to make this clear.
 \subsection{Mapping between BON and VHDL-AMS}
 %\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
 \begin{itemize}
-\item \Sc: can be represented with high abstract level of the topmost 
-entity in a design hierarchy.
-\item \Clc: to be described.
-\item \Csc: can be identify with the primary unit(\ent) and secondary 
+\item \Sc: VHDL-AMS allows hierarchical structure modeling, 
+meaning that subsistems ( \ducs ), can be developed independently.
+As an top-level description (informal/formal), \Sc connect all the \ducs
+together to a complete design. 
+\item \Clc: An  subsistem which represent \duc.
+\item \Csc: describes \du. It can be identify with the primary unit (\ent) and secondary 
 unit (\arch) structure in VHDL-AMS.
 The \Csc's name corresponds to the name of the entity in VHDL-AMS.
 \item \Ft: The feature section of the \Csc, where the mathematical 
