@@ -90,6 +90,7 @@ kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
 \begin{abstract}
 
 \begin{verbatim}
+
 OBJECTIVE: 
 Specifications used as a blueprint for system development.
 Specifications to generate test suite to validate the developed system.
@@ -109,6 +110,7 @@ Proof developed system and simulator verify the specifications.
 
 CONCLUSIONS:
 Specifications serves two purposes, and indirectly a third one.
+
 \end{verbatim}
 
   Sensor packages typically communicate (control sensors and report
@@ -116,24 +118,30 @@ Specifications serves two purposes, and indirectly a third one.
   The \ST device is an example of such a sensor package, as it
   communicates with an arbitrary computer system (running Linux or
   Windows, at the moment) over a USB bus using a streaming
-  packet-based protocol.  This sensor platform is a custom-designed,
+  packet-based protocol. 
+  This sensor platform is a custom-designed,
   but inexpensive, sensor platform (called the \ST) paired with
   general-purpose small-scale compute nodes, including everything from
   low-power PDAs to powerful touchscreen-based portable computers.
   There are over a dozen sensors on the \ST itself, and new sensors
-  can be added by adding them to the USB bus.  A third-party low-level
-  C driver, provided by the USB chip vendor, creates and parses
-  generic USB communication packets, and a custom medium-level Java
-  driver creates and parses \ST streaming communication packets.  This
+  can be added by adding them to the USB bus.
+  A third-party low-level
+  library, provided by the USB chip vendor, creates and parses
+  generic USB communication packets, while a custom medium-level Java
+  driver creates and parses \ST streaming communication packets. 
+  This
   latter Java driver is formally specified, validated with rigorous
-  unit testing, and verified using extended static checking.  However,
-  because of this process and combination of technologies, using this
+  unit testing, and verified using extended static checking. 
+  Because of this process and combination of technologies, using this
   specification we are able to both communicate with a real \ST
   \textbf{and} generate a formally specified, executable, functional
   model-based specification for the protocol itself written in the
-  Java Modeling Language.  This protocol model is itself an executable
+  Java Modeling Language.
+  \todo executable? how? what does this mean?
+  This protocol model is itself an executable
   stream simulator that can be used to develop new \ST user
-  applications without having the \ST hardware at all.  Consequently,
+  applications without having the \ST hardware at all. 
+  Consequently,
   from this single specification, we can test that the \ST hardware
   communicates as expected, test that our \ST simulator communicates
   as expected, and simulate the \ST protocol stream itself.
@@ -141,7 +149,7 @@ Specifications serves two purposes, and indirectly a third one.
 \end{abstract}
 
 %======================================================================
-\Section{Introduction}
+\section{Introduction}
 
 The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
 sensor system installed at the University College Dublin in Dublin,
@@ -158,12 +166,120 @@ powerful touchscreen-based portable computers.  There are over a dozen
 sensors on the \ST itself, and new sensors can be added by adding them
 to the USB bus.
 
+\todo extend
+
+\paragraph*{Outline}
+
+In section \ref{sec:data_stream_and_protocol_model} the data stream model 
+and protocol is presented, we will give both a higl level overview of the 
+protocol, and a formalized, JML based, specification,
+
+In section \ref{sec:test_cases} the test cases structure is presented, for 
+both the hand made and the generated ones. 
+Both the approaches are analyzed, their pro and contro are discussed, as 
+well as the expected advantages to use them in combination.
+
+In section \ref{sec:test_cases} the test cases structure is presented, for 
+both the hand made and the generated ones. 
+Both the approaches are analyzed, their pro and contro are discussed, as 
+well as the expected advantages to use them in combination.
+
+In section \ref{sec:test_cases_on_the_job} the execution of the test suites
+is described, and the results are analyzed and compared, both from qualitative
+and quantitative points of view.
+
+In section \ref{sec:test_cases_and_the_scenarios} we examine the different 
+scenarios on which test cases based on specifications can be applied, and 
+the resulting benefits it is possible to obtain.
+
+In section \ref{sec:related_works} related works are presented and analyzed.
+
+Finally in section \ref{sec:conclusions} we outline some conclusions and we 
+briefly describe our ongoing and future works on similar topics.
 
 
 %=====================================================================
-\Section{Conclusion}
+\section{Data stream and protocol model}
+\label{sec:data_stream_and_protocol_model}
 
-A conclusion.
+\todo describe package
+
+\todo describe high level representation of package: sensors and data 
+details remains, exact package structure and sensor data location in the
+packege are lost
+
+\todo describe JML specification of the high levelr representation of the 
+package
+
+
+%=====================================================================
+\section{Test cases}
+\label{sec:test_cases}
+
+\todo describe dual approach: hand made tests + generated from 
+specification tests
+
+\todo describe hybrid agile and TDD approach: high level informal 
+specifications with BON, iterative refinements of code, to distill 
+test cases and formal specification of the interfaces
+
+\todo describe the necessity to add specification generated tests: to ensure
+that specification is sound, to obtain higher coverage
+
+\paragraph*{Hand made tests}
+
+\todo describe hand made tests structure
+
+\todo describe abstract test case and abstract test suite patterns: how to 
+write tests against interfaces and/or abstract classes
+
+\paragraph*{Generated tests}
+
+\todo describe the tool that generates the testing
+
+\todo describe the structure of the generates tests
+
+
+%=====================================================================
+\section{Test cases on the job}
+\label{sec:test_cases_on_the_job}
+
+\todo report high level analysis of the test suites
+
+\todo describe measures: coverage, number of new bugs found
+
+\todo compare hand made vs generated tests
+
+\todo compare compare coupled approach vs single approaches
+
+
+%=====================================================================
+\section{Test cases and the scenarios}
+\label{sec:test_cases_and_the_scenarios}
+
+\todo benefit: the approch can be used to test different part of the system
+that share the same specification
+
+\todo testing the stream
+
+\todo testing the simulator
+
+\todo describe general approach: depending at what level (of abstraction) tests 
+and specifications are written, it is possible to verify both the simulator and 
+the real protocol (isn't this obvious?)
+
+
+%=====================================================================
+\section{Related works}
+\label{sec:related_works}
+
+\todo
+
+%=====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+\todo
 
 %======================================================================
 %% \nocite{ex1,ex2}
