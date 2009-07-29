@@ -27,7 +27,7 @@ public interface PacketInputStream {
    * @throws IOException I/O error
    * @throws SenseTileException data is malformed
    */
-  int read(SensorBoardPacket[] array) throws IOException,
+  int read(Packet[] array) throws IOException,
       SenseTileException;
 
   /**
@@ -50,7 +50,7 @@ public interface PacketInputStream {
    * @throws IOException I/O error
    * @throws SenseTileException if an invalid packet is read.
    */
-  int read(SensorBoardPacket[] array, int offset, int length)
+  int read(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
 
   /**
@@ -72,7 +72,7 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    */
-  SensorBoardPacket read() throws IOException, SenseTileException;
+  Packet read() throws IOException, SenseTileException;
 
   /**
    * Reads packets from an input stream.
@@ -104,7 +104,7 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    **/
-  void readFully(SensorBoardPacket[] array) throws IOException,
+  void readFully(Packet[] array) throws IOException,
       SenseTileException;
   
   /**
@@ -137,7 +137,7 @@ public interface PacketInputStream {
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    **/
-  void readFully(SensorBoardPacket[] array, int offset, int length)
+  void readFully(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
 
   void close() throws IOException;

@@ -1,9 +1,9 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
 public interface PacketBuilder {
   
-  SensorBoardPacket getPacket();
+  Packet getPacket();
   
 }

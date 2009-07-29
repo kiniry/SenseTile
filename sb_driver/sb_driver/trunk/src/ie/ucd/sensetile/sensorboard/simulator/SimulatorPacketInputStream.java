@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
 public class SimulatorPacketInputStream implements PacketInputStream {
   
@@ -27,18 +27,18 @@ public class SimulatorPacketInputStream implements PacketInputStream {
     isClose = true;
   }
   
-  public SensorBoardPacket read() throws IOException, SenseTileException {
+  public Packet read() throws IOException, SenseTileException {
     checkClose();
     return internalRead();
   }
 
-  public int read(final SensorBoardPacket[] array) 
+  public int read(final Packet[] array) 
       throws IOException, SenseTileException {
     return read(array, 0, array.length);
   }
   
   public int read(
-      final SensorBoardPacket[] array, final int offset, final int length)
+      final Packet[] array, final int offset, final int length)
       throws IOException, SenseTileException {
     checkClose();
     for (int index = offset; index < offset + length; index++) {
@@ -47,13 +47,13 @@ public class SimulatorPacketInputStream implements PacketInputStream {
     return length;
   }
   
-  public void readFully(final SensorBoardPacket[] array) 
+  public void readFully(final Packet[] array) 
       throws IOException, SenseTileException {
     read(array);
   }
   
   public void readFully(
-      final SensorBoardPacket[] array, final int offset, final int length)
+      final Packet[] array, final int offset, final int length)
       throws IOException, SenseTileException {
     read(array, offset, length);
   }
@@ -68,7 +68,7 @@ public class SimulatorPacketInputStream implements PacketInputStream {
     }
   }
   
-  private SensorBoardPacket internalRead() {
+  private Packet internalRead() {
     return builder.getPacket();
   }
   

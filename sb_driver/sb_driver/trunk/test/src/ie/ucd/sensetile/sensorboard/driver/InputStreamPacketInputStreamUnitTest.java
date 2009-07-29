@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
@@ -66,7 +66,7 @@ public class InputStreamPacketInputStreamUnitTest {
   public void testNotValidLongRead() throws IOException, SenseTileException{
     InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    Packet[] packets = new Packet[1];
     assertEquals(0, pis.read(packets));
   }
 
@@ -74,7 +74,7 @@ public class InputStreamPacketInputStreamUnitTest {
   public void testNotValidLongFullRead() throws IOException, SenseTileException{
     InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    Packet[] packets = new Packet[1];
     pis.readFully(packets);
   }
   
@@ -87,7 +87,7 @@ public class InputStreamPacketInputStreamUnitTest {
     System.arraycopy(valid, 0, total, invalid.length, valid.length);
     InputStream is = new ByteArrayInputStream(total);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] packets = new SensorBoardPacket[1];
+    Packet[] packets = new Packet[1];
     pis.readFully(packets);
   }
   
@@ -131,7 +131,7 @@ public class InputStreamPacketInputStreamUnitTest {
     properties.setProperty(
         InputStreamPacketInputStream.TRIM_PACKETS_PROPERTY, "1");
     PacketInputStream pis = new InputStreamPacketInputStream(is, properties);
-    SensorBoardPacket[] array = new SensorBoardPacket[10];
+    Packet[] array = new Packet[10];
     assertEquals(1, pis.read(array));
     assertNotNull(array[0]);
   }
@@ -141,7 +141,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 3 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] array = new SensorBoardPacket[10];
+    Packet[] array = new Packet[10];
     assertEquals(3, pis.read(array));
     assertNotNull(array[2]);
   }
@@ -152,7 +152,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    Packet[] array = new Packet[30];
     final int offset = 3;
     assertEquals(limit, pis.read(array, 3, 25));
     assertNotNull(array[offset]);
@@ -164,7 +164,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    Packet[] array = new Packet[30];
     final int offset = 3;
     final int length = 25;
     assertEquals(length, pis.read(array, 3, 25));
@@ -178,7 +178,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    Packet[] array = new Packet[30];
     final int offset = 3;
     assertEquals(limit, pis.read(array, 3, limit));
     assertNotNull(array[offset]);
@@ -190,7 +190,7 @@ public class InputStreamPacketInputStreamUnitTest {
     byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
-    SensorBoardPacket[] array = new SensorBoardPacket[30];
+    Packet[] array = new Packet[30];
     final int offset = 3;
     final int length = 25;
     pis.readFully(array, offset, length);

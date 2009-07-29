@@ -9,10 +9,10 @@ package ie.ucd.sensetile.sensorboard;
 import java.util.Date;
 
 /** 
- * JML's specification of SensorBoardPacket.
+ * JML's specification of Packet.
  * @author Vieri del Bianco
  */
-public interface SensorBoardPacket {
+public interface Packet {
   
   // indexes
   

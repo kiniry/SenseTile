@@ -5,7 +5,7 @@
  */
 package ie.ucd.sensetile.sensorboard.driver;
 
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.BytePattern;
@@ -126,13 +126,13 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    return (byteArray.length() + input.available()) / getPacketLength();
   }
   
-  public int read(final SensorBoardPacket[] array) 
+  public int read(final Packet[] array) 
       throws IOException, SenseTileException{
     return read(array, 0, array.length);
   }
   
   public int read(
-      final SensorBoardPacket[] array, final int offset, final int length) 
+      final Packet[] array, final int offset, final int length) 
       throws IOException, SenseTileException{
     if (isClose()) {
       throw new IOException();
@@ -149,19 +149,19 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return returnArray.read();
   }
   
-  public SensorBoardPacket read() throws IOException, SenseTileException{
-    SensorBoardPacket[] array = new SensorBoardPacket[1];
+  public Packet read() throws IOException, SenseTileException{
+    Packet[] array = new Packet[1];
     readFully(array);
     return array[0];
   }
   
-  public void readFully(final SensorBoardPacket[] array) 
+  public void readFully(final Packet[] array) 
       throws IOException, SenseTileException{
     readFully(array, 0, array.length);
   }
   
   public void readFully(
-      final SensorBoardPacket[] array, 
+      final Packet[] array, 
       final int offset, 
       final int length) 
       throws IOException, SenseTileException{
@@ -278,7 +278,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       if (byteArray.length() < getPacketLength()) {
         return;
       }
-      SensorBoardPacket packet;
+      Packet packet;
       packet = readPacketFromBuffer();
       array.add(packet);
     } while (! array.isFull());
@@ -298,7 +298,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return true;
   }
   
-  private SensorBoardPacket readPacketFromBuffer() throws SenseTileException {
+  private Packet readPacketFromBuffer() throws SenseTileException {
     UnsignedByteArray raw = extractBuffer(getPacketLength());
     return ByteArrayPacket.createPacket(raw);
   }  
@@ -342,13 +342,13 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   
   private static final class ReturnPacketArray {
     
-    private SensorBoardPacket[] array; 
+    private Packet[] array; 
     private int offset; 
     private int length;
     private int internalOffset;
     
     private ReturnPacketArray(
-        final SensorBoardPacket[] array, 
+        final Packet[] array, 
         final int offset, 
         final int length) {
       this.array = array;
@@ -365,7 +365,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       return internalOffset - offset;
     }
     
-    private void add(final SensorBoardPacket packet) {
+    private void add(final Packet packet) {
       if (isFull()) {
         throw new IndexOutOfBoundsException();
       }

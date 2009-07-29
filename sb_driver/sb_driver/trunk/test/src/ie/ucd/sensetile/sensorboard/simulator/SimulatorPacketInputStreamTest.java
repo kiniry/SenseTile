@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class SimulatorPacketInputStreamTest {
   
   @Before
   public void setUp() throws Exception {
-    PacketBuilder builder = new ClonePacketBuilder(new PacketInstance());
+    PacketBuilder builder = new ClonePacketBuilder(new InstancePacket());
     simulator = new SimulatorPacketInputStream(builder);
   }
   
@@ -38,7 +38,7 @@ public class SimulatorPacketInputStreamTest {
   
   @Test
   public void testSimulatorPacketInputStream() {
-    PacketBuilder builder = new ClonePacketBuilder(new PacketInstance());
+    PacketBuilder builder = new ClonePacketBuilder(new InstancePacket());
     SimulatorPacketInputStream simulator = 
       new SimulatorPacketInputStream(builder);
     assertNotNull(simulator);
@@ -67,7 +67,7 @@ public class SimulatorPacketInputStreamTest {
   @Test
   public void testReadArray() throws IOException, SenseTileException {
     final int length = 200;
-    SensorBoardPacket[] array = new SensorBoardPacket[length];
+    Packet[] array = new Packet[length];
     simulator.read(array);
     for (int index = 0; index < array.length; index++) {
       assertNotNull(array[index]);
@@ -79,7 +79,7 @@ public class SimulatorPacketInputStreamTest {
     final int arrayLength = 200;
     final int offset = 10;
     final int readLength = 100;
-    SensorBoardPacket[] array = new SensorBoardPacket[arrayLength];
+    Packet[] array = new Packet[arrayLength];
     simulator.read(array, offset, readLength);
     for (int index = 0; index < array.length; index++) {
       if(index >= offset && index < offset + readLength ) {

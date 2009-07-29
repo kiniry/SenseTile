@@ -6,7 +6,7 @@ package ie.ucd.sensetile.sensorboard;
  * @author delbianc
  *
  */
-public interface SensorBoardPacket {
+public interface Packet {
   
   // indexes
   

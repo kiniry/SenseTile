@@ -1,7 +1,7 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
 import static org.junit.Assert.*;
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,12 +19,12 @@ public class ClonePacketBuilderTest {
   public static void tearDownAfterClass() throws Exception {
   }
   
-  private PacketInstance template;
+  private InstancePacket template;
   private ClonePacketBuilder builder;
   
   @Before
   public void setUp() throws Exception {
-    template = new PacketInstance();
+    template = new InstancePacket();
     builder = new ClonePacketBuilder(template);
   }
   
@@ -40,20 +40,20 @@ public class ClonePacketBuilderTest {
   
   @Test
   public void testConstructorCloneTemplate() {
-    SensorBoardPacket packet = builder.getTemplate();
+    Packet packet = builder.getTemplate();
     assertFalse(template == packet);
   }
   
   @Test
   public void testGetPacket() {
-    SensorBoardPacket packet = builder.getPacket();
+    Packet packet = builder.getPacket();
     assertNotNull(packet);  
     assertFalse(template == packet);
   }
   
   @Test
   public void testGetTemplate() {
-    SensorBoardPacket packet = builder.getTemplate();
+    Packet packet = builder.getTemplate();
     assertNotNull(packet);  
     assertFalse(template == packet);
   }
@@ -61,7 +61,7 @@ public class ClonePacketBuilderTest {
   @Test
   public void testSetTemplate() {
     builder.setTemplate(template);
-    SensorBoardPacket packet = builder.getTemplate();
+    Packet packet = builder.getTemplate();
     assertTrue(template == packet);
   }
 }

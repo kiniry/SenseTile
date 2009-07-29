@@ -7,7 +7,7 @@
 package ie.ucd.sensetile.sensorboard.driver;
 
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.util.BytePattern;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
@@ -15,7 +15,7 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
  * @author delbianc
  *
  */
-public final class ByteArrayPacket implements SensorBoardPacket {
+public final class ByteArrayPacket implements Packet {
   
   /**
    * packet bytes length.
@@ -224,11 +224,11 @@ public final class ByteArrayPacket implements SensorBoardPacket {
     this.raw = raw;
   }
   
-  public static SensorBoardPacket createPacket(
+  public static Packet createPacket(
       final byte[] rawPacket, 
-      final SensorBoardPacket previousPacket) 
+      final Packet previousPacket) 
       throws SenseTileException {
-    SensorBoardPacket packet = createPacket(rawPacket);
+    Packet packet = createPacket(rawPacket);
     checkIndex(previousPacket, packet);
     return packet;
   }
@@ -239,11 +239,11 @@ public final class ByteArrayPacket implements SensorBoardPacket {
     return createPacket(raw);
   }
   
-  public static SensorBoardPacket createPacket(
+  public static Packet createPacket(
       final UnsignedByteArray raw, 
-      final SensorBoardPacket previousPacket) 
+      final Packet previousPacket) 
       throws SenseTileException {
-    SensorBoardPacket packet = createPacket(raw);
+    Packet packet = createPacket(raw);
     checkIndex(previousPacket, packet);
     return packet;
   }
@@ -277,7 +277,7 @@ public final class ByteArrayPacket implements SensorBoardPacket {
   }
   
   static void checkIndex(
-      final SensorBoardPacket previous, final SensorBoardPacket current) 
+      final Packet previous, final Packet current) 
   throws SenseTileException {
     if (!((previous.getCounter() + 1) == current.getCounter())) {
       throw new SenseTileException(

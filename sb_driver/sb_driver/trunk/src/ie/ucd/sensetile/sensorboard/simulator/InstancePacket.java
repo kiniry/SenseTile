@@ -1,8 +1,8 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-import ie.ucd.sensetile.sensorboard.SensorBoardPacket;
+import ie.ucd.sensetile.sensorboard.Packet;
 
-public class PacketInstance implements CloneablePacket {
+public class InstancePacket implements CloneablePacket {
   
   /*
    * counters
@@ -31,10 +31,10 @@ public class PacketInstance implements CloneablePacket {
    */
   private FrameInstance[] frames = new FrameInstance[FRAMES];
   
-  public PacketInstance() {
+  public InstancePacket() {
   }
   
-  public PacketInstance(final SensorBoardPacket template) {
+  public InstancePacket(final Packet template) {
     setTime(new TimeInstance(template.getTime()));
     setCounter(template.getCounter());
     setCounter(template.getCounter());
