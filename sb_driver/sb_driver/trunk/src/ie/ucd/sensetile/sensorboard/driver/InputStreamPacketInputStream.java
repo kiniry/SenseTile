@@ -351,6 +351,12 @@ public class InputStreamPacketInputStream implements PacketInputStream {
         final Packet[] array, 
         final int offset, 
         final int length) {
+      if (
+          (offset < 0) ||
+          (length < 0) ||
+          (offset + length > array.length)) {
+        throw new IndexOutOfBoundsException();
+      }
       this.array = array;
       this.offset = offset;
       this.length = length;

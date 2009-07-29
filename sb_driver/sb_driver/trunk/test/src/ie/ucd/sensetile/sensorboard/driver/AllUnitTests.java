@@ -5,9 +5,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  InputStreamPacketInputStreamUnitTest.class,
+  ByteArrayPacketUnitTest.class,
   ByteArrayPacketByteArrayFrameTest.class,
-  ByteArrayPacketUnitTest.class})
+  InputStreamPacketInputStreamAsPacketInputStreamUnitTest.class,
+  InputStreamPacketInputStreamUnitTest.class})
 
 public class AllUnitTests {
   

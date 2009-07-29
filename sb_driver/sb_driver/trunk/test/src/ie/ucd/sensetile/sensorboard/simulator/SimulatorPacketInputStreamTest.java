@@ -1,10 +1,11 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
-
-import ie.ucd.sensetile.sensorboard.SenseTileException;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.SenseTileException;
 
 import java.io.IOException;
 

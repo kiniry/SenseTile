@@ -10,7 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
 
 import org.junit.BeforeClass;
@@ -18,31 +17,7 @@ import org.junit.Test;
 
 public class InputStreamPacketInputStreamUnitTest {
   
-  private static byte[] rawPacketArray;
   private static Properties defaultProperties;
-  
-  @BeforeClass 
-  public static void initRawPacketArray() {
-    InputStreamPacketInputStreamUnitTest.rawPacketArray = 
-      new byte[ByteArrayPacket.LENGTH * 200];
-    byte[] array = rawPacketArray;
-    for (
-        int packetIndex = 0; 
-        packetIndex <= array.length / ByteArrayPacket.LENGTH; 
-        packetIndex ++) {
-      for (
-          int patternIndex = 0; 
-          patternIndex < ByteArrayPacket.PATTERN.length; 
-          patternIndex++) {
-        int index = 
-          (patternIndex + ByteArrayPacket.PATTERN_OFFSET) % 
-          ByteArrayPacket.LENGTH + packetIndex * ByteArrayPacket.LENGTH;
-        if (index < array.length) {
-          array[index] = ByteArrayPacket.PATTERN[patternIndex];
-        }
-      }
-    }
-  }
   
   @BeforeClass 
   public static void initDefaultProperties() {
@@ -81,7 +56,9 @@ public class InputStreamPacketInputStreamUnitTest {
   @Test
   public void testNotValidLongThanValidFullRead() throws IOException, SenseTileException{
     byte[] invalid = new byte[ByteArrayPacket.LENGTH * 100];
-    byte[] valid = prepareRawPacketArray(ByteArrayPacket.LENGTH * 100 + 100, 50);
+    byte[] valid = 
+      PacketRawByteArrayBuilder.prepare(
+          ByteArrayPacket.LENGTH * 100 + 100, 50);
     byte[] total = new byte[invalid.length + valid.length];
     System.arraycopy(invalid, 0, total, 0, invalid.length);
     System.arraycopy(valid, 0, total, invalid.length, valid.length);
@@ -107,7 +84,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testAvailable1() throws IOException{
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertEquals(1, pis.availablePackets());
@@ -115,7 +93,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testAvailable2More() throws IOException{
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 2 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 2 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertEquals(2, pis.availablePackets());
@@ -123,7 +102,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testReadArray1() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     Properties properties = new Properties();
     properties.setProperty(
@@ -138,7 +118,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testReadArray3() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 3 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 3 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] array = new Packet[10];
@@ -149,7 +130,9 @@ public class InputStreamPacketInputStreamUnitTest {
   @Test
   public void testReadArray20ToEmpty() throws IOException, SenseTileException {
     final int limit = 20;
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(
+          ByteArrayPacket.LENGTH * limit + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] array = new Packet[30];
@@ -161,7 +144,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testReadArray25ToPartial() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] array = new Packet[30];
@@ -175,7 +159,9 @@ public class InputStreamPacketInputStreamUnitTest {
   @Test
   public void testReadFullyArray20ToEmpty() throws IOException, SenseTileException {
     final int limit = 20;
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * limit + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(
+          ByteArrayPacket.LENGTH * limit + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] array = new Packet[30];
@@ -187,7 +173,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testReadFullyArray25ToPartial() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 40 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] array = new Packet[30];
@@ -200,7 +187,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test
   public void testRead4() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 4 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 4 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertNotNull(pis.read());
@@ -211,7 +199,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test (expected = EOFException.class)
   public void testRead1Available0() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(500, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(500, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     pis.read();
@@ -219,7 +208,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test (expected = EOFException.class)
   public void testRead4Available3() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 3 + 100, 50);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 3 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     pis.read();
@@ -230,25 +220,12 @@ public class InputStreamPacketInputStreamUnitTest {
   
   @Test (expected = IOException.class)
   public void testClose() throws IOException, SenseTileException {
-    byte[] rawPacket = prepareRawPacketArray(ByteArrayPacket.LENGTH * 5, 0);
+    byte[] rawPacket = 
+      PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 5, 0);
     InputStream is = new ByteArrayInputStream(rawPacket);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     pis.close();
     pis.read();
-  }
-  
-  private byte[] prepareRawPacketArray(final int length) {
-    return prepareRawPacketArray(length, 0);
-  }
-  
-  private byte[] prepareRawPacketArray(final int length, final int offset) {
-    int realOffset = (ByteArrayPacket.LENGTH  - offset) % ByteArrayPacket.LENGTH;
-    if (realOffset < 0) {
-      realOffset = realOffset + ByteArrayPacket.LENGTH;
-    }
-    return Arrays.copyOfRange(
-        InputStreamPacketInputStreamUnitTest.rawPacketArray, 
-        realOffset, realOffset + length);
   }
   
   private InputStreamPacketInputStream getDefaultPacketInputStream(

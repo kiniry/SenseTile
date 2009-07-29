@@ -41,6 +41,9 @@ public class SimulatorPacketInputStream implements PacketInputStream {
       final Packet[] array, final int offset, final int length)
       throws IOException, SenseTileException {
     checkClose();
+    if (length < 0) {
+      throw new IndexOutOfBoundsException();
+    }
     for (int index = offset; index < offset + length; index++) {
       array[index] = internalRead();
     }
