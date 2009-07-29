@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+  ClonePacketBuilderTest.class, 
   SimulatorPacketInputStreamTest.class})
 
 public class AllUnitTests {

@@ -28,9 +28,10 @@ public class SimulatorPacketInputStream implements PacketInputStream {
   }
   
   public SensorBoardPacket read() throws IOException, SenseTileException {
-    return builder.getPacket();
+    checkClose();
+    return internalRead();
   }
-  
+
   public int read(final SensorBoardPacket[] array) 
       throws IOException, SenseTileException {
     return read(array, 0, array.length);
@@ -41,7 +42,7 @@ public class SimulatorPacketInputStream implements PacketInputStream {
       throws IOException, SenseTileException {
     checkClose();
     for (int index = offset; index < offset + length; index++) {
-      array[index] = read();
+      array[index] = internalRead();
     }
     return length;
   }
@@ -56,7 +57,7 @@ public class SimulatorPacketInputStream implements PacketInputStream {
       throws IOException, SenseTileException {
     read(array, offset, length);
   }
-
+  
   private boolean isClose() {
     return isClose;
   }
@@ -65,6 +66,10 @@ public class SimulatorPacketInputStream implements PacketInputStream {
     if (isClose()) {
       throw new IOException();
     }
+  }
+  
+  private SensorBoardPacket internalRead() {
+    return builder.getPacket();
   }
   
 }
