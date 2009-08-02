@@ -1,0 +1,40 @@
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    	\hline
+    	VHDL-AMS & BON & Description \\ \hline
+    	\ducs (packages) & \Sc & 
+	\begin{minipage}[c]{7cm} 
+                 \vskip 3mm
+    		VHDL-AMS allows hierarchical structure modeling, 
+    		meaning that subsistems (\ducs), can be developed independently.
+    		As an top-level description (informal/formal), \Sc connect all the \ducs
+    		together to a complete design. Actually \Sc can be understood 
+                as VHDL-AMS package as a way of grouping a collection of related 
+                declarations that serve a common purpose.
+                \\ 
+    	\end{minipage}\\ \hline
+        \duc & \Clc &
+	\begin{minipage}[c]{7cm} 
+                \vskip 3mm
+		An  subsistem which represent \duc.
+                \\ 
+    	\end{minipage}\\ \hline
+	 \du & \Csc &
+	\begin{minipage}[c]{7cm}
+	      \vskip 3mm	 
+              \Csc  describes \du. It can be identify with the primary unit (\ent) and secondary 
+	      unit (\arch) structure in VHDL-AMS.
+	      The \Csc's name corresponds to the name of the entity in VHDL-AMS.
+              \\
+    	\end{minipage}\\ \hline
+        \arch & \Ft & 
+	\begin{minipage}[c]{7cm} 
+              \vskip 3mm
+	      The feature section of the \Csc, where the mathematical 
+	      transfer function of the component is entered, holds the same information 
+	      as the \arch section of the VHDL-AMS.
+              \\
+    	\end{minipage}\\ \hline
+
+    \end{tabular}
+\end{center}
