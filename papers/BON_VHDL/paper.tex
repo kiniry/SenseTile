@@ -142,13 +142,13 @@ requires the need to strive for formal descriptions each component
 separatelly in order to produce specification of the \STs simulator. 
 The development of complex system requires sophisticated tool and methodology 
 in order to be able to complete a correct design in time.  
-This article describes a refinement method from BON to VHDL-AMS
 The authors will illustrate in this paper how BON can represent a high 
 level analogue mapping and will further illustrate a procedure for 
-transformation from BON to VHDL-AMS. As an extremly simple example, 
-we will give practical aspect of refinement from BON to VHDL-AMS,
+transformation from VHDL-AMS to BON. As an extremly simple example, 
+we will give practical aspect of refinement from VHDL-AMS to BON,
 applied on A/D convertor, in order to produce formal specification 
-and software simulation.
+and software simulation. A complete list of the mapping between BON 
+and VHDL-AMS can be found in the appendix.
 %=====================================================================
 
 
@@ -217,26 +217,15 @@ based on contract design and refinement calculus, BON is the obvious choice
 for the our simulator.
 Throughout this paper we will try to make this clear.  
 \section{Mapping between BON and VHDL-AMS}
-\subsection{Static model mapping}
-%\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
-\input{static}
-\subsection{Operators-expressions mapping}
-%\todo{dragan 27/07/2009 - Figure out :  VHDL-ASM as BON  represents an strongly typed language.}
-This subsection summarises all relations on expressions - operators between VHDL-AMS and BON.
-\input{operators}
-
-\subsection{Type mapping}
-
-
 
 \section{Refinement from BON to VHDL-AMS}
  
-An VHDL-AMS component are described using an \ent-\arch structure. 
-The component model contains an \ent and one or more \archs. 
-The \ent specifies the interface of the model to the outside world. 
-In other words, \ent introduces a name, list of input/output ports 
-and the definition of the generic parameters. The textual 
-presentation of \ent is shown in Figure.1. 
+An VHDL-AMS design units are described using an \ent-\arch structure. 
+The design unit contains an \ent and one or more \archs. 
+The \ent specifies the interface that an entity provides of itself 
+to the outside. In other words, \ent introduces a name, list of 
+input/output ports and the definition of the generic parameters. 
+The textual presentation of \ent is shown in Figure.1. 
 \input{adc-entity}
  
 The \arch body represents description of the internal implementation 
@@ -254,7 +243,6 @@ The textual presentation of \arch is shown in Figure.2.
 
 A conclusion.
 
-%======================================================================
 %% \nocite{ex1,ex2}
 \bibliographystyle{plain}
 \bibliography{extra,%
@@ -291,6 +279,15 @@ A conclusion.
 
 %======================================================================
 % Fin
+
+%======================================================================
+\appendix
+\section {APPENDIX}
+%\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
+\input{static}
+%\todo{dragan 27/07/2009 - Figure out :  VHDL-ASM as BON  represents an strongly typed language.}
+\input{operators}
+%======================================================================
 
 \end{document}
 
