@@ -1,10 +1,11 @@
 \begin{center}
     \begin{tabular}{|c|c|l|}
         \hline
-        \multicolumn{3}{|c|}{Operators mapping}\\ \hline
+        \multicolumn{3}{|c|}{\textbf{OPERATORS}}\\  \hline
     	\hline
-    	VHDL-AMS & BON & Description \\ \hline
-    	\begin{minipage}[c]{3cm} 
+    	VHDL-AMS & BON & Description \\ \hline \hline
+    	\multicolumn{3}{|c|}{\textbf{Arithmetic operators mapping}}\\ \hline \hline
+        \begin{minipage}[c]{3cm} 
          \centering 
          \textbf{**}
         \end{minipage}  
@@ -35,24 +36,72 @@
     		identity, addition, negation, subtraction, multiplication, division.
                  
     	\end{minipage}\\ \hline
-
-
-       \begin{minipage}[c]{3cm} 
+             \begin{minipage}[c]{3cm} 
          \centering 
-         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=, mod}
+         \textbf{rem}
         \end{minipage}  
         &
        \begin{minipage}[c]{3cm}
          \centering 
-         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=, $\backslash\backslash$}
+         \undef
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth}  
+                 \vskip 1mm
+    		 	reminder.
+                 
+    	\end{minipage}\\ \hline
+
+
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{abs}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \undef
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth}  
+                 \vskip 1mm
+    		 	absolute value.
+               
+    	\end{minipage}\\ \hline
+
+            \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{mod}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         $\backslash\backslash$
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth}  
+                 \vskip 1mm
+    		 modulo.
+        \end{minipage} \\ \hline \hline
+
+       \multicolumn{3}{|c|}{\textbf{Relational operators mapping}}\\ \hline \hline
+
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
         \end{minipage}  
         & 
 	\begin{minipage}[c]{0.5\linewidth} 
                  \vskip 1mm
-    		equality, inequality, less than, less than or equal , greater than, greater than or equal, modulo.
+    		equality, inequality, less than, less than or equal , greater than, greater than or equal.
                  
-    	\end{minipage}\\ \hline
-
+    	\end{minipage}\\ \hline \hline
+        \multicolumn{3}{|c|}{\textbf{Logical operators mapping}}\\ \hline \hline
 
        \begin{minipage}[c]{3cm} 
          \centering 
@@ -117,8 +166,8 @@
                  \vskip 1mm
     		 	negated exclusive or.
                  
-    	\end{minipage}\\ \hline
-
+    	\end{minipage}\\ \hline \hline 
+        \multicolumn{3}{|c|}{\textbf{Shift operators mapping}}\\ \hline \hline
 	\begin{minipage}[c]{3cm} 
          \centering 
          \textbf{sll, srl, sla, sra, rol, ror}
@@ -136,39 +185,6 @@
                         rotate left/right.
                  
     	\end{minipage}\\ \hline
-
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{rem}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \undef
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	reminder.
-                 
-    	\end{minipage}\\ \hline
-
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{abs}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \undef
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	absolute value.
-               
-    	\end{minipage}\\ \hline
-
 
     \end{tabular}
 \end{center}
