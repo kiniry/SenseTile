@@ -1,0 +1,151 @@
+\begin{center}
+    \begin{tabular}{|c|c|l|}
+        \hline
+        \multicolumn{3}{|c|}{\textbf{SCALAR TYPES/SUBTYPES}}\\ \hline
+    	\hline
+    	VHDL-AMS & BON & Description \\ \hline
+    	\begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{integer},\textbf{byte},\\ 
+         \emph{natural},\\
+         \emph{positive}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{INTEGER}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth}  
+                 \vskip 1mm
+    		int, byte,\\
+                integer  \textbf{range} 0 \textbf{to} \emph{highest\_integer},\\
+                integer  \textbf{range} range 1 \textbf{to} \emph{highest\_integer}.
+                \smallskip
+    	\end{minipage}\\ \hline
+
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{real}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{REAL}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth}  
+                 \vskip 1mm
+    		Floating-point.
+    	\end{minipage}\\ \hline
+
+
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{character}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{CHARACTER}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		Character.
+    	\end{minipage}\\ \hline
+      
+      \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{enumeration type}
+        \end{minipage}  
+        &
+
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{SEQUENCE[TYPE]}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		Type sequence.
+    	\end{minipage}\\ \hline
+
+
+    \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{boolean}
+        \end{minipage}  
+        &
+
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{BOOLEAN}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		True, False.
+    	\end{minipage}\\ \hline
+
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{bit}
+        \end{minipage}  
+        &
+
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{BOOLEAN}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		Predefined enumeration type. The logical operations for Boolean values
+                can also be applied to values of type \textbf{bit}. Therefore Values \textbraceleft'0','1'\textbraceright  corresponds to \emph{BOOELAN} false/true.
+                \smallskip
+    	\end{minipage}\\ \hline
+      
+       \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{time}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{undefined}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		Predefined physical type. The time is used extensively to specify delays.
+                \smallskip
+    	\end{minipage}\\ \hline \hline
+        \multicolumn{3}{|c|}{\textbf{Digitally encoded values mapping}}\\ \hline \hline
+        \begin{minipage}[c]{3cm} 
+         \centering 
+         \textbf{std\_ulogic}
+        \end{minipage}  
+        &
+       \begin{minipage}[c]{3cm}
+         \centering 
+         \emph{SEQUENCE}\\\emph{[CHARACTER]}
+        \end{minipage}  
+        & 
+	\begin{minipage}[c]{0.5\linewidth} 
+                 \vskip 1mm
+    		Predefined enumeration type.\\
+                        U', Uninitialized \\
+                       'X', Forcing Unknown \\
+                       '0', Forcing 0 \\
+                       '1', Forcing 1 \\
+                       'Z', High Impedance \\
+                       'W', Weak Unknown \\
+                       'L', Weak 0 \\
+                       'H', Weak 1 \\
+                       '-'  Don't care
+        \smallskip
+    	\end{minipage}\\ \hline
+
+    \end{tabular}
+\end{center}
