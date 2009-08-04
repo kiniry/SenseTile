@@ -17,12 +17,7 @@
 \usepackage{graphicx}
 \fi
 
-%\usepackage{todonotes}
-
-% \usepackage{html}
-% \usepackage{url}
 \usepackage{xspace}
-%\usepackage{doublespace}
 \usepackage{tabularx}
 \usepackage{epsfig}
 \usepackage{amsmath}
@@ -30,11 +25,6 @@
 \usepackage{amssymb}
 \usepackage{eucal}
 \usepackage{stmaryrd}
-% \ifpdf
-% \usepackage[centredisplay]{diagrams}
-% \else
-% \usepackage[centredisplay,PostScript=dvips]{diagrams}
-% \fi
 \usepackage{float}
 
 \ifpdf
@@ -42,7 +32,8 @@
             plainpages=false,naturalnames=true,
             colorlinks=true,pdfstartview=FitV,
             linkcolor=blue,citecolor=blue,urlcolor=blue,
-            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan Stosic"]{hyperref}
+            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan
+Stosic"]{hyperref}
 \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
@@ -52,15 +43,31 @@
 \newcommand{\ie}{i.e.,\xspace}
 \newcommand{\etc}{etc.\xspace}
 \newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
-%\newcommand{\myhref}[2]{\emph{#2}}
+\newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3 \myhref{#1}{#1}}}
+
+\newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:} #1}}
+\newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:} #1}}
+\newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:} #1}}
+
 \newcommand{\todo}{\textbf{TODO:}}
+
 \newcommand{\ST}{\emph{SenseTile}\xspace}
+\newcommand{\STSB}{\ST \emph{Sensor Board}\xspace}
+\newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
+\newcommand{\STPU}{\ST \emph{Processor Unit}\xspace}
+\newcommand{\STPUs}{\ST \emph{Processor Units}\xspace}
+\newcommand{\STU}{\ST \emph{Unit}\xspace}
+\newcommand{\STUs}{\ST \emph{Unit}\xspace}
+
 \newcommand{\STs}{\emph{SenseTiles}\xspace}
-\newcommand{\STS}{\emph{SenseTile Simulator}\xspace}
-\newcommand{\datastore}{\STs Scientific Datastore\xspace}
-\newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
-\newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
-\newcommand{\sensorfarm}{The \STs\xspace}
+
+\newcommand{\simulator}{\STSB \emph{Simulator}\xspace}
+
+\newcommand{\datastore}{\ST Scientific Datastore\xspace}
+\newcommand{\computefarm}{The \ST Scientific Compute Farm\xspace}
+\newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute Server
+Farm\xspace}
+\newcommand{\sensorfarm}{The \STSBs\xspace}
 
 %---------------------------------------------------------------------
 % New commands, macros, \etc
@@ -113,24 +120,27 @@ Specifications serves two purposes, and indirectly a third one.
 
 \end{verbatim}
 
-  Sensor packages typically communicate (control sensors and report
-  sensor measurements) with a streaming packet-based network protocol.
-  The \ST device is an example of such a sensor package, as it
-  communicates with an arbitrary computer system (running Linux or
-  Windows, at the moment) over a USB bus using a streaming
-  packet-based protocol. 
-  This sensor platform is a custom-designed,
-  but inexpensive, sensor platform (called the \ST) paired with
-  general-purpose small-scale compute nodes, including everything from
-  low-power PDAs to powerful touchscreen-based portable computers.
-  There are over a dozen sensors on the \ST itself, and new sensors
-  can be added by adding them to the USB bus.
-  A third-party low-level
-  library, provided by the USB chip vendor, creates and parses
-  generic USB communication packets, while a custom medium-level Java
-  driver creates and parses \ST streaming communication packets. 
-  This
-  latter Java driver is formally specified, validated with rigorous
+  Sensor equipped devices typically communicate with a streaming packet-based 
+  network protocol.
+  The communication is focused on controlling the sensors and report the 
+  sensors measurements.
+  The \STSB is an example of such a device, it communicates with an arbitrary 
+  computer system, the \STPU (running Linux or Windows, at the moment) over 
+  a USB bus using a streaming packet-based protocol.
+  The \STU is a custom-designed, but inexpensive, sensor platform: it is 
+  composed by a one or more \STSBs paired with a general-purpose small-scale 
+  compute node, the \STPU (including everything from PDAs to powerful 
+  touchscreen-based portable computers).
+  There are over a dozen sensors on the \STSB itself, and new sensors can be 
+  added either using expansion slots on the \STSB, or adding them directly to 
+  the USB bus.
+  A third-party low-level library, provided by the USB chip vendor, the USB 
+  chip that has been used in the \STSB, creates and parses
+  generic USB communication packets.
+
+  A custom medium-level Java driver creates and parses the \STSB streaming 
+  communication packets. 
+  This latter Java driver is formally specified, validated with rigorous
   unit testing, and verified using extended static checking. 
   Because of this process and combination of technologies, using this
   specification we are able to both communicate with a real \ST
@@ -165,6 +175,8 @@ small-scale compute nodes, including everything from low-power PDAs to
 powerful touchscreen-based portable computers.  There are over a dozen
 sensors on the \ST itself, and new sensors can be added by adding them
 to the USB bus.
+
+The \ST
 
 \todo extend
 
@@ -202,7 +214,112 @@ briefly describe our ongoing and future works on similar topics.
 \section{Data stream and protocol model}
 \label{sec:data_stream_and_protocol_model}
 
-\todo describe package
+The communication between \STSB and \STPU is realized through an Universal 
+Serial Bus (USB) interface.
+On top of the USB serial channels a proprietary protocol is used, specified by 
+FTDI\footnote{\myhref{http://www.ftdichip.com/}{FTDI web site}}; FTDI is the 
+manufacturer of the USB controller chip used in the \STSB, the 
+FT2232H\cite{ftdi_ft232h_2009}.
+
+The proprietary protocol enables the control and management of some of the 
+functionalities in FT232H chip (such as internal EEPROM read and write, reset 
+the chip, etc.) as well as the definition of the communication protocol and 
+properties to be used in the asynchronous channels (input and output channels) 
+provided by FT232H.
+These added functionalities are accessed via an Application Program Interface,
+the API is provided by a driver developed directly by FTDI, which is available 
+for various systems (Linux 32 and 64 bits, Mac OS, Windows)
+\cite{ftdi_d2xx_api_2009}.
+
+Finally, on top of the serial channels provided by the API, a custom protocol 
+has been developed to manage the entire \STSB; that is, read sensor data 
+observations, enable or disable sensors, configure onboard components 
+as the Field-Programmable Gate Array (FPGA), and the micro processor; the 
+protocol main function is to read sensor data.
+
+The protocol is an asynchronous fixed length packed based protocol.
+We will only examine the output sensor data packet, since it is the more used 
+and interesting one.
+
+The internal structure of the output sensor data packet reflects the board 
+capabilities and sensors.
+Basically a single packet has to accomodate various types of data:
+\begin{itemize}
+ \item Fat data rate streams: audio data, 48KHz or 96KHz.
+ \item Medium data rate streams: 5KHz.
+ \item Slow data rate streams: temperature, pression, accellerometer, etc.; all 
+ these sensor have a data rate far lower than 5 KHz.
+ \item Metadatas: metadatas on sensors and board state.
+\end{itemize}
+
+Even if we have to deal with data streams that have different data rates, the 
+internal structure of the package (as we will see) is strictly fixed. 
+This choice originates from a tradeoff between two constraints: the efficiency 
+of the trasmission (redundant data to be minimized) and the complexity to build 
+a package (complexity to be minimized).
+The complexity minimization constraint is simple to understand: it is the FPGA 
+on the \STSB that build the packet, but it has also to be used for various 
+other specific tasks. 
+Hence, it is important to maintain the building packet code on the FPGA as 
+simple and short as possible, to leave enough space for the code implementing 
+other tasks.
+The Output sensor data packet structure is showed in Table 
+\ref{tab:data_packet_structure}, the packet total length is 1024 bytes (512 16 
+bit words).
+
+\begin{table}[htbp]
+\caption{Output sensor data packet structure.}
+\label{tab:data_packet_structure}
+\begin{center}
+\begin{tabular}{|c|l|}\hline
+\textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
+0-1 & sentinel\\\hline
+2-7 & slow data\\\hline
+8-11 & metadata: board state\\\hline
+12-13 & reserved\\\hline
+14-15 & metadata: board state\\\hline
+16 & reserved\\\hline
+17-22 & subsequence 1\\\hline
+\ldots & \ldots\\\hline
+503-508 & subsequence 82\\\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The subsequence accomodate data from the fast and medium data rate streams 
+(there are 4 fast data rate stream and 8 medium data rate stream channels). 
+There are 82 subsequences in a packet.
+The subsequence structure is shown in Table \ref{tab:subsequence_structure}.
+
+\begin{table}[htbp]
+\caption{Output sensor data packet subsequence structure.}
+\label{tab:subsequence_structure}
+\begin{center}
+\begin{tabular}{|c|l|}\hline
+\textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
+0 & metadata: subsequence description\\\hline
+1 & medium data rate data sample\\\hline
+2-5 & fast data rate data samples\\\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+It is clear that, looking at the structure described and at the data rates 
+frequencies, that there must be something subtle, to make all the figures to 
+add up.
+The subleties lies in two forms of ridundancies, for slow and mediumd data 
+rates:
+
+\begin{itemize}
+  \item Slow data rates: slow data can be found at the beginning of each 
+  packet, the data is simply repeated (that is, it is equal to the previous 
+  packet in the stream) when no new data is available.
+  \item Medium data rates: the 8 medium rate channels are multiplexed together 
+  into the medium data rate data sample of each subsequence, which channel the 
+  sample belongs to is a piece of info to be extracted from the subsequence 
+  metadata. Besides, the medium data rate data sample could contain no data at 
+  all, this info again is to be extracted from the metadata.
+\end{itemize}
 
 \todo describe high level representation of package: sensors and data 
 details remains, exact package structure and sensor data location in the
