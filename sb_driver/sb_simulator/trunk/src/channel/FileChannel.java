@@ -5,7 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
+/**
+ * This class provides methods for file handling.
+ * to be described.
+ * @author dragan
+ */
 public final class FileChannel implements IChannel {
 
 	//@ spec_public
@@ -79,7 +83,7 @@ public final class FileChannel implements IChannel {
 		 
 	  }
 	 
-	 /*@ensures \result != null && \result == g_int; 
+	 /*@ensures \result == g_int; 
 	   @ also
 	   @ signals_only ChannelException;  
 	   @*/
@@ -110,6 +114,7 @@ public final class FileChannel implements IChannel {
 		     }
 		//@ set g_int = int_array;
 		 return int_array;
-	 }
+	 }		 
+ }
 	 
-}
+
