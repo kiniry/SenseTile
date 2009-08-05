@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ClonePacketBuilderTest {
+public class FileAndClonePacketBuilderTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -20,12 +20,12 @@ public class ClonePacketBuilderTest {
   }
   
   private InstancePacket template;
-  private ClonePacketBuilder builder;
+  private FileAndClonePacketBuilder builder;
   
   @Before
   public void setUp() throws Exception {
     template = new InstancePacket();
-    builder = new ClonePacketBuilder(template);
+    builder = new FileAndClonePacketBuilder(template);
   }
   
   @After
@@ -34,7 +34,7 @@ public class ClonePacketBuilderTest {
   
   @Test
   public void testConstructor() {
-    ClonePacketBuilder builder = new ClonePacketBuilder(template);
+    FileAndClonePacketBuilder builder = new FileAndClonePacketBuilder(template);
     assertNotNull(builder);
   }
   

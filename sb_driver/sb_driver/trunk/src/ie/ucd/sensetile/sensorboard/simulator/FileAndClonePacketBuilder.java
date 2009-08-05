@@ -1,10 +1,10 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-public class ClonePacketBuilder implements PacketBuilder {
+public class FileAndClonePacketBuilder implements PacketBuilder {
   
   private CloneablePacket template;
   
-  public ClonePacketBuilder(final CloneablePacket template) {
+  public FileAndClonePacketBuilder(final CloneablePacket template) {
     this.template = makeClone(template);
   }
 

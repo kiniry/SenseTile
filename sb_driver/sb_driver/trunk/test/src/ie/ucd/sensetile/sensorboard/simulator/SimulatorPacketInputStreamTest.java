@@ -29,7 +29,7 @@ public class SimulatorPacketInputStreamTest {
   
   @Before
   public void setUp() throws Exception {
-    PacketBuilder builder = new ClonePacketBuilder(new InstancePacket());
+    PacketBuilder builder = new FileAndClonePacketBuilder(new InstancePacket());
     simulator = new SimulatorPacketInputStream(builder);
   }
   
@@ -39,7 +39,7 @@ public class SimulatorPacketInputStreamTest {
   
   @Test
   public void testSimulatorPacketInputStream() {
-    PacketBuilder builder = new ClonePacketBuilder(new InstancePacket());
+    PacketBuilder builder = new FileAndClonePacketBuilder(new InstancePacket());
     SimulatorPacketInputStream simulator = 
       new SimulatorPacketInputStream(builder);
     assertNotNull(simulator);

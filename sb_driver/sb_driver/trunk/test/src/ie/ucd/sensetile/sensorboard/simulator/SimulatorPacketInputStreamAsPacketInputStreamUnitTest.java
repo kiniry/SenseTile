@@ -8,7 +8,7 @@ public class SimulatorPacketInputStreamAsPacketInputStreamUnitTest
   
   @Override
   protected PacketInputStream createPacketInputStream(final int availablePackets) {
-    PacketBuilder builder = new ClonePacketBuilder(new InstancePacket());
+    PacketBuilder builder = new FileAndClonePacketBuilder(new InstancePacket());
     SimulatorPacketInputStream simulator = new SimulatorPacketInputStream(builder);
     return simulator;
   }
