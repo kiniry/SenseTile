@@ -98,12 +98,14 @@ public final class FileChannel implements IChannel {
 			  {
 				  int_array = new int[length];
 				  int count = 0;
-			      while (count >= 0 && count < length ) 
+			      
+				  while (count >= 0 && count < length ) 
 			      {
 			    	  final int current = Integer.parseInt(valueStr[count]);
 			    	  int_array[count] = current;
 			          count++;
 			      }
+				  
 		     }
 			  
 		    }

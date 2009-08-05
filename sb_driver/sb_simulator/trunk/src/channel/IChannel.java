@@ -45,7 +45,7 @@ public interface IChannel {
 	  @ also
 	  @ signals_only ChannelException; 
 	  @*/
-	 int[] getArray()throws ChannelException;
+	  int[] getArray()throws ChannelException;
     
     /**
      * Returns a relative path and file name.
