@@ -6,8 +6,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
-
 public class FileAndClonePacketBuilder implements PacketBuilder {
   
   private InstancePacket template;
