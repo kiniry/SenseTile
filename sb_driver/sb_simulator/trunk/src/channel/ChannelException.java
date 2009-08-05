@@ -1,9 +1,9 @@
-package sensor;
+package channel;
 
 /**
- * Class implementation of sensor.MissingSensorException. 
- * Exception is used during measurement operations.
- * @title         "MissingSensorException"
+ * Class implementation of channel.ChannelException. 
+ * Exception is used during file system operations.
+ * @title         "ChannelException"
  * @date          "2009/07/16 11:05:33"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
@@ -11,51 +11,46 @@ package sensor;
  * @version       "$ Revision: 1.00 $"
  */
 
-public class MissingSensorException extends RuntimeException {
+public class ChannelException extends RuntimeException {
 	
 		
-  protected static final long serialVersionUID = 221198;
-
+  protected static final long serialVersionUID = 221197;
+	
   /**
    * Default Exception constructor.
    */
   //@ pure
-  public MissingSensorException(){
+  public ChannelException(){
 	  super();
   }
 
-
-  
   /**
-   *Exception constructor.
+   *Channel exception constructor.
    * @param message - exception message
    */
-//@ pure
-  public  MissingSensorException(final String message){
+  //@ pure
+  public  ChannelException(final String message){
 	  super(message);
   }
 
-
   /**
-   * Exception constructor.
+   * Channel exception constructor.
    * @param message - exception message
    * @param cause - exception cause provides 
    * the stack trace information.
    */
   //@ pure
-  public MissingSensorException(final String message, final Throwable cause){
+  public ChannelException(final String message, final Throwable cause){
 	  super(message,cause);
   }
 
-
-  
   /**
-   * Exception constructor.
+   * Channel exception constructor.
    * @param cause - exception cause provides 
    * the stack trace information.
    */
-//@ pure
-  public MissingSensorException(final Throwable cause){
+  //@ pure
+  public ChannelException(final Throwable cause){
 	  super(cause);
   }
 }

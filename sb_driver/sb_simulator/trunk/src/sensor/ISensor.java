@@ -52,7 +52,6 @@ public interface ISensor {
 	    @ assignable mod_value, mod_mesure;
 	    @ ensures mod_min <= mod_value && mod_value <= mod_max;
 	    @ also
-	    @ exceptional_behavior
 	    @ requires !isEnabled();
         @ signals(MissingSensorException e) true; 
         @*/ 
