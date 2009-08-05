@@ -32,6 +32,10 @@ public class InstancePacket implements CloneablePacket {
   private FrameInstance[] frames = new FrameInstance[FRAMES];
   
   public InstancePacket() {
+    setTime(new TimeInstance());
+    for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
+      frames[frameIndex] = new FrameInstance();
+    }
   }
   
   public InstancePacket(final Packet template) {
@@ -47,7 +51,6 @@ public class InstancePacket implements CloneablePacket {
     setSupplyCurrent(template.getSupplyCurrent());
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
       frames[frameIndex] = new FrameInstance(template.getFrame(frameIndex));
-      
     }
   }
   
@@ -131,12 +134,12 @@ public class InstancePacket implements CloneablePacket {
     this.supplyCurrent = supplyCurrent;
   }
   
-  public Frame getFrame(final int index) {
+  public FrameInstance getFrame(final int index) {
     return frames[index];
   }
   
-  public CloneablePacket clone() throws CloneNotSupportedException {
-    return (CloneablePacket) super.clone();
+  public InstancePacket clone() throws CloneNotSupportedException {
+    return (InstancePacket) super.clone();
   }
   
   public static class TimeInstance implements Time, Cloneable {
