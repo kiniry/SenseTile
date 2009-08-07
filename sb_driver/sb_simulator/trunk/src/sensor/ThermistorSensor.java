@@ -48,7 +48,8 @@ public final class ThermistorSensor implements ISensor
 	  /**
 	   * Create component in initial state.
 	   */
-    /*@ assignable  mod_enabled, mod_set, mod_set[*];
+    /*@ public normal_behavior
+      @ assignable  mod_enabled, mod_set, mod_set[*];
       @ ensures mod_enabled == true;
       @ ensures (\forall int i; 0 <= i && i < arr.length;
       @          arr[i] == a_set[i]);

@@ -25,6 +25,7 @@ public interface ISensor {
 	   * Are you enabled ?
 	   * @return enabled.
 	   */
+	  //@ ensures \result == mod_enabled;
 	  /*@pure@*/ boolean isEnabled();
 	  
 	  /**

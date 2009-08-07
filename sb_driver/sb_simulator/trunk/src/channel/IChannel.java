@@ -13,9 +13,8 @@ import java.io.InputStream;
 public interface IChannel {
 
 	//@ public model instance String mod_name;
-	//@ public ghost instance InputStream g_stream;
-	//@ public ghost instance int[] g_int;
 	
+	//@ private invariant mod_name != null; 
 	/**
      * Returns  <tt>InputStream</tt> representing the data
      * derived from an input channel.  
@@ -24,9 +23,9 @@ public interface IChannel {
      * @throws an ChannelException. This exception will be thrown
      * when a file with the specified pathname does not exist.
      */
-	/*@ requires getFileName() != null;
-	  @ ensures \result == g_stream;
-	  @ signals_only ChannelException;
+	/*@ public behavior
+	  @ ensures \result != null;
+	  @ signals (ChannelException ce) true;
 	  @*/
 	  InputStream getInputStream() throws ChannelException;
   
@@ -40,17 +39,19 @@ public interface IChannel {
      * b) The string given from bytes does not contain a parsable integer.
      */
    
-	/*@ requires getFileName() != null;
-	  @ ensures \result == g_int;
-	  @ also
-	  @ signals_only ChannelException; 
-	  @*/
-	  int[] getArray()throws ChannelException;
+	/*@ public behavior
+	  @ requires mod_name != null;
+	  @ assignable \not_specified;
+	  @ ensures \result != null;
+	  @ signals (ChannelException ce) true; 
+	  @*/ 
+	 int[] getArray()throws ChannelException;
     
     /**
      * Returns a relative path and file name.
      * @return relative path and file name.
      */
+	  //@ ensures mod_name != null; 
     /*@pure non_null@*/ String getFileName(); 
     
 }

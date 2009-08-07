@@ -16,8 +16,6 @@ public final class FileChannel implements IChannel {
 	private final  transient String a_fileName;//@ in mod_name;
 	//@ represents mod_name <- a_fileName;
 	
-	//@ invariant mod_name != null; 
-	
 	/**
      * Public default contructor.
      * @param fileName name of file.
@@ -44,7 +42,6 @@ public final class FileChannel implements IChannel {
 		try 
 		{ 
 			fis =  new FileInputStream( a_fileName );
-            //@ set g_stream = (InputStream)fis;
 			
         } catch ( FileNotFoundException nfe ) 
         {    
@@ -57,16 +54,18 @@ public final class FileChannel implements IChannel {
      /**
       * @see channel.IChannel#getArray()
       */
-	 public int[] getArray() throws ChannelException
+	
+	 /*@pure*/public int[] getArray() throws ChannelException
 	  {
 		 byte[] bytes = new byte[]{};
 		
 		 try
 		 {	 
 			 final File file = new File(a_fileName);
-			 final FileInputStream fis = new FileInputStream(file);
+			 
 			 final int length =  (int)file.length();
-		  
+			 final FileInputStream fis = new FileInputStream(file);
+
 			 if(length >= 0)
 			 { 
 				 bytes = new byte[length];
@@ -83,11 +82,11 @@ public final class FileChannel implements IChannel {
 		 
 	  }
 	 
-	 /*@ensures \result == g_int; 
-	   @ also
-	   @ signals_only ChannelException;  
+	 /*@ensures \result != null; 
+	   @ assignable \nothing;
+	   @signals (ChannelException ce) true;  
 	   @*/
-	 private /*@non_null*/int[] convertToInt(/*@ non_null*/ final byte[] bytes) throws ChannelException
+	 private /*@pure non_null*/int[] convertToInt(/*@ non_null*/ final byte[] bytes) throws ChannelException
 	 {
 		 int[] int_array = new int[]{};
 		 try{
@@ -114,7 +113,6 @@ public final class FileChannel implements IChannel {
 			   throw new ChannelException("FileChannel is invalid." +
 	                    "The string does not contain a parsable integer.",nfe);
 		     }
-		//@ set g_int = int_array;
 		 return int_array;
 	 }		 
  }
