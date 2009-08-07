@@ -6,6 +6,7 @@ import java.util.List;
 
 import channel.ChannelException;
 import channel.FileChannel;
+import channel.FilePathHelper;
 import channel.IChannel;
 
 import sensor.type.SensorType;
@@ -16,17 +17,7 @@ import sensor.type.SensorType;
  */
 public final class SensorBuilder 
 {
-	private final transient /*@ spec_public non_null@*/ List sensors;
-	private static final String THERM_FILE_PATH = "";
-	private static final String PRESS_FILE_PATH = "";
-	private static final String AUDIO_FILE_PATH = "";
-	private static final String ULTRA_FILE_PATH = "";
-	private static final String LIGHT_FILE_PATH = "";
-	private static final String ACCEL_X_FILE_PATH = "";
-	private static final String ACCEL_Y_FILE_PATH = "";
-	private static final String ACCEL_Z_FILE_PATH = "";
-	
-		
+	private final transient /*@ spec_public non_null@*/ List sensors;	
 	//@ public model int mod_size;
 	//@ represents mod_size \such_that mod_size == sensors.size();
 	
@@ -64,7 +55,8 @@ public final class SensorBuilder
 	  @*/
 	private void createThermistorSensor()
 	{
-		final IChannel therm_channel = new FileChannel(THERM_FILE_PATH);
+		final IChannel therm_channel = 
+			new FileChannel(FilePathHelper.THERM_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -86,7 +78,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createLightSensor()
 	{
-		final IChannel light_channel = new FileChannel(LIGHT_FILE_PATH);
+		final IChannel light_channel = 
+			new FileChannel(FilePathHelper.LIGHT_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -106,7 +99,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createSoundSensor()
 	{
-		final IChannel sound_channel = new FileChannel(AUDIO_FILE_PATH);
+		final IChannel sound_channel = 
+			new FileChannel(FilePathHelper.AUDIO_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -126,7 +120,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createPressureSensor()
 	{
-		final IChannel press_channel = new FileChannel(PRESS_FILE_PATH);
+		final IChannel press_channel = 
+			new FileChannel(FilePathHelper.PRESS_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -147,7 +142,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createUltrasonicSensor()
 	{
-		final IChannel ultra_channel = new FileChannel(ULTRA_FILE_PATH);
+		final IChannel ultra_channel = 
+			new FileChannel(FilePathHelper.ULTRA_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -168,7 +164,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createAxesXSensor()
 	{
-		final IChannel accel_channel = new FileChannel(ACCEL_X_FILE_PATH);
+		final IChannel accel_channel = 
+			new FileChannel(FilePathHelper.ACCEL_X_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -189,7 +186,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createAxesYSensor()
 	{
-		IChannel accel_channel = new FileChannel(ACCEL_Y_FILE_PATH);
+		final IChannel accel_channel = 
+			new FileChannel(FilePathHelper.ACCEL_Y_FILE_PATH);
 		ISensor sensor;
 		try
 		{
@@ -210,7 +208,8 @@ public final class SensorBuilder
 	//@ ensures mod_size == \old(mod_size) +1;
 	private void createAxesZSensor()
 	{
-		IChannel accel_channel = new FileChannel(ACCEL_Z_FILE_PATH);
+		final IChannel accel_channel = 
+			new FileChannel(FilePathHelper.ACCEL_Z_FILE_PATH);
 		ISensor sensor;
 		try
 		{
