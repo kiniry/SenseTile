@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 /**
  * This class provides methods for file handling.
- * to be described.
- * @author dragan
+ * @title         "FileChannel"
+ * @date          "2009/08/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
  */
 public final class FileChannel implements IChannel {
 

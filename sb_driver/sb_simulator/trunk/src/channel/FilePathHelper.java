@@ -4,8 +4,12 @@ package channel;
  * Define A full absolute path(s) 
  * that points to the location(s) on sensor(s) file(s).
  * This class represents a helper class.
- * @author dragan
- *
+ * @title         "FilePathHelper"
+ * @date          "2009/08/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
  */
 public final class FilePathHelper {
 	

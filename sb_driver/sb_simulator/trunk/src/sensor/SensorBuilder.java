@@ -13,7 +13,12 @@ import sensor.type.SensorType;
  
 /**
  * Represents an sensor builder implementation. 
- * @author dragan
+ * @title         "SensorBuilder"
+ * @date          "2009/08/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
  */
 public final class SensorBuilder 
 {
