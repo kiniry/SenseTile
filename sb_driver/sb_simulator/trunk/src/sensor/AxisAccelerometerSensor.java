@@ -70,7 +70,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	    @ ensures mod_enabled == true;
         @ ensures (\forall int i; 0 <= i && i < arr.length;
         @          arr[i] == a_set[i]);
-        @ ensures SensorType.isValidAxis(type);
+        @ ensures SensorType.isValidAxis(mod_type);
 	    @*/
 	  public  AxisAccelerometerSensor(final /*@non_null@*/ int[] arr, 
 			  final  int type) 
