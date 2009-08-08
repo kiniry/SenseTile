@@ -53,188 +53,288 @@ public final class SensorBuilder
 		createAxesYSensor();
 		createAxesZSensor();
 	  }
-	
+	 
+	 //@ ghost int[] g_arr;
+	 //@ ghost ISensor g_sensor;
+	 
 	/*@ requires mod_size == 0;
 	  @ assignable \not_specified;
 	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> !g_sensor.isEnabled());
 	  @*/
 	private void createThermistorSensor()
 	{
 		final IChannel therm_channel = 
 			new FileChannel(FilePathHelper.THERM_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = therm_channel.getArray();
-			
-			sensor = new ThermistorSensor( arr );
+			arr = therm_channel.getArray();	
 		}
 		catch (ChannelException cex)
 		{
-			final int[] arr = new int[]{};
-			sensor = new ThermistorSensor( arr );
-			sensor.setEnable(false);
+			// do nothing !
 		}
-		sensors.add( sensor );
+		finally 
+		{
+			//@ set g_arr = arr;
+			sensor = new ThermistorSensor( arr );
+			//@ set g_sensor = sensor;
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
+		}
 	}
 	
-	//@ requires mod_size == 1;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+  /*@ requires mod_size == 1;
+	@ assignable \not_specified;
+	@ ensures mod_size == \old(mod_size) +1;
+	@ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	@*/
 	private void createLightSensor()
 	{
 		final IChannel light_channel = 
 			new FileChannel(FilePathHelper.LIGHT_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = light_channel.getArray();
-			sensor = new LightSensor( arr );
+			arr = light_channel.getArray();
 		}
-		catch (ChannelException cex)
+		catch (ChannelException cex){
+			// do nothing !
+		}
+		finally 
 		{
-			final int[] arr = new int[]{};
+			//@ set g_arr = arr;
 			sensor = new LightSensor( arr );
-			sensor.setEnable(false);
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
 		}
-		sensors.add( sensor );
 	}
-	//@ requires mod_size == 2;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 2;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createSoundSensor()
 	{
 		final IChannel sound_channel = 
 			new FileChannel(FilePathHelper.AUDIO_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = sound_channel.getArray();
-			sensor = new SoundSensor( arr );
+			arr = sound_channel.getArray();
 		}
 		catch (ChannelException cex)
 		{
-			final int[] arr = new int[]{};
-			sensor = new SoundSensor( arr );
-			sensor.setEnable(false);
+			// do nothing !
 		}
-		sensors.add( sensor );
+		finally 
+		{
+			//@ set g_arr = arr;
+			sensor = new SoundSensor( arr );
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
+		}
+		
 	}
-	//@ requires mod_size == 3;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 3;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createPressureSensor()
 	{
 		final IChannel press_channel = 
 			new FileChannel(FilePathHelper.PRESS_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = press_channel.getArray();
-			sensor = new PressureSensor( arr );
+			arr = press_channel.getArray();
 		}
 		catch (ChannelException cex)
 		{
-			final int[] arr = new int[]{};
-			sensor = new PressureSensor( arr );
-			sensor.setEnable(false);
+			// do nothing !
 		}
-		sensors.add( sensor );
+		finally 
+		{
+			//@ set g_arr = arr;
+			sensor = new PressureSensor( arr );
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
+		}
+		
 	}
 	
-	//@ requires mod_size == 4;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 4;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createUltrasonicSensor()
 	{
 		final IChannel ultra_channel = 
 			new FileChannel(FilePathHelper.ULTRA_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = ultra_channel.getArray();
-			sensor = new UltrasonicSensor( arr );
+			arr = ultra_channel.getArray();
 		}
-		catch (ChannelException cex)
+		catch (ChannelException cex){/* do nothing !*/}
+		finally 
 		{
-			final int[] arr = new int[]{};
+			//@ set g_arr = arr;
 			sensor = new UltrasonicSensor( arr );
-			sensor.setEnable(false);
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
 		}
-		sensors.add( sensor );
 	}
 	
-	//@ requires mod_size == 5;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 5;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createAxesXSensor()
 	{
 		final IChannel accel_channel = 
 			new FileChannel(FilePathHelper.ACCEL_X_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = accel_channel.getArray();
-			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_X );
+			arr = accel_channel.getArray();
+			
 		}
-		catch (ChannelException cex)
+		catch (ChannelException cex ){/* do nothing !*/}
+		finally 
 		{
-			final int[] arr = new int[]{};
+			//@ set g_arr = arr;
 			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_X );
-			sensor.setEnable(false);
+			//@ assert SensorType.isValidAxis(SensorType.ACCEL_X);
+			
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@assert g_sensor.mod_enabled == false; 
+			}
+			//assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
 		}
-		sensors.add( sensor );
 	}
 	
-	//@ requires mod_size == 6;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 6;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createAxesYSensor()
 	{
 		final IChannel accel_channel = 
 			new FileChannel(FilePathHelper.ACCEL_Y_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = accel_channel.getArray();
-			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_Y );
+			arr = accel_channel.getArray();
+			
 		}
-		catch (ChannelException cex)
+		catch (ChannelException cex ){/* do nothing !*/}
+		finally 
 		{
-			final int[] arr = new int[]{};
+			//@ set g_arr = arr;
 			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_Y );
-			sensor.setEnable(false);
+			//@ assert SensorType.isValidAxis(SensorType.ACCEL_Y);
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
 		}
-		sensors.add( sensor );
 	}
 	
-	//@ requires mod_size == 7;
-	//@ assignable \not_specified;
-	//@ ensures mod_size == \old(mod_size) +1;
+	/*@ requires mod_size == 7;
+	  @ assignable \not_specified;
+	  @ ensures mod_size == \old(mod_size) +1;
+	  @ ensures (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+	  @*/
 	private void createAxesZSensor()
 	{
 		final IChannel accel_channel = 
 			new FileChannel(FilePathHelper.ACCEL_Z_FILE_PATH);
 		ISensor sensor;
+		int[] arr = new int[]{};
 		try
 		{
-			final int[] arr = accel_channel.getArray();
-			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_Z );
+			arr = accel_channel.getArray();
+			
 		}
-		catch (ChannelException cex)
+		catch (ChannelException cex ){/* do nothing !*/}
+		finally 
 		{
-			final int[] arr = new int[]{};
+			//@ set g_arr = arr;
 			sensor = new AxisAccelerometerSensor( arr , SensorType.ACCEL_Z );
-			sensor.setEnable(false);
+			//@ assert SensorType.isValidAxis(SensorType.ACCEL_Z);
+			//@ set g_sensor = sensor;
+			
+			if(arr.length == 0)
+			{
+				sensor.setEnable(false);
+				//@ assert g_sensor.mod_enabled == false; 
+			}
+			//@ assert (g_arr.length == 0 <==> g_sensor.mod_enabled == false);
+			sensors.add( sensor );
 		}
-		sensors.add( sensor );
 	}
 	
-	
-	//@ requires mod_size == 8;
-	//@ requires typeIndex >=0 && typeIndex <=7;
-	//@ requires SensorType.legal_SensorType(typeIndex);
-	//@ ensures \result instanceof ISensor;
+	/*@ requires mod_size == 8;
+	  @ requires typeIndex >=0 && typeIndex <=7;
+	  @ requires SensorType.legal_SensorType(typeIndex);
+	  @ ensures \result instanceof ISensor;
+	  @*/
 	public ISensor getSensor(final int typeIndex) 
 	{
 		return (ISensor)sensors.get(typeIndex);

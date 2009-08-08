@@ -59,8 +59,8 @@ public final class AxisAccelerometerSensor implements ISensor
 	  //@ constraint a_unit == MeasurementUnit.MVOLT;
 	  //@ constraint a_type == AccelerometerSensorType.PFPS;
 	  
-	  //@ private invariant SensorType.isValidAxis( mod_type );
-	  
+	  //@ invariant SensorType.isValidAxis(a_sensType);
+	
 	  /**
 	   * Create component in initial state.
 	   */
@@ -70,6 +70,7 @@ public final class AxisAccelerometerSensor implements ISensor
 	    @ ensures mod_enabled == true;
         @ ensures (\forall int i; 0 <= i && i < arr.length;
         @          arr[i] == a_set[i]);
+        @ ensures SensorType.isValidAxis(type);
 	    @*/
 	  public  AxisAccelerometerSensor(final /*@non_null@*/ int[] arr, 
 			  final  int type) 
