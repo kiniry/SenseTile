@@ -4,7 +4,6 @@ package sensor;
 import java.util.ArrayList;
 import java.util.List;
 
-import channel.ChannelException;
 import channel.FileChannel;
 import channel.FilePathHelper;
 import channel.IChannel;
@@ -72,10 +71,6 @@ public final class SensorBuilder
 		{
 			arr = therm_channel.processArray();	
 		}
-		catch (ChannelException cex)
-		{
-			// do nothing !
-		}
 		finally 
 		{
 			//@ set g_arr = arr;
@@ -105,9 +100,6 @@ public final class SensorBuilder
 		try
 		{
 			arr = light_channel.processArray();
-		}
-		catch (ChannelException cex){
-			// do nothing !
 		}
 		finally 
 		{
@@ -139,10 +131,6 @@ public final class SensorBuilder
 		{
 			arr = sound_channel.processArray();
 		}
-		catch (ChannelException cex)
-		{
-			// do nothing !
-		}
 		finally 
 		{
 			//@ set g_arr = arr;
@@ -173,10 +161,6 @@ public final class SensorBuilder
 		try
 		{
 			arr = press_channel.processArray();
-		}
-		catch (ChannelException cex)
-		{
-			// do nothing !
 		}
 		finally 
 		{
@@ -210,7 +194,6 @@ public final class SensorBuilder
 		{
 			arr = ultra_channel.processArray();
 		}
-		catch (ChannelException cex){/* do nothing !*/}
 		finally 
 		{
 			//@ set g_arr = arr;
@@ -243,7 +226,6 @@ public final class SensorBuilder
 			arr = accel_channel.processArray();
 			
 		}
-		catch (ChannelException cex ){/* do nothing !*/}
 		finally 
 		{
 			//@ set g_arr = arr;
@@ -278,7 +260,6 @@ public final class SensorBuilder
 			arr = accel_channel.processArray();
 			
 		}
-		catch (ChannelException cex ){/* do nothing !*/}
 		finally 
 		{
 			//@ set g_arr = arr;
@@ -312,7 +293,6 @@ public final class SensorBuilder
 			arr = accel_channel.processArray();
 			
 		}
-		catch (ChannelException cex ){/* do nothing !*/}
 		finally 
 		{
 			//@ set g_arr = arr;
