@@ -38,8 +38,12 @@ public final class SensorBuilder
 		//@ set sensors.containsNull = false;
 	}
 	
+	/**
+	 * Initialize sensor builder.
+	 * Create all enabled(disabled) sensor instances.
+	 */
+	
 	//@ requires mod_size == 0;
-	//@ assignable \not_specified;
 	//@ ensures mod_size == 1;
 	 public void initialize()
 	 {
@@ -53,8 +57,8 @@ public final class SensorBuilder
 		createAxesZSensor();
 	  }
 	 
-	 //@ ghost int[] g_arr;
-	 //@ ghost ISensor g_sensor;
+	 //@ private ghost int[] g_arr;
+	 //@ private ghost ISensor g_sensor;
 	 
 	/*@ requires mod_size == 0;
 	  @ assignable \not_specified;
@@ -310,6 +314,11 @@ public final class SensorBuilder
 		}
 	}
 	
+	/**
+	 * Returns an sensor instance in enabled (desabled) state.
+	 * @param typeIndex represents index of sensor type.
+	 * @return an sensor instance.
+	 */
 	/*@ requires mod_size == 8;
 	  @ requires typeIndex >=0 && typeIndex <=7;
 	  @ requires SensorType.legal_SensorType(typeIndex);
