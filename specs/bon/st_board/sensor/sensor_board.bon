@@ -87,7 +87,7 @@ description
   \The File system represents an persistance layer which serve to provide data as\
   \input data to different sensors."
 
-class I_CHANNEL
+class ICHANNEL
 description
 "Represents an interface for Channel implementation."
 
@@ -118,7 +118,7 @@ command
 "Create all channel exceptions."
 end
 
-class_chart I_CHANNEL
+class_chart ICHANNEL
   indexing
   in_cluster: "CHANNEL";
   created: "2009-08-08 Dragan Stosic";
@@ -143,7 +143,7 @@ class_chart I_CHANNEL
 
 class_chart FILE_CHANNEL
   indexing
-  in_cluster: "FILE_CHANNEL";
+  in_cluster: "CHANNEL";
   created: "2009-08-08 Dragan Stosic";
   keywords: "InputStream","return","array of int";
   revised: ""
