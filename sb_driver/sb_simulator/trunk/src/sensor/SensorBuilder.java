@@ -70,7 +70,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = therm_channel.getArray();	
+			arr = therm_channel.processArray();	
 		}
 		catch (ChannelException cex)
 		{
@@ -104,7 +104,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = light_channel.getArray();
+			arr = light_channel.processArray();
 		}
 		catch (ChannelException cex){
 			// do nothing !
@@ -137,7 +137,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = sound_channel.getArray();
+			arr = sound_channel.processArray();
 		}
 		catch (ChannelException cex)
 		{
@@ -172,7 +172,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = press_channel.getArray();
+			arr = press_channel.processArray();
 		}
 		catch (ChannelException cex)
 		{
@@ -208,7 +208,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = ultra_channel.getArray();
+			arr = ultra_channel.processArray();
 		}
 		catch (ChannelException cex){/* do nothing !*/}
 		finally 
@@ -240,7 +240,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = accel_channel.getArray();
+			arr = accel_channel.processArray();
 			
 		}
 		catch (ChannelException cex ){/* do nothing !*/}
@@ -275,7 +275,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = accel_channel.getArray();
+			arr = accel_channel.processArray();
 			
 		}
 		catch (ChannelException cex ){/* do nothing !*/}
@@ -309,7 +309,7 @@ public final class SensorBuilder
 		int[] arr = new int[]{};
 		try
 		{
-			arr = accel_channel.getArray();
+			arr = accel_channel.processArray();
 			
 		}
 		catch (ChannelException cex ){/* do nothing !*/}

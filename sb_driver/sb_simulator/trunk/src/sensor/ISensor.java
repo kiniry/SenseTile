@@ -25,6 +25,7 @@ public interface ISensor {
 	   * Are you enabled ?
 	   * @return enabled.
 	   */
+	  //@ assignable \nothing;
 	  //@ ensures \result == mod_enabled;
 	  /*@pure@*/ boolean isEnabled();
 	  
@@ -41,6 +42,7 @@ public interface ISensor {
 	   * @return mod_value measured value.
 	   */
 	  //@ requires isEnabled();
+	  //@ assignable \nothing;
 	  //@ ensures \result == mod_value;
 	  /*@pure@*/ int getValue();
 	  
