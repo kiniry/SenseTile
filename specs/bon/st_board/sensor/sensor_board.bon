@@ -74,9 +74,29 @@ end
 cluster_chart CHANNEL
 indexing
   author: "Dragan Stosic";
-  keywords: "asynchronous?";
+  keywords: "file channel, ichannel, channel exception, asynchronous, synhronous, file path helper";
 explanation
 "NYS"
+class CHANNEL_EXCEPTION
+description
+"Exception is used during file system operations."
+
+class FILE_CHANNEL
+description
+ "This cluster provides interface used for managing file system.\
+  \The File system represents an persistance layer which serve to provide data as\
+  \input data to different sensors."
+
+class I_CHANNEL
+description
+"Represents an interface for Channel implementation."
+
+class FILE_PATH_HELPER
+description
+ "Define A full absolute path(s) \ 
+ \that points to the location(s) on sensor(s) file(s).\
+ \This class represents a helper class."
+
 cluster USB_CHANNEL
 description
 "NYS"
@@ -85,6 +105,67 @@ description
 "NYS"
 end
 
+
+class_chart  CHANNEL_EXCEPTION 
+indexing
+  in_cluster: "CHANNEL";
+  created: "2009-06-03 Dragan Stosic";
+  revised: ""
+explanation
+  "This class represents implementation of \
+  \ exception which is used during file system operations."
+command
+"Create all channel exceptions."
+end
+
+class_chart I_CHANNEL
+  indexing
+  in_cluster: "CHANNEL";
+  created: "2009-08-08 Dragan Stosic";
+  keywords: "InputStream","return","array of int";
+  revised: ""
+  explanation
+  "Represents an interface for Channel implementation."
+  
+  query
+  ""
+  command
+  "1 ) Returns InputStream  representing the data \
+    \ derived from an input channel.  \
+    \ throws an ChannelException. This exception will be thrown \
+    \ when a file with the specified pathname does not exist.\
+  \2) Returns  int array representing the data derived from an input stream.\  
+     \ throws an ChannelException. This exception will be thrown \
+     \ in following cases: \
+     \ a) Cannot create input stream from given pathname.\
+     \ b) The string given from bytes does not contain a parsable integer."
+   end
+
+class_chart FILE_CHANNEL
+  indexing
+  in_cluster: "FILE_CHANNEL";
+  created: "2009-08-08 Dragan Stosic";
+  keywords: "InputStream","return","array of int";
+  revised: ""
+explanation
+  "This class represents an input file channel implementation."
+query
+""
+command
+"a ) Create input file channel.(create an empty list-open),\
+\b ) Returns InputStream  representing the data \
+    \ derived from an input channel.  \
+    \ throws an ChannelException. This exception will be thrown \
+    \ when a file with the specified pathname does not exist.\
+\c) Returns  int array representing the data derived from an input stream.\  
+     \ throws an ChannelException. This exception will be thrown \
+     \ in following cases: \
+     \ a) Cannot create input stream from given pathname.\
+     \ b) The string given from bytes does not contain a parsable integer."
+
+constraint
+   "File name cannot be a null."
+end
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- SENSOR_BOARD cluster chart GATE_ARRAY
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -718,4 +799,3 @@ explanation
 command
 "Create all missing sensor exceptions."
 end
-  
