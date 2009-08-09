@@ -1654,6 +1654,138 @@ component
     invariant
        SensorType.isValidAxis(a_sensType);
     end
+    
+       
+	effective class SENSOR_BUILDER 
+	    indexing
+	      about: "Represents an sensor builder implementation.";
+	       title:        "SensorBuilder";
+  	       author:       "Dragan Stosic";
+  	       copyright:    "none";
+  	       organisation: "School of Computer Science and Informatics, UCD";
+  	       date:         "2009/08/08";
+  	       version:      "Revision: 1.00";
+  	    feature
+	      sensors: LIST
+	        ensure
+	          Result /= Void;
+	        end
+	      mod_size: INTEGER
+	        ensure
+	          Result /= Void;
+	        end
+	      
+	      initialize
+	        require
+	          mod_size = 0;
+	         
+	        ensure
+	          mod_size = 1;
+	          mod_size <= 8;
+	        end
+	      
+	      getSensor: ISENSOR -> typeIndex: INTEGER
+	        require
+	          typeIndex /= Void;
+	          mod_size = 8;
+	          typeIndex >= 0;
+	          typeIndex <= 7;
+	          SensorType.legal_SensorType(typeIndex);
+	        ensure
+	          Result /= Void;
+	        end
+	        
+	        make
+	        ensure
+	          delta sensors;
+	          mod_size <= 8;
+	        end
+	        
+	        feature{NONE}
+	        
+	      g_arr: SEQUENCE[INTEGER]
+	        ensure
+	          Result /= Void;
+	        end
+	      g_sensor: ISENSOR
+	        ensure
+	          Result /= Void;
+	        end
+	    
+	     feature{NONE}
+	      
+	      createAxesXSensor
+	        require
+	          mod_size = 5;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	      createAxesYSensor
+	        require
+	          mod_size = 6;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	      createAxesZSensor
+	        require
+	          mod_size = 7;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	        
+	      createLightSensor
+	        require
+	          mod_size = 1;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	        
+	      createPressureSensor
+	        require
+	          mod_size = 3;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	        
+	      createSoundSensor
+	        require
+	          mod_size = 2;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	        
+	      createThermistorSensor
+	        require
+	          mod_size = 0;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (not g_sensor.isEnabled <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end
+	      
+	      createUltrasonicSensor
+	        require
+	          mod_size = 4;
+	        ensure
+	          mod_size = old(mod_size) + 1;
+	          (g_sensor.mod_enabled = false <-> g_arr.count = 0);
+	          mod_size <= 8;
+	        end 
+	        invariant 
+	        not sensors.containsNull;       
+	 end 
       
  end -- end cluster Sensor 
 end -- end static-diagram

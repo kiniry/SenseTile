@@ -87,7 +87,7 @@ description
   \The File system represents an persistance layer which serve to provide data as\
   \input data to different sensors."
 
-class ICHANNEL
+class I_CHANNEL
 description
 "Represents an interface for Channel implementation."
 
@@ -118,7 +118,7 @@ command
 "Create all channel exceptions."
 end
 
-class_chart ICHANNEL
+class_chart I_CHANNEL
   indexing
   in_cluster: "CHANNEL";
   created: "2009-08-08 Dragan Stosic";
@@ -368,6 +368,11 @@ description
 "This class represents a sound sensor - microphone. \
 \Microphone is an acoustic-to-electric sensor that converts \
 \sound into an electrical signal."
+
+
+class SENSOR_BUILDER
+description 
+"Represents an sensor builder implementation."
 
 cluster  TYPE
 description "Represents various sensor types."
@@ -798,4 +803,30 @@ explanation
   \ exception which is used during measurement operations."
 command
 "Create all missing sensor exceptions."
+end
+
+class_chart SENSOR_BUILDER
+indexing
+  in_cluster: "SENSOR";
+  created: "2009-08-08 Dragan Stosic";
+  revised: ""
+explanation
+  "Represents an concrete implementation of sensor builder."
+query
+"Which type of sensor are you?",
+"What is the measurement unit for this component ?",
+"Are you enabled ?",
+"What is the minimal value for this component ?",
+"What is the maximal value for this component ?",
+"What is the measured value for this component ?",
+
+command
+"Create sensor builder in initial state.",
+"Initialize sensor builder.Create all enabled(disabled) \
+\sensor instances.",
+"Returns an sensor instance in enabled (desabled) state."
+constraint
+"Sensors element type must be a type of I_SENSOR.\
+\Sensors list is formed without Void (Null) elements.\
+\Sensor list size must be a less than or equal to 8."
 end
