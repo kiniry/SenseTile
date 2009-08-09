@@ -23,10 +23,13 @@ public interface IChannel {
      * @throws an ChannelException. This exception will be thrown
      * when a file with the specified pathname does not exist.
      */
-	/*@ ensures \result != null;
+	/*@ public behavior
+	  @ requires mod_name != null;
+	  @ assignable \not_specified;
+	  @ ensures \result != null;
 	  @ signals (ChannelException ce) true;
 	  @*/
-	  InputStream getInputStream() throws ChannelException;
+	  InputStream processInputStream() throws ChannelException;
   
     /**
      * Returns  int array representing the data
@@ -44,13 +47,13 @@ public interface IChannel {
 	  @ ensures \result != null;
 	  @ signals (ChannelException ce) true; 
 	  @*/ 
-	 int[] getArray()throws ChannelException;
+	 int[] processArray()throws ChannelException;
     
     /**
      * Returns a relative path and file name.
      * @return relative path and file name.
      */
 	  //@ ensures mod_name != null; 
-    /*@pure non_null@*/ String getFileName(); 
+    /*@pure non_null@*/String getFileName(); 
     
 }

@@ -16,27 +16,27 @@ public final class FilePathHelper {
 	private FilePathHelper () {}
 	
 	/** Thermistor file path.*/
-	public static final String THERM_FILE_PATH = "";
+	public static final String THERM_FILE_PATH = "N.Y.I";
 	
 	/** Pressure sensor file path.*/
-	public static final String PRESS_FILE_PATH = "";
+	public static final String PRESS_FILE_PATH = "N.Y.I";
 	
 	/** Audio sensor file path.*/
-	public static final String AUDIO_FILE_PATH = "";
+	public static final String AUDIO_FILE_PATH = "N.Y.I";
 	
 	/** Ultra sound sensor file path.*/
-	public static final String ULTRA_FILE_PATH = "";
+	public static final String ULTRA_FILE_PATH = "N.Y.I";
 	
 	/** Light sensor file path.*/
-	public static final String LIGHT_FILE_PATH = "";
+	public static final String LIGHT_FILE_PATH = "N.Y.I";
 	
 	/** Accelerometer X sensor file path.*/
-	public static final String ACCEL_X_FILE_PATH = "";
+	public static final String ACCEL_X_FILE_PATH = "N.Y.I";
 	
 	/** Accelerometer Y sensor file path.*/
-	public static final String ACCEL_Y_FILE_PATH = "";
+	public static final String ACCEL_Y_FILE_PATH = "N.Y.I";
 	
 	/** Accelerometer Z sensor file path.*/
-	public static final String ACCEL_Z_FILE_PATH = "";
+	public static final String ACCEL_Z_FILE_PATH = "N.Y.I";
 
 }

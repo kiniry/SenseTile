@@ -38,9 +38,9 @@ public final class FileChannel implements IChannel {
 	}
 
 	/**
-	 * @see channel.IChannel#getInputStream()
+	 * @see channel.IChannel#processInputStream()
 	 */
-	public InputStream getInputStream() throws ChannelException 
+	public InputStream processInputStream() throws ChannelException 
 	{
 		InputStream fis;
 		try 
@@ -56,10 +56,10 @@ public final class FileChannel implements IChannel {
 	}
 	 
      /**
-      * @see channel.IChannel#getArray()
+      * @see channel.IChannel#processArray()
       */
 	
-	 /*@pure*/public int[] getArray() throws ChannelException
+	 /*@pure*/public int[] processArray() throws ChannelException
 	  {
 		 byte[] bytes = new byte[]{};
 		
