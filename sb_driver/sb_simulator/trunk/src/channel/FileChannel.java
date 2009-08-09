@@ -59,7 +59,7 @@ public final class FileChannel implements IChannel {
       * @see channel.IChannel#processArray()
       */
 	
-	 /*@pure*/public int[] processArray() throws ChannelException
+	  public int[] processArray() throws ChannelException
 	  {
 		 byte[] bytes = new byte[]{};
 		
