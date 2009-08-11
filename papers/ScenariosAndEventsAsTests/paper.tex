@@ -1,0 +1,174 @@
+%
+% "Formal Refinement between High-level Specifications and Validation" for UNKNOWN09.
+% Joseph R. Kiniry
+% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
+%
+
+\documentclass{article} 
+\usepackage{times}
+\usepackage{multirow}
+\usepackage{ifpdf}
+\usepackage{a4wide}
+\usepackage{pdfsync}
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+
+%\usepackage{todonotes}
+
+% \usepackage{html}
+% \usepackage{url}
+\usepackage{xspace}
+%\usepackage{doublespace}
+\usepackage{tabularx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+\usepackage{stmaryrd}
+% \ifpdf
+% \usepackage[centredisplay]{diagrams}
+% \else
+% \usepackage[centredisplay,PostScript=dvips]{diagrams}
+% \fi
+\usepackage{float}
+
+\ifpdf
+\usepackage[pdftex,bookmarks=false,a4paper=false,
+            plainpages=false,naturalnames=true,
+            colorlinks=true,pdfstartview=FitV,
+            linkcolor=blue,citecolor=blue,urlcolor=blue,
+            pdfauthor="Joseph R. Kiniry"]{hyperref}
+\else
+\usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\fi
+
+\newcommand{\tablesize}{\footnotesize}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
+%\newcommand{\myhref}[2]{\emph{#2}}
+\newcommand{\todo}{\textbf{TODO:}}
+\newcommand{\name}{\textbf{IB2JML}}
+%---------------------------------------------------------------------
+% New commands, macros, \etc
+%---------------------------------------------------------------------
+
+%% \input{kt}
+
+%=====================================================================
+
+\begin{document}
+
+\title{Formal Refinement between\\
+High-level Specifications and Validation}
+
+\author{Joseph R. Kiniry\\
+UCD CASL: Complex and Adaptive Systems Laboratory and\\
+School of Computer Science and Informatics,\\
+University College Dublin,\\
+Belfield, Dublin 4, Ireland,\\
+kiniry@acm.org\\
+}
+
+\maketitle
+
+%======================================================================
+%\thispagestyle{empty}
+\begin{abstract}
+  
+  An abstract.
+
+\end{abstract}
+
+%======================================================================
+\section{Introduction}
+
+The typical requirements document for a complex software project
+consists of hundreds or thousands of labeled English sentences written
+in a Microsoft Word document.  There is little-to-no relationship
+between this document's contents and the architecture and
+implementation of the system they purport to describe.  Checking that
+a system conforms to the requirements is a labor-intensive, expensive,
+slow, and manual process performed by some poor engineer that drew the
+short straw.  Moreover, like the vast majority of architecture
+descriptions using languages like UML, the system and its description
+are not kept in sync, so as the implementation moves on, the
+requirements are tossed to the wayside.
+
+In this paper we describe a a formal refinement between high-level
+specifications and a system's implementation via its validation.  The
+high-level specifications that we focus on include scenarios (aka
+use-cases), requirements, features (a la software product lines), and
+events, all of which are expressed in the Extended Business Object
+Notation (EBON) specification language.  Validation includes
+(sub)system, regression, and unit testing and static verification,
+using the Java Modeling Language (JML).  This refinement is expressed
+as a relation on types which is realizable as a adjoint pair of
+computations.  Consequently, one can use this formal refinement to (1)
+check that an implementation and its architecture conform to its
+high-level specification, (2) automatically update an architecture and
+implementation as their high-level specifications change, \emph{and}
+(3) automatically update high-level specifications as their
+architecture or implementation evolve.
+
+Our formal refinement is mechanically formally specified in
+higher-order logic in the PVS theorem prover and various appropriate
+metatheoretical properties about it are shown to hold.  Tool support
+for checking and updates is provided by the \name tool, an Eclipse
+plugin that realizes this formal refinement between EBON and JML.
+
+%=====================================================================
+\section{Conclusion}
+
+A conclusion.
+
+%% \nocite{ex1,ex2}
+\bibliographystyle{plain}
+\bibliography{extra,%
+              abbrev,%
+              ads,%
+              category,%
+              complexity,%
+              hypertext,%
+              icsr,%
+              knowledge,%
+              languages,%
+              linguistics,%
+              meta,%
+              metrics,%
+              misc,%
+              modeling,%
+              modeltheory,%
+              reuse,%
+              rewriting,%
+              softeng,%
+              specification,%
+              ssr,%
+              technology,%
+              theory,%
+              web,%
+              upcoming,%
+              upcoming_conferences,%
+              conferences,%
+              workshops,%
+              verification,%
+              escjava,%
+              jml,%
+              nijmegen}
+
+%======================================================================
+% Fin
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% eval: 
+%%% TeX-master: t
+%%% End: 
