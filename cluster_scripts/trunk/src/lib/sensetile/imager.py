@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import socket
 import string
 import time
 
@@ -86,10 +87,12 @@ class Imager():
         self._image_complete_update(target_name, flavor)
         self._reboot(target_name)
     
-    def _image_complete_update(self, target_name, flavor):
+    def _image_complete_update(self, target_name, flavor, image_server_ip_address = None):
+        if not image_server_ip_address:
+            image_server_ip_address = socket.gethostbyname(target_name)
         command = IMAGE_COMPLETE_UPDATE_COMMAND[:]
-        command[1] = command[1].substitute( server = _remove_domain(self.image_server_name) )
-        command[4] = command[4].substitute( flavor = flavor )
+        command[1] = command[1].substitute(server = image_server_ip_address)
+        command[4] = command[4].substitute(flavor = flavor)
         e = self.executor_class(command)
         e.ssh_run(target_name, "root", check = True)
     
@@ -119,7 +122,6 @@ class Imager():
         command = IMAGE_CREATE_PREPARE_COMMAND[:]
         command[1] = command[1].substitute( server = _remove_domain(self.image_server_name) )
         e = self.executor_class(command)
-        e.ssh_run(target_name, "root", check = True)
     
     def _get_image(self, target_name, image_name, ip_assignment):
         command = IMAGE_CREATE_GET_COMMAND[:]

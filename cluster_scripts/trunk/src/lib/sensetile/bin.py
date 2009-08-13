@@ -87,14 +87,15 @@ def call_image(args):
     
     (options, args) = parser.parse_args(args)
     if (
-            ((not options.server) or (not options.target)) or
+            (not options.server) or 
+            (not options.target) or
             ((options.autoinstall) and (not options.flavor))):
         print parser.print_help()
         exit(-1)
     
     try:
         img = imager.Imager(options.server)
-        img.image(options.target, reboot = options.reboot, autoinstall = options.autoinstall)
+        img.image(options.target, reboot = options.reboot, autoinstall = options.autoinstall, flavor = options.flavor)
     except Exception, exception:
         print exception.err_str
         exit(exception.errorcode)

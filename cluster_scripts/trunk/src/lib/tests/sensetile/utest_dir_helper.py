@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import unittest,os, shutil
+import unittest, os, shutil
 from sensetile import dir_helper
 
 class DirectoryHelperTestCase(unittest.TestCase):
