@@ -3,7 +3,7 @@
 LD_LIBRARY_PATH="lib"
 export LD_LIBRARY_PATH
 
-if [ -n ${JAVA_HOME} ] ; then
+if [ ${JAVA_HOME} ] ; then
   java="${JAVA_HOME}/bin/java"
 else
   java="java"
