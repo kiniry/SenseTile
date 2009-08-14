@@ -138,7 +138,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     try {
       return template.clone();
     } catch (CloneNotSupportedException e) {
-      throw new UnsupportedOperationException(e);
+      throw new UnsupportedOperationException();
     }
   }
   
