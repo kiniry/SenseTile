@@ -36,7 +36,7 @@ public interface Packet {
    * 
    * Minimum: -880 , Maxmimum: 2047
    * 
-   * C = getTemperatureRaw() / 16.0
+   * C = getTemperature() / 16.0
    * 
    * @return temperature
    */
@@ -49,7 +49,7 @@ public interface Packet {
    * 
    * Minimum: 310 , Maxmimum: 5585
    * 
-   * Kpa = ( getPressureRaw() * 4.0 + 1925.0 ) / 211.0; 
+   * Kpa = ( getPressure() * 4.0 + 1925.0 ) / 211.0; 
    * 
    * @return pressure
    */
@@ -73,7 +73,7 @@ public interface Packet {
    * 
    * Minimum: 1488 , Maximum: 2232
    * 
-   * g = ( getAccelerometerXRaw() / 1860.0 - 1 ) * 5.0
+   * g = ( getAccelerometerX() / 1860.0 - 1 ) * 5.0
    * 
    * @return acceleration
    */
@@ -86,7 +86,7 @@ public interface Packet {
    * 
    * Minimum: 1488 , Maximum: 2232
    * 
-   * g = ( getAccelerometerYRaw() / 1860.0 - 1 ) * 5.0
+   * g = ( getAccelerometerY() / 1860.0 - 1 ) * 5.0
    * 
    * @return acceleration
    */
@@ -99,7 +99,7 @@ public interface Packet {
    * 
    * Minimum: 1488 , Maximum: 2232
    * 
-   * g = ( getAccelerometerZRaw() / 1860.0 - 1 ) * 5.0
+   * g = ( getAccelerometerZ() / 1860.0 - 1 ) * 5.0
    * 
    * @return acceleration
    */

@@ -6,11 +6,8 @@
 
 package ie.ucd.sensetile.sensorboard;
 
-//@ model import ie.ucd.sensetile.sensorboard.Packet;
-
 import java.io.IOException;
 import java.io.EOFException;
-import ie.ucd.sensetile.sensorboard.SenseTileException;
 
 /** 
  * JML's specification of PacketInputStream.

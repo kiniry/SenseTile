@@ -166,7 +166,7 @@ public final class UnsignedByteArray {
    * @return array
    */
   public byte[] getArray() {
-    //@edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
+    // @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     return array;
   }
   

@@ -27,9 +27,8 @@ public interface PacketInputStream {
    * @throws IOException I/O error
    * @throws SenseTileException data is malformed
    */
-  int read(Packet[] array) throws IOException,
-      SenseTileException;
-
+  int read(Packet[] array) throws IOException, SenseTileException;
+  
   /**
    * Reads some number of packets from the contained input stream and stores 
    * them into the array.
@@ -52,7 +51,7 @@ public interface PacketInputStream {
    */
   int read(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
-
+  
   /**
    * Reads the next packet from the input stream. 
    * 
