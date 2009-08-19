@@ -1,0 +1,73 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{TOLERANCE}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+deferred class IQTOLERANCE
+ feature 
+  checkAbsConv:BOOLEAN
+  checkRelativeConv:BOOLEAN
+  computeLTE:REAL
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+This class represents an quantity tolerance interface.
+\smallskip \smallskip
+\end{minipage}\\
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|tolerance group|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class TOLERANCE
+ inherit IQTOLERANCE
+ feature{NONE} 
+  tol_name : STRING 
+  tol_unit : STRING
+  tol_dot : REAL
+  tol_integ : REAL
+ feature
+  make 
+    -> name,unit: STRING
+    -> dot,integ: REAL
+ feature 
+  getName:STRING
+  getUnit:STRING
+  getDot:REAL
+  getInteg:REAL   
+end
+\end{lstlisting}
+
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+The tolerance group of a subtype is a string value that 
+may used by a model to group values determined by the quantities.
+\smallskip \smallskip
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

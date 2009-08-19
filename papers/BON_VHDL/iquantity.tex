@@ -1,0 +1,83 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{ATTRIBUTES OF QUANTITY}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+
+\begin{minipage}[l]{2.4cm} 
+\smallskip \smallskip 
+\lstinlinenc|Q'tolerance|  \\
+\lstinlinenc|Q'above(E)|   \\
+\lstinlinenc|Q'delayed(t)| \\
+\lstinlinenc|Q'dot|        \\
+\lstinlinenc|Q'integ|      \\
+\lstinlinenc|Q'ztf| \\
+\lstinlinenc|(num,den,t| \\
+\lstinlinenc|initial_delay)|       \\
+\lstinlinenc|Q'ltf| \\
+\lstinlinenc|(num,den)| \\
+\lstinlinenc|Q'zoh| \\
+\lstinlinenc|(t,initial_delay)|       \\
+\lstinlinenc|Q'slew|       \\
+\lstinlinenc|(max_rising_slope,| \\
+\lstinlinenc|max_falling_slope)| \\
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+deferred class IQUANTITY
+ feature 
+  tolerance:TOLERANCE
+  above:BOOLEAN
+   -> e:REAL
+  delayed:REAL
+   -> t:UNIVERSAL_TIME
+  dot:FREE_QUANTITY 
+  integ:FREE_QUANTITY
+  ztf:FREE_QUANTITY
+   -> num:SEQUENCE[REAL]
+   -> den:SEQUENCE[REAL]
+   -> t:UNIVERSAL_TIME
+   -> initial_delay:UNIVERSAL_TIME 
+  ltf:FREE_QUANTITY
+   -> num:SEQUENCE[REAL]
+   -> den:SEQUENCE[REAL] 
+  zoh:FREE_QUANTITY
+   -> t:UNIVERSAL_TIME
+   -> initial_delay:UNIVERSAL_TIME  
+  slew:FREE_QUANTITY
+   -> max_rising_slope:REAL
+   -> max_falling_slope:REAL
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+This calss represents quantity interface with following
+attributes: \\
+Tolerance group string presentation for scalar quantity.
+Above attribute is true if the value of Q is grater than 
+the value of e, otherwise false. \\
+Delayed attribute represents value of quantity delayed by T.NOW-T.\\
+Dot attribute represents quantity with the same type 
+as quantity Q whose value is the \textbf{derivative} 
+of Q with respect to time.\\
+Integ attribute represents quantity with the same type 
+as quantity Q whose value is the \textbf{integral} 
+of Q with respect to time. \\
+Ztf quantity represents \emph{z-domain} transfer function of Q.\\
+Ltf quantity represents \emph{Laplace-domain} transfer function of Q. \\
+Zoh quantity represents \emph{zero order hold} of Q.\\
+Slow attribute represents quantity whose value follows that of Q, 
+but whose derivative with respect to time is limited by the 
+slopes.
+\smallskip \smallskip
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

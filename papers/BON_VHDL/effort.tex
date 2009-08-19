@@ -1,0 +1,109 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{EFFORT COMMON DOMAINS}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|voltage(V)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class VOLTAGE 
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end  
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Voltage effort for electrical domain.
+\smallskip \smallskip
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|velocity(V)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class VELOCITY
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Velocity effort for mechanical translation domain.
+\smallskip \smallskip
+\end{minipage}\\
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|angular_velocity|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class ANGULAR_VELOCITY
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Angular velocity effort for mechanical rotation domain.
+\smallskip \smallskip
+\end{minipage}\\
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|pressure(P)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class PRESSURE
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Pressure effort for fluidic domain.
+\smallskip \smallskip
+\end{minipage}\\
+\end{tabular}
+\end{center}

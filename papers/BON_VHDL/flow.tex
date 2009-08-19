@@ -1,0 +1,110 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{FLOW COMMON DOMAINS}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|current(I)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class CURRENT 
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Current flow for electrical domain.
+\smallskip \smallskip
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|force(F)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class FORCE
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Force flow for mechanical translation domain.
+\smallskip \smallskip
+\end{minipage}\\
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|torque(T)|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class TORQUE
+ inherit EFFORT 
+  feature tolerance:TOLERANCE
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Torque flow for mechanical rotation domain.
+\smallskip \smallskip
+\end{minipage}\\
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip \smallskip 
+\lstinlinenc|volumetric| \\
+\lstinlinenc|flow_rate|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class VOLUM_FLOW_RATE
+ inherit EFFORT
+  feature tolerance:TOLERANCE
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Volumetric flow rate  for fluidic domain.
+\smallskip \smallskip
+\end{minipage}\\
+\end{tabular}
+\end{center}

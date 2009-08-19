@@ -1,0 +1,224 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{STANDARD NATURES}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|electrical|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class ELECTRIC
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Electrical domain.
+\end{minipage}\\ 
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|magnetic|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class MAGNETIC
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Electromagnetic domain.
+\smallskip \smallskip
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|translational|
+\smallskip \smallskip
+\end{minipage}  
+&
+
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class TRANSLATION
+ inherit SUBNATURE   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip 
+Translational domain (linear displacement).
+\smallskip \smallskip
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|translational_v|
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class TRANS_VELOCITY
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Translational velocity domain.
+\end{minipage}\\ 
+
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|rotational|
+\end{minipage}  
+&
+
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class ROTATION
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Rotational domain (angular displacement).
+\smallskip \smallskip
+\end{minipage}\\
+
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|rotational_v|
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class ROT_VELOCITY
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Rotational velocity domain.
+\smallskip \smallskip   
+\end{minipage}\\ 
+
+
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|fluidic|
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class FLUID
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Fluidic domain.
+\smallskip \smallskip   
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|thermal|
+\end{minipage} 
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class THERMAL
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Thermal domain.
+\smallskip \smallskip   
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip 
+\lstinlinenc|radiant|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip 
+\begin{lstlisting}[language=Bon]
+effective class RADIANT
+ inherit SUBNATURE
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Radiant domain.
+\smallskip \smallskip   
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

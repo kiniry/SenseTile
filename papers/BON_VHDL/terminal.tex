@@ -1,0 +1,75 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{TERMINAL}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+
+\multirow{3}{*}{
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip
+\lstinlinenc|terminal|
+\smallskip \smallskip
+\end{minipage}
+} 
+&
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class SCALAR_TERMINAL
+ inherit ITERMINAL
+ feature
+  make:SCALAR_TERMINAL 
+    -> nature:SUBNATURE  
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}
+
+& \begin{minipage}[l]{6cm} 
+\smallskip \smallskip
+Scalar terminal definition with 
+reference and contribution which 
+corresponds to the \arcoss and \through features derived from 
+\lstinlinen|SUBNATURE|. 
+\smallskip \smallskip
+\end{minipage}\\
+& \begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class ARRAY_TERMINAL
+ feature
+  make:ARRAY_TERMINAL 
+    -> nature:ANATURE 
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}
+& \begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Composite (array) terminal definition. 
+\smallskip \smallskip
+\end{minipage}\\
+
+& \begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class RECORD_TERMINAL
+ feature
+  make:RECORD_TERMINAL 
+    -> nature:RNATURE 
+end   
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage} 
+& \begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Composite (record) terminal  definition. 
+\smallskip \smallskip
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

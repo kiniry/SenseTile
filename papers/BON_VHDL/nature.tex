@@ -1,0 +1,109 @@
+\begin{center}
+\begin{tabular}{ c c c }
+\multicolumn{3}{ c }{\textbf{NATURE}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\
+\hline \hline
+\multirow{3}{*}{
+\begin{minipage}[c]{2.4cm} 
+\centering  
+\smallskip \smallskip
+\lstinlinenc|nature|
+\smallskip \smallskip
+\end{minipage}
+} 
+&
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+class SNATURE
+ inherit ISCALNATURE
+ feature 
+  ref:TERMINAL
+end
+\end{lstlisting}
+
+\smallskip \smallskip
+\end{minipage}
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Scalar nature definition.
+Reference terminal is created implicitly 
+by nature declaration.  
+\smallskip \smallskip
+\end{minipage}\\
+& 
+\begin{minipage}[c]{4.6cm} 
+\centering
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+class ANATURE
+ inherit
+  IARRAY[SUBNATURE]
+  feature
+  make:ANATURE -> 
+   array:SEQUENCE[SUBNATURE]  
+end  
+\end{lstlisting}
+
+\smallskip \smallskip
+\end{minipage}
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Array nature definition.
+\lstinlinen|ANATURE's| sequence 
+contains \lstinlinen|SUBNATURE|. 
+\smallskip \smallskip
+\end{minipage}\\
+& 
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+class RNATURE
+  feature
+   make:RNATURE -> 
+    record:TABLE
+end  
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage} 
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Record nature definition.
+\lstinlinen|RNATURE's| map  
+contains \lstinlinen|VALUE| as key elements.
+The value elements must be either \lstinlinen|SUBNATURE| 
+or \lstinlinen|IARRAY|.
+\smallskip \smallskip
+\end{minipage}\\ 
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip
+\lstinlinenc|subnature|
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+class SUBNATURE[TOLERANCE]
+ inherit SNATURE
+  feature tolerance:TOLERANCE  
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+Subnature definition.
+\smallskip \smallskip
+\end{minipage}\\
+\end{tabular}
+\end{center}

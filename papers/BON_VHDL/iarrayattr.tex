@@ -1,0 +1,56 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{ATTRIBUTES OF ARRAY TYPES AND NATURES}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+\begin{minipage}[c]{2.4cm} 
+\smallskip \smallskip
+\lstinlinenc|A'left(n)| \\
+\lstinlinenc|A'right(n)|\\
+\lstinlinenc|A'high(n)| \\
+\lstinlinenc|A'low(n)| \\
+\lstinlinenc|A'range(n)| \\
+\lstinlinenc|A'reverse_range(n)| \\
+\lstinlinenc|A'length(n)| \\
+\lstinlinenc|A'ascending(n)| \\
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\begin{lstlisting}[language=Bon]
+deferred class IARRAY[T]
+ feature -> n:INTEGER
+  left:T -> n:INTEGER
+  right:T-> n:INTEGER
+  low:T  -> n:INTEGER
+  high:T -> n:INTEGER
+  range:INTEGER     
+         -> n:INTEGER
+  reverse_range:INTEGER 
+         -> n:INTEGER
+  length:INTEGER 
+         -> n:INTEGER
+  ascending:BOOLEAN 
+         -> n:INTEGER
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+This class represents array nature interface 
+with following features: leftmost value in index range of dimension n,\xspace 
+rightmost value in index range of dimension n,\xspace 
+least value in index range of dimension n,\xspace 
+greatest value in index range of dimension n,\xspace
+index range of dimension n,\xspace
+index range of dimension n reversed in direction and bounds,\xspace
+length of index range of dimension n,\xspace and
+ordering.\xspace
+\smallskip \smallskip
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

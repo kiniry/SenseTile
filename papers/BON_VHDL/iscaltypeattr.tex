@@ -1,0 +1,68 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{ATTRIBUTES OF SCALAR TYPES AND SUBTYPES}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+\begin{minipage}[c]{2.4cm} 
+\smallskip \smallskip
+\lstinlinenc|T'left| \\
+\lstinlinenc|T'right|\\
+\lstinlinenc|T'high| \\
+\lstinlinenc|T'low| \\
+\lstinlinenc|T'ascending| \\
+\lstinlinenc|T'image(x)| \\
+\lstinlinenc|T'value(s)| \\
+\lstinlinenc|T'pos(s)| \\
+\lstinlinenc|T'val(x)| \\
+\lstinlinenc|T'succ(x)| \\
+\lstinlinenc|T'pred(x)| \\
+\lstinlinenc|T'leftof(x)| \\
+\lstinlinenc|T'rightof(x)| \\
+\lstinlinenc|T'base| \\
+\smallskip \smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\begin{lstlisting}[language=Bon]
+deferred class ISCALTYPE[T]
+ feature 
+  left:T
+  right:T
+  low:T
+  high:T
+  image:STRING -> x:REAL
+  value:STRING -> s:STRING
+  pos:INTEGER -> s:STRING
+  val:T  -> x:REAL
+  succ:T -> x:REAL
+  pred:T -> x:REAL
+  leftof:T  -> x:REAL
+  rightof:T -> x:REAL
+  base:T
+end
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip \smallskip
+This class represents type interface 
+with following features: first (leftmost) value,\xspace 
+last (rightmost) value,\xspace 
+least value,\xspace ascending range,\xspace 
+value \textbf{x} of T,\xspace\textbf{s}
+string presentation of value,\xspace
+position number of x in T,\xspace
+value at position x in T,\xspace
+value at position one greater than x in T,\xspace
+value at position one less than x in T,\xspace
+value at position one to the left of x in T,\xspace
+value at position one to the right of x in T,\xspace
+base type of T, for use only as prefix of 
+another attribute.
+\smallskip \smallskip
+\end{minipage}\\ 
+\end{tabular}
+\end{center}

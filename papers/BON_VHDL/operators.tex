@@ -1,190 +1,238 @@
 \begin{center}
-    \begin{tabular}{|c|c|l|}
-        \hline
-        \multicolumn{3}{|c|}{\textbf{OPERATORS}}\\  \hline
-    	\hline
-    	VHDL-AMS & BON & Description \\ \hline \hline
-    	\multicolumn{3}{|c|}{\textbf{Arithmetic operators mapping}}\\ \hline \hline
-        \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{**}
-        \end{minipage}  
+\begin{tabular}{| c | c | l |}
+\multicolumn{3}{c}{\textbf{Operators}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline 
+\multicolumn{3}{|c|}{\textbf{Arithmetic operators mapping}}\\ \hline
+\begin{minipage}[c]{2.4cm} 
+ \centering
+ \smallskip 
+ \textbf{**}
+ \smallskip
+\end{minipage}  
         &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{\textasciicircum}
-        \end{minipage}  
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip 
+\textbf{\textasciicircum}
+\smallskip
+\end{minipage}  
         & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		exponentiation.
-                 
-    	\end{minipage}\\ \hline
+\begin{minipage}[c]{6cm}  
+\smallskip
+exponentiation.
+\smallskip 
+\end{minipage}\\ \hline
 
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{+, \textendash, *, /}
-        \end{minipage}  
+\begin{minipage}[c]{2.4cm} 
+ \centering
+ \smallskip 
+ \textbf{+, \textendash, *, /}
+ \smallskip
+\end{minipage}  
         &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{+, \textendash, *, /}
-        \end{minipage}  
+\begin{minipage}[c]{4.6cm}
+ \centering
+ \smallskip 
+ \textbf{+, \textendash, *, /}
+ \smallskip
+\end{minipage}  
         & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		identity, addition, negation, subtraction, multiplication, division.
-                 
-    	\end{minipage}\\ \hline
-             \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{rem}
-        \end{minipage}  
+\begin{minipage}[c]{6cm}  
+ \smallskip
+ identity, addition, negation, subtraction, multiplication, division.
+ \smallskip        
+\end{minipage}\\ \hline
+\begin{minipage}[c]{2.4cm} 
+ \centering
+\smallskip 
+ \textbf{rem}
+\smallskip
+\end{minipage}  
         &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \undef
-        \end{minipage}  
+\begin{minipage}[c]{4.6cm}
+ \centering
+\smallskip 
+\undef
+\smallskip
+\end{minipage}  
         & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	reminder.
-                 
-    	\end{minipage}\\ \hline
+\begin{minipage}[c]{6cm}  
+\smallskip
+reminder.
+\smallskip
+\end{minipage}\\ \hline
 
 
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{abs}
-        \end{minipage}  
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip 
+\textbf{abs}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip 
+\undef
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip
+absolute value.
+\smallskip       
+\end{minipage}\\ \hline
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip
+\textbf{mod}
+\smallskip
+\end{minipage}  
         &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \undef
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	absolute value.
-               
-    	\end{minipage}\\ \hline
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip 
+$\backslash\backslash$
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip
+ modulo.
+\smallskip
+\end{minipage} \\ \hline
 
-            \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{mod}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         $\backslash\backslash$
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 modulo.
-        \end{minipage} \\ \hline \hline
+\multicolumn{3}{|c|}{\textbf{Relational operators mapping}}\\ \hline
 
-       \multicolumn{3}{|c|}{\textbf{Relational operators mapping}}\\ \hline \hline
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip 
+\textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip
+\textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip
+equality, inequality, less than, less than or equal , 
+greater than, greater than or equal.
+\smallskip
+\end{minipage}\\ \hline
+        
+\multicolumn{3}{|c|}{\textbf{Logical operators mapping}}\\ \hline
 
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{=, /=, \textless, \textless=, \textgreater, \textgreater=}
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth} 
-                 \vskip 1mm
-    		equality, inequality, less than, less than or equal , greater than, greater than or equal.
-                 
-    	\end{minipage}\\ \hline \hline
-        \multicolumn{3}{|c|}{\textbf{Logical operators mapping}}\\ \hline \hline
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip 
+\textbf{not, and, or, xor}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering
+\smallskip 
+\textbf{not, and, or, xor}
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip
+negation, logical and, logical or, exclusive or.
+\smallskip 
+\end{minipage}\\ \hline
 
-       \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{not, and, or, xor}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{not, and, or, xor}
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth} 
-                 \vskip 1mm
-    		 	negation, logical and, logical or, exclusive or.
-                 
-    	\end{minipage}\\ \hline
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip
+\textbf{nand}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip
+\textbf{not and}
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip
+negated logical and.
+\smallskip
+\end{minipage}\\ \hline
+	
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip
+\textbf{nor}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip
+\textbf{not or}
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip
+negated logical or.
+\smallskip
+\end{minipage}\\ \hline
+
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip
+\textbf{xnor}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip
+\textbf{not xor}
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip
+negated exclusive or.
+\smallskip
+\end{minipage}\\ \hline 
         
 
-	\begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{nand}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{not and}
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth} 
-                 \vskip 1mm
-    		 	negated logical and.
-                 
-    	\end{minipage}\\ \hline
-	
-        \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{nor}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{not or}
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth} 
-                 \vskip 1mm
-    		 	negated logical or.
-                 
-    	\end{minipage}\\ \hline
-
-	 \begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{xnor}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \textbf{not xor}
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	negated exclusive or.
-                 
-    	\end{minipage}\\ \hline \hline 
-        \multicolumn{3}{|c|}{\textbf{Shift operators mapping}}\\ \hline \hline
-	\begin{minipage}[c]{3cm} 
-         \centering 
-         \textbf{sll, srl, sla, sra, rol, ror}
-        \end{minipage}  
-        &
-       \begin{minipage}[c]{3cm}
-         \centering 
-         \undef
-        \end{minipage}  
-        & 
-	\begin{minipage}[c]{0.5\linewidth}  
-                 \vskip 1mm
-    		 	shift-left/right logical,\\
-                        shift-left/right arithmetic,\\
-                        rotate left/right.
-                 
-    	\end{minipage}\\ \hline
-
-    \end{tabular}
+\multicolumn{3}{|c|}{\textbf{Shift operators mapping}}\\ \hline
+\begin{minipage}[c]{2.4cm} 
+\centering
+\smallskip 
+\textbf{sll, srl, sla, sra, rol, ror}
+\smallskip
+\end{minipage}  
+&
+\begin{minipage}[c]{4.6cm}
+\centering 
+\smallskip
+\undef
+\smallskip
+\end{minipage}  
+& 
+\begin{minipage}[c]{6cm}  
+\smallskip
+shift-left/right logical,\\
+shift-left/right arithmetic,\\
+rotate left/right.
+\smallskip
+\end{minipage}\\ \hline
+\end{tabular}
 \end{center}

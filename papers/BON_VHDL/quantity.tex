@@ -1,0 +1,91 @@
+\begin{center}
+\begin{tabular}{ c  c  c }
+\multicolumn{3}{c}{\textbf{QUANTITY}}\\ 
+\hline \hline
+VHDL-AMS & BON & Description \\ 
+\hline \hline
+\multirow{3}{*}{
+\begin{minipage}[c]{2.4cm} 
+\centering 
+\smallskip \smallskip
+\lstinlinenc|quantity|
+\smallskip \smallskip
+\end{minipage}
+} 
+&
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class FREE_QUANTITY
+ inherit IQUANTITY
+  feature
+  make:FREE_QUANTITY
+   -> aType:SUBTYPE
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}
+& 
+\begin{minipage}[l]{6cm} 
+\smallskip \smallskip
+Free quantity represents an analog-valued
+object used in signal-flow modeling. 
+\smallskip \smallskip
+\end{minipage}\\
+& 
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class BRANCH_QUANTITY
+  feature 
+    make:BRANCH_QUANTITY
+    through:FLOW
+    across:EFFORT
+    terminalFrom:SEQUENCE[ITERMINAL]
+    terminalTo:SEQUENCE[ITERMINAL]
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage}
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Branch quantity.
+\begin{itemize}
+\item \textbf{accross}:
+Represents the difference in \emph{effort} 
+between terminals.
+Effort is represented by the \textbf{accross} terminal's subnature.
+\item \textbf{through}:
+Represents the \emph{flow} through the branch between
+terminals.
+Flow is represented by the \textbf{through} of terminal's subnature.
+\end{itemize}
+ 
+\smallskip \smallskip
+\end{minipage}\\
+& 
+\begin{minipage}[c]{4.6cm} 
+\centering 
+\smallskip \smallskip
+\begin{lstlisting}[language=Bon]
+effective class SOURCE_QUANTITY
+  feature 
+    make:SOURCE_QUANTITY
+end 
+\end{lstlisting}
+\smallskip \smallskip
+\end{minipage} 
+& 
+\begin{minipage}[c]{6cm} 
+\smallskip \smallskip
+Source quantity. 
+\smallskip \smallskip
+\end{minipage}\\
+\end{tabular}
+\end{center}
+
+
+

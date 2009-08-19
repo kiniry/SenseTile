@@ -11,6 +11,8 @@
 \usepackage{ifpdf}
 \usepackage{a4wide}
 \usepackage{pdfsync}
+\usepackage{amsmath}
+\usepackage{listings}
 
 \ifpdf
 \usepackage[pdftex]{graphicx}
@@ -48,6 +50,78 @@
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
 
+
+\lstset{
+  language=Java,
+  basicstyle=\footnotesize\sffamily,
+  identifierstyle=\itshape,
+  stringstyle=\footnotesize\ttfamily,
+  commentstyle=\textup,
+  columns=flexible,
+  captionpos=b,
+  morekeywords={},
+  literate=
+  {-}{{$\textendash$}}1
+  {<}{{$\textless$}}1
+  {<=}{{$\textless=$}}1
+  {>}{{$\textgreater$}}2
+  {>=}{{$\textgreater=$}}2
+  {\\}{{$\backslash\backslash$}}1
+  {'}{{$\textprimstress$}}1
+}
+
+\def\lstinlinen{\lstinline[language=Bon,basicstyle=\normalsize\upshape]}
+
+\def\lstinlinenv{\lstinline[language=VHDL,basicstyle=\normalsize\upshape]}
+
+\def\lstinlinenc{\lstinline[language=VHDL,basicstyle=\normalsize\bfseries]}
+
+\def\lstinlinenb{\lstinline[language=Bon,basicstyle=\normalsize\bfseries]}
+
+\lstdefinelanguage{Bon} {
+  morekeywords={require,ensure,feature,old,and,o,Q'slew,end,Result},
+  morekeywords={class,delta,invariant,inherit,deferred,effective,NONE,make},
+  morecomment=[l]{--}, 
+  morecomment=[s]{/*}{*/}, 
+  morestring=[b]", 
+ literate=,
+  showstringspaces=false
+}
+
+\lstdefinelanguage{VHDL} {
+  morekeywords={not,xnor,and,nand, nor,or,xor,integer,byte,real},
+  morekeywords={character,enum,type,boolean,bit,time,null,std_ulogic},
+  morekeywords={sll, srl, sla, sra, rol, ror},
+  morekeywords={rem,abs,mod},
+  morekeywords={terminal,T'reference, T'contribution,T'tolerance},
+  morekeywords={reference,contribution},
+  morekeywords={nature,subnature,electrical,magnetic,translational,translational_v},
+  morekeywords={rotational,rotational_v,fluidic,thermal,radiant},
+  morekeywords={voltage,angular_velocity,pressure,velocity},
+  morekeywords={current,force,torque,volumetric,flow_rate},
+  morekeywords={T'left,T'right,T'high,T'ascending,T'image(x),T'value(s)},
+  morekeywords={left,right,high,ascending,image,value},
+  morekeywords={T'pos(s),T'val(x),T'succ(x),T'pred(x)},
+  morekeywords={pos,val,succ,pred},
+  morekeywords={A'left(n),A'right(n),A'low(n),A'high(n)},
+  morekeywords={left,right,low,high},
+  morekeywords={A'range(n),A'reverse_range(n),A'length(n),A'ascending(n)},
+  morekeywords={range,reverse_range,length,ascending},
+  morekeywords={T'leftof(x),T'rightof(x),T'base},
+  morekeywords={leftof,rightof,base},
+  morekeywords={Q'tolerance, Q'above,Q'delayed,Q'dot,Q'integ},
+  morekeywords={delayed,dot,integ},
+  morekeywords={Q'slew,Q'ztf,Q'ltf,Q'zoh},
+  morekeywords={N'across, N'through},
+  morekeywords={across,through,zoh,ltf,slew,ztf},
+  morekeywords={above,tolerance,group,quantity},
+  morecomment=[l]{--}, 
+  morecomment=[s]{/*}{*/}, 
+  morestring=[b]", 
+ literate=,
+  showstringspaces=false
+}
+
 \newcommand{\tablesize}{\footnotesize}
 \newcommand{\eg}{e.g.,\xspace}
 \newcommand{\ie}{i.e.,\xspace}
@@ -62,17 +136,13 @@
 \newcommand{\computefarm}{The \STs Scientific Compute Farm\xspace}
 \newcommand{\computefarmlong}{UCD CASL \STs Software and Data Compute Server Farm\xspace}
 \newcommand{\sensorfarm}{The \STs\xspace}
-\newcommand{\Sc}{\emph{SYSTEM\_CHART}\xspace}
-\newcommand{\Clc}{\emph{CLUSTER\_CHART}\xspace}
-\newcommand{\Csc}{\emph{CLASS\_CHART}\xspace}
-\newcommand{\Ft}{\emph{feature}\xspace}
 \newcommand{\ent}{\emph{entity}\xspace}
 \newcommand{\arch}{\emph{architecture}\xspace}
 \newcommand{\archs}{\emph{architectures}\xspace}
-\newcommand{\duc}{\emph{design units collection}\xspace}
-\newcommand{\ducs}{\emph{design units collections}\xspace}
-\newcommand{\du}{\emph{design unit}\xspace}
+
 \newcommand{\undef}{\emph{undefined}\xspace}
+\newcommand{\arcoss}{\emph{across}\xspace}
+\newcommand{\through}{\emph{through}\xspace}
 %---------------------------------------------------------------------
 % New commands, macros, \etc
 %---------------------------------------------------------------------
@@ -282,13 +352,35 @@ A conclusion.
 
 %======================================================================
 \appendix
+\newpage
 \section {APPENDIX}
-%\todo{dragan 27/07/2009 - Figure out : Mapping from BON  to entity/architecture structure in VHDL-ASM.}
 \input{static}
-%\todo{dragan 27/07/2009 - Figure out :  static types.}
-\input{operators}
-%\todo{dragan 27/07/2009 - Figure out :  types/subtypes.}
+\input{arith}
+\input{shift}
+\input{relation}
+\input{logic}
 \input{types}
+\input{assignment}
+\input{iscaltypeattr}
+\input{tolerance}
+\input{effort}
+\input{flow}
+\input{nature}
+\input{iscalnature}
+\input{iarrayattr}
+\input{scalnat}
+\input{iterminal}
+\input{terminal}
+\input{iquantity}
+\input{quantity}
+\input{quantityport}
+\input{terminalport}
+\input{signal}
+\input{signalattr}
+\input{wait}
+%\input{quantityattr1}
+%\input{quantityattr2}
+%\input{quantityattr3}
 %======================================================================
 
 \end{document}
