@@ -217,7 +217,7 @@ level analogue mapping and will further illustrate a procedure for
 transformation from VHDL-AMS to BON. As an extremly simple example, 
 we will give practical aspect of refinement from VHDL-AMS to BON,
 applied on A/D convertor, in order to produce formal specification 
-and software simulation. A complete list of the mapping between BON 
+and software simulation. A comprehensive list of the mapping between BON 
 and VHDL-AMS can be found in the appendix.
 %=====================================================================
 
@@ -234,8 +234,11 @@ VHDL-AMS introduces the following capabilities and therms:
 \begin{itemize}
 \item 
 \emph{Terminals} represents phisical connection points or circuit nodes 
-of a network connectivity. Terminals are declared to be of various 
+of a network connectivity. They are declared to be of various 
 \emph{natures}, which represent different energy domains of a system.
+Terminals hold no values; their only role is to facilitate the formation
+of conservative equation sets that, in turn, constrain the associated 
+\emph{branch quatities}. 
 \item
 The \emph{simultaneous statements} creates one or more characteristic 
 equations that are solved by the dedicated simulation kernel a.k.a.
@@ -246,13 +249,17 @@ The behaviour of the \emph{quantities} is given by the \emph{simultaneous
  statements}. They take values as a result of solving the set of simultaneous 
 ordinary differential and algebraic equations (DAEs). To simplify, 
 quantities can be understood as analog unknowns of (DAEs) that specify 
-analog behavior. 
+analog behavior. There are three kinds of quantity in VHDL-AMS: free, 
+branch and source quantities. A \emph{free quantity} can be used in 
+signal-flow modeling. A \emph{branch quantity} is used to model conservative energy
+systems. A \emph{source quantity} is used for frequency and noise modeling.
 \item
 The \emph{break statement} is an construct which allows to 
 initialize the DAE system at the beginning of a transient 
 simulation and to mark discontinuities during such a transient 
-simulation.
-
+simulation. A break statement allows restart of the analog kernel,
+than overrides quantity values and executes concurrently with the analogue model. 
+For any concurrent break statement there is an associated process.
 \end{itemize} 
  
 \section{Choice of BON as the modeling tool}
@@ -262,12 +269,11 @@ for object-oriented systems  which emphasizes \emph{seamlessness},
 \emph{reversibility} and software \emph{contracting}. Let us define 
 these principles precisely and point out why the principles are 
 important in VHDL-AMS simulation.
-%\todo{dragan 25/07/2009 - Figure out relation: Seamlessness and VHDL-AMS}
-\begin{itemize}
-\item \emph{Seamlessness} is the use of a continuous process 
+
+\subsection{Seamlessness and Reversibility}
+\emph{Seamlessness} is the use of a continuous process 
 throughout the software lifecycle.
-%\todo{dragan 25/07/2009 - Figure out relation: Reversibility and VHDL-AMS. Why is Reversibility important in VHDL design.}
-\item \emph{Reversibility} is the support for both forward and 
+\emph{Reversibility} is the support for both forward and 
 backward development process: from analysis to design 
 and implementation, and back.
 In VHDL-AMS, modelling represents an continious top-down-bottom-up
@@ -275,8 +281,11 @@ process. Top-down approach serves for design while bottom-up
 serves for verification. The possibility of seamlessly translating 
 changes made during a certain development phase back into earlier phases,
 facilitates a stable and predictable environment and ensures the various 
-models consistent with the code.
-\item \emph{Contracting} is the precise definition, for each software element, 
+models consistent with the code. Keeping in sync various models, documetation
+and specification from forward progress to backward and redesign, preclude 
+that design and implementation diverge to an inconsistent state.   
+\subsection{Contracting}
+\emph{Contracting} is the precise definition, for each software element, 
 of the associated semantic properties. BON use a full assertion mechanism, 
 allowing analysts to specify not only the structure of a system but also its
 semantics ( constraints and invariants of the expected results ). 
@@ -284,14 +293,14 @@ In VHDL-AMS \emph{simultaneous statement} represents analogue constraint of
 continuous-time waveform. In other words, simulator evaluates quantities such 
 that the constraints specified by the simultaneous statements are satisfied. 
 We admit that the constraint of waveform is nothing else than \emph{invariant}.
-Another example of \emph{invariant} is conservation of energy law in which the summation
-of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0}) 
-around any closed path (loop) equals zero and the summation of
-through quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node (point) equals zero.
-Finally, any predefined (implicite) attribute in VHDL has defined \emph{pre}/\emph{(post)condition} trought
-input/output parameters and theirs constraints.
+Another example of \emph{invariant} is conservation of energy law in which 
+the summation of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0}) 
+around any closed path (loop) equals zero and the summation of through 
+quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node 
+(point) equals zero. Finally, any predefined (implicite) attribute in VHDL 
+has defined \emph{pre}/\emph{post condition} trought input/output 
+parameters and theirs constraints.
 
-\end{itemize}
 
 Therefore as an approach of best modelling practices, and as the notation 
 based on contract design, BON is the obvious choice 
@@ -309,8 +318,8 @@ The textual presentation of \ent is shown in Figure.1.
 \input{adc-entity}
  
 The \arch body represents description of the internal implementation 
-of an \ent including only process statements(encapsulation), which are collections 
-of actions to be executed in sequence, or simultaneous statements, 
+of an \ent including only process statements(encapsulation), which 
+are collections  of actions to be executed in sequence, or simultaneous statements, 
 which describe equations of analogue system behaviour. 
 The textual presentation of \arch is shown in Figure.2.
 \input{adc-arch}
