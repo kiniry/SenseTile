@@ -79,7 +79,7 @@
 \def\lstinlinenb{\lstinline[language=Bon,basicstyle=\normalsize\bfseries]}
 
 \lstdefinelanguage{Bon} {
-  morekeywords={require,ensure,feature,old,and,o,Q'slew,end,Result},
+  morekeywords={require,ensure,feature,old,and,o,Q'slew,end,Result,INTEGER},
   morekeywords={class,delta,invariant,inherit,deferred,effective,NONE,make},
   morecomment=[l]{--}, 
   morecomment=[s]{/*}{*/}, 
@@ -283,7 +283,14 @@ changes made during a certain development phase back into earlier phases,
 facilitates a stable and predictable environment and ensures the various 
 models consistent with the code. Keeping in sync various models, documetation
 and specification from forward progress to backward and redesign, preclude 
-that design and implementation diverge to an inconsistent state.   
+that design and implementation diverge to an inconsistent state. \emph{Seamlessness}
+also plays important role in relating behaviours at differing levels of abstraction. 
+For example, one may wish to relate the structural views of an A/D converter at the 
+level of individual bits and at the level of busses. Therefore capturing similarities 
+between the differing levels of abstractions far outweigh their inevitable differences, 
+making it possible to obtain a continuous process that ensures a direct mapping between 
+a formal specification and its software solution.
+    
 \subsection{Contracting}
 \emph{Contracting} is the precise definition, for each software element, 
 of the associated semantic properties. BON use a full assertion mechanism, 
@@ -299,13 +306,16 @@ around any closed path (loop) equals zero and the summation of through
 quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node equals zero. 
 Moreover, any predefined (implicite) attribute in VHDL 
 has defined \emph{pre}/\emph{post condition} trought input/output 
-parameters and theirs constraints. \\
+parameters and theirs constraints. Furthermore any \emph{subtype} represents restricted
+set of values from a base \emph{type}. The condition that determines which values are in the
+\emph{subtype} may be \emph{contracted} by specifying characteristic predicate. 
+For example, the \emph{subtype} \lstinlinenc|bit| of \lstinlinen|INTEGRER| may be defined as:\\
 Therefore as an approach of best modelling practices, and as the notation 
 based on contract design, BON is the obvious choice 
 for the our simulator.
 Throughout this paper we will try to make this clear.  
 
-\section{Mapping between BON and VHDL-AMS}
+\section{Mapping between VHDL-AMS and BON}
 
 
 \section{Refinement from VHDL-AMS to BON }
