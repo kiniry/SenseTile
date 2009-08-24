@@ -32,21 +32,4 @@
 		<nature>ie.ucd.bon.plugin.boncnature</nature>
 		<nature>BeetlzPlugin.beetlzNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>bon</name>
-			<type>2</type>
-			<locationURI>SenseTile_Sensor_Board_root/spec/bon</locationURI>
-		</link>
-		<link>
-			<name>jml</name>
-			<type>2</type>
-			<locationURI>SenseTile_Sensor_Board_root/spec/jml</locationURI>
-		</link>
-		<link>
-			<name>src</name>
-			<type>2</type>
-			<locationURI>SenseTile_Sensor_Board_root/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
