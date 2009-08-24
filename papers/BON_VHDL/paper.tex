@@ -307,14 +307,14 @@ the summation of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0})
 around any loop equals zero and the summation of through 
 quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node equals zero. 
 Moreover, any predefined (implicite) attribute in VHDL 
-has defined pre/post condition trought input/output 
-parameters and theirs constraints. Furthermore any subtype/subnature 
-represents restricted set of values from a base type/nature. 
-The condition that determines which values are in the subtype/subnature,  
+has defined pre(post) condition trought input(output) 
+parameters and theirs constraints. Furthermore any subtype(subnature) 
+represents restricted set of values from a base type(nature). 
+The condition that determines which values are in the subtype(subnature)  
 may be contracted by specifying characteristic predicate. 
 For example, in typed $\lambda$ calculi, the VHDL-AMS subtype \lstinlinenc|bit| of 
 \lstinlinenc|integer|, may be defined as \texttt{bit:=$\lambda$ n:nat.n < 2}. 
-The corresponding informal and formal BON transformation is shown 
+The corresponding informal and formal BON transformations are shown 
 by the example below:
 \input{bitbon}
 Therefore as an notition based on contract design, and as  methodology of 
