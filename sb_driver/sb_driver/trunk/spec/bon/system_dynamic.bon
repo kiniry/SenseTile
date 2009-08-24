@@ -1,0 +1,16 @@
+
+scenario_chart SENSETILE_SENSOR_BOARD_DRIVER
+explanation 
+  "usage scenarios for the SenseTile low level driver"
+  
+scenario
+  "name 1"
+description
+  "descripton"
+  
+scenario
+  "name 2"
+description
+  "descripton"
+  
+end

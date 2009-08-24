@@ -1,0 +1,44 @@
+
+system_chart SENSETILE_SENSOR_BOARD_DRIVER
+explanation
+  "a SenseTile low level driver for the communication protocol with the physical SenseTile sensor board"
+  
+cluster BASE description "driver foundation"
+cluster DRIVER description "real board driver"
+cluster SIMULATOR description "board simulator"
+cluster UTILITY description "utility functions"
+end
+
+
+
+cluster_chart BASE
+indexing
+  author: "Vieri del Bianco"
+explanation 
+  "driver foundation"
+  
+class DRIVER description "protocol and communication channel management with board"
+class PACKET description "input packet: structure, data retrieval"
+class PACKET_INPUT_STREAM description "input stream: manage input packet data stream"
+end
+
+class_chart PACKET
+explanation
+  "input packet: structure, data retrieval"
+query
+  "What is the reading of the temperature sensor?"
+  
+end
+
+
+
+cluster_chart UTILITY 
+indexing
+  author: "Vieri del Bianco"
+explanation
+  "utility functions"
+
+class BYTE_PATTERN description "match byte patterns in bute arrays"
+class UNSIGNED_BYTE_ARRAY description "manage and manipulates byte arrays"
+end
+
