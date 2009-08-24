@@ -1,8 +1,7 @@
 \begin{center}
 \begin{tabular}{ c  c }
 \multicolumn{2}{c}{}\\ 
-INFORMAL BON & FORMAL BON \\ 
-\hline 
+INFORMAL BIT & FORMAL BIT \\ 
 \begin{minipage}[l]{6.4cm} 
 \begin{lstlisting}[language=Bon]
 class_chart BIT
@@ -50,8 +49,18 @@ effective class BIT
 \begin{minipage}[l]{6.4cm} 
 The current IEEE standard VHDL-AMS language reference manual 
 tries to define VHDL-AMS as well as possible in a descriptive way, 
-explaining the semantics in English.  
-\textbf{FIGURE OUT HOW bon IS SUITABLE FOR THIS PURPOSE!}
+explaining the semantics in English. As we have shown in example above,
+BON has an easily-readable, English-based textual notation.
+The \emph{Stepwise refinement} which was derived in two steps, 
+from informal to formal specification, 
+is represented using \emph{isomorphism} relation. 
+This relation maps the following:
+\begin{description}
+\item[-] \lstinlinenb|query| $\rightsquigarrow$ \emph{getBit}.
+\item[-] first \lstinlinenb|command| $\rightsquigarrow$ \lstinlinenb|make|.
+\item[-] second \lstinlinenb|command| $\rightsquigarrow$ \emph{setBite}.
+\item[-] \lstinlinenb|constraint| $\rightsquigarrow$ \lstinlinenb|invariant|.
+\end{description}
 \end{minipage}  
 &
 \begin{minipage}[l]{6.6cm}
@@ -80,7 +89,6 @@ explaining the semantics in English.
         bit >= 0 and bit < 2;
 end    
 \end{lstlisting}
-\end{minipage}\\
-\hline   
+\end{minipage}  
 \end{tabular}
 \end{center}
