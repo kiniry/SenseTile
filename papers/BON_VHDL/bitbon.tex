@@ -1,0 +1,86 @@
+\begin{center}
+\begin{tabular}{ c  c }
+\multicolumn{2}{c}{}\\ 
+INFORMAL BON & FORMAL BON \\ 
+\hline 
+\begin{minipage}[l]{6.4cm} 
+\begin{lstlisting}[language=Bon]
+class_chart BIT
+indexing
+in_cluster: "TYPE";
+created: "Dragan Stosic";
+revised: "Joe Kiniry";
+organisation: "UCD";
+explanation
+  "BIT model of VHDL-AMS bit."
+query
+  "What is your value ?",
+command
+  "Create a new initialized BIT.",
+  "Set the bit value."
+constraint
+  "BIT's value are greater than or \
+  \equal 0 and less than 2."
+end
+\end{lstlisting}
+
+\end{minipage}  
+&
+\begin{minipage}[l]{6.6cm}
+\begin{lstlisting}[language=Bon]
+effective class BIT
+  indexing
+  about: "BIT model of VHDL-AMS bit.";
+  title:        "BIT";
+  author:       "Joe & Dragan";
+  organisation: "UCD"; 
+  inherit INTEGER
+    feature{NONE}
+      -- This BIT's value.
+      bit : INTEGER 
+        ensure
+          Result /= Void;
+        end
+    feature
+      -- Create a new initialized BIT.
+      make : BIT -> aBit : INTEGER
+        require   
+\end{lstlisting}
+\end{minipage}\\
+\begin{minipage}[l]{6.4cm} 
+The current IEEE standard VHDL-AMS language reference manual 
+tries to define VHDL-AMS as well as possible in a descriptive way, 
+explaining the semantics in English.  
+\textbf{FIGURE OUT HOW bon IS SUITABLE FOR THIS PURPOSE!}
+\end{minipage}  
+&
+\begin{minipage}[l]{6.6cm}
+\begin{lstlisting}[language=Bon]
+          aBit >= 0 and aBit < 2;
+        ensure
+          delta bit;
+          bit = old aBit;
+        end
+      -- What is your value?
+      getBit : INTEGER 
+        ensure
+          Result /= Void;
+        end
+      --Set the bit value.
+      setBit: Void -> aBit : INTEGER 
+        require
+          aBit >= 0 and aBit < 2;
+        ensure
+          delta bit;
+          bit = old aBit;
+        end
+      --BIT's value are greater than or equal 0 
+      --and less than 2.
+      invariant
+        bit >= 0 and bit < 2;
+end    
+\end{lstlisting}
+\end{minipage}\\
+\hline   
+\end{tabular}
+\end{center}
