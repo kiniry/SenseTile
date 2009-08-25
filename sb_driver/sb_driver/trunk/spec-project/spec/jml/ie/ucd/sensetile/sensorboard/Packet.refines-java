@@ -1,0 +1,129 @@
+/*
+ * PacketInputStream.jml
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile.sensorboard;
+
+import java.util.Date;
+
+/** 
+ * JML's specification of Packet.
+ * @author Vieri del Bianco
+ */
+public interface Packet {
+  
+  // indexes
+  
+  /*@ pure non_null */ Time getTime();
+  
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result < 65536;
+    @*/
+  /*@ pure */ char getCounter();
+  
+  /*@ 
+    @ ensures \result >= -880;
+    @ ensures \result <= 2047;
+    @*/
+  /*@ pure */ short getTemperature();
+  
+  /*@ 
+    @ ensures \result >= 310;
+    @ ensures \result <= 5585;
+    @*/
+  /*@ pure */ short getPressure();
+  
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result <= 1000;
+    @*/
+  /*@ pure */ short getLighLevel();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerX();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerY();
+  
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerZ();
+  
+  // supply
+  
+  int getSupplyVoltageRaw();
+  
+  int getSupplyCurrentRaw();
+  
+  /*@
+    @ requires index >= 0;
+    @ requires index < FRAMES;
+    @*/
+  /*@ pure non_null */ Frame getFrame(int index);
+  
+  public interface Time {
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 24;
+      @*/
+    /*@ pure */ byte getHours();
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 60;
+      @*/
+    /*@ pure */ byte getMinutes();
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 100;
+      @*/
+    /*@ pure */ byte getCentiSeconds();
+  }
+  
+    public interface Frame {
+    
+    /*@ pure */ boolean isIRDSynachronizationActive();
+    
+    /*@ pure */ boolean isAudioActive();
+    
+    /*@
+      @ ensures 
+      @   (\result == AUDIO_FREQUENCY_48KHZ) || 
+      @   (\result == AUDIO_FREQUENCY_96KHZ);
+      @*/
+    /*@ pure */ int getAudioFrequency();
+    
+    /*@
+      @ requires channel >= 0;
+      @ requires channel < AUDIO_CHANNELS;
+      @ requires isAudioActive();
+      @*/
+    /*@ pure */ char getAudio(int channel);
+    
+    /*@ pure */ boolean isADCActive();
+    
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < ADC_CHANNELS;
+      @*/
+    /*@ pure */ int getADCChannel();
+    
+    /*@
+      @ requires isADCActive();
+      @*/
+    /*@ pure */ char getADC();
+  }
+}
