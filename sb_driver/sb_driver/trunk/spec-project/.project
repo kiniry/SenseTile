@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SenseTile Sensor Board spec</name>
+	<name>SenseTile_Sensor_Board_driver_spec</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -11,24 +11,38 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>ch.ethz.inf.pm.jml.plugin.CheckerBuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/ie.ucd.bon.plugin.boncbuilder.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>ie.ucd.bon.plugin.boncbuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/BeetlzPlugin.beetlzBuilder.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>BeetlzPlugin.beetlzBuilder</name>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/ch.ethz.inf.pm.jml.plugin.CheckerBuilder.launch</value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>ch.ethz.inf.pm.jml.plugin.CheckerNature</nature>
 		<nature>ie.ucd.bon.plugin.boncnature</nature>
 		<nature>BeetlzPlugin.beetlzNature</nature>
 	</natures>

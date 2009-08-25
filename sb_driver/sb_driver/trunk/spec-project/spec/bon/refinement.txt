@@ -14,7 +14,7 @@ class_mapping PACKET ie.ucd.sensetile.sensorboard.Packet;
 ignore_classes {
 } {
   ie.ucd.sensetile.sensorboard.Driver,
---  ie.ucd.sensetile.sensorboard.Packet,
+  ie.ucd.sensetile.sensorboard.Packet,
   ie.ucd.sensetile.sensorboard.PacketInputStream,
   ie.ucd.sensetile.sensorboard.SenseTileException,
   ie.ucd.sensetile.sensorboard.driver.ByteArrayPacket,
