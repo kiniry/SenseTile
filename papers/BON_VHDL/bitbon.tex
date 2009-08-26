@@ -50,11 +50,11 @@ effective class BIT
 The construction technique which was implemented in example above is
 \emph{refinement calculus}. 
 This concept  can be understud as series of correctness-preserving 
-transformations from general perspective to a precise level of detail.
+transformations from general perspective to a precise level of detail.\\
 The \emph{refinement calculus} which was derived in two steps, 
-from informal to formal specification, 
-is represented using \emph{isomorphism} relation. 
-This relation maps the following:
+from informal to formal specification, is represented using relation 
+$\rightsquigarrow$, which is called \emph{refinement}.
+This relation actually represents an \emph{isomorphism} and maps the following:
 \begin{description}
 \item[-] \lstinlinenb|query| $\rightsquigarrow$ \emph{getBit}.
 \item[-] first \lstinlinenb|command| $\rightsquigarrow$ \lstinlinenb|make|.
