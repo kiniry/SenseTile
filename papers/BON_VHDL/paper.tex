@@ -170,7 +170,7 @@ kiniry@acm.org and dragan.stosic@gmail.com\\
 %======================================================================
 %\thispagestyle{empty}
 \begin{abstract}
-  
+
 The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
 sensor system installed at the University College Dublin in Dublin,
 Ireland.  \textbf{Our facility provides a capability---unique in the world in
@@ -207,6 +207,7 @@ verified \ST simulator.
 
 %======================================================================
 \section{Introduction}
+\label{sec:introduction}
 The \ST sensor platform, represents heterogeneous collection of digital, analog 
 and mixed signal hardware circuits. Embedded system complexity 
 requires the need to strive for formal descriptions each component 
@@ -231,19 +232,25 @@ This article provides two main contributions.
 \item
 It relates hardware description code and formal calculus. 
 This means that if there  is a code that is "correct by construction", 
-then it will be derivable from informal BON specification, 
-via the refinement calculus to formal BON specification 
-and JML implementation.     
+then it will be derivable from BON (informal/formal) specification, 
+via the refinement calculus to JML implementation.     
 \end{enumerate}
-As an extremly simple example, 
-we will give practical aspect of refinement, applied on real capacitor component, 
-in order to produce formal specification  and software simulation.\\  
+The rest of this article is organized as follows.
+In \autoref{sec:vhdlams} we have  presented an overview of VHDL-AMS language.
+\autoref{sec:choiceobon} defines  BON principles and explains the 
+reasons why we have decided to use BON method.
+The central part of the our article is \autoref{sec:mappingVB}, which 
+shows mapping between VHDL-AMS and BON. 
+In \autoref{sec:refVB} we will give practical aspect of refinement, 
+applied on real capacitor component, in order to produce formal specification  
+and software simulation.\\  
 A comprehensive list of the mapping between BON and VHDL-AMS can be 
 found in the appendix.
 %=====================================================================
 
 
 \section{VHDL-AMS}
+\label{sec:vhdlams}
 IEEE VHDL-AMS 1076.1 is the industry standard mixed-signal 
 high-level description language for electronic and multi-domain 
 systems. VHDL-AMS, as an superset of VHDL, supports modeling and 
@@ -288,6 +295,7 @@ For any concurrent break statement there is an associated process.
 \end{itemize} 
  
 \section{Choice of BON as the modeling tool}
+\label{sec:choiceobon}
 %Brief description and motivation.
 The Business Object Notation (BON) is an analysis and design notation 
 for object-oriented systems  which emphasizes \emph{seamlessness},\xspace 
@@ -296,6 +304,7 @@ Let us define these principles precisely and point out why the principles
 are important in VHDL-AMS simulation.
 
 \subsection{Seamlessness and Reversibility}
+\label{subsec:seamrever}
 \emph{Seamlessness} is the use of a continuous process 
 throughout the software lifecycle.
 \emph{Reversibility} is the support for both forward and 
@@ -320,6 +329,7 @@ continuous process that ensures a direct mapping between a formal specification
 and its software solution.
     
 \subsection{Contracting}
+\label{subsec:contracting}
 \emph{Contracting} is the definition, for each software element, 
 of the associated semantic properties. BON use a full assertion mechanism, 
 allowing analysts to specify not only the structure of a system but also its
@@ -346,9 +356,10 @@ Therefore, on the basis of the above, BON is the obvious choice
 for the \STS.
 Throughput this article we will make this more clearly.  
 \section{Mapping between VHDL-AMS and BON}
+\label{sec:mappingVB}
 The main theme of this article is the mapping between VHDL-AMS and BON.
 \section{Refinement from VHDL-AMS to BON }
- 
+\label{sec:refVB} 
 An VHDL-AMS design units are described using an \ent-\arch structure. 
 The design unit contains an \ent and one or more \archs. 
 The \ent specifies the interface that an entity provides of itself 
