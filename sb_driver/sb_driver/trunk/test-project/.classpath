@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JMock 2.5.1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/spec-project"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/main-project"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jMock"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
