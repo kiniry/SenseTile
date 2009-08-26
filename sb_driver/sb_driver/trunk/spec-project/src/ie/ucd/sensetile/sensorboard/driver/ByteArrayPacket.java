@@ -358,7 +358,7 @@ public final class ByteArrayPacket implements Packet {
     public static final int AUDIO_POSITION = 4;
     
     public char getAudio(final int channel) {
-      if (channel < 0 || channel >= AUDIO_CHANNNELS) {
+      if (channel < 0 || channel >= Packet.Frame.AUDIO_CHANNNELS) {
         throw new IndexOutOfBoundsException();
       }
       return (char) rawFrame.getShortUnsigned(ADC_POSITION + channel * 2);

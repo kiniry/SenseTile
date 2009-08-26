@@ -33,7 +33,7 @@ public class ByteArrayPacketByteArrayFrameTest {
     packet = ByteArrayPacket.createPacket(rawPacket);
     int packetIndex = 100;
     packet.setCounter(packetIndex);
-    currentFrame = packet.getFrame(1);
+    currentFrame = (ByteArrayFrame) packet.getFrame(1);
   }
   
   @Test

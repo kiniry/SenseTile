@@ -1,0 +1,19 @@
+/*
+ * SenseTileException.jml
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile.sensorboard;
+
+public class SenseTileException extends Exception {
+
+  public SenseTileException();
+  
+  public SenseTileException(final String message, final Throwable innerException);
+  
+  public SenseTileException(final String message);
+  
+  public SenseTileException(final Throwable innerException);
+
+}

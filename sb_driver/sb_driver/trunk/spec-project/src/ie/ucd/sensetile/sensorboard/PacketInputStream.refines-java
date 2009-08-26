@@ -149,7 +149,7 @@ public interface PacketInputStream {
     @   signals (NullPointerException) array == null;
     @*/
   public int read(Packet[] array)
-      throws IOException;
+      throws IOException, SenseTileException;
 
   /*@ 
     @ public behavior
@@ -227,7 +227,7 @@ public interface PacketInputStream {
     @   modifies state, array[offset .. offset+length-1];
     @   signals_only EOFException;
     @*/
-  public void readFully(Packet[] array) throws IOException;
+  public void readFully(Packet[] array) throws IOException, SenseTileException;
 
   /*@
     @ public behavior
@@ -250,7 +250,7 @@ public interface PacketInputStream {
     @   requires availablePacketsOld == 0;
     @   signals_only EOFException;
     @*/
-  public Packet read() throws IOException;
+  public Packet read() throws IOException, SenseTileException;
 
   /*@ 
     @ public normal_behavior

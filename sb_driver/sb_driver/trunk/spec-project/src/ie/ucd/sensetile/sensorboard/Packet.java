@@ -116,7 +116,7 @@ public interface Packet {
   /**
    * Frame number in packet.
    */
-  int FRAMES = 82;
+  /*@ public */ int FRAMES = 82;
   
   /**
    * Get frame.
@@ -193,17 +193,17 @@ public interface Packet {
     /**
      * Audio frequency: 48 KHz.
      */
-    int AUDIO_FREQUENCY_48KHZ = 0; 
+    /*@ public */ int AUDIO_FREQUENCY_48KHZ = 0; 
     
     /**
      * Audio frequency: 96 KHz.
      */
-    int AUDIO_FREQUENCY_96KHZ = 1; 
+    /*@ public */ int AUDIO_FREQUENCY_96KHZ = 1; 
     
     /**
      * Audio channels.
      */
-    int AUDIO_CHANNNELS = 4;
+    /*@ model_public */ int AUDIO_CHANNNELS = 4;
     
     /**
      * Get audio sample.
@@ -234,7 +234,7 @@ public interface Packet {
     /**
      * ADC channels.
      */
-    int ADC_CHANNNELS = 8;
+    /*@ public */ int ADC_CHANNNELS = 8;
     
     /**
      * Get slow ADC sample.
@@ -242,8 +242,6 @@ public interface Packet {
      * @return ADC sample
      */
     char getADC();
-    
-    
     
   }
   

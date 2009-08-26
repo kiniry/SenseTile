@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry excluding="**/.svn" kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/ftd2xxj.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javax.util.property.jar"/>
-	<classpathentry kind="output" path="eclipse_projects/src/bin"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
