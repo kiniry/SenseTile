@@ -1,5 +1,5 @@
 /*
- * PacketInputStream.jml
+ * Packet.jml
  *
  * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
@@ -62,13 +62,15 @@ public interface Packet {
   
   // supply
   
-  int getSupplyVoltageRaw();
+  int getSupplyVoltage();
   
-  int getSupplyCurrentRaw();
+  int getSupplyCurrent();
   
+  //TODO solve JML2 problem with constants
+  //requires index < FRAMES;
   /*@
     @ requires index >= 0;
-    @ requires index < FRAMES;
+    @ requires index < 82;
     @*/
   /*@ pure non_null */ Frame getFrame(int index);
   
@@ -99,37 +101,4 @@ public interface Packet {
     /*@ pure */ byte getCentiSeconds();
   }
   
-    public interface Frame {
-    
-    /*@ pure */ boolean isIRDSynachronizationActive();
-    
-    /*@ pure */ boolean isAudioActive();
-    
-    /*@
-      @ ensures 
-      @   (\result == AUDIO_FREQUENCY_48KHZ) || 
-      @   (\result == AUDIO_FREQUENCY_96KHZ);
-      @*/
-    /*@ pure */ int getAudioFrequency();
-    
-    /*@
-      @ requires channel >= 0;
-      @ requires channel < AUDIO_CHANNELS;
-      @ requires isAudioActive();
-      @*/
-    /*@ pure */ char getAudio(int channel);
-    
-    /*@ pure */ boolean isADCActive();
-    
-    /*@
-      @ ensures \result >= 0;
-      @ ensures \result < Packet.ADC_CHANNELS;
-      @*/
-    /*@ pure */ int getADCChannel();
-    
-    /*@
-      @ requires isADCActive();
-      @*/
-    /*@ pure */ char getADC();
-  }
 }
