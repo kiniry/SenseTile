@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SenseTile_Sensor_Board_driver_spec</name>
+	<name>spec-project</name>
 	<comment></comment>
-
 	<projects>
 	</projects>
-
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
@@ -22,10 +20,14 @@
 				</dictionary>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>ch.ethz.inf.pm.jml.plugin.CheckerBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
-
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>ch.ethz.inf.pm.jml.plugin.CheckerNature</nature>
 	</natures>
 </projectDescription>
-
