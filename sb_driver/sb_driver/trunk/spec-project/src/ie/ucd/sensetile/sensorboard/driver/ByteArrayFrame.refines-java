@@ -1,0 +1,35 @@
+/*
+ * ByteArrayFrame.jml
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
+
+package ie.ucd.sensetile.sensorboard.driver;
+
+import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.Frame;
+import ie.ucd.sensetile.util.UnsignedByteArray;
+
+public final class ByteArrayFrame implements Frame{
+  
+  public ByteArrayFrame(ByteArrayPacket byteArrayPacket, final int index);
+  
+  /*@ pure */ public boolean isIRDSynachronizationActive();
+  
+  /*@ pure */ public boolean isAudioActive();
+  
+  /*@ pure */ public int getAudioFrequency();
+  
+  /*@ pure */ public char getAudio(final int channel);
+  
+  /*@ pure */ public boolean isADCActive();
+  
+  /*@ pure */ public int getADCChannel();
+  
+  /*@ pure */ public char getADC();
+  
+  /*@ pure */ boolean getBit(final int index);
+  
+  /*@ pure */ int getBits(final int index, final int length);
+    
+}

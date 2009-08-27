@@ -31,7 +31,9 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     readAccelerometerZ(packet);
     for (
         int channelIndex = 0; 
-        channelIndex < Packet.Frame.AUDIO_CHANNNELS; 
+        //TODO solve JML2 problem with constants
+        //channelIndex < Frame.AUDIO_CHANNNELS;
+        channelIndex < 4; 
         channelIndex++) {
       readAudio(channelIndex, packet);
     }
@@ -107,11 +109,13 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
   private void readAudio(final int channel, final InstancePacket packet) {
     if (audio[channel] != null) {
       try {
-        for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
-          ((InstancePacket.FrameInstance)packet.getFrame(frameIndex)).setAudio(
+        //TODO solve JML2 problem with constants
+        //for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
+        for (int frameIndex = 0; frameIndex < 82; frameIndex++) {
+          ((InstanceFrame)packet.getFrame(frameIndex)).setAudio(
               channel, audio[channel].readChar());
         }
-      } catch (IOException e1) {
+      } catch (IOException e) {
         closeInputStream(audio[channel]);
         audio[channel] = null;
       }

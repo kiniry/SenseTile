@@ -39,7 +39,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   public static final String TRIM_PACKETS_PROPERTY = "trimPackets";
   public static final String VALIDATE_MINIMUM_PACKETS_PROPERTY = "validateMinimumPackets";
   public static final String BUFFER_PACKETS_PROPERTY = "bufferPackets";
-
+  
   /*
    * default properties
    */
@@ -233,7 +233,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   
   private void waitReadToValidate() throws IOException {
     while(! isValid) {
-      waitReadIntoBuffer(ByteArrayPacket.LENGTH * getValidateMinimumPackets());
+      waitReadIntoBuffer(getPacketLength() * getValidateMinimumPackets());
       if (validateAndTrimBuffer()) {
         isValid = true;
       } else {
@@ -247,7 +247,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     do {
       int toBeRead = array.toBeRead();
       toBeRead = toBeRead > getBufferPackets() ? getBufferPackets() : toBeRead;
-      waitReadIntoBuffer(toBeRead * ByteArrayPacket.LENGTH);
+      waitReadIntoBuffer(toBeRead * getPacketLength());
       bufferToReturn(array);
     } while (! array.isFull());
   }
@@ -261,7 +261,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     }
     int begin = byteArray.getBeginOffset();
     int end = byteArray.getEndOffset();
-    int readEnd = begin + length % ByteArrayPacket.LENGTH;
+    int readEnd = (begin + length) % raw.length;
     if(readEnd > end) {
       input.readFully(raw, end, readEnd - end);
     } else {
@@ -290,9 +290,12 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       return false;
     }
     // calculate packet start position
-    int absoluteIndex = (
+    int absoluteIndex = 0;
+    //TODO solve JML2 problem with constants
+    //(getPacketLength() - ByteArrayPacket.PATTERN_OFFSET)
+    absoluteIndex = (
           index + 
-          (getPacketLength() - ByteArrayPacket.PATTERN_OFFSET)
+          (getPacketLength() - 1018)
         ) % getPacketLength();
     trimBuffer(absoluteIndex);
     return true;
@@ -301,7 +304,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   private Packet readPacketFromBuffer() throws SenseTileException {
     UnsignedByteArray raw = extractBuffer(getPacketLength());
     return ByteArrayPacket.createPacket(raw);
-  }  
+  }
   
   private UnsignedByteArray extractBuffer(final int length) {
     byte[] array = new byte[length];
@@ -333,11 +336,21 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private int getPacketLength() {
-    return ByteArrayPacket.LENGTH;
+    //TODO solve JML2 problem with constants
+    //return ByteArrayPacket.LENGTH;
+    return 1024;
   }
   
   private byte[] getPacketPattern() {
-    return ByteArrayPacket.PATTERN;
+    //TODO solve JML2 problem with constants
+    //return ByteArrayPacket.PATTERN;
+    final byte[] pattern = {
+      (byte) 0xff, (byte) 0xee, 
+      (byte) 0xff, (byte) 0xee, 
+      (byte) 0xff, (byte) 0xee, 
+      (byte) 0xff, (byte) 0xff, 
+      (byte) 0xff, (byte) 0xff };
+    return pattern;
   }
   
   private static final class ReturnPacketArray {

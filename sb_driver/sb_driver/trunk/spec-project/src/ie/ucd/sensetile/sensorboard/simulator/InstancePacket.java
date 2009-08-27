@@ -1,5 +1,6 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
+import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.Packet;
 
 public class InstancePacket implements CloneablePacket {
@@ -29,12 +30,14 @@ public class InstancePacket implements CloneablePacket {
   /*
    * frames
    */
-  private FrameInstance[] frames = new FrameInstance[FRAMES];
+  //TODO solve JML2 problem with constants
+  //private FrameInstance[] frames = new FrameInstance[FRAMES];
+  private InstanceFrame[] frames = new InstanceFrame[82];
   
   public InstancePacket() {
     setTime(new TimeInstance());
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
-      frames[frameIndex] = new FrameInstance();
+      frames[frameIndex] = new InstanceFrame();
     }
   }
   
@@ -50,11 +53,11 @@ public class InstancePacket implements CloneablePacket {
     setSupplyVoltage(template.getSupplyVoltage());
     setSupplyCurrent(template.getSupplyCurrent());
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
-      frames[frameIndex] = new FrameInstance(template.getFrame(frameIndex));
+      frames[frameIndex] = new InstanceFrame(template.getFrame(frameIndex));
     }
   }
   
-  public Time getTime() {
+  public Packet.Time getTime() {
     return time;
   }
   
@@ -142,7 +145,7 @@ public class InstancePacket implements CloneablePacket {
     return (InstancePacket) super.clone();
   }
   
-  public static class TimeInstance implements Time, Cloneable {
+  public static class TimeInstance implements Packet.Time, Cloneable {
     
     private byte hours;
     private byte minutes;
@@ -152,7 +155,7 @@ public class InstancePacket implements CloneablePacket {
     public TimeInstance() {
     }
     
-    public TimeInstance(final Time template) {
+    public TimeInstance(final Packet.Time template) {
       setHours(template.getHours());
       setMinutes(template.getMinutes());
       setSeconds(template.getSeconds());
@@ -195,91 +198,5 @@ public class InstancePacket implements CloneablePacket {
       return (TimeInstance) super.clone();
     }
     
-  }
-  
-  public static class FrameInstance implements Frame, Cloneable {
-    
-    private boolean isIRDSynachronizationActive;
-    private boolean isAudioActive;
-    private int audioFrequency;
-    private char[] audioSample = new char[AUDIO_CHANNNELS];
-    private int adcChannel;
-    private char adcSample;
-    private boolean isADCActive;
-    
-    public FrameInstance() {
-    }
-    
-    public FrameInstance(final Frame template) {
-      setIRDSynachronizationActive(template.isIRDSynachronizationActive());
-      setAudioActive(template.isAudioActive());
-      setAudioFrequency(template.getAudioFrequency());
-      for (int audioIndex = 0; audioIndex < audioSample.length; audioIndex++) {
-        setAudio(audioIndex, template.getAudio(audioIndex));
-      }
-      setADCActive(template.isADCActive());
-      setADCChannel(template.getADCChannel());
-      setADC(template.getADC());
-    }
-
-    public boolean isIRDSynachronizationActive() {
-      return isIRDSynachronizationActive;
-    }
-    
-    public void setIRDSynachronizationActive(final boolean value) {
-      isIRDSynachronizationActive = value;
-    }
-    
-    public boolean isAudioActive() {
-      return isAudioActive;
-    }
-    
-    public void setAudioActive(final boolean value) {
-      isAudioActive = value;
-    }
-    
-    public int getAudioFrequency() {
-      return audioFrequency;
-    }
-    
-    public void setAudioFrequency(final int value) {
-      audioFrequency = value;
-    }
-    
-    public char getAudio(final int channel) {
-      return audioSample[channel];
-    }
-    
-    public void setAudio(final int channel, final char audioSample) {
-      this.audioSample[channel] = audioSample;
-    }
-    
-    public boolean isADCActive() {
-      return isADCActive;
-    }
-    
-    public void setADCActive(final boolean value) {
-      isADCActive = value;
-    }
-    
-    public int getADCChannel() {
-      return adcChannel;
-    }
-    
-    public void setADCChannel(final int adcChannel) {
-      this.adcChannel = adcChannel;
-    }
-    
-    public char getADC() {
-      return adcSample;
-    }
-    
-    public void setADC(final char adcSample) {
-      this.adcSample = adcSample;
-    }
-    
-    public Object clone() throws CloneNotSupportedException {
-      return (FrameInstance) super.clone();
-    }
   }
 }
