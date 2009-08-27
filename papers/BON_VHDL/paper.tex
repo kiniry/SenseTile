@@ -5,7 +5,7 @@
 % $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
 %
 
-\documentclass{article} 
+\documentclass{article}
 \usepackage{times}
 \usepackage{multirow}
 \usepackage{ifpdf}
@@ -82,9 +82,9 @@
   morekeywords={require,ensure,feature,old,and,o,Q'slew,end,Result, Void},
   morekeywords={class_chart,class,delta,invariant,inherit,deferred,effective,NONE,make},
   morekeywords={explanation,query,command,constraint,exists},
-  morecomment=[l]{--}, 
-  morecomment=[s]{/*}{*/}, 
-  morestring=[b]", 
+  morecomment=[l]{--},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
  literate=,
   showstringspaces=false
 }
@@ -116,9 +116,9 @@
   morekeywords={N'across, N'through},
   morekeywords={across,through,zoh,ltf,slew,ztf},
   morekeywords={above,tolerance,group,quantity},
-  morecomment=[l]{--}, 
-  morecomment=[s]{/*}{*/}, 
-  morestring=[b]", 
+  morecomment=[l]{--},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
  literate=,
   showstringspaces=false
 }
@@ -189,9 +189,9 @@ sensor and other scientific data takes place.  The compute farm is a
 large-scale Linux, Solaris, and OS~X-based compute farm used by
 scientists for these online and offline scientific computations.
 
-The \STs, as an embedded system, have several unusual built-in sensors 
-and emitters, sensor nodes can be extended via a general-purpose USB bus, 
-and \STs contain an FPGA that is dynamically updated on a per-experiment 
+The \STs, as an embedded system, have several unusual built-in sensors
+and emitters, sensor nodes can be extended via a general-purpose USB bus,
+and \STs contain an FPGA that is dynamically updated on a per-experiment
 basis.  \STs are custom-designed in VHDL-AMS.  Like many hardware-based systems,
  to write new software for or against the \ST architecture one either uses
 the actual hardware or one runs a \STS.  But this simulator emulates a
@@ -208,170 +208,184 @@ verified \ST simulator.
 %======================================================================
 \section{Introduction}
 \label{sec:introduction}
-The \ST sensor platform, represents heterogeneous collection of digital, analog 
-and mixed signal hardware circuits. Embedded system complexity 
-requires the need to strive for formal descriptions each component 
-separatelly in order to produce specification of the \STS. 
+The \ST sensor platform, represents heterogeneous collection of digital, analog
+and mixed signal hardware circuits. Embedded system complexity
+requires the need to strive for formal descriptions each component
+separately in order to produce specification of the \STS.
 Our aim is to be able to precisely describe the structures of circuits,
-the behaviour of circuits and the formal link between structures and behaviours.
-In other words, the behavioural specification of the \STS may be 
-represented as a \inv on the signals at the circuit's ports and may be obtained 
-by taking the conjunction of the \emph{invariants} that describe 
-behaviours of the individual components separately. 
-For this purpose we need  sophisticated tool and methodology 
-in order to be able to achieve this goal.  
-The authors will illustrate in this article how BON can represent a high 
-level analogue mapping and will further illustrate a procedure for 
-transformation from VHDL-AMS to BON.\\ 
+the behavior of circuits and the formal link between structures and behaviors.
+In other words, the behavioral specification of the \STS may be
+represented as a \inv on the signals at the circuit's ports and may be obtained
+by taking the conjunction of the \emph{invariants} that describe
+behaviors of the individual components separately.
+For this purpose we need  sophisticated tool and methodology
+in order to be able to achieve this goal. 
+The authors will illustrate in this article how BON can represent a high
+level analogue mapping and will further illustrate a procedure for
+transformation from VHDL-AMS to BON.\\
 This article provides two main contributions.
 \begin{enumerate}
-\item 
+\item
  It provides a solution how to formally emulate
  piece of hardware using BON-JML approach; up to date BON and JML
- has been used mostly in the pure object oriented software construction.    
+ have been used mostly in the pure object oriented software construction.   
 \item
-It relates hardware description code and formal calculus. 
-This means that if there  is a code that is "correct by construction", 
-then it will be derivable from BON (informal/formal) specification, 
-via the refinement calculus to JML implementation.     
+It relates hardware description code and formal calculus.
+This means that if there  is a code that is "correct by construction",
+then it will be derivable from BON (informal/formal) specification,
+via the refinement calculus to JML implementation.    
 \end{enumerate}
 The rest of this article is organized as follows.
 In \autoref{sec:vhdlams} we have  presented an overview of VHDL-AMS language.
-\autoref{sec:choiceobon} defines  BON principles and explains the 
+\autoref{sec:choiceobon} defines  BON principles and explains the
 reasons why we have decided to use BON method.
-The central part of the our article is \autoref{sec:mappingVB}, which 
-shows mapping between VHDL-AMS and BON. 
-In \autoref{sec:refVB} we will give practical aspect of refinement, 
-applied on real capacitor component, in order to produce formal specification  
-and software simulation.\\  
-A comprehensive list of the mapping between BON and VHDL-AMS can be 
+The central part of the our article is \autoref{sec:mappingVB}, which
+shows mapping between VHDL-AMS and BON.
+In \autoref{sec:refVB} we will give practical aspect of refinement,
+applied on real capacitor component, in order to produce formal specification 
+and software simulation.\\ 
+A comprehensive list of the mapping between BON and VHDL-AMS can be
 found in the appendix.
 %=====================================================================
 
 
 \section{VHDL-AMS}
 \label{sec:vhdlams}
-IEEE VHDL-AMS 1076.1 is the industry standard mixed-signal 
-high-level description language for electronic and multi-domain 
-systems. VHDL-AMS, as an superset of VHDL, supports modeling and 
-simulation of analog and mixed-signal systems. The main contribution 
-of VHDL-AMS is ability to describe the behaviour of complex system 
-trought differential and algebraic equations (DAEs). For this purpose, 
+IEEE VHDL-AMS 1076.1 is the industry standard mixed-signal
+high-level description language for electronic and multi-domain
+systems. VHDL-AMS, as an superset of VHDL, supports modeling and
+simulation of analog and mixed-signal systems. The main contribution
+of VHDL-AMS is ability to describe the behaviour of complex system
+trought differential and algebraic equations (DAEs). For this purpose,
 VHDL-AMS introduces the following capabilities and therms:
 
 \begin{itemize}
-\item 
-\emph{Terminals} represents phisical connection points or circuit nodes 
-of a network connectivity. They are declared to be of various 
+\item
+\emph{Terminals} represents phisical connection points or circuit nodes
+of a network connectivity. They are declared to be of various
 \emph{natures}, which represent different energy domains of a system.
 Terminals hold no values; their only role is to facilitate the formation
-of conservative equation sets that, in turn, constrain the associated 
-\emph{branch quatities}. 
+of conservative equation sets that, in turn, constrain the associated
+\emph{branch quatities}.
 \item
 The \emph{quantities} denote a waveform or a time series of values.
 The behaviour of the \emph{quantities} is given by the \emph{simultaneous
- statements}. They take values as a result of solving the set of simultaneous 
-ordinary differential and algebraic equations (DAEs). To simplify, 
-quantities can be understood as analog unknowns of (DAEs) that specify 
-analog behaviour. There are three kinds of quantity in VHDL-AMS: free, 
-branch and source quantities. A \emph{free quantity} can be used in 
+ statements}. They take values as a result of solving the set of simultaneous
+ordinary differential and algebraic equations (DAEs). To simplify,
+quantities can be understood as analog unknowns of (DAEs) that specify
+analog behaviour. There are three kinds of quantity in VHDL-AMS: free,
+branch and source quantities. A \emph{free quantity} can be used in
 signal-flow modeling. A \emph{branch quantity} is used to model conservative energy
 systems. A \emph{source quantity} is used for frequency and noise modeling.
 \item
-The \emph{simultaneous statements} creates one or more characteristic 
+The \emph{simultaneous statements} creates one or more characteristic
 equations that are solved by the dedicated simulation kernel a.k.a.
-"analog solver", to model continuously valued behaviour.  
-\item 
-The \emph{procedural statements} or \emph{procedural} express analog behaviour 
-using sequential statements. Actually procedural describes analog behaviour 
+"analog solver", to model continuously valued behaviour. 
+\item
+The \emph{procedural statements} or \emph{procedural} express analog behaviour
+using sequential statements. Actually procedural describes analog behaviour
 by computing new values for quantities from the current value of quantities.
 \item
-The \emph{break statement} is an construct which allows to 
-initialize the DAE system at the beginning of a transient 
-simulation and to mark discontinuities during such a transient 
+The \emph{break statement} is an construct which allows to
+initialize the DAE system at the beginning of a transient
+simulation and to mark discontinuities during such a transient
 simulation. A break statement allows restart of the analog kernel,
-than overrides quantity values and executes concurrently with the analogue model. 
+than overrides quantity values and executes concurrently with the analogue model.
 For any concurrent break statement there is an associated process.
-\end{itemize} 
+\end{itemize}
  
 \section{Choice of BON as the modeling tool}
 \label{sec:choiceobon}
 %Brief description and motivation.
-The Business Object Notation (BON) is an analysis and design notation 
-for object-oriented systems  which emphasizes \emph{seamlessness},\xspace 
-\emph{reversibility} and software \emph{contracting}. 
-Let us define these principles precisely and point out why the principles 
+The Business Object Notation (BON) is an analysis and design notation
+for object-oriented systems  which emphasizes \emph{seamlessness},\xspace
+\emph{reversibility} and software \emph{contracting}.
+Let us define these principles precisely and point out why the principles
 are important in VHDL-AMS simulation.
 
-\subsection{Seamlessness and Reversibility}
-\label{subsec:seamrever}
-\emph{Seamlessness} is the use of a continuous process 
-throughout the software lifecycle.
-\emph{Reversibility} is the support for both forward and 
-backward development process: from analysis to design 
+\textbf{Seamlessness and  Reversibility} \xspace \xspace
+Seamlessness is the use of a continuous process
+throughout the software lifecycle. Reversibility is the support for
+both forward and backward development process: from analysis to design
 and implementation, and back.
 In VHDL-AMS, modelling represents an continious top-down-bottom-up
 process. Top-down approach serves for design while bottom-up
-serves for verification. The possibility of seamlessly translating 
+serves for verification. The possibility of seamlessly translating
 changes made during a certain development phase back into earlier phases,
-facilitates a stable and predictable environment and ensures the various 
+facilitates a stable and predictable environment and ensures the various
 models consistent with the code. Keeping in sync various models, documetation
-and specification from forward progress to backward and redesign, preclude 
-that design and implementation diverge to an inconsistent state. 
+and specification from forward progress to backward and redesign, preclude
+that design and implementation diverge to an inconsistent state.\\
 \emph{Seamlessness} also plays an important role in relating behaviours at
 different levels of abstraction. For example, one may wish to analyze
-a "real capacitor" at the level of individual components (a resistor and ideal capacitor)
-and their behaviours, or at the more abstract level through general behaviour (\inv) and
-using existential quantification (\texttt{exists}) to encapsulate all internal structure. 
-Therefore capturing similarities between the differing levels of abstractions 
-far outweigh their inevitable differences, making it possible to obtain a 
-continuous process that ensures a direct mapping between a formal specification 
-and its software solution.
-    
-\subsection{Contracting}
-\label{subsec:contracting}
-\emph{Contracting} is the definition, for each software element, 
-of the associated semantic properties. BON use a full assertion mechanism, 
-allowing analysts to specify not only the structure of a system but also its
-semantics ( constraints and invariants of the expected results ). 
-In VHDL-AMS \emph{simultaneous statement} represents analogue constraint of 
-continuous-time waveform. In other words, analog kernel calculate quantities such 
-that the constraints specified by the simultaneous statements are satisfied. 
-We will agree that the constraint of waveform is nothing more than \inv.
-Another example of \inv is conservation of energy law in which 
-the summation of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0}) 
-around any loop equals zero and the summation of through 
-quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node 
-(\texttt{terminal}) equals zero. Moreover, any predefined (implicite) attribute in VHDL-AMS  
-has defined pre (post) condition trought input (output) 
-parameters and theirs constraints. Furthermore any subtype (subnature) 
-represents restricted set of values from a base type (nature). 
-The condition that determines which values are in the subtype (subnature)  
-may be contracted by specifying characteristic predicate which represents \inv.\\ 
-Another advantage of BON is an easily-readable, English-based textual notation. 
-The current IEEE standard VHDL-AMS language reference manual tries to define 
-VHDL-AMS as well as possible in a descriptive way, explaining the 
+a "real capacitor" at the level of individual components (a resistor and
+ideal capacitor) and their behaviours, or at the more abstract level through
+general behaviour (\inv) and using existential quantification (\texttt{exists})
+to encapsulate all internal structure. Therefore capturing similarities between
+the differing levels of abstractions far outweigh their inevitable differences,
+making it possible to obtain a continuous process that ensures a direct mapping
+between a formal specification and its software solution.\\
+\textbf{Contracting} \xspace \xspace Contracting is the definition, for each
+software element, of the associated semantic properties. BON use a full
+assertion mechanism, allowing analysts to specify not only the structure of
+a system but also its semantics ( constraints and invariants of the expected results ).
+The common way to specify a program statement is to give a \emph{precondition} and
+\emph{postcondition} on the state that the implementation must satisfy, assuming that
+only certain program variables are changed.
+In VHDL-AMS any predefined (implicite) attribute 
+has defined \emph{pre} (\emph{post}) \emph{condition} trought input (output)
+parameters and theirs constraints. Furthermore, any subtype (subnature)
+represents restricted set of values from a base type (nature).
+The condition that determines which values are in the subtype (subnature) 
+may be contracted by specifying characteristic predicate which represents \inv.\\
+Let us next look how \emph{simultaneous statements} are handled in contract design.
+The \emph{simultaneous statement} represents analogue constraint of
+continuous-time waveform. We will assume that the constraint of waveform
+represents \inv. This premise deserve an informal explanation.\\
+Briefly stated, analog kernel calculate quantities such
+that the constraints specified by the simultaneous statements are satisfied.
+More accurately, \emph{simultaneous statements} can be thought of as
+algebraic equations. It means that the number of simultaneous statements
+should be equal to the number of unknowns, i.e. \emph{free} and \emph{branch}
+\emph{quantities}. When we reasoning about conservation of energy law, for example,
+the \emph{simultaneous statements} constrain the values of \emph{branch quantities}
+in a model.
+In other words, the sum of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0})
+around any closed path must be equal to zero and the sum of \through
+quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node
+(terminal) must be equal to zero. To be more precise, the results of summations 
+above remains zero when a particular transformation is applied to quantities.
+In general, they are \inv. \\
+However if our implementation does not satisfy conservation of energy law, 
+ then the invariant will be broken.
+In practice, one can use \emph{invariant} against the already existing code in
+order to check the correctness.
+It is important because we cannot patch a fabricated chip once company started
+massive production. \\
+Another advantage of BON is an easily-readable, English-based textual notation.
+The current IEEE standard VHDL-AMS language reference manual tries to define
+VHDL-AMS as well as possible in a descriptive way, explaining the
 semantics in English.\\
-Therefore, on the basis of the above, BON is the obvious choice 
+Therefore, on the basis of the above, BON is the obvious choice
 for the \STS.
-Throughput this article we will make this more clearly.  
+Throughput this article we will make this more clearly. 
 \section{Mapping between VHDL-AMS and BON}
 \label{sec:mappingVB}
 The main theme of this article is the mapping between VHDL-AMS and BON.
 \section{Refinement from VHDL-AMS to BON }
-\label{sec:refVB} 
-An VHDL-AMS design units are described using an \ent-\arch structure. 
-The design unit contains an \ent and one or more \archs. 
-The \ent specifies the interface that an entity provides of itself 
-to the outside. In other words, \ent introduces a name, list of 
-input/output ports and the definition of the generic parameters. 
-The textual presentation of \ent is shown in Figure.1. 
+\label{sec:refVB}
+An VHDL-AMS design units are described using an \ent-\arch structure.
+The design unit contains an \ent and one or more \archs.
+The \ent specifies the interface that an entity provides of itself
+to the outside. In other words, \ent introduces a name, list of
+input/output ports and the definition of the generic parameters.
+The textual presentation of \ent is shown in Figure.1.
 \input{adc-entity}
  
-The \arch body represents description of the internal implementation 
-of an \ent including only process statements(encapsulation), which 
-are collections  of actions to be executed in sequence, or simultaneous statements, 
-which describe equations of analogue system behaviour. 
+The \arch body represents description of the internal implementation
+of an \ent including only process statements(encapsulation), which
+are collections  of actions to be executed in sequence, or simultaneous statements,
+which describe equations of analogue system behaviour.
 The textual presentation of \arch is shown in Figure.2.
 \input{adc-arch}
 
@@ -382,7 +396,7 @@ A conclusion.
 
 \section {Acknowledgments}
 The research upon which this article is based was caried out with
-sponsorship from Science Foundation Ireland via the 
+sponsorship from Science Foundation Ireland via the
 \textbf{UCD CASL SenseTile System} grant.
 
 
@@ -455,8 +469,9 @@ sponsorship from Science Foundation Ireland via the
 
 \end{document}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
-%%% eval: 
+%%% eval:
 %%% TeX-master: t
-%%% End: 
+%%% End:
+
