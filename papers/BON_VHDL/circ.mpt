@@ -1,0 +1,24 @@
+% figure 1 : 
+LaTeXPic[1] := btex $R$ etex ;
+% figure 1 : 
+LaTeXPic[2] := btex  etex ;
+% figure 1 : 
+LaTeXPic[3] := btex 1 etex ;
+% figure 1 : 
+LaTeXPic[4] := btex 4 etex ;
+% figure 1 : 
+LaTeXPic[5] := btex 2 etex ;
+% figure 1 : 
+LaTeXPic[6] := btex 3 etex ;
+% figure 1 : 
+LaTeXPic[7] := btex $C$ etex ;
+% figure 1 : 
+LaTeXPic[8] := btex  etex ;
+% figure 1 : 
+LaTeXPic[9] := btex 5 etex ;
+% figure 1 : 
+LaTeXPic[10] := btex 6 etex ;
+% figure 1 : 
+LaTeXPic[11] := btex $V_1$ etex ;
+% figure 1 : 
+LaTeXPic[12] := btex $V_2$ etex ;
