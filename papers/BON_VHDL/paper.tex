@@ -10,7 +10,7 @@
 \usepackage{multirow}
 \usepackage{ifpdf}
 \usepackage{a4wide}
-\usepackage{pdfsync}
+%\usepackage{pdfsync}
 \usepackage{amsmath}
 \usepackage{listings}
 
@@ -49,6 +49,9 @@
 \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
+\ifpdf
+  \DeclareGraphicsRule{*}{mps}{*}{}
+\fi
 
 
 \lstset{
@@ -69,6 +72,8 @@
   {\\}{{$\backslash\backslash$}}1
   {'}{{$\textprimstress$}}1
 }
+
+\def\sectionautorefname{Section}
 
 \def\lstinlinen{\lstinline[language=Bon,basicstyle=\normalsize\upshape]}
 
@@ -223,7 +228,7 @@ in order to be able to achieve this goal.
 The authors will illustrate in this article how BON can represent a high
 level analogue mapping and will further illustrate a procedure for
 transformation from VHDL-AMS to BON.\\
-This article provides two main contributions.
+This article provides three main contributions.
 \begin{enumerate}
 \item
  It provides a solution how to formally emulate
@@ -233,19 +238,18 @@ This article provides two main contributions.
 It relates hardware description code and formal calculus.
 This means that if there  is a code that is "correct by construction",
 then it will be derivable from BON (informal/formal) specification,
-via the refinement calculus to JML implementation.    
+via the refinement calculus to JML implementation.
 \end{enumerate}
 The rest of this article is organized as follows.
 In \autoref{sec:vhdlams} we have  presented an overview of VHDL-AMS language.
 \autoref{sec:choiceobon} defines  BON principles and explains the
 reasons why we have decided to use BON method.
-The central part of the our article is \autoref{sec:mappingVB}, which
-shows mapping between VHDL-AMS and BON.
-In \autoref{sec:refVB} we will give practical aspect of refinement,
-applied on real capacitor component, in order to produce formal specification 
-and software simulation.\\ 
+In \autoref{sec:mappingVB} we will show mapping between VHDL-AMS and BON.
 A comprehensive list of the mapping between BON and VHDL-AMS can be
-found in the appendix.
+found in the appendix. 
+The central part of the our article is \autoref{sec:refVB}, in which
+we will give practical aspect of refinement, applied on lowpass filter, 
+in order to produce formal specification and software simulation.\\ 
 %=====================================================================
 
 
@@ -289,9 +293,10 @@ by computing new values for quantities from the current value of quantities.
 The \emph{break statement} is an construct which allows to
 initialize the DAE system at the beginning of a transient
 simulation and to mark discontinuities during such a transient
-simulation. A break statement allows restart of the analog kernel,
+simulation.For any concurrent break statement there is an associated process.
+A break statement allows restart of the analog kernel,
 than overrides quantity values and executes concurrently with the analogue model.
-For any concurrent break statement there is an associated process.
+
 \end{itemize}
  
 \section{Choice of BON as the modeling tool}
@@ -301,8 +306,7 @@ The Business Object Notation (BON) is an analysis and design notation
 for object-oriented systems  which emphasizes \emph{seamlessness},\xspace
 \emph{reversibility} and software \emph{contracting}.
 Let us define these principles precisely and point out why the principles
-are important in VHDL-AMS simulation.
-
+are important in VHDL-AMS simulation.\\
 \textbf{Seamlessness and  Reversibility} \xspace \xspace
 Seamlessness is the use of a continuous process
 throughout the software lifecycle. Reversibility is the support for
@@ -317,7 +321,7 @@ models consistent with the code. Keeping in sync various models, documetation
 and specification from forward progress to backward and redesign, preclude
 that design and implementation diverge to an inconsistent state.\\
 \emph{Seamlessness} also plays an important role in relating behaviours at
-different levels of abstraction. For example, one may wish to analyze
+different levels of abstraction. For instance, one may wish to analyze
 a "real capacitor" at the level of individual components (a resistor and
 ideal capacitor) and their behaviours, or at the more abstract level through
 general behaviour (\inv) and using existential quantification (\texttt{exists})
@@ -347,7 +351,7 @@ that the constraints specified by the simultaneous statements are satisfied.
 More accurately, \emph{simultaneous statements} can be thought of as
 algebraic equations. It means that the number of simultaneous statements
 should be equal to the number of unknowns, i.e. \emph{free} and \emph{branch}
-\emph{quantities}. When we reasoning about conservation of energy law, for example,
+\emph{quantities}. For instance, when we reasoning about conservation of energy law,
 the \emph{simultaneous statements} constrain the values of \emph{branch quantities}
 in a model.
 In other words, the sum of \arcoss quantities (\texttt{$\sum_{loop}$ across quatities =0})
@@ -356,11 +360,17 @@ quantities (\texttt{$\sum_{node}$ through quatities =0}) at any node
 (terminal) must be equal to zero. To be more precise, the results of summations 
 above remains zero when a particular transformation is applied to quantities.
 In general, they are \inv. \\
-However if our implementation does not satisfy conservation of energy law, 
- then the invariant will be broken.
-In practice, one can use \emph{invariant} against the already existing code in
-order to check the correctness.
-It is important because we cannot patch a fabricated chip once company started
+However, if our implementation does not satisfy conservation of energy law, 
+ then the invariant will be broken. 
+Another conclusion may be deducted from the example given above.\\
+Intuitively \inv may be useful for testing the function of the hardware components.
+In practice, one can runs simulator against the component in order to check 
+the properties. Testing can then be done by checking whether the \inv hold or not.
+For example, the most common problem of the real components is the glich - an electrical pulse 
+of short duration that is usually the result of a design error.
+The number of glitches that occur can be known by the fact how many times per day, 
+the \inv was broken and reestablished. 
+It is important because we cannot patch a fabricated component once we started
 massive production. \\
 Another advantage of BON is an easily-readable, English-based textual notation.
 The current IEEE standard VHDL-AMS language reference manual tries to define
@@ -374,20 +384,7 @@ Throughput this article we will make this more clearly.
 The main theme of this article is the mapping between VHDL-AMS and BON.
 \section{Refinement from VHDL-AMS to BON }
 \label{sec:refVB}
-An VHDL-AMS design units are described using an \ent-\arch structure.
-The design unit contains an \ent and one or more \archs.
-The \ent specifies the interface that an entity provides of itself
-to the outside. In other words, \ent introduces a name, list of
-input/output ports and the definition of the generic parameters.
-The textual presentation of \ent is shown in Figure.1.
-\input{adc-entity}
- 
-The \arch body represents description of the internal implementation
-of an \ent including only process statements(encapsulation), which
-are collections  of actions to be executed in sequence, or simultaneous statements,
-which describe equations of analogue system behaviour.
-The textual presentation of \arch is shown in Figure.2.
-\input{adc-arch}
+\includegraphics{circ.1}
 
 %=====================================================================
 \section{Conclusion}
