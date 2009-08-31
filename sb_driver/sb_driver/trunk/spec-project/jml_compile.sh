@@ -12,19 +12,30 @@ export PATH
 
 
 source="src"
-#model_libs="${JML_HOME}/bin/jmlmodelsnonrac.jar"
-#model_libs="${JML_HOME}/bin/jmlmodels.jar"
+#jml_model_libs="${JML_HOME}/bin/jmlmodelsnonrac.jar"
+#jml_model_libs="${JML_HOME}/bin/jmlmodels.jar"
+#jml_runtime_libs="${JML_HOME}/bin/runtime.jar"
+jml_release_libs="${JML_HOME}/bin/jml-release.jar"
+jml_libs="${jml_release_libs}"
+
 libs="../main-project/lib/ftd2xxj.jar:../main-project/lib/javax.util.property.jar"
+
+compile="src/ie/ucd/sensetile/util/BytePattern.java src/ie/ucd/sensetile/sensorboard/Frame.java src/ie/ucd/sensetile/sensorboard/Driver.java src/ie/ucd/sensetile/sensorboard/Packet.java src/ie/ucd/sensetile/sensorboard/PacketInputStream.java src/ie/ucd/sensetile/sensorboard/SenseTileException.java src/ie/ucd/sensetile/sensorboard/Frame.refines-java src/ie/ucd/sensetile/sensorboard/Packet.refines-java"
+
+
 
 debug="--debug"
 assignable="--assignable"
 recursive="--recursive"
-source_code="--source 1.3"
-destination="--destination jml-compiled"
-source_path="--sourcepath src"
-classpath="--classpath ${libs}:${model_libs}"
+source_code="--source 1.4"
+warning="--warning 2"
+print_source="--print"
+destination="--destination jml-generated"
 
-arguments="${debug} ${source_code} ${assignable} ${recursive} ${classpath} ${source_path} ${destination} ${source}/" 
+source_path="--sourcepath src"
+classpath="--classpath ${libs}:${jml_libs}"
+
+arguments="${debug} ${source_code} ${assignable} ${recursive} ${warning} ${print_source} ${classpath} ${source_path} ${destination} ${compile}" 
 
 echo ${arguments}
 

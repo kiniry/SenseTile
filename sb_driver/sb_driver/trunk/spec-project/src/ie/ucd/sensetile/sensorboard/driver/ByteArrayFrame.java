@@ -11,11 +11,8 @@ public final class ByteArrayFrame implements Frame{
   private final UnsignedByteArray rawFrame; 
   
   public ByteArrayFrame(ByteArrayPacket byteArrayPacket, final int index) {
-    rawFrame = UnsignedByteArray.create(
-        byteArrayPacket.getRaw(), 
-        ByteArrayPacket.ADC_DATA_OFFSET + 
-        ByteArrayPacket.FRAME_LENGTH * index, 
-        ByteArrayPacket.FRAME_LENGTH);
+    UnsignedByteArray raw = byteArrayPacket.getRaw();
+    rawFrame = UnsignedByteArray.create(raw, ByteArrayPacket.ADC_DATA_OFFSET + ByteArrayPacket.FRAME_LENGTH * index, ByteArrayPacket.FRAME_LENGTH);
   }
   
   /**
