@@ -36,14 +36,14 @@ public final class Driver {
   public void open() throws FTD2xxException {
     device.open();
     device.setUSBParameters(RX_BUFFER_SIZE, TX_BUFFER_SIZE);
-    reset();
+    resetToDefault();
   }
   
   public void close() throws FTD2xxException {
     device.close();
   }
   
-  public void reset() throws FTD2xxException {
+  public void resetToDefault() throws FTD2xxException {
     device.reset();
     device.setTimeout(TIMEOUT);
     device.getPort().setBaudRate(PORT_BAUDRATE);
