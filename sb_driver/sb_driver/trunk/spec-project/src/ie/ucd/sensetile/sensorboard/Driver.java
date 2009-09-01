@@ -47,7 +47,8 @@ public final class Driver {
     device.reset();
     device.setTimeout(TIMEOUT);
     device.getPort().setBaudRate(PORT_BAUDRATE);
-    device.setBitBangMode(BITBANG_MASK, BITBANG_MODE);
+    //TODO discover the correct BigBangMode to set, the following one is breaking the communication 
+    //device.setBitBangMode(BITBANG_MASK, BITBANG_MODE);
   }
   
   public PacketInputStream getStream() {

@@ -5,7 +5,7 @@ package ie.ucd.sensetile.sensorboard;
 
 public interface Frame {
   
- /*
+  /**
    * IRD synch signal active
    * 
    * @return signal active

@@ -20,9 +20,7 @@ jml_libs="${jml_release_libs}"
 
 libs="../main-project/lib/ftd2xxj.jar:../main-project/lib/javax.util.property.jar"
 
-compile="src/ie/ucd/sensetile/util/BytePattern.java src/ie/ucd/sensetile/sensorboard/Frame.java src/ie/ucd/sensetile/sensorboard/Driver.java src/ie/ucd/sensetile/sensorboard/Packet.java src/ie/ucd/sensetile/sensorboard/PacketInputStream.java src/ie/ucd/sensetile/sensorboard/SenseTileException.java src/ie/ucd/sensetile/sensorboard/Frame.refines-java src/ie/ucd/sensetile/sensorboard/Packet.refines-java"
-
-
+compile="src/ie/ucd/sensetile/util/BytePattern.java src/ie/ucd/sensetile/sensorboard/Driver.java src/ie/ucd/sensetile/sensorboard/Frame.java src/ie/ucd/sensetile/sensorboard/Packet.java src/ie/ucd/sensetile/sensorboard/PacketInputStream.java src/ie/ucd/sensetile/sensorboard/SenseTileException.java src/ie/ucd/sensetile/sensorboard/Frame.refines-java src/ie/ucd/sensetile/sensorboard/Packet.refines-java src/ie/ucd/sensetile/sensorboard/driver/ByteArrayFrame.java src/ie/ucd/sensetile/sensorboard/driver/ByteArrayPacket.java src/ie/ucd/sensetile/sensorboard/driver/InputStreamPacketInputStream.java"
 
 debug="--debug"
 assignable="--assignable"
