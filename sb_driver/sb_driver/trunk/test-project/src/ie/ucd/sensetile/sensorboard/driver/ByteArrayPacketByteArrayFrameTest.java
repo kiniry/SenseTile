@@ -4,7 +4,6 @@ package ie.ucd.sensetile.sensorboard.driver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
-import ie.ucd.sensetile.sensorboard.driver.ByteArrayPacket.ByteArrayFrame;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
 import java.util.Arrays;

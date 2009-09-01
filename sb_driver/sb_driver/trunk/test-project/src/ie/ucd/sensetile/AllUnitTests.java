@@ -13,6 +13,6 @@ import org.junit.runners.Suite;
 public class AllUnitTests {
   
   public static void main(final String[] args) {
-    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.AllTests");
+    org.junit.runner.JUnitCore.main("ie.ucd.sensetile.AllUnitTests");
   }
 }
