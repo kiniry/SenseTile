@@ -1,0 +1,106 @@
+@(#)$Id: NEWS.txt,v 1.153 2008/01/09 16:12:09 leavens Exp $
+
+    NEWS.txt file for JML and the Common (formerly ISU) JML Tools
+
+New with release 5.5 (January 9, 2008)
+
+   major improvements:
+
+     - Various changes enable the new assertion semantics.  This
+       semantics requires that users write "protective" specifications,
+       in that the runtime checker will no longer attempt to mask
+       exceptions that occur during assertion evaluation, but will
+       instead propagate those out to the calling program. 
+       Thus an assertion holds if and only if the assertion expression
+       evaluates successfully (no exceptions are raised) and it is true.
+       This new semantics has been turned on by default (to recover to
+       old semantics use jmlc command line option -O). This fixes bug
+       #1745623.  Thanks to Patrice Chalin and Frederic Rioux. 
+
+     - Added the "refining" statement discussed in the jmlspecs-interest
+       mailing list and a new keyword "extract" from the paper by
+       Shaner, Leavens and Naumann (to appear in OOPSLA 2007).  This
+       updated the checker and documents.  Thanks to Steve Shaner.
+
+   minor improvements:
+
+     - Fix to Bug #1746834, so that with the new RAC semantics
+       the \min, \max, and \num_of quantifiers are now executable when
+       they have a recognizable range.  Thanks to Frederic Rioux. 
+
+     - Updates to enable Universe runtime checks in JMLRAC.
+       Now the JMLRAC compiles the intermediate program with enabled
+       Universe runtime checks. Thanks to Werner Dietl.
+
+     - Added specification for the Universe runtime checks that allows
+       one to use the Universe runtime checks together with the
+       non-null type system.  Thanks to Werner Dietl.
+
+     - Added specifications for several classes in java.awt, and
+       java.awt.color.  Thanks to Patrice Chalin. 
+
+     - Various small corrections to JDK specification, in particular
+       with respect to nullity annotations.  Thanks to Patrice Chalin.
+
+     - Put universe type system annotations in JML's specification for
+       System.arraycopy, which allows copying to rep arrays from peer
+       arrays.  Thanks to Werner Dietl.
+
+     - Three corrections to the JML Reference Manual's grammar, thanks to
+       Patrice Chalin and David Cok.
+
+     - Noted that instance can be applied to invariants and other
+       class-level annotations in the annotations appendix of the JML
+       Reference Manual.  Thanks to Kristina Boysen. 
+
+     - Some clarifications to the paper "JML: a Notation for Detailed
+       Design", thanks to Faraz Hussain.
+
+     - Fix to the specification of
+       org.jmlspecs.samples.jmlkluwer.PriorityQueue.  Thanks to
+       Patrice Chalin.
+
+     - Fix to JML's NaturalNumber class, solving bug 1745382. 
+       NaturalNumbers were being compared to BigIntegers, hence a
+       compareTo(BigInteger) was added.  Without it compareTo(Object)
+       was used, which gave a class cast exception.
+
+     - Fixes to bug #1745635 for org/jmlspecs/samples in the
+       list examples, PriorityQueue, and Digraph, Accounts, etc.
+       Thanks to Patrice Chalin.
+
+     - The documents and release procedures have been updated to
+       reflect Gary's new location at UCF in Orlando, Florida.
+
+     - The short-curcuit nature of the ==> and <== operators was
+       clarified in the Reference Manual.  Plus various typo
+       corrections.  Thanks to David Cok.
+
+     - Various additions and corrections to the Reference Manual,
+       including work on the chapters about refinement and redundancy.
+       Thanks to Leo Freitas and Bertrand Meyer for questions that
+       prompted these updates.
+
+   incompatible changes:
+
+     - The new assertion semantics is incompatible with the old
+       underspecified total functions approach, to some extent.
+       To recover to old semantics use the command line option -O on jmlc.
+
+# Copyright (C) 2007 Iowa State University
+
+# This file is part of JML
+
+# JML is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# JML is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with JML; see the file COPYING.  If not, write to
+# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.

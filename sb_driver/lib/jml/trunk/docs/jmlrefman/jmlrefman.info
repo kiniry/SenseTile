@@ -1,0 +1,264 @@
+This is jmlrefman.info, produced by makeinfo version 4.8 from
+jmlrefman.texinfo.
+
+INFO-DIR-SECTION Programming & development tools
+START-INFO-DIR-ENTRY
+* JML Reference Manual: (jmlrefman).  Reference for the Java Modeling Language.
+END-INFO-DIR-ENTRY
+
+   Copyright (C) 2002-2007 Iowa State University
+
+   Permission is granted for you to make copies of this manual for
+educational and scholarly purposes, and for commercial use in
+specifying software, but the copies may not be sold or otherwise used
+for direct commercial advantage; this permission is granted provided
+that this copyright and permission notice is preserved on all copies.
+All other rights reserved.
+
+   Version Information:  @(#) $Id: jmlrefman.texinfo,v 1.220 2008/01/08
+22:43:42 leavens Exp $
+
+
+Indirect:
+jmlrefman.info-1: 764
+jmlrefman.info-2: 300583
+jmlrefman.info-3: 497032
+
+Tag Table:
+(Indirect)
+Node: Top764
+Node: Introduction8286
+Node: Behavioral Interface Specifications10503
+Node: A First Example14550
+Ref: A First Example-Footnote-125108
+Ref: A First Example-Footnote-225252
+Ref: A First Example-Footnote-325307
+Ref: A First Example-Footnote-425531
+Node: What is JML Good For?25767
+Node: Status and Plans for JML32568
+Node: Historical Precedents33461
+Node: Acknowledgments39101
+Node: Fundamental Concepts40600
+Node: Types can be Classes and Interfaces41147
+Node: Model and Ghost41770
+Node: Lightweight and Heavyweight Specifications44925
+Node: Privacy Modifiers and Visibility46047
+Node: Instance vs. Static52903
+Node: Locations and Aliasing54356
+Ref: Locations and Aliasing-Footnote-155399
+Node: Expression Evaluation and Undefinedness55504
+Node: Null is Not the Default57619
+Node: Language Levels59783
+Ref: Language Levels-Footnote-164446
+Node: Level 0 Features64651
+Node: Level 1 Features72547
+Node: Level 2 Features77164
+Node: Level 3 Features80570
+Node: Level C Features81207
+Node: Level X Features82017
+Node: Syntax Notation82669
+Node: Lexical Conventions84760
+Node: White Space85926
+Node: Lexical Pragmas86733
+Node: Comments87624
+Node: Annotation Markers89365
+Node: Documentation Comments91392
+Node: Tokens94672
+Node: Compilation Units106528
+Node: Package Definitions110226
+Node: Import Definitions110753
+Node: Type Definitions112647
+Node: Class and Interface Definitions113464
+Node: Subtyping for Type Definitions114822
+Node: Modifiers for Type Definitions117997
+Node: Modifiers121120
+Node: Suggested Modifier Ordering122970
+Node: Spec Public124195
+Node: Spec Protected124586
+Node: Pure125126
+Node: Model125659
+Node: Ghost126839
+Node: Instance127874
+Node: Helper128079
+Node: Monitored128678
+Node: Uninitialized129063
+Node: Math Modifiers129460
+Node: Nullity Modifiers129650
+Node: Class and Interface Member Declarations130450
+Node: Java Member Declarations131288
+Node: Method and Constructor Declarations131976
+Node: Formal Parameters133699
+Node: Model Methods and Constructors135306
+Node: Pure Methods and Constructors136694
+Node: Helper Methods and Constructors143661
+Node: Field and Variable Declarations144454
+Node: JML Modifiers for Fields146511
+Node: Type-Specs148432
+Node: Class Initializer Declarations149282
+Node: Type Specifications151476
+Node: Introductory ADT Specification Examples153281
+Node: Invariants153658
+Node: Static vs. instance invariants164999
+Ref: Static vs. instance invariants-Footnote-1167343
+Node: Invariants and Exceptions167406
+Node: Access Modifiers for Invariants168684
+Node: Invariants and Inheritance170304
+Node: Constraints171059
+Node: Static vs. instance constraints176223
+Node: Access Modifiers for Constraints177703
+Node: Constraints and Inheritance178121
+Node: Represents Clauses178715
+Node: Initially Clauses181604
+Node: Axioms182180
+Node: Readable If Clauses182575
+Node: Writable If Clauses183073
+Node: Monitors For Clause183588
+Node: Method Specifications184573
+Node: Basic Concepts in Method Specification186232
+Node: Organization of Method Specifications186656
+Node: Access Control in Specification Cases189825
+Node: Lightweight Specification Cases191708
+Node: Heavyweight Specification Cases197567
+Node: Behavior Specification Cases198448
+Node: Semantics of flat behavior specification cases201195
+Node: Non-helper methods202153
+Ref: Non-helper methods-Footnote-1211531
+Node: Non-helper constructors211615
+Node: Helper methods and constructors212330
+Node: Semantics of nested behavior specification cases213212
+Node: Normal Behavior Specification Cases214523
+Node: Exceptional Behavior Specification Cases216113
+Node: Pragmatics of Exceptional Behavior Specification Cases217496
+Node: Method Specification Clauses221885
+Node: Specification Variable Declarations222660
+Node: Forall Variable Declarations223290
+Node: Old Variable Declarations224281
+Node: Requires Clauses225259
+Node: Ensures Clauses227599
+Node: Signals Clauses230132
+Node: Signals-Only Clauses233548
+Node: Parameters in Postconditions238050
+Node: Diverges Clauses241126
+Node: When Clauses243397
+Node: Assignable Clauses244507
+Node: Accessible Clauses247050
+Node: Callable Clauses248476
+Node: Measured By Clauses249406
+Node: Captures Clauses250191
+Node: Working Space Clauses252037
+Node: Duration Clauses253843
+Node: Data Groups255843
+Node: Static Data Group Inclusions257989
+Node: Dynamic Data Group Mappings258572
+Node: Predicates and Specification Expressions260004
+Node: Predicates260663
+Node: Specification Expressions261113
+Node: Expressions261847
+Node: JML Primary Expressions267349
+Node: Backslash result269496
+Node: Backslash old and Backslash pre270060
+Node: Backslash not_assigned274839
+Node: Backslash not_modified276464
+Node: Backslash only_accessed278161
+Node: Backslash only_assigned279649
+Node: Backslash only_called281154
+Node: Backslash only_captured282066
+Node: Backslash fresh283937
+Node: Backslash reach284833
+Node: Backslash duration285878
+Node: Backslash space287458
+Node: Backslash working space288281
+Node: Backslash nonnullelements289542
+Node: Informal Predicates290267
+Node: Backslash typeof291066
+Node: Backslash elemtype292247
+Node: Backslash type293063
+Node: Backslash lockset294045
+Node: Backslash max294515
+Node: Backslash is_initialized295234
+Node: Backslash invariant_for295787
+Node: Backslash lblneg and lblpos296342
+Node: Quantified Expressions297751
+Node: Universal and Existential Quantifiers299574
+Node: Generalized Quantifiers300583
+Node: Numerical Quantifier303010
+Node: Executability of Quantified Expressions303661
+Node: Modifiers for Bound Variables305260
+Node: Quantifying over Reference Types306327
+Node: Set Comprehensions306926
+Node: JML Operators308503
+Node: Subtype operator308965
+Node: Equivalence and Inequivalence Operators309844
+Node: Forward and Reverse Implication Operators311041
+Node: Lockset Ordering312438
+Node: Store Refs313433
+Node: Statements and Annotation Statements314918
+Node: Local Declaration Statements317354
+Node: Modifiers for Local Declarations317840
+Node: Loop Statements320248
+Node: Loop Invariants323202
+Node: Loop Variant Functions325428
+Node: Assert Statements327045
+Node: JML Annotation Statements329266
+Node: Assume Statements330197
+Node: Set Statements331037
+Node: Refining Statements332074
+Node: Unreachable Statements335659
+Node: Debug Statements336483
+Node: Hence By Statements338627
+Node: Redundancy339246
+Node: Redundant Implications and Redundantly Clauses340406
+Node: Redundant Examples345304
+Node: Model Programs349087
+Node: Ideas Behind Model Programs349745
+Node: Extracting Model Program Specifications354913
+Node: Details of Model Programs355471
+Node: Nondeterministic Choice Statement356437
+Node: Nondeterministic If Statement357123
+Node: Specification Statements358082
+Node: Continues Clause360871
+Node: Breaks Clause361555
+Node: Returns Clause362152
+Node: Specification for Subtypes362783
+Node: Method of Specifying for Subclasses365267
+Node: Code Contracts365589
+Node: Refinement367478
+Node: File Name Suffixes368684
+Node: Using Separate Files369845
+Node: Refinement Chains373903
+Node: Type Checking Refinements377842
+Node: Refinement Viewpoints384505
+Node: Default Constructor Refinement385422
+Node: MultiJava Extensions to JML389333
+Node: Augmenting Method Declarations389864
+Node: MultiMethods390830
+Node: Universe Type System391481
+Node: Basic Concepts of Universes394279
+Node: Rep and Peer395779
+Node: Readonly399545
+Node: Ownership Modifiers for Array Types400275
+Node: Default Ownership Modifiers401542
+Node: Ownership Type Rules404541
+Node: Ownership Subtyping404898
+Node: Ownership Typing for Expressions406329
+Node: Casts and Ownership Types409481
+Node: Safe Math Extensions410588
+Node: Backslash bigint410818
+Node: Backslash real410999
+Node: Deprecated and Replaced Syntax411147
+Node: Deprecated Syntax411971
+Node: Replaced Syntax412205
+Node: Grammar Summary412782
+Node: Modifier Summary454564
+Node: Type Checking Summary459678
+Node: Verification Logic Summary459912
+Node: Differences460151
+Node: Differences Between JML and Other Tools460532
+Node: Differences Between JML and ESC/Java2461799
+Node: Differences Between JML and Java463531
+Node: Non-null by Default463909
+Node: Bibliography465472
+Node: Example Index494254
+Node: Concept Index497032
+
+End Tag Table
