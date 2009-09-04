@@ -39,6 +39,7 @@
 % \usepackage[centredisplay,PostScript=dvips]{diagrams}
 % \fi
 \usepackage{float}
+\usepackage{subfig}
 
 \ifpdf
 \usepackage[pdftex,bookmarks=false,a4paper=false,
@@ -48,11 +49,12 @@
             pdfauthor="Joseph R. Kiniry and Dragan Stosic"]{hyperref}
 \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
 \fi
 \ifpdf
   \DeclareGraphicsRule{*}{mps}{*}{}
 \fi
-
+\def\figureautorefname{Fig.}
 
 \lstset{
   language=Java,
@@ -121,6 +123,8 @@
   morekeywords={N'across, N'through},
   morekeywords={across,through,zoh,ltf,slew,ztf},
   morekeywords={above,tolerance,group,quantity},
+  morekeywords={entity,end,use,port,generic,is,library,all},
+  morekeywords={architecture,of,through,begin,constant},
   morecomment=[l]{--},
   morecomment=[s]{/*}{*/},
   morestring=[b]",
@@ -202,7 +206,7 @@ basis.  \STs are custom-designed in VHDL-AMS.  Like many hardware-based systems,
 the actual hardware or one runs a \STS.  But this simulator emulates a
 piece of hardware, one would like to know if the simulator
 \emph{actually} simulates the hardware.  We have developed an approach
-through which we refine the VHDL specification up to the formal BON
+through which we refine the VHDL-AMS specification up to the formal BON
 specification language, and from this specification we generate an
 executable, functional model-based specification in the JML language.
 We have used this specification to implement a fully validated and
@@ -217,7 +221,7 @@ The \ST sensor platform, represents heterogeneous collection of digital, analog
 and mixed signal hardware circuits. Embedded system complexity
 requires the need to strive for formal descriptions each component
 separately in order to produce specification of the \STS.
-Our aim is to be able to precisely describe the structures of circuits,
+Our aim is to be able to describe the structures of circuits,
 the behavior of circuits and the formal link between structures and behaviors.
 In other words, the behavioral specification of the \STS may be
 represented as a \inv on the signals at the circuit's ports and may be obtained
@@ -228,17 +232,17 @@ in order to be able to achieve this goal.
 The authors will illustrate in this article how BON can represent a high
 level analogue mapping and will further illustrate a procedure for
 transformation from VHDL-AMS to BON.\\
-This article provides three main contributions.
+This article provides two main contributions.
 \begin{enumerate}
 \item
  It provides a solution how to formally emulate
  piece of hardware using BON-JML approach; up to date BON and JML
  have been used mostly in the pure object oriented software construction.   
 \item
-It relates hardware description code and formal calculus.
+It relates hardware description code and refinement.
 This means that if there  is a code that is "correct by construction",
-then it will be derivable from BON (informal/formal) specification,
-via the refinement calculus to JML implementation.
+then it will be derivable from BON (informal/formal) specification to 
+JML implementation.
 \end{enumerate}
 The rest of this article is organized as follows.
 In \autoref{sec:vhdlams} we have  presented an overview of VHDL-AMS language.
@@ -248,8 +252,9 @@ In \autoref{sec:mappingVB} we will show mapping between VHDL-AMS and BON.
 A comprehensive list of the mapping between BON and VHDL-AMS can be
 found in the appendix. 
 The central part of the our article is \autoref{sec:refVB}, in which
-we will give practical aspect of refinement, applied on lowpass filter, 
-in order to produce formal specification and software simulation.\\ 
+we will give practical aspect of refinement , applied on 
+first order passive RC Low-Pass filter, in order to produce formal 
+specification and software simulation.\\ 
 %=====================================================================
 
 
@@ -293,7 +298,7 @@ by computing new values for quantities from the current value of quantities.
 The \emph{break statement} is an construct which allows to
 initialize the DAE system at the beginning of a transient
 simulation and to mark discontinuities during such a transient
-simulation.For any concurrent break statement there is an associated process.
+simulation. For any concurrent break statement there is an associated process.
 A break statement allows restart of the analog kernel,
 than overrides quantity values and executes concurrently with the analogue model.
 
@@ -322,8 +327,8 @@ and specification from forward progress to backward and redesign, preclude
 that design and implementation diverge to an inconsistent state.\\
 \emph{Seamlessness} also plays an important role in relating behaviours at
 different levels of abstraction. For instance, one may wish to analyze
-a "real capacitor" at the level of individual components (a resistor and
-ideal capacitor) and their behaviours, or at the more abstract level through
+a "lowpass-filter" at the level of individual components (a resistor and 
+capacitor) and their behaviours, or at the more abstract level through
 general behaviour (\inv) and using existential quantification (\texttt{exists})
 to encapsulate all internal structure. Therefore capturing similarities between
 the differing levels of abstractions far outweigh their inevitable differences,
@@ -381,11 +386,53 @@ for the \STS.
 Throughput this article we will make this more clearly. 
 \section{Mapping between VHDL-AMS and BON}
 \label{sec:mappingVB}
-The main theme of this article is the mapping between VHDL-AMS and BON.
+
 \section{Refinement from VHDL-AMS to BON }
 \label{sec:refVB}
-\includegraphics{circ.1}
+The main theme of this article is the translation from VHDL-AMS to BON using 
+refinement approach.
+We will refine the VHDL-AMS code up to the formal BON, and from this 
+specification we will generate an executable specification in the JML language.
+For this purpose, we will demonstrate our approach in BON-JML fashion trought 
+low-pass filter example.
+\input{lowpassRC}
+We can implement the last equation (see \autoref{fig:lowpassfig}) using the \texttt{'dot} 
+implicite attribute of quantity. For this purpose we introduce relation 
+\texttt{$s \rightarrow d/dt \rightarrow 'dot$} . The transformation looks as follows: \\
+\begin{equation}
+v_{in} = v_{out} + \tau_psv_{out} 
+   \begin{array}[b]{c}                                                                                                                                    
+      {\scriptscriptstyle s \rightarrow d/dt}  \\=                                                                                                                  
+   \end{array} 
+v_{out} + \tau_p\cfrac{dv_{out}}{dt}
+\begin{array}[b]{c}                                                                                                                                    
+      {\scriptscriptstyle d/dt \rightarrow } {\scriptscriptstyle 'dot} \\=                                                                                                                  
+   \end{array}
+  v_{in} = v_{out} + \tau_pv_{out}{'dot} 
+\end{equation} 
+\input{lowpass}
+We have not yet said what specification and refinement are.
+Let us introduce these therms first.\\ 
+A specification of a program component is a contract that gives some constraints 
+on how the component is to behave but leaves freedom for the implementator to 
+decide how the actual behavior of the component is to be realized.
+Specification involves \emph{choice} between a number of alternatives; this 
+relationship is one-to-many. As we have shown in \autoref{tab:rescap}, corresponding 
+informal specifications represents high level of abstraction derived from VHDL-AMS code.
 
+A refinement represents the concept that can be understud as series of 
+correctness-preserving transformations from general perspective to 
+a precise level of detail. Accurately, if we compare two specifications,
+\texttt{S} and \texttt{S'}, then we can conclude that the \texttt{S} 
+is more abstract than \texttt{S'} if any condition that we can establish 
+with the first specification can also be established by second. 
+It means that "\texttt{S is \emph{refined} by S'}", 
+and we denote this  as \texttt{S $\rightsquigarrow$ S'}.
+Let say that the first informal BON specification is denoted by 
+\texttt{S} (see \autoref{tab:rescap}), and second, which is given 
+in Table2  is denoted by \texttt{S'}.
+In this case, the refinement relation represents an \emph{isomorphism} 
+and maps the following:
 %=====================================================================
 \section{Conclusion}
 
@@ -435,33 +482,34 @@ sponsorship from Science Foundation Ireland via the
 % Fin
 
 %======================================================================
-\appendix
-\newpage
-\section {APPENDIX}
-\input{static}
-\input{arith}
-\input{shift}
-\input{relation}
-\input{logic}
-\input{types}
-\input{assignment}
-\input{iscaltypeattr}
-\input{tolerance}
-\input{effort}
-\input{flow}
-\input{nature}
-\input{iscalnature}
-\input{iarrayattr}
-\input{scalnat}
-\input{iterminal}
-\input{terminal}
-\input{iquantity}
-\input{quantity}
-\input{quantityport}
-\input{terminalport}
-\input{signal}
-\input{signalattr}
-\input{wait}
+%\appendix
+%\newpage
+%\section {APPENDIX}
+%\input{static}
+%\input{arith}
+%\input{shift}
+%\input{relation}
+%\input{logic}
+%\input{types}
+%\input{assignment}
+%\input{iscaltypeattr}
+%\input{tolerance}
+%\input{effort}
+%\input{flow}
+%\input{nature}
+%\input{iscalnature}
+%\input{iarrayattr}
+%\input{scalnat}
+%\input{iterminal}
+%\input{terminal}
+%\input{iquantity}
+%\input{quantity}
+%\input{quantityport}
+%\input{terminalport}
+%\input{signal}
+%\input{signalattr}
+%\input{wait}
+
 %======================================================================
 
 \end{document}
