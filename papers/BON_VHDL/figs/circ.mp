@@ -1,0 +1,21 @@
+input makecirc;
+beginfig(1);
+resistor.a(origin + (1cm,1cm),normal,0,"R","");
+junction.a(R.a.l -(1cm,0),"")(top);
+junction.d(R.a.l -(1cm,1.73cm),"")(bot);
+junction.b(R.a.r +(1cm,0),"")(top);
+junction.e(J.b +(2cm,0),"")(top);
+capacitor.a(J.b + (0,-0.5cm),normal,-90,"C","");
+junction.twob(C.a.r +(0,-0.5cm),"")(bot);
+junction.f(J.twob +(2cm,0),"")(bot);
+wire(J.a,R.a.l,udsq);
+wire(J.b,R.a.r,udsq);
+wire(J.twob,C.a.r,udsq);
+wire(J.b,C.a.l,udsq);
+wire(J.d,J.twob,udsq);
+wire(J.twob,J.f,udsq);
+wire(J.b,J.e,udsq);
+ctext(J.a,J.d,"$v_{in}$",noarrow);
+ctext(J.e,J.f,"$v_{out}$",noarrow);
+endfig;
+end.

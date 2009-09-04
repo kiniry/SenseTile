@@ -1,0 +1,8 @@
+This is MetaPost, Version 0.993 (Web2C 7.5.6) (mem=mpost 2009.8.14)  3 SEP 2009 17:06
+**circ.mp
+(circ.mp (/usr/share/texmf-texlive/metapost/makecirc/makecirc.mp
+(/usr/share/texmf-texlive/metapost/makecirc/latex.mp (circ.mpt)))
+write0 = `circ.mpt'.
+
+ [1] )
+1 output file written: circ.1
