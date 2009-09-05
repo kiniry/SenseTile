@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="**/.svn" kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="lib/ftd2xxj.jar">
+	<classpathentry exported="true" kind="lib" path="lib/d2xxj/ftd2xxj.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="main-project/lib/x86"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="main-project/lib/d2xxj/x86"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/javax.util.property.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/d2xxj/javax.util.property.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
