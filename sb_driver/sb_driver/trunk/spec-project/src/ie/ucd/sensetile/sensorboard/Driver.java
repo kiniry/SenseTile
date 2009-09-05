@@ -9,7 +9,7 @@ package ie.ucd.sensetile.sensorboard;
 
 import ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStream;
 
-import com.ftdichip.ftd2xx.BitBangMode;
+//import com.ftdichip.ftd2xx.BitBangMode;
 import com.ftdichip.ftd2xx.Device;
 import com.ftdichip.ftd2xx.FTD2xxException;
 import com.ftdichip.ftd2xx.Service;
@@ -20,8 +20,8 @@ public final class Driver {
   private static final int TX_BUFFER_SIZE = 1024 * 1024;
   private static final int TIMEOUT = 500;
   private static final int PORT_BAUDRATE = 12000000;
-  private static final int BITBANG_MASK = 0xff;
-  private static final BitBangMode BITBANG_MODE = BitBangMode.ASYNCHRONOUS;
+  //private static final int BITBANG_MASK = 0xff;
+  //private static final BitBangMode BITBANG_MODE = BitBangMode.ASYNCHRONOUS;
   
   private final Device device;
   

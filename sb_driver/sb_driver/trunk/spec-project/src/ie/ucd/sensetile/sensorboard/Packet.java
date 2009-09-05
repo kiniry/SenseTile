@@ -1,3 +1,8 @@
+/*
+ * Packet.java
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
+ */
 package ie.ucd.sensetile.sensorboard;
 
 /**
@@ -8,26 +13,25 @@ package ie.ucd.sensetile.sensorboard;
  */
 public interface Packet {
   
-  // indexes
-  
   /**
    * Get time.
    * 
    * @return time
    */
-  Time getTime();
-  
+  /*@ pure non_null */ Time getTime();
   
   /**
    * Get packet counter.
-   * 
-   * Maximum: 65535
+   * Minimum: 0. 
+   * Maximum: 65535. 
    * 
    * @return counter
    */
-  char getCounter();
-  
-  // sensors
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result < 65536;
+    @*/
+  /*@ pure */ char getCounter();
   
   /**
    * Get temperature.
@@ -40,7 +44,11 @@ public interface Packet {
    * 
    * @return temperature
    */
-  short getTemperature();
+  /*@ 
+    @ ensures \result >= -880;
+    @ ensures \result <= 2047;
+    @*/
+  /*@ pure */ short getTemperature();
   
   /**
    * Get pressure.
@@ -53,7 +61,11 @@ public interface Packet {
    * 
    * @return pressure
    */
-  short getPressure();
+  /*@ 
+    @ ensures \result >= 310;
+    @ ensures \result <= 5585;
+    @*/
+  /*@ pure */ short getPressure();
   
   /**
    * Get light level.
@@ -64,7 +76,11 @@ public interface Packet {
    * 
    * @return light level
    */
-  short getLightLevel();
+  /*@ 
+    @ ensures \result >= 0;
+    @ ensures \result <= 1000;
+    @*/
+  /*@ pure */ short getLightLevel();
   
   /**
    * Get acceleration on X axis.
@@ -77,7 +93,11 @@ public interface Packet {
    * 
    * @return acceleration
    */
-  short getAccelerometerX();
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerX();
   
   /**
    * Get acceleration on Y axis.
@@ -90,7 +110,11 @@ public interface Packet {
    * 
    * @return acceleration
    */
-  short getAccelerometerY();
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerY();
   
   /**
    * Get acceleration on Z axis.
@@ -103,15 +127,15 @@ public interface Packet {
    * 
    * @return acceleration
    */
-  short getAccelerometerZ();
-  
-  // supply
+  /*@
+    @ ensures \result >= 1488;
+    @ ensures \result >= 2232;
+    @*/
+  /*@ pure */ short getAccelerometerZ();
   
   int getSupplyVoltage();
   
   int getSupplyCurrent();
-  
-  // Frames
   
   /**
    * Frame number in packet.
@@ -126,7 +150,11 @@ public interface Packet {
    * @param index frame index
    * @return frame
    */
-  Frame getFrame(int index);
+  /*@
+    @ requires index >= 0;
+    @ requires index < FRAMES;
+    @*/
+  /*@ pure non_null */ Frame getFrame(int index);
   
   public interface Time {
     
@@ -137,7 +165,11 @@ public interface Packet {
      * 
      * @return hours
      */
-    byte getHours();
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 24;
+      @*/
+    /*@ pure */ byte getHours();
     
     /**
      * Get minutes.
@@ -146,7 +178,11 @@ public interface Packet {
      * 
      * @return minutes
      */
-    byte getMinutes();
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 60;
+      @*/
+    /*@ pure */ byte getMinutes();
     
     /**
      * Get seconds.
@@ -155,7 +191,11 @@ public interface Packet {
      * 
      * @return seconds
      */
-    byte getSeconds();
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 60;
+      @*/
+    /*@ pure */ byte getSeconds();
     
     /**
      * Get centiseconds.
@@ -164,7 +204,11 @@ public interface Packet {
      * 
      * @return centiseconds
      */
-    byte getCentiSeconds();
+    /*@
+      @ ensures \result >= 0;
+      @ ensures \result < 100;
+      @*/
+    /*@ pure */ byte getCentiSeconds();
   }
   
 }

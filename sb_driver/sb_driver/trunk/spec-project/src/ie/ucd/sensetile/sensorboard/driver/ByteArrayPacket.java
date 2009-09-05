@@ -1,12 +1,10 @@
 /*
- * Packet.java
+ * ByteArrayPacket.java
  *
  * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
-
 package ie.ucd.sensetile.sensorboard.driver;
 
-//@ model import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.sensorboard.Packet;

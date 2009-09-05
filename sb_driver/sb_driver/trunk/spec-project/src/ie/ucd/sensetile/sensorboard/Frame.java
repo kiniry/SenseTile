@@ -1,8 +1,17 @@
-/**
- * 
+/*
+ * Frame.java
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
+
 package ie.ucd.sensetile.sensorboard;
 
+/**
+ * Sensor board internal grìframe of output packet data.
+ * 
+ * @author delbianc
+ *
+ */
 public interface Frame {
   
   /**
@@ -10,21 +19,14 @@ public interface Frame {
    * 
    * @return signal active
    */
-  boolean isIRDSynachronizationActive();
+  /*@ pure */ boolean isIRDSynachronizationActive();
   
   /**
    * Audio active. 
    * 
    * @return audio active
    */
-  boolean isAudioActive();
-  
-  /**
-   * Audio frequency.
-   * 
-   * @return audio frequency
-   */
-  int getAudioFrequency();
+  /*@ pure */ boolean isAudioActive();
   
   /**
    * Audio frequency: 48 KHz.
@@ -37,9 +39,21 @@ public interface Frame {
   int AUDIO_FREQUENCY_96KHZ = 1; 
   
   /**
+   * Audio frequency.
+   * 
+   * @return audio frequency
+   */
+  /*@
+    @ ensures 
+    @   (\result == AUDIO_FREQUENCY_48KHZ) || 
+    @   (\result == AUDIO_FREQUENCY_96KHZ);
+    @*/
+  /*@ pure */ int getAudioFrequency();
+  
+  /**
    * Audio channels.
    */
-  int AUDIO_CHANNNELS = 4;
+  int AUDIO_CHANNELS = 4;
   
   /**
    * Get audio sample.
@@ -49,14 +63,24 @@ public interface Frame {
    * @param channel audio channel
    * @return audio sample
    */
-  char getAudio(int channel);
+  /*@
+    @ requires channel >= 0;
+    @ requires channel < AUDIO_CHANNELS;
+    @ requires isAudioActive();
+    @*/
+  /*@ pure */ char getAudio(int channel);
   
   /**
    * ADC active. 
    * 
    * @return ADC active
    */
-  boolean isADCActive();
+  /*@ pure */ boolean isADCActive();
+  
+  /**
+   * ADC channels.
+   */
+  int ADC_CHANNNELS = 8;
   
   /**
    * Get slow ADC channel.
@@ -65,18 +89,20 @@ public interface Frame {
    * 
    * @return ADC channel
    */
-  int getADCChannel();
-  
-  /**
-   * ADC channels.
-   */
-  int ADC_CHANNNELS = 8;
+  /*@
+    @ ensures \result >= 0;
+    @ ensures \result < ADC_CHANNNELS;
+    @*/
+  /*@ pure */ int getADCChannel();
   
   /**
    * Get slow ADC sample.
    * 
    * @return ADC sample
    */
-  char getADC();
+  /*@
+    @ requires isADCActive();
+    @*/
+  /*@ pure */ char getADC();
   
 }

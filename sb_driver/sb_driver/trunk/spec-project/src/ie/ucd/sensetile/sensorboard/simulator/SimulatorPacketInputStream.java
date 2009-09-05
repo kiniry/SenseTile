@@ -3,7 +3,6 @@ package ie.ucd.sensetile.sensorboard.simulator;
 import java.io.IOException;
 
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
-import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.sensorboard.Packet;
 
 public class SimulatorPacketInputStream implements PacketInputStream {
@@ -23,23 +22,24 @@ public class SimulatorPacketInputStream implements PacketInputStream {
     return AVAILABLE_PACKETS;
   }
   
-  public void close() throws IOException {
+  public void close() {
     isClose = true;
   }
   
-  public Packet read() throws IOException, SenseTileException {
+  public Packet read() 
+      throws IOException {
     checkClose();
     return internalRead();
   }
 
   public int read(final Packet[] array) 
-      throws IOException, SenseTileException {
+      throws IOException {
     return read(array, 0, array.length);
   }
   
   public int read(
-      final Packet[] array, final int offset, final int length)
-      throws IOException, SenseTileException {
+      final Packet[] array, final int offset, final int length) 
+      throws IOException {
     checkClose();
     if (length < 0) {
       throw new IndexOutOfBoundsException();
@@ -51,13 +51,13 @@ public class SimulatorPacketInputStream implements PacketInputStream {
   }
   
   public void readFully(final Packet[] array) 
-      throws IOException, SenseTileException {
+      throws IOException {
     read(array);
   }
   
   public void readFully(
       final Packet[] array, final int offset, final int length)
-      throws IOException, SenseTileException {
+      throws IOException {
     read(array, offset, length);
   }
   

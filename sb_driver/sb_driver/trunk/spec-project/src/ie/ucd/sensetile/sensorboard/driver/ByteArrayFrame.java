@@ -1,5 +1,7 @@
-/**
- * 
+/*
+ * ByteArrayFrame.java
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 package ie.ucd.sensetile.sensorboard.driver;
 

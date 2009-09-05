@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="generate_jml_source" name="jml">
+
+  <property name="main-project.location" value="../main-project" />
+
+  <path id="jml-libraries.classpath">
+    <pathelement location="lib/jml/jml-release.jar" />
+    <pathelement location="lib/jml/specs" />
+  </path>
+
+  <path id="main-project.classpath">
+    <pathelement location="${main-project.location}/bin" />
+    <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar" />
+    <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar" />
+  </path>
+
+  <path id="jml.classpath">
+    <path refid="jml-libraries.classpath" />
+    <path refid="main-project.classpath" />
+  </path>
+  <property name="jml.classpath" refid="jml.classpath" />
+
+  <!--
+  <property name="jml.compile" value="src/ie/ucd/sensetile/sensorboard/SenseTileException.java src/ie/ucd/sensetile/sensorboard/Frame.java src/ie/ucd/sensetile/sensorboard/Packet.java src/ie/ucd/sensetile/sensorboard/PacketInputStream.java src/ie/ucd/sensetile/sensorboard/driver/ByteArrayFrame.java.java src/ie/ucd/sensetile/sensorboard/PacketInputStream.java src/ie/ucd/sensetile/sensorboard/driver/ByteArrayPacket.java src/ie/ucd/sensetile/sensorboard/driver/InputStreamPacketInputStream.java src/ie/ucd/sensetile/sensorboard/simulator/CloneablePacket.java src/ie/ucd/sensetile/sensorboard/simulator/FileAndClonePacketBuilder.java src/ie/ucd/sensetile/sensorboard/simulator/InstanceFrame.java src/ie/ucd/sensetile/sensorboard/simulator/InstancePacket.java src/ie/ucd/sensetile/sensorboard/simulator/PacketBuilder.java src/ie/ucd/sensetile/sensorboard/simulator/SimulatorPacketInputStream.java" />
+  -->
+  <property name="jml.compile" value="ie.ucd.sensetile"/>
+  <property name="jml.src" value="src" />
+  <property name="jml.generated_src" value="jml-generated" />
+
+  <property name="jml.debug" value="--debug" />
+  <property name="jml.warning" value="--warning 1" />
+
+  <property name="jml.assignable" value="--assignable" />
+  <property name="jml.recursive" value="--recursive" />
+  <property name="jml.source_code" value="--source 1.4" />
+  <property name="jml.print_source" value="--print" />
+
+  <target name="generate_jml_source">
+    <java failonerror="true" fork="true" classname="org.jmlspecs.jmlrac.Main">
+      <jvmarg value="-Xms64m" />
+      <jvmarg value="-Xmx128m" />
+      <classpath>
+        <path refid="jml.classpath" />
+      </classpath>
+      <arg line="${jml.debug}" />
+      <arg line="${jml.warning}" />
+      <arg line="${jml.assignable}" />
+      <arg line="${jml.recursive}" />
+      <arg line="${jml.source_code}" />
+      <arg line="${jml.print_source}" />
+      <arg line="--classpath ${jml.classpath}" />
+      <arg line="--sourcepath ${jml.src}" />
+      <arg line="--destination ${jml.generated_src}" />
+      <arg line="${jml.compile}" />
+    </java>
+  </target>
+
+</project>

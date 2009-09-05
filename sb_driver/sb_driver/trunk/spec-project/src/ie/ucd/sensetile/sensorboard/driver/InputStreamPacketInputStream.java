@@ -1,5 +1,5 @@
 /*
- * PacketInputStream.java
+ * InputStreamPacketInputStream.java
  *
  * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
@@ -17,20 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * @author Vieri del Bianco
- *
- */
-/**
- * A packet input stream lets an application read Packet instance data
- * from an underlying input stream.
- * 
- * <p> PacketInputStream is not safe for multithreaded access.
- *
- * @author Vieri del Bianco
- * @version 0
- * @see 
- */
 public class InputStreamPacketInputStream implements PacketInputStream {
   
   /*

@@ -2,6 +2,14 @@ package ie.ucd.sensetile.sensorboard;
 
 import java.io.IOException;
 
+/**
+ * A packet input stream lets an application read Packet instance data
+ * from an underlying input stream.
+ * 
+ * <p> PacketInputStream is not safe for multithreaded access.
+ *
+ * @author Vieri del Bianco
+ */
 public interface PacketInputStream {
 
   /**

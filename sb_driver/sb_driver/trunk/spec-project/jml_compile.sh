@@ -37,4 +37,10 @@ arguments="${debug} ${source_code} ${assignable} ${recursive} ${warning} ${print
 
 echo ${arguments}
 
-${JML_HOME}/bin/jmlc-unix ${arguments}
+CLASSPATH="
+.
+jml-release.jar
+specs
+
+
+java -Xms64m -Xmx128m org.jmlspecs.jmlrac.Main ${arguments}
