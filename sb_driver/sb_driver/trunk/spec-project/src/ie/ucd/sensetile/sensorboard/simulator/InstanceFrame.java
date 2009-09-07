@@ -1,5 +1,7 @@
-/**
- * 
+/*
+ * InstanceFrame.java
+ *
+ * Copyright 2009 SenseTile, UCD. All rights reserved.
  */
 package ie.ucd.sensetile.sensorboard.simulator;
 
@@ -10,9 +12,7 @@ public class InstanceFrame implements Frame, Cloneable {
   private boolean isIRDSynachronizationActive;
   private boolean isAudioActive;
   private int audioFrequency;
-  //TODO solve JML2 problem with constants
-  //private char[] audioSample = new char[AUDIO_CHANNNELS];
-  private char[] audioSample = new char[4];
+  private char[] audioSample = new char[AUDIO_CHANNELS];
   private int adcChannel;
   private char adcSample;
   private boolean isADCActive;

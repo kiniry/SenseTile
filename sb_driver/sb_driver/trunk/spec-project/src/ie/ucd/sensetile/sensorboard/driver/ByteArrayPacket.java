@@ -186,19 +186,19 @@ public final class ByteArrayPacket implements Packet {
     return new Time(){
       public byte getHours() {
         return getRaw().getByte(HOURS_POSITION);
-      };
+      }
       
       public byte getMinutes() {
         return getRaw().getByte(MINUTES_POSITION);
-      };
+      }
       
       public byte getSeconds() {
         return getRaw().getByte(SECONDS_POSITION);
-      };
+      }
       
       public byte getCentiSeconds() {
         return getRaw().getByte(CENTISECONDS_POSITION);
-      };
+      }
     };
   }
   

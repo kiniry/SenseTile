@@ -30,9 +30,7 @@ public class InstancePacket implements CloneablePacket {
   /*
    * frames
    */
-  //TODO solve JML2 problem with constants
-  //private FrameInstance[] frames = new FrameInstance[FRAMES];
-  private InstanceFrame[] frames = new InstanceFrame[82];
+  private InstanceFrame[] frames = new InstanceFrame[FRAMES];
   
   public InstancePacket() {
     setTime(new TimeInstance());

@@ -20,8 +20,8 @@ public interface PacketInputStream {
    * input stream without blocking.
    * @exception IOException if an I/O error occurs.
    */
-  int availablePackets() throws IOException;
-
+  /*@ pure */ int availablePackets() throws IOException;
+  
   /**
    * Reads some number of packets from the contained input stream and stores 
    * them into the array.
@@ -146,7 +146,7 @@ public interface PacketInputStream {
    **/
   void readFully(Packet[] array, int offset, int length)
       throws IOException, SenseTileException;
-
+  
   void close() throws IOException;
 
 }

@@ -56,7 +56,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /*
    * byte pattern matcher
    */
-  private final BytePattern pattern;
+  private BytePattern pattern;
   
   /*
    * flag: input stream closed
@@ -73,12 +73,26 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    */
   private boolean isValid;
   
-  public InputStreamPacketInputStream(
-      final InputStream is) {
-    this(is, new Properties());
+  public static InputStreamPacketInputStream createInputStreamPacketInputStream(
+      InputStream is) {
+    return createInputStreamPacketInputStream(is, new Properties());
   }
   
-  public InputStreamPacketInputStream(
+  public static InputStreamPacketInputStream createInputStreamPacketInputStream(
+      InputStream is, Properties properties) {
+    InputStreamPacketInputStream pis = new InputStreamPacketInputStream(is, properties);
+    // buffer
+    pis.raw = new byte[getPacketLength() * pis.getBufferPackets()];
+    pis.byteArray = UnsignedByteArray.create(pis.raw, 0, 0);
+    // pattern
+    pis.pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
+    // flags
+    pis.isValid = false;
+    pis.isEOF = false;
+    return pis;
+  }
+  
+  private InputStreamPacketInputStream(
       final InputStream is, final Properties properties) {
     // input stream
     this.input = new DataInputStream(is);
@@ -86,14 +100,6 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     this.properties = 
       new Properties(InputStreamPacketInputStream.DEFAULT_PROPERTIES);
     this.properties.putAll(properties);
-    // buffer
-    raw = new byte[getPacketLength() * getBufferPackets()];
-    byteArray = UnsignedByteArray.create(raw, 0, 0);
-    // pattern
-    pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
-    // flags
-    isValid = false;
-    isEOF = false;
   }
 
   private int getBufferPackets() {
@@ -277,11 +283,9 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     }
     // calculate packet start position
     int absoluteIndex = 0;
-    //TODO solve JML2 problem with constants
-    //(getPacketLength() - ByteArrayPacket.PATTERN_OFFSET)
     absoluteIndex = (
           index + 
-          (getPacketLength() - 1018)
+          (getPacketLength() - ByteArrayPacket.PATTERN_OFFSET)
         ) % getPacketLength();
     trimBuffer(absoluteIndex);
     return true;
@@ -321,24 +325,14 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return isValid;
   }
   
-  private int getPacketLength() {
-    //TODO solve JML2 problem with constants
-    //return ByteArrayPacket.LENGTH;
-    return 1024;
+  private static int getPacketLength() {
+    return ByteArrayPacket.LENGTH;
   }
   
-  private byte[] getPacketPattern() {
-    //TODO solve JML2 problem with constants
-    //return ByteArrayPacket.PATTERN;
-    final byte[] pattern = {
-      (byte) 0xff, (byte) 0xee, 
-      (byte) 0xff, (byte) 0xee, 
-      (byte) 0xff, (byte) 0xee, 
-      (byte) 0xff, (byte) 0xff, 
-      (byte) 0xff, (byte) 0xff };
-    return pattern;
+  private static byte[] getPacketPattern() {
+    return ByteArrayPacket.PATTERN;
   }
-  
+
   private static final class ReturnPacketArray {
     
     private Packet[] array; 

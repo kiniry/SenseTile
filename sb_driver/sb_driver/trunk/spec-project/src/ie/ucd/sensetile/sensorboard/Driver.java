@@ -52,7 +52,7 @@ public final class Driver {
   }
   
   public PacketInputStream getStream() {
-    return new InputStreamPacketInputStream(device.getInputStream());
+    return InputStreamPacketInputStream.createInputStreamPacketInputStream(device.getInputStream());
   }
   
 }

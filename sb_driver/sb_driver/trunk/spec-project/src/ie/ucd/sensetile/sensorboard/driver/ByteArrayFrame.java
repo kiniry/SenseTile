@@ -76,18 +76,14 @@ public final class ByteArrayFrame implements Frame{
   public static final int AUDIO_POSITION = 4;
   
   public char getAudio(final int channel) {
-    //TODO solve JML2 problem with constants
-    //if (channel < 0 || channel >= AUDIO_CHANNNELS) {
-    if (channel < 0 || channel >= 4) {
+    if (channel < 0 || channel >= AUDIO_CHANNELS) {
       throw new IndexOutOfBoundsException();
     }
     return (char) rawFrame.getShortUnsigned(ADC_POSITION + channel * 2);
   }
   
   public void setAudio(final int channel, final int value) {
-    //TODO solve JML2 problem with constants
-    //if (channel < 0 || channel >= AUDIO_CHANNNELS) {
-    if (channel < 0 || channel >= 4) {
+    if (channel < 0 || channel >= AUDIO_CHANNELS) {
       throw new IndexOutOfBoundsException();
     }
     rawFrame.setShortUnsigned(ADC_POSITION + channel * 2, value);

@@ -1,5 +1,6 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
+import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.Packet;
 
 import java.io.DataInputStream;
@@ -31,9 +32,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     readAccelerometerZ(packet);
     for (
         int channelIndex = 0; 
-        //TODO solve JML2 problem with constants
-        //channelIndex < Frame.AUDIO_CHANNNELS;
-        channelIndex < 4; 
+        channelIndex < Frame.AUDIO_CHANNELS; 
         channelIndex++) {
       readAudio(channelIndex, packet);
     }
@@ -109,9 +108,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
   private void readAudio(final int channel, final InstancePacket packet) {
     if (audio[channel] != null) {
       try {
-        //TODO solve JML2 problem with constants
-        //for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
-        for (int frameIndex = 0; frameIndex < 82; frameIndex++) {
+        for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
           ((InstanceFrame)packet.getFrame(frameIndex)).setAudio(
               channel, audio[channel].readChar());
         }
