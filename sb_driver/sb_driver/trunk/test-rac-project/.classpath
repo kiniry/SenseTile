@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/main-project"/>
+	<classpathentry kind="lib" path="/test-project/bin" sourcepath="/test-project/src"/>
+	<classpathentry kind="lib" path="/spec-project/lib/jml/jml-release.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/junit/junit.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/jmock.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/cglib-nodep.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/cglib-src.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/hamcrest-core.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/hamcrest-library.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/jmock-junit4.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/jmock-legacy.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/jmock/objenesis.jar"/>
+	<classpathentry kind="lib" path="/test-project/lib/junit/junit-dep.jar" sourcepath="/test-project/lib/junit/src.jar"/>
+	<classpathentry kind="lib" path="/spec-project/jml/bin" sourcepath="/spec-project/jml/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
