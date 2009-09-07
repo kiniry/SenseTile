@@ -3,7 +3,6 @@ package ie.ucd.sensetile.sensorboard.simulator;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 
@@ -52,11 +51,7 @@ public class SimulatorPacketInputStreamTest {
   
   @Test (expected=IOException.class)
   public void testClose() throws IOException, SenseTileException {
-    try {
-      simulator.close();
-    } catch (IOException e) {
-      fail("IOException not expected");
-    }
+    simulator.close();
     simulator.read();
   }
   

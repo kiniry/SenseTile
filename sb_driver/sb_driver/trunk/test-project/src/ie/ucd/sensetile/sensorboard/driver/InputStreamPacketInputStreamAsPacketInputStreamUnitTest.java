@@ -15,7 +15,7 @@ public class InputStreamPacketInputStreamAsPacketInputStreamUnitTest
     byte[] rawPacket = PacketRawByteArrayBuilder.prepare(
         ByteArrayPacket.LENGTH * availablePackets);
     InputStream is = new ByteArrayInputStream(rawPacket);
-    PacketInputStream pis = new InputStreamPacketInputStream(is);
+    PacketInputStream pis = InputStreamPacketInputStream.createInputStreamPacketInputStream(is);
     return pis;
   }
   

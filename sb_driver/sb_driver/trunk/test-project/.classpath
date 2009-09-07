@@ -2,9 +2,17 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/spec-project"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/main-project"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jMock"/>
+	<classpathentry kind="lib" path="lib/junit/junit.jar"/>
+	<classpathentry kind="lib" path="lib/junit/junit-dep.jar" sourcepath="lib/junit/src.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/cglib-src.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/hamcrest-core.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/hamcrest-library.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/jmock-junit4.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/jmock-legacy.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/jmock.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/objenesis.jar"/>
+	<classpathentry kind="lib" path="lib/jmock/cglib-nodep.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -32,11 +32,6 @@ public class ByteArrayPacketUnitTest {
   }
   
   @Test
-  public void testConstructorNullArrayNotChecked() {
-    new ByteArrayPacket(null);
-  }
-  
-  @Test
   public void testConstructor() {
     new ByteArrayPacket(UnsignedByteArray.create(new byte[1024]));
   }

@@ -110,7 +110,8 @@ public class InputStreamPacketInputStreamUnitTest {
         InputStreamPacketInputStream.VALIDATE_MINIMUM_PACKETS_PROPERTY, "1");
     properties.setProperty(
         InputStreamPacketInputStream.TRIM_PACKETS_PROPERTY, "1");
-    PacketInputStream pis = new InputStreamPacketInputStream(is, properties);
+    PacketInputStream pis = InputStreamPacketInputStream.createInputStreamPacketInputStream(is,
+        properties);
     Packet[] array = new Packet[10];
     assertEquals(1, pis.read(array));
     assertNotNull(array[0]);
@@ -230,7 +231,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   private InputStreamPacketInputStream getDefaultPacketInputStream(
       final InputStream is) {
-    return new InputStreamPacketInputStream(is, defaultProperties);
+    return InputStreamPacketInputStream.createInputStreamPacketInputStream(is,
+        defaultProperties);
   }
   
 }
