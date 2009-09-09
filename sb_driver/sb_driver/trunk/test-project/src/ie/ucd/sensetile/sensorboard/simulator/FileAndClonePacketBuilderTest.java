@@ -1,28 +1,20 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayInputStream;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
+import java.io.ByteArrayInputStream;
+
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FileAndClonePacketBuilderTest {
 
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
-  
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
-  
   private InstancePacket template;
   private FileAndClonePacketBuilder builder;
   
@@ -125,7 +117,7 @@ public class FileAndClonePacketBuilderTest {
         high, 
         builder.getPacket().getLightLevel());
     assertEquals(
-        template.getPressure(), 
+        template.getLightLevel(), 
         builder.getPacket().getLightLevel());
   }
   

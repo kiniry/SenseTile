@@ -83,7 +83,7 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testAvailable1() throws IOException{
+  public void testAvailable1() throws IOException, SenseTileException{
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH);
     InputStream is = new ByteArrayInputStream(rawPacket);
@@ -92,7 +92,7 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testAvailable2More() throws IOException{
+  public void testAvailable2More() throws IOException, SenseTileException{
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 2 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);

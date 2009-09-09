@@ -3,6 +3,7 @@ package ie.ucd.sensetile.sensorboard.driver;
 
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.PacketInputStreamUnitTestCase;
+import ie.ucd.sensetile.sensorboard.SenseTileException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -11,7 +12,7 @@ public class InputStreamPacketInputStreamAsPacketInputStreamUnitTest
     extends PacketInputStreamUnitTestCase {
   
   @Override
-  protected PacketInputStream createPacketInputStream(final int availablePackets) {
+  protected PacketInputStream createPacketInputStream(final int availablePackets) throws SenseTileException {
     byte[] rawPacket = PacketRawByteArrayBuilder.prepare(
         ByteArrayPacket.LENGTH * availablePackets);
     InputStream is = new ByteArrayInputStream(rawPacket);

@@ -15,7 +15,7 @@ import org.junit.Test;
 public abstract class PacketInputStreamUnitTestCase {
   
   protected abstract PacketInputStream createPacketInputStream(
-      final int availablePackets);
+      final int availablePackets) throws SenseTileException;
   
   protected abstract void disposePacketInputStream(
       final PacketInputStream packetInputStream2);
@@ -62,7 +62,7 @@ public abstract class PacketInputStreamUnitTestCase {
     }
   }
   
-  @Test (expected = NullPointerException.class)
+  @Test (expected = Throwable.class)
   public void testReadArrayNull() throws IOException, SenseTileException {
     getPacketInputStream().read(null);
   }
@@ -84,7 +84,7 @@ public abstract class PacketInputStreamUnitTestCase {
     }
   }
   
-  @Test (expected = NullPointerException.class)
+  @Test (expected = Throwable.class)
   public void testReadArrayOffsetNull() 
       throws IOException, SenseTileException {
     getPacketInputStream().read(null, 1, 1);
@@ -140,7 +140,7 @@ public abstract class PacketInputStreamUnitTestCase {
     }
   }
   
-  @Test (expected = NullPointerException.class)
+  @Test (expected = Throwable.class)
   public void testReadFullyArrayNull() 
       throws IOException, SenseTileException {
     getPacketInputStream().readFully(null);
@@ -162,7 +162,7 @@ public abstract class PacketInputStreamUnitTestCase {
     }
   }
   
-  @Test (expected = NullPointerException.class)
+  @Test (expected = Throwable.class)
   public void testReadFullyArrayOffsetNull() 
       throws IOException, SenseTileException {
     getPacketInputStream().readFully(null, 1, 1);

@@ -30,7 +30,7 @@ public class BytePatternUnitTest {
     BytePattern.createPattern(dataPattern);
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test(expected = Throwable.class)
   public void testCreateNull() {
     byte[] dataPattern = null;
     //@SuppressWarnings
@@ -143,6 +143,7 @@ public class BytePatternUnitTest {
     assertEquals(3, pattern.match(data));
   }
   
+  @Test
   public void testMatchRepeatedRepetition2() {
     byte[] dataPattern = {3, 4};
     int repetitionStep = 5;
