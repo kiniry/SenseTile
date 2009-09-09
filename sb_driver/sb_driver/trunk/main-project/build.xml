@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="main-project">
+    <property environment="env"/>
+    <property name="driver-tries.location" value="../driver-tries"/>
+    <property name="spec-project.location" value="../spec-project"/>
+    <property name="test-project.location" value="../test-project"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../../../../../all/program/javaprogram/Eclipse/SDK/3.5/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.2"/>
+    <property name="source" value="1.3"/>
+    <path id="main-project.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+                <exclude name="**/.svn"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <exclude name="**/.svn"/>
+            <classpath refid="main-project.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+</project>
