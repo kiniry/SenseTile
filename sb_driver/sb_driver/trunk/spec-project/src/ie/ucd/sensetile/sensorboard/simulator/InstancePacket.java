@@ -37,6 +37,11 @@ public class InstancePacket implements CloneablePacket {
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
       frames[frameIndex] = new InstanceFrame();
     }
+    // defaults
+    setPressure((short)310);
+    setAccelerometerX((short)1860);
+    setAccelerometerY((short)1860);
+    setAccelerometerZ((short)1860);
   }
   
   public InstancePacket(final Packet template) {

@@ -9,13 +9,13 @@ import java.io.InputStream;
 
 public class FileAndClonePacketBuilder implements PacketBuilder {
   
-  private InstancePacket template;
-  private DataInputStream temperature;
-  private DataInputStream pressure;
-  private DataInputStream lightLevel;
-  private DataInputStream accelerometerX;
-  private DataInputStream accelerometerY;
-  private DataInputStream accelerometerZ;
+  private InstancePacket template = new InstancePacket();
+  private /*@ nullable */ DataInputStream temperature;
+  private /*@ nullable */ DataInputStream pressure;
+  private /*@ nullable */ DataInputStream lightLevel;
+  private /*@ nullable */ DataInputStream accelerometerX;
+  private /*@ nullable */ DataInputStream accelerometerY;
+  private /*@ nullable */ DataInputStream accelerometerZ;
   private final DataInputStream[] audio = new DataInputStream[4];
   
   public FileAndClonePacketBuilder(final InstancePacket template) {

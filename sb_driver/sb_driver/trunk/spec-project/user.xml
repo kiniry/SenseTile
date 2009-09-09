@@ -25,18 +25,22 @@
   <property name="jml.rac.src.generated" value="jml/src.generated" />
   <property name="jml.rac.src" value="jml/src" />
   <property name="jml.rac.compiled" value="jml/bin" />
+  <property name="jml.junit.src" value="jml/test.generated" />
+  
   <property name="jml.src.compile" value="ie.ucd.sensetile"/>
   
   <target name="clean">
     <delete dir="${jml.rac.src.generated}" />
     <delete dir="${jml.rac.src}" />
     <delete dir="${jml.rac.compiled}" />
+    <delete dir="${jml.junit.src}" />
   </target>
   
   <target name="init">
     <mkdir dir="${jml.rac.src.generated}" />
     <mkdir dir="${jml.rac.src}" />
     <mkdir dir="${jml.rac.compiled}" />
+    <mkdir dir="${jml.junit.src}" />
   </target>
   
   <target name="generate_jml_source" depends="init">
@@ -86,6 +90,34 @@
       <src path="${jml.rac.src}" />
       <classpath refid="jml.classpath" />
     </javac>
+  </target>
+
+  <target name="generate_jml_test_source" depends="init">
+    <property name="jml.debug" value="--debug" />
+    <property name="jml.warning" value="--warning" />
+    <property name="jml.recursive" value="--recursive" />
+    <property name="jml.source_code" value="--source 1.4" />
+    <property name="jml.test.generator" value="--useGenerator" />
+    <property name="jml.test.generator.classname" value="--generatorClassName Generator" />
+    <property name="jml.test.generator.packagename" value="--generatorPackageName ie.ucd.sensetile" />
+    <java failonerror="true" fork="true" classname="org.jmlspecs.jmlunit.Main"> 
+      <jvmarg value="-Xms64m" />
+      <jvmarg value="-Xmx128m" />
+      <classpath>
+        <path refid="jml.classpath" />
+      </classpath>
+      <arg line="${jml.debug}" />
+      <arg line="${jml.warning}" />
+      <arg line="${jml.recursive}" />
+      <arg line="${jml.source_code}" />
+      <arg line="${jml.test.generator}" />
+      <arg line="${jml.test.generator.classname}" />
+      <arg line="${jml.test.generator.packagename}" />
+      <arg line="--classpath ${jml.classpath}" />
+      <arg line="--sourcepath ${jml.src}" />
+      <arg line="--destination ${jml.junit.src}" />
+      <arg line="${jml.src.compile}" />
+    </java>
   </target>
 
 </project>

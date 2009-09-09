@@ -50,13 +50,13 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /*
    * buffer
    */
-  private byte[] raw;
-  private UnsignedByteArray byteArray;
+  private byte[] raw = new byte[0];
+  private UnsignedByteArray byteArray = UnsignedByteArray.create(raw);
   
   /*
    * byte pattern matcher
    */
-  private BytePattern pattern;
+  private BytePattern pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
   
   /*
    * flag: input stream closed

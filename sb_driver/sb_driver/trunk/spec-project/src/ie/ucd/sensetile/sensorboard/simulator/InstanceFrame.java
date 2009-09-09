@@ -18,6 +18,8 @@ public class InstanceFrame implements Frame, Cloneable {
   private boolean isADCActive;
   
   public InstanceFrame() {
+    setAudioActive(true);
+    setADCActive(true);
   }
   
   public InstanceFrame(final Frame template) {

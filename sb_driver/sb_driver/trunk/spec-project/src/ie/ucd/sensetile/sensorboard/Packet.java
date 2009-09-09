@@ -95,7 +95,7 @@ public interface Packet {
    */
   /*@
     @ ensures \result >= 1488;
-    @ ensures \result >= 2232;
+    @ ensures \result <= 2232;
     @*/
   /*@ pure */ short getAccelerometerX();
   
@@ -112,7 +112,7 @@ public interface Packet {
    */
   /*@
     @ ensures \result >= 1488;
-    @ ensures \result >= 2232;
+    @ ensures \result <= 2232;
     @*/
   /*@ pure */ short getAccelerometerY();
   
@@ -129,7 +129,7 @@ public interface Packet {
    */
   /*@
     @ ensures \result >= 1488;
-    @ ensures \result >= 2232;
+    @ ensures \result <= 2232;
     @*/
   /*@ pure */ short getAccelerometerZ();
   
