@@ -21,11 +21,13 @@
   </path>
   <property name="jml.classpath" refid="jml.classpath" />
 
+  <property name="test.jml.project" value="../test-jml-project" />
+
   <property name="jml.src" value="src" />
   <property name="jml.rac.src.generated" value="jml/src.generated" />
   <property name="jml.rac.src" value="jml/src" />
   <property name="jml.rac.compiled" value="jml/bin" />
-  <property name="jml.junit.src" value="jml/test.generated" />
+  <property name="jml.junit.src" value="${test.jml.project}/test.generated" />
   
   <property name="jml.src.compile" value="ie.ucd.sensetile"/>
   
@@ -97,7 +99,10 @@
     <property name="jml.warning" value="--warning" />
     <property name="jml.recursive" value="--recursive" />
     <property name="jml.source_code" value="--source 1.4" />
-    <property name="jml.test.generator" value="--useGenerator" />
+    <!-- 
+    <property name="jml.test.generator" value="- - useGenerator" /> 
+    -->
+    <property name="jml.test.generator" value="" />
     <property name="jml.test.generator.classname" value="--generatorClassName Generator" />
     <property name="jml.test.generator.packagename" value="--generatorPackageName ie.ucd.sensetile" />
     <java failonerror="true" fork="true" classname="org.jmlspecs.jmlunit.Main"> 
