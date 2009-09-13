@@ -1,6 +1,3 @@
-\newcommand{\duc}{\emph{design units collection}\xspace}
-\newcommand{\ducs}{\emph{design units collections}\xspace}
-\newcommand{\du}{\emph{design unit}\xspace}
 \begin{center}
 \begin{tabular}{ c  c  c }
 \multicolumn{3}{c}{\textbf{STATIC TYPES}}\\ 
@@ -11,7 +8,7 @@ VHDL-AMS & BON & Description \\
 \begin{minipage}[c]{2.4cm}
 \smallskip \smallskip
 \centering
-\ducs
+\emph{model}
 \smallskip \smallskip
 \end{minipage}
 & 
@@ -24,15 +21,10 @@ VHDL-AMS & BON & Description \\
 & 
 \begin{minipage}[c]{6cm}
          \smallskip \smallskip
-	VHDL-AMS allows hierarchical structure modeling, 
-	meaning that subsistems (\ducs), can be developed 
-        independently. As an top-level description 
+	As an top-level description 
         (informal/formal), \lstinlinen|SYSTEM_CHART|
-        connect all the \ducs together 
-        to a complete design. Actually \lstinlinen|SYSTEM_CHART|
-        can be understood as VHDL-AMS package as a way of grouping 
-        a collection of related declarations that serve a common 
-        purpose.
+        connect all the model subsystems together 
+        to a model.
         \smallskip \smallskip
 \end{minipage}\\ 
 
@@ -41,7 +33,7 @@ VHDL-AMS & BON & Description \\
 \begin{minipage}[c]{2.4cm}
 \smallskip \smallskip
 \centering
-\duc
+model subsystem 
 \smallskip \smallskip
 \end{minipage}
 & 
@@ -54,7 +46,10 @@ VHDL-AMS & BON & Description \\
 & 
 \begin{minipage}[c]{6cm}
       \smallskip \smallskip	 
-      An  subsistem which represent \duc.
+      An  subsistem which represent module colleaction.
+        VHDL-AMS allows hierarchical structure modeling, 
+	meaning that subsystems (modules), can be developed 
+        independently.
       \smallskip \smallskip
 \end{minipage}\\ 
 
@@ -63,7 +58,7 @@ VHDL-AMS & BON & Description \\
 \begin{minipage}[c]{2.4cm}
 \smallskip \smallskip
 \centering
-\du
+modul
 \smallskip \smallskip
 \end{minipage}
 & 
@@ -76,7 +71,7 @@ VHDL-AMS & BON & Description \\
 & 
 \begin{minipage}[c]{6cm}
       \smallskip \smallskip	 
-      \lstinlinen|CLASS_CHART|  describes \du. 
+      \lstinlinen|CLASS_CHART|  describes module. 
       It can be identify with the primary unit (\ent) 
       and secondary unit (\arch) structure in VHDL-AMS. 
       The \lstinlinen|CLASS_CHART|'s name corresponds 
