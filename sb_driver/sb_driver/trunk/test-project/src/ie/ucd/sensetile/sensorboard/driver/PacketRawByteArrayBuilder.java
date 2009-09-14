@@ -27,7 +27,13 @@ public final class PacketRawByteArrayBuilder {
     }
     ByteArrayPacket packetArray = ByteArrayPacket.createPacket(byteArray);
     for (int packetIndex = 0; packetIndex < length; packetIndex ++) {
+      // packet initialization
       packetArray.setCounter(packetArray.getCounter() + 1);
+      packetArray.setPressure(310);
+      packetArray.setAccelerometerX(1860);
+      packetArray.setAccelerometerY(1860);
+      packetArray.setAccelerometerZ(1860);
+      // copy
       System.arraycopy(
           rawArray, 0, 
           array, packetIndex * ByteArrayPacket.LENGTH, 
