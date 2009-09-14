@@ -32,7 +32,7 @@ public class InstancePacket implements CloneablePacket {
    */
   private InstanceFrame[] frames = new InstanceFrame[FRAMES];
   
-  public InstancePacket() {
+  InstancePacket() {
     setTime(new TimeInstance());
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
       frames[frameIndex] = new InstanceFrame();
@@ -44,7 +44,7 @@ public class InstancePacket implements CloneablePacket {
     setAccelerometerZ((short)1860);
   }
   
-  public InstancePacket(final Packet template) {
+  InstancePacket(final Packet template) {
     setTime(new TimeInstance(template.getTime()));
     setCounter(template.getCounter());
     setCounter(template.getCounter());
@@ -64,7 +64,7 @@ public class InstancePacket implements CloneablePacket {
     return time;
   }
   
-  public void setTime(final TimeInstance time) {
+  void setTime(final TimeInstance time) {
     this.time = time;
   }
   
@@ -72,7 +72,7 @@ public class InstancePacket implements CloneablePacket {
     return counter;
   }
   
-  public void setCounter(final char counter) {
+  void setCounter(final char counter) {
     this.counter = counter;
   }
   
@@ -80,7 +80,7 @@ public class InstancePacket implements CloneablePacket {
     return temperature;
   }
   
-  public void setTemperature(final short temperature) {
+  void setTemperature(final short temperature) {
     this.temperature = temperature;
   }
   
@@ -88,7 +88,7 @@ public class InstancePacket implements CloneablePacket {
     return pressure;
   }
   
-  public void setPressure(final short pressure) {
+  void setPressure(final short pressure) {
     this.pressure = pressure;
   }
   
@@ -96,7 +96,7 @@ public class InstancePacket implements CloneablePacket {
     return lightLevel;
   }
   
-  public void setLightLevel(final short lightLevel) {
+  void setLightLevel(final short lightLevel) {
     this.lightLevel = lightLevel;
   }
   
@@ -104,7 +104,7 @@ public class InstancePacket implements CloneablePacket {
     return accelerometerX;
   }
   
-  public void setAccelerometerX(final short accelerometerX) {
+  void setAccelerometerX(final short accelerometerX) {
     this.accelerometerX = accelerometerX;
   }
   
@@ -112,7 +112,7 @@ public class InstancePacket implements CloneablePacket {
     return accelerometerY;
   }
   
-  public void setAccelerometerY(final short accelerometerY) {
+  void setAccelerometerY(final short accelerometerY) {
     this.accelerometerY = accelerometerY;
   }
   
@@ -120,7 +120,7 @@ public class InstancePacket implements CloneablePacket {
     return accelerometerZ;
   }
   
-  public void setAccelerometerZ(final short accelerometerZ) {
+  void setAccelerometerZ(final short accelerometerZ) {
     this.accelerometerZ = accelerometerZ;
   }
 
@@ -128,7 +128,7 @@ public class InstancePacket implements CloneablePacket {
     return supplyVoltage;
   }
   
-  public void setSupplyVoltage(final int supplyVoltage) {
+  void setSupplyVoltage(final int supplyVoltage) {
     this.supplyVoltage = supplyVoltage;
   }
   
@@ -136,7 +136,7 @@ public class InstancePacket implements CloneablePacket {
     return supplyCurrent;
   }
   
-  public void setSupplyCurrent(final int supplyCurrent) {
+  void setSupplyCurrent(final int supplyCurrent) {
     this.supplyCurrent = supplyCurrent;
   }
   
@@ -155,10 +155,10 @@ public class InstancePacket implements CloneablePacket {
     private byte seconds;
     private byte centiSeconds;
     
-    public TimeInstance() {
+    TimeInstance() {
     }
     
-    public TimeInstance(final Packet.Time template) {
+    TimeInstance(final Packet.Time template) {
       setHours(template.getHours());
       setMinutes(template.getMinutes());
       setSeconds(template.getSeconds());
@@ -169,7 +169,7 @@ public class InstancePacket implements CloneablePacket {
       return hours;
     }
     
-    public void setHours(final byte hours) {
+    void setHours(final byte hours) {
       this.hours = hours;
     }
     
@@ -177,7 +177,7 @@ public class InstancePacket implements CloneablePacket {
       return minutes;
     }
     
-    public void setMinutes(final byte minutes) {
+    void setMinutes(final byte minutes) {
       this.minutes = minutes;
     }
     
@@ -185,7 +185,7 @@ public class InstancePacket implements CloneablePacket {
       return seconds;
     }
     
-    public void setSeconds(final byte seconds) {
+    void setSeconds(final byte seconds) {
       this.seconds = seconds;
     }
     
@@ -193,7 +193,7 @@ public class InstancePacket implements CloneablePacket {
       return centiSeconds;
     }
     
-    public void setCentiSeconds(final byte centiSeconds) {
+    void setCentiSeconds(final byte centiSeconds) {
       this.centiSeconds = centiSeconds;
     }
     

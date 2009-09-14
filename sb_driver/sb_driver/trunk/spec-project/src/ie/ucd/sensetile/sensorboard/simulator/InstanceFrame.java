@@ -17,12 +17,12 @@ public class InstanceFrame implements Frame, Cloneable {
   private char adcSample;
   private boolean isADCActive;
   
-  public InstanceFrame() {
+  InstanceFrame() {
     setAudioActive(true);
     setADCActive(true);
   }
   
-  public InstanceFrame(final Frame template) {
+  InstanceFrame(final Frame template) {
     setIRDSynachronizationActive(template.isIRDSynachronizationActive());
     setAudioActive(template.isAudioActive());
     setAudioFrequency(template.getAudioFrequency());
@@ -38,7 +38,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return isIRDSynachronizationActive;
   }
   
-  public void setIRDSynachronizationActive(final boolean value) {
+  void setIRDSynachronizationActive(final boolean value) {
     isIRDSynachronizationActive = value;
   }
   
@@ -46,7 +46,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return isAudioActive;
   }
   
-  public void setAudioActive(final boolean value) {
+  void setAudioActive(final boolean value) {
     isAudioActive = value;
   }
   
@@ -54,7 +54,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return audioFrequency;
   }
   
-  public void setAudioFrequency(final int value) {
+  void setAudioFrequency(final int value) {
     audioFrequency = value;
   }
   
@@ -62,7 +62,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return audioSample[channel];
   }
   
-  public void setAudio(final int channel, final char audioSample) {
+  void setAudio(final int channel, final char audioSample) {
     this.audioSample[channel] = audioSample;
   }
   
@@ -70,7 +70,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return isADCActive;
   }
   
-  public void setADCActive(final boolean value) {
+  void setADCActive(final boolean value) {
     isADCActive = value;
   }
   
@@ -78,7 +78,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return adcChannel;
   }
   
-  public void setADCChannel(final int adcChannel) {
+  void setADCChannel(final int adcChannel) {
     this.adcChannel = adcChannel;
   }
   
@@ -86,7 +86,7 @@ public class InstanceFrame implements Frame, Cloneable {
     return adcSample;
   }
   
-  public void setADC(final char adcSample) {
+  void setADC(final char adcSample) {
     this.adcSample = adcSample;
   }
   

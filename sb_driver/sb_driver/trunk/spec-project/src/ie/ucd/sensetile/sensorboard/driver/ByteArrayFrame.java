@@ -5,6 +5,7 @@
  */
 package ie.ucd.sensetile.sensorboard.driver;
 
+//@ model import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
@@ -12,9 +13,16 @@ public final class ByteArrayFrame implements Frame{
   
   private final UnsignedByteArray rawFrame; 
   
+  /*@ 
+    @ requires index >= 0;
+    @ requires index < Packet.FRAMES;
+    @*/
   public ByteArrayFrame(ByteArrayPacket byteArrayPacket, final int index) {
     UnsignedByteArray raw = byteArrayPacket.getRaw();
-    rawFrame = UnsignedByteArray.create(raw, ByteArrayPacket.ADC_DATA_OFFSET + ByteArrayPacket.FRAME_LENGTH * index, ByteArrayPacket.FRAME_LENGTH);
+    rawFrame = UnsignedByteArray.create(
+        raw, 
+        ByteArrayPacket.ADC_DATA_OFFSET + ByteArrayPacket.FRAME_LENGTH * index, 
+        ByteArrayPacket.FRAME_LENGTH);
   }
   
   /**
@@ -82,7 +90,7 @@ public final class ByteArrayFrame implements Frame{
     return (char) rawFrame.getShortUnsigned(ADC_POSITION + channel * 2);
   }
   
-  public void setAudio(final int channel, final int value) {
+  void setAudio(final int channel, final int value) {
     if (channel < 0 || channel >= AUDIO_CHANNELS) {
       throw new IndexOutOfBoundsException();
     }

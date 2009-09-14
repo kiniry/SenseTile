@@ -137,7 +137,7 @@ public final class UnsignedByteArray {
    * 
    * @return length
    */
-  public int length() {
+  public /*@ pure */ int length() {
     return length;
   }
   

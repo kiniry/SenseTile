@@ -17,6 +17,13 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
  */
 public final class ByteArrayPacket implements Packet {
   
+  /*@
+    @ requires raw.length() == LENGTH;
+    @*/
+  ByteArrayPacket(final UnsignedByteArray raw) {
+    this.raw = raw;
+  }
+  
   /**
    * packet bytes length.
    */
@@ -217,10 +224,6 @@ public final class ByteArrayPacket implements Packet {
   }
   
   private final UnsignedByteArray raw;
-  
-  ByteArrayPacket(final UnsignedByteArray raw) {
-    this.raw = raw;
-  }
   
   public static Packet createPacket(
       final byte[] rawPacket, 
