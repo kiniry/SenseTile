@@ -25,21 +25,11 @@ all:	${paper}.pdf
 
 talk: 	${talk}.ps ${talk}.pdf
 
-# archive: ime.pdf
-# 	tar cjf ENTCS-UITP-04.tbz \
-# 		entcsmacro.sty snapshot.sty kt.tex \
-# 		Makefile \
-# 		ime.tex pvsui.bib ime.pdf ime.bbl \
-# 		ECB.pdf function_hierarchy.pdf pvs.pdf
-
-PREFIX=/Users/kiniry/Sandboxes/svn
-LATEXDIR=$(PREFIX)/latex
-# export BIBINPUTS="~/Sandboxes/Writing/Bibliography//:"
-# export BSTINPUTS="$(LATEXDIR)//:"
-# export TEXINPUTS="$(LATEXDIR)//:"
+BIBDIR=../../bibliography
+LATEXDIR=../../latex
 
 ${paper}.pdf:	${paper}.tex
-	export BIBINPUTS="../../bibliography//:"; \
+	export BIBINPUTS="$(BIBDIR)//:"; \
 	export BSTINPUTS="$(LATEXDIR)//:"; \
 	export TEXINPUTS="$(LATEXDIR)//:"; \
 	rubber --pdf ${paper}

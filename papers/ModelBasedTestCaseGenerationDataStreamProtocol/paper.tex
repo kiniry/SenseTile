@@ -109,10 +109,10 @@ METHODS:
 JML model.
 JML tools to generate JUnit test suite.
 JUnit test suite applied to developed system, to verify its correctness.
-Junit test suite applied to simulator, to verify its correctness.
+JUnit test suite applied to simulator, to verify its correctness.
 
 RESULTS: 
-Proof developed system same behaviour as simulator.
+Proof developed system same behavior as simulator.
 Proof developed system and simulator verify the specifications.
 
 CONCLUSIONS:
@@ -162,38 +162,56 @@ Specifications serves two purposes, and indirectly a third one.
 \section{Introduction}
 
 The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
-sensor system installed at the University College Dublin in Dublin,
-Ireland.  \textbf{Our facility provides a capability---unique in the world in
-terms of its scale and flexibility---for performing in-depth
-investigation of both the specific and general issues in large-scale
-sensor networking.}
+sensor system to be installed at the University College Dublin in Dublin,
+Ireland. 
+Our facility aims to provide a scalable and extensible 
+infrastructure for performing in-depth investigation of both the specific 
+and general issues in large-scale sensor networking.
 
 This system integrates a sensor platform, a datastore, and a compute
-farm.  The sensor platform is a custom-designed, but inexpensive,
+farm.  
+The sensor platform is a custom-designed, but inexpensive,
 sensor platform (called the \ST) paired with general-purpose
 small-scale compute nodes, including everything from low-power PDAs to
-powerful touchscreen-based portable computers.  There are over a dozen
+powerful touchscreen-based portable computers. 
+There are over a dozen
 sensors on the \ST itself, and new sensors can be added by adding them
-to the USB bus.
+to the board.
 
-The \ST
+Because of hard time constraints, and the initial unavailability of the 
+custom board, we needed to progress concurrently with all the development tasks: 
+the specification of the communication protocol with the /SB, the development of 
+the controlling code in the /SB, the development of the driver to communicate 
+with the /SB, and the development of the simulators needed for future tests 
+of the system (the controlling code of the board was developed by the external 
+manufacturer of the board, hence, it is not taken into account here).
 
-\todo extend
+\todo explain and refine the problem
+
+\todo other approaches to the problem
+
+To tackle the complexity of the concurrent tasks the formal model of the protocol 
+was used as a focus point that lead all the other tasks. 
+The formal model of the protocol was used to check at run time the correctness of 
+the /SB, the driver, the simulator, and the hand made test suites of the driver 
+and the simulator.
+The formal model was used to automatically generate a test suite to verify that
+both the driver and the simulator were compliant to the specification, and eventually 
+to verify the specification itself.
+
+The approach proved itself effective, at the point that, when the board was finally 
+released, no defects were found in the driver or the simulator, while the errors and 
+not agreed changes introduced in the board where discovered during the first execution.
 
 \paragraph*{Outline}
 
 In section \ref{sec:data_stream_and_protocol_model} the data stream model 
-and protocol is presented, we will give both a higl level overview of the 
-protocol, and a formalized, JML based, specification,
+and protocol is presented, we will present both a high level overview of the 
+protocol, and a formalized, JML based, specification.
 
 In section \ref{sec:test_cases} the test cases structure is presented, for 
 both the hand made and the generated ones. 
-Both the approaches are analyzed, their pro and contro are discussed, as 
-well as the expected advantages to use them in combination.
-
-In section \ref{sec:test_cases} the test cases structure is presented, for 
-both the hand made and the generated ones. 
-Both the approaches are analyzed, their pro and contro are discussed, as 
+Both the approaches are analyzed, their pro and contra are discussed, as 
 well as the expected advantages to use them in combination.
 
 In section \ref{sec:test_cases_on_the_job} the execution of the test suites
@@ -206,8 +224,8 @@ the resulting benefits it is possible to obtain.
 
 In section \ref{sec:related_works} related works are presented and analyzed.
 
-Finally in section \ref{sec:conclusions} we outline some conclusions and we 
-briefly describe our ongoing and future works on similar topics.
+Finally in section \ref{sec:conclusions} conclusions are drawed and 
+ongoing and future works on similar topics is introduced.
 
 
 %=====================================================================
@@ -233,7 +251,7 @@ for various systems (Linux 32 and 64 bits, Mac OS, Windows)
 
 Finally, on top of the serial channels provided by the API, a custom protocol 
 has been developed to manage the entire \STSB; that is, read sensor data 
-observations, enable or disable sensors, configure onboard components 
+observations, enable or disable sensors, configure on-board components 
 as the Field-Programmable Gate Array (FPGA), and the micro processor; the 
 protocol main function is to read sensor data.
 
@@ -243,19 +261,19 @@ and interesting one.
 
 The internal structure of the output sensor data packet reflects the board 
 capabilities and sensors.
-Basically a single packet has to accomodate various types of data:
+Basically a single packet has to accommodate various types of data:
 \begin{itemize}
- \item Fat data rate streams: audio data, 48KHz or 96KHz.
+ \item Fast data rate streams: audio data, 48KHz or 96KHz.
  \item Medium data rate streams: 5KHz.
- \item Slow data rate streams: temperature, pression, accellerometer, etc.; all 
+ \item Slow data rate streams: temperature, pression, accelerometer, etc.; all 
  these sensor have a data rate far lower than 5 KHz.
  \item Metadatas: metadatas on sensors and board state.
 \end{itemize}
 
 Even if we have to deal with data streams that have different data rates, the 
 internal structure of the package (as we will see) is strictly fixed. 
-This choice originates from a tradeoff between two constraints: the efficiency 
-of the trasmission (redundant data to be minimized) and the complexity to build 
+This choice originates from a trade-off between two constraints: the efficiency 
+of the transmission (redundant data to be minimized) and the complexity to build 
 a package (complexity to be minimized).
 The complexity minimization constraint is simple to understand: it is the FPGA 
 on the \STSB that build the packet, but it has also to be used for various 
@@ -286,7 +304,7 @@ bit words).
 \end{center}
 \end{table}
 
-The subsequence accomodate data from the fast and medium data rate streams 
+The subsequence accommodate data from the fast and medium data rate streams 
 (there are 4 fast data rate stream and 8 medium data rate stream channels). 
 There are 82 subsequences in a packet.
 The subsequence structure is shown in Table \ref{tab:subsequence_structure}.
@@ -304,10 +322,10 @@ The subsequence structure is shown in Table \ref{tab:subsequence_structure}.
 \end{center}
 \end{table}
 
-It is clear that, looking at the structure described and at the data rates 
-frequencies, that there must be something subtle, to make all the figures to 
+Looking at the structure described and at the data rates frequencies, it
+can be seen that there must be something subtle, to make all the figures to 
 add up.
-The subleties lies in two forms of ridundancies, for slow and mediumd data 
+The subtleties lies in two forms of redundancies, for slow and medium data 
 rates:
 
 \begin{itemize}
@@ -321,11 +339,13 @@ rates:
   all, this info again is to be extracted from the metadata.
 \end{itemize}
 
+
+
 \todo describe high level representation of package: sensors and data 
 details remains, exact package structure and sensor data location in the
-packege are lost
+package are lost
 
-\todo describe JML specification of the high levelr representation of the 
+\todo describe JML specification of the high level representation of the 
 package
 
 
@@ -374,7 +394,7 @@ write tests against interfaces and/or abstract classes
 \section{Test cases and the scenarios}
 \label{sec:test_cases_and_the_scenarios}
 
-\todo benefit: the approch can be used to test different part of the system
+\todo benefit: the approach can be used to test different part of the system
 that share the same specification
 
 \todo testing the stream
