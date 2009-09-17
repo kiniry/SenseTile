@@ -1,0 +1,134 @@
+Behavioral Descriptions
+Digital behavior of a module is described by signal assignment statements within processes.
+A process is executed in response to changes of values of signals and uses the present values 
+of signals it reads to determine new values for other signals. 
+A signal assignment is a sequential statement and thus can only appear within a process. 
+In this section, we look in detail at the interaction between signals and processes.
+
+y <= not or_a_b after 5 ns;
+
+This specifies that the signal y is to take on the new value at a time 5 ns later than that at which the statement executes.
+
+The delay can be read in one of two ways, depending on whether the model is being used purely for its descriptive value or for simulation. 
+In the first case, the delay can be considered in an abstract sense as a specification of the module's propagation delay: 
+whenever the input changes, the output is updated 5 ns later. 
+In the second case, it can be considered in an operational sense, with reference to a host machine simulating operation of the module by executing the model. 
+Thus if the above assignment is executed at time 250 ns, 
+and or_a_b has the value '1' at that time, 
+then the signal y will take on the value '0' at time 255 ns. 
+Note that the statement itself executes in zero modeled time.
+
+
+Wait Statements
+
+Now that we have seen how to change the values of signals over time, 
+the next step in behavioral modeling is to specify when processes respond 
+to changes in signal values. This is done using wait statements.
+ A wait statement is a sequential statement with the following syntax rule:
+
+
+The purpose of the wait statement is to cause the process that executes the statement to suspend execution. 
+The sensitivity clause, condition clause and timeout clause specify when the process is subsequently to resume execution. 
+We can include any combination of these clauses, or we may omit all three. Let us go through each clause and describe what it specifies.
+
+The sensitivity clause, starting with the word on, allows us to specify a list of signals to which the process responds. 
+If we just include a sensitivity clause in a wait statement, the process will resume whenever any one of the listed signals changes value, 
+that is, whenever an event occurs on any of the signals. 
+This style of wait statement is useful in a process that models a block of combinatorial logic, 
+since any change on the inputs may result in new output values; for example:
+
+half_add : process is
+begin
+    sum <= a xor b after T_pd;
+    carry <= a and b after T_pd;
+    wait on a, b;
+end process half_add;
+
+Chapter 6: Analog Modeling Constructs
+
+Q & T
+
+
+
+A model of an analog system consists of the circuit nodes,
+analog unknowns to be calculated and the characteristic equations that specify analog behavior. 
+In VHDL-AMS, we use terminals to represent the circuit nodes, quantities for the analog unknowns and simultaneous statements for the characteristic equations. 
+In this chapter, we show how we use these features of VHDL-AMS to model analog, mixed-signal and mixed-technology systems.
+
+
+Quantities
+here are three kinds of quantity in VHDL-AMS: 
+free, 
+branch and 
+source quantities.
+
+Free quantity ---- A free quantity can be defined in an architecture body using a quantity declaration.
+Branch quantity ----  A branch quantity is similar, but is specifically used to model conservative energy systems. 
+We return to branch quantities and their association with terminals in Section 6.2. 
+
+Source quantity -----------A source quantity is used for frequency and noise modeling, which we discuss in Chapter 13.
+
+
+
+
+
+Terminals and Branch(grananje) Quantities
+
+In Chapter 1 we introduced terminals as the VHDL-AMS feature for representing the physical connection points or circuit nodes of a system. 
+Recall that terminals are declared to be of various natures, which represent different energy domains of a system. 
+We also introduced branch quantities as the VHDL-AMS feature for accessing the effort and flow aspects of terminal. 
+In this chapter, we explore these concepts in detail.
+A terminal declaration can appear as a declarative item before the keyword begin in an architecture body. 
+The declaration names one or more terminal objects of a particular nature. 
+The nature of a terminal determines the across and through types for the terminal, which represent the effort and flow aspects of the energy domain for the terminal.
+
+
+All of the terminals in the examples above are scalar terminals, since their natures are scalar. 
+We saw in Chapter 4 that we can declare composite natures and composite terminals of composite natures. 
+We consider each scalar subelement of a composite terminal to be a scalar terminal. 
+For example, if we declare electrical_vector as follows:
+
+
+Conservative-law relationships assume the existance of two classes of specialized quantities, 
+namely accross quanitities that represent an effort (e.g voltage for electirical systems), and through 
+quantities that represent a flow (e.g. a current for electrical systems.)
+ 
+
+
+
+
+
+
+
+
+
+The main contribution of VHDL-AMS is ability to describe the behavior of complex 
+system trought differential and algebraic equations (DAEs).
+A model of an analog system consists of the circuit nodes, 
+analog unknowns to be calculated and the characteristic equations that specify analog behavior.
+ 
+In VHDL-AMS, we use terminals to represent the circuit nodes, quantities for the analog unknowns and simultaneous statements for the characteristic equations.
+
+
+
+Actually statement express explicit differential and 
+algebraic equations (DAEs) that, together with implicit equations derived 
+from the model structure and interconnections, constrain the values of 
+quantities in a model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
