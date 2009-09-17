@@ -1,0 +1,132 @@
+\begin{figure}[H]
+\begin{tabular}{ c  c }
+BON & JML \\ \hline
+\begin{minipage}[l]{6.4cm} 
+\begin{lstlisting}[language=Bon]
+effective class RCFILTER
+indexing
+.....
+feature{NONE}
+inputT:ITERMINAL;
+ ensure
+   Result /=Void;
+outputT:ITERMINAL;
+  ensure
+   Result /=Void;
+set_in:SEQUENCE[BRANCH_QUANTITY]
+set_out:SEQUENCE[BRANCH_QUANTITY]
+tp:REAL;
+  ensure
+   Result /= Void;
+feature
+  make  -> input:ITERMINAL 
+        -> output:ITERMINAL
+        -> arr:SEQUENCE[BRANCH_QUANTITY]
+    require
+      input /=Void and output /=Void;
+      input.id /= output.id;
+      input.getNature() == output.getNature();
+      input.getNature().ref == output.getNature().ref;
+      arr /=Void;
+      for_all i:INTEGER such_that 0 <= i and 
+              i < arr.length it_holds 
+          (arr.item(i).terminalFrom[0]==input &&
+          arr.item(i).terminalTo[0] == output);
+    ensure
+      delta inputT,outputT,set_in,set_out;
+      set_in.length == set_out.length;
+      inputT == input and outputT == output;
+      for_all i:INTEGER such_that 0 <= i and 
+              i < arr.length it_holds 
+          set_in.item(i) = arr.item(i);
+      for_all i:INTEGER such_that 0 <= i and 
+              i < arr.length it_holds 
+          set_out.item(i) = arr.item(i);
+   end;
+  run -> constant:REAL
+    require 
+     tp /=Void;
+    ensure
+     delta set_out, tp;  
+     for_all j:INTEGER such_that 0 <= j and 
+              j < set_in.length it_holds 
+           set_in.item(i).through = 
+           set_out.item(i).through + 
+           tp*set_out.item(i)'dot;
+    end;
+  invariant
+       for_all j:INTEGER such_that 0 <= j and 
+              j < set_in.length it_holds 
+           set_in.item(i).through = 
+           set_out.item(i).through + 
+           tp*set_out.item(i)'dot;
+    end   
+\end{lstlisting}
+\end{minipage}  
+&
+\begin{minipage}[r]{6.6cm}
+\begin{lstlisting}[language=Java]
+public final class Rcfilter 
+{
+//@ spec_public
+private/*@non_null@*/ final Iterminal inputT;
+//@ spec_public
+private/*@non_null@*/ final Iterminal outputT;
+//@ spec_public
+private/*@non_null@*/ final int[] set_in;
+//@ spec_public
+private/*@non_null@*/ final int[] set_out;
+//@ spec_public
+private/*@non_null@*/ double tp= 0.0;
+
+/*@ invariant 
+  @ \forall int j; 0 <= i && j < set_in.length;
+  @  set_in.item(i).through = 
+  @  set_out.item(i).through + 
+  @  tp*set_out.item(i).dot();
+  @ invariant
+  @ \elemtype(\typeof(set_out)) <: \type(BranchQuantity);
+  @ \elemtype(\typeof(set_in)) <: \type(BranchQuantity);
+  @*/
+
+/*@ public normal_behavior
+  @ requires
+  @ input.getNature() == output.getNature() &&
+  @ input.getNature().ref == output.getNature().ref &&
+  @ arr != null && 
+  @ \elemtype(¬typeof(arr)) <: \type(BranchQuantity) &&
+  @ (\forall int i; 0 <= i && i < arr.length;
+  @          (arr.item(i).terminalFrom[0]==input &&
+  @           arr.item(i).terminalTo[0] == output));
+  @ assignable inputT,outputT,set_in;
+  @ assignable set_in,set_out,set_in[*],set_out[*];
+  @ ensures
+  @ set_in.length == set_out.length &&
+  @ inputT == input and outputT == output &&
+  @ (\forall int i; 0 <= i && i < arr.length 
+  @          set_in.item(i) = arr.item(i)) &&
+  @ (\forall int i; 0 <= i && i < arr.length 
+  @          set_out.item(i) = arr.item(i)); 
+  @*/
+public Rcfilter(final /*@non_null@*/ Iterminal input, 
+		final /*@non_null@*/ Iterminal output, 
+		final /*@non_null@*/ BranchQuantity[] arr) {
+	....
+}
+/*@ public normal_behavior
+  @ assignable set_out[*],tp;
+  @ ensures
+  @ (\forall int j; 0 <= i && j < set_in.length;
+  @  set_in.item(i).through = 
+  @  set_out.item(i).through + tp*set_out.item(i).dot()); 
+  @*/
+public void run (final double constant) {
+ .....	
+}
+\end{lstlisting}
+\end{minipage}\\  
+\end{tabular}
+\caption{Single-Pole Low-Pass RC Filter: formal BON to JML}
+\label{tab:rescapsecond} 
+\end{figure}
+
