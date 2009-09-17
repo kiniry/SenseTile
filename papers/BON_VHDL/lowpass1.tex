@@ -1,0 +1,47 @@
+\begin{figure}[h]
+\begin{tabular}{ c  c }
+VHDL-AMS & BON \\ \hline
+\begin{minipage}[l]{6.4cm} 
+\begin{lstlisting}[language=VHDL] 
+library ieee_proposed; 
+use ieee_proposed.electrical_systems.all;
+entity lowpass is
+     port ( terminal input : electrical;
+            terminal output : electrical );
+end entity lowpass;
+
+architecture dot of lowpass is
+quantity vin across input to el_ref;
+quantity vout across iout 
+         through output to el_ref;
+-- filter time constant
+constant tp : real := 15.9e-3;
+begin
+     vin == vout + tp * vout'dot;
+end architecture dot;
+\end{lstlisting}
+\end{minipage}  
+&
+\begin{minipage}[l]{6.6cm}
+\begin{lstlisting}[language=Bon]
+class_chart RCFILTER
+indexing
+in_cluster: "COMPONENT";
+query
+...
+command
+  "Create a new initialized RCFILTER. \
+   run RC filter".
+constraint
+  "The input voltage equals summation of\
+  \output voltage and multiplication of \
+  \the time constant of the pole and the\
+  \first derivative of the capacitor's \
+  \voltage over time."
+end
+\end{lstlisting}
+\end{minipage}\\  
+\end{tabular}
+ \caption{Single-Pole Low-Pass RC Filter: VHDL-AMS to informal BON }
+  \label{tab:rescapfirst}
+\end{figure}
