@@ -3,13 +3,13 @@ LaTeXPic[1] := btex $R$ etex ;
 % figure 1 : 
 LaTeXPic[2] := btex  etex ;
 % figure 1 : 
-LaTeXPic[3] := btex  etex ;
+LaTeXPic[3] := btex input etex ;
 % figure 1 : 
 LaTeXPic[4] := btex  etex ;
 % figure 1 : 
 LaTeXPic[5] := btex  etex ;
 % figure 1 : 
-LaTeXPic[6] := btex  etex ;
+LaTeXPic[6] := btex output etex ;
 % figure 1 : 
 LaTeXPic[7] := btex $C$ etex ;
 % figure 1 : 

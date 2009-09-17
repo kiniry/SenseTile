@@ -1,10 +1,10 @@
 input makecirc;
 beginfig(1);
 resistor.a(origin + (1cm,1cm),normal,0,"R","");
-junction.a(R.a.l -(1cm,0),"")(top);
+junction.a(R.a.l -(1cm,0),"input")(top);
 junction.d(R.a.l -(1cm,1.73cm),"")(bot);
 junction.b(R.a.r +(1cm,0),"")(top);
-junction.e(J.b +(2cm,0),"")(top);
+junction.e(J.b +(2cm,0),"output")(top);
 capacitor.a(J.b + (0,-0.5cm),normal,-90,"C","");
 junction.twob(C.a.r +(0,-0.5cm),"")(bot);
 junction.f(J.twob +(2cm,0),"")(bot);
