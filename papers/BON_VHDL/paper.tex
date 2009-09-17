@@ -71,7 +71,6 @@
   {<=}{{$\textless=$}}1
   {>}{{$\textgreater$}}2
   {>=}{{$\textgreater=$}}2
-  {\\}{{$\backslash\backslash$}}1
   {'}{{$\textprimstress$}}1
 }
 
@@ -88,7 +87,7 @@
 \lstdefinelanguage{Bon} {
   morekeywords={require,ensure,feature,old,and,o,Q'slew,end,Result, Void},
   morekeywords={class_chart,class,delta,invariant,inherit,deferred,effective,NONE,make},
-  morekeywords={explanation,query,command,constraint,exists},
+  morekeywords={explanation,query,command,constraint,exists,for_all,such_that,it_holds},
   morecomment=[l]{--},
   morecomment=[s]{/*}{*/},
   morestring=[b]",
@@ -100,7 +99,7 @@
   morekeywords={not,xnor,and,nand, nor,or,xor,integer,byte,real},
   morekeywords={character,enum,type,boolean,bit,time,null,std_ulogic},
   morekeywords={sll, srl, sla, sra, rol, ror},
-  morekeywords={rem,abs,mod},
+  morekeywords={rem,abs,mod,to},
   morekeywords={terminal,T'reference, T'contribution,T'tolerance},
   morekeywords={reference,contribution},
   morekeywords={nature,subnature,electrical,magnetic,translational,translational_v},
@@ -241,7 +240,7 @@ Third, methodology must aid efforts on creation of target system
 correctness criteria, such that are independent of implementation.
 It means that verification of simulator model should take place on specification 
 using reasoning techniques provided for algebraic formalism before coding starts.\\
-Fourth,a precise semantics should  provides the basis for
+Fourth, a precise semantics should  provides the basis for
 automated forward-backward engineering.\\
 Managing these requirements, and insuring that the platform definition 
 (constraints) are preserved and verified through all levels of 
@@ -276,9 +275,10 @@ In \autoref{sec:vhdlams} we have  presented an overview of VHDL-AMS language.
 reasons why we have decided to use BON method.
 In \autoref{sec:mappingVB} we will show mapping between VHDL-AMS and BON. 
 The central part of the our article is \autoref{sec:refVB}, in which
-we will give practical aspect of refinement , applied on 
-first order passive RC Low-Pass filter, in order to produce formal 
-specification and software simulation.
+we will give practical aspect of refinement, applied on 
+first order passive RC low-pass filter, in order to produce formal 
+specification and software simulation. In this section we 
+explore this approach in detail.
 In \autoref{sec:conclusion} the conclusions are given,
 and directions of future studies are outlined. Finally, a comprehensive list 
 of the mapping between BON and VHDL-AMS can be found in the appendix. \\ 
@@ -466,46 +466,110 @@ The main theme of this article is the translation from VHDL-AMS to BON using
 refinement approach.
 We will refine the VHDL-AMS code up to the formal BON, and from this 
 specification we will generate an executable specification in the JML language.
-For this purpose, we will demonstrate our approach in BON-JML fashion trought 
-low-pass filter example.
+For this purpose, we will demonstrate our approach in BON-JML fashion trought  
+low-pass filter example.\\
+\subsection{Low-Pass filter transfer function }
+\label{subsec:lptransfunc} 
 \input{lowpassRC}
-According to equation given above (see \autoref{fig:lowpassfig}) 
+The most simple low-pass filter is passive RC network 
+shown in \autoref{fig:lowpassfig}.
+According to equation given above (see \autoref{fig:transfun}) 
 we can produce VHDL-AMS \emph{simultaneous statement} using 
-\texttt{$s \rightarrow d/dt \rightarrow 'dot$} relation.
+\texttt{$s = d/dt = 'dot$} relation.
 The transformation looks as follows: \\
 \begin{equation}
 v_{in} = v_{out} + \tau_psv_{out} 
    \begin{array}[b]{c}                                                                                                                                    
-      {\scriptscriptstyle s \rightarrow d/dt}  \\=                                                                                                                  
+      {\scriptscriptstyle s = d/dt}  \\=                                                                                                                  
    \end{array} 
 v_{out} + \tau_p\cfrac{dv_{out}}{dt}
 \begin{array}[b]{c}                                                                                                                                    
-      {\scriptscriptstyle d/dt \rightarrow } {\scriptscriptstyle 'dot} \\=                                                                                                                  
+      {\scriptscriptstyle d/dt = } {\scriptscriptstyle 'dot} \\=                                                                                                                  
    \end{array}
   v_{in} = v_{out} + \tau_pv_{out}{'dot} 
 \end{equation} 
-\input{lowpass}
-We have not yet said what specification and refinement are.
-Let us introduce these terms first.\\ 
-A specification of a program component is a contract that gives some constraints 
-on how the component is to behave but leaves freedom for the implementator to 
-decide how the actual behavior of the component is to be realized.
-Specification involves \emph{choice} between a number of alternatives; this 
- relationship is one-to-many. As we have shown in \autoref{tab:rescap}, corresponding 
-informal specifications represents high level of abstraction derived from VHDL-AMS code.
+ The last equation can be described as follows. 
+The input voltage\xspace($v_{in}$)\xspace equals summation 
+of output voltage\xspace($v_{out}$)\xspace and multiplication 
+of the time constant\xspace($\tau_p$)\xspace of the pole and the
+first derivative of the capacitor's voltage\xspace($v_{out}{'dot}$)\xspace 
+over time.\\
+Now we can discretize previous equation. Let us represent $v_{in}$ by a series 
+of samples $v_{in(1..n)}$. At the same points in time, we can represent $v_{out}$ by 
+series of sample $v_{out(1..n)}$. We can assume that samples are taken at points in 
+time incrementing by $\triangle$t. Now we have equivalent equations:
+\begin{equation}
+v_{in(i)}- v_{out(i)}=\tau_p(\frac{v_{out(i)}- v_{out(i-1)}} {\triangle t});                                                                                                                  
+\end{equation}
 
-A refinement represents the concept that can be understud as series of 
+\begin{equation}
+v_{out(i)}=v_{in(i)}(\frac{\triangle t}{\tau_p + \triangle t}) +
+ v_{out(i-1)}(\frac{\tau_p}{\tau_p + \triangle t});                                                                                                                  
+\end{equation}
+
+\begin{equation}
+v_{out(i)} 
+ \begin{array}[b]{c}                                                                                                                                    
+      {\scriptscriptstyle \alpha= \triangle t / (\tau_p + \triangle t)}  \\=                                                                                                           
+ \end{array}
+ \alpha v_{in(i)} + (1- \alpha) v_{out(i-1)};                                                                                                                  
+\end{equation}
+
+The last equation gives us a way to calculate the output samples in terms of the 
+input samples and the preceding output.
+But how to represent these unknowns in BON ?
+We introduce the  \lstinlinen|BRANCH_QUANTITY| objects like wrappers around unknowns,
+with features as fallows:
+\begin{itemize}
+\item
+\emph{across} which represent current:$i_{out}$ 
+\item 
+\emph{through} which represent voltage: $v_{in}$, $v_{out}$. 
+\item 
+\emph{terminal sequences} which describes input/output terminal(s). 
+\end{itemize}
+Now we are in presence of BON notation and we may start
+with the  refinement of the VHDL-AMS code.\\
+\subsection{Refine example }
+\label{subsec:refine}     
+We have not yet said what specification and refinement are.
+Let us introduce these terms first.\\
+A \emph{specification} of a program component is a 
+contract that gives some constraints 
+on how the component is to behave but leaves freedom for the implementator to 
+decide how the actual behavior of the component is to be realized. 
+As we have shown in \autoref{tab:rescapfirst}, corresponding 
+informal specifications represents high level of abstraction derived 
+from VHDL-AMS code.\\
+A \emph{refinement} represents the concept that can be understood as series of 
 correctness-preserving transformations from general perspective to 
 a precise level of detail. Accurately, if we compare two specifications,
 \texttt{S} and \texttt{S'}, then we can conclude that the \texttt{S} 
 is more abstract than \texttt{S'} if any condition that we can establish 
 with the first specification can also be established by second. 
 It means that "\texttt{S is \emph{refined} by S'}", 
-and we denote this  as \texttt{S $\rightsquigarrow$ S'}.
+and we denote this  as \texttt{S $\sqsubseteq$ S'}.
+The \emph{refinement} which was derived in three steps, 
+from informal to more formal BON and finally to JML, 
+is represented using relation \texttt{$\sqsubseteq$}. This relation represent 
+\emph{isomorphism} and has inverse relation \texttt{$\sqsupseteq$}. 
+It means that once we have more formal specification, we can refine 
+and seamlessly  translate specification in previous abstract level,  
+keeping specification validity and documentation consistency. 
+In other  words, we use two important BON principles to achieve 
+as much as precise model consistency: the seamlessness and  
+reversibility(see \autoref{sec:choiceobon}). 
 Let say that the first informal BON specification is denoted by 
-\texttt{S} (see \autoref{tab:rescap}), and second, which is given in Table2  is denoted by \texttt{S'}.
-In this case, the refinement relation represents an \emph{isomorphism} 
-and maps the following:
+\texttt{S} (see \autoref{tab:rescapfirst}), and second and third,
+which are given in \autoref{tab:rescapsecond}  is denoted by \texttt{S',S''}.
+The forward process refinement can be represented as:\xspace
+\texttt{S $\sqsubseteq$ S' $\sqsubseteq$ S''}, while the backward process
+can be represented as \xspace \texttt{S''$\sqsubseteq$ S' $\sqsubseteq$ S}.  
+Using all BON principles, we have developed an specification of RC low-pass
+filter, and we have produced fully validated and verified low-pass filter.
+\input{lowpass1}
+\input{lowpass2}
+
 %=====================================================================
 \section{Conclusion}
 \label{sec:conclusion}
@@ -593,12 +657,12 @@ sponsorship from Science Foundation Ireland via the
 \input{terminal}
 \input{iquantity}
 \input{quantity}
-\input{quantityport}
-\input{terminalport}
-\input{signal}
-\input{signalattr}
-\input{wait}
-\input{bitbon}
+%\input{quantityport}
+%\input{terminalport}
+%\input{signal}
+%\input{signalattr}
+%\input{wait}
+%\input{bitbon}
 %======================================================================
 
 \end{document}
