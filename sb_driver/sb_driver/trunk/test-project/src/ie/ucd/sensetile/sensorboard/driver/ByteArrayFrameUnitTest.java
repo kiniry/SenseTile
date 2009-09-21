@@ -6,12 +6,10 @@ import static org.junit.Assert.assertTrue;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
-public class ByteArrayPacketByteArrayFrameTest {
+public class ByteArrayFrameUnitTest {
   
   private UnsignedByteArray rawPacket;
   private ByteArrayPacket packet;
@@ -19,16 +17,9 @@ public class ByteArrayPacketByteArrayFrameTest {
   
   @Before
   public void setUp() throws SenseTileException {
-    UnsignedByteArray basePacket = UnsignedByteArray.create(new byte[1024]);
-    // copy pattern structure into packet
-    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
-      basePacket.setByte(
-          (index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH, 
-          ByteArrayPacket.PATTERN[index]);
-    }
-    // initialisation
     rawPacket = UnsignedByteArray.create(
-        Arrays.copyOf(basePacket.getArray(), basePacket.getArray().length));
+        PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH));
+    // initialize packets
     packet = ByteArrayPacket.createPacket(rawPacket);
     int packetIndex = 100;
     packet.setCounter(packetIndex);

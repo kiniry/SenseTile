@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   ByteArrayPacketUnitTest.class,
-  ByteArrayPacketByteArrayFrameTest.class,
+  ByteArrayFrameUnitTest.class,
   InputStreamPacketInputStreamAsPacketInputStreamUnitTest.class,
   InputStreamPacketInputStreamUnitTest.class})
 

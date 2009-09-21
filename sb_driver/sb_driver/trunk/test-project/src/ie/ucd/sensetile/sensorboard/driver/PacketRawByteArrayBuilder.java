@@ -1,5 +1,7 @@
 package ie.ucd.sensetile.sensorboard.driver;
 
+import ie.ucd.sensetile.sensorboard.Frame;
+import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
@@ -14,32 +16,42 @@ public final class PacketRawByteArrayBuilder {
   
   private static byte[] prepareArray(final int length) throws SenseTileException {
     final byte[] array = new byte[ByteArrayPacket.LENGTH * length];
-    final byte[] rawArray = new byte[ByteArrayPacket.LENGTH];
-    UnsignedByteArray byteArray = UnsignedByteArray.create(rawArray);
-    for (
-        int patternIndex = 0; 
-        patternIndex < ByteArrayPacket.PATTERN.length; 
-        patternIndex++) {
-      int index = 
-        (patternIndex + ByteArrayPacket.PATTERN_OFFSET) % 
-        ByteArrayPacket.LENGTH;
-      byteArray.setByte(index, ByteArrayPacket.PATTERN[patternIndex]);
-    }
-    ByteArrayPacket packetArray = ByteArrayPacket.createPacket(byteArray);
+    final byte[] rawPacket = new byte[ByteArrayPacket.LENGTH];
+    intializePacket(rawPacket);
+    ByteArrayPacket packet = ByteArrayPacket.createPacket(rawPacket);
     for (int packetIndex = 0; packetIndex < length; packetIndex ++) {
       // packet initialization
-      packetArray.setCounter(packetArray.getCounter() + 1);
-      packetArray.setPressure(310);
-      packetArray.setAccelerometerX(1860);
-      packetArray.setAccelerometerY(1860);
-      packetArray.setAccelerometerZ(1860);
+      packet.setCounter(packet.getCounter() + 1);
       // copy
       System.arraycopy(
-          rawArray, 0, 
+          rawPacket, 0, 
           array, packetIndex * ByteArrayPacket.LENGTH, 
           ByteArrayPacket.LENGTH);
     }
     return array;
+  }
+  
+  private static void intializePacket(byte[] rawPacket) throws SenseTileException {
+    UnsignedByteArray bytePacket = UnsignedByteArray.create(rawPacket);
+    // copy pattern structure into packet
+    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
+      bytePacket.setByte(
+          (index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH, 
+          ByteArrayPacket.PATTERN[index]);
+    }
+    // initialize frames
+    ByteArrayFrame frame;
+    for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
+      frame = new ByteArrayFrame(bytePacket, frameIndex);
+      frame.setADCChannel(frameIndex % Frame.ADC_CHANNELS);
+    }
+    // initialize packet
+    ByteArrayPacket packet = ByteArrayPacket.createPacket(bytePacket);
+    packet.setCounter(0);
+    packet.setPressure(310);
+    packet.setAccelerometerX(1860);
+    packet.setAccelerometerY(1860);
+    packet.setAccelerometerZ(1860);
   }
   
   private static byte[] getArray(final int length) throws SenseTileException {

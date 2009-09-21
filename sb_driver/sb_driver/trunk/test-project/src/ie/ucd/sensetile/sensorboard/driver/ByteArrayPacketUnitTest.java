@@ -13,19 +13,17 @@ import org.junit.Test;
 
 public class ByteArrayPacketUnitTest {
   
-  private byte[] rawPacket;
+  private UnsignedByteArray rawPacket;
   private ByteArrayPacket current;
   private ByteArrayPacket previous;
   
   @Before
   public void setUp() throws SenseTileException {
-    rawPacket = new byte[1024];
-    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
-      rawPacket[(index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH] = 
-        ByteArrayPacket.PATTERN[index];
-    }
-    current = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
-    previous = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket, rawPacket.length));
+    rawPacket = UnsignedByteArray.create(
+        PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH));
+    // initialize packets
+    current = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
+    previous = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
     int packetIndex = 100;
     current.setCounter(packetIndex);
     previous.setCounter(packetIndex - 1);
@@ -33,7 +31,7 @@ public class ByteArrayPacketUnitTest {
   
   @Test
   public void testConstructor() {
-    new ByteArrayPacket(UnsignedByteArray.create(new byte[1024]));
+    new ByteArrayPacket(UnsignedByteArray.create(rawPacket.getArray()));
   }
   
   @Test (expected = SenseTileException.class)
@@ -57,11 +55,6 @@ public class ByteArrayPacketUnitTest {
   
   @Test
   public void testCreatePacketPatternOk() throws Exception {
-    byte[] rawPacket = new byte[1024];
-    for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
-      rawPacket[(index + ByteArrayPacket.PATTERN_OFFSET) % ByteArrayPacket.LENGTH] = 
-        ByteArrayPacket.PATTERN[index];
-    }
     ByteArrayPacket.createPacket(rawPacket);
   }
   
