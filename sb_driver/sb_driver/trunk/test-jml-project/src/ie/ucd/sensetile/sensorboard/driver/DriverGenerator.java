@@ -4,28 +4,29 @@ import java.util.Properties;
 
 import ie.ucd.sensetile.sensorboard.Generator;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
+import ie.ucd.sensetile.util.UnsignedByteArray;
 
 public class DriverGenerator extends Generator {
 
   public static ByteArrayFrame getByteArrayFrame(int n) {
-    ByteArrayPacket packet;
+    UnsignedByteArray bytePacket;
     ByteArrayFrame frame;
     switch (n) {
     case 0:
-      packet = getByteArrayPacket(0);
-      frame = new ByteArrayFrame(packet, 0);
+      bytePacket = getUnsignedByteArray(0);
+      frame = new ByteArrayFrame(bytePacket, 0);
       return frame;
     case 1:
-      packet = getByteArrayPacket(1);
-      frame = new ByteArrayFrame(packet, 0);
+      bytePacket = getUnsignedByteArray(1);
+      frame = new ByteArrayFrame(bytePacket, 0);
       return frame;
     case 2:
-      packet = getByteArrayPacket(0);
-      frame = new ByteArrayFrame(packet, 81);
+      bytePacket = getUnsignedByteArray(0);
+      frame = new ByteArrayFrame(bytePacket, 81);
       return frame;
     case 3:
-      packet = getByteArrayPacket(1);
-      frame = new ByteArrayFrame(packet, 81);
+      bytePacket = getUnsignedByteArray(1);
+      frame = new ByteArrayFrame(bytePacket, 81);
       return frame;
     default:
       break;

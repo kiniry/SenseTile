@@ -153,6 +153,34 @@ public abstract class ByteArrayFrame_JML_TestData extends
 
   /**
    * Return a new, freshly allocated indefinite iterator that produces test data
+   * of type ie.ucd.sensetile.util.UnsignedByteArray for testing the method
+   * named by the String methodName in a loop that encloses loopsThisSurrounds
+   * many other loops.
+   * 
+   * @param methodName
+   *          name of the method for which this test data will be used.
+   * @param loopsThisSurrounds
+   *          number of loops that the test contains inside this one.
+   */
+  // @ requires methodName != null && loopsThisSurrounds >= 0;
+  // @ ensures \fresh(\result);
+  protected org.jmlspecs.jmlunit.strategies.IndefiniteIterator vie_ucd_sensetile_util_UnsignedByteArrayIter(
+      java.lang.String methodName, int loopsThisSurrounds) {
+    return vie_ucd_sensetile_util_UnsignedByteArrayStrategy.iterator();
+  }
+
+  /**
+   * The strategy for generating test data of type
+   * ie.ucd.sensetile.util.UnsignedByteArray.
+   */
+  private org.jmlspecs.jmlunit.strategies.StrategyType vie_ucd_sensetile_util_UnsignedByteArrayStrategy = new org.jmlspecs.jmlunit.strategies.NewObjectAbstractStrategy() {
+    protected Object make(int n) {
+      return DriverGenerator.getUnsignedByteArray(n);
+    }
+  };
+
+  /**
+   * Return a new, freshly allocated indefinite iterator that produces test data
    * of type ie.ucd.sensetile.sensorboard.driver.ByteArrayFrame for testing the
    * method named by the String methodName in a loop that encloses
    * loopsThisSurrounds many other loops.
