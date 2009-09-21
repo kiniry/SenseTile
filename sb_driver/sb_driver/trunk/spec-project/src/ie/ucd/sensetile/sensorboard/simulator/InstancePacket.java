@@ -33,10 +33,11 @@ public class InstancePacket implements CloneablePacket {
   private InstanceFrame[] frames = new InstanceFrame[FRAMES];
   
   InstancePacket() {
-    setTime(new TimeInstance());
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
       frames[frameIndex] = new InstanceFrame();
+      frames[frameIndex].setADCChannel(frameIndex % Frame.ADC_CHANNELS);
     }
+    setTime(new TimeInstance());
     // defaults
     setPressure((short)310);
     setAccelerometerX((short)1860);
@@ -45,6 +46,9 @@ public class InstancePacket implements CloneablePacket {
   }
   
   InstancePacket(final Packet template) {
+    for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
+      frames[frameIndex] = new InstanceFrame(template.getFrame(frameIndex));
+    }
     setTime(new TimeInstance(template.getTime()));
     setCounter(template.getCounter());
     setCounter(template.getCounter());
@@ -55,9 +59,6 @@ public class InstancePacket implements CloneablePacket {
     setAccelerometerZ(template.getAccelerometerZ());
     setSupplyVoltage(template.getSupplyVoltage());
     setSupplyCurrent(template.getSupplyCurrent());
-    for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
-      frames[frameIndex] = new InstanceFrame(template.getFrame(frameIndex));
-    }
   }
   
   public Packet.Time getTime() {
@@ -156,6 +157,10 @@ public class InstancePacket implements CloneablePacket {
     private byte centiSeconds;
     
     TimeInstance() {
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+      setCentiSeconds(0);
     }
     
     TimeInstance(final Packet.Time template) {
@@ -169,32 +174,32 @@ public class InstancePacket implements CloneablePacket {
       return hours;
     }
     
-    void setHours(final byte hours) {
-      this.hours = hours;
+    void setHours(final int hours) {
+      this.hours = (byte) hours;
     }
     
     public byte getMinutes() {
       return minutes;
     }
     
-    void setMinutes(final byte minutes) {
-      this.minutes = minutes;
+    void setMinutes(final int minutes) {
+      this.minutes = (byte) minutes;
     }
     
     public byte getSeconds() {
       return seconds;
     }
     
-    void setSeconds(final byte seconds) {
-      this.seconds = seconds;
+    void setSeconds(final int seconds) {
+      this.seconds = (byte) seconds;
     }
     
     public byte getCentiSeconds() {
       return centiSeconds;
     }
     
-    void setCentiSeconds(final byte centiSeconds) {
-      this.centiSeconds = centiSeconds;
+    void setCentiSeconds(final int centiSeconds) {
+      this.centiSeconds = (byte) centiSeconds;
     }
     
     public Object clone() throws CloneNotSupportedException {

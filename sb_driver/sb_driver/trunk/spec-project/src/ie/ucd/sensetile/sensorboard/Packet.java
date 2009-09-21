@@ -13,6 +13,53 @@ package ie.ucd.sensetile.sensorboard;
  */
 public interface Packet {
   
+  /*
+   * invariant: only one change in audio active
+   */
+  /*@
+  invariant (
+    (
+      \num_of int i; 
+      0<= i && i<(FRAMES-1); 
+      getFrame(i).isAudioActive() != getFrame(i+1).isAudioActive()
+    ) <= 1
+  );
+  @*/
+  
+  /*
+   * invariant: only one change in frequency
+   */
+  /*@
+  invariant ((
+      \num_of int i; 
+      0<= i && i<(FRAMES-1); 
+      (
+        getFrame(i).isAudioActive() && 
+        getFrame(i+1).isAudioActive() && 
+        (getFrame(i).getAudioFrequency() != getFrame(i+1).getAudioFrequency())
+      )
+    ) <= 1
+  );
+  @*/
+  
+  /*
+   * invariant: only 9 ADC samples at most, for each channel
+   */
+  /*@
+  invariant (
+    \forall int channel;
+    0 <= channel && channel < Frame.ADC_CHANNELS; 
+    (
+      \num_of int i;
+      0<= i && i<(FRAMES-1);
+      (
+        getFrame(i).isADCActive() &&
+        (getFrame(i).getADCChannel() == channel)
+      )
+    ) <= (FRAMES / Frame.ADC_CHANNELS + 1)
+  );
+  @*/
+  
   /**
    * Get time.
    * 

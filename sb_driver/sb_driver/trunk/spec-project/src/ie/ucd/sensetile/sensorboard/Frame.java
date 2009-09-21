@@ -66,7 +66,6 @@ public interface Frame {
   /*@
     @ requires channel >= 0;
     @ requires channel < AUDIO_CHANNELS;
-    @ requires isAudioActive();
     @*/
   /*@ pure */ char getAudio(int channel);
   
@@ -80,7 +79,7 @@ public interface Frame {
   /**
    * ADC channels.
    */
-  int ADC_CHANNNELS = 8;
+  int ADC_CHANNELS = 8;
   
   /**
    * Get slow ADC channel.
@@ -91,7 +90,7 @@ public interface Frame {
    */
   /*@
     @ ensures \result >= 0;
-    @ ensures \result < ADC_CHANNNELS;
+    @ ensures \result < ADC_CHANNELS;
     @*/
   /*@ pure */ int getADCChannel();
   
@@ -100,9 +99,6 @@ public interface Frame {
    * 
    * @return ADC sample
    */
-  /*@
-    @ requires isADCActive();
-    @*/
   /*@ pure */ char getADC();
   
 }

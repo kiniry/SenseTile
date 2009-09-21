@@ -220,7 +220,7 @@ public final class ByteArrayPacket implements Packet {
   public static final int FRAME_LENGTH = 12;
   
   public Frame getFrame(final int index) {
-    return new ByteArrayFrame(this, index);
+    return new ByteArrayFrame(this.getRaw(), index);
   }
   
   private final UnsignedByteArray raw;
