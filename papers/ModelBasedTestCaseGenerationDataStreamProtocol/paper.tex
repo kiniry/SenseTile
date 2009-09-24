@@ -224,12 +224,14 @@ Both the approaches are analyzed, their pro and contra are discussed, as
 well as the expected advantages to use them in combination.
 
 In section \ref{sec:test_cases_on_the_job} the execution of the test suites
-is described, and the results are analyzed and compared, both from qualitative
-and quantitative points of view.
+is described, the data collected is presented.
 
-In section \ref{sec:test_cases_and_the_scenarios} we examine the different 
-scenarios on which test cases based on specifications can be applied, and 
-the resulting benefits it is possible to obtain.
+In section \ref{sec:test_cases_retrospectives} the data collected is analyzed, 
+both from a qualitative and a quantitative points of view.
+
+In section \ref{sec:test_cases_and_the_scenarios} the different scenarios on 
+which test cases based on specifications can be applied are analyzed, and 
+the resulting benefits it is possible to obtain are detailed.
 
 In section \ref{sec:related_works} related works are presented and analyzed.
 
@@ -496,8 +498,8 @@ calling a method (preconditions) and the constraints on the return value (a very
 postconditions).
 In listing \ref{lst:jml_example_simple} a simple JML specification example is shown, the 
 method \lil{getTemperature} is declared to be \lil{/*@ pure @*/}, which means that 
-it cannot change the state of any object (a postcondition), and the lower and upper bound of 
-its return value are defined (another postcondition).
+it cannot change the state of any object (a postcondition), the specification also constraints 
+the return value with a lower and upper bound (another postcondition).
 
 \begin{lstlisting}[
   caption={A simple specification with JML annotation: simple postconditions.},
@@ -510,19 +512,18 @@ its return value are defined (another postcondition).
 /*@ pure @*/ short getTemperature();
 \end{lstlisting}
 
+\sloppy
+
 Some of the specifications are rather complex, usually focusing on properties regarding the 
 behaviour of a whole object.
 In listing \ref{lst:jml_example_invariant} a complex invariant 
 (a property that has to be maintained, that is, that is assumed on entry and guaranteed on 
 exit of each method of an object)
 example is shown. 
-
-\sloppy
-
 The invariant is constraining the number of samples for each medium data rate streams: 
-the total number of streams is \lil{Frame.ADC_CHANNELS}; the total number of frames is 
-\lil{FRAMS}; the constant constraining the number of samples is 
-\lil{FRAMES/Frame.ADC_CHANNELS+1}, it means that the samples contained in a frame are
+the total number of streams is \lil{Frame.ADC_CHANNELS}, the total number of frames is 
+\lil{FRAMS}, the constant constraining the number of samples is 
+\lil{FRAMES/Frame.ADC_CHANNELS+1}, meaning that the samples contained in a frame are
 fairly distributed on the channels. 
 The valid samples are counted parsing all the frames contained in a packet, selecting only 
 the matching valid samples.
@@ -557,6 +558,66 @@ returns \lil{true}.
 %=====================================================================
 \section{Test cases}
 \label{sec:test_cases}
+
+The unit test cases that have been built to verify the protocol driver 
+are of two kinds: hand made unit tests and unit tests automatically 
+generated based on JML specifications.
+The tests have been tought to be used together, complementarly. 
+Despite of this premise, the tests effectiveness has been evaluated 
+separately and together, the evaluation is carried out in section 
+\ref{sec:test_cases_retrospectives}.
+The test effectiveness evaluation has been based on three elements:
+code coverage (quantitative), development help and usefulness 
+(qualitative), effective results on piloting the real board 
+(quantitative).
+
+The dual testing approach was thought as a winning option when 
+compared to hand based tests or completely automated tests, in testing 
+a driver for a stream communication protocol with hard constraints 
+on development time.
+\ST stream communication protocol is characterized by a well definite 
+packet structure, and a well definite semantic on the packet contents 
+as well.
+On the other hand there are not strong constraints on synchronization, 
+since there exists two concurrent communication channels and the protocol 
+is asynchronous by construction.
+The lack of hard synchronization constraints reduce the advantage to use 
+a classical state machine based specification. 
+
+\todo reference to protocol tests generated from a state machine based 
+specification is needed
+
+Hard development time constraints were also a precise requirement; the time 
+constraints pushed us towards a specification \emph{just good enough} for
+our purposes.
+A \emph{just good enough} specification is simply a specification that is not 
+specifing everything, but only the software parts that are considered most 
+critical, or the ones that are really easy to specify with the chosen 
+specification language.
+In \STSB driver JML was used to specify very simple behaviours (method 
+oriented) on the whole driver implementaion, and more complex behaviour on 
+the driver core interfaces.
+The not covered areas were addressed by hand made unit tests.
+
+Hand made unit tests cover behaviour not covered by the automatically 
+generated tests, that is, they cover the not specified behaviour; but this 
+is not the only purpose they have.
+Hand made unit tests are used to drive the development, using the well known 
+Test Driven Development approach, as well as to drive the most error prone 
+specification as well.
+Tests are used to drive the specification, a hand made unit test that should 
+fail if the specification is not working as expected.
+
+
+The rationale is the following: a stream communication protocol is 
+not completely focused on a synchronised interaction
+
+\begin{itemize}
+ \item 
+\end{itemize}
+
+
+
 
 \todo describe dual approach: hand made tests + generated from 
 specification tests
@@ -602,6 +663,17 @@ write tests against interfaces and/or abstract classes
 
 \todo compare compare coupled approach vs single approaches
 
+
+
+%=====================================================================
+\section{Retrospective on test cases effectiveness}
+\label{sec:test_cases_retrospectives}
+
+The test effectiveness evaluation criteria is of two types. 
+
+\todo describe quantitative: coverage
+
+\todo describe qualitative: errors found, help in design, ...
 
 %=====================================================================
 \section{Test cases and the scenarios}
