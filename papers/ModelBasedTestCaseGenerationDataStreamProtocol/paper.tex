@@ -1,7 +1,7 @@
 %
 % "The UCD CASL SenseTile System", for IEEE Pervasive Computing
 % Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic
-% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz $
+% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz 
 %
 
 \documentclass{article} 
@@ -26,6 +26,9 @@
 \usepackage{eucal}
 \usepackage{stmaryrd}
 \usepackage{float}
+\usepackage{listings}
+\input{jml-listings}
+\lstset{language=[JML]Java,xleftmargin=20pt,xrightmargin=20pt}
 
 \ifpdf
 \usepackage[pdftex,bookmarks=false,a4paper=false,
@@ -44,6 +47,8 @@ Stosic"]{hyperref}
 \newcommand{\etc}{etc.\xspace}
 \newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
 \newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3 \myhref{#1}{#1}}}
+
+\newcommand{\lil}[1]{\texttt{\lstinline|#1|}}
 
 \newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:} #1}}
 \newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:} #1}}
@@ -190,7 +195,7 @@ manufacturer of the board, hence, it is not taken into account here).
 
 \todo explain and refine the problem
 
-\todo other approaches to the problem
+\todo search: other approaches to similar problems
 
 To tackle the complexity of the concurrent tasks the formal model of the protocol 
 was used as a focus point that led all the other development tasks. 
@@ -454,16 +459,98 @@ verification, usable with hand written tests.
 \subsection{On simulators}
 \label{subsec:on_simulators}
 
-\todo different layers need different simulators
+Simulators are needed to test in isolation parts of the system; especially the upper 
+layers, yet to be developed. 
+During the development the simulators were essential, since the board was not available.
+Simulators were built concurrently with the specification, the real driver code, and the 
+tests.
 
-\todo describe simulators structure
+Theoretically a separate simulator should be needed for each protocol layer; a
+separate simulator for each layer would enable us to separeately specify, develop and test
+each layer of the protocol.
+In our case we evaluated not worth the effort to maintain such a separation in the 
+simulators, motivated by the fact that the protocol layers identified are too fine grained 
+to be separated into different simulators. 
+Two simulators were built.
 
-\subsection{A JML specification example}
+The two simulators were built reflecting the software abstraction layers defined for the 
+driver.
+The driver API is splitted in two structurual layers: the general high level interfaces, that 
+expose the main functionalities of the board and the main contents of the packets hiding the 
+details, and the lower level implementation that parse the data streams in and out the board, 
+to translate the higher level intructions and data in properly formed packets.
+Hence, we have implemented two simulators: one high level simulator, whicj reimplements the 
+high level interfaces providing corresponding high level mechanisms to control the data and 
+the behaviour of the simulated board, it has nothing to do with the details of the data 
+streams.
+One low level simulator which is capable to rebuild the data stream out of the board based on 
+the data stream into the board, the in and out data streams are built exaclty as the sensor 
+board is expected to be able to parse or generate.
+
+\subsection{JML specification examples}
 \label{subsec:a_jml_specification_example}
 
-\todo find interesting JML specification
+The JML specifications used to annotate Java code are of varing complexities.
+Some of the specifications are simple, focusing on constraints that should hold when 
+calling a method (preconditions) and the constraints on the return value (a very basic form of 
+postconditions).
+In listing \ref{lst:jml_example_simple} a simple JML specification example is shown, the 
+method \lil{getTemperature} is declared to be \lil{/*@ pure @*/}, which means that 
+it cannot change the state of any object (a postcondition), and the lower and upper bound of 
+its return value are defined (another postcondition).
 
-\todo describe the example
+\begin{lstlisting}[
+  caption={A simple specification with JML annotation: simple postconditions.},
+  label=lst:jml_example_simple,
+  float=htbp]
+/*@ 
+  ensures \result >= -880;
+  ensures \result <= 2047;
+@*/
+/*@ pure @*/ short getTemperature();
+\end{lstlisting}
+
+Some of the specifications are rather complex, usually focusing on properties regarding the 
+behaviour of a whole object.
+In listing \ref{lst:jml_example_invariant} a complex invariant 
+(a property that has to be maintained, that is, that is assumed on entry and guaranteed on 
+exit of each method of an object)
+example is shown. 
+
+\sloppy
+
+The invariant is constraining the number of samples for each medium data rate streams: 
+the total number of streams is \lil{Frame.ADC_CHANNELS}; the total number of frames is 
+\lil{FRAMS}; the constant constraining the number of samples is 
+\lil{FRAMES/Frame.ADC_CHANNELS+1}, it means that the samples contained in a frame are
+fairly distributed on the channels. 
+The valid samples are counted parsing all the frames contained in a packet, selecting only 
+the matching valid samples.
+A medium data rate stream sample is considered valid when \lil{isADCActive()} method 
+returns \lil{true}.
+
+\fussy
+
+\begin{lstlisting}[
+  caption={A specification with JML annotation: a complex object invariant which constraints 
+    the number of samples for each medium data rate stream channel.},
+  label=lst:jml_example_invariant,
+  float=htbp]
+/*@ 
+  invariant (
+    \forall int channel;
+    0 <= channel && channel < Frame.ADC_CHANNELS; 
+    (
+      \num_of int i;
+      0<= i && i<(FRAMES-1);
+      (
+        getFrame(i).isADCActive() &&
+        (getFrame(i).getADCChannel() == channel)
+      )
+    ) <= (FRAMES / Frame.ADC_CHANNELS + 1)
+  );
+@*/
+\end{lstlisting}
 
 
 
@@ -473,6 +560,11 @@ verification, usable with hand written tests.
 
 \todo describe dual approach: hand made tests + generated from 
 specification tests
+
+\todo reason about the usual structure oracle-driver-test-stub(s). a simulator is sometimes a 
+stub, sometimes a driver, sometimes an oracle...
+
+\todo insert references to testing embedded systems with simulators and/or with driver/stubs
 
 \todo describe hybrid agile and TDD approach: high level informal 
 specifications with BON, iterative refinements of code, to distill 
