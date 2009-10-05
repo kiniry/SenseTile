@@ -1,42 +1,28 @@
 %
-% "The UCD CASL SenseTile System", for IEEE Pervasive Computing
-% Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic
-% $Id: paper.tex 2795 2007-09-23 19:35:53Z dmz 
+% "The UCD CASL SenseTile System", for IEEE Pervasive Computing Joseph
+% R. Kiniry, Vieri del Bianco, Dragan Stosic $Id: paper.tex 2795
+% 2007-09-23 19:35:53Z dmz
 %
 
-\documentclass{article} 
-\usepackage{times}
+\documentclass{article} \usepackage{times}
 
-\usepackage{ifpdf}
-\usepackage{a4wide}
-\usepackage{pdfsync}
+\usepackage{ifpdf} \usepackage{a4wide} \usepackage{pdfsync}
 
-\ifpdf
-\usepackage[pdftex]{graphicx}
-\else
-\usepackage{graphicx}
-\fi
+\ifpdf \usepackage[pdftex]{graphicx} \else \usepackage{graphicx} \fi
 
-\usepackage{xspace}
-\usepackage{tabularx}
-\usepackage{epsfig}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{eucal}
-\usepackage{stmaryrd}
-\usepackage{float}
-\usepackage{listings}
-\input{jml-listings}
+\usepackage{xspace} \usepackage{tabularx} \usepackage{epsfig}
+\usepackage{amsmath} \usepackage{amsfonts} \usepackage{amssymb}
+\usepackage{eucal} \usepackage{stmaryrd} \usepackage{float}
+\usepackage{listings} \input{jml-listings}
 \lstset{language=[JML]Java,xleftmargin=20pt,xrightmargin=20pt}
 
 \ifpdf
+\usepackage{epstopdf}
 \usepackage[pdftex,bookmarks=false,a4paper=false,
             plainpages=false,naturalnames=true,
             colorlinks=true,pdfstartview=FitV,
             linkcolor=blue,citecolor=blue,urlcolor=blue,
-            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan
-Stosic"]{hyperref}
+            pdfauthor="Joseph R. Kiniry and Vieri del Bianco"]{hyperref}
 \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
@@ -50,14 +36,16 @@ Stosic"]{hyperref}
 
 \newcommand{\lil}[1]{\texttt{\lstinline|#1|}}
 
-\newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:} #1}}
+%\newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:} #1}}
+\newcommand{\notev}[1]{\xspace\marginpar{\scriptsize\textsf{Vieri:} #1}}
 \newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:} #1}}
 \newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:} #1}}
 
-\newcommand{\todo}{\textbf{TODO:}}
+\newcommand{\todo}[1]{\texttt{\textbf{TODO:} #1}}
 
 \newcommand{\ST}{\emph{SenseTile}\xspace}
-\newcommand{\STSB}{\ST \emph{Sensor Board}\xspace}
+\newcommand{\SB}{\emph{Sensor Board}\xspace}
+\newcommand{\STSB}{\ST \SB\xspace}
 \newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
 \newcommand{\STPU}{\ST \emph{Processor Unit}\xspace}
 \newcommand{\STPUs}{\ST \emph{Processor Units}\xspace}
@@ -87,12 +75,12 @@ Farm\xspace}
 \title{Deriving an Executable Model of a Data Stream Protocol from its
 Specification}
 
-\author{Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic\\
+\author{Joseph R. Kiniry, Vieri del Bianco\\
 UCD CASL: Complex and Adaptive Systems Laboratory and\\
 School of Computer Science and Informatics,\\
 University College Dublin,\\
 Belfield, Dublin 4, Ireland,\\
-kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
+kiniry@acm.org, vieri.delbianco@gmail.com\\
 }
 
 \maketitle
@@ -193,9 +181,9 @@ with the \STSB, and the development of the simulators needed for future tests
 of the system (the controlling code of the board was developed by the external 
 manufacturer of the board, hence, it is not taken into account here).
 
-\todo explain and refine the problem
+\todo{explain and refine the problem}
 
-\todo search: other approaches to similar problems
+\todo{references: search other approaches to similar problems}
 
 To tackle the complexity of the concurrent tasks the formal model of the protocol 
 was used as a focus point that led all the other development tasks. 
@@ -235,7 +223,7 @@ the resulting benefits it is possible to obtain are detailed.
 
 In section \ref{sec:related_works} related works are presented and analyzed.
 
-Finally in section \ref{sec:conclusion} conclusions are drawed and 
+Finally in section \ref{sec:conclusion} conclusions are drawn and 
 ongoing and future works on similar topics is introduced.
 
 
@@ -271,7 +259,7 @@ The protocol is an asynchronous fixed length packed based protocol.
 The protocol has been divided in multiple layers to ease its formal description.
 The rationale is the following: mixing up different abstraction levels of a 
 protocol description can lead to overly complex and unmanageable descriptions, 
-expecially when dealing with formal ones.
+especially when dealing with formal ones.
 The layers identified in protocol are the following:
 
 \begin{description}
@@ -377,7 +365,7 @@ metadata describing the \STSB and the packet and frame contents,  have a defined
 range of acceptable values.
 There are also rules affecting more than one value, basically validity rules (i.e. if 
 a specific sensor is active than the reading value has to be in a defined range), 
-and rules specifing a correct sequence of frames (i.e. there can be only one switch 
+and rules specifying a correct sequence of frames (i.e. there can be only one switch 
 in sampling rate in the frame sequence of a single packet).
 
 
@@ -401,7 +389,7 @@ the run time execution environment is capable to detect and signal the fault.
 
 We also needed a specification capable to tackle properly all the protocol layers.
 Since the different layers have very different characteristics, different context
-dependant specification approaches were chosen.
+dependent specification approaches were chosen.
 
 \paragraph{Packet byte structure specification}
 
@@ -419,24 +407,20 @@ The implementation were actually driven (Test Driven Development) by the test su
 \paragraph{Packet info structure specification}
 
 The specification is provided both by the Java API that has been built, and by the 
-annotation with JML language\footnote{
+annotation with JML language\cite{JML2}\footnote{
 \myhref{http://www.cs.ucf.edu/~leavens/JML/}{The Java Modeling Language (JML)}}. 
 JML has been chosen because it is capable to specify Java code: JML is a behavioral 
 interface specification language. 
-JML specification language combines the design by contract approach (applayed to 
+JML specification language combines the design by contract approach (applied to 
 Java language) and the model-based specification approach of interface specification 
-languages. 
-
-\todo insert proper JML references
+languages.
 
 Many tools are available supporting JML specification language, focusing on different 
 aspects of the language. 
-JML2 suite of tools
+JML2 suite of tools\cite{BurdyEtal05-STTT}
 \footnote{\myhref{http://sourceforge.net/projects/jmlspecs/}{Common JML tools}}
 was chosen, since both run time verification support and test generation support are 
 provided directly by the suite.
-
-\todo insert proper JML2 references
 
 The Java API specification part is checked automatically by the Java compiler, while
 the JML specification part can be checked at run time using the provided JML2 run time 
@@ -454,7 +438,7 @@ specification, using the provided JML2 run time environment.
 
 The specification is provided exclusively by annotations with JML language. 
 
-The capabilities of a JML specification have been already descibed in the previous 
+The capabilities of a JML specification have been already described in the previous 
 paragraph, that is: specification checkable at run time, tests generation, simulator 
 verification, usable with hand written tests.
 
@@ -468,7 +452,7 @@ Simulators were built concurrently with the specification, the real driver code,
 tests.
 
 Theoretically a separate simulator should be needed for each protocol layer; a
-separate simulator for each layer would enable us to separeately specify, develop and test
+separate simulator for each layer would enable us to separately specify, develop and test
 each layer of the protocol.
 In our case we evaluated not worth the effort to maintain such a separation in the 
 simulators, motivated by the fact that the protocol layers identified are too fine grained 
@@ -477,22 +461,22 @@ Two simulators were built.
 
 The two simulators were built reflecting the software abstraction layers defined for the 
 driver.
-The driver API is splitted in two structurual layers: the general high level interfaces, that 
+The driver API is splitted in two structural layers: the general high level interfaces, that 
 expose the main functionalities of the board and the main contents of the packets hiding the 
 details, and the lower level implementation that parse the data streams in and out the board, 
-to translate the higher level intructions and data in properly formed packets.
-Hence, we have implemented two simulators: one high level simulator, whicj reimplements the 
+to translate the higher level instructions and data in properly formed packets.
+Hence, we have implemented two simulators: one high level simulator, which re-implements the 
 high level interfaces providing corresponding high level mechanisms to control the data and 
-the behaviour of the simulated board, it has nothing to do with the details of the data 
+the behavior of the simulated board, it has nothing to do with the details of the data 
 streams.
 One low level simulator which is capable to rebuild the data stream out of the board based on 
-the data stream into the board, the in and out data streams are built exaclty as the sensor 
+the data stream into the board, the in and out data streams are built exactly as the sensor 
 board is expected to be able to parse or generate.
 
 \subsection{JML specification examples}
 \label{subsec:a_jml_specification_example}
 
-The JML specifications used to annotate Java code are of varing complexities.
+The JML specifications used to annotate Java code are of varying complexities.
 Some of the specifications are simple, focusing on constraints that should hold when 
 calling a method (preconditions) and the constraints on the return value (a very basic form of 
 postconditions).
@@ -515,14 +499,14 @@ the return value with a lower and upper bound (another postcondition).
 \sloppy
 
 Some of the specifications are rather complex, usually focusing on properties regarding the 
-behaviour of a whole object.
+behavior of a whole object.
 In listing \ref{lst:jml_example_invariant} a complex invariant 
 (a property that has to be maintained, that is, that is assumed on entry and guaranteed on 
 exit of each method of an object)
 example is shown. 
 The invariant is constraining the number of samples for each medium data rate streams: 
 the total number of streams is \lil{Frame.ADC_CHANNELS}, the total number of frames is 
-\lil{FRAMS}, the constant constraining the number of samples is 
+\lil{FRAMES}, the constant constraining the number of samples is 
 \lil{FRAMES/Frame.ADC_CHANNELS+1}, meaning that the samples contained in a frame are
 fairly distributed on the channels. 
 The valid samples are counted parsing all the frames contained in a packet, selecting only 
@@ -559,109 +543,256 @@ returns \lil{true}.
 \section{Test cases}
 \label{sec:test_cases}
 
-The unit test cases that have been built to verify the protocol driver 
-are of two kinds: hand made unit tests and unit tests automatically 
-generated based on JML specifications.
-The tests have been tought to be used together, complementarly. 
-Despite of this premise, the tests effectiveness has been evaluated 
-separately and together, the evaluation is carried out in section 
-\ref{sec:test_cases_retrospectives}.
-The test effectiveness evaluation has been based on three elements:
-code coverage (quantitative), development help and usefulness 
-(qualitative), effective results on piloting the real board 
-(quantitative).
+The unit test cases that have been built to verify the protocol driver
+are of two kinds: hand made unit tests and unit tests automatically
+generated based on JML specifications.  The tests have been thought to
+be used together, they are complementary.  The tests effectiveness has
+been evaluated, for each kind of test, the evaluation is carried out
+in section \ref{sec:test_cases_retrospectives}.  The test
+effectiveness evaluation has been based on three elements: effective
+results on piloting the real board (quantitative), code coverage
+(quantitative), development help and usefulness (qualitative).
 
-The dual testing approach was thought as a winning option when 
-compared to hand based tests or completely automated tests, in testing 
-a driver for a stream communication protocol with hard constraints 
+The dual testing approach was thought as a winning option, when 
+compared to hand based tests or completely automated tests used alone, 
+testing a driver for a stream communication protocol with hard constraints 
 on development time.
 \ST stream communication protocol is characterized by a well definite 
 packet structure, and a well definite semantic on the packet contents 
 as well.
-On the other hand there are not strong constraints on synchronization, 
-since there exists two concurrent communication channels and the protocol 
-is asynchronous by construction.
+On the other hand in the protocol there are not strong constraints on 
+synchronization, since the communication channel is splitted in two (in and 
+out) separate concurrent and asynchronous channels.
 The lack of hard synchronization constraints reduce the advantage to use 
-a classical state machine based specification. 
-
-\todo reference to protocol tests generated from a state machine based 
-specification is needed
+a classical state machine based specification \todo{references: 
+protocol tests generated from a state machine based specification}.
 
 Hard development time constraints were also a precise requirement; the time 
-constraints pushed us towards a specification \emph{just good enough} for
-our purposes.
-A \emph{just good enough} specification is simply a specification that is not 
-specifing everything, but only the software parts that are considered most 
-critical, or the ones that are really easy to specify with the chosen 
-specification language.
-In \STSB driver JML was used to specify very simple behaviours (method 
-oriented) on the whole driver implementaion, and more complex behaviour on 
+constraints pushed us towards a incomplete (\emph{just good enough}) 
+specification.
+In \STSB driver JML was used to specify very simple behaviors (method 
+oriented) on the whole driver implementation, and more complex behavior on 
 the driver core interfaces.
-The not covered areas were addressed by hand made unit tests.
+The software system parts not specified by the JML2 specification were 
+specified using hand made unit tests.
 
-Hand made unit tests cover behaviour not covered by the automatically 
-generated tests, that is, they cover the not specified behaviour; but this 
+Hand made unit tests cover behavior not covered by the automatically 
+generated tests, that is, they cover the not specified behavior; but this 
 is not the only purpose they have.
-Hand made unit tests are used to drive the development, using the well known 
-Test Driven Development approach, as well as to drive the most error prone 
-specification as well.
-Tests are used to drive the specification, a hand made unit test that should 
-fail if the specification is not working as expected.
+Hand made unit tests are used to drive the development, since the Test Driven 
+Development approach\cite{beck2003test} has been followed during development.
+Hand made tests are also used to drive the development of the most error 
+prone or complex JML2 specifications; a test developed to drive the 
+specification is a test that should fail if the specification is not working 
+as expected.
 
-
-The rationale is the following: a stream communication protocol is 
-not completely focused on a synchronised interaction
-
-\begin{itemize}
- \item 
-\end{itemize}
-
-
-
-
-\todo describe dual approach: hand made tests + generated from 
-specification tests
-
-\todo reason about the usual structure oracle-driver-test-stub(s). a simulator is sometimes a 
-stub, sometimes a driver, sometimes an oracle...
-
-\todo insert references to testing embedded systems with simulators and/or with driver/stubs
-
-\todo describe hybrid agile and TDD approach: high level informal 
-specifications with BON, iterative refinements of code, to distill 
-test cases and formal specification of the interfaces
-
-\notev{maybe this part is to be saved for a different paper? BON has 
-not been used properly}
-
-\todo describe the necessity to add specification generated tests: to ensure
-that specification is sound, to obtain higher coverage
+\todo{describe the necessity to add specification generated tests: to ensure
+that specification is sound, to obtain higher coverage}
 
 \paragraph*{Hand made tests}
 
-\todo describe hand made tests structure
+The package structure of the driver developed is shown in Figure 
+\ref{fig:class_diagram_main}: two independent packages has been defined: 
+\lil{Stream} and \lil{Driver}.
+The packages are abstract, that is, they mainly contain abstractions; in Java 
+language this is translated into a package which contains mainly abstract classes 
+or interfaces.
+The two abstract packages has various implementations, the dependency between
+abstract packages is not direct, but only through an implementation 
+(\lil{StreamDriver}).
+This is needed to maintain a high decoupling of the packages, and is the result of 
+applying the \emph{classical} dependency inversion 
+principle\cite{martin1996dependency} (the dependency structure of the 
+packages has a saw shape, a common shape on systems where the dependency 
+inversion principle has been followed).
 
-\todo describe abstract test case and abstract test suite patterns: how to 
-write tests against interfaces and/or abstract classes
+\begin{figure}[htb!]
+ \centering
+ \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__Main}
+ \label{fig:class_diagram_main}
+ \caption{Main packages class diagram.}
+\end{figure}
+
+The test package structure, which is shown in Figure 
+\ref{fig:class_diagram_test} reflects and mimics the code structure; the
+tests that test an abstract package are abstract, to be implemented by the 
+package that tests a corresponding system implementation; this is a well 
+known test pattern, the Abstract Test Pattern\cite{thomas2004java}, it is 
+used to test that the contracts are respected in the implementations.
+For instance, package \lil{DriverT} contains abstract tests for the 
+abstractions of package \lil{Driver}, package \lil{StreamDriverT} 
+inherits the abstractions contained in \lil{DriverT} and makes them concrete, 
+to test the corresponding implementation \lil{StreamDriver}; package 
+\lil{StreamDriverT} also contains stand alone tests written specifically for
+the implementation contained in \lil{StreamDriver}.
+
+\begin{figure}[htb!]
+ \centering
+ \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__Test}
+ \label{fig:class_diagram_test}
+ \caption{Test packages class diagram.}
+\end{figure}
 
 \paragraph*{Generated tests}
 
-\todo describe the tool that generates the testing
+The JML specification has been used to generate the tests. 
+A specific tool of the JML2 suite can be used to automatically generate 
+them\cite{Cheon-Leavens02}.
 
-\todo describe the structure of the generates tests
+The test suite generated is a collection of fine grained unit tests.
+For each public method a set of tests is generated.
+The specified behavior of the method is checked using the JML2 run time 
+assertion checker, hence, an oracle is not needed. 
+The generated tests send messages to the method under test, they catch 
+assertion violation exceptions from test cases that pass an initial 
+precondition check; that is, if a precondition is not met, the test is 
+not run, if the precondition is met the test is run, and if the postcondition 
+is not me an exception is fired and the test fails.
+The test data that is used to build the tests is the only part that is 
+required to be provided by the user.
+
+The test package structure is shown in Figure 
+\ref{fig:class_diagram_generatedtest}.
+The packages dependencies are defined by the specifications; for instance, 
+\lil{SimulatorDriverST} are generated tests, they test (hence use) the 
+implementation \lil{SimulatorDriver}, they have been generated using the 
+specification corresponding specification \lil{SimulatorDriverS}.
+The generated tests do not maintain the inheritance structure of the code 
+and the specification.
+
+\begin{figure}[htb!]
+ \centering
+ \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__GeneratedTests}
+ \label{fig:class_diagram_generatedtest}
+ \caption{Generated test packages class diagram.}
+\end{figure}
+
+\paragraph*{On simulators, again}
+
+To have proper unit test suite, for each method under test a proper stub, 
+driver and oracle should be identified, these are the usual components found 
+in the harness that enable test execution\cite{binder1999testing}.
+In JUnit\footnote{\myhref{http://www.junit.org/}{JUnit}}, the framework used 
+to manage the implementation and execution of hand made and generated unit 
+tests, there is no clear distinction between drivers, stubs, and oracle of a 
+test; noneless, even if a proper distinction is not imposed by the framework, 
+the conceptual distinction still holds.
+
+Hence, to properly unit test a module in isolation and automatically we need:
+
+\begin{description}
+ \item[Stub or Skeleton]: a piece of code that simulates the activity of 
+the modules that are not under tests.
+ \item[Driver]: a piece of code that calls in a proper way the module under 
+test.
+ \item[Oracle]: a mechanism used for determining whether a test has passed 
+or failed, comparing the output of the module under test to the output that 
+the oracle determines that the module should have.
+\end{description} 
+
+Hand made unit tests and JML generated tests differs in how these components 
+are provided. 
+The distinctions and similarities are summarized in Table 
+\ref{tab:test_harness}.
+
+\begin{table}[htbp]
+\caption{Hand made and generated tests harness.}
+\label{tab:test_harness}
+\begin{center}
+\begin{tabular}{|l|l|l|}\hline
+& \textbf{\textit{hand made}} & \textbf{\textit{JML}} \\\hline
+\textbf{\textit{Stub}} & to be provided & to be provided\\\hline
+\textbf{\textit{Driver}} & to be provided & automatic: 1 call\\\hline
+\textbf{\textit{Oracle}} & to be provided & 
+automatic: runtime assertion checker\\\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+A module simulator can be used to ease the tasks of developing each component 
+of a test harness; that is, it can be used as a stub, to simulate a module 
+needed by the module under test, it can be used as a driver, to stimulate the 
+module under test, it can be used as an oracle, if it simulates the module 
+under test.
+
+In our system, the simulators has been used mainly as stubs, so that we have,
+during testing, a structure like the one shown in Figure 
+\ref{fig:class_diagram_streamdriver_test}.
+In Figure \ref{fig:class_diagram_streamdriver_test} the test suite 
+\lil{StreamDriverT} is using the \lil{SimulatorStream} to properly simulate 
+the \lil{Stream} that is used by the system under test, that is 
+\lil{StreamDriver}.
+
+\begin{figure}[htb!]
+ \centering
+ \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__StreamDriverT}
+ \label{fig:class_diagram_streamdriver_test}
+ \caption{StreamDriver test packages class diagram: use of the stream simulator.}
+\end{figure}
+
+In our case, the usage of simulators to enable unit testing, was essential to 
+test the \STSB driver, since the physical board was not available.
+The simulator were used in both the hand made and the generated tests, since
+both of them need a proper set of stubs to be executed.
+
+\todo{insert references to testing embedded systems with simulators and/or 
+with driver/stubs}
+
+\paragraph*{BON}
+
+\todo{describe approach: high level informal specifications with BON, 
+iterative refinements of code, to distill test cases and formal 
+specification of the interfaces} \notev{remove, BON has not been used 
+properly, maybe a follow up paper}
+
 
 
 %=====================================================================
 \section{Test cases on the job}
 \label{sec:test_cases_on_the_job}
 
-\todo report high level analysis of the test suites
+The use of both test suites, hand made and generated, has proven 
+effective on finding protocols errors on the \STSB when the board 
+prototypes have been delivered.
 
-\todo describe measures: coverage, number of new bugs found
+The first \STSB prototype delivered was meant to build empty packets, 
+but the packets were built in a way not conformant to the 
+specification, the sentinel values used to delimit a packet were not 
+correct.
+The board implementation error has been detected by the 
+\lil{StreamDriver} package.
 
-\todo compare hand made vs generated tests
+The second prototype delivered was meant to build packets with values
+taken from rear sensors installed on the board.  The only sensors that
+were not yet working were the sensors devoted to the fast rate data
+streams, that is, the audio sensors.  Only one error needed to be
+corrected in the driver implementation, because of a (rare)
+combinations of conditions that were not covered by the test cases.
+One error have been discovered in the low level driver that the driver
+was using; to eliminate the error an upgrade of the low level drover
+to a new unreleased version was necessary.  No other errors were
+detected on the driver side. All the errors on the \SB side have been
+detected.
 
-\todo compare compare coupled approach vs single approaches
+The formal model and the run time assertion checker enabled the
+detection of errors on the \SB itself.  Errors regarding the expected
+values and values ranges of the filds contained in the packets and the
+frames (4 protocol errors), and errors regarding the dependencies
+between values in field (2 protocol errors) were detected. No other
+errors, other than the ones immediately discovered by the run time
+assertion checker were later on discovered.
+
+The hand made test suite is composed by over 140 tests, while the
+generated one is 100 times bigger, totalling over 14000 tests.
+
+\todo{describe why such a difference: random selection, many tests 
+pruned if pre condition is not satisfied}
+
+\todo{compare hand made, many calls, vs generated, single call, tests}
+
+\todo{describe measures: coverage, number of new bugs found}
+
+\todo{compare compare coupled approach vs single approaches}
 
 
 
@@ -671,37 +802,34 @@ write tests against interfaces and/or abstract classes
 
 The test effectiveness evaluation criteria is of two types. 
 
-\todo describe quantitative: coverage
+\todo{describe quantitative: coverage}
 
-\todo describe qualitative: errors found, help in design, ...
+\todo{describe qualitative: errors found, help in design, ...}
 
 %=====================================================================
 \section{Test cases and the scenarios}
 \label{sec:test_cases_and_the_scenarios}
 
-\todo benefit: the approach can be used to test different part of the system
-that share the same specifications
+\todo{benefit: the approach can be used to test different part of the system
+that share the same specifications}
 
-\todo testing the protocols layers
+\todo{testing the protocols layers}
 
-\todo testing the simulators
+\todo{testing the simulators}
 
-\todo describe general approach: depending at what level (of abstraction) tests 
+\todo{describe general approach: depending at what level (of abstraction) tests 
 and specifications are written, it is possible to verify both the simulator and 
-the real protocol (isn't this obvious?)
+the real protocol (isn't this obvious?)}
 
 
 %=====================================================================
 \section{Related works}
 \label{sec:related_works}
 
-\todo
-
 %=====================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-\todo
 
 %======================================================================
 %% \nocite{ex1,ex2}

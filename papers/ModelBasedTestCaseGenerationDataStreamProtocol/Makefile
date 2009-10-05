@@ -29,7 +29,7 @@ BIBDIR=../../bibliography
 LATEXDIR=../../latex
 
 ${paper}.pdf:	${paper}.tex
-	export BIBINPUTS="$(BIBDIR)//:"; \
+	export BIBINPUTS=".//:$(BIBDIR)//:"; \
 	export BSTINPUTS="$(LATEXDIR)//:"; \
 	export TEXINPUTS="$(LATEXDIR)//:"; \
 	rubber --pdf ${paper}
