@@ -113,41 +113,36 @@ Specifications serves two purposes, and indirectly a third one.
 
 \end{verbatim}
 
-  Sensor equipped devices typically communicate with a streaming packet-based 
-  network protocol.
-  The communication is focused on controlling the sensors and report the 
-  sensors measurements.
-  The \STSB is an example of such a device, it communicates with an arbitrary 
-  computer system, the \STPU (running Linux or Windows, at the moment) over 
-  a USB bus using a streaming packet-based protocol.
-  The \STU is a custom-designed, but inexpensive, sensor platform: it is 
-  composed by a one or more \STSBs paired with a general-purpose small-scale 
-  compute node, the \STPU (including everything from PDAs to powerful 
-  touchscreen-based portable computers).
-  There are over a dozen sensors on the \STSB itself, and new sensors can be 
-  added either using expansion slots on the \STSB, or adding them directly to 
-  the USB bus.
-  A third-party low-level library, provided by the USB chip vendor, the USB 
-  chip that has been used in the \STSB, creates and parses
-  generic USB communication packets.
+  Sensor equipped devices typically communicate with a streaming
+  packet-based network protocol.  The communication is focused on
+  controlling the sensors and report the sensors measurements.  The
+  \STSB is an example of such a device, it communicates with an
+  arbitrary computer system, the \STPU (running Linux or Windows, at
+  the moment) over a USB bus using a streaming packet-based protocol.
+  The \STU is a custom-designed, but inexpensive, sensor platform: it
+  is composed by a one or more \STSBs paired with a general-purpose
+  small-scale compute node, the \STPU (including everything from PDAs
+  to powerful touchscreen-based portable computers).  There are over a
+  dozen sensors on the \STSB itself, and new sensors can be added
+  either using expansion slots on the \STSB, or adding them directly
+  to the USB bus.  A third-party low-level library, provided by the
+  USB chip vendor, the USB chip that has been used in the \STSB,
+  creates and parses generic USB communication packets.
 
-  A custom medium-level Java driver creates and parses the \STSB streaming 
-  communication packets. 
-  The driver is formally specified, validated and verified with rigorous
-  unit testing. 
-  Because of this process and combination of technologies, using this
-  specification we are able to both communicate with a real \ST
-  \textbf{and} generate a formally specified, executable, functional
-  model-based specification for the protocol itself written in the
-  Java Modeling Language.
-  \notev{executable? how? what does this mean?}
-  This protocol model is itself an executable
-  stream simulator that can be used to develop new \ST user
-  applications without having the \ST hardware at all. 
-  Consequently,
-  from this single specification, we can test that the \ST hardware
-  communicates as expected, test that our \ST simulator communicates
-  as expected, and simulate the \ST protocol stream itself.
+  A custom medium-level Java driver creates and parses the \STSB
+  streaming communication packets.  The driver is formally specified,
+  validated and verified with rigorous unit testing.  Because of this
+  process and combination of technologies, using this specification we
+  are able to both communicate with a real \ST \textbf{and} generate a
+  formally specified, executable, functional model-based specification
+  for the protocol itself written in the Java Modeling Language.
+  \notev{executable? how? what does this mean?}  This protocol model
+  is itself an executable stream simulator that can be used to develop
+  new \ST user applications without having the \ST hardware at all.
+  Consequently, from this single specification, we can test that the
+  \ST hardware communicates as expected, test that our \ST simulator
+  communicates as expected, and simulate the \ST protocol stream
+  itself.
 
 \end{abstract}
 
@@ -751,28 +746,33 @@ properly, maybe a follow up paper}
 \section{Test cases on the job}
 \label{sec:test_cases_on_the_job}
 
-The use of both test suites, hand made and generated, has proven 
-effective on finding protocols errors on the \STSB when the board 
-prototypes have been delivered.
+JML specifications, the simulators,  and both test suites has been used to:
 
-The first \STSB prototype delivered was meant to build empty packets, 
-but the packets were built in a way not conformant to the 
-specification, the sentinel values used to delimit a packet were not 
-correct.
-The board implementation error has been detected by the 
+\begin{itemize}
+\item verify hardware implementation;
+\item verify driver implementation, with and without the physical
+  board;
+\item guide driver development.
+\end{itemize}
+
+The first \STSB prototype delivered was meant to build empty packets,
+but the packets were built in a way not conformant to the
+specification, the sentinel values used to delimit a packet were not
+correct.  The board implementation error has been detected by the
 \lil{StreamDriver} package.
 
 The second prototype delivered was meant to build packets with values
-taken from rear sensors installed on the board.  The only sensors that
+taken from real sensors installed on the board.  The only sensors that
 were not yet working were the sensors devoted to the fast rate data
 streams, that is, the audio sensors.  Only one error needed to be
 corrected in the driver implementation, because of a (rare)
 combinations of conditions that were not covered by the test cases.
-One error have been discovered in the low level driver that the driver
-was using; to eliminate the error an upgrade of the low level drover
-to a new unreleased version was necessary.  No other errors were
-detected on the driver side. All the errors on the \SB side have been
-detected.
+One error have been discovered in the low level system driver that the
+developed driver was using (the system driver was outside of our
+development scope); to eliminate the error an upgrade of the low level
+driver to a new unreleased version was necessary.  No other errors
+were detected on the driver side. All the errors on the \SB side have
+been detected.
 
 The formal model and the run time assertion checker enabled the
 detection of errors on the \SB itself.  Errors regarding the expected
@@ -785,14 +785,59 @@ assertion checker were later on discovered.
 The hand made test suite is composed by over 140 tests, while the
 generated one is 100 times bigger, totalling over 14000 tests.
 
-\todo{describe why such a difference: random selection, many tests 
-pruned if pre condition is not satisfied}
+The ratio of 1 to 100, that is, the big number of generated tests, can
+be understood looking closely at how the generated tests are created
+by the JML framework. The generated tests are exploring all the
+possible input combinations on public methods, combining the type data
+ranges that have been specified for the test suite (see
+\cite{Cheon-Leavens02} for more details on how the JML framework works
+on generating unit tests). For instance, let's suppose we want to test
+a method \lil{m(int p1, int p2)} for a class \lil{C}; the data ranges
+specified for type \lil{int} are \lil{\{1,2,3\}} and for type \lil{C}
+are the instances \lil{\{c1,c2,c3,c4\}}. The JML framework will
+generate $24 = 3 \times 3 \times 4$ tests, the combination of the data
+ranges involved (the data range of the parameters and the data range
+of the type owning the method under test). But not all the generated
+tests are executed.
 
-\todo{compare hand made, many calls, vs generated, single call, tests}
+A generated test, as it was previously mentioned (see section
+\ref{sec:test_cases}), is not executed, unless the preconditions of
+the called method are met. Thus, depending on the preconditions
+specified for a method, the number of the generated tests that are
+actually executed in the test suite can be significantly reduced.
 
-\todo{describe measures: coverage, number of new bugs found}
+To compare in a quantitative way the effectiveness of the test suites,
+code coverage metrics have been used; this is not the only measure
+that have been considered, since it is almost unanimously accepted
+that code coverage alone cannot asses the quality of a test suite
+\todo{reference to: ``How to misuse code coverage'', ??? ``Coverage
+  Metrics for Formal Verification''}.
 
-\todo{compare compare coupled approach vs single approaches}
+Various coverage metrics exist, we analyzed the test suites with
+statement code coverage (one of the simplest types)\footnote{The tool
+  used to obtain statement code coverage metrics is
+  \myhref{http://emma.sourceforge.net/}{Emma}.}: statement coverage
+reports whether each executable statement has been encountered. This
+code coverage metric is easy to implement, but lacks the capability to
+explore the control flow graph associated to the code, that is,
+decision branches are not explored. The statement code coverage
+results are reported in the Table \ref{tab:statement_code_coverage}.
+
+\begin{table}[htbp]
+  \caption{Statement code coverage result, categorized by source package.}
+  \label{tab:statement_code_coverage}
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}\hline
+      & \textbf{\textit{hand}} & \textbf{\textit{generated}} &
+      \textbf{\textit{total}} \\\hline
+      \textbf{\textit{Driver}} & $15.9 \%$ & $6.3 \%$ & $15.9 \%$ \\\hline
+      \textbf{\textit{StreamDriver}} & $76 \%$ & $79.7 \%$ & $88.5 \%$ \\\hline
+      \textbf{\textit{SimulatorDriver}} & $64.9 \%$ & $44.2 \%$ &
+      $71.2 \%$ \\\hline
+      \textbf{\textit{Utility}} & $98.1 \%$ & $74.5 \%$ & $98.1 \%$ \\\hline
+    \end{tabular}
+  \end{center}
+\end{table}
 
 
 
@@ -800,11 +845,88 @@ pruned if pre condition is not satisfied}
 \section{Retrospective on test cases effectiveness}
 \label{sec:test_cases_retrospectives}
 
-The test effectiveness evaluation criteria is of two types. 
+The quantitative and qualitative specification and test effectiveness
+measures to verify system under development obtained
+in the previous section need to be analyzed to be fully understood.
 
-\todo{describe quantitative: coverage}
+The coverage measures reported in Table
+\ref{tab:statement_code_coverage} are not high, in absolute
+values. This is because of two different effects: non public methods,
+and interfaces. The effect of non public methods (to be precise:
+package Java visibility) is that these methods are taken into account
+as well as public and protected ones during code coverage calculation;
+but these methods are not part of the interface, they are not meant to
+be called by the system, and they are only used in object
+initialization or during explicit object setup during unit tests. In
+fact there are package and private code blocks that are not reachable
+by construction from public and protected methods, and this is a
+precise characteristic reflecting the code architecture, meant to ease
+class instances setup and configuration for testing purposes. The used
+statement coverage tool cannot be configured to distinguish these code
+blocks, so this effect is unavoidable. The effect is mainly seen in
+low \lil{SimulatorDriver} code coverage figures: the
+\lil{SimulatorDriver} package has plenty of setup and initialization
+non public methods.
 
-\todo{describe qualitative: errors found, help in design, ...}
+Regarding interfaces: an interface contains no statements, so when an
+interface method is called, it is the method of the implementation
+class used that is actually covered. This effect is visible in
+\lil{Driver} coverage figures, \lil{Driver} package contains
+interfaces (that are not counted at all) and some very simple real
+class (exceptions) that are not throughly tested: the net result is
+extremely low statement code coverage figures because the very simple
+classes are the only ones that are actually covered. This effect could
+be easily avoided writing specific hand made tests for the simple
+classes and including them in the classes for which tests are
+generated.
+
+The statement code coverage figures shows that the test suites do a
+good job on the most important package, that is, the
+\lil{StreamDriver}. The generated test suit reaching almost $ 80 \% $,
+while the hand made tests have only a slightly lower coverage ratio: $
+76 \% $. But the combination of test suites is interesting,
+raising the coverage ratio to $ 88.5 \% $. This is a clear indication
+that one test suite is not completely overlapping the other; that is,
+the test suites are not to be considered alternatives, but they have
+to be used together to achive the higher benefits, they are
+complementary. This consideration can be confirmed looking at the
+figures obtained for \lil{SimulatorDriver} package as well.
+
+The qualitative difference of the two test suites can be understood
+analysing how the suites are built. The hand made test suite primarly
+focuses on small features and use cases fragments that the system must
+implement, or for which an exceptional case has been considered. A
+test case is to be considered a rough specification written in
+imperative style. The common structure require an object
+initialization, followed by a hopefully not too long sequence of
+public methods to bring one object into a desired state, than the
+method under test is called and the object state is finally inspected
+to verify it is in the expected state. The generated tests have a far
+more limited scope, since only one method call is performed. Thus it
+is difficult to explore complex behaviour. It is true that with a
+complete specification, and specifing large enough data ranges types,
+the genrated tests could teoretically achive the same expressive power
+as the hand made ones, but the price to pay would be expensive: much
+longer an more complex specifications, requiring more time to be
+designed and or updated, and more tests to be run, augmentig the
+already not so short computation time of the generated test suite.
+
+
+
+\todo{compare qualitative: hand made, many calls, vs generated, single call, tests}
+
+\todo{compare compare coupled approach vs single approaches}
+
+\todo{comment quantitative: number of bugs found}
+
+\todo{compare qualitative: spec driven dev, test driven dev, test
+  oriented code is an automatic result}
+
+\todo{spec and hand useful to drive, spec and hand and simulator
+  useful to test, spec and generated useful for statement coverage and
+  easy methods, spec useful to test hardware, hand useful to spec,
+  spec useful to hand... test driven spec}
+
 
 %=====================================================================
 \section{Test cases and the scenarios}
