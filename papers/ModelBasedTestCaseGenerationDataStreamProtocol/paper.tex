@@ -153,8 +153,8 @@ into account here).
 
 There exist various approaches in literature addressing this kind of
 development constraints (rapid development in hardware software
-codesign), but they are all focused on big scale systems.  The
-hardware software formal codesign methodologies usually have a common
+co-design), but they are all focused on big scale systems.  The
+hardware software formal co-design methodologies usually have a common
 structure\cite{Slomka2000,Hoffman2001}:
 
 \begin{itemize}
@@ -166,11 +166,11 @@ structure\cite{Slomka2000,Hoffman2001}:
 \item Build hardware component.
 \end{itemize}
 
-Even when cosidering the development of the device hardware, embedded
+Even when considering the development of the device hardware, embedded
 software and software driver as separate entities that possibly have
 to be developed concurrently, the approaches proposed are similar in
 structure to the one seen in the case of hardware software
-codesign\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus
+co-design\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus
 on very accurate formal specification that drive all the other
 development tasks.
 
@@ -186,10 +186,10 @@ when it is available.
 To tackle the complexity of the concurrent tasks the formal model of
 the protocol was used as a focus point that led all the other
 development tasks (in this part, the approach is similar to the one
-used in rapid development in hardware software codesign, as mentioned
+used in rapid development in hardware software co-design, as mentioned
 above).  The protocol to specify has been divided in various (thin)
 layers, each of the layer has been specified with a different
-(lighweight) approach, some of the layers are completely formalized.
+(lightweight) approach, some of the layers are completely formalized.
 The formal model of the protocol was used to check at run time the
 correctness of the /SB, the driver, the simulator, and the hand made
 test suites of the driver and the simulator.  The formal model was
@@ -917,7 +917,7 @@ The generated test suite has a more focused and limited scope, since
 only one method call is performed in each test, hence it is difficult
 to explore complex behaviors. It is true that with a complete
 specification, and specifying large enough data ranges (the
-appropariate data ranges are combined to generate the tests), the
+appropriate data ranges are combined to generate the tests), the
 generated tests could theoretically achieve the same expressive power
 as the hand made ones, but the price to pay would be expensive: much
 longer and more complex specifications, requiring more time to be
@@ -930,7 +930,7 @@ made checking the more complex ones.  During the development of the
 driver code and the simulators, the generated test suit was helpful to
 test the incrementally growing specification and the finer details of
 each method, while the hand made one was helpful to verify the
-behaviour on complex methods calls on objects intialized to specific
+behavior on complex methods calls on objects initialized to specific
 states. Having an hand made test suite also make the code style more
 test oriented, which usually leads to a better quality and more
 modularized source code\cite{Binder1999}.
@@ -946,8 +946,8 @@ mentioned dependency inversion principle\cite{martin1996dependency}
 (see Figure \ref{fig:class_diagram_main}).
 
 The combined test approach, driven by the packet protocol
-specification, prooved succesfull on verifing the protocol itself and
-the software implementing it.  Neverthless, it has to be noted that we
+specification, proved successful on verifying the protocol itself and
+the software implementing it.  Nevertheless, it has to be noted that we
 did not verified the highest levels of the protocol (see
 \ref{sec:data_stream_and_protocol_description}: ``Packet sequence
 rules'' and ``Packet input output asynchronous rules'').  Since on
@@ -962,7 +962,7 @@ can be used:
   properties shown as the usual precondition, post conditions and
   invariants.  But the localized properties can be more complex and
   less intuitive and comprehensible than the original ones; finally,
-  some of the global properties could proove themselves impossible to
+  some of the global properties could prove themselves impossible to
   be translated into local ones.
 \item Use separate utility classes, meant to verify a sequence of
   packages.  This approach is not clean, since it requires adding and
@@ -971,8 +971,8 @@ can be used:
   have to be verified simple.
 \end{itemize}
 
-One problem we noticed regards the executiuon time of the generated
-tests.  The executiuon time is long for two reasons:
+One problem we noticed regards the execution time of the generated
+tests.  The execution time is long for two reasons:
 
 \begin{itemize}
 \item Number of the tests generated. This problem is not directly
@@ -980,7 +980,7 @@ tests.  The executiuon time is long for two reasons:
   creation method itself: generating all the combinations of possible
   inputs for each method under test.
 \item Runtime assertion checker. Each test is executed while RAC
-  checks all the relavant properties. This problem, again, is not
+  checks all the relevant properties. This problem, again, is not
   directly addressable. But, we can speculate that if the RAC
   assertions could be triggered on and off on single properties in a
   dynamic way, that is, during runtime, a test suite could use take
@@ -1046,7 +1046,7 @@ Approach:
 \item formal specification is not complete: it is just good
   ``enough'', static checkers unfortunately cannot be used, since the
   specification is partial
-\item use runtime asserion checker for formal specifications, on tests
+\item use runtime assertion checker for formal specifications, on tests
 \item use generated tests for formal specifications
 \end{itemize}
 
@@ -1058,7 +1058,7 @@ Who drives what:
 \item formal specification is not complete: it is just good
   ``enough'', static checkers unfortunately cannot be used, since the
   specification is partial
-\item use runtime asserion checker for formal specifications, on tests
+\item use runtime assertion checker for formal specifications, on tests
 \item use generated tests for formal specifications
 \end{itemize}
 
@@ -1069,7 +1069,7 @@ Benefits:
 \item use best of both worlds, do not try to use only on of them
 \end{itemize}
 
-Case example: actual paper, modified to fit the new parts, expecially
+Case example: actual paper, modified to fit the new parts, especially
 the test driven specification part.
 
 \paragraph*{BON}
