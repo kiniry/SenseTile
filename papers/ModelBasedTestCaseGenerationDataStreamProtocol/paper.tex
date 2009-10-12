@@ -507,8 +507,11 @@ postcondition).
   caption={A simple specification with JML annotation: simple postconditions.},
   label=lst:jml_example_simple,
   float=htbp]
-  /*@ ensures \result >= -880; ensures \result <= 2047; @*/ /*@ pure
-  @*/ short getTemperature();
+  /*@ 
+    ensures \result >= -880; 
+    ensures \result <= 2047; 
+  @*/ 
+  /*@ pure @*/ short getTemperature();
 \end{lstlisting}
 
 \sloppy
@@ -535,10 +538,16 @@ medium data rate stream sample is considered valid when
     the number of samples for each medium data rate stream channel.},
   label=lst:jml_example_invariant,
   float=htbp]
-  /*@ invariant ( \forall int channel; 0 <= channel && channel <
-  Frame.ADC_CHANNELS; ( \num_of int i; 0<= i && i<(FRAMES-1); (
-  getFrame(i).isADCActive() && (getFrame(i).getADCChannel() ==
-  channel) ) ) <= (FRAMES / Frame.ADC_CHANNELS + 1) ); @*/
+  /*@ 
+    invariant ( 
+      \forall int channel; 0 <= channel && channel < Frame.ADC_CHANNELS; ( 
+        \num_of int i; 0<= i && i<(FRAMES-1); (
+          getFrame(i).isADCActive() && 
+          (getFrame(i).getADCChannel() == channel) 
+        ) 
+      ) <= (FRAMES / Frame.ADC_CHANNELS + 1) 
+    ); 
+  @*/
 \end{lstlisting}
 
 
