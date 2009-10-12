@@ -16,41 +16,40 @@
 \usepackage{listings} \input{jml-listings}
 \lstset{language=[JML]Java,xleftmargin=20pt,xrightmargin=20pt}
 
-\ifpdf
-\usepackage{epstopdf}
+\ifpdf \usepackage{epstopdf}
 \usepackage[pdftex,bookmarks=false,a4paper=false,
-            plainpages=false,naturalnames=true,
-            colorlinks=true,pdfstartview=FitV,
-            linkcolor=blue,citecolor=blue,urlcolor=blue,
-            pdfauthor="Joseph R. Kiniry and Vieri del Bianco"]{hyperref}
-\else
+plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,
+linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Joseph
+R. Kiniry and Vieri del Bianco"]{hyperref} \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
 
-\newcommand{\tablesize}{\footnotesize}
-\newcommand{\eg}{e.g.,\xspace}
-\newcommand{\ie}{i.e.,\xspace}
-\newcommand{\etc}{etc.\xspace}
+\newcommand{\tablesize}{\footnotesize} \newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace} \newcommand{\etc}{etc.\xspace}
 \newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
-\newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3 \myhref{#1}{#1}}}
+\newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3
+    \myhref{#1}{#1}}}
 
 \newcommand{\lil}[1]{\texttt{\lstinline|#1|}}
 
-%\newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:} #1}}
-\newcommand{\notev}[1]{\xspace\marginpar{\scriptsize\textsf{Vieri:} #1}}
-\newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:} #1}}
-\newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:} #1}}
+% \newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:}
+%     #1}}
+\newcommand{\notev}[1]{\xspace\marginpar{\scriptsize\textsf{Vieri:}
+    #1}}
+\newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:}
+    #1}}
+\newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:}
+    #1}}
 
 \newcommand{\todo}[1]{\texttt{\textbf{TODO:} #1}}
 
 \newcommand{\ST}{\emph{SenseTile}\xspace}
-\newcommand{\SB}{\emph{Sensor Board}\xspace}
-\newcommand{\STSB}{\ST \SB\xspace}
-\newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
+\newcommand{\SB}{\emph{Sensor Board}\xspace} \newcommand{\STSB}{\ST
+  \SB\xspace} \newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
 \newcommand{\STPU}{\ST \emph{Processor Unit}\xspace}
 \newcommand{\STPUs}{\ST \emph{Processor Units}\xspace}
-\newcommand{\STU}{\ST \emph{Unit}\xspace}
-\newcommand{\STUs}{\ST \emph{Unit}\xspace}
+\newcommand{\STU}{\ST \emph{Unit}\xspace} \newcommand{\STUs}{\ST
+  \emph{Unit}\xspace}
 
 \newcommand{\STs}{\emph{SenseTiles}\xspace}
 
@@ -58,456 +57,476 @@
 
 \newcommand{\datastore}{\ST Scientific Datastore\xspace}
 \newcommand{\computefarm}{The \ST Scientific Compute Farm\xspace}
-\newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute Server
-Farm\xspace}
-\newcommand{\sensorfarm}{The \STSBs\xspace}
+\newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute
+  Server Farm\xspace} \newcommand{\sensorfarm}{The \STSBs\xspace}
 
-%---------------------------------------------------------------------
+% ---------------------------------------------------------------------
 % New commands, macros, \etc
-%---------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
 %% \input{kt}
 
-%=====================================================================
+% =====================================================================
 
 \begin{document}
 
 \title{Deriving an Executable Model of a Data Stream Protocol from its
-Specification}
+  Specification}
 
-\author{Joseph R. Kiniry, Vieri del Bianco\\
-UCD CASL: Complex and Adaptive Systems Laboratory and\\
-School of Computer Science and Informatics,\\
-University College Dublin,\\
-Belfield, Dublin 4, Ireland,\\
-kiniry@acm.org, vieri.delbianco@gmail.com\\
+\author{Joseph R. Kiniry, Vieri del Bianco and Dragan Stosic\\
+  UCD CASL: Complex and Adaptive Systems Laboratory and\\
+  School of Computer Science and Informatics,\\
+  University College Dublin,\\
+  Belfield, Dublin 4, Ireland,\\
+  kiniry@acm.org, vieri.delbianco@ucd.ie and dragan.stosic@gmail.com\\
 }
 
 \maketitle
 
-%======================================================================
-%\thispagestyle{empty}
+% ======================================================================
+% \thispagestyle{empty}
 \begin{abstract}
-
-\begin{verbatim}
-
-OBJECTIVE: 
-Specifications used as a blueprint for system development.
-Specifications to generate test suite to validate the developed system.
-Specifications to validate simulator of the developed system.
-Apply to data stream processing: verify the stream is parsed correctly, 
-verify the parsed stream output stream can be simulated.
-
-METHODS: 
-JML model.
-JML tools to generate JUnit test suite.
-JUnit test suite applied to developed system, to verify its correctness.
-JUnit test suite applied to simulator, to verify its correctness.
-
-RESULTS: 
-Proof developed system same behavior as simulator.
-Proof developed system and simulator verify the specifications.
-
-CONCLUSIONS:
-Specifications serves two purposes, and indirectly a third one.
-
-\end{verbatim}
 
   Sensor equipped devices typically communicate with a streaming
   packet-based network protocol.  The communication is focused on
   controlling the sensors and report the sensors measurements.  The
   \STSB is an example of such a device, it communicates with an
-  arbitrary computer system, the \STPU (running Linux or Windows, at
-  the moment) over a USB bus using a streaming packet-based protocol.
-  The \STU is a custom-designed, but inexpensive, sensor platform: it
-  is composed by a one or more \STSBs paired with a general-purpose
-  small-scale compute node, the \STPU (including everything from PDAs
-  to powerful touchscreen-based portable computers).  There are over a
-  dozen sensors on the \STSB itself, and new sensors can be added
-  either using expansion slots on the \STSB, or adding them directly
-  to the USB bus.  A third-party low-level library, provided by the
-  USB chip vendor, the USB chip that has been used in the \STSB,
-  creates and parses generic USB communication packets.
+  arbitrary computer system, the \STPU over a USB bus using a
+  streaming packet-based protocol.  The \STU is a custom-designed, but
+  inexpensive, sensor platform: it is composed by a one or more \STSBs
+  paired with a general-purpose small-scale compute node, the \STPU
+  (including everything from PDAs to powerful touchscreen-based
+  portable computers).  There are over a dozen sensors on the \STSB
+  itself, and new sensors can be added either using expansion slots on
+  the \STSB, or adding them directly to the USB bus.  A third-party
+  low-level library, provided by the USB chip vendor, the USB chip
+  that has been used in the \STSB, creates and parses generic USB
+  communication packets.
 
   A custom medium-level Java driver creates and parses the \STSB
   streaming communication packets.  The driver is formally specified,
-  validated and verified with rigorous unit testing.  Because of this
-  process and combination of technologies, using this specification we
-  are able to both communicate with a real \ST \textbf{and} generate a
-  formally specified, executable, functional model-based specification
-  for the protocol itself written in the Java Modeling Language.
-  \notev{executable? how? what does this mean?}  This protocol model
-  is itself an executable stream simulator that can be used to develop
-  new \ST user applications without having the \ST hardware at all.
-  Consequently, from this single specification, we can test that the
-  \ST hardware communicates as expected, test that our \ST simulator
-  communicates as expected, and simulate the \ST protocol stream
-  itself.
+  validated and verified with rigorous unit testing, both hand made
+  and automatically generated.  Because of this process and
+  combination of technologies, using this specification we are able to
+  both verify a real \ST and a simulated one.  The system have been
+  developed concurrently with the protocol specification and the real
+  \STSB, the board were not available until the last months of
+  development.  The protocol model is itself an executable stream
+  simulator that can be used to develop new \ST user applications
+  without having the \ST hardware at all.  Consequently, from this
+  single specification, we can test that the \ST hardware communicates
+  as expected, test that our \ST simulator communicates as expected,
+  and simulate the \ST protocol stream itself.
 
 \end{abstract}
 
 
 
-%======================================================================
+% ======================================================================
 \section{Introduction}
+\label{sec:introduction}
 
-The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
-sensor system to be installed at the University College Dublin in Dublin,
-Ireland. 
-Our facility aims to provide a scalable and extensible 
-infrastructure for performing in-depth investigation of both the specific 
-and general issues in large-scale sensor networking.
+The \textbf{UCD CASL SenseTile System} is a large-scale,
+general-purpose sensor system to be installed at the University
+College Dublin in Dublin, Ireland.  Our facility aims to provide a
+scalable and extensible infrastructure for performing in-depth
+investigation of both the specific and general issues in large-scale
+sensor networking.
 
 This system integrates a sensor platform, a datastore, and a compute
-farm.  
-The sensor platform is a custom-designed, but inexpensive,
+farm.  The sensor platform is a custom-designed, but inexpensive,
 sensor platform (called the \ST) paired with general-purpose
 small-scale compute nodes, including everything from low-power PDAs to
-powerful touchscreen-based portable computers. 
-There are over a dozen
+powerful touchscreen-based portable computers.  There are over a dozen
 sensors on the \ST itself, and new sensors can be added by adding them
 to the board.
 
-Because of hard time constraints, and the initial unavailability of the 
-custom board, we needed to progress concurrently with all the development tasks: 
-the specification of the communication protocol with the \STSB, the development of 
-the controlling code in the \STSB, the development of the driver to communicate 
-with the \STSB, and the development of the simulators needed for future tests 
-of the system (the controlling code of the board was developed by the external 
-manufacturer of the board, hence, it is not taken into account here).
+Because of hard time constraints, and the initial unavailability of
+the custom board, we needed to progress concurrently with all the
+development tasks: the specification of the communication protocol
+with the \STSB, the development of the controlling code in the \STSB,
+the development of the driver to communicate with the \STSB, and the
+development of the \STSB simulators needed for future tests of the
+system (the board itself with the embedded software controlling it was
+developed by an external manufacturer, hence, it is not directly taken
+into account here).
 
-\todo{explain and refine the problem}
+There exist various approaches in literature addressing this kind of
+development constraints (rapid development in hardware software
+codesign), but they are all focused on big scale systems.  The
+hardware software formal codesign methodologies usually have a common
+structure\cite{Slomka2000,Hoffman2001}:
 
-\todo{references: search other approaches to similar problems}
+\begin{itemize}
+\item High level specification of the system.
+\item Translation of the high level specification to lower level
+  specifications: hardware and software counterparts.
+\item Generation of software code.
+\item Run hardware specification into a simulator.
+\item Build hardware component.
+\end{itemize}
 
-To tackle the complexity of the concurrent tasks the formal model of the protocol 
-was used as a focus point that led all the other development tasks. 
-The formal model of the protocol was used to check at run time the correctness of 
-the /SB, the driver, the simulator, and the hand made test suites of the driver 
-and the simulator.
-The formal model was used to automatically generate a test suite to verify that
-both the driver and the simulator were compliant to the specification, and eventually 
-to verify the specification itself.
+Even when cosidering the development of the device hardware, embedded
+software and software driver as separate entities that possibly have
+to be developed concurrently, the approaches proposed are similar in
+structure to the one seen in the case of hardware software
+codesign\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus
+on very accurate formal specification that drive all the other
+development tasks.
 
-The approach proved itself effective, at the point that, when the board was finally 
-released, no defects were found in the driver or the simulator, while the errors and 
-not agreed changes introduced in the board where discovered during the first execution.
+This approach is not feasible or convenient in our case: we want to
+develop all the software components concurrently, we want to enhance
+the protocol specification incrementally; we are not able to provide a
+complete specification from the beginning, we are not interested in
+direct code generation from specification, we want to generate
+simulators to be used to feed the remaining system, even if the \STSB
+is not available, and we want to be able to verify the \STSB behavior
+when it is available.
+
+To tackle the complexity of the concurrent tasks the formal model of
+the protocol was used as a focus point that led all the other
+development tasks (in this part, the approach is similar to the one
+used in rapid development in hardware software codesign, as mentioned
+above).  The protocol to specify has been divided in various (thin)
+layers, each of the layer has been specified with a different
+(lighweight) approach, some of the layers are completely formalized.
+The formal model of the protocol was used to check at run time the
+correctness of the /SB, the driver, the simulator, and the hand made
+test suites of the driver and the simulator.  The formal model was
+used to automatically generate a test suite to verify that both the
+driver and the simulator were compliant to the specification, and
+eventually to verify the specification itself.
+
+The approach proved itself effective, at the point that, when the
+board was finally released, only one small defect were found in the
+driver or the simulator, while the errors and not agreed changes
+introduced in the board where discovered with no effort.  Besides, the
+simulators were able to feed with correct data the rest of the system
 
 \paragraph*{Outline}
 
-In section \ref{sec:data_stream_and_protocol_description} the data stream model 
-and protocol is presented.
+In section \ref{sec:data_stream_and_protocol_description} the data
+stream model and protocol is presented.
 
-In section \ref{sec:data_stream_and_protocol_specification} the data stream model 
-and protocol is specified.
+In section \ref{sec:data_stream_and_protocol_specification} the data
+stream model and protocol is specified.
 
-In section \ref{sec:test_cases} the test cases structure is presented, for 
-both the hand made and the generated ones. 
-Both the approaches are analyzed, their pro and contra are discussed, as 
-well as the expected advantages to use them in combination.
+In section \ref{sec:test_cases} the test cases structure is presented,
+for both the hand made and the generated ones.  Both the approaches
+are analyzed, their pro and contra are discussed, as well as the
+expected advantages to use them in combination.
 
-In section \ref{sec:test_cases_on_the_job} the execution of the test suites
-is described, the data collected is presented.
+In section \ref{sec:test_cases_on_the_job} the execution of the test
+suites is described, the results are presented.
 
-In section \ref{sec:test_cases_retrospectives} the data collected is analyzed, 
-both from a qualitative and a quantitative points of view.
+In section \ref{sec:test_cases_retrospectives} the data collected and
+the results are analyzed, both from a qualitative and a quantitative
+points of view.
 
-In section \ref{sec:test_cases_and_the_scenarios} the different scenarios on 
-which test cases based on specifications can be applied are analyzed, and 
-the resulting benefits it is possible to obtain are detailed.
+In section \ref{sec:related_works} related works are presented and
+analyzed.
 
-In section \ref{sec:related_works} related works are presented and analyzed.
-
-Finally in section \ref{sec:conclusion} conclusions are drawn and 
+Finally in section \ref{sec:conclusion} conclusions are drawn and
 ongoing and future works on similar topics is introduced.
 
 
 
-%=====================================================================
+% =====================================================================
 \section{Data stream and protocol description}
 \label{sec:data_stream_and_protocol_description}
 
-The communication between \STSB and \STPU is realized through an Universal 
-Serial Bus (USB) interface.
-On top of the USB serial channels a proprietary protocol is used, specified by 
-FTDI\footnote{\myhref{http://www.ftdichip.com/}{FTDI web site}}; FTDI is the 
-manufacturer of the USB controller chip used in the \STSB, the 
+The communication between \STSB and \STPU is realized through an
+Universal Serial Bus (USB) interface.  On top of the USB serial
+channels a proprietary protocol is used, specified by
+FTDI\footnote{\myhref{http://www.ftdichip.com/}{FTDI web site}}; FTDI
+is the manufacturer of the USB controller chip used in the \STSB, the
 FT2232H\cite{ftdi_ft232h_2009}.
 
-The proprietary protocol enables the control and management of some of the 
-functionalities in FT232H chip (such as internal EEPROM read and write, reset 
-the chip, etc.) as well as the definition of the communication protocol and 
-properties to be used in the asynchronous channels (input and output channels) 
-provided by FT232H.
-These added functionalities are accessed via an Application Program Interface,
-the API is provided by a driver developed directly by FTDI, which is available 
-for various systems (Linux 32 and 64 bits, Mac OS, Windows)
+The proprietary protocol enables the control and management of some of
+the functionalities in FT232H chip (such as internal EEPROM read and
+write, reset the chip, etc.) as well as the definition of the
+communication protocol and properties to be used in the asynchronous
+channels (input and output channels) provided by FT232H.  These added
+functionalities are accessed via an Application Program Interface, the
+API is provided by a driver developed directly by FTDI, which is
+available for various systems (Linux 32 and 64 bits, Mac OS, Windows)
 \cite{ftdi_d2xx_api_2009}.
 
-Finally, on top of the serial channels provided by the API, a custom protocol 
-has been developed to manage the entire \STSB; that is, read sensor data 
-observations, enable or disable sensors, configure on-board components 
-as the Field-Programmable Gate Array (FPGA), and the micro processor; the 
-protocol main function is to read sensor data.
+Finally, on top of the serial channels provided by the API, a custom
+protocol has been developed to manage the entire \STSB; that is, read
+sensor data observations, enable or disable sensors, configure
+on-board components as the Field-Programmable Gate Array (FPGA), and
+the micro processor; the protocol main function is to read sensor
+data.
 
 The protocol is an asynchronous fixed length packed based protocol.
-The protocol has been divided in multiple layers to ease its formal description.
-The rationale is the following: mixing up different abstraction levels of a 
-protocol description can lead to overly complex and unmanageable descriptions, 
-especially when dealing with formal ones.
-The layers identified in protocol are the following:
+The protocol has been divided in multiple layers to ease its formal
+description.  The rationale is the following: mixing up different
+abstraction levels of a protocol description can lead to overly
+complex and unmanageable descriptions, especially when dealing with
+formal ones.  The layers identified in protocol are the following:
 
 \begin{description}
- \item[Packet byte structure]: the internal representation of the packet.
- \item[Packet info structure]: the meaningful fields contained in the packets.
- \item[Single packet rules]: the content acceptable values, and how they 
-influence each other.
- \item[Packet sequence rules]: the content acceptable values, based on values 
-of previously received packets.
- \item[Packet input output asynchronous rules]: the content acceptable values 
-and reaction constraints on output packets, based on previously transmitted 
-input packets.
+\item[Packet byte structure]: the internal representation of the
+  packet.
+\item[Packet info structure]: the meaningful fields contained in the
+  packets.
+\item[Single packet rules]: the content acceptable values, and how
+  they influence each other.
+\item[Packet sequence rules]: the content acceptable values, based on
+  values of previously received packets.
+\item[Packet input output asynchronous rules]: the content acceptable
+  values and reaction constraints on output packets, based on
+  previously transmitted input packets.
 \end{description}
 
-We will only examine the output sensor data packet, since it is the more used 
-and interesting one.
-We will examine the first three layers, that is: the packet byte structure, the 
-packet info structure and the single packet rules.
+We will only examine the output sensor data packet, since it is the
+more used and interesting one.  We will examine the first three
+layers, that is: the packet byte structure, the packet info structure
+and the single packet rules.
 
-The packet byte and info structures of the output sensor data packet reflects the board 
-capabilities and sensors.
-Basically a single packet has to accommodate various types of data:
+The packet byte and info structures of the output sensor data packet
+reflects the board capabilities and sensors.  Basically a single
+packet has to accommodate various types of data:
 \begin{itemize}
- \item Fast data rate streams: audio data, 48KHz or 96KHz.
- \item Medium data rate streams: 5KHz.
- \item Slow data rate streams: temperature, pression, accelerometer, etc.; all 
- these sensor have a data rate far lower than 5 KHz.
- \item Metadatas: metadatas on sensors and board state.
+\item Fast data rate streams: audio data, 48KHz or 96KHz.
+\item Medium data rate streams: 5KHz.
+\item Slow data rate streams: temperature, pression, accelerometer,
+  etc.; all these sensor have a data rate far lower than 5 KHz.
+\item Metadatas: metadatas on sensors and board state.
 \end{itemize}
 
-Even if we have to deal with data streams that have different data rates, the 
-internal structure of the package (as we will see) is strictly fixed. 
-This choice originates from a trade-off between two constraints: the efficiency 
-of the transmission (redundant data to be minimized) and the complexity to build 
-a package (complexity to be minimized).
-The complexity minimization constraint rationale is the following: the FPGA 
-on the \STSB builds the packet, but the FPGA is also to be used for various 
-other specific tasks; it is important to maintain the building packet code on the 
-FPGA as simple and short as possible, to leave enough space to implement other 
-tasks.
-The Output sensor data packet structure is showed in Table 
-\ref{tab:data_packet_structure}, the packet total length is 1024 bytes (512 16 
-bit words).
+Even if we have to deal with data streams that have different data
+rates, the internal structure of the package (as we will see) is
+strictly fixed.  This choice originates from a trade-off between two
+constraints: the efficiency of the transmission (redundant data to be
+minimized) and the complexity to build a package (complexity to be
+minimized).  The complexity minimization constraint rationale is the
+following: the FPGA on the \STSB builds the packet, but the FPGA is
+also to be used for various other specific tasks; it is important to
+maintain the building packet code on the FPGA as simple and short as
+possible, to leave enough space to implement other tasks.  The Output
+sensor data packet structure is showed in Table
+\ref{tab:data_packet_structure}, the packet total length is 1024 bytes
+(512 16 bit words).
 
 \begin{table}[htbp]
-\caption{Output sensor data packet structure.}
-\label{tab:data_packet_structure}
-\begin{center}
-\begin{tabular}{|c|l|}\hline
-\textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
-0-1 & sentinel\\\hline
-2-7 & slow data\\\hline
-8-11 & metadata: board state\\\hline
-12-13 & reserved\\\hline
-14-15 & metadata: board state\\\hline
-16 & reserved\\\hline
-17-22 & frame 1\\\hline
-\ldots & \ldots\\\hline
-503-508 & subsequence 82\\\hline
-\end{tabular}
-\end{center}
+  \caption{Output sensor data packet structure.}
+  \label{tab:data_packet_structure}
+  \begin{center}
+    \begin{tabular}{|c|l|}\hline
+      \textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
+      0-1 & sentinel\\\hline
+      2-7 & slow data\\\hline
+      8-11 & metadata: board state\\\hline
+      12-13 & reserved\\\hline
+      14-15 & metadata: board state\\\hline
+      16 & reserved\\\hline
+      17-22 & frame 1\\\hline
+      \ldots & \ldots\\\hline
+      503-508 & subsequence 82\\\hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
-The frames accommodate data from the fast and medium data rate streams 
-(there are 4 fast data rate stream and 8 medium data rate stream channels). 
-There are 82 frames in a packet.
-The frame structure is shown in Table \ref{tab:subsequence_structure}.
+The frames accommodate data from the fast and medium data rate streams
+(there are 4 fast data rate stream and 8 medium data rate stream
+channels).  There are 82 frames in a packet.  The frame structure is
+shown in Table \ref{tab:subsequence_structure}.
 
 \begin{table}[htbp]
-\caption{Output sensor data packet subsequence structure.}
-\label{tab:subsequence_structure}
-\begin{center}
-\begin{tabular}{|c|l|}\hline
-\textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
-0 & metadata: subsequence description\\\hline
-1 & medium data rate data sample\\\hline
-2-5 & fast data rate data samples\\\hline
-\end{tabular}
-\end{center}
+  \caption{Output sensor data packet subsequence structure.}
+  \label{tab:subsequence_structure}
+  \begin{center}
+    \begin{tabular}{|c|l|}\hline
+      \textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
+      0 & metadata: subsequence description\\\hline
+      1 & medium data rate data sample\\\hline
+      2-5 & fast data rate data samples\\\hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
-Looking at the structure described and at the data rates frequencies, it
-can be seen that there must be something subtle, to make all the figures to 
-add up, that is, to be capable to accommodate three different rates outputs
-in a fixed structure, fixed length packet.
-The subtleties lies in two forms of redundancies, for slow and medium data 
-rates:
+Looking at the structure described and at the data rates frequencies,
+it can be seen that there must be something subtle, to make all the
+figures to add up, that is, to be capable to accommodate three
+different rates outputs in a fixed structure, fixed length packet.
+The subtleties lies in two forms of redundancies, for slow and medium
+data rates:
 
 \begin{itemize}
-  \item Slow data rates: slow data can be found at the beginning of each 
-  packet, the data is simply repeated (that is, it is equal to the previous 
-  packet in the stream) when no new data is available.
-  \item Medium data rates: the 8 medium rate channels are multiplexed together 
-  into the medium data rate data sample of each subsequence, which channel the 
-  sample belongs to is a piece of info to be extracted from the subsequence 
-  metadata. Besides, the medium data rate data sample could contain no data at 
-  all, this info again is to be extracted from the metadata.
+\item Slow data rates: slow data can be found at the beginning of each
+  packet, the data is simply repeated (that is, it is equal to the
+  previous packet in the stream) when no new data is available.
+\item Medium data rates: the 8 medium rate channels are multiplexed
+  together into the medium data rate data sample of each subsequence,
+  which channel the sample belongs to is a piece of info to be
+  extracted from the subsequence metadata. Besides, the medium data
+  rate data sample could contain no data at all, this info again is to
+  be extracted from the metadata.
 \end{itemize}
 
-The single packet rules delimit the boundaries of the values obtainable from 
-the packet: each defined sensor represented in the packet, as well as the 
-metadata describing the \STSB and the packet and frame contents,  have a defined 
-range of acceptable values.
-There are also rules affecting more than one value, basically validity rules (i.e. if 
-a specific sensor is active than the reading value has to be in a defined range), 
-and rules specifying a correct sequence of frames (i.e. there can be only one switch 
-in sampling rate in the frame sequence of a single packet).
+The single packet rules delimit the boundaries of the values
+obtainable from the packet: each defined sensor represented in the
+packet, as well as the metadata describing the \STSB and the packet
+and frame contents, have a defined range of acceptable values.  There
+are also rules affecting more than one value, basically validity rules
+(i.e. if a specific sensor is active than the reading value has to be
+in a defined range), and rules specifying a correct sequence of frames
+(i.e. there can be only one switch in sampling rate in the frame
+sequence of a single packet).
 
 
 
-%=====================================================================
+% =====================================================================
 \section{Data stream and protocol specification}
 \label{sec:data_stream_and_protocol_specification}
 
-The specification of the protocol has been used as a focus point to lead all the 
-other development tasks.
+The specification of the protocol has been used as a focus point to
+lead all the other development tasks.
 
 We needed a specification capable of:
 
 \begin{itemize}
- \item Be executed at run time. If something on the protocol is not respected, 
-the run time execution environment is capable to detect and signal the fault.
- \item Generate tests. 
- \item Verify simulators.
- \item Be used in conjunction of hand written unit tests.
+\item Be executed at run time. If something on the protocol is not
+  respected, the run time execution environment is capable to detect
+  and signal the fault.
+\item Generate tests.
+\item Verify simulators.
+\item Be used in conjunction of hand written unit tests.
 \end{itemize}
 
-We also needed a specification capable to tackle properly all the protocol layers.
-Since the different layers have very different characteristics, different context
-dependent specification approaches were chosen.
+We also needed a specification capable to tackle properly all the
+protocol layers.  Since the different layers have very different
+characteristics, different context dependent specification approaches
+were chosen.
 
 \paragraph{Packet byte structure specification}
 
-The specification is provided by a reference Java implementation capable of 
-recognizing the proper packet structure in a byte data stream. The implementation 
-is tricky, since it checks for the sentinels repeatedly to be sufficiently confidant
-that the byte stream can be properly decomposed into a packet stream.
+The specification is provided by a reference Java implementation
+capable of recognizing the proper packet structure in a byte data
+stream. The implementation is tricky, since it checks for the
+sentinels repeatedly to be sufficiently confidant that the byte stream
+can be properly decomposed into a packet stream.
 
-The implementation can be obviously executed at run time (the specification is the 
-implementation code). 
-Meaningful automatic tests cannot be generated. 
-The implementation can be used to verify a packet byte structure simulator. 
-The implementation were actually driven (Test Driven Development) by the test suite.
+The implementation can be obviously executed at run time (the
+specification is the implementation code).  Meaningful automatic tests
+cannot be generated.  The implementation can be used to verify a
+packet byte structure simulator.  The implementation were actually
+driven (Test Driven Development) by the test suite.
 
 \paragraph{Packet info structure specification}
 
-The specification is provided both by the Java API that has been built, and by the 
-annotation with JML language\cite{JML2}\footnote{
-\myhref{http://www.cs.ucf.edu/~leavens/JML/}{The Java Modeling Language (JML)}}. 
-JML has been chosen because it is capable to specify Java code: JML is a behavioral 
-interface specification language. 
-JML specification language combines the design by contract approach (applied to 
-Java language) and the model-based specification approach of interface specification 
-languages.
+The specification is provided both by the Java API that has been
+built, and by the annotation with JML language\cite{JML2}\footnote{
+  \myhref{http://www.cs.ucf.edu/~leavens/JML/}{The Java Modeling
+    Language (JML)}}.  JML has been chosen because it is capable to
+specify Java code: JML is a behavioral interface specification
+language.  JML specification language combines the design by contract
+approach (applied to Java language) and the model-based specification
+approach of interface specification languages.
 
-Many tools are available supporting JML specification language, focusing on different 
-aspects of the language. 
-JML2 suite of tools\cite{BurdyEtal05-STTT}
-\footnote{\myhref{http://sourceforge.net/projects/jmlspecs/}{Common JML tools}}
-was chosen, since both run time verification support and test generation support are 
-provided directly by the suite.
+Many tools are available supporting JML specification language,
+focusing on different aspects of the language.  JML2 suite of
+tools\cite{BurdyEtal05-STTT}
+\footnote{\myhref{http://sourceforge.net/projects/jmlspecs/}{Common
+    JML tools}} was chosen, since both run time verification support
+and test generation support are provided directly by the suite.
 
-The Java API specification part is checked automatically by the Java compiler, while
-the JML specification part can be checked at run time using the provided JML2 run time 
-environment. 
-Meaningful automatic tests can be generated from the JML specification. 
-The JML specification can be used to verify an abstract packet generation simulator, 
-making the simulator an extension of the Java interfaces. 
-The specification can also be used to verify the real driver implementation, based on 
-the packet byte structure implementation presented above. 
-The implementation was driven by the JML specification and by an hand made test suite.
-Finally, hand made unit tests can be checked, during execution, against the 
-specification, using the provided JML2 run time environment.
+The Java API specification part is checked automatically by the Java
+compiler, while the JML specification part can be checked at run time
+using the provided JML2 run time environment.  Meaningful automatic
+tests can be generated from the JML specification.  The JML
+specification can be used to verify an abstract packet generation
+simulator, making the simulator an extension of the Java interfaces.
+The specification can also be used to verify the real driver
+implementation, based on the packet byte structure implementation
+presented above.  The implementation was driven by the JML
+specification and by an hand made test suite.  Finally, hand made unit
+tests can be checked, during execution, against the specification,
+using the provided JML2 run time environment.
 
 \paragraph{Single packet rules}
 
-The specification is provided exclusively by annotations with JML language. 
+The specification is provided exclusively by annotations with JML
+language.
 
-The capabilities of a JML specification have been already described in the previous 
-paragraph, that is: specification checkable at run time, tests generation, simulator 
-verification, usable with hand written tests.
+The capabilities of a JML specification have been already described in
+the previous paragraph, that is: specification checkable at run time,
+tests generation, simulator verification, usable with hand written
+tests.
 
 \subsection{On simulators}
 \label{subsec:on_simulators}
 
-Simulators are needed to test in isolation parts of the system; especially the upper 
-layers, yet to be developed. 
-During the development the simulators were essential, since the board was not available.
-Simulators were built concurrently with the specification, the real driver code, and the 
-tests.
+Simulators are needed to test in isolation parts of the system;
+especially the upper layers, yet to be developed.  During the
+development the simulators were essential, since the board was not
+available.  Simulators were built concurrently with the specification,
+the real driver code, and the tests.
 
-Theoretically a separate simulator should be needed for each protocol layer; a
-separate simulator for each layer would enable us to separately specify, develop and test
-each layer of the protocol.
-In our case we evaluated not worth the effort to maintain such a separation in the 
-simulators, motivated by the fact that the protocol layers identified are too fine grained 
-to be separated into different simulators. 
-Two simulators were built.
+Theoretically a separate simulator should be needed for each protocol
+layer; a separate simulator for each layer would enable us to
+separately specify, develop and test each layer of the protocol.  In
+our case we evaluated not worth the effort to maintain such a
+separation in the simulators, motivated by the fact that the protocol
+layers identified are too fine grained to be separated into different
+simulators.  Two simulators were built.
 
-The two simulators were built reflecting the software abstraction layers defined for the 
-driver.
-The driver API is splitted in two structural layers: the general high level interfaces, that 
-expose the main functionalities of the board and the main contents of the packets hiding the 
-details, and the lower level implementation that parse the data streams in and out the board, 
-to translate the higher level instructions and data in properly formed packets.
-Hence, we have implemented two simulators: one high level simulator, which re-implements the 
-high level interfaces providing corresponding high level mechanisms to control the data and 
-the behavior of the simulated board, it has nothing to do with the details of the data 
-streams.
-One low level simulator which is capable to rebuild the data stream out of the board based on 
-the data stream into the board, the in and out data streams are built exactly as the sensor 
-board is expected to be able to parse or generate.
+The two simulators were built reflecting the software abstraction
+layers defined for the driver.  The driver API is splitted in two
+structural layers: the general high level interfaces, that expose the
+main functionalities of the board and the main contents of the packets
+hiding the details, and the lower level implementation that parse the
+data streams in and out the board, to translate the higher level
+instructions and data in properly formed packets.  Hence, we have
+implemented two simulators: one high level simulator, which
+re-implements the high level interfaces providing corresponding high
+level mechanisms to control the data and the behavior of the simulated
+board, it has nothing to do with the details of the data streams.  One
+low level simulator which is capable to rebuild the data stream out of
+the board based on the data stream into the board, the in and out data
+streams are built exactly as the sensor board is expected to be able
+to parse or generate.
 
 \subsection{JML specification examples}
 \label{subsec:a_jml_specification_example}
 
-The JML specifications used to annotate Java code are of varying complexities.
-Some of the specifications are simple, focusing on constraints that should hold when 
-calling a method (preconditions) and the constraints on the return value (a very basic form of 
-postconditions).
-In listing \ref{lst:jml_example_simple} a simple JML specification example is shown, the 
-method \lil{getTemperature} is declared to be \lil{/*@ pure @*/}, which means that 
-it cannot change the state of any object (a postcondition), the specification also constraints 
-the return value with a lower and upper bound (another postcondition).
+The JML specifications used to annotate Java code are of varying
+complexities.  Some of the specifications are simple, focusing on
+constraints that should hold when calling a method (preconditions) and
+the constraints on the return value (a very basic form of
+postconditions).  In listing \ref{lst:jml_example_simple} a simple JML
+specification example is shown, the method \lil{getTemperature} is
+declared to be \lil{/*@ pure @*/}, which means that it cannot change
+the state of any object (a postcondition), the specification also
+constraints the return value with a lower and upper bound (another
+postcondition).
 
 \begin{lstlisting}[
   caption={A simple specification with JML annotation: simple postconditions.},
   label=lst:jml_example_simple,
   float=htbp]
-/*@ 
-  ensures \result >= -880;
-  ensures \result <= 2047;
-@*/
-/*@ pure @*/ short getTemperature();
+  /*@ ensures \result >= -880; ensures \result <= 2047; @*/ /*@ pure
+  @*/ short getTemperature();
 \end{lstlisting}
 
 \sloppy
 
-Some of the specifications are rather complex, usually focusing on properties regarding the 
-behavior of a whole object.
-In listing \ref{lst:jml_example_invariant} a complex invariant 
-(a property that has to be maintained, that is, that is assumed on entry and guaranteed on 
-exit of each method of an object)
-example is shown. 
-The invariant is constraining the number of samples for each medium data rate streams: 
-the total number of streams is \lil{Frame.ADC_CHANNELS}, the total number of frames is 
-\lil{FRAMES}, the constant constraining the number of samples is 
-\lil{FRAMES/Frame.ADC_CHANNELS+1}, meaning that the samples contained in a frame are
-fairly distributed on the channels. 
-The valid samples are counted parsing all the frames contained in a packet, selecting only 
-the matching valid samples.
-A medium data rate stream sample is considered valid when \lil{isADCActive()} method 
-returns \lil{true}.
+Some of the specifications are rather complex, usually focusing on
+properties regarding the behavior of a whole object.  In listing
+\ref{lst:jml_example_invariant} a complex invariant (a property that
+has to be maintained, that is, that is assumed on entry and guaranteed
+on exit of each method of an object) example is shown.  The invariant
+is constraining the number of samples for each medium data rate
+streams: the total number of streams is \lil{Frame.ADC_CHANNELS}, the
+total number of frames is \lil{FRAMES}, the constant constraining the
+number of samples is \lil{FRAMES/Frame.ADC_CHANNELS+1}, meaning that
+the samples contained in a frame are fairly distributed on the
+channels.  The valid samples are counted parsing all the frames
+contained in a packet, selecting only the matching valid samples.  A
+medium data rate stream sample is considered valid when
+\lil{isADCActive()} method returns \lil{true}.
 
 \fussy
 
@@ -516,25 +535,15 @@ returns \lil{true}.
     the number of samples for each medium data rate stream channel.},
   label=lst:jml_example_invariant,
   float=htbp]
-/*@ 
-  invariant (
-    \forall int channel;
-    0 <= channel && channel < Frame.ADC_CHANNELS; 
-    (
-      \num_of int i;
-      0<= i && i<(FRAMES-1);
-      (
-        getFrame(i).isADCActive() &&
-        (getFrame(i).getADCChannel() == channel)
-      )
-    ) <= (FRAMES / Frame.ADC_CHANNELS + 1)
-  );
-@*/
+  /*@ invariant ( \forall int channel; 0 <= channel && channel <
+  Frame.ADC_CHANNELS; ( \num_of int i; 0<= i && i<(FRAMES-1); (
+  getFrame(i).isADCActive() && (getFrame(i).getADCChannel() ==
+  channel) ) ) <= (FRAMES / Frame.ADC_CHANNELS + 1) ); @*/
 \end{lstlisting}
 
 
 
-%=====================================================================
+% =====================================================================
 \section{Test cases}
 \label{sec:test_cases}
 
@@ -548,205 +557,196 @@ effectiveness evaluation has been based on three elements: effective
 results on piloting the real board (quantitative), code coverage
 (quantitative), development help and usefulness (qualitative).
 
-The dual testing approach was thought as a winning option, when 
-compared to hand based tests or completely automated tests used alone, 
-testing a driver for a stream communication protocol with hard constraints 
-on development time.
-\ST stream communication protocol is characterized by a well definite 
-packet structure, and a well definite semantic on the packet contents 
-as well.
-On the other hand in the protocol there are not strong constraints on 
-synchronization, since the communication channel is splitted in two (in and 
-out) separate concurrent and asynchronous channels.
-The lack of hard synchronization constraints reduce the advantage to use 
-a classical state machine based specification \todo{references: 
-protocol tests generated from a state machine based specification}.
+The dual testing approach was thought as a winning option, when
+compared to hand based tests or completely automated tests used alone,
+testing a driver for a stream communication protocol with hard
+constraints on development time.  \ST stream communication protocol is
+characterized by a well definite packet structure, and a well definite
+semantic on the packet contents as well.  On the other hand in the
+protocol there are not strong constraints on synchronization, since
+the communication channel is splitted in two (in and out) separate
+concurrent and asynchronous channels.  The lack of hard
+synchronization constraints reduce the advantage to use a classical
+state machine based specification (as the one presented in
+\cite{Hubbers2004}).
 
-Hard development time constraints were also a precise requirement; the time 
-constraints pushed us towards a incomplete (\emph{just good enough}) 
-specification.
-In \STSB driver JML was used to specify very simple behaviors (method 
-oriented) on the whole driver implementation, and more complex behavior on 
-the driver core interfaces.
-The software system parts not specified by the JML2 specification were 
-specified using hand made unit tests.
+Hard development time constraints were also a precise requirement; the
+time constraints pushed us towards a incomplete (\emph{just good
+  enough}) specification.  In \STSB driver JML was used to specify
+very simple behaviors (method oriented) on the whole driver
+implementation, and more complex behavior on the driver core
+interfaces.  The software system parts not specified by the JML2
+specification were specified using hand made unit tests.
 
-Hand made unit tests cover behavior not covered by the automatically 
-generated tests, that is, they cover the not specified behavior; but this 
-is not the only purpose they have.
-Hand made unit tests are used to drive the development, since the Test Driven 
-Development approach\cite{beck2003test} has been followed during development.
-Hand made tests are also used to drive the development of the most error 
-prone or complex JML2 specifications; a test developed to drive the 
-specification is a test that should fail if the specification is not working 
-as expected.
-
-\todo{describe the necessity to add specification generated tests: to ensure
-that specification is sound, to obtain higher coverage}
+Hand made unit tests cover behavior not covered by the automatically
+generated tests, that is, they cover the not specified behavior; but
+this is not the only purpose they have.  Hand made unit tests are used
+to drive the development, since the Test Driven Development
+approach\cite{beck2003test} has been followed during development.
+Hand made tests are also used to drive the development of the most
+error prone or complex JML2 specifications; a test developed to drive
+the specification is a test that should fail if the specification is
+not working as expected.
 
 \paragraph*{Hand made tests}
 
-The package structure of the driver developed is shown in Figure 
-\ref{fig:class_diagram_main}: two independent packages has been defined: 
-\lil{Stream} and \lil{Driver}.
-The packages are abstract, that is, they mainly contain abstractions; in Java 
-language this is translated into a package which contains mainly abstract classes 
-or interfaces.
-The two abstract packages has various implementations, the dependency between
-abstract packages is not direct, but only through an implementation 
-(\lil{StreamDriver}).
-This is needed to maintain a high decoupling of the packages, and is the result of 
-applying the \emph{classical} dependency inversion 
-principle\cite{martin1996dependency} (the dependency structure of the 
-packages has a saw shape, a common shape on systems where the dependency 
-inversion principle has been followed).
+The package structure of the driver developed is shown in Figure
+\ref{fig:class_diagram_main}: two independent packages has been
+defined: \lil{Stream} and \lil{Driver}.  The packages are abstract,
+that is, they mainly contain abstractions; in Java language this is
+translated into a package which contains mainly abstract classes or
+interfaces.  The two abstract packages has various implementations,
+the dependency between abstract packages is not direct, but only
+through an implementation (\lil{StreamDriver}).  This is needed to
+maintain a high decoupling of the packages, and is the result of
+applying the \emph{classical} dependency inversion
+principle\cite{martin1996dependency} (the dependency structure of the
+packages has a saw shape, a common shape on systems where the
+dependency inversion principle has been followed).
 
 \begin{figure}[htb!]
- \centering
- \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__Main}
- \label{fig:class_diagram_main}
- \caption{Main packages class diagram.}
+  \centering
+  \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__Main}
+  \label{fig:class_diagram_main}
+  \caption{Main packages class diagram.}
 \end{figure}
 
-The test package structure, which is shown in Figure 
-\ref{fig:class_diagram_test} reflects and mimics the code structure; the
-tests that test an abstract package are abstract, to be implemented by the 
-package that tests a corresponding system implementation; this is a well 
-known test pattern, the Abstract Test Pattern\cite{thomas2004java}, it is 
-used to test that the contracts are respected in the implementations.
-For instance, package \lil{DriverT} contains abstract tests for the 
-abstractions of package \lil{Driver}, package \lil{StreamDriverT} 
-inherits the abstractions contained in \lil{DriverT} and makes them concrete, 
-to test the corresponding implementation \lil{StreamDriver}; package 
-\lil{StreamDriverT} also contains stand alone tests written specifically for
-the implementation contained in \lil{StreamDriver}.
+The test package structure, which is shown in Figure
+\ref{fig:class_diagram_test} reflects and mimics the code structure;
+the tests that test an abstract package are abstract, to be
+implemented by the package that tests a corresponding system
+implementation; this is a well known test pattern, the Abstract Test
+Pattern\cite{thomas2004java}, it is used to test that the contracts
+are respected in the implementations.  For instance, package
+\lil{DriverT} contains abstract tests for the abstractions of package
+\lil{Driver}, package \lil{StreamDriverT} inherits the abstractions
+contained in \lil{DriverT} and makes them concrete, to test the
+corresponding implementation \lil{StreamDriver}; package
+\lil{StreamDriverT} also contains stand alone tests written
+specifically for the implementation contained in \lil{StreamDriver}.
 
 \begin{figure}[htb!]
- \centering
- \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__Test}
- \label{fig:class_diagram_test}
- \caption{Test packages class diagram.}
+  \centering
+  \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__Test}
+  \label{fig:class_diagram_test}
+  \caption{Test packages class diagram.}
 \end{figure}
 
 \paragraph*{Generated tests}
 
-The JML specification has been used to generate the tests. 
-A specific tool of the JML2 suite can be used to automatically generate 
+The JML specification has been used to generate the tests.  A specific
+tool of the JML2 suite can be used to automatically generate
 them\cite{Cheon-Leavens02}.
 
 The test suite generated is a collection of fine grained unit tests.
-For each public method a set of tests is generated.
-The specified behavior of the method is checked using the JML2 run time 
-assertion checker, hence, an oracle is not needed. 
-The generated tests send messages to the method under test, they catch 
-assertion violation exceptions from test cases that pass an initial 
-precondition check; that is, if a precondition is not met, the test is 
-not run, if the precondition is met the test is run, and if the postcondition 
-is not me an exception is fired and the test fails.
-The test data that is used to build the tests is the only part that is 
-required to be provided by the user.
+For each public method a set of tests is generated.  The specified
+behavior of the method is checked using the JML2 run time assertion
+checker, hence, an oracle is not needed.  The generated tests send
+messages to the method under test, they catch assertion violation
+exceptions from test cases that pass an initial precondition check;
+that is, if a precondition is not met, the test is not run, if the
+precondition is met the test is run, and if the postcondition is not
+me an exception is fired and the test fails.  The test data that is
+used to build the tests is the only part that is required to be
+provided by the user.
 
-The test package structure is shown in Figure 
-\ref{fig:class_diagram_generatedtest}.
-The packages dependencies are defined by the specifications; for instance, 
-\lil{SimulatorDriverST} are generated tests, they test (hence use) the 
-implementation \lil{SimulatorDriver}, they have been generated using the 
-specification corresponding specification \lil{SimulatorDriverS}.
-The generated tests do not maintain the inheritance structure of the code 
+The test package structure is shown in Figure
+\ref{fig:class_diagram_generatedtest}.  The packages dependencies are
+defined by the specifications; for instance, \lil{SimulatorDriverST}
+are generated tests, they test (hence use) the implementation
+\lil{SimulatorDriver}, they have been generated using the
+specification corresponding specification \lil{SimulatorDriverS}.  The
+generated tests do not maintain the inheritance structure of the code
 and the specification.
 
 \begin{figure}[htb!]
- \centering
- \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__GeneratedTests}
- \label{fig:class_diagram_generatedtest}
- \caption{Generated test packages class diagram.}
+  \centering
+  \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__GeneratedTests}
+  \label{fig:class_diagram_generatedtest}
+  \caption{Generated test packages class diagram.}
 \end{figure}
 
 \paragraph*{On simulators, again}
 
-To have proper unit test suite, for each method under test a proper stub, 
-driver and oracle should be identified, these are the usual components found 
-in the harness that enable test execution\cite{binder1999testing}.
-In JUnit\footnote{\myhref{http://www.junit.org/}{JUnit}}, the framework used 
-to manage the implementation and execution of hand made and generated unit 
-tests, there is no clear distinction between drivers, stubs, and oracle of a 
-test; noneless, even if a proper distinction is not imposed by the framework, 
-the conceptual distinction still holds.
+To have proper unit test suite, for each method under test a proper
+stub, driver and oracle should be identified, these are the usual
+components found in the harness that enable test
+execution\cite{Binder1999}.  In
+JUnit\footnote{\myhref{http://www.junit.org/}{JUnit}}, the framework
+used to manage the implementation and execution of hand made and
+generated unit tests, there is no clear distinction between drivers,
+stubs, and oracle of a test; none-less, even if a proper distinction
+is not imposed by the framework, the conceptual distinction still
+holds.
 
-Hence, to properly unit test a module in isolation and automatically we need:
+Hence, to properly unit test a module in isolation and automatically
+we need:
 
 \begin{description}
- \item[Stub or Skeleton]: a piece of code that simulates the activity of 
-the modules that are not under tests.
- \item[Driver]: a piece of code that calls in a proper way the module under 
-test.
- \item[Oracle]: a mechanism used for determining whether a test has passed 
-or failed, comparing the output of the module under test to the output that 
-the oracle determines that the module should have.
-\end{description} 
+\item[Stub or Skeleton]: a piece of code that simulates the activity
+  of the modules that are not under tests.
+\item[Driver]: a piece of code that calls in a proper way the module
+  under test.
+\item[Oracle]: a mechanism used for determining whether a test has
+  passed or failed, comparing the output of the module under test to
+  the output that the oracle determines that the module should have.
+\end{description}
 
-Hand made unit tests and JML generated tests differs in how these components 
-are provided. 
-The distinctions and similarities are summarized in Table 
-\ref{tab:test_harness}.
+Hand made unit tests and JML generated tests differs in how these
+components are provided.  The distinctions and similarities are
+summarized in Table \ref{tab:test_harness}.
 
 \begin{table}[htbp]
-\caption{Hand made and generated tests harness.}
-\label{tab:test_harness}
-\begin{center}
-\begin{tabular}{|l|l|l|}\hline
-& \textbf{\textit{hand made}} & \textbf{\textit{JML}} \\\hline
-\textbf{\textit{Stub}} & to be provided & to be provided\\\hline
-\textbf{\textit{Driver}} & to be provided & automatic: 1 call\\\hline
-\textbf{\textit{Oracle}} & to be provided & 
-automatic: runtime assertion checker\\\hline
-\end{tabular}
-\end{center}
+  \caption{Hand made and generated tests harness.}
+  \label{tab:test_harness}
+  \begin{center}
+    \begin{tabular}{|l|l|l|}\hline
+      & \textbf{\textit{hand made}} & \textbf{\textit{JML}} \\\hline
+      \textbf{\textit{Stub}} & to be provided & to be provided\\\hline
+      \textbf{\textit{Driver}} & to be provided & automatic: 1 call\\\hline
+      \textbf{\textit{Oracle}} & to be provided & 
+      automatic: runtime assertion checker\\\hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
-A module simulator can be used to ease the tasks of developing each component 
-of a test harness; that is, it can be used as a stub, to simulate a module 
-needed by the module under test, it can be used as a driver, to stimulate the 
-module under test, it can be used as an oracle, if it simulates the module 
-under test.
+A module simulator can be used to ease the tasks of developing each
+component of a test harness; that is, it can be used as a stub, to
+simulate a module needed by the module under test, it can be used as a
+driver, to stimulate the module under test, it can be used as an
+oracle, if it simulates the module under test.
 
-In our system, the simulators has been used mainly as stubs, so that we have,
-during testing, a structure like the one shown in Figure 
-\ref{fig:class_diagram_streamdriver_test}.
-In Figure \ref{fig:class_diagram_streamdriver_test} the test suite 
-\lil{StreamDriverT} is using the \lil{SimulatorStream} to properly simulate 
-the \lil{Stream} that is used by the system under test, that is 
-\lil{StreamDriver}.
+In our system, the simulators has been used mainly as stubs, so that
+we have, during testing, a structure like the one shown in Figure
+\ref{fig:class_diagram_streamdriver_test}.  In Figure
+\ref{fig:class_diagram_streamdriver_test} the test suite
+\lil{StreamDriverT} is using the \lil{SimulatorStream} to properly
+simulate the \lil{Stream} that is used by the system under test, that
+is \lil{StreamDriver}.
 
 \begin{figure}[htb!]
- \centering
- \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__StreamDriverT}
- \label{fig:class_diagram_streamdriver_test}
- \caption{StreamDriver test packages class diagram: use of the stream simulator.}
+  \centering
+  \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__StreamDriverT}
+  \label{fig:class_diagram_streamdriver_test}
+  \caption{StreamDriver test packages class diagram: use of the stream
+    simulator.}
 \end{figure}
 
-In our case, the usage of simulators to enable unit testing, was essential to 
-test the \STSB driver, since the physical board was not available.
-The simulator were used in both the hand made and the generated tests, since
-both of them need a proper set of stubs to be executed.
-
-\todo{insert references to testing embedded systems with simulators and/or 
-with driver/stubs}
-
-\paragraph*{BON}
-
-\todo{describe approach: high level informal specifications with BON, 
-iterative refinements of code, to distill test cases and formal 
-specification of the interfaces} \notev{remove, BON has not been used 
-properly, maybe a follow up paper}
+In our case, the usage of simulators to enable unit testing, was
+essential to test the \STSB driver, since the physical board was not
+available.  The simulator were used in both the hand made and the
+generated tests, since both of them need a proper set of stubs to be
+executed.
 
 
 
-%=====================================================================
+
+% =====================================================================
 \section{Test cases on the job}
 \label{sec:test_cases_on_the_job}
 
-JML specifications, the simulators,  and both test suites has been used to:
+JML specifications, the simulators, and both test suites has been used
+to:
 
 \begin{itemize}
 \item verify hardware implementation;
@@ -756,7 +756,7 @@ JML specifications, the simulators,  and both test suites has been used to:
 \end{itemize}
 
 The first \STSB prototype delivered was meant to build empty packets,
-but the packets were built in a way not conformant to the
+but the packets were built in a way not consistent with the
 specification, the sentinel values used to delimit a packet were not
 correct.  The board implementation error has been detected by the
 \lil{StreamDriver} package.
@@ -776,14 +776,14 @@ been detected.
 
 The formal model and the run time assertion checker enabled the
 detection of errors on the \SB itself.  Errors regarding the expected
-values and values ranges of the filds contained in the packets and the
-frames (4 protocol errors), and errors regarding the dependencies
+values and values ranges of the fields contained in the packets and
+the frames (4 protocol errors), and errors regarding the dependencies
 between values in field (2 protocol errors) were detected. No other
 errors, other than the ones immediately discovered by the run time
 assertion checker were later on discovered.
 
 The hand made test suite is composed by over 140 tests, while the
-generated one is 100 times bigger, totalling over 14000 tests.
+generated one is 100 times bigger, totaling over 14000 tests.
 
 The ratio of 1 to 100, that is, the big number of generated tests, can
 be understood looking closely at how the generated tests are created
@@ -809,9 +809,8 @@ actually executed in the test suite can be significantly reduced.
 To compare in a quantitative way the effectiveness of the test suites,
 code coverage metrics have been used; this is not the only measure
 that have been considered, since it is almost unanimously accepted
-that code coverage alone cannot asses the quality of a test suite
-\todo{reference to: ``How to misuse code coverage'', ??? ``Coverage
-  Metrics for Formal Verification''}.
+that code coverage alone cannot asses the quality of a test
+suite\cite{Marick1999,Chockler2006}.
 
 Various coverage metrics exist, we analyzed the test suites with
 statement code coverage (one of the simplest types)\footnote{The tool
@@ -839,17 +838,23 @@ results are reported in the Table \ref{tab:statement_code_coverage}.
   \end{center}
 \end{table}
 
-\todo{insert execution time of test suites}
+Execution time are very different, the hand made test suite, with the
+run time assertion checking active runs, completely in less the one
+minute on an average PC, while the generated test suite runs in more
+than 20 minutes (the rough ratio is $ 1 : 65 $). Most of the time is
+spent on setting up the suite, only considering the real execution of
+the tests, with no suite setup, the execution time reduces to less
+than 4 minutes (the rough ratio is $ 1 : 10 $).
 
 
 
-%=====================================================================
+% =====================================================================
 \section{Retrospective on test cases effectiveness}
 \label{sec:test_cases_retrospectives}
 
 The quantitative and qualitative specification and test effectiveness
-measures to verify system under development obtained
-in the previous section need to be analyzed to be fully understood.
+measures to verify system under development obtained in the previous
+section need to be analyzed to be fully understood.
 
 The coverage measures reported in Table
 \ref{tab:statement_code_coverage} are not high, in absolute
@@ -886,111 +891,231 @@ The statement code coverage figures shows that the test suites do a
 good job on the most important package, that is, the
 \lil{StreamDriver}. The generated test suit reaching almost $ 80 \% $,
 while the hand made tests have only a slightly lower coverage ratio: $
-76 \% $. But the combination of test suites is interesting,
-raising the coverage ratio to $ 88.5 \% $. This is a clear indication
-that one test suite is not completely overlapping the other; that is,
-the test suites are not to be considered alternatives, but they have
-to be used together to achive the higher benefits, they are
-complementary. This consideration can be confirmed looking at the
-figures obtained for \lil{SimulatorDriver} package as well.
+76 \% $. But the combination of test suites is interesting, raising
+the coverage ratio to $ 88.5 \% $. This is a clear indication that one
+test suite is not completely overlapping the other; that is, the test
+suites are not to be considered alternatives, but they have to be used
+together to achieve the higher benefits, they are complementary. This
+consideration can be confirmed looking at the figures obtained for
+\lil{SimulatorDriver} package as well.
 
 The qualitative difference of the two test suites can be understood
-analysing how the suites are built. The hand made test suite primarly
+analyzing how the suites are built. The hand made test suite primarily
 focuses on small features and use cases fragments that the system must
-implement, or for which an exceptional case has been considered. A
-test case is to be considered a rough specification written in
-imperative style. The common structure require an object
-initialization, followed by a hopefully not too long sequence of
-public methods to bring one object into a desired state, than the
-method under test is called and the object state is finally inspected
-to verify it is in the expected state. The generated tests have a far
-more limited scope, since only one method call is performed. Thus it
-is difficult to explore complex behaviour. It is true that with a
-complete specification, and specifing large enough data ranges types,
-the genrated tests could teoretically achive the same expressive power
+implement, or for which an exceptional case has been specified. A test
+case is to be considered a rough specification written in imperative
+style. The common structure require an object initialization, followed
+by a hopefully not too long sequence of public methods to bring one
+object (or set of objects) into a desired state, than the method under
+test is called and the object state is finally inspected to verify it
+is in the expected state. Mock objects can be used to limit the
+dependencies. The test suite should be composed only by unit tests,
+but usually some tests are more complex to be called proper unit
+tests, they can be seen as simple integration tests.
+
+The generated test suite has a more focused and limited scope, since
+only one method call is performed in each test, hence it is difficult
+to explore complex behaviors. It is true that with a complete
+specification, and specifying large enough data ranges (the
+appropariate data ranges are combined to generate the tests), the
+generated tests could theoretically achieve the same expressive power
 as the hand made ones, but the price to pay would be expensive: much
-longer an more complex specifications, requiring more time to be
-designed and or updated, and more tests to be run, augmentig the
+longer and more complex specifications, requiring more time to be
+designed and or updated, and more tests to be run, augmenting the
 already not so short computation time of the generated test suite.
 
+The test suites gave their best when used in a combined approach: the
+generated test suite, checking most simple behaviors, while the hand
+made checking the more complex ones.  During the development of the
+driver code and the simulators, the generated test suit was helpful to
+test the incrementally growing specification and the finer details of
+each method, while the hand made one was helpful to verify the
+behaviour on complex methods calls on objects intialized to specific
+states. Having an hand made test suite also make the code style more
+test oriented, which usually leads to a better quality and more
+modularized source code\cite{Binder1999}.
+
+The test suites has been used to verify different parts of the
+systems, that is, the real system as well as the simulators.  The
+multiple simulators and multiple test suites approach is not new, it
+is often used in embedded systems software testing\cite{Broekman2002}.
+This is a general approach that can (and should) be used to verify
+both the simulators built and the real systems.  This approach can be
+easily used only if the code has been structured following the already
+mentioned dependency inversion principle\cite{martin1996dependency}
+(see Figure \ref{fig:class_diagram_main}).
+
+The combined test approach, driven by the packet protocol
+specification, prooved succesfull on verifing the protocol itself and
+the software implementing it.  Neverthless, it has to be noted that we
+did not verified the highest levels of the protocol (see
+\ref{sec:data_stream_and_protocol_description}: ``Packet sequence
+rules'' and ``Packet input output asynchronous rules'').  Since on
+these levels the protocol properties regards sequences of packets,
+testing them can be tricky, since the sequences of packets are not
+referred to explicitly in the implementation.  Two possible strategies
+can be used:
+
+\begin{itemize}
+\item Translate the packet sequence properties in local packet
+  properties (when this is possible).  The advantage is to have
+  properties shown as the usual precondition, post conditions and
+  invariants.  But the localized properties can be more complex and
+  less intuitive and comprehensible than the original ones; finally,
+  some of the global properties could proove themselves impossible to
+  be translated into local ones.
+\item Use separate utility classes, meant to verify a sequence of
+  packages.  This approach is not clean, since it requires adding and
+  using new classes, unneeded by the core implementation, to verify
+  the protocol.  It has the advantage of keeping the properties that
+  have to be verified simple.
+\end{itemize}
+
+One problem we noticed regards the executiuon time of the generated
+tests.  The executiuon time is long for two reasons:
+
+\begin{itemize}
+\item Number of the tests generated. This problem is not directly
+  addressable, since it is the heart of the test suite generation
+  creation method itself: generating all the combinations of possible
+  inputs for each method under test.
+\item Runtime assertion checker. Each test is executed while RAC
+  checks all the relavant properties. This problem, again, is not
+  directly addressable. But, we can speculate that if the RAC
+  assertions could be triggered on and off on single properties in a
+  dynamic way, that is, during runtime, a test suite could use take
+  advantage of this possibility, turning on the RAC only on the
+  properties that have to be verified for the classes or methods under
+  tests (and not for all the involved classes and methods); this could
+  save time during the test suite execution.
+\end{itemize}
 
 
-\todo{compare qualitative: hand made, many calls, vs generated, single call, tests}
 
-\todo{compare compare coupled approach vs single approaches}
-
-\todo{comment quantitative: number of bugs found}
-
-\todo{compare qualitative: spec driven dev, test driven dev, test
-  oriented code is an automatic result}
-
-\todo{spec and hand useful to drive, spec and hand and simulator
-  useful to test, spec and generated useful for statement coverage and
-  easy methods, spec useful to test hardware, hand useful to spec,
-  spec useful to hand... test driven spec}
-
-
-%=====================================================================
-\section{Test cases and the scenarios}
-\label{sec:test_cases_and_the_scenarios}
-
-\todo{benefit: the approach can be used to test different part of the system
-that share the same specifications}
-
-\todo{testing the protocols layers}
-
-\todo{testing the simulators}
-
-\todo{describe general approach: depending at what level (of abstraction) tests 
-and specifications are written, it is possible to verify both the simulator and 
-the real protocol (isn't this obvious?)}
-
-
-%=====================================================================
+% =====================================================================
 \section{Related works}
 \label{sec:related_works}
 
-%=====================================================================
+JML has been used previously to verify a communication protocol in
+\cite{Hubbers2004}, but the protocol is a smart card protocol, and it
+is well represented through state machines, which are then refined
+into JML properties.  The approach is in waterfall style, the need to
+develop the protocol, the specification and the implementation
+concurrently is not addressed.  No hand made or generated test suites
+are used, the code is specified with JML assertions, refined by the
+state machine specifications, and then checked statically with
+ESC/Java2 static checker\cite{CokKiniry04} and at runtime with JML2
+tools RAC\cite{BurdyEtal05-STTT}.
+
+The JML-JUnit automatic test suite generation tool has not been widely
+used or assessed. It is described by its own creators in
+\cite{Cheon2002,Cheon2004,Cheon2005}, it has been used in
+\cite{Oriat2004} and \cite{Cheon2005}, but only as a stand alone test
+suite, and, more importantly, only against proof of concepts system,
+not real complex systems.  A brief assessment of the JML-JUnit tool
+has been made in \cite{Tan2004}, the analysis is based on injecting
+random generated errors in the source code, and then evaluating the
+ratio of the errors found by the test suite: the results shows that
+the JML-JUnit tool is not effective enough if used as a stand alone
+tool. No attempts on running or evaluating the generated test suite
+alongside with an hand made test suite are made.
+
+
+
+% =====================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
 
-%======================================================================
-%% \nocite{ex1,ex2}
-\bibliographystyle{latex8}
-\bibliography{extra,%
-              abbrev,%
-              ads,%
-              category,%
-              complexity,%
-              hypertext,%
-              icsr,%
-              knowledge,%
-              languages,%
-              linguistics,%
-              meta,%
-              metrics,%
-              misc,%
-              modeling,%
-              modeltheory,%
-              reuse,%
-              rewriting,%
-              softeng,%
-              specification,%
-              ssr,%
-              technology,%
-              theory,%
-              web,%
-              upcoming,%
-              upcoming_conferences,%
-              conferences,%
-              workshops,%
-              verification,%
-              escjava,%
-              jml,%
-              nijmegen}
+\todo{specification and hand tests useful to drive, specification and
+  hand tests and simulator useful to test, specification and generated
+  tests useful for statement coverage and easy methods, specification
+  useful to test hardware, hand useful to spec, spec useful to
+  hand... test driven spec}
 
-%======================================================================
+
+\section{Next papers}
+
+\todo{remove and push this on a new paper}
+
+\paragraph*{TDS: Test Driven Specification}
+
+Approach:
+\begin{itemize}
+\item more specification used together: formal and not formal
+\item formal specification is not complete: it is just good
+  ``enough'', static checkers unfortunately cannot be used, since the
+  specification is partial
+\item use runtime asserion checker for formal specifications, on tests
+\item use generated tests for formal specifications
+\end{itemize}
+
+Who drives what:
+\begin{itemize}
+\item specification (jml - formal specification or unit test -
+  examples fragments) driven development
+\item test driven specification
+\item formal specification is not complete: it is just good
+  ``enough'', static checkers unfortunately cannot be used, since the
+  specification is partial
+\item use runtime asserion checker for formal specifications, on tests
+\item use generated tests for formal specifications
+\end{itemize}
+
+Benefits:
+\begin{itemize}
+\item real agile approach
+\item real formal approach
+\item use best of both worlds, do not try to use only on of them
+\end{itemize}
+
+Case example: actual paper, modified to fit the new parts, expecially
+the test driven specification part.
+
+\paragraph*{BON}
+
+\todo{describe approach: high level informal specifications with BON,
+  iterative refinements of code, to distill test cases and formal
+  specification of the interfaces}
+
+
+
+
+% ======================================================================
+%% \nocite{ex1,ex2}
+\bibliographystyle{latex8} \bibliography{extra,%
+  abbrev,%
+  ads,%
+  category,%
+  complexity,%
+  hypertext,%
+  icsr,%
+  knowledge,%
+  languages,%
+  linguistics,%
+  meta,%
+  metrics,%
+  misc,%
+  modeling,%
+  modeltheory,%
+  reuse,%
+  rewriting,%
+  softeng,%
+  specification,%
+  ssr,%
+  technology,%
+  theory,%
+  web,%
+  upcoming,%
+  upcoming_conferences,%
+  conferences,%
+  workshops,%
+  verification,%
+  escjava,%
+  jml,%
+  nijmegen}
+
+% ======================================================================
 % Fin
 
 \end{document}

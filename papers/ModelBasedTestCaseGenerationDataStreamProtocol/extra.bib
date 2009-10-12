@@ -8,11 +8,240 @@
   author = {Kent Beck}
 }
 
-@BOOK{binder1999testing,
-  title = {{Testing object-oriented systems: models, patterns, and tools}},
-  publisher = {Addison-Wesley Professional},
+@BOOK{Binder1999,
+  title = {Testing object-oriented systems: models, patterns, and tools},
+  publisher = {{Addison-Wesley} Longman Publishing Co., Inc.},
   year = {1999},
-  author = {Binder, R.}
+  author = {Robert V. Binder},
+  pages = {1191},
+  isbn = {0-201-80938-9},
+  owner = {delbianc},
+  shorttitle = {Testing object-oriented systems},
+  timestamp = {2009.10.12},
+  url = {http://portal.acm.org/citation.cfm?id=SERIES9089.338330}
+}
+
+@INPROCEEDINGS{Briand2006,
+  author = {Lionel C. Briand and Yvan Labiche and Michal M. Sówka},
+  title = {Automated, contract-based user testing of commercial-off-the-shelf
+	components},
+  booktitle = {Proceedings of the 28th international conference on Software engineering},
+  year = {2006},
+  pages = {92--101},
+  address = {Shanghai, China},
+  publisher = {{ACM}},
+  abstract = {{Commercial-off-the-Shelf} {(COTS)} components provide a means to
+	construct software (component-based) systems in reduced time and
+	cost. In a {COTS} component software market there exist component
+	vendors (original developers of the component) and component users
+	(developers of the component-based systems). The former provide the
+	component to the user without source code or design documentation,
+	and as a result it is difficult for the latter to adequately test
+	the component when deployed in their system. In this article we propose
+	a framework that clarifies the roles and responsibilities of both
+	parties so that the user can adequately test the component in a deployment
+	environment and the vendor does not need to release proprietary details.
+	Then, based on this framework we combine and adapt two specification-based
+	testing techniques and describe (and implement) a method for the
+	automated generation of adequate test sets. An evaluation of our
+	approach on a case study demonstrates that it is possible to automatically
+	generate cost effective test sequences and that these test sequences
+	are effective at detecting complex errors.},
+  doi = {10.1145/1134285.1134300},
+  isbn = {1-59593-375-1},
+  keywords = {adequacy criteria, component, cots, uml},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://portal.acm.org/citation.cfm?id=1134285.1134300}
+}
+
+@BOOK{Broekman2002,
+  title = {Testing Embedded Software},
+  publisher = {{Addison-Wesley} Professional},
+  year = {2002},
+  author = {Bart Broekman and Edwin Notenboom},
+  month = dec,
+  isbn = {0321159861},
+  owner = {delbianc},
+  timestamp = {2009.10.12}
+}
+
+@INPROCEEDINGS{Cheon2005,
+  author = {Yoonsik Cheon and Myoung Yee Kim and Ashaveena Perum},
+  title = {A complete automation of unit testing for Java programs},
+  booktitle = {Proceedings of the 2005 international conference on Software Engineering
+	Research and Practice},
+  year = {2005},
+  pages = {290---295},
+  annote = {rate: D
+	
+	useless
+	
+	promised approach (genetic algorithms) is not implemented proof of
+	concept uses a random generator example is too simple, as usual
+	
+	to be cited},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.99.6030}
+}
+
+@INCOLLECTION{Cheon2002,
+  author = {Yoonsik Cheon and Gary Leavens},
+  title = {A Simple and Practical Approach to Unit Testing: The {JML} and {JUnit}
+	Way},
+  booktitle = {{ECOOP} 2002 — {Object-Oriented} Programming},
+  year = {2002},
+  pages = {1789--1901},
+  abstract = {Writing unit test code is labor-intensive, hence it is often not done
+	as an integral part of programming. However, unit testing is a practical
+	approach to increasing the correctness and quality of software; for
+	example, the Extreme Programming approach relies on frequent unit
+	testing.
+	
+	In this paper we present a new approach that makes writing unit tests
+	easier. It uses a formal specification language’s runtime assertion
+	checker to decide whether methods are working correctly, thus automating
+	the writing of unit test oracles. These oracles can be easily combined
+	with hand-written test data. Instead of writing testing code, the
+	programmer writes formal specifications (e.g., pre-and postconditions).
+	This makes the programmer’s task easier, because specifications are
+	more concise and abstract than the equivalent test code, and hence
+	more readable and maintainable. Furthermore, by using specifications
+	in testing, specification errors are quickly discovered, so the specifications
+	are more likely to provide useful documentation and inputs to other
+	tools. We have implemented this idea using the Java Modeling Language
+	{(JML)} and the {JUnit} testing framework, but the approach could
+	be easily implemented with other combinations of formal specification
+	languages and unit test tools.},
+  owner = {delbianc},
+  shorttitle = {A Simple and Practical Approach to Unit Testing},
+  timestamp = {2009.10.12},
+  url = {http://dx.doi.org/10.1007/3-540-47993-7_10}
+}
+
+@ARTICLE{Cheon2004,
+  author = {Yoonsik Cheon and Gary T Leavens},
+  title = {The {JML} and {JUnit} Way of Unit Testing and its Implementation},
+  year = {2004},
+  annote = {rate: {A/B}
+	
+	good and interesting approach useful tool idea: not as a substitute
+	to hand written unit tests, but to pair them heavy environment requirements
+	(jml, code instrumentation) inheritance on test suites does not favour
+	contract testing too much details for the implementation part
+	
+	},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.100.3930}
+}
+
+@ARTICLE{Chockler2006,
+  author = {Hana Chockler and Orna Kupferman and Moshe Vardi},
+  title = {Coverage metrics for formal verification},
+  journal = {International Journal on Software Tools for Technology Transfer {(STTT)}},
+  year = {2006},
+  volume = {8},
+  pages = {373--386},
+  number = {4},
+  abstract = {Abstract In formal verification, we verify that a system is correct
+	with respect to a specification. Even when the system is proven to
+	be correct, there is still a question of how complete the specification
+	is and whether it really covers all the behaviors of the system.
+	The challenge of making the verification process as exhaustive as
+	possible is even more crucial in simulation-based verification, where
+	the infeasible task of checking all input sequences is replaced by
+	checking a test suite consisting of a finite subset of them. It is
+	very important to measure the exhaustiveness of the test suite, and
+	indeed there has been extensive research in the simulation-based
+	verification community on coverage metrics, which provide such a
+	measure. It turns out that no single measure can be absolute, leading
+	to the development of numerous coverage metrics whose usage is determined
+	by industrial verification methodologies. On the other hand, prior
+	research of coverage in formal verification has focused solely on
+	state-based coverage. In this paper we adapt the work done on coverage
+	in simulation-based verification to the formal-verification setting
+	in order to obtain new coverage metrics. Thus, for each of the metrics
+	used in simulation-based verification, we present a corresponding
+	metric that is suitable for the setting of formal verification and
+	describe an algorithmic way to check it.},
+  doi = {10.1007/s10009-004-0175-4},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://dx.doi.org/10.1007/s10009-004-0175-4}
+}
+
+@INPROCEEDINGS{Hoffman2001,
+  author = {A. Hoffman and T. Kogel and H. Meyr},
+  title = {A framework for fast hardware-software co-simulation},
+  booktitle = {Proceedings of the conference on Design, automation and test in Europe},
+  year = {2001},
+  pages = {760--765},
+  address = {Munich, Germany},
+  publisher = {{IEEE} Press},
+  abstract = {We present a new hardware-software co-simulation framework enabling
+	fast prototyping in system-on-chip designs. On the software side,
+	the machine description language LISA allows the generation of bit-true
+	models of programmable architectures on various levels – from instruction-set
+	to phase accuracy. Based on these models, a complete tool-suite consisting
+	of fast compiled processor simulator, assembler, linker, HLL-compiler
+	as well as cosimulation interface can be generated automatically.
+	On the hardware side, the SystemC simulation class library is employed
+	and enhanced with our generic co-simulation interface that enables
+	the coupling of hardware and software models specified at various
+	levels of abstraction. Besides that, a hardware modeling strategy
+	using abstract macrocycle based C++ processes to increase hardware
+	modeling efficiency and simulation speed is presented.},
+  isbn = {0-7695-0993-2},
+  owner = {delbianc},
+  timestamp = {2009.10.08},
+  url = {http://portal.acm.org/citation.cfm?id=367072.367949}
+}
+
+@ARTICLE{Hsiung2000,
+  author = {{Pao-Ann} Hsiung},
+  title = {Embedded software verification in hardware-software codesign},
+  journal = {J. Syst. Archit.},
+  year = {2000},
+  volume = {46},
+  pages = {1435--1450},
+  number = {15},
+  keywords = {embedded software, quasi-static scheduling, software synthesis, software
+	verification, symbolic model checking, system/process concurrency,
+	todo:read},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://portal.acm.org/citation.cfm?id=365989.366000}
+}
+
+@INCOLLECTION{Hubbers2004,
+  author = {Engelbert Hubbers and Martijn Oostdijk and Erik Poll},
+  title = {Implementing a Formally Verifiable Security Protocol in Java Card},
+  booktitle = {Security in Pervasive Computing},
+  year = {2004},
+  pages = {213--226},
+  abstract = {This paper describes a case study in refining an security protocol
+	description down to a concrete implementation on a Java Card smart
+	card. The aim is to consider the decisions that have to be made in
+	the development of such an implementation in a systematic way, and
+	to investigate the possibilities of formal specification and verification
+	in the design process and for the final implementation.},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://www.springerlink.com/content/9r15nl8bgwmwtjte}
+}
+
+@INPROCEEDINGS{Marick1999,
+  author = {Brian Marick},
+  title = {How to Misuse Code Coverage},
+  booktitle = {Proceedings of the 16th international conference on Testing Computer
+	Software},
+  year = {1999},
+  pages = {16---18},
+  owner = {delbianc},
+  timestamp = {2009.10.12},
+  url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.42.9868}
 }
 
 @ARTICLE{martin1996dependency,
@@ -25,11 +254,185 @@
   number = {6}
 }
 
+@MISC{Oriat2004,
+  author = {Catherine Oriat},
+  title = {Jartege: a Tool for Random Generation of Unit Tests for Java Classes},
+  howpublished = {{http://adsabs.harvard.edu/abs/2004cs.......12012O}},
+  month = dec,
+  year = {2004},
+  abstract = {This report presents Jartege, a tool which allows random generation
+	of unit tests for Java classes specified in {JML.} {JML} {(Java}
+	Modeling Language) is a specification language for Java which allows
+	one to write invariants for classes, and pre- and postconditions
+	for operations. As in the {JML-JUnit} tool, we use {JML} specifications
+	on the one hand to eliminate irrelevant test cases, and on the other
+	hand as a test oracle. Jartege randomly generates test cases, which
+	consist of a sequence of constructor and method calls for the classes
+	under test. The random aspect of the tool can be parameterized by
+	associating weights to classes and operations, and by controlling
+	the number of instances which are created for each class under test.
+	The practical use of Jartege is illustrated by a small case study.},
+  annote = {rate: C
+	
+	not so smart approach (random tests) does no seem to be a scalable
+	approach no real world example, as usual no complex formalization,
+	as usual
+	
+	to be cited references
+	
+	},
+  journal = {{ArXiv} Computer Science e-prints},
+  keywords = {{ACM:} D.2, D.2.5, Programming Languages},
+  owner = {delbianc},
+  shorttitle = {Jartege},
+  timestamp = {2009.10.12},
+  url = {http://adsabs.harvard.edu/abs/2004cs.......12012O}
+}
+
+@INPROCEEDINGS{Ryzhyk2009,
+  author = {Leonid Ryzhyk and Peter Chubb and Ihor Kuz and Gernot Heiser},
+  title = {Dingo: taming device drivers},
+  booktitle = {Proceedings of the 4th {ACM} European conference on Computer systems},
+  year = {2009},
+  pages = {275--288},
+  address = {Nuremberg, Germany},
+  publisher = {{ACM}},
+  abstract = {Device drivers are notorious for being a major source of failure in
+	operating systems. In analysing a sample of real defects in Linux
+	drivers, we found that a large proportion (39\%) of bugs are due
+	to two key shortcomings in the device-driver architecture enforced
+	by current operating systems: poorly-defined communication protocols
+	between drivers and the {OS,} which confuse developers and lead to
+	protocol violations, and a multithreaded model of computation that
+	leads to numerous race conditions and deadlocks.},
+  doi = {10.1145/1519065.1519095},
+  isbn = {978-1-60558-482-9},
+  keywords = {concurrent programming, device drivers, domain-specific languages,
+	fault avoidance, reliability, todo:read},
+  owner = {delbianc},
+  shorttitle = {Dingo},
+  timestamp = {2009.10.08},
+  url = {http://portal.acm.org/citation.cfm?id=1519095}
+}
+
+@ARTICLE{Siegmund2002,
+  author = {R. Siegmund and D. Muller},
+  title = {Automatic synthesis of communication controller hardware from protocol
+	specifications},
+  journal = {Design \& Test of Computers, {IEEE}},
+  year = {2002},
+  volume = {19},
+  pages = {84--95},
+  number = {4},
+  abstract = {Controllers for serial protocols are control-oriented designs that
+	include complex state machines. Manually designing protocol controllers
+	is thus tedious, error prone, and time-consuming. We present a new
+	methodology for the efficient design of communication controller
+	hardware suited for (but not limited to) complex, bit-serial protocols.
+	Our methodology synthesizes controller hardware from a formal high-level
+	specification of the protocol. In this approach, a single run of
+	the synthesis algorithm synthesizes a complete communication architecture
+	from a single protocol specification. The method not only reduces
+	modeling effort but also ensures that both the interacting transaction
+	producer and consumer controllers conform to the initial protocol
+	specification},
+  issn = {0740-7475},
+  keywords = {automatic communication controller hardware synthesis, complex bit-serial
+	protocols, complex state machines, formal high-level specification,
+	formal specification, protocols},
+  owner = {delbianc},
+  timestamp = {2009.10.08}
+}
+
+@ARTICLE{Slomka2000,
+  author = {F. Slomka and M. Dorfel and R. Munzenberger and R. Hofmann},
+  title = {Hardware/software codesign and rapid prototyping of embedded systems},
+  journal = {Design \& Test of Computers, {IEEE}},
+  year = {2000},
+  volume = {17},
+  pages = {28--38},
+  number = {2},
+  abstract = {The complexity and the short time to market of embedded systems require
+	the use of automated techniques during the specification, implementation,
+	and testing phases of such systems. Due to the cost requirements
+	and the timing constraints of such systems, application-specific
+	hardware solutions are often needed, making the codesign of hardware
+	and software a major topic for the design automation of embedded
+	systems. This article describes tools for the analysis, synthesis,
+	and rapid prototyping of distributed embedded real-time systems and
+	presents a complete design flow from specification to implementation},
+  doi = {10.1109/54.844331},
+  issn = {0740-7475},
+  keywords = {application-specific hardware solutions, complexity, computational
+	complexity, design flow, embedded systems, formal specification,
+	hardware-software codesign, hardware/software codesign, rapid prototyping,
+	real-time systems, software prototyping, specification, timing constraints},
+  owner = {delbianc},
+  timestamp = {2009.10.08}
+}
+
+@ARTICLE{Tan2004,
+  author = {Roy Patrick Tan and Stephen H. Edwards},
+  title = {Experiences Evaluating the Effectiveness of {JML-JUnit} Testing},
+  journal = {{ACM} {SIGSOFT} Software Engineering Notes},
+  year = {2004},
+  volume = {29},
+  pages = {1--4},
+  number = {5},
+  month = sep,
+  abstract = {This paper reports on the issues the authors encountered while evaluating
+	the {JML-JUnit} unit testing strategy. Given a predefined set of
+	parameter values, {JML-JUnit} can automatically provide unit tests
+	for Java programs that have specifications. We present a mutation
+	testing experiment that evaluates the effectiveness of this testing
+	strategy, and the lessons learned from doing this experiment. We
+	conclude that a benchmark will enable the testing research community
+	to meaningfully assess testing approaches.},
+  annote = {rate: C--
+	
+	wrong approach?: compare unit tests vs integration tests approach
+	is not assessed: mutation analysis, is it effective? mutation tool:
+	is it complaint to mutation analysis? it appears it is not specification
+	used are good? it appears they aren't some good ideas
+	
+	to be cited
+	
+	},
+  keywords = {Benchmarking, Communities, Java (programming language), {JML,} Mutations,
+	Software engineering, Specifications, Strategy},
+  owner = {delbianc},
+  timestamp = {2009.10.12}
+}
+
 @BOOK{thomas2004java,
   title = {{Java testing patterns}},
   publisher = {John Wiley \& Sons},
   year = {2004},
   author = {Thomas, J.}
+}
+
+@MISC{Valderrama1995,
+  author = {A. Changuel C. A. Valderrama},
+  title = {A unified model for co-simulation and co-synthesis of mixed hardware/software
+	systems},
+  howpublished = {{http://www2.computer.org/portal/web/csdl/doi/10.1109/EDTC.1995.470395}},
+  month = mar,
+  year = {1995},
+  abstract = {This paper presents a methodology for a unified co-simulation and
+	co-synthesis of hardware-software systems. This approach addresses
+	the modeling of communication between the hardware and software modules
+	at different abstraction levels and for different design tools. The
+	main contribution is the use of a multi-view library concept in order
+	to hide specific hardware/software implementation details and communication
+	schemes. A system is viewed as a set of communicating hardware {(VHDL)}
+	and software {(C)} sub-systems. The same C, {VHDL} descriptions can
+	be used for both co-simulation and hardware-software co-synthesis.
+	This approach is illustrated by an example.},
+  keywords = {todo:read},
+  owner = {delbianc},
+  timestamp = {2009.10.08},
+  type = {text},
+  url = {http://www2.computer.org/portal/web/csdl/doi/10.1109/EDTC.1995.470395}
 }
 
 @MANUAL{ftdi_d2xx_api_2009,
