@@ -1,0 +1,9 @@
+refinement specs and code
+--This line, and those below, will be ignored--
+
+M    sensor/type/UltrasonicSensorType.java
+M    sensor/type/PressureSensorType.java
+M    sensor/type/SoundSensorType.java
+M    sensor/type/AccelerometerSensorType.java
+M    sensor/type/SensorType.java
+M    sensor/type/ThermistorSensorType.java
