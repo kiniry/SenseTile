@@ -44,10 +44,10 @@ public interface Frame {
    * @return audio frequency
    */
   /*@
-    @ ensures 
-    @   (\result == AUDIO_FREQUENCY_48KHZ) || 
-    @   (\result == AUDIO_FREQUENCY_96KHZ);
-    @*/
+    ensures 
+      (\result == AUDIO_FREQUENCY_48KHZ) || 
+      (\result == AUDIO_FREQUENCY_96KHZ);
+  @*/
   /*@ pure */ int getAudioFrequency();
   
   /**
@@ -64,9 +64,9 @@ public interface Frame {
    * @return audio sample
    */
   /*@
-    @ requires channel >= 0;
-    @ requires channel < AUDIO_CHANNELS;
-    @*/
+    requires channel >= 0;
+    requires channel < AUDIO_CHANNELS;
+  @*/
   /*@ pure */ char getAudio(int channel);
   
   /**
@@ -89,9 +89,9 @@ public interface Frame {
    * @return ADC channel
    */
   /*@
-    @ ensures \result >= 0;
-    @ ensures \result < ADC_CHANNELS;
-    @*/
+    ensures \result >= 0;
+    ensures \result < ADC_CHANNELS;
+  @*/
   /*@ pure */ int getADCChannel();
   
   /**

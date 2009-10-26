@@ -75,9 +75,9 @@ public interface Packet {
    * @return counter
    */
   /*@ 
-    @ ensures \result >= 0;
-    @ ensures \result < 65536;
-    @*/
+    ensures \result >= 0;
+    ensures \result < 65536;
+  @*/
   /*@ pure */ char getCounter();
   
   /**
@@ -92,9 +92,9 @@ public interface Packet {
    * @return temperature
    */
   /*@ 
-    @ ensures \result >= -880;
-    @ ensures \result <= 2047;
-    @*/
+    ensures \result >= -880;
+    ensures \result <= 2047;
+  @*/
   /*@ pure */ short getTemperature();
   
   /**
@@ -109,9 +109,9 @@ public interface Packet {
    * @return pressure
    */
   /*@ 
-    @ ensures \result >= 310;
-    @ ensures \result <= 5585;
-    @*/
+    ensures \result >= 310;
+    ensures \result <= 5585;
+  @*/
   /*@ pure */ short getPressure();
   
   /**
@@ -124,9 +124,9 @@ public interface Packet {
    * @return light level
    */
   /*@ 
-    @ ensures \result >= 0;
-    @ ensures \result <= 1000;
-    @*/
+    ensures \result >= 0;
+    ensures \result <= 1000;
+  @*/
   /*@ pure */ short getLightLevel();
   
   /**
@@ -141,9 +141,9 @@ public interface Packet {
    * @return acceleration
    */
   /*@
-    @ ensures \result >= 1488;
-    @ ensures \result <= 2232;
-    @*/
+    ensures \result >= 1488;
+    ensures \result <= 2232;
+  @*/
   /*@ pure */ short getAccelerometerX();
   
   /**
@@ -158,9 +158,9 @@ public interface Packet {
    * @return acceleration
    */
   /*@
-    @ ensures \result >= 1488;
-    @ ensures \result <= 2232;
-    @*/
+    ensures \result >= 1488;
+    ensures \result <= 2232;
+  @*/
   /*@ pure */ short getAccelerometerY();
   
   /**
@@ -175,9 +175,9 @@ public interface Packet {
    * @return acceleration
    */
   /*@
-    @ ensures \result >= 1488;
-    @ ensures \result <= 2232;
-    @*/
+    ensures \result >= 1488;
+    ensures \result <= 2232;
+  @*/
   /*@ pure */ short getAccelerometerZ();
   
   int getSupplyVoltage();
@@ -215,7 +215,7 @@ public interface Packet {
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 24;
-      @*/
+    @*/
     /*@ pure */ byte getHours();
     
     /**
@@ -228,7 +228,7 @@ public interface Packet {
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 60;
-      @*/
+    @*/
     /*@ pure */ byte getMinutes();
     
     /**
@@ -241,7 +241,7 @@ public interface Packet {
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 60;
-      @*/
+    @*/
     /*@ pure */ byte getSeconds();
     
     /**
@@ -254,7 +254,7 @@ public interface Packet {
     /*@
       @ ensures \result >= 0;
       @ ensures \result < 100;
-      @*/
+    @*/
     /*@ pure */ byte getCentiSeconds();
   }
   
