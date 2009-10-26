@@ -8,18 +8,18 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.ISensor;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.SensorBuilder;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
 /**
- * Represents an instance of SensorAndClonePacketBuilder.
- * @title         "SensorAndClonePacketBuilder"
+ * Represents an instance of FormalSensorPacketBuilder.
+ * @title         "FormalSensorPacketBuilder"
  * @date          "2009/10/10"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-public final class SensorAndClonePacketBuilder implements PacketBuilder{
+public final class FormalSensorPacketBuilder implements FormalPacketBuilder{
 	
   //@ spec_public non_null
-  private transient InstancePacket template;
+  private transient FormalInstancePacket template;
   //@ spec_public non_null
   private  SensorBuilder sb;
 
@@ -39,7 +39,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ensures ab.inv;
     @ ensures sb.g_inv;
     @*/
-  public SensorAndClonePacketBuilder(final /*@non_null@*/ InstancePacket theTemplate, 
+  public FormalSensorPacketBuilder(final /*@non_null@*/ FormalInstancePacket theTemplate, 
 		  							final /*@non_null@*/ FilePathProvider thePathProvider,
 		  							final int theFrequency) 
   {
@@ -56,7 +56,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
 	//@ set g_packet = null;
 	  try
 	  {
-		  InstancePacket packet = makeClone();
+		  FormalInstancePacket packet = makeClone();
 	      //@ set g_packet = packet;
 	      if(packet != null)
 		  {
@@ -81,7 +81,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
 	  }
 	  
   }
-  private void readAudio(final int channel,/*@non_null@*/ final InstancePacket packet) 
+  private void readAudio(final int channel,/*@non_null@*/ final FormalInstancePacket packet) 
   {
 
 
@@ -98,9 +98,9 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
 			{
 				Frame frame = packet.getFrame(index);
 	
-				if( frame instanceof InstanceFrame ) 
+				if( frame instanceof FormalInstanceFrame ) 
 				{
-					InstanceFrame audioFrame =(InstanceFrame)frame; 
+					FormalInstanceFrame audioFrame =(FormalInstanceFrame)frame; 
 					final char sample = (char)audio.getValue();
 					audioFrame.setAudio(channel, sample);
 				}
@@ -117,7 +117,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ((g_sensor.isEnabled()) ==>
     @ ((g_value >= -880 && g_value <= 2047) ==> (g_value == packet.temperature)));
     @*/
-   private void setTemperature( /*@non_null*/ final InstancePacket packet  ) 
+   private void setTemperature( /*@non_null*/ final FormalInstancePacket packet  ) 
    {
 	  if(sb.getSensorsLength() > 0)
 	  {
@@ -142,7 +142,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
    @ ((g_sensor.isEnabled()) ==>
    @ ((g_value >= 310 && g_value <= 5585) ==> (g_value == packet.pressure)));
    @*/
-  private void setPressure( /*@non_null*/ final InstancePacket packet  ) 
+  private void setPressure( /*@non_null*/ final FormalInstancePacket packet  ) 
   {
 	  if(sb.getSensorsLength() > 0)
 	  {
@@ -166,7 +166,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ((g_sensor.isEnabled()) ==>
     @ ((g_value >= 0 && g_value <= 1000) ==> (g_value == packet.lightLevel)));
     @*/
-  private void setLightLevel( /*@non_null*/ final InstancePacket packet  ) 
+  private void setLightLevel( /*@non_null*/ final FormalInstancePacket packet  ) 
   {
 	  if(sb.getSensorsLength() > 0)
 	  {
@@ -190,7 +190,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ((g_sensor.isEnabled()) ==>
 	@ ((g_value >= 1488 && g_value <= 2232) ==> (g_value == packet.accelerometerX)));
     @*/
-  private void setAccelerometerX( /*@non_null*/ final InstancePacket packet  ) 
+  private void setAccelerometerX( /*@non_null*/ final FormalInstancePacket packet  ) 
   {
 	  if(sb.getSensorsLength() > 0)
 	  {
@@ -213,7 +213,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ((g_sensor.isEnabled()) ==>
 	@ ((g_value >= 1488 && g_value <= 2232) ==> (g_value == packet.accelerometerY)));
     @*/
-  private void setAccelerometerY( /*@non_null*/ final InstancePacket packet  ) 
+  private void setAccelerometerY( /*@non_null*/ final FormalInstancePacket packet  ) 
   {
 	  if(sb.getSensorsLength() > 0)
 	  {
@@ -236,7 +236,7 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     @ ((g_sensor.isEnabled()) ==>
   	@ ((g_value >= 1488 && g_value <= 2232) ==> (g_value == packet.accelerometerZ)));
     @*/
-  private void setAccelerometerZ( /*@non_null*/ final InstancePacket packet  ) 
+  private void setAccelerometerZ( /*@non_null*/ final FormalInstancePacket packet  ) 
   {
 	  
 	  if(sb.getSensorsLength() > 0)
@@ -260,20 +260,20 @@ public final class SensorAndClonePacketBuilder implements PacketBuilder{
     
 /*@ public behavior
   @ requires template != null;
-  @ ensures (g_o instanceof InstancePacket) ==> 
+  @ ensures (g_o instanceof FormalInstancePacket) ==> 
   @ 		\result == g_packet && 
-  @ 		g_packet instanceof InstancePacket;
+  @ 		g_packet instanceof FormalInstancePacket;
   @ signals (CloneNotSupportedException cse) true;
   @*/
-  private InstancePacket makeClone() throws CloneNotSupportedException 
+  private FormalInstancePacket makeClone() throws CloneNotSupportedException 
   {
-	InstancePacket packet = null;
+	FormalInstancePacket packet = null;
 	//@ set g_packet = null;
 	Object o = template.clone();
 	//@ set g_o = o;
-	if  (o instanceof InstancePacket) 
+	if  (o instanceof FormalInstancePacket) 
 	{
-		packet = (InstancePacket) o;
+		packet = (FormalInstancePacket) o;
     	//@ set g_packet = packet;
 	}
     return packet;

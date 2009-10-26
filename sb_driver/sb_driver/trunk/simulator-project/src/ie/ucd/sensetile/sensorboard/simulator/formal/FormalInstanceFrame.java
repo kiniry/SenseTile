@@ -4,7 +4,7 @@ import ie.ucd.sensetile.sensorboard.Frame;
 
 /**
  * Represents an instance of Frame interface.
- * @title         "InstanceFrame"
+ * @title         "FormalInstanceFrame"
  * @date          "2009/10/10"
  * @author        "delbianc && Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
@@ -12,7 +12,7 @@ import ie.ucd.sensetile.sensorboard.Frame;
  * @version       "$ Revision: 1.00 $"
  */
 
-public class InstanceFrame implements Frame, Cloneable {
+public class FormalInstanceFrame implements Frame, Cloneable {
   //@ spec_public
   private transient boolean isIRDSynachronizationActive;
   //@ spec_public
@@ -41,7 +41,7 @@ public class InstanceFrame implements Frame, Cloneable {
     @ ensures isADCActive == true;
     @ ensures isAudioActive == true;
     @*/
-  public InstanceFrame() 
+  public FormalInstanceFrame() 
   {
     setAudioActive(true);
     setADCActive(true);

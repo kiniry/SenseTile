@@ -5,16 +5,16 @@ import ie.ucd.sensetile.sensorboard.simulator.CloneablePacket;
 
 /**
  * An packet instance derived from ClonablePacket interface.
- * @title         "InstancePacket"
+ * @title         "FormalInstancePacket"
  * @date          "2009/10/12"
  * @author        "delbianc & Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-public final class InstancePacket implements CloneablePacket {
+public final class FormalInstancePacket implements CloneablePacket {
 	
-	//@ public model instance non_null InstanceFrame[] mod_frames;  
+	//@ public model instance non_null FormalInstanceFrame[] mod_frames;  
 	
 	  //@ spec_public non_null
 	  private TimeInstance time;
@@ -37,7 +37,7 @@ public final class InstancePacket implements CloneablePacket {
 	  //@ spec_public
 	  private transient int supplyVoltage;
 	  //@ spec_public non_null
-	  private InstanceFrame[] frames = new InstanceFrame[FRAMES];//@ in mod_frames;
+	  private FormalInstanceFrame[] frames = new FormalInstanceFrame[FRAMES];//@ in mod_frames;
 		//@ represents mod_frames <-frames;
 	
 	   //@ invariant mod_frames.length == FRAMES;
@@ -60,19 +60,19 @@ public final class InstancePacket implements CloneablePacket {
 	    @ ensures accelerometerZ == (short)1860;
 	    @ ensures time instanceof TimeInstance;
 	    @ ensures (\forall int i; 0 <= i && i < mod_frames.length;
-        @          mod_frames[i] instanceof InstanceFrame);
+        @          mod_frames[i] instanceof FormalInstanceFrame);
 	    @*/
-	  public InstancePacket() 
+	  public FormalInstancePacket() 
 	  {
 	    int frameIndex = 0;
 		/*@ loop_invariant
 		  @ 0 <= frameIndex  && frameIndex <= frames.length &&
-	      @ (\forall int j; 0 <= j && j < frameIndex; frames[j] instanceof InstanceFrame);
+	      @ (\forall int j; 0 <= j && j < frameIndex; frames[j] instanceof FormalInstanceFrame);
 	      @ decreases frames.length - frameIndex;
 	      @*/
 	      while (frameIndex >= 0 && frameIndex < frames.length ) 
 	      {
-	    	  frames[frameIndex] = new InstanceFrame();
+	    	  frames[frameIndex] = new FormalInstanceFrame();
 	    	  frames[frameIndex].setADCChannel(frameIndex % Frame.ADC_CHANNELS);
 		      frameIndex++;
 	      }
@@ -225,7 +225,7 @@ public final class InstancePacket implements CloneablePacket {
 	  /*@ also
 	    @ requires index >=0 && index < FRAMES;
 	    @ requires (\forall int i; 0 <= i && i < mod_frames.length;
-	    @          mod_frames[i] instanceof InstanceFrame);
+	    @          mod_frames[i] instanceof FormalInstanceFrame);
 	    @*/
 	  public/*@pure non_null*/ Frame getFrame(final int index) {
 	    return frames[index];
