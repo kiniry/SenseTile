@@ -1,6 +1,6 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
-import ie.ucd.sensetile.sensorboard.simulator.sensor.type.ThermistorSensorType;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.ThermistorSensorType;
 
 public final class ThermistorSensor implements ISensor 
 {

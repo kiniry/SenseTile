@@ -1,6 +1,5 @@
 package ie.ucd.sensetile.sensorboard.simulator;
 
-import ie.ucd.sensetile.sensorboard.CloneablePacket;
 import ie.ucd.sensetile.sensorboard.Frame;
 
 /**

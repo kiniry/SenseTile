@@ -1,11 +1,13 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
-import ie.ucd.sensetile.sensorboard.simulator.sensor.type.SoundSensorType;
+
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.UltrasonicSensorType;
+
 /**
- * This class represents a sound sensor - microphone.
+ * This class represents a ultra sound sensor.
  * Microphone is an acoustic-to-electric sensor that converts 
  * sound into an electrical signal. Sensor working on
- * AUDIO_FREQUENCY = 48KHZ. 
+ * AUDIO_FREQUENCY = 96KHZ. 
  * @title         "AxisAccelerometerSensor"
  * @date          "2009/07/07"
  * @author        "Dragan Stosic"
@@ -14,23 +16,24 @@ import ie.ucd.sensetile.sensorboard.simulator.sensor.type.SoundSensorType;
  * @version       "$ Revision: 1.00 $"
  */
 
-public final class SoundSensor implements ISensor 
+public final class UltrasonicSensor implements ISensor 
 {
 	//@spec_public
-	private  transient int value= -38;//@ in mod_value;
+	private  transient int value= -44;//@ in mod_value;
 	  //@ represents mod_value <- value;
 	
 	//@spec_public
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
-	private final static transient int MAX = -31;
+	private final static transient int MAX = -43;
 	  //@ represents mod_max <-MAX;
 	
-	private final static transient int MIN = -39;
+	private final static transient int MIN = -51;
 	  //@ represents mod_min <-MIN;
 	
 	private transient int index = 0;//@ in mod_mesure;
+	  
 	
 	//@ public model non_null int[] mod_set;
 	//@spec_public non_null
@@ -39,31 +42,31 @@ public final class SoundSensor implements ISensor
 	
 	//@spec_public
 	private final transient  int a_type= 
-		SoundSensorType.DMS;
+		UltrasonicSensorType.PROX;
 	
-	//@spec_public  
+	//@spec_public
 	private final transient  int a_unit = 
 		MeasurementUnit.KHERTZ;
 	//@ invariant mod_min <= mod_value && mod_value <= mod_max;
 	
-	  //@ constraint mod_max == -31;
-	  //@ constraint mod_min == -39;
-	  //@ constraint a_type == SoundSensorType.DMS;
+	  //@ constraint mod_max == -43;
+	  //@ constraint mod_min == -51;
+	  //@ constraint a_type == UltrasonicSensorType.PROX;
 	  //@ constraint a_unit == MeasurementUnit.KHERTZ;
-	  
+		
 	  /**
 	   * Create component in initial state.
-	   */ 
-    /*@ assignable  mod_enabled,mod_set, mod_set[*];
+	   */
+	/*@ assignable  mod_enabled, mod_set, mod_set[*];
       @ ensures mod_enabled == true;
       @ ensures (\forall int i; 0 <= i && i < arr.length;
       @          arr[i] == a_set[i]);
       @*/
-	  public SoundSensor(final /*@non_null@*/ int[] arr) 
+	  public UltrasonicSensor(final /*@non_null@*/ int[] arr) 
 	  {
 		  enabled = true;
 		  a_set = new int[arr.length];
-		  int count = 0;
+		  int count = 0;		
 		/*@ loop_invariant
 		  @ 0 <= count  && count <= arr.length &&
 	      @ (\forall int j; 0 <= j && j < count; a_set[j] == arr[j]);
@@ -74,6 +77,7 @@ public final class SoundSensor implements ISensor
 	         a_set[count] = arr[count];
 	         count++;
 	      }
+
 	  }
 	    	  
 	  /**
@@ -91,7 +95,7 @@ public final class SoundSensor implements ISensor
 	   * @return a_type- NTC type.
 	   */
 	 //@ requires isEnabled();
-	 //@ ensures \result == SoundSensorType.DMS;
+	 //@ ensures \result == UltrasonicSensorType.PROX;
 	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
@@ -114,7 +118,7 @@ public final class SoundSensor implements ISensor
 	  {
 		  return MIN;
 	  }
-
+    
 	 /**
 	  * The {@link sensor.Isensor#isEnabled()}
       * specification.
@@ -155,7 +159,7 @@ public final class SoundSensor implements ISensor
     	 if(( index == 0 || index > 0 ) &&  
 			   index < a_set.length )
 	      {
-	    	  setSound ( index );
+	    	  setUltraSound ( index );
 		      index ++;
 	      }
 	      else 
@@ -173,7 +177,7 @@ public final class SoundSensor implements ISensor
 	  @ ensures  mod_min <= mod_value && 
 	  @          mod_value <= mod_max;
 	  @*/
-	 private void  setSound ( final int index )
+	 private void  setUltraSound ( final int index )
 	 {
 		 if( a_set[index] < MIN )
 		 {

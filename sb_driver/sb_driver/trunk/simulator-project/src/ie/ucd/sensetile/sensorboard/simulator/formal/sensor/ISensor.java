@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
 /**
  * This interface represents an abstraction of sensor component.

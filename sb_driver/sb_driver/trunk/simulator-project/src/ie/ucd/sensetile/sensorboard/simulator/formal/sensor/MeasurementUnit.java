@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 /**
  * This class represents typesafe implementation of measurement units.
  * @title         "MeasurementUnit"

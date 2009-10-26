@@ -2,11 +2,11 @@ package ie.ucd.sensetile.sensorboard.simulator;
 
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.Packet;
-import ie.ucd.sensetile.sensorboard.simulator.channel.FilePathProvider;
-import ie.ucd.sensetile.sensorboard.simulator.sensor.AudioBuilder;
-import ie.ucd.sensetile.sensorboard.simulator.sensor.ISensor;
-import ie.ucd.sensetile.sensorboard.simulator.sensor.SensorBuilder;
-import ie.ucd.sensetile.sensorboard.simulator.sensor.type.SensorIndexer;
+import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.AudioBuilder;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.ISensor;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.SensorBuilder;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
 /**
  * Represents an instance of SensorAndClonePacketBuilder.
  * @title         "SensorAndClonePacketBuilder"

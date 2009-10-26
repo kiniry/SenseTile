@@ -1,9 +1,9 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
-import ie.ucd.sensetile.sensorboard.simulator.channel.ChannelException;
-import ie.ucd.sensetile.sensorboard.simulator.channel.FileChannel;
-import ie.ucd.sensetile.sensorboard.simulator.channel.FilePathProvider;
-import ie.ucd.sensetile.sensorboard.simulator.channel.IChannel;
+import ie.ucd.sensetile.sensorboard.simulator.formal.channel.ChannelException;
+import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FileChannel;
+import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
+import ie.ucd.sensetile.sensorboard.simulator.formal.channel.IChannel;
  
 /**
  * Represents an sensor builder implementation. 

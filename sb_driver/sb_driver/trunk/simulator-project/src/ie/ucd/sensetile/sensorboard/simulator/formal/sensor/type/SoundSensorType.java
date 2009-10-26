@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor.type;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type;
 
 /**
  * This class represents microphone sensor types.

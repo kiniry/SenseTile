@@ -1,25 +1,36 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
-import ie.ucd.sensetile.sensorboard.simulator.sensor.type.PressureSensorType;
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SoundSensorType;
+/**
+ * This class represents a sound sensor - microphone.
+ * Microphone is an acoustic-to-electric sensor that converts 
+ * sound into an electrical signal. Sensor working on
+ * AUDIO_FREQUENCY = 48KHZ. 
+ * @title         "AxisAccelerometerSensor"
+ * @date          "2009/07/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
+ */
 
-public final class PressureSensor implements ISensor 
+public final class SoundSensor implements ISensor 
 {
 	//@spec_public
-	private  transient int value= 1000;//@ in mod_value;
+	private  transient int value= -38;//@ in mod_value;
 	  //@ represents mod_value <- value;
 	
 	//@spec_public
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
 	
-	private final static transient int MAX = 5585;
+	private final static transient int MAX = -31;
 	  //@ represents mod_max <-MAX;
 	
-	private final static transient int MIN = 310;
+	private final static transient int MIN = -39;
 	  //@ represents mod_min <-MIN;
 	
 	private transient int index = 0;//@ in mod_mesure;
-	 
 	
 	//@ public model non_null int[] mod_set;
 	//@spec_public non_null
@@ -28,27 +39,27 @@ public final class PressureSensor implements ISensor
 	
 	//@spec_public
 	private final transient  int a_type= 
-		PressureSensorType.APS;
+		SoundSensorType.DMS;
 	
 	//@spec_public  
 	private final transient  int a_unit = 
-		MeasurementUnit.PASCAL;
+		MeasurementUnit.KHERTZ;
 	//@ invariant mod_min <= mod_value && mod_value <= mod_max;
-		
-	  //@ constraint mod_max == 5585;
-	  //@ constraint mod_min == 310;
-	  //@ constraint a_type == PressureSensorType.APS;
-	  //@ constraint a_unit == MeasurementUnit.PASCAL;
 	
+	  //@ constraint mod_max == -31;
+	  //@ constraint mod_min == -39;
+	  //@ constraint a_type == SoundSensorType.DMS;
+	  //@ constraint a_unit == MeasurementUnit.KHERTZ;
+	  
 	  /**
 	   * Create component in initial state.
-	   */
-	/*@ assignable  mod_enabled, mod_set, mod_set[*];
+	   */ 
+    /*@ assignable  mod_enabled,mod_set, mod_set[*];
       @ ensures mod_enabled == true;
       @ ensures (\forall int i; 0 <= i && i < arr.length;
       @          arr[i] == a_set[i]);
       @*/
-	  public PressureSensor(final /*@non_null@*/ int[] arr) 
+	  public SoundSensor(final /*@non_null@*/ int[] arr) 
 	  {
 		  enabled = true;
 		  a_set = new int[arr.length];
@@ -58,7 +69,7 @@ public final class PressureSensor implements ISensor
 	      @ (\forall int j; 0 <= j && j < count; a_set[j] == arr[j]);
 	      @ decreases arr.length - count;
 	      @*/
-	      while (count >= 0 && count < arr.length ) 
+	      while (count >= 0 && count< arr.length ) 
 	      {
 	         a_set[count] = arr[count];
 	         count++;
@@ -70,7 +81,7 @@ public final class PressureSensor implements ISensor
 	   * @return a_unit - unit of measurement.
 	   */
 	  //@ requires isEnabled();
-	  //@ ensures \result == MeasurementUnit.PASCAL;
+	  //@ ensures \result == MeasurementUnit.KHERTZ;
 	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
@@ -80,7 +91,7 @@ public final class PressureSensor implements ISensor
 	   * @return a_type- NTC type.
 	   */
 	 //@ requires isEnabled();
-	 //@ ensures \result == PressureSensorType.APS;
+	 //@ ensures \result == SoundSensorType.DMS;
 	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
@@ -112,7 +123,7 @@ public final class PressureSensor implements ISensor
 	  {
 			return enabled;
 	  }
-	  
+
 	 /**
 	  * The {@link sensor.Isensor#setEnable(boolean)}
       * specification.
@@ -129,11 +140,11 @@ public final class PressureSensor implements ISensor
 	 {
 		  return value;
 	 }
-		 	 
+	 
 	/**
 	 * The {@link sensor.Isensor#measure()}
 	 * specification.
-	 */  
+	 */
      public void measure() throws MissingSensorException 
      {	
     	 if(!isEnabled())
@@ -144,7 +155,7 @@ public final class PressureSensor implements ISensor
     	 if(( index == 0 || index > 0 ) &&  
 			   index < a_set.length )
 	      {
-    		  setPressure ( index );
+	    	  setSound ( index );
 		      index ++;
 	      }
 	      else 
@@ -162,7 +173,7 @@ public final class PressureSensor implements ISensor
 	  @ ensures  mod_min <= mod_value && 
 	  @          mod_value <= mod_max;
 	  @*/
-	 private void  setPressure ( final int index )
+	 private void  setSound ( final int index )
 	 {
 		 if( a_set[index] < MIN )
 		 {

@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator.channel;
+package ie.ucd.sensetile.sensorboard.simulator.formal.channel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ public final class FileChannel implements IChannel {
 	}
 
      /**
-      * @see ie.ucd.sensetile.sensorboard.simulator.channel.IChannel#processArray()
+      * @see ie.ucd.sensetile.sensorboard.simulator.formal.channel.IChannel#processArray()
       */
 	
 	  public /*@pure*/ int[] processArray() throws ChannelException

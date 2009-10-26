@@ -1,40 +1,25 @@
-package ie.ucd.sensetile.sensorboard.simulator.sensor;
+package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
+import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.LightSensorType;
 
-import ie.ucd.sensetile.sensorboard.simulator.sensor.type.UltrasonicSensorType;
-
-/**
- * This class represents a ultra sound sensor.
- * Microphone is an acoustic-to-electric sensor that converts 
- * sound into an electrical signal. Sensor working on
- * AUDIO_FREQUENCY = 96KHZ. 
- * @title         "AxisAccelerometerSensor"
- * @date          "2009/07/07"
- * @author        "Dragan Stosic"
- * @organisation  "School of Computer Science and Informatics, UCD"
- * @copyright     "Copyright (C) 2009 UCD"
- * @version       "$ Revision: 1.00 $"
- */
-
-public final class UltrasonicSensor implements ISensor 
+public final class LightSensor implements ISensor 
 {
 	//@spec_public
-	private  transient int value= -44;//@ in mod_value;
+	private  transient int value= 500;//@ in mod_value;
 	  //@ represents mod_value <- value;
 	
 	//@spec_public
 	private transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
-	
-	private final static transient int MAX = -43;
+		
+	private final static transient int MAX = 1000;
 	  //@ represents mod_max <-MAX;
 	
-	private final static transient int MIN = -51;
+	private final static transient int MIN = 0;
 	  //@ represents mod_min <-MIN;
 	
 	private transient int index = 0;//@ in mod_mesure;
-	  
-	
+	 
 	//@ public model non_null int[] mod_set;
 	//@spec_public non_null
 	private transient  final int[] a_set;//@ in mod_set; 
@@ -42,42 +27,39 @@ public final class UltrasonicSensor implements ISensor
 	
 	//@spec_public
 	private final transient  int a_type= 
-		UltrasonicSensorType.PROX;
+		LightSensorType.PEC;
 	
 	//@spec_public
 	private final transient  int a_unit = 
-		MeasurementUnit.KHERTZ;
+		MeasurementUnit.LUX;
 	//@ invariant mod_min <= mod_value && mod_value <= mod_max;
-	
-	  //@ constraint mod_max == -43;
-	  //@ constraint mod_min == -51;
-	  //@ constraint a_type == UltrasonicSensorType.PROX;
-	  //@ constraint a_unit == MeasurementUnit.KHERTZ;
 		
+	  //@ constraint mod_max == 1000;
+	  //@ constraint mod_min == 0;
+	  //@ constraint a_type == LightSensorType.PEC;
+	  //@ constraint a_unit == MeasurementUnit.LUX;
+	   
 	  /**
 	   * Create component in initial state.
 	   */
-	/*@ assignable  mod_enabled, mod_set, mod_set[*];
-      @ ensures mod_enabled == true;
-      @ ensures (\forall int i; 0 <= i && i < arr.length;
-      @          arr[i] == a_set[i]);
-      @*/
-	  public UltrasonicSensor(final /*@non_null@*/ int[] arr) 
+	  /*@ assignable  mod_enabled, mod_set, mod_set[*];
+	    @ ensures mod_enabled == true;
+	    @ ensures (\forall int i; 0 <= i && i < arr.length;
+        @          arr[i] == a_set[i]);
+	    @*/  
+	  public LightSensor(final /*@non_null@*/ int[] arr) 
 	  {
 		  enabled = true;
 		  a_set = new int[arr.length];
-		  int count = 0;		
 		/*@ loop_invariant
 		  @ 0 <= count  && count <= arr.length &&
 	      @ (\forall int j; 0 <= j && j < count; a_set[j] == arr[j]);
 	      @ decreases arr.length - count;
 	      @*/
-	      while (count >= 0 && count< arr.length ) 
+	      for (int count=0; count < arr.length; count ++ ) 
 	      {
 	         a_set[count] = arr[count];
-	         count++;
 	      }
-
 	  }
 	    	  
 	  /**
@@ -85,7 +67,7 @@ public final class UltrasonicSensor implements ISensor
 	   * @return a_unit - unit of measurement.
 	   */
 	  //@ requires isEnabled();
-	  //@ ensures \result == MeasurementUnit.KHERTZ;
+	  //@ ensures \result == MeasurementUnit.LUX;
 	  public/*@pure@*/ int getUnit()
 	  {
 		  return a_unit;
@@ -95,7 +77,7 @@ public final class UltrasonicSensor implements ISensor
 	   * @return a_type- NTC type.
 	   */
 	 //@ requires isEnabled();
-	 //@ ensures \result == UltrasonicSensorType.PROX;
+	 //@ ensures \result == LightSensorType.PEC;
 	  public/*@pure@*/ int getType()
 	  {
 		  return a_type;
@@ -118,7 +100,7 @@ public final class UltrasonicSensor implements ISensor
 	  {
 		  return MIN;
 	  }
-    
+
 	 /**
 	  * The {@link sensor.Isensor#isEnabled()}
       * specification.
@@ -144,11 +126,11 @@ public final class UltrasonicSensor implements ISensor
 	 {
 		  return value;
 	 }
-	 
+		 	 
 	/**
 	 * The {@link sensor.Isensor#measure()}
 	 * specification.
-	 */
+	 */ 
      public void measure() throws MissingSensorException 
      {	
     	 if(!isEnabled())
@@ -159,7 +141,7 @@ public final class UltrasonicSensor implements ISensor
     	 if(( index == 0 || index > 0 ) &&  
 			   index < a_set.length )
 	      {
-	    	  setUltraSound ( index );
+	    	  setLight ( index );
 		      index ++;
 	      }
 	      else 
@@ -177,7 +159,7 @@ public final class UltrasonicSensor implements ISensor
 	  @ ensures  mod_min <= mod_value && 
 	  @          mod_value <= mod_max;
 	  @*/
-	 private void  setUltraSound ( final int index )
+	 private void  setLight ( final int index )
 	 {
 		 if( a_set[index] < MIN )
 		 {

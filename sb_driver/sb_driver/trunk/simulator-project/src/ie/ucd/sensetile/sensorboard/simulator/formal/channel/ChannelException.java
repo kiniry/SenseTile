@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator.channel;
+package ie.ucd.sensetile.sensorboard.simulator.formal.channel;
 
 /**
  * Class implementation of channel.ChannelException. 
