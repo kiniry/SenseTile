@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.sensorboard.simulator;
+package ie.ucd.sensetile.sensorboard.simulator.formal;
 
 import ie.ucd.sensetile.sensorboard.Packet;
 
