@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="test-project">
+    <property environment="env"/>
+    <property name="profile-jml-project.location" value="../profile-jml-project"/>
+    <property name="simulator-project.location" value="../simulator-project"/>
+    <property name="test-jml-project.location" value="../test-jml-project"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="main-project.location" value="../main-project"/>
+    <property name="spec-project.location" value="../spec-project"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="main-project.classpath">
+        <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <path id="spec-project.classpath">
+        <pathelement location="${spec-project.location}/bin"/>
+        <path refid="main-project.classpath"/>
+    </path>
+    <path id="test-project.classpath">
+        <pathelement location="bin"/>
+        <path refid="spec-project.classpath"/>
+        <path refid="main-project.classpath"/>
+        <pathelement location="lib/junit/junit.jar"/>
+        <pathelement location="lib/junit/junit-dep.jar"/>
+        <pathelement location="lib/jmock/cglib-src.jar"/>
+        <pathelement location="lib/jmock/hamcrest-core.jar"/>
+        <pathelement location="lib/jmock/hamcrest-library.jar"/>
+        <pathelement location="lib/jmock/jmock-junit4.jar"/>
+        <pathelement location="lib/jmock/jmock-legacy.jar"/>
+        <pathelement location="lib/jmock/jmock.jar"/>
+        <pathelement location="lib/jmock/objenesis.jar"/>
+        <pathelement location="lib/jmock/cglib-nodep.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="build-project"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="test-project.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="build"/>
+    </target>
+    <target name="AllUnitTests test-project">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.AllUnitTests" todir="${junit.output.dir}"/>
+            <classpath refid="test-project.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
