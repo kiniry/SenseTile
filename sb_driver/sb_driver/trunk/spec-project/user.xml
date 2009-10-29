@@ -2,8 +2,8 @@
 
 <project basedir="." default="compile_jml_source" name="spec">
 
-  <property name="main-project.location" value="../main-project" />
-  <property name="spec-project.location" value="." />
+  <property name="main-project.location" location="../main-project" />
+  <property name="spec-project.location" location="." />
 
   <path id="jml-libraries.classpath">
     <pathelement location="${spec-project.location}/lib/jml/jml-release.jar" />
@@ -22,10 +22,10 @@
   </path>
   <property name="jml.classpath" refid="jml.classpath" />
 
-  <property name="jml.src" value="src" />
-  <property name="jml.rac.src.generated" value="jml/src.generated" />
-  <property name="jml.rac.src" value="jml/src" />
-  <property name="jml.rac.compiled" value="jml/bin" />
+  <property name="jml.src" location="src" />
+  <property name="jml.rac.src.generated" location="jml/src.generated" />
+  <property name="jml.rac.src" location="jml/src" />
+  <property name="jml.rac.compiled" location="jml/bin" />
   
   <property name="jml.src.compile" value="ie.ucd.sensetile"/>
   
