@@ -49,8 +49,6 @@
     <path refid="jml.src.compile" />
   </pathconvert>
 
-  <property name="jml.src.compile" value="ie.ucd.sensetile"/>
-  
   <target name="clean">
     <delete dir="${jml.junit.src}" />
   </target>
@@ -92,10 +90,6 @@
       <arg line="--destination ${jml.junit.src}" />
       <arg line="${jml.src.compile}" />
     </java>
-  </target>
-
-  <target name="tryme">
-    <echo>Flattened: ${jml.src.compile}</echo>
   </target>
 
 </project>
