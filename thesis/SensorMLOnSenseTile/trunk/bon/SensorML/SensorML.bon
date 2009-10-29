@@ -1,0 +1,33 @@
+effective class Connections
+      indexing
+      about: "This class represents connections between SensorML processes.";
+      title:        "Connections";
+      author:       "Ciaran Palmer";
+      copyright:    "none";
+      organisation: "School of Computer Science and Informatics, UCD";
+      date:         "2009/10/29";
+      version:      "Revision: 1.00";
+     
+
+     
+    feature
+      
+      getConnectionList: ConnectionList
+
+      setConnectionList
+        ->connectionList: ConnectionList
+        require 
+          connectionList/=void
+        ensure
+          getConnectionList/=void
+        end
+
+      isSetConnectionList: BOOLEAN
+        ensure
+          Result <->getConnectionList/=void;
+        end
+
+end class Connections
+
+
+

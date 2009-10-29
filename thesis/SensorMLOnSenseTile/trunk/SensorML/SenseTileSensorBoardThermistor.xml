@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+   <sml:member xlink:arcrole="urn:ogc:def:process:OGC:detector">
+      <sml:Component gml:id="thermistor">
+         <gml:description>A Digital Temperature Sensor.</gml:description>
+         <gml:name>SenseTileThermistor</gml:name>
+         
+         <!-- Keywords -->
+         
+         <sml:keywords>
+            <sml:KeywordList>
+               <sml:keyword>sensor thermistor</sml:keyword>
+            </sml:KeywordList>
+         </sml:keywords>
+         
+         <!-- Identification -->
+         
+         <sml:identification>
+            <sml:IdentifierList>
+               <sml:identifier name="longName">
+                  <sml:Term definition="urn:ogc:def:identifier:longname">
+                     <sml:value>UCD SenseTile Sensor Board Thermistor</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="shortname">
+                  <sml:Term definition="urn:ogc:def:identifier:OGC:shortname">
+                     <sml:value>Sensor Board Thermistor</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="Model Number">
+                  <sml:Term definition="">
+                     <sml:value>TMP175</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+            </sml:IdentifierList>
+         </sml:identification>
+         
+         <!-- Capabilities -->
+         
+         <capabilities name="Measurement Properties">
+            - <swe:DataRecord definition="urn:ogc:def:property:measurementProperties">
+               <gml:description>The Senstile Sensor Board Temperature Sensor performs
+                  temperature measurement in a variety of communication,
+                  computer, consumer, environmental, industrial, and
+                  instrumentation applications.</gml:description> 
+
+               - <swe:field name="Temperature Resolution" xlink:arcrole="urn:ogc:def:property:resolution">
+                  <swe:Quantity definition="urn:ogc:def:property:temperature">
+                     <swe:uom code="cel" /> 
+                     <swe:value>0.0625</swe:value> 
+                  </swe:Quantity>
+               </swe:field>
+               <swe:field name="Temperature Range" xlink:arcrole="urn:ogc:def:property:dynamicRange">
+                  <swe:QuantityRange definition="urn:ogc:def:property:temperature">
+                     <swe:uom code="cel" /> 
+                     <swe:value>-45 125</swe:value> 
+                  </swe:QuantityRange>
+               </swe:field>
+               <swe:field name="Absolute Accuracy" xlink:arcrole="urn:ogc:def:property:accuracy">
+                  <swe:QuantityRange definition="urn:ogc:def:property:absoluteAccuracy">
+                     <swe:uom code="%" /> 
+                     <swe:value>-2.0 2.0</swe:value> 
+                  </swe:QuantityRange>
+               </swe:field>
+            </swe:DataRecord>
+         </capabilities>
+
+         <!-- Manafacturer contact -->
+         
+         <contact xlink:href="./TexasInstruments" xlink:arcrole="urn:ogc:def:role:manufacturer" /> 
+         
+         <!-- Documentation -->
+         
+         <documentation xlink:arcrole="urn:ogc:role:specificationSheet">
+            <Document>
+               <gml:description>Specification sheet for the 175 thermistor</gml:description> 
+               <format>pdf</format> 
+               <onlineResource xlink:href="http://www.xxxx/xxxxx.pdf" /> 
+            </Document>
+         </documentation>
+
+         
+         <!-- Inputs -->
+         
+         <sml:inputs>
+            <sml:InputList>
+               <sml:input name="txPacketTemperature">
+                  <swe:Count/>                 
+               </sml:input>
+            </sml:InputList>
+         </sml:inputs>
+         
+         <!-- Outputs -->
+         
+         <sml:outputs>
+            <sml:OutputList>
+               <sml:output name="temperature">
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
+                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
+                     <swe:constraint>
+                        <swe:AllowedValue id="temperatureRange">
+                           <swe:interval>-45 125</swe:interval>
+                        </swe:AllowedValue>
+                     </swe:constraint>
+                  </swe:Quantity>
+               </sml:output>
+            </sml:OutputList>
+         </sml:outputs>
+         
+         <!-- Method -->
+         <method xlink:href="urn:ucd:sensetile:sensorboard:thermistor" /> 
+		 
+      </sml:Component>
+	</sml:member>   
+</sml:SensorML>
