@@ -2,9 +2,9 @@
 
 <project basedir="." default="generate_jml_test_source" name="test-jml">
 
-  <property name="main-project.location" value="../main-project" />
-  <property name="spec-project.location" value="../spec-project" />
-  <property name="test.jml.project" value="." />
+  <property name="main-project.location" location="../main-project" />
+  <property name="spec-project.location" location="../spec-project" />
+  <property name="test-jml-project.location" location="." />
 
   <path id="jml-libraries.classpath">
     <pathelement location="${spec-project.location}/lib/jml/jml-release.jar" />
@@ -23,8 +23,31 @@
   </path>
   <property name="jml.classpath" refid="jml.classpath" />
 
-  <property name="jml.src" value="${spec-project.location}/src" />
-  <property name="jml.junit.src" value="${test.jml.project}/test.generated" />
+  <property name="jml.src" location="${spec-project.location}/src" />
+  <property name="jml.junit.src" location="${test-jml-project.location}/test.generated" />
+
+  <path id="jml.src.compile">
+    <filelist dir="${jml.src}/ie/ucd/sensetile/sensorboard">
+      <file name="Frame.java" />
+      <file name="Packet.java" />
+      <file name="PacketInputStream.java" />
+    </filelist>
+    <filelist dir="${jml.src}/ie/ucd/sensetile/sensorboard/driver">
+      <file name="ByteArrayFrame.java" />
+      <file name="ByteArrayPacket.java" />
+      <file name="InputStreamPacketInputStream.java" />
+    </filelist>
+  	<filelist dir="${jml.src}/ie/ucd/sensetile/sensorboard/simulator">
+      <file name="CloneablePacket.java" />
+      <file name="InstanceFrame.java" />
+      <file name="InstancePacket.java" />
+      <file name="PacketBuilder.java" />
+      <file name="SimulatorPacketInputStream.java" />
+    </filelist>
+  </path>
+  <pathconvert property="jml.src.compile" pathsep=" ">
+    <path refid="jml.src.compile" />
+  </pathconvert>
 
   <property name="jml.src.compile" value="ie.ucd.sensetile"/>
   
@@ -37,10 +60,13 @@
   </target>
   
   <target name="generate_jml_test_source" depends="init">
-    <property name="jml.debug" value="--debug" />
+    <!--
+    <property name="jml.debug" value="- -debug" />
+    -->
     <property name="jml.warning" value="--warning" />
     <property name="jml.recursive" value="--recursive" />
     <property name="jml.source_code" value="--source 1.4" />
+    <property name="jml.test.data" value="--testdata" />
     <!-- 
     <property name="jml.test.generator" value="- - useGenerator" /> 
     -->
@@ -57,6 +83,7 @@
       <arg line="${jml.warning}" />
       <arg line="${jml.recursive}" />
       <arg line="${jml.source_code}" />
+    	<arg line="${jml.test.data}" />
       <arg line="${jml.test.generator}" />
       <arg line="${jml.test.generator.classname}" />
       <arg line="${jml.test.generator.packagename}" />
@@ -65,6 +92,10 @@
       <arg line="--destination ${jml.junit.src}" />
       <arg line="${jml.src.compile}" />
     </java>
+  </target>
+
+  <target name="tryme">
+    <echo>Flattened: ${jml.src.compile}</echo>
   </target>
 
 </project>
