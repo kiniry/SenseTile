@@ -30,8 +30,8 @@ public class SampleSink {
 			
 			JndiContext context = new JndiContext();
 			context.bind("syncer", new SyncerProcessor());
-			context.bind("lowAggregator", new PacketProcessor(100, PacketProcessor.TYPE.LOW, ctx));
-			context.bind("highAggregator", new PacketProcessor(100, PacketProcessor.TYPE.HIGH, ctx));
+			context.bind("lowAggregator", new PacketProcessor(1, PacketProcessor.TYPE.LOW, ctx));
+			context.bind("highAggregator", new PacketProcessor(1, PacketProcessor.TYPE.HIGH, ctx));
 			context.bind("simpleBean", new SimpleBean());
 			
 			ctx.setJndiContext(context);
@@ -63,7 +63,6 @@ public class SampleSink {
 			SyncerProcessor b = (SyncerProcessor)ctx.getRegistry().lookup("syncer");
 			
 			System.out.println(b.timestamp1 + ":" + b.timestamp2 + " : " +(b.timestamp2-b.timestamp1));
-			
 			ctx.stop();
 		} catch (Exception e){
 			e.printStackTrace();

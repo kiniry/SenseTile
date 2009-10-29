@@ -35,4 +35,15 @@ public class SimpleDataPacket implements Serializable{
 
 		return sb.toString();
 	}
+	
+	public int getSize() {
+		int size = 0;
+		for (int i=0; i<payload.length; i++) {
+			size += payload[i].length;
+		}
+		
+		size *= 4; // To get bytes
+		
+		return size;
+	}
 }

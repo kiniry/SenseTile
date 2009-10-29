@@ -17,6 +17,8 @@ public class SampleSource {
 	public static final String SINK_URL = "mina:tcp://localhost:7777?sync=false";
 	public static final String SINK_URL2 = "mina:tcp://localhost:7778?sync=false";
 	
+	Random r = new Random(System.currentTimeMillis());
+	
 	private DefaultCamelContext ctx;
 	
 	public SampleSource() {
@@ -28,7 +30,7 @@ public class SampleSource {
 		try {
 			ctx.addRoutes(new RouteBuilder() {
 			    public void configure() {
-			    	//from("direct: sendData").throttle(10000).timePeriodMillis(1000).to(SINK_URL);
+			    	//from("direct: sendData").throttle(1000).timePeriodMillis(1000).to(SINK_URL);
 			    	from("direct: sendData").to(SINK_URL);
 		    	}
 			});
@@ -41,12 +43,10 @@ public class SampleSource {
 		try {
 			ctx.start();
 			
-			List<StreamDataContainer> data = getSampleStreamData();
-			
 			ProducerTemplate pt = ctx.createProducerTemplate();
 			long t1 = System.currentTimeMillis();
-			for (StreamDataContainer packet : data) {
-				pt.requestBody("direct: sendData", packet);	
+			for (int i=0; i<100000; i++) {
+				pt.requestBody("direct: sendData", getSampleData());	
 			}
 			System.out.println(System.currentTimeMillis() - t1);
 			
@@ -55,34 +55,19 @@ public class SampleSource {
 			e.printStackTrace();
 		}	
 	}
-	
-	public String buildMessage(int bytes) {
-		StringBuffer sb = new StringBuffer();
-		
-		int size = bytes;
-		for (int i=0; i<size; i++){
-			sb.append("A");
+
+	public List<StreamDataContainer> getSampleStreamData() {
+		List<StreamDataContainer> data = new ArrayList<StreamDataContainer>();
+		for (int i=0; i<20000; i++) {
+			data.add(getSampleData());
 		}
-		
-		return sb.toString();
+		return data;
 	}
 	
-	public List<StreamDataContainer> getSampleStreamData() {
-		
-		Random r = new Random(System.currentTimeMillis());
-		
-		List<StreamDataContainer> data = new ArrayList<StreamDataContainer>();
-		for (int i=0; i<10000; i++) {
-			StreamDataContainer sample = new StreamDataContainer();
-			for (int j=0; j<sample.highCount; j++) {
-				sample.high[j] = r.nextInt();
-			}
-			for (int j=0; j<sample.lowCount; j++) {
-				sample.low[j] = j;
-			}
-			data.add(sample);
-		}
-		return data;	
+	public StreamDataContainer getSampleData() {
+		StreamDataContainer sample = new StreamDataContainer(250,2250);
+		sample.initRandom(r);
+		return sample;
 	}
 	
 	public static void main (String [] args){

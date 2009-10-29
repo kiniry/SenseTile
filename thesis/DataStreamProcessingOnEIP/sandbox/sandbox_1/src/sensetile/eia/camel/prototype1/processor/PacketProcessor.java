@@ -60,7 +60,6 @@ public class PacketProcessor {
     	} else if (type == TYPE.HIGH) {
     		endpoint = "direct:sendHigh";
     	}
-
 		producer.sendBody(endpoint, sdp);
     }
 
