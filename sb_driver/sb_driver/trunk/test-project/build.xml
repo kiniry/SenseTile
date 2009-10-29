@@ -81,6 +81,31 @@
             <classpath refid="test-project.classpath"/>
         </junit>
     </target>
+    <target name="test-project">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.AllAcceptanceTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.AllAcceptanceTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.BoardCommunicationAcceptanceTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.DriverUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.ByteArrayFrameUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.ByteArrayPacketUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStreamAsPacketInputStreamUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStreamUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.simulator.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.simulator.FileAndClonePacketBuilderTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.simulator.SimulatorPacketInputStreamAsPacketInputStreamUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.simulator.SimulatorPacketInputStreamTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.util.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.util.BytePatternUnitTest" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.util.UnsignedByteArrayUnitTest" todir="${junit.output.dir}"/>
+            <classpath refid="test-project.classpath"/>
+        </junit>
+    </target>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
