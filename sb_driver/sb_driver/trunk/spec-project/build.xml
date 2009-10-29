@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="spec-project">
+    <property environment="env"/>
+    <property name="driver-tries.location" value="../driver-tries"/>
+    <property name="simulator-project.location" value="../simulator-project"/>
+    <property name="test-project.location" value="../test-project"/>
+    <property name="main-project.location" value="../main-project"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.4"/>
+    <property name="source" value="1.4"/>
+    <import file="user_include.xml"/>
+    <path id="main-project.classpath">
+        <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <path id="spec-project.classpath">
+        <pathelement location="bin"/>
+        <path refid="main-project.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+                <exclude name="**/.svn"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <exclude name="**/.svn"/>
+            <classpath refid="spec-project.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="build"/>
+    </target>
+</project>
