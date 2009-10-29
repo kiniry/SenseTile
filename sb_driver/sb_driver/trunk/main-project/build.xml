@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="main-project">
+    <property environment="env"/>
+    <property name="driver-tries.location" value="../driver-tries"/>
+    <property name="profile-jml-project.location" value="../profile-jml-project"/>
+    <property name="simulator-project.location" value="../simulator-project"/>
+    <property name="spec-project.location" value="../spec-project"/>
+    <property name="test-jml-project.location" value="../test-jml-project"/>
+    <property name="test-project.location" value="../test-project"/>
+    <property name="test-rac-project.location" value="../test-rac-project"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.2"/>
+    <property name="source" value="1.3"/>
+    <path id="main-project.classpath">
+        <pathelement location="lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <target name="init"/>
+    <target name="clean"/>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build"/>
+        <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-project.location}/build.xml" dir="${test-project.location}" inheritAll="false" target="build"/>
+        <ant antfile="${test-rac-project.location}/build.xml" dir="${test-rac-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-rac-project.location}/build.xml" dir="${test-rac-project.location}" inheritAll="false" target="build"/>
+    </target>
+</project>
