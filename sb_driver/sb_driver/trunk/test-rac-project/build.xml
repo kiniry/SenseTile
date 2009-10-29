@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="test-rac-project">
+    <property environment="env"/>
+    <property name="test-project.location" value="../test-project"/>
+    <property name="spec-project.location" value="../spec-project"/>
+    <property name="driver-jml-tries.location" value="../driver-jml-tries"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="main-project.location" value="../main-project"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.2"/>
+    <property name="source" value="1.3"/>
+    <path id="main-project.classpath">
+        <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <path id="test-rac-project.classpath">
+        <path refid="main-project.classpath"/>
+        <pathelement location="${test-project.location}/bin"/>
+        <pathelement location="${spec-project.location}/lib/jml/jml-release.jar"/>
+        <pathelement location="${test-project.location}/lib/junit/junit.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/cglib-nodep.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/cglib-src.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/hamcrest-core.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/hamcrest-library.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock-junit4.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock-legacy.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/objenesis.jar"/>
+        <pathelement location="${test-project.location}/lib/junit/junit-dep.jar"/>
+        <pathelement location="${spec-project.location}/jml/bin"/>
+    </path>
+    <target name="init"/>
+    <target name="clean"/>
+    <target depends="clean" name="cleanall">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${driver-jml-tries.location}/build.xml" dir="${driver-jml-tries.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${driver-jml-tries.location}/build.xml" dir="${driver-jml-tries.location}" inheritAll="false" target="build"/>
+    </target>
+    <target name="AllUnitTests test-rac-project">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.AllUnitTests" todir="${junit.output.dir}"/>
+            <classpath refid="test-rac-project.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
