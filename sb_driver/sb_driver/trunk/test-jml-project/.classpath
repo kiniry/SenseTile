@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="test.generated"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test.generated"/>
+	<classpathentry kind="src" path="suites"/>
 	<classpathentry kind="lib" path="/spec-project/jml/bin" sourcepath="/spec-project/jml/src"/>
 	<classpathentry kind="lib" path="/spec-project/lib/jml/jml-release.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/main-project"/>
