@@ -2,10 +2,8 @@
 insert static attributes as instance in InputStreamPacket
 
 create ant
- build
- run unit tests
- run acceptance tests
  run checkstyle
+ run acceptance tests
  run pmd
 
 prepare testbench
