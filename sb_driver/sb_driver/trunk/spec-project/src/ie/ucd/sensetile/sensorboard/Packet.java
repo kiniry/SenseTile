@@ -1,8 +1,7 @@
 /*
- * Packet.java
- *
- * Copyright 2009 SenseTile, UCD. All rights reserved.
- */
+Copyright 2009 (C) SenseTile, UCD. All rights reserved.
+*/
+
 package ie.ucd.sensetile.sensorboard;
 
 /**
@@ -203,6 +202,11 @@ public interface Packet {
     @*/
   /*@ pure non_null */ Frame getFrame(int index);
   
+  /**
+   * Time interface.
+   * 
+   * @author delbianc
+   */
   public interface Time {
     
     /**

@@ -17,13 +17,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class InputStreamPacketInputStream implements PacketInputStream {
+/**
+ * PacketInputStream built on real senor board InputStream.
+ * 
+ * @author delbianc
+ *
+ */
+public final class InputStreamPacketInputStream implements PacketInputStream {
   
-  /*
-   * property names
+  /**
+   * Property name of trim packets: the number of pacjets to be trimmed when 
+   * pattern is not found (in packets).
    */
   public static final String TRIM_PACKETS_PROPERTY = "trimPackets";
-  public static final String VALIDATE_MINIMUM_PACKETS_PROPERTY = "validateMinimumPackets";
+  
+  /**
+   * Property name of validate minimum packets: the minimum valid packets to 
+   * consider the stream valid (in packets).
+   */
+  public static final String VALIDATE_MINIMUM_PACKETS_PROPERTY = 
+    "validateMinimumPackets";
+  
+  /**
+   * Property name of buffer packets: the buffer length (in packets).
+   */
   public static final String BUFFER_PACKETS_PROPERTY = "bufferPackets";
   
   /*
@@ -56,7 +73,8 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   /*
    * byte pattern matcher
    */
-  private BytePattern pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
+  private BytePattern pattern = 
+    BytePattern.createPattern(getPacketPattern(), getPacketLength());
   
   /*
    * flag: input stream closed
@@ -73,19 +91,36 @@ public class InputStreamPacketInputStream implements PacketInputStream {
    */
   private boolean isValid;
   
+  /**
+   * Creates a PacketInputStream from an InputStreeam.
+   * FactoryMethod.
+   * 
+   * @param is InputStream
+   * @return created PacketInputStream
+   */
   public static InputStreamPacketInputStream createInputStreamPacketInputStream(
-      InputStream is) {
+      final InputStream is) {
     return createInputStreamPacketInputStream(is, new Properties());
   }
   
+  /**
+   * Creates a PacketInputStream from an InputStreeam.
+   * FactoryMethod.
+   * 
+   * @param is InputStream
+   * @param properties initialization properties
+   * @return created PacketInputStream
+   */
   public static InputStreamPacketInputStream createInputStreamPacketInputStream(
-      InputStream is, Properties properties) {
-    InputStreamPacketInputStream pis = new InputStreamPacketInputStream(is, properties);
+      final InputStream is, final Properties properties) {
+    InputStreamPacketInputStream pis = 
+      new InputStreamPacketInputStream(is, properties);
     // buffer
     pis.raw = new byte[getPacketLength() * pis.getBufferPackets()];
     pis.byteArray = UnsignedByteArray.create(pis.raw, 0, 0);
     // pattern
-    pis.pattern = BytePattern.createPattern(getPacketPattern(), getPacketLength());
+    pis.pattern = 
+      BytePattern.createPattern(getPacketPattern(), getPacketLength());
     // flags
     pis.isValid = false;
     pis.isEOF = false;
@@ -107,32 +142,44 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private int getValidateMinimumPackets() {
-    return Integer.parseInt(properties.getProperty(VALIDATE_MINIMUM_PACKETS_PROPERTY));
+    return Integer.parseInt(
+        properties.getProperty(VALIDATE_MINIMUM_PACKETS_PROPERTY));
   }
   
   private int getTrimPackets() {
     return Integer.parseInt(properties.getProperty(TRIM_PACKETS_PROPERTY));
   }
   
-  public final int availablePackets() throws IOException {
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#availablePackets()
+   */
+  public int availablePackets() throws IOException {
    return (byteArray.length() + input.available()) / getPacketLength();
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#read(
+   *   ie.ucd.sensetile.sensorboard.Packet[])
+   */
   public int read(final Packet[] array) 
-      throws IOException, SenseTileException{
+      throws IOException, SenseTileException {
     return read(array, 0, array.length);
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#read(
+   *   ie.ucd.sensetile.sensorboard.Packet[], int, int)
+   */
   public int read(
       final Packet[] array, final int offset, final int length) 
-      throws IOException, SenseTileException{
+      throws IOException, SenseTileException {
     if (isClose()) {
       throw new IOException();
     }
     if (isEOF()) {
       return -1;
     }
-    if(! isValid()) {
+    if (!isValid()) {
       return 0;
     }
     ReturnPacketArray returnArray = 
@@ -141,29 +188,40 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     return returnArray.read();
   }
   
-  public Packet read() throws IOException, SenseTileException{
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#read()
+   */
+  public Packet read() throws IOException, SenseTileException {
     Packet[] array = new Packet[1];
     readFully(array);
     return array[0];
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#readFully(
+   *   ie.ucd.sensetile.sensorboard.Packet[])
+   */
   public void readFully(final Packet[] array) 
-      throws IOException, SenseTileException{
+      throws IOException, SenseTileException {
     readFully(array, 0, array.length);
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#readFully(
+   *   ie.ucd.sensetile.sensorboard.Packet[], int, int)
+   */
   public void readFully(
       final Packet[] array, 
       final int offset, 
       final int length) 
-      throws IOException, SenseTileException{
+      throws IOException, SenseTileException {
     if (isClose()) {
       throw new IOException();
     }
     if (isEOF()) {
       throw new EOFException();
     }
-    if(! isValid()){
+    if (!isValid()) {
       waitReadToValidate();
     }
     ReturnPacketArray returnArray = 
@@ -171,7 +229,10 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     waitReadToReturn(returnArray);
   }
   
-  public final void close() throws IOException {
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.PacketInputStream#close()
+   */
+  public void close() throws IOException {
     isClose = true;
     input.close();
   }
@@ -196,7 +257,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
         return;
       }
       bufferToReturn(array);
-    } while (! array.isFull());
+    } while (!array.isFull());
   }
   
   private int readIntoBuffer() throws IOException {
@@ -224,7 +285,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private void waitReadToValidate() throws IOException {
-    while(! isValid) {
+    while (!isValid) {
       waitReadIntoBuffer(getPacketLength() * getValidateMinimumPackets());
       if (validateAndTrimBuffer()) {
         isValid = true;
@@ -241,7 +302,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       toBeRead = toBeRead > getBufferPackets() ? getBufferPackets() : toBeRead;
       waitReadIntoBuffer(toBeRead * getPacketLength());
       bufferToReturn(array);
-    } while (! array.isFull());
+    } while (!array.isFull());
   }
   
   private void waitReadIntoBuffer(final int length) throws IOException {
@@ -254,7 +315,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
     int begin = byteArray.getBeginOffset();
     int end = byteArray.getEndOffset();
     int readEnd = (begin + length) % raw.length;
-    if(readEnd > end) {
+    if (readEnd > end) {
       input.readFully(raw, end, readEnd - end);
     } else {
       input.readFully(raw, end, raw.length - end);
@@ -273,7 +334,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
       Packet packet;
       packet = readPacketFromBuffer();
       array.add(packet);
-    } while (! array.isFull());
+    } while (!array.isFull());
   }
   
   private boolean validateAndTrimBuffer() {
@@ -319,7 +380,7 @@ public class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private boolean isValid() throws IOException {
-    if (! isValid) {
+    if (!isValid) {
       readToValidate();
     }
     return isValid;

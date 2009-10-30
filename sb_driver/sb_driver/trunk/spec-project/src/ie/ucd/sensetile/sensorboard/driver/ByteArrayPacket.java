@@ -12,8 +12,9 @@ import ie.ucd.sensetile.util.BytePattern;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
 /**
+ * Packet from byte array.
+ * 
  * @author delbianc
- *
  */
 public final class ByteArrayPacket implements Packet {
   
@@ -70,6 +71,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int TEMPERATURE_POSITION = 4;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getTemperature()
+   */
   public short getTemperature() {
     return (short) raw.get12BitsSigned(TEMPERATURE_POSITION);
   }
@@ -83,6 +87,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int PRESSURE_POSITION = 6;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getPressure()
+   */
   public short getPressure() {
     return (short) raw.getShortUnsigned(PRESSURE_POSITION);
   }
@@ -96,6 +103,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int LIGHT_LEVEL_POSITION = 8;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getLightLevel()
+   */
   public short getLightLevel() {
     return (short) raw.getShortUnsigned(LIGHT_LEVEL_POSITION);
   }
@@ -109,6 +119,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int ACCELEROMETER_X_POSITION = 10;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerX()
+   */
   public short getAccelerometerX() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_X_POSITION);
   }
@@ -122,6 +135,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int ACCELEROMETER_Y_POSITION = 12;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerY()
+   */
   public short getAccelerometerY() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_Y_POSITION);
   }
@@ -135,6 +151,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int ACCELEROMETER_Z_POSITION = 14;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerZ()
+   */
   public short getAccelerometerZ() {
     return (short) raw.getShortUnsigned(ACCELEROMETER_Z_POSITION);
   }
@@ -148,6 +167,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int SUPPLY_VOLTAGE_POSITION = 16;
 
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getSupplyVoltage()
+   */
   public int getSupplyVoltage() {
     return raw.getShortUnsigned(SUPPLY_VOLTAGE_POSITION);
   }
@@ -161,6 +183,9 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int SUPPLY_CURRENT_POSITION = 18;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getSupplyCurrent()
+   */
   public int getSupplyCurrent() {
     return raw.getShortUnsigned(SUPPLY_CURRENT_POSITION);
   }
@@ -189,20 +214,35 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int CENTISECONDS_POSITION = 23;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getTime()
+   */
   public Time getTime() {
-    return new Time(){
+    return new Time() {
+      /* (non-Javadoc)
+       * @see ie.ucd.sensetile.sensorboard.Packet.Time#getHours()
+       */
       public byte getHours() {
         return getRaw().getByte(HOURS_POSITION);
       }
       
+      /* (non-Javadoc)
+       * @see ie.ucd.sensetile.sensorboard.Packet.Time#getMinutes()
+       */
       public byte getMinutes() {
         return getRaw().getByte(MINUTES_POSITION);
       }
       
+      /* (non-Javadoc)
+       * @see ie.ucd.sensetile.sensorboard.Packet.Time#getSeconds()
+       */
       public byte getSeconds() {
         return getRaw().getByte(SECONDS_POSITION);
       }
       
+      /* (non-Javadoc)
+       * @see ie.ucd.sensetile.sensorboard.Packet.Time#getCentiSeconds()
+       */
       public byte getCentiSeconds() {
         return getRaw().getByte(CENTISECONDS_POSITION);
       }
@@ -219,12 +259,23 @@ public final class ByteArrayPacket implements Packet {
    */
   public static final int FRAME_LENGTH = 12;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getFrame(int)
+   */
   public Frame getFrame(final int index) {
     return new ByteArrayFrame(this.getRaw(), index);
   }
   
   private final UnsignedByteArray raw;
   
+  /**
+   * Create packet from byte array.
+   * 
+   * @param rawPacket byte array
+   * @param previousPacket previous packet in stream
+   * @return packet
+   * @throws SenseTileException byte array not valid
+   */
   public static Packet createPacket(
       final byte[] rawPacket, 
       final Packet previousPacket) 
@@ -233,6 +284,13 @@ public final class ByteArrayPacket implements Packet {
     checkIndex(previousPacket, packet);
     return packet;
   }
+  
+  /**
+   * Create packet from byte array.
+   * 
+   * @param rawPacket byte array
+   * @return packet
+   * @throws SenseTileException byte array not valid   */
   public static ByteArrayPacket createPacket(
       final byte[] rawPacket) 
       throws SenseTileException {
@@ -240,6 +298,14 @@ public final class ByteArrayPacket implements Packet {
     return createPacket(raw);
   }
   
+  /**
+   * Create packet from byte array.
+   * 
+   * @param raw byte array
+   * @param previousPacket previous packet in stream
+   * @return packet
+   * @throws SenseTileException byte array not valid
+   */
   public static Packet createPacket(
       final UnsignedByteArray raw, 
       final Packet previousPacket) 
@@ -249,6 +315,13 @@ public final class ByteArrayPacket implements Packet {
     return packet;
   }
   
+  /**
+   * Create packet from byte array.
+   * 
+   * @param raw byte array
+   * @return packet
+   * @throws SenseTileException byte array not valid
+   */
   public static ByteArrayPacket createPacket(
       final UnsignedByteArray raw) 
       throws SenseTileException {
@@ -268,7 +341,8 @@ public final class ByteArrayPacket implements Packet {
   private static void checkPattern(final UnsignedByteArray raw) 
       throws SenseTileException {
     BytePattern bp = BytePattern.createPattern(PATTERN);
-    int relativeOffset = bp.match(UnsignedByteArray.create(raw, PATTERN_OFFSET, raw.length()));
+    int relativeOffset = 
+      bp.match(UnsignedByteArray.create(raw, PATTERN_OFFSET, raw.length()));
     if (relativeOffset == -1) {
       throw new SenseTileException("Packet pattern not found.");
     }

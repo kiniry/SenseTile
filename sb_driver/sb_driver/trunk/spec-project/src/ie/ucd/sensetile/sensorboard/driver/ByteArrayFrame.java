@@ -9,15 +9,30 @@ package ie.ucd.sensetile.sensorboard.driver;
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.util.UnsignedByteArray;
 
-public final class ByteArrayFrame implements Frame{
+/**
+ * Frame based on byte array.
+ * 
+ * @author delbianc
+ */
+/**
+ * @author delbianc
+ *
+ */
+public final class ByteArrayFrame implements Frame {
   
   private final UnsignedByteArray rawFrame; 
   
+  /**
+   * ByteArrayFrame constructor from byte array.
+   * 
+   * @param raw byte array
+   * @param frame index
+   */
   /*@ 
-    @ requires index >= 0;
-    @ requires index < Packet.FRAMES;
-    @*/
-  public ByteArrayFrame(UnsignedByteArray raw, final int index) {
+    requires index >= 0;
+    requires index < Packet.FRAMES;
+  @*/
+  public ByteArrayFrame(final UnsignedByteArray raw, final int index) {
     rawFrame = UnsignedByteArray.create(
         raw, 
         ByteArrayPacket.ADC_DATA_OFFSET + ByteArrayPacket.FRAME_LENGTH * index, 
@@ -29,6 +44,9 @@ public final class ByteArrayFrame implements Frame{
    */
   public static final int IRD_BIT_POSITION = 2;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isIRDSynachronizationActive()
+   */
   public boolean isIRDSynachronizationActive() {
     return getBit(IRD_BIT_POSITION);
   }
@@ -47,6 +65,9 @@ public final class ByteArrayFrame implements Frame{
    */
   public static final int AUDIO_VALID_BIT_POSITION = 1;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isAudioActive()
+   */
   public boolean isAudioActive() {
     return 
         getBit(AUDIO_ENABLE_BIT_POSITION) && 
@@ -59,11 +80,18 @@ public final class ByteArrayFrame implements Frame{
   }
   
   /**
-   * audio frequency bit position and length.
+   * audio frequency bit position.
    */
   public static final int AUDIO_FREQUENCY_BIT_POSITION = 14;
+  
+  /**
+   * audio frequency length.
+   */
   public static final int AUDIO_FREQUENCY_BIT_LENGTH = 15;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getAudioFrequency()
+   */
   public int getAudioFrequency() {
     return getBits(
         AUDIO_FREQUENCY_BIT_POSITION, 
@@ -82,6 +110,9 @@ public final class ByteArrayFrame implements Frame{
    */
   public static final int AUDIO_POSITION = 4;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getAudio(int)
+   */
   public char getAudio(final int channel) {
     if (channel < 0 || channel >= AUDIO_CHANNELS) {
       throw new IndexOutOfBoundsException();
@@ -111,6 +142,9 @@ public final class ByteArrayFrame implements Frame{
    */
   public static final int ADC_USED_BIT_POSITION = 6;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isADCActive()
+   */
   public boolean isADCActive() {
     return 
         getBit(ADC_ENABLE_BIT_POSITION) && 
@@ -125,11 +159,18 @@ public final class ByteArrayFrame implements Frame{
   }
   
   /**
-   * ADC channel bit position and length.
+   * ADC channel bit position.
    */
   public static final int ADC_CHANNEL_BIT_POSITION = 8;
+
+  /**
+   * ADC channel length.
+   */
   public static final int ADC_CHANNEL_BIT_LENGTH = 3;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getADCChannel()
+   */
   public int getADCChannel() {
     return getBits(
         ADC_CHANNEL_BIT_POSITION, 
@@ -148,6 +189,9 @@ public final class ByteArrayFrame implements Frame{
    */
   public static final int ADC_POSITION = 2;
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getADC()
+   */
   public char getADC() {
     return (char) rawFrame.getShortUnsigned(ADC_POSITION);
   }
@@ -157,16 +201,18 @@ public final class ByteArrayFrame implements Frame{
   }
   
   boolean getBit(final int index) {
-    return rawFrame.getBit(1 - index / 8, index % 8);
+    return rawFrame.getBit(
+        1 - index / BYTE_BIT_LENGTH, index % BYTE_BIT_LENGTH);
   }
   
   void setBit(final int index, final boolean value) {
-    rawFrame.setBit(1 - index / 8, index % 8, value);
+    rawFrame.setBit(
+        1 - index / BYTE_BIT_LENGTH, index % BYTE_BIT_LENGTH, value);
   }
   
   int getBits(final int index, final int length) {
     int mask = (int) (Math.pow(2, length) - 1) << index;
-    int value = ((mask & rawFrame.getShortUnsigned(0)) >>> index) & 0xFFFF;
+    int value = ((mask & rawFrame.getShortUnsigned(0)) >>> index) & CHAR_MASK;
     return value;
   }
   
@@ -174,11 +220,14 @@ public final class ByteArrayFrame implements Frame{
     if (value < 0 || value >= (int) (Math.pow(2, length))) {
       throw new IllegalArgumentException();
     }
-    int mask = ~ (
-          ((int) (Math.pow(2, length) - 1)) 
-          << index);
+    int mask = ~(
+          ((int) (Math.pow(2, length) - 1)) << index);
     int oldValueWithHole = rawFrame.getShortUnsigned(0) & mask;
-    int newValue = oldValueWithHole | (value<<index);
+    int newValue = oldValueWithHole | (value << index);
     rawFrame.setShortUnsigned(0, newValue);
   }
+  
+  private static final int BYTE_BIT_LENGTH = 8;
+  
+  private static final int CHAR_MASK = 0xFFFF;
 }

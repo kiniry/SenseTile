@@ -3,6 +3,12 @@ package ie.ucd.sensetile.sensorboard.simulator;
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.Packet;
 
+/**
+ * Packet from plain variables.
+ * 
+ * @author delbianc
+ *
+ */
 public class InstancePacket implements CloneablePacket {
   
   /*
@@ -32,6 +38,9 @@ public class InstancePacket implements CloneablePacket {
    */
   private InstanceFrame[] frames = new InstanceFrame[FRAMES];
   
+  private static final short PRESSURE_DEFAULT = 310;
+  private static final short ACCELLEROMETER_DEFAULT = 1860;
+  
   InstancePacket() {
     for (int frameIndex = 0; frameIndex < frames.length; frameIndex++) {
       frames[frameIndex] = new InstanceFrame();
@@ -39,10 +48,10 @@ public class InstancePacket implements CloneablePacket {
     }
     setTime(new TimeInstance());
     // defaults
-    setPressure((short)310);
-    setAccelerometerX((short)1860);
-    setAccelerometerY((short)1860);
-    setAccelerometerZ((short)1860);
+    setPressure(PRESSURE_DEFAULT);
+    setAccelerometerX(ACCELLEROMETER_DEFAULT);
+    setAccelerometerY(ACCELLEROMETER_DEFAULT);
+    setAccelerometerZ(ACCELLEROMETER_DEFAULT);
   }
   
   InstancePacket(final Packet template) {
@@ -61,6 +70,9 @@ public class InstancePacket implements CloneablePacket {
     setSupplyCurrent(template.getSupplyCurrent());
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getTime()
+   */
   public Packet.Time getTime() {
     return time;
   }
@@ -69,6 +81,9 @@ public class InstancePacket implements CloneablePacket {
     this.time = time;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getCounter()
+   */
   public char getCounter() {
     return counter;
   }
@@ -77,6 +92,9 @@ public class InstancePacket implements CloneablePacket {
     this.counter = counter;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getTemperature()
+   */
   public short getTemperature() {
     return temperature;
   }
@@ -85,6 +103,9 @@ public class InstancePacket implements CloneablePacket {
     this.temperature = temperature;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getPressure()
+   */
   public short getPressure() {
     return pressure;
   }
@@ -93,6 +114,9 @@ public class InstancePacket implements CloneablePacket {
     this.pressure = pressure;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getLightLevel()
+   */
   public short getLightLevel() {
     return lightLevel;
   }
@@ -101,6 +125,9 @@ public class InstancePacket implements CloneablePacket {
     this.lightLevel = lightLevel;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerX()
+   */
   public short getAccelerometerX() {
     return accelerometerX;
   }
@@ -109,6 +136,9 @@ public class InstancePacket implements CloneablePacket {
     this.accelerometerX = accelerometerX;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerY()
+   */
   public short getAccelerometerY() {
     return accelerometerY;
   }
@@ -117,6 +147,9 @@ public class InstancePacket implements CloneablePacket {
     this.accelerometerY = accelerometerY;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getAccelerometerZ()
+   */
   public short getAccelerometerZ() {
     return accelerometerZ;
   }
@@ -125,6 +158,9 @@ public class InstancePacket implements CloneablePacket {
     this.accelerometerZ = accelerometerZ;
   }
 
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getSupplyVoltage()
+   */
   public int getSupplyVoltage() {
     return supplyVoltage;
   }
@@ -133,6 +169,9 @@ public class InstancePacket implements CloneablePacket {
     this.supplyVoltage = supplyVoltage;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getSupplyCurrent()
+   */
   public int getSupplyCurrent() {
     return supplyCurrent;
   }
@@ -141,14 +180,25 @@ public class InstancePacket implements CloneablePacket {
     this.supplyCurrent = supplyCurrent;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Packet#getFrame(int)
+   */
   public Frame getFrame(final int index) {
     return frames[index];
   }
   
+  /* (non-Javadoc)
+   * @see java.lang.Object#clone()
+   */
   public Object clone() throws CloneNotSupportedException {
     return (InstancePacket) super.clone();
   }
   
+  /**
+   * Packet.Time from plain variables.
+   * 
+   * @author delbianc
+   */
   public static class TimeInstance implements Packet.Time, Cloneable {
     
     private byte hours;
@@ -170,6 +220,9 @@ public class InstancePacket implements CloneablePacket {
       setCentiSeconds(template.getCentiSeconds());
     }
     
+    /* (non-Javadoc)
+     * @see ie.ucd.sensetile.sensorboard.Packet.Time#getHours()
+     */
     public byte getHours() {
       return hours;
     }
@@ -178,6 +231,9 @@ public class InstancePacket implements CloneablePacket {
       this.hours = (byte) hours;
     }
     
+    /* (non-Javadoc)
+     * @see ie.ucd.sensetile.sensorboard.Packet.Time#getMinutes()
+     */
     public byte getMinutes() {
       return minutes;
     }
@@ -186,6 +242,9 @@ public class InstancePacket implements CloneablePacket {
       this.minutes = (byte) minutes;
     }
     
+    /* (non-Javadoc)
+     * @see ie.ucd.sensetile.sensorboard.Packet.Time#getSeconds()
+     */
     public byte getSeconds() {
       return seconds;
     }
@@ -194,6 +253,9 @@ public class InstancePacket implements CloneablePacket {
       this.seconds = (byte) seconds;
     }
     
+    /* (non-Javadoc)
+     * @see ie.ucd.sensetile.sensorboard.Packet.Time#getCentiSeconds()
+     */
     public byte getCentiSeconds() {
       return centiSeconds;
     }
@@ -202,6 +264,9 @@ public class InstancePacket implements CloneablePacket {
       this.centiSeconds = (byte) centiSeconds;
     }
     
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     public Object clone() throws CloneNotSupportedException {
       return (TimeInstance) super.clone();
     }

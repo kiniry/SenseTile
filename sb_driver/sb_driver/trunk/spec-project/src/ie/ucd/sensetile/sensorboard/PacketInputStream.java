@@ -75,7 +75,6 @@ public interface PacketInputStream {
    * </ul>
    *
    * @return the next packet of data.
-   * @throws EOFException if EOF reached.
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    */
@@ -105,9 +104,6 @@ public interface PacketInputStream {
    * The number of packets read is equal to length.
    * 
    * @param array the buffer into which the data is read.
-   * @param offset an int specifying the offset into the data.
-   * @param length an int specifying the number of bytes to read.
-   * @throws EOFException if this stream reaches the end before reading all the bytes.
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    **/
@@ -140,7 +136,6 @@ public interface PacketInputStream {
    * @param array the buffer into which the data is read.
    * @param offset an int specifying the offset into the data.
    * @param length an int specifying the number of bytes to read.
-   * @throws EOFException if this stream reaches the end before reading all the bytes.
    * @throws IOException if an I/O error occurs.
    * @throws SenseTileException if an invalid packet is read.
    **/

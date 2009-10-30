@@ -7,6 +7,11 @@ package ie.ucd.sensetile.sensorboard.simulator;
 
 import ie.ucd.sensetile.sensorboard.Frame;
 
+/**
+ * Frame built from plain values.
+ * 
+ * @author delbianc
+ */
 public class InstanceFrame implements Frame, Cloneable {
   
   private boolean isIRDSynachronizationActive;
@@ -34,6 +39,9 @@ public class InstanceFrame implements Frame, Cloneable {
     setADC(template.getADC());
   }
 
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isIRDSynachronizationActive()
+   */
   public boolean isIRDSynachronizationActive() {
     return isIRDSynachronizationActive;
   }
@@ -42,6 +50,9 @@ public class InstanceFrame implements Frame, Cloneable {
     isIRDSynachronizationActive = value;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isAudioActive()
+   */
   public boolean isAudioActive() {
     return isAudioActive;
   }
@@ -50,6 +61,9 @@ public class InstanceFrame implements Frame, Cloneable {
     isAudioActive = value;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getAudioFrequency()
+   */
   public int getAudioFrequency() {
     return audioFrequency;
   }
@@ -58,6 +72,9 @@ public class InstanceFrame implements Frame, Cloneable {
     audioFrequency = value;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getAudio(int)
+   */
   public char getAudio(final int channel) {
     return audioSample[channel];
   }
@@ -66,6 +83,9 @@ public class InstanceFrame implements Frame, Cloneable {
     this.audioSample[channel] = audioSample;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#isADCActive()
+   */
   public boolean isADCActive() {
     return isADCActive;
   }
@@ -74,6 +94,9 @@ public class InstanceFrame implements Frame, Cloneable {
     isADCActive = value;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getADCChannel()
+   */
   public int getADCChannel() {
     return adcChannel;
   }
@@ -82,6 +105,9 @@ public class InstanceFrame implements Frame, Cloneable {
     this.adcChannel = adcChannel;
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.Frame#getADC()
+   */
   public char getADC() {
     return adcSample;
   }
@@ -90,6 +116,9 @@ public class InstanceFrame implements Frame, Cloneable {
     this.adcSample = adcSample;
   }
   
+  /* (non-Javadoc)
+   * @see java.lang.Object#clone()
+   */
   public Object clone() throws CloneNotSupportedException {
     return (InstanceFrame) super.clone();
   }

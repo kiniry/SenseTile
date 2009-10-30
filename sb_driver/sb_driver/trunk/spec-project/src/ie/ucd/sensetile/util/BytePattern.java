@@ -6,8 +6,6 @@
 
 package ie.ucd.sensetile.util;
 
-import ie.ucd.sensetile.util.UnsignedByteArray;
-
 /**
  * Byte pattern matcher.
  * 
@@ -100,15 +98,21 @@ public class BytePattern {
   private int matchRepeated(final UnsignedByteArray data) {
     int index = 0;
     boolean check = false;
-    index = matchSingle(UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), 0);
+    index = matchSingle(
+        UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), 0);
     if (index == -1) {
       return index;
     }
-    check = checkRepetitions(UnsignedByteArray.create(data, index, data.length() - index));
-    while ((index != -1) && (! check)) {
-      index = matchSingle(UnsignedByteArray.createFolding(data, 0, getRepetitionStep()), index + 1);
+    check = checkRepetitions(
+        UnsignedByteArray.create(data, index, data.length() - index));
+    while ((index != -1) && (!check)) {
+      index = matchSingle(
+          UnsignedByteArray.createFolding(
+              data, 0, getRepetitionStep()), 
+              index + 1);
       if (index != -1) {
-        check = checkRepetitions(UnsignedByteArray.create(data, index, data.length() - index));
+        check = checkRepetitions(
+            UnsignedByteArray.create(data, index, data.length() - index));
       }
     }
     return index;
@@ -135,9 +139,11 @@ public class BytePattern {
     return true;
   }
   
-  private int matchSingle(final UnsignedByteArray data, final int startPosition) {
+  private int matchSingle(
+      final UnsignedByteArray data, final int startPosition) {
     for (int index = startPosition; index < data.length(); index++) {
-      if (checkPatternMatch(UnsignedByteArray.create(data, index, data.length()))) {
+      if (checkPatternMatch(
+          UnsignedByteArray.create(data, index, data.length()))) {
         return index;
       }
     }
@@ -145,7 +151,10 @@ public class BytePattern {
   }
   
   private boolean checkPatternMatch(final UnsignedByteArray data) {
-    for (int index = 0; index < pattern.length() && index < data.length() ; index++) {
+    for (
+        int index = 0; 
+        index < pattern.length() && index < data.length(); 
+        index++) {
       if (data.getByte(index) != pattern.getByte(index)) {
         return false;
       }

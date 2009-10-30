@@ -7,6 +7,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * PacketBuilder building packets from a template and sensor streams.
+ * 
+ * @author delbianc
+ * 
+ * TODO: to be finished
+ */
 public class FileAndClonePacketBuilder implements PacketBuilder {
   
   private InstancePacket template = new InstancePacket();
@@ -16,12 +23,21 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
   private /*@ nullable */ DataInputStream accelerometerX;
   private /*@ nullable */ DataInputStream accelerometerY;
   private /*@ nullable */ DataInputStream accelerometerZ;
-  private final DataInputStream[] audio = new DataInputStream[4];
+  private final DataInputStream[] audio = 
+    new DataInputStream[Frame.AUDIO_CHANNELS];
   
+  /**
+   * PacketBuilder based on template.
+   * 
+   * @param template packet template
+   */
   public FileAndClonePacketBuilder(final InstancePacket template) {
     this.template = makeClone(template);
   }
   
+  /* (non-Javadoc)
+   * @see ie.ucd.sensetile.sensorboard.simulator.PacketBuilder#getPacket()
+   */
   public Packet getPacket() {
     InstancePacket packet = makeClone(template);
     readTemperature(packet);
@@ -109,7 +125,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (audio[channel] != null) {
       try {
         for (int frameIndex = 0; frameIndex < Packet.FRAMES; frameIndex++) {
-          ((InstanceFrame)packet.getFrame(frameIndex)).setAudio(
+          ((InstanceFrame) packet.getFrame(frameIndex)).setAudio(
               channel, audio[channel].readChar());
         }
       } catch (IOException e) {
@@ -127,47 +143,93 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     }
   }
   
+  /**
+   * Get real packet builder template.
+   * 
+   * @return packet template
+   */
   public CloneablePacket getTemplate() {
     return template;
   }
   
+  /**
+   * Set InstancePacket as a template.
+   * 
+   * @param template packet template
+   */
   public void setTemplate(final InstancePacket template) {
     this.template = template;
   }
   
   private InstancePacket makeClone(final InstancePacket template) {
     try {
-      return (InstancePacket)template.clone();
+      return (InstancePacket) template.clone();
     } catch (CloneNotSupportedException e) {
       throw new UnsupportedOperationException();
     }
   }
   
+  /**
+   * Set temperature input stream.
+   * 
+   * @param is temperature input stream.
+   */
   public void setTemperatureInputStream(final InputStream is) {
     temperature = new DataInputStream(is);
   }
   
+  /**
+   * Set pressure input stream.
+   * 
+   * @param is pressure input stream.
+   */
   public void setPressureInputStream(final InputStream is) {
     pressure = new DataInputStream(is);
     
   }
   
+  /**
+   * Set light input stream.
+   * 
+   * @param is light input stream.
+   */
   public void setLightLevelInputStream(final InputStream is) {
     lightLevel = new DataInputStream(is);
   }
   
+  /**
+   * Set x accelerometer input stream.
+   * 
+   * @param is x accelerometer input stream.
+   */
   public void setAccelerometerXInputStream(final InputStream is) {
     accelerometerX = new DataInputStream(is);
   }
   
+  /**
+   * Set y accelerometer input stream.
+   * 
+   * @param is y accelerometer input stream.
+   */
   public void setAccelerometerYInputStream(final InputStream is) {
     accelerometerY = new DataInputStream(is);
   }
   
+  /**
+   * Set z accelerometer input stream.
+   * 
+   * @param is z accelerometer input stream.
+   */
   public void setAccelerometerZInputStream(final InputStream is) {
     accelerometerZ = new DataInputStream(is);
   }
   
+  /**
+   * Set audio input stream.
+   * 
+   * @param channel audio channel
+   * @param is audio input stream
+   */
   public void setAudioInputStream(final int channel, final InputStream is) {
     audio[channel] = new DataInputStream(is);
   }
