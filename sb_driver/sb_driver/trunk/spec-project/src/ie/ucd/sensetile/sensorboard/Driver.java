@@ -14,7 +14,7 @@ import com.ftdichip.ftd2xx.Service;
 /**
  * Sensor Board driver.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public final class Driver {

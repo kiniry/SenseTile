@@ -6,7 +6,7 @@ import ie.ucd.sensetile.sensorboard.Packet;
 /**
  * Packet from plain variables.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public class InstancePacket implements CloneablePacket {
@@ -197,7 +197,7 @@ public class InstancePacket implements CloneablePacket {
   /**
    * Packet.Time from plain variables.
    * 
-   * @author delbianc
+   * @author Vieri del Bianco (vieri.delbianco@gmail.com)
    */
   public static class TimeInstance implements Packet.Time, Cloneable {
     

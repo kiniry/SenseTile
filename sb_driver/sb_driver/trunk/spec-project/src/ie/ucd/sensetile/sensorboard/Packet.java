@@ -7,7 +7,7 @@ package ie.ucd.sensetile.sensorboard;
 /**
  * Sensor board output packet data.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public interface Packet {
@@ -205,7 +205,7 @@ public interface Packet {
   /**
    * Time interface.
    * 
-   * @author delbianc
+   * @author Vieri del Bianco (vieri.delbianco@gmail.com)
    */
   public interface Time {
     

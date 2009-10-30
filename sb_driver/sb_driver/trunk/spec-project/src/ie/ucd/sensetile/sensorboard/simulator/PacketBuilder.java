@@ -5,7 +5,7 @@ import ie.ucd.sensetile.sensorboard.Packet;
 /**
  * Packet builder class to be used to build simulators.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public interface PacketBuilder {
   

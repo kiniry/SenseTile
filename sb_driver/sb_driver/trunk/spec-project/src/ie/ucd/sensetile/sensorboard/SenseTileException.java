@@ -9,7 +9,7 @@ package ie.ucd.sensetile.sensorboard;
 /**
  * SenseTile exception.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public class SenseTileException extends Exception {
   

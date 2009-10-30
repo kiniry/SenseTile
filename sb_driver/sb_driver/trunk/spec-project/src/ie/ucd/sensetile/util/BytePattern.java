@@ -12,7 +12,7 @@ package ie.ucd.sensetile.util;
  * Find a pattern of bytes into a ByteArray.
  * The pattern can be repeated.
  * 
- * @author Vieri del Bianco
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public class BytePattern {

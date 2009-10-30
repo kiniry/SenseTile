@@ -8,7 +8,7 @@ import ie.ucd.sensetile.sensorboard.Packet;
 /**
  * PacketInputStream from PacketBuilder. 
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public class SimulatorPacketInputStream implements PacketInputStream {
   

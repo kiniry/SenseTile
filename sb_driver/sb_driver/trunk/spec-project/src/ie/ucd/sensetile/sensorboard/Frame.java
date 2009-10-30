@@ -9,7 +9,7 @@ package ie.ucd.sensetile.sensorboard;
 /**
  * Sensor board internal grìframe of output packet data.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public interface Frame {

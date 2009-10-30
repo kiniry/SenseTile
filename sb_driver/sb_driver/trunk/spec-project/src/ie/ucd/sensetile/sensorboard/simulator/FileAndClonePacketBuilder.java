@@ -10,7 +10,7 @@ import java.io.InputStream;
 /**
  * PacketBuilder building packets from a template and sensor streams.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  * 
  * TODO: to be finished
  */

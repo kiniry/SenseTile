@@ -10,7 +10,7 @@ import ie.ucd.sensetile.sensorboard.Frame;
 /**
  * Frame built from plain values.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public class InstanceFrame implements Frame, Cloneable {
   

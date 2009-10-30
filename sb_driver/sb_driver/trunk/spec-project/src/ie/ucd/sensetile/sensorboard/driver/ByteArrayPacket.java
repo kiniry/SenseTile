@@ -14,7 +14,7 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
 /**
  * Packet from byte array.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public final class ByteArrayPacket implements Packet {
   

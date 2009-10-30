@@ -20,7 +20,7 @@ import java.util.Properties;
 /**
  * PacketInputStream built on real senor board InputStream.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  *
  */
 public final class InputStreamPacketInputStream implements PacketInputStream {

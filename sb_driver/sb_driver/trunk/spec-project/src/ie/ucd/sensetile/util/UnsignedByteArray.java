@@ -11,7 +11,7 @@ package ie.ucd.sensetile.util;
  * 
  * <p>Build a window over a raw byte array and work inside the window.
  * 
- * @author Vieri del Bianco
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public final class UnsignedByteArray {
   

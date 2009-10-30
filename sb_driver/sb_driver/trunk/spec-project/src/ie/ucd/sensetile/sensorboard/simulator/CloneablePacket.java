@@ -5,7 +5,7 @@ import ie.ucd.sensetile.sensorboard.Packet;
 /**
  * Packet that can be cloned.
  * 
- * @author delbianc
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public interface CloneablePacket extends Packet, Cloneable {
 

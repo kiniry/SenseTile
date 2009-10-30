@@ -12,11 +12,7 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
 /**
  * Frame based on byte array.
  * 
- * @author delbianc
- */
-/**
- * @author delbianc
- *
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public final class ByteArrayFrame implements Frame {
   

@@ -8,7 +8,7 @@ import java.io.IOException;
  * 
  * <p> PacketInputStream is not safe for multithreaded access.
  *
- * @author Vieri del Bianco
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
  */
 public interface PacketInputStream {
 
