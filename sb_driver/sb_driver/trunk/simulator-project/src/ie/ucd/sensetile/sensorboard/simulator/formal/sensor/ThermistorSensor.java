@@ -1,6 +1,15 @@
 package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.ThermistorSensorType;
+/**
+ * This class represents a thermistor sensor. 
+ * @title         "ThermistorSensor"
+ * @date          "2009/07/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
+ */
 
 public final class ThermistorSensor implements ISensor 
 {

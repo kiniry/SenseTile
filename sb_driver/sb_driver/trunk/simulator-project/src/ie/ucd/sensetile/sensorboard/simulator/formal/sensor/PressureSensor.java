@@ -1,7 +1,15 @@
 package ie.ucd.sensetile.sensorboard.simulator.formal.sensor;
 
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.PressureSensorType;
-
+/**
+ * This class represents a pressure sensor. 
+ * @title         "PressureSensor"
+ * @date          "2009/07/07"
+ * @author        "Dragan Stosic"
+ * @organisation  "School of Computer Science and Informatics, UCD"
+ * @copyright     "Copyright (C) 2009 UCD"
+ * @version       "$ Revision: 1.00 $"
+ */
 public final class PressureSensor implements ISensor 
 {
 	//@spec_public

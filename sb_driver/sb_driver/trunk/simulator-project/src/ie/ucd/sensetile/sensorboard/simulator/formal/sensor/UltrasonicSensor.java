@@ -5,10 +5,7 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.UltrasonicSenso
 
 /**
  * This class represents a ultra sound sensor.
- * Microphone is an acoustic-to-electric sensor that converts 
- * sound into an electrical signal. Sensor working on
- * AUDIO_FREQUENCY = 96KHZ. 
- * @title         "AxisAccelerometerSensor"
+ * @title         "UltrasonicSensor"
  * @date          "2009/07/07"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"

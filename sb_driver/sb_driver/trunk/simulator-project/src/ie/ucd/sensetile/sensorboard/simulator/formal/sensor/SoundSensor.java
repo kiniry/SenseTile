@@ -6,7 +6,7 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SoundSensorType
  * Microphone is an acoustic-to-electric sensor that converts 
  * sound into an electrical signal. Sensor working on
  * AUDIO_FREQUENCY = 48KHZ. 
- * @title         "AxisAccelerometerSensor"
+ * @title         "SoundSensor"
  * @date          "2009/07/07"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
