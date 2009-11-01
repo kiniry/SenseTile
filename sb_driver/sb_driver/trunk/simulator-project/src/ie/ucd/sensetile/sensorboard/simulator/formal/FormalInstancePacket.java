@@ -39,19 +39,25 @@ public final class FormalInstancePacket implements CloneablePacket {
 	  //@ spec_public non_null
 	  private FormalInstanceFrame[] frames = new FormalInstanceFrame[FRAMES];//@ in mod_frames;
 		//@ represents mod_frames <-frames;
-	
-	   //@ invariant mod_frames.length == FRAMES;
 	  
-	  /*@ invariant
-	     @ (temperature >= -880 && temperature <= 2047 ) &&
-	     @ (pressure >= 310 && pressure <=5585) &&
-	     @ (lightLevel >=0 && lightLevel <=1000) &&
-	     @ (accelerometerX >=1488 && accelerometerX <= 2232) &&
-	     @ (accelerometerY >=1488 && accelerometerY <= 2232) &&
-	     @ (accelerometerZ >=1488 && accelerometerZ <= 2232);
-	     @*/
-	    
-	  
+        
+	  //@ invariant mod_frames.length == FRAMES;
+	   
+	  // to be discussed !!!! @ invariant \nonnullelements(mod_frames);
+	     
+	  //@ invariant  temperature >= -880 && temperature <= 2047;
+	     
+	  //@ invariant pressure >= 310 && pressure <=5585;
+	     
+	  //@ invariant lightLevel >=0 && lightLevel <=1000;
+	     
+	  //@ invariant accelerometerX >=1488 && accelerometerX <= 2232;
+	     
+	  //@ invariant accelerometerY >=1488 && accelerometerY <= 2232;
+	     
+	  //@ invariant accelerometerZ >=1488 && accelerometerZ <= 2232;
+	     
+	   
 	  /*@ assignable accelerometerX,accelerometerY,accelerometerZ;
 	    @ assignable time,mod_frames[*],pressure;
 	    @ ensures  pressure == (short)310;
@@ -59,28 +65,25 @@ public final class FormalInstancePacket implements CloneablePacket {
 	    @ ensures accelerometerY == (short)1860;
 	    @ ensures accelerometerZ == (short)1860;
 	    @ ensures time instanceof TimeInstance;
-	    @ ensures (\forall int i; 0 <= i && i < mod_frames.length;
-        @          mod_frames[i] instanceof FormalInstanceFrame);
+	    @ ensures  \nonnullelements(mod_frames);
 	    @*/
 	  public FormalInstancePacket() 
-	  {
-	    int frameIndex = 0;
+	  {  
 		/*@ loop_invariant
 		  @ 0 <= frameIndex  && frameIndex <= frames.length &&
 	      @ (\forall int j; 0 <= j && j < frameIndex; frames[j] instanceof FormalInstanceFrame);
 	      @ decreases frames.length - frameIndex;
 	      @*/
-	      while (frameIndex >= 0 && frameIndex < frames.length ) 
+	      for(int frameIndex = 0;frameIndex < frames.length; frameIndex ++  ) 
 	      {
 	    	  frames[frameIndex] = new FormalInstanceFrame();
 	    	  frames[frameIndex].setADCChannel(frameIndex % Frame.ADC_CHANNELS);
-		      frameIndex++;
 	      }
-	    time = new TimeInstance();
-	    pressure = (short)310;
-	    accelerometerX = (short)1860;
-	    accelerometerY = (short)1860;
-	    accelerometerZ = (short)1860;
+	      time = new TimeInstance();
+	      pressure = (short)310;
+	      accelerometerX = (short)1860;
+	      accelerometerY = (short)1860;
+	      accelerometerZ = (short)1860;
 	  }
 	  
 	  public/*@non_null@*/ Time getTime() {
@@ -259,6 +262,13 @@ public final class FormalInstancePacket implements CloneablePacket {
 	   * @version       "$ Revision: 1.00 $"
 	   */
 	  public static class TimeInstance implements Time, Cloneable {
+		  
+		//@ public model instance short mod_hours;
+	    //@ public model instance short mod_minutes;
+	  	//@ public model instance short mod_seconds;
+	  	//@ public model instance short mod_centiSeconds;
+	  	 
+		  
 	      //@spec_public
 	      private transient byte hours; //@ in mod_hours;
 	      //@ represents mod_hours <- hours;

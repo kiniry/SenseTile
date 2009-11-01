@@ -2,6 +2,7 @@ package ie.ucd.sensetile.sensorboard.simulator.formal;
 
 import ie.ucd.sensetile.sensorboard.Frame;
 import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.sensorboard.simulator.PacketBuilder;
 import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.AudioBuilder;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.ISensor;
@@ -16,7 +17,7 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-public final class FormalSensorPacketBuilder implements FormalPacketBuilder{
+public final class FormalSensorPacketBuilder implements PacketBuilder{
 	
   //@ spec_public non_null
   private transient FormalInstancePacket template;
@@ -28,6 +29,8 @@ public final class FormalSensorPacketBuilder implements FormalPacketBuilder{
   
   //@ invariant sb.g_inv;
   //@ invariant ab.inv;
+  
+  //@ invariant template instanceof FormalInstancePacket;
   
   
   
@@ -47,38 +50,47 @@ public final class FormalSensorPacketBuilder implements FormalPacketBuilder{
     sb = new SensorBuilder(thePathProvider );
     ab = new AudioBuilder(theFrequency, thePathProvider );
   }
-     
+//@ ghost FormalInstancePacket g_packet;
+	//@ ghost Object g_o;
+	//@ ghost ISensor g_sensor; 
+	
 /*@ also
-  @ signals_only UnsupportedOperationException;
-  @*/
+	  @ public behavior
+	  @ ensures (g_packet != null) 
+	  @ 		 ==> (\result == g_packet );
+	  @ also
+	  @ ensures (g_packet == null) ==> \result == null;
+      @*/
   public Packet getPacket() 
   {
 	//@ set g_packet = null;
+	  FormalInstancePacket packet=null;
 	  try
 	  {
-		  FormalInstancePacket packet = makeClone();
-	      //@ set g_packet = packet;
-	      if(packet != null)
-		  {
-			  setTemperature(packet);
-			  setPressure(packet);
-			  setLightLevel(packet);
-			  setAccelerometerX(packet);
-			  setAccelerometerY(packet);
-			  setAccelerometerZ(packet);
-			  
-			  for (int Index = 0; Index < Frame.AUDIO_CHANNELS; Index++) 
-			  {
-				  readAudio(Index, packet);
-			  }
-		  }
-	      return packet;
+		  packet = makeClone();
 	  }
-	  
 	  catch(CloneNotSupportedException cnse)
 	  {
-		throw new UnsupportedOperationException(cnse);  
+		  packet = null;
+		//@ set g_packet = null;
 	  }
+      //@ set g_packet = packet;
+      if(packet != null)
+	  {
+		  setTemperature(packet);
+		  setPressure(packet);
+		  setLightLevel(packet);
+		  setAccelerometerX(packet);
+		  setAccelerometerY(packet);
+		  setAccelerometerZ(packet);
+		  
+		  for (int Index = 0; Index < Frame.AUDIO_CHANNELS; Index++) 
+		  {
+			  readAudio(Index, packet);
+		  }
+	  }
+	  return packet;
+	  
 	  
   }
   private void readAudio(final int channel,/*@non_null@*/ final FormalInstancePacket packet) 

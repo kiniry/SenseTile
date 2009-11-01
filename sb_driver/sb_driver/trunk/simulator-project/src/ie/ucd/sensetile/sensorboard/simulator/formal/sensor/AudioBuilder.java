@@ -14,7 +14,7 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.channel.IChannel;
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-//@ model import ie.ucd.sensetile.sensorboard.simulator.sensor.type.SensorIndexer;
+//@ model import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
 public final class AudioBuilder 
 {
 	//@ spec_public

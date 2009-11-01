@@ -13,6 +13,9 @@ import ie.ucd.sensetile.sensorboard.Frame;
  */
 
 public class FormalInstanceFrame implements Frame, Cloneable {
+	
+//@ public model instance non_null char[] mod_audioSample;
+	
   //@ spec_public
   private transient boolean isIRDSynachronizationActive;
   //@ spec_public
@@ -46,7 +49,8 @@ public class FormalInstanceFrame implements Frame, Cloneable {
     setAudioActive(true);
     setADCActive(true);
   }
- 
+  
+
   public boolean isIRDSynachronizationActive() {
     return isIRDSynachronizationActive;
   }

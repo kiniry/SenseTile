@@ -12,7 +12,7 @@ import ie.ucd.sensetile.sensorboard.simulator.PacketBuilder;
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
  */
-//@ model import ie.ucd.sensetile.sensorboard.simulator.sensor.ISensor;
+//@ model import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.ISensor;
 public interface FormalPacketBuilder extends PacketBuilder {
   /**
    * Return a packet.
@@ -22,7 +22,8 @@ public interface FormalPacketBuilder extends PacketBuilder {
 	//@ ghost Object g_o;
 	//@ ghost ISensor g_sensor; 
 	
-	/*@ public behavior
+	/*@ also
+	  @ public behavior
 	  @ ensures (g_o instanceof FormalInstancePacket  && 
 	  @ g_sensor.isEnabled()) ==> (\result == g_packet ) && (g_packet != null);
 	  @ signals_only UnsupportedOperationException;
