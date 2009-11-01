@@ -6,8 +6,8 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
 import ie.ucd.sensetile.sensorboard.simulator.formal.channel.IChannel;
  
 /**
- * Represents an sensor builder implementation. 
- * @title         "SensorBuilder"
+ * Represents an audio builder implementation. 
+ * @title         "AudioBuilder"
  * @date          "2009/08/07"
  * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
