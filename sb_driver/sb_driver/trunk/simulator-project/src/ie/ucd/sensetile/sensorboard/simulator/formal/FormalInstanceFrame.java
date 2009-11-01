@@ -6,7 +6,7 @@ import ie.ucd.sensetile.sensorboard.Frame;
  * Represents an instance of Frame interface.
  * @title         "FormalInstanceFrame"
  * @date          "2009/10/10"
- * @author        "delbianc && Dragan Stosic"
+ * @author        "Dragan Stosic"
  * @organisation  "School of Computer Science and Informatics, UCD"
  * @copyright     "Copyright (C) 2009 UCD"
  * @version       "$ Revision: 1.00 $"
