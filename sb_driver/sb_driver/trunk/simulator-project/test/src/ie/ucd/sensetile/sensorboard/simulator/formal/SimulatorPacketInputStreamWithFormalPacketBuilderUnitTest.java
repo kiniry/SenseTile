@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.SenseTileException;
+import ie.ucd.sensetile.sensorboard.simulator.PacketBuilder;
 import ie.ucd.sensetile.sensorboard.simulator.SimulatorPacketInputStream;
 import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
@@ -51,7 +52,7 @@ public class SimulatorPacketInputStreamWithFormalPacketBuilderUnitTest {
         ""};
     FilePathProvider fpp = new FilePathProvider(thePaths,theSoundPaths,theUltraSoundPaths);
     FormalInstancePacket instancePacket = new FormalInstancePacket();
-    FormalPacketBuilder builder = new FormalSensorPacketBuilder(instancePacket, fpp, SensorIndexer.AUDIO_FREQUENCY_48KHZ);
+    PacketBuilder builder = new FormalSensorPacketBuilder(instancePacket, fpp, SensorIndexer.AUDIO_FREQUENCY_48KHZ);
     simulator = new SimulatorPacketInputStream(builder);
   }
   

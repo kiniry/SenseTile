@@ -2,6 +2,7 @@ package ie.ucd.sensetile.sensorboard.simulator.formal;
 
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
 import ie.ucd.sensetile.sensorboard.PacketInputStreamUnitTestCase;
+import ie.ucd.sensetile.sensorboard.simulator.PacketBuilder;
 import ie.ucd.sensetile.sensorboard.simulator.SimulatorPacketInputStream;
 import ie.ucd.sensetile.sensorboard.simulator.formal.channel.FilePathProvider;
 import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
@@ -31,7 +32,7 @@ public class SimulatorPacketInputStreamWithFormalPacketBuilderAsPacketInputStrea
           ""};
       FilePathProvider fpp = new FilePathProvider(thePaths,theSoundPaths,theUltraSoundPaths);
       FormalInstancePacket instancePacket = new FormalInstancePacket();
-      FormalPacketBuilder builder = new FormalSensorPacketBuilder(instancePacket, fpp, SensorIndexer.AUDIO_FREQUENCY_48KHZ);
+      PacketBuilder builder = new FormalSensorPacketBuilder(instancePacket, fpp, SensorIndexer.AUDIO_FREQUENCY_48KHZ);
       SimulatorPacketInputStream simulator = new SimulatorPacketInputStream(builder);
       return simulator;
     }
