@@ -15,9 +15,15 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>BeetlzPlugin.beetlzBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>ie.ucd.bon.plugin.boncnature</nature>
+		<nature>BeetlzPlugin.beetlzNature</nature>
 	</natures>
 </projectDescription>
