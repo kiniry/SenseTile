@@ -1,33 +1,133 @@
-effective class Connections
-      indexing
-      about: "This class represents connections between SensorML processes.";
-      title:        "Connections";
-      author:       "Ciaran Palmer";
-      copyright:    "none";
-      organisation: "School of Computer Science and Informatics, UCD";
-      date:         "2009/10/29";
-      version:      "Revision: 1.00";
-     
+static_diagram SENSORML
+component
+  effective class Connections
+     indexing
+     about: "Connections provides links between processes or between
+data sources and processes.";
+     title:        "Connections";
+     author:       "Ciaran Palmer";
+     copyright:    "none";
+     organisation: "School of Computer Science and Informatics, UCD";
+     date:         "2009/10/29";
+     version:      "Revision: 1.00";
 
-     
-    feature
-      
-      getConnectionList: ConnectionList
 
-      setConnectionList
-        ->connectionList: ConnectionList
-        require 
-          connectionList/=void
+     feature
+
+     getConnectionList: ConnectionList
+
+     setConnectionList
+       ->value: ConnectionList
+       require
+         value/=Void;
+       ensure
+         getConnectionList=value;
+       end
+
+     isSetConnectionList: BOOLEAN
+       ensure
+         Result <->getConnectionList/=Void;
+       end
+ end --Connections
+
+ effective class ConnectionList
+     indexing
+     about:        "List of Connection type";
+     title:        "Connections";
+     author:       "Ciaran Palmer";
+     copyright:    "none";
+     organisation: "School of Computer Science and Informatics, UCD";
+     date:         "2009/10/30";
+     version:      "Revision: 1.00";
+
+     feature
+
+     getConnection:SEQUENCE[Connection]
+         ensure
+           Result /= Void;
+         end
+
+     isSetConnection:BOOLEAN
+         ensure
+           Result <-> getConnection /= Void;
+         end
+
+     unsetConnection
+         ensure
+           Result <-> getConnection = Void;
+         end
+ end--ConnectionList
+
+ effective class Connection
+
+     indexing
+     about:        "Specify a connection between two elements";
+     title:        "Connections";
+     author:       "Ciaran Palmer";
+     copyright:    "none";
+     organisation: "School of Computer Science and Informatics, UCD";
+     date:         "2009/10/30";
+     version:      "Revision: 1.00";
+
+
+     feature
+
+     getLink:Link
+
+     setLink
+        ->value:Link
+
+        require
+          value/=Void;
         ensure
-          getConnectionList/=void
+          getLink=value;
         end
 
-      isSetConnectionList: BOOLEAN
+     isSetLink:Boolean
         ensure
-          Result <->getConnectionList/=void;
+          Result<->getLink/=Void;
         end
 
-end class Connections
+
+     getArrayLink:ArrayLink
+        ensure
+           Result /= Void;
+        end
+
+     setArrayLink
+       ->value:ArrayLink
+       require
+         value/=Void;
+       ensure
+         getArrayLink=value;
+       end
+
+     isSetArrayLink:BOOLEAN
+       ensure
+         Result<->getArrayLink/=Void;
+       end
+
+     getName:STRING
+       ensure
+         Result /= Void;
+       end
+
+     setName
+       ->value:STRING
+       require
+         value/=Void;
+       ensure
+         getName = value;
+       end
+
+     isSetName:BOOLEAN
+       ensure
+         Result<->getName/=Void;
+       end
+
+ end--Connection
+
+end
 
 
 
