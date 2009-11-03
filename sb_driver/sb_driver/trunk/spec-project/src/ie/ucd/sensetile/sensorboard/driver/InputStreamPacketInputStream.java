@@ -26,10 +26,11 @@ import java.util.Properties;
 public final class InputStreamPacketInputStream implements PacketInputStream {
   
   /**
-   * Property name of trim packets: the number of pacjets to be trimmed when 
+   * Property name of trim packets: the number of packets to be trimmed when 
    * pattern is not found (in packets).
    */
-  public static final String TRIM_PACKETS_PROPERTY = "trimPackets";
+  public static final String TRIM_PACKETS_PROPERTY = 
+    "trimPackets";
   
   /**
    * Property name of validate minimum packets: the minimum valid packets to 
@@ -41,7 +42,15 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   /**
    * Property name of buffer packets: the buffer length (in packets).
    */
-  public static final String BUFFER_PACKETS_PROPERTY = "bufferPackets";
+  public static final String BUFFER_PACKETS_PROPERTY = 
+    "bufferPackets";
+  
+  /**
+   * Property name of not valid maximum data: the maximum data to read to 
+   * identify a packet, if not identified an exception is raised.
+   */
+  public static final String NOT_VALID_MAXIMUM_DATA_PROPERTY = 
+    "notValidMaximumData";
   
   /*
    * default properties
@@ -52,10 +61,11 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     DEFAULT_PROPERTIES.setProperty(BUFFER_PACKETS_PROPERTY, "6");
     DEFAULT_PROPERTIES.setProperty(VALIDATE_MINIMUM_PACKETS_PROPERTY, "3");
     DEFAULT_PROPERTIES.setProperty(TRIM_PACKETS_PROPERTY, "2");
+    DEFAULT_PROPERTIES.setProperty(NOT_VALID_MAXIMUM_DATA_PROPERTY, "32768");
   }
   
   /*
-   * raw input stream
+   * bufferRaw input stream
    */
   private final DataInputStream input;
   
@@ -67,8 +77,16 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   /*
    * buffer
    */
-  private byte[] raw = new byte[0];
-  private UnsignedByteArray byteArray = UnsignedByteArray.create(raw);
+  private byte[] bufferRaw = new byte[0];
+  private UnsignedByteArray buffer = 
+    UnsignedByteArray.create(bufferRaw);
+  
+  /*
+   * not valid data buffer
+   */
+  private byte[] trimmedRaw = new byte[0];
+  private UnsignedByteArray trimmed = 
+    UnsignedByteArray.create(trimmedRaw);
   
   /*
    * byte pattern matcher
@@ -87,7 +105,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   private boolean isEOF;
   
   /*
-   * flag: input stream has been validates
+   * flag: input stream has been validated
    */
   private boolean isValid;
   
@@ -116,8 +134,12 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     final InputStreamPacketInputStream pis = 
       new InputStreamPacketInputStream(is, properties);
     // buffer
-    pis.raw = new byte[getPacketLength() * pis.getBufferPackets()];
-    pis.byteArray = UnsignedByteArray.create(pis.raw, 0, 0);
+    pis.bufferRaw = new byte[getPacketLength() * pis.getBufferPackets()];
+    pis.buffer = UnsignedByteArray.create(pis.bufferRaw, 0, 0);
+    // not valid data buffer
+    pis.trimmedRaw = new byte[
+      getPacketLength() * pis.getTrimPackets() + pis.getNotValidMaximumData()];
+    pis.trimmed = UnsignedByteArray.create(pis.trimmedRaw, 0, 0);
     // pattern
     pis.pattern = 
       BytePattern.createPattern(getPacketPattern(), getPacketLength());
@@ -136,7 +158,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
       new Properties(InputStreamPacketInputStream.DEFAULT_PROPERTIES);
     this.properties.putAll(properties);
   }
-
+  
   private int getBufferPackets() {
     return Integer.parseInt(properties.getProperty(BUFFER_PACKETS_PROPERTY));
   }
@@ -150,11 +172,16 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     return Integer.parseInt(properties.getProperty(TRIM_PACKETS_PROPERTY));
   }
   
+  private int getNotValidMaximumData() {
+    return Integer.parseInt(
+      properties.getProperty(NOT_VALID_MAXIMUM_DATA_PROPERTY));
+  }
+  
   /* (non-Javadoc)
    * @see ie.ucd.sensetile.sensorboard.PacketInputStream#availablePackets()
    */
   public int availablePackets() throws IOException {
-   return (byteArray.length() + input.available()) / getPacketLength();
+   return (buffer.length() + input.available()) / getPacketLength();
   }
   
   /* (non-Javadoc)
@@ -237,15 +264,22 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     input.close();
   }
   
-  private void readToValidate() throws IOException {
-    readIntoBuffer();
-    if (byteArray.length() < getValidateMinimumPackets() * getPacketLength()) {
-      return;
-    }
-    if (validateAndTrimBuffer()) {
-      this.isValid = true;
-    } else {
-      trimBuffer(getTrimPackets() * getPacketLength());
+  private void readToValidate() throws IOException, SenseTileException {
+    while (!isValid) {
+      readIntoBuffer();
+      if (buffer.length() < getValidateMinimumPackets() * getPacketLength()) {
+        return;
+      }
+      if (validateAndTrimBuffer()) {
+        this.isValid = true;
+      } else {
+        if (
+            getTrimPackets() * getPacketLength() + trimmed.length() > 
+            getNotValidMaximumData()) {
+          throw new SenseTileException("not valid maximum data exceeded");
+        }
+        trimBuffer(getTrimPackets() * getPacketLength());
+      }
     }
   }
   
@@ -253,7 +287,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
       throws IOException, SenseTileException {
     do {
       readIntoBuffer();
-      if (byteArray.length() < getPacketLength()) {
+      if (buffer.length() < getPacketLength()) {
         return;
       }
       bufferToReturn(array);
@@ -261,35 +295,41 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private int readIntoBuffer() throws IOException {
-    if (raw.length - byteArray.length() == 0) {
+    if (bufferRaw.length - buffer.length() == 0) {
       return 0;
     }
-    final int begin = byteArray.getBeginOffset();
-    final int end = byteArray.getEndOffset();
+    final int begin = buffer.getBeginOffset();
+    final int end = buffer.getEndOffset();
     int read = 0;
     if (end < begin) {
-      read = input.read(raw, end, raw.length - byteArray.length());
+      read = input.read(
+          bufferRaw, end, bufferRaw.length - buffer.length());
     } else {
-      read = input.read(raw, end, raw.length - end);
-      if (read == (raw.length - end)) {
-        read = read + input.read(raw, 0, begin);
+      read = input.read(bufferRaw, end, bufferRaw.length - end);
+      if (read == (bufferRaw.length - end)) {
+        read = read + input.read(bufferRaw, 0, begin);
       }
     }
     if (read == -1) {
       isEOF = true;
       read = 0;
     }
-    byteArray = UnsignedByteArray.create(
-        byteArray, 0, byteArray.length() + read);
+    buffer = UnsignedByteArray.create(
+        buffer, 0, buffer.length() + read);
     return read;
   }
   
-  private void waitReadToValidate() throws IOException {
+  private void waitReadToValidate() throws IOException, SenseTileException {
     while (!isValid) {
       waitReadIntoBuffer(getPacketLength() * getValidateMinimumPackets());
       if (validateAndTrimBuffer()) {
         isValid = true;
       } else {
+        if (
+            getTrimPackets() * getPacketLength() + trimmed.length() > 
+            getNotValidMaximumData()) {
+          throw new SenseTileException("not valid maximum data exceeded");
+        }
         trimBuffer(getTrimPackets() * getPacketLength());
       }
     }
@@ -306,29 +346,29 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private void waitReadIntoBuffer(final int length) throws IOException {
-    if (length > raw.length) {
+    if (length > bufferRaw.length) {
       throw new IndexOutOfBoundsException();
     }
-    if (length - byteArray.length() <= 0) {
+    if (length - buffer.length() <= 0) {
       return;
     }
-    final int begin = byteArray.getBeginOffset();
-    final int end = byteArray.getEndOffset();
-    final int readEnd = (begin + length) % raw.length;
+    final int begin = buffer.getBeginOffset();
+    final int end = buffer.getEndOffset();
+    final int readEnd = (begin + length) % bufferRaw.length;
     if (readEnd > end) {
-      input.readFully(raw, end, readEnd - end);
+      input.readFully(bufferRaw, end, readEnd - end);
     } else {
-      input.readFully(raw, end, raw.length - end);
-      input.readFully(raw, 0, readEnd);
+      input.readFully(bufferRaw, end, bufferRaw.length - end);
+      input.readFully(bufferRaw, 0, readEnd);
     }
-    byteArray = UnsignedByteArray.create(
-        byteArray, 0, length);
+    buffer = UnsignedByteArray.create(
+        buffer, 0, length);
   }
   
   private void bufferToReturn(final ReturnPacketArray array) 
       throws SenseTileException {
     do {
-      if (byteArray.length() < getPacketLength()) {
+      if (buffer.length() < getPacketLength()) {
         return;
       }
       Packet packet;
@@ -338,7 +378,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private boolean validateAndTrimBuffer() {
-    final int index = pattern.match(byteArray);
+    final int index = pattern.match(buffer);
     if (index == -1) {
       return false;
     }
@@ -360,15 +400,26 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   private UnsignedByteArray extractBuffer(final int length) {
     final byte[] array = new byte[length];
     for (int i = 0; i < array.length; i++) {
-      array[i] = byteArray.getByte(i);
+      array[i] = buffer.getByte(i);
     }
     trimBuffer(length);
     return UnsignedByteArray.create(array);
   }
   
   private void trimBuffer(final int length) {
-    byteArray = UnsignedByteArray.create(
-        byteArray, length, byteArray.length() - length);
+    if (!isValid) {
+      final UnsignedByteArray toBeTrimmed = UnsignedByteArray.create(
+        buffer, 0, length);
+      final byte[] toBeTrimmedRaw = toBeTrimmed.toArray();
+      System.arraycopy(
+          toBeTrimmedRaw, 0, 
+          trimmedRaw, trimmed.length(), 
+          toBeTrimmed.length());
+      trimmed = UnsignedByteArray.create(
+          trimmedRaw, 0, trimmed.length() + toBeTrimmed.length());
+    }
+    buffer = UnsignedByteArray.create(
+        buffer, length, buffer.length() - length);
   }
   
   private boolean isClose() {
@@ -379,7 +430,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     return isEOF;
   }
   
-  private boolean isValid() throws IOException {
+  private boolean isValid() throws IOException, SenseTileException {
     if (!isValid) {
       readToValidate();
     }

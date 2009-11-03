@@ -165,9 +165,27 @@ public final class UnsignedByteArray {
    * 
    * @return array
    */
-  public byte[] getArray() {
+  public byte[] getInternalArray() {
     // @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     return array;
+  }
+  
+  /**
+   * Copy array.
+   * 
+   * @return array
+   */
+  public byte[] /*@ pure */ toArray() {
+    final byte[] copy = new byte[length()];
+    if (getEndOffset() >= getBeginOffset()) {
+      System.arraycopy(array, getBeginOffset(), copy, 0, length());
+    } else {
+      System.arraycopy(
+          array, getBeginOffset(), copy, 0, array.length - getBeginOffset());
+      System.arraycopy(
+          array, 0, copy, array.length - getBeginOffset(), getEndOffset());
+    }
+    return copy;
   }
   
   private int checkAndNormalizeIndex(
