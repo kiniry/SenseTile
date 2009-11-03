@@ -113,7 +113,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
    */
   public static InputStreamPacketInputStream createInputStreamPacketInputStream(
       final InputStream is, final Properties properties) {
-    InputStreamPacketInputStream pis = 
+    final InputStreamPacketInputStream pis = 
       new InputStreamPacketInputStream(is, properties);
     // buffer
     pis.raw = new byte[getPacketLength() * pis.getBufferPackets()];
@@ -182,7 +182,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     if (!isValid()) {
       return 0;
     }
-    ReturnPacketArray returnArray = 
+    final ReturnPacketArray returnArray = 
       new ReturnPacketArray(array, offset, length);
     readToReturn(returnArray);
     return returnArray.read();
@@ -192,7 +192,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
    * @see ie.ucd.sensetile.sensorboard.PacketInputStream#read()
    */
   public Packet read() throws IOException, SenseTileException {
-    Packet[] array = new Packet[1];
+    final Packet[] array = new Packet[1];
     readFully(array);
     return array[0];
   }
@@ -224,7 +224,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     if (!isValid()) {
       waitReadToValidate();
     }
-    ReturnPacketArray returnArray = 
+    final ReturnPacketArray returnArray = 
       new ReturnPacketArray(array, offset, length);
     waitReadToReturn(returnArray);
   }
@@ -264,8 +264,8 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     if (raw.length - byteArray.length() == 0) {
       return 0;
     }
-    int begin = byteArray.getBeginOffset();
-    int end = byteArray.getEndOffset();
+    final int begin = byteArray.getBeginOffset();
+    final int end = byteArray.getEndOffset();
     int read = 0;
     if (end < begin) {
       read = input.read(raw, end, raw.length - byteArray.length());
@@ -312,9 +312,9 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
     if (length - byteArray.length() <= 0) {
       return;
     }
-    int begin = byteArray.getBeginOffset();
-    int end = byteArray.getEndOffset();
-    int readEnd = (begin + length) % raw.length;
+    final int begin = byteArray.getBeginOffset();
+    final int end = byteArray.getEndOffset();
+    final int readEnd = (begin + length) % raw.length;
     if (readEnd > end) {
       input.readFully(raw, end, readEnd - end);
     } else {
@@ -338,7 +338,7 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private boolean validateAndTrimBuffer() {
-    int index = pattern.match(byteArray);
+    final int index = pattern.match(byteArray);
     if (index == -1) {
       return false;
     }
@@ -353,12 +353,12 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
   }
   
   private Packet readPacketFromBuffer() throws SenseTileException {
-    UnsignedByteArray raw = extractBuffer(getPacketLength());
+    final UnsignedByteArray raw = extractBuffer(getPacketLength());
     return ByteArrayPacket.createPacket(raw);
   }
   
   private UnsignedByteArray extractBuffer(final int length) {
-    byte[] array = new byte[length];
+    final byte[] array = new byte[length];
     for (int i = 0; i < array.length; i++) {
       array[i] = byteArray.getByte(i);
     }

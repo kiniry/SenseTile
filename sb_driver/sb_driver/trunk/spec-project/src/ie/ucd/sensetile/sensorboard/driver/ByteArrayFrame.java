@@ -207,8 +207,9 @@ public final class ByteArrayFrame implements Frame {
   }
   
   int getBits(final int index, final int length) {
-    int mask = (int) (Math.pow(2, length) - 1) << index;
-    int value = ((mask & rawFrame.getShortUnsigned(0)) >>> index) & CHAR_MASK;
+    final int mask = (int) (Math.pow(2, length) - 1) << index;
+    final int value = 
+      ((mask & rawFrame.getShortUnsigned(0)) >>> index) & CHAR_MASK;
     return value;
   }
   
@@ -216,10 +217,10 @@ public final class ByteArrayFrame implements Frame {
     if (value < 0 || value >= (int) (Math.pow(2, length))) {
       throw new IllegalArgumentException();
     }
-    int mask = ~(
+    final int mask = ~(
           ((int) (Math.pow(2, length) - 1)) << index);
-    int oldValueWithHole = rawFrame.getShortUnsigned(0) & mask;
-    int newValue = oldValueWithHole | (value << index);
+    final int oldValueWithHole = rawFrame.getShortUnsigned(0) & mask;
+    final int newValue = oldValueWithHole | (value << index);
     rawFrame.setShortUnsigned(0, newValue);
   }
   

@@ -50,10 +50,10 @@ public class BytePattern {
   public static BytePattern createPattern(
       final byte[] rawPattern, 
       final int repetitionStep) {
-    UnsignedByteArray pattern = UnsignedByteArray.create(rawPattern);
+    final UnsignedByteArray pattern = UnsignedByteArray.create(rawPattern);
     checkPattern(pattern);
     checkRepetitionStep(repetitionStep);
-    BytePattern creation = new BytePattern(pattern, repetitionStep);
+    final BytePattern creation = new BytePattern(pattern, repetitionStep);
     return creation;
   }
   

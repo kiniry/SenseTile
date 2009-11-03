@@ -280,7 +280,7 @@ public final class ByteArrayPacket implements Packet {
       final byte[] rawPacket, 
       final Packet previousPacket) 
       throws SenseTileException {
-    Packet packet = createPacket(rawPacket);
+    final Packet packet = createPacket(rawPacket);
     checkIndex(previousPacket, packet);
     return packet;
   }
@@ -294,7 +294,7 @@ public final class ByteArrayPacket implements Packet {
   public static ByteArrayPacket createPacket(
       final byte[] rawPacket) 
       throws SenseTileException {
-    UnsignedByteArray raw = UnsignedByteArray.create(rawPacket);
+    final UnsignedByteArray raw = UnsignedByteArray.create(rawPacket);
     return createPacket(raw);
   }
   
@@ -310,7 +310,7 @@ public final class ByteArrayPacket implements Packet {
       final UnsignedByteArray raw, 
       final Packet previousPacket) 
       throws SenseTileException {
-    Packet packet = createPacket(raw);
+    final Packet packet = createPacket(raw);
     checkIndex(previousPacket, packet);
     return packet;
   }
@@ -326,7 +326,7 @@ public final class ByteArrayPacket implements Packet {
       final UnsignedByteArray raw) 
       throws SenseTileException {
     checkLength(raw);
-    UnsignedByteArray newRaw = UnsignedByteArray.create(raw, 0, LENGTH);
+    final UnsignedByteArray newRaw = UnsignedByteArray.create(raw, 0, LENGTH);
     checkPattern(newRaw);
     return new ByteArrayPacket(newRaw);
   }
@@ -340,8 +340,8 @@ public final class ByteArrayPacket implements Packet {
 
   private static void checkPattern(final UnsignedByteArray raw) 
       throws SenseTileException {
-    BytePattern bp = BytePattern.createPattern(PATTERN);
-    int relativeOffset = 
+    final BytePattern bp = BytePattern.createPattern(PATTERN);
+    final int relativeOffset = 
       bp.match(UnsignedByteArray.create(raw, PATTERN_OFFSET, raw.length()));
     if (relativeOffset == -1) {
       throw new SenseTileException("Packet pattern not found.");

@@ -39,7 +39,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
    * @see ie.ucd.sensetile.sensorboard.simulator.PacketBuilder#getPacket()
    */
   public Packet getPacket() {
-    InstancePacket packet = makeClone(template);
+    final InstancePacket packet = makeClone(template);
     readTemperature(packet);
     readPressure(packet);
     readLightLevel(packet);
@@ -59,7 +59,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (temperature != null) {
       try {
         packet.setTemperature(temperature.readShort());
-      } catch (IOException e) {
+      } catch (final IOException e) {
         closeInputStream(temperature);
         temperature = null;
       }
@@ -70,7 +70,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (pressure != null) {
       try {
         packet.setPressure(pressure.readShort());
-      } catch (IOException e) {
+      } catch (final IOException e) {
         closeInputStream(pressure);
         pressure = null;
       }
@@ -81,7 +81,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (lightLevel != null) {
       try {
         packet.setLightLevel(lightLevel.readShort());
-      } catch (IOException e1) {
+      } catch (final IOException e1) {
         closeInputStream(lightLevel);
         lightLevel = null;
       }
@@ -92,7 +92,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (accelerometerX != null) {
       try {
         packet.setAccelerometerX(accelerometerX.readShort());
-      } catch (IOException e1) {
+      } catch (final IOException e1) {
         closeInputStream(accelerometerX);
         accelerometerX = null;
       }
@@ -103,7 +103,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (accelerometerY != null) {
       try {
         packet.setAccelerometerY(accelerometerY.readShort());
-      } catch (IOException e1) {
+      } catch (final IOException e1) {
         closeInputStream(accelerometerY);
         accelerometerY = null;
       }
@@ -114,7 +114,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
     if (accelerometerZ != null) {
       try {
         packet.setAccelerometerZ(accelerometerZ.readShort());
-      } catch (IOException e1) {
+      } catch (final IOException e1) {
         closeInputStream(accelerometerZ);
         accelerometerZ = null;
       }
@@ -128,7 +128,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
           ((InstanceFrame) packet.getFrame(frameIndex)).setAudio(
               channel, audio[channel].readChar());
         }
-      } catch (IOException e) {
+      } catch (final IOException e) {
         closeInputStream(audio[channel]);
         audio[channel] = null;
       }
@@ -138,7 +138,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
   private void closeInputStream(final InputStream inputStream) {
     try {
       inputStream.close();
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
     }
   }
@@ -164,7 +164,7 @@ public class FileAndClonePacketBuilder implements PacketBuilder {
   private InstancePacket makeClone(final InstancePacket template) {
     try {
       return (InstancePacket) template.clone();
-    } catch (CloneNotSupportedException e) {
+    } catch (final CloneNotSupportedException e) {
       throw new UnsupportedOperationException();
     }
   }

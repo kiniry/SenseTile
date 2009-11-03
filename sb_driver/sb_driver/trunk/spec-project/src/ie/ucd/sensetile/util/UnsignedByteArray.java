@@ -39,7 +39,7 @@ public final class UnsignedByteArray {
    * @return value
    */
   public byte getByte(final int index) {
-    int newIndex = checkAndNormalizeIndex(index, 1);
+    final int newIndex = checkAndNormalizeIndex(index, 1);
     return array[(newIndex + offset) % array.length];
   }
   
@@ -50,7 +50,7 @@ public final class UnsignedByteArray {
    * @param value byte value
    */
   public void setByte(final int index, final byte value) {
-    int newIndex = checkAndNormalizeIndex(index, 1);
+    final int newIndex = checkAndNormalizeIndex(index, 1);
     array[(newIndex + offset) % array.length] = value;
   }
   
@@ -65,7 +65,7 @@ public final class UnsignedByteArray {
     if (bitIndex < 0 || bitIndex >= BYTE_BIT_LENGTH) {
       throw new IndexOutOfBoundsException();
     }
-    int newIndex = checkAndNormalizeIndex(index, 1);
+    final int newIndex = checkAndNormalizeIndex(index, 1);
     return (array[newIndex] & (1 << bitIndex)) > 0;
   }
   
@@ -81,9 +81,9 @@ public final class UnsignedByteArray {
     if (bitIndex < 0 || bitIndex >= BYTE_BIT_LENGTH) {
       throw new IndexOutOfBoundsException();
     }
-    int newIndex = checkAndNormalizeIndex(index, 1);
-    byte oldByteWithHole = (byte) (array[newIndex] & (~(1 << bitIndex)));
-    byte newValue = (byte) ((value ? 1 : 0) << bitIndex);
+    final int newIndex = checkAndNormalizeIndex(index, 1);
+    final byte oldByteWithHole = (byte) (array[newIndex] & (~(1 << bitIndex)));
+    final byte newValue = (byte) ((value ? 1 : 0) << bitIndex);
     array[newIndex] = (byte) (oldByteWithHole | newValue);
   }
   
@@ -114,7 +114,7 @@ public final class UnsignedByteArray {
    * @return unsigned short
    */
   public int getShortUnsigned(final int index) {
-    int newIndex = checkAndNormalizeIndex(index, 2);
+    final int newIndex = checkAndNormalizeIndex(index, 2);
     return 
       ((BYTE_MASK & getByte(newIndex)) << BYTE_BIT_LENGTH) | 
       (BYTE_MASK & getByte(newIndex + 1));
@@ -127,7 +127,7 @@ public final class UnsignedByteArray {
    * @param value unsigned short value
    */
   public void setShortUnsigned(final int index, final int value) {
-    int newIndex = checkAndNormalizeIndex(index, 2);
+    final int newIndex = checkAndNormalizeIndex(index, 2);
     setByte(newIndex, (byte) (BYTE_MASK & value >>> BYTE_BIT_LENGTH));
     setByte(newIndex + 1, (byte) (BYTE_MASK & value));
   }
@@ -213,8 +213,8 @@ public final class UnsignedByteArray {
    */
   public static UnsignedByteArray create(
       final UnsignedByteArray uba, final int offset, final int length) {
-    byte[] ba = uba.array;
-    int realOffset = (offset + uba.offset) % ba.length;
+    final byte[] ba = uba.array;
+    final int realOffset = (offset + uba.offset) % ba.length;
     return create(ba, realOffset, length, false);
   }
   
@@ -228,8 +228,8 @@ public final class UnsignedByteArray {
    */
   public static UnsignedByteArray createFolding(
       final UnsignedByteArray uba, final int offset, final int length) {
-    byte[] ba = uba.array;
-    int realOffset = (offset + uba.offset) % ba.length;
+    final byte[] ba = uba.array;
+    final int realOffset = (offset + uba.offset) % ba.length;
     return create(ba, realOffset, length, true);
   }
   
