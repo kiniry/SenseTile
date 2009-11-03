@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: SenseTile
+    Checkstyle-Configuration: SenseTile-Test
     Description: none
 -->
 <module name="Checker">
@@ -17,10 +17,6 @@
       <property name="allowMissingJavadoc" value="true"/>
       <property name="logLoadErrors" value="true"/>
       <property name="suppressLoadErrors" value="true"/>
-    </module>
-    <module name="JavadocType">
-      <property name="scope" value="protected"/>
-      <property name="authorFormat" value=".*(.*@.*)"/>
     </module>
     <module name="JavadocVariable">
       <property name="scope" value="protected"/>
@@ -41,37 +37,11 @@
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
-    <module name="ExecutableStatementCount">
-      <property name="severity" value="info"/>
-      <property name="max" value="10"/>
-      <property name="tokens" value="CTOR_DEF"/>
-      <message key="executableStatementCount" value="Executable statement count in constructor is {0,number,integer} (max allowed is {1,number,integer})."/>
-    </module>
-    <module name="ExecutableStatementCount">
-      <property name="severity" value="info"/>
-      <property name="max" value="20"/>
-      <property name="tokens" value="METHOD_DEF"/>
-      <message key="executableStatementCount" value="Executable statement count in method is {0,number,integer} (max allowed is {1,number,integer})."/>
-    </module>
-    <module name="ExecutableStatementCount">
-      <property name="severity" value="info"/>
-      <property name="max" value="5"/>
-      <property name="tokens" value="INSTANCE_INIT"/>
-      <message key="executableStatementCount" value="Executable statement count in initializer is {0,number,integer} (max allowed is {1,number,integer})."/>
-    </module>
-    <module name="ExecutableStatementCount">
-      <property name="severity" value="info"/>
-      <property name="max" value="5"/>
-      <property name="tokens" value="STATIC_INIT"/>
-      <message key="executableStatementCount" value="Executable statement count in initializer is {0,number,integer} (max allowed is {1,number,integer})."/>
-    </module>
     <module name="LineLength">
       <property name="ignorePattern" value="(^ *@.+$)|(^ *//\ *@ .+$)"/>
       <property name="tabWidth" value="2"/>
     </module>
-    <module name="MethodLength">
-      <property name="max" value="40"/>
-    </module>
+    <module name="MethodLength"/>
     <module name="ParameterNumber"/>
     <module name="EmptyForIteratorPad"/>
     <module name="MethodParamPad"/>
@@ -102,7 +72,6 @@
     </module>
     <module name="IllegalInstantiation"/>
     <module name="InnerAssignment"/>
-    <module name="MagicNumber"/>
     <module name="MissingSwitchDefault"/>
     <module name="RedundantThrows">
       <property name="logLoadErrors" value="true"/>
@@ -111,19 +80,14 @@
     <module name="SimplifyBooleanExpression"/>
     <module name="SimplifyBooleanReturn"/>
     <module name="FinalClass"/>
-    <module name="HideUtilityClassConstructor"/>
     <module name="InterfaceIsType"/>
     <module name="VisibilityModifier"/>
     <module name="ArrayTypeStyle"/>
-    <module name="FinalParameters"/>
     <module name="TodoComment">
       <property name="severity" value="ignore"/>
     </module>
     <module name="UpperEll"/>
     <module name="CovariantEquals"/>
-    <module name="FinalLocalVariable">
-      <property name="tokens" value="PARAMETER_DEF,VARIABLE_DEF"/>
-    </module>
     <module name="StringLiteralEquality"/>
     <module name="NestedIfDepth">
       <property name="max" value="3"/>
