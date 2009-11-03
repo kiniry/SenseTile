@@ -175,7 +175,7 @@ public final class UnsignedByteArray {
    * 
    * @return array
    */
-  public byte[] /*@ pure */ toArray() {
+  public /*@ pure */ byte[] toArray() {
     final byte[] copy = new byte[length()];
     if (getEndOffset() >= getBeginOffset()) {
       System.arraycopy(array, getBeginOffset(), copy, 0, length());
