@@ -62,7 +62,7 @@ public class InputStreamPacketInputStreamUnitTest {
       InputStreamPacketInputStream.createInputStreamPacketInputStream(
         is, properties);
     Packet[] packets = new Packet[1];
-    assertEquals(0, pis.read(packets));
+    assertEquals(-1, pis.read(packets));
   }
 
   @Test (expected = EOFException.class)
