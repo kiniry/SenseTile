@@ -23,9 +23,9 @@ public class ByteArrayPacketUnitTest {
         PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH));
     // initialize packets
     current = ByteArrayPacket.createPacket(
-        Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
+        Arrays.copyOf(rawPacket.getInternalArray(), rawPacket.length()));
     previous = ByteArrayPacket.createPacket(
-        Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
+        Arrays.copyOf(rawPacket.getInternalArray(), rawPacket.length()));
     int packetIndex = 100;
     current.setCounter(packetIndex);
     previous.setCounter(packetIndex - 1);
@@ -33,7 +33,7 @@ public class ByteArrayPacketUnitTest {
   
   @Test
   public void testConstructor() {
-    new ByteArrayPacket(UnsignedByteArray.create(rawPacket.getArray()));
+    new ByteArrayPacket(UnsignedByteArray.create(rawPacket.getInternalArray()));
   }
   
   @Test (expected = SenseTileException.class)

@@ -28,6 +28,8 @@ public class InputStreamPacketInputStreamUnitTest {
         InputStreamPacketInputStream.VALIDATE_MINIMUM_PACKETS_PROPERTY, "3");
     defaultProperties.setProperty(
         InputStreamPacketInputStream.TRIM_PACKETS_PROPERTY, "2");
+    defaultProperties.setProperty(
+        InputStreamPacketInputStream.NOT_VALID_MAXIMUM_DATA_PROPERTY, "32768");
   }
   
   @Test
@@ -37,7 +39,7 @@ public class InputStreamPacketInputStreamUnitTest {
     assertNotNull(pis);
   }
   
-  @Test
+  @Test (expected = SenseTileException.class)
   public void testNotValidLongRead() throws IOException, SenseTileException {
     InputStream is = new ByteArrayInputStream(
         new byte[ByteArrayPacket.LENGTH * 100]);
@@ -45,20 +47,49 @@ public class InputStreamPacketInputStreamUnitTest {
     Packet[] packets = new Packet[1];
     assertEquals(0, pis.read(packets));
   }
-
-  @Test (expected = EOFException.class)
-  public void testNotValidLongFullRead() 
+  
+  @Test
+  public void testNotValidLongReadLongNotValid() 
       throws IOException, SenseTileException {
+    final Properties properties = new Properties(defaultProperties);
+    final int validateMinimumData = 1024 * 1024;
+    properties.setProperty(
+        InputStreamPacketInputStream.NOT_VALID_MAXIMUM_DATA_PROPERTY, 
+        Integer.toString(validateMinimumData));
     InputStream is = new ByteArrayInputStream(
         new byte[ByteArrayPacket.LENGTH * 100]);
-    PacketInputStream pis = getDefaultPacketInputStream(is);
+    PacketInputStream pis = 
+      InputStreamPacketInputStream.createInputStreamPacketInputStream(
+        is, properties);
+    Packet[] packets = new Packet[1];
+    assertEquals(0, pis.read(packets));
+  }
+
+  @Test (expected = EOFException.class)
+  public void testNotValidLongFullReadLongNotValid() 
+      throws IOException, SenseTileException {
+    final Properties properties = new Properties(defaultProperties);
+    final int validateMinimumData = 1024 * 1024;
+    properties.setProperty(
+        InputStreamPacketInputStream.NOT_VALID_MAXIMUM_DATA_PROPERTY, 
+        Integer.toString(validateMinimumData));
+    InputStream is = new ByteArrayInputStream(
+        new byte[ByteArrayPacket.LENGTH * 100]);
+    PacketInputStream pis = 
+      InputStreamPacketInputStream.createInputStreamPacketInputStream(
+        is, properties);
     Packet[] packets = new Packet[1];
     pis.readFully(packets);
   }
   
   @Test
-  public void testNotValidLongThanValidFullRead() 
+  public void testNotValidLongThanValidFullReadLongNotValid() 
       throws IOException, SenseTileException {
+    Properties properties = new Properties(defaultProperties);
+    int validateMinimumData = 1024 * 1024;
+    properties.setProperty(
+        InputStreamPacketInputStream.NOT_VALID_MAXIMUM_DATA_PROPERTY, 
+        Integer.toString(validateMinimumData));
     byte[] invalid = new byte[ByteArrayPacket.LENGTH * 100];
     byte[] valid = 
       PacketRawByteArrayBuilder.prepare(
@@ -67,7 +98,9 @@ public class InputStreamPacketInputStreamUnitTest {
     System.arraycopy(invalid, 0, total, 0, invalid.length);
     System.arraycopy(valid, 0, total, invalid.length, valid.length);
     InputStream is = new ByteArrayInputStream(total);
-    PacketInputStream pis = getDefaultPacketInputStream(is);
+    PacketInputStream pis = 
+      InputStreamPacketInputStream.createInputStreamPacketInputStream(
+        is, properties);
     Packet[] packets = new Packet[1];
     pis.readFully(packets);
   }
@@ -239,8 +272,8 @@ public class InputStreamPacketInputStreamUnitTest {
   
   private InputStreamPacketInputStream getDefaultPacketInputStream(
       final InputStream is) {
-    return InputStreamPacketInputStream.createInputStreamPacketInputStream(is,
-        defaultProperties);
+    return InputStreamPacketInputStream.createInputStreamPacketInputStream(
+        is, defaultProperties);
   }
   
 }

@@ -282,8 +282,35 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testGetArray() {
+  public void testGetInternalArray() {
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
-    assertEquals(ba, uba.getArray());
+    assertEquals(ba, uba.getInternalArray());
+  }
+  
+  @Test
+  public void testToArray() {
+    ba[0] = 10;
+    ba[1] = 11;
+    ba[2] = 12;
+    ba[3] = 13;
+    UnsignedByteArray uba = UnsignedByteArray.create(ba, 1, 2);
+    byte[] array = uba.toArray();
+    assertEquals(2, array.length);
+    assertEquals(ba[1], array[0]);
+    assertEquals(ba[2], array[1]);
+  }
+  
+  @Test
+  public void testToArrayFolding() {
+    byte[] ba = new byte[4];
+    ba[0] = 10;
+    ba[1] = 11;
+    ba[2] = 12;
+    ba[3] = 13;
+    UnsignedByteArray uba = UnsignedByteArray.createFolding(ba, 2, 3);
+    byte[] array = uba.toArray();
+    assertEquals(3, array.length);
+    assertEquals(ba[2], array[0]);
+    assertEquals(ba[0], array[2]);
   }
 }
