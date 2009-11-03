@@ -207,11 +207,17 @@ public final class InputStreamPacketInputStream implements PacketInputStream {
       return -1;
     }
     if (!isValid()) {
+      if (isEOF()) {
+        return -1;
+      }
       return 0;
     }
     final ReturnPacketArray returnArray = 
       new ReturnPacketArray(array, offset, length);
     readToReturn(returnArray);
+    if (returnArray.read() == 0 && isEOF()) {
+      return -1;
+    }
     return returnArray.read();
   }
   
