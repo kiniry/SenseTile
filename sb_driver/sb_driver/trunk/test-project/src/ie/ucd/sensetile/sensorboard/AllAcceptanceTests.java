@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   BoardCommunicationAcceptanceTest.class,
-  InputStreamAcceptanceTest.class})
+  InputStreamAcceptanceTest.class })
 
 public class AllAcceptanceTests {
   

@@ -7,7 +7,7 @@ import org.junit.Test;
 public class BoardCommunicationAcceptanceTest {
   
   @Test
-  public void testOpen() throws IOException, SenseTileException{
+  public void testOpen() throws IOException, SenseTileException {
     final Driver driver = new Driver(0);
     driver.open();
     final PacketInputStream input = driver.getStream();

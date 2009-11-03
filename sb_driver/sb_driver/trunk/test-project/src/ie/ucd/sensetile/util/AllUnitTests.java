@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   BytePatternUnitTest.class,
-  UnsignedByteArrayUnitTest.class})
+  UnsignedByteArrayUnitTest.class })
 
 public class AllUnitTests {
   

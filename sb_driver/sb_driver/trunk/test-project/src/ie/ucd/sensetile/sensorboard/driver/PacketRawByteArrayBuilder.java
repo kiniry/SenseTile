@@ -7,6 +7,12 @@ import ie.ucd.sensetile.util.UnsignedByteArray;
 
 import java.util.Arrays;
 
+/**
+ * Byte array builder, based on PacketByteArray structure.
+ * 
+ * @author Vieri del Bianco (vieri.delbianco@gmail.com)
+ *
+ */
 public final class PacketRawByteArrayBuilder {
   
   private PacketRawByteArrayBuilder() {
@@ -14,12 +20,13 @@ public final class PacketRawByteArrayBuilder {
   
   private static byte[] array = new byte[0];
   
-  private static byte[] prepareArray(final int length) throws SenseTileException {
+  private static byte[] prepareArray(final int length) 
+      throws SenseTileException {
     final byte[] array = new byte[ByteArrayPacket.LENGTH * length];
     final byte[] rawPacket = new byte[ByteArrayPacket.LENGTH];
     intializePacket(rawPacket);
     ByteArrayPacket packet = ByteArrayPacket.createPacket(rawPacket);
-    for (int packetIndex = 0; packetIndex < length; packetIndex ++) {
+    for (int packetIndex = 0; packetIndex < length; packetIndex++) {
       // packet initialization
       packet.setCounter(packet.getCounter() + 1);
       // copy
@@ -31,7 +38,8 @@ public final class PacketRawByteArrayBuilder {
     return array;
   }
   
-  private static void intializePacket(byte[] rawPacket) throws SenseTileException {
+  private static void intializePacket(final byte[] rawPacket) 
+      throws SenseTileException {
     UnsignedByteArray bytePacket = UnsignedByteArray.create(rawPacket);
     // copy pattern structure into packet
     for (int index = 0; index < ByteArrayPacket.PATTERN.length; index++) {
@@ -46,12 +54,14 @@ public final class PacketRawByteArrayBuilder {
       frame.setADCChannel(frameIndex % Frame.ADC_CHANNELS);
     }
     // initialize packet
+    final int pressureDefault = 310;
+    final int accelerometerDefault = 1860;
     ByteArrayPacket packet = ByteArrayPacket.createPacket(bytePacket);
     packet.setCounter(0);
-    packet.setPressure(310);
-    packet.setAccelerometerX(1860);
-    packet.setAccelerometerY(1860);
-    packet.setAccelerometerZ(1860);
+    packet.setPressure(pressureDefault);
+    packet.setAccelerometerX(accelerometerDefault);
+    packet.setAccelerometerY(accelerometerDefault);
+    packet.setAccelerometerZ(accelerometerDefault);
   }
   
   private static byte[] getArray(final int length) throws SenseTileException {
@@ -84,8 +94,10 @@ public final class PacketRawByteArrayBuilder {
    * @return byte array of packets
    * @throws SenseTileException wrong packet structure
    */
-  public static byte[] prepare(final int length, final int offset) throws SenseTileException {
-    int copyOffset = (ByteArrayPacket.LENGTH  - offset) % ByteArrayPacket.LENGTH;
+  public static byte[] prepare(final int length, final int offset) 
+      throws SenseTileException {
+    int copyOffset = 
+      (ByteArrayPacket.LENGTH  - offset) % ByteArrayPacket.LENGTH;
     if (copyOffset < 0) {
       copyOffset = copyOffset + ByteArrayPacket.LENGTH;
     }

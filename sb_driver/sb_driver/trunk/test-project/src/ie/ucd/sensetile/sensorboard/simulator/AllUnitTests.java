@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
   FileAndClonePacketBuilderTest.class, 
   SimulatorPacketInputStreamAsPacketInputStreamUnitTest.class, 
-  SimulatorPacketInputStreamTest.class})
+  SimulatorPacketInputStreamTest.class })
 
 public class AllUnitTests {
   

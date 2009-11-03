@@ -7,14 +7,17 @@ public class SimulatorPacketInputStreamAsPacketInputStreamUnitTest
     extends PacketInputStreamUnitTestCase {
   
   @Override
-  protected PacketInputStream createPacketInputStream(final int availablePackets) {
+  protected PacketInputStream createPacketInputStream(
+      final int availablePackets) {
     PacketBuilder builder = new FileAndClonePacketBuilder(new InstancePacket());
-    SimulatorPacketInputStream simulator = new SimulatorPacketInputStream(builder);
+    SimulatorPacketInputStream simulator = 
+      new SimulatorPacketInputStream(builder);
     return simulator;
   }
   
   @Override
-  protected void disposePacketInputStream(final PacketInputStream packetInputStream) {
+  protected void disposePacketInputStream(
+      final PacketInputStream packetInputStream) {
   }
   
 }

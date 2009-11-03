@@ -12,16 +12,20 @@ public class InputStreamPacketInputStreamAsPacketInputStreamUnitTest
     extends PacketInputStreamUnitTestCase {
   
   @Override
-  protected PacketInputStream createPacketInputStream(final int availablePackets) throws SenseTileException {
+  protected PacketInputStream createPacketInputStream(
+      final int availablePackets) 
+      throws SenseTileException {
     byte[] rawPacket = PacketRawByteArrayBuilder.prepare(
         ByteArrayPacket.LENGTH * availablePackets);
     InputStream is = new ByteArrayInputStream(rawPacket);
-    PacketInputStream pis = InputStreamPacketInputStream.createInputStreamPacketInputStream(is);
+    PacketInputStream pis = 
+      InputStreamPacketInputStream.createInputStreamPacketInputStream(is);
     return pis;
   }
   
   @Override
-  protected void disposePacketInputStream(final PacketInputStream packetInputStream) {
+  protected void disposePacketInputStream(
+      final PacketInputStream packetInputStream) {
   }
 
 }

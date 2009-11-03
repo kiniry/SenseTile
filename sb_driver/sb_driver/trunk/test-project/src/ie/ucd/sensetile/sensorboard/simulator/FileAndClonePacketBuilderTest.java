@@ -155,7 +155,7 @@ public class FileAndClonePacketBuilderTest {
     UnsignedByteArray uba = UnsignedByteArray.create(raw);
     final int[] values = {0, 255 + 256 * 255};
     for (int frameIndex = 0; frameIndex < frames; frameIndex++) {
-      uba.setShortUnsigned(frameIndex * 2, values[frameIndex%2]);
+      uba.setShortUnsigned(frameIndex * 2, values[frameIndex % 2]);
     }
     builder.setAudioInputStream(channel, new ByteArrayInputStream(raw));
     Packet packet;

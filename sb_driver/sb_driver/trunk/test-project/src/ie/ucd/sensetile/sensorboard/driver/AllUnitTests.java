@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
   ByteArrayPacketUnitTest.class,
   ByteArrayFrameUnitTest.class,
   InputStreamPacketInputStreamAsPacketInputStreamUnitTest.class,
-  InputStreamPacketInputStreamUnitTest.class})
+  InputStreamPacketInputStreamUnitTest.class })
 
 public class AllUnitTests {
   

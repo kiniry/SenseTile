@@ -147,7 +147,8 @@ public abstract class PacketInputStreamUnitTestCase {
   }
   
   @Test
-  public void testReadFullyArrayOffset() throws IOException, SenseTileException {
+  public void testReadFullyArrayOffset() 
+      throws IOException, SenseTileException {
     int arrayLength = 20;
     int offset = 5;
     int readLength = 10;
@@ -208,7 +209,7 @@ public abstract class PacketInputStreamUnitTestCase {
     assertNotNull(caught);
   }
   
-  @Test (expected=IOException.class)
+  @Test (expected = IOException.class)
   public void testClose() throws IOException, SenseTileException {
     try {
       getPacketInputStream().close();

@@ -49,7 +49,7 @@ public class SimulatorPacketInputStreamTest {
     assertTrue(simulator.availablePackets() > 0);
   }
   
-  @Test (expected=IOException.class)
+  @Test (expected = IOException.class)
   public void testClose() throws IOException, SenseTileException {
     simulator.close();
     simulator.read();
@@ -78,7 +78,7 @@ public class SimulatorPacketInputStreamTest {
     Packet[] array = new Packet[arrayLength];
     simulator.read(array, offset, readLength);
     for (int index = 0; index < array.length; index++) {
-      if(index >= offset && index < offset + readLength ) {
+      if (index >= offset && index < offset + readLength) {
         assertNotNull(array[index]);
       } else {
         assertNull(array[index]);

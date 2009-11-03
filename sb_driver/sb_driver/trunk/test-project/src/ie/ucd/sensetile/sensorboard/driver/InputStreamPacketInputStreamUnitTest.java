@@ -31,30 +31,34 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testConstructor(){
+  public void testConstructor() {
     InputStream is = new ByteArrayInputStream(new byte[0]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertNotNull(pis);
   }
   
   @Test
-  public void testNotValidLongRead() throws IOException, SenseTileException{
-    InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
+  public void testNotValidLongRead() throws IOException, SenseTileException {
+    InputStream is = new ByteArrayInputStream(
+        new byte[ByteArrayPacket.LENGTH * 100]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] packets = new Packet[1];
     assertEquals(0, pis.read(packets));
   }
 
   @Test (expected = EOFException.class)
-  public void testNotValidLongFullRead() throws IOException, SenseTileException{
-    InputStream is = new ByteArrayInputStream(new byte[ByteArrayPacket.LENGTH * 100]);
+  public void testNotValidLongFullRead() 
+      throws IOException, SenseTileException {
+    InputStream is = new ByteArrayInputStream(
+        new byte[ByteArrayPacket.LENGTH * 100]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     Packet[] packets = new Packet[1];
     pis.readFully(packets);
   }
   
   @Test
-  public void testNotValidLongThanValidFullRead() throws IOException, SenseTileException{
+  public void testNotValidLongThanValidFullRead() 
+      throws IOException, SenseTileException {
     byte[] invalid = new byte[ByteArrayPacket.LENGTH * 100];
     byte[] valid = 
       PacketRawByteArrayBuilder.prepare(
@@ -69,21 +73,21 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testAvailable0() throws IOException{
+  public void testAvailable0() throws IOException {
     InputStream is = new ByteArrayInputStream(new byte[0]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertEquals(0, pis.availablePackets());
   }
   
   @Test
-  public void testAvailable0NotEnough() throws IOException{
+  public void testAvailable0NotEnough() throws IOException {
     InputStream is = new ByteArrayInputStream(new byte[100]);
     PacketInputStream pis = getDefaultPacketInputStream(is);
     assertEquals(0, pis.availablePackets());
   }
   
   @Test
-  public void testAvailable1() throws IOException, SenseTileException{
+  public void testAvailable1() throws IOException, SenseTileException {
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH);
     InputStream is = new ByteArrayInputStream(rawPacket);
@@ -92,7 +96,7 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testAvailable2More() throws IOException, SenseTileException{
+  public void testAvailable2More() throws IOException, SenseTileException {
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 2 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
@@ -110,8 +114,9 @@ public class InputStreamPacketInputStreamUnitTest {
         InputStreamPacketInputStream.VALIDATE_MINIMUM_PACKETS_PROPERTY, "1");
     properties.setProperty(
         InputStreamPacketInputStream.TRIM_PACKETS_PROPERTY, "1");
-    PacketInputStream pis = InputStreamPacketInputStream.createInputStreamPacketInputStream(is,
-        properties);
+    PacketInputStream pis = 
+      InputStreamPacketInputStream.createInputStreamPacketInputStream(
+          is, properties);
     Packet[] array = new Packet[10];
     assertEquals(1, pis.read(array));
     assertNotNull(array[0]);
@@ -144,7 +149,8 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testReadArray25ToPartial() throws IOException, SenseTileException {
+  public void testReadArray25ToPartial() 
+      throws IOException, SenseTileException {
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);
@@ -158,7 +164,8 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testReadFullyArray20ToEmpty() throws IOException, SenseTileException {
+  public void testReadFullyArray20ToEmpty() 
+      throws IOException, SenseTileException {
     final int limit = 20;
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(
@@ -173,7 +180,8 @@ public class InputStreamPacketInputStreamUnitTest {
   }
   
   @Test
-  public void testReadFullyArray25ToPartial() throws IOException, SenseTileException {
+  public void testReadFullyArray25ToPartial() 
+      throws IOException, SenseTileException {
     byte[] rawPacket = 
       PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH * 40 + 100, 50);
     InputStream is = new ByteArrayInputStream(rawPacket);

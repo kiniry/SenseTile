@@ -11,8 +11,7 @@ import org.junit.runners.Suite;
   ie.ucd.sensetile.sensorboard.AllUnitTests.class,
   ie.ucd.sensetile.sensorboard.driver.AllUnitTests.class,
   ie.ucd.sensetile.sensorboard.simulator.AllUnitTests.class,
-  ie.ucd.sensetile.util.AllUnitTests.class})
-
+  ie.ucd.sensetile.util.AllUnitTests.class })
 public class AllUnitTests {
   
   public static Test suite() {

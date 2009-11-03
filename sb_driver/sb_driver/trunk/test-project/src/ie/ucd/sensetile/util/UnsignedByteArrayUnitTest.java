@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class UnsignedByteArrayUnitTest {
   
-  byte[] ba = new byte[0];
+  private byte[] ba = new byte[0];
   
   @Before
   public void setUp() throws Exception {
@@ -20,36 +20,36 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testCreate(){
+  public void testCreate() {
     UnsignedByteArray.create(ba);
   }
   
-  @Test (expected=Throwable.class)
-  public void testCreateNullArray(){
+  @Test (expected = Throwable.class)
+  public void testCreateNullArray() {
     //@SuppressWarnings
     UnsignedByteArray.create(null);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testCreate0WindowLength(){
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testCreate0WindowLength() {
     UnsignedByteArray uba = UnsignedByteArray.create(ba, 5, 0);
     uba.getByte(0);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testCreate0Length(){
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testCreate0Length() {
     byte[] ba = new byte[0];
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     uba.getByte(0);
   }
   
-  @Test (expected=IllegalArgumentException.class)
-  public void testCreateOutOfBoundsLength(){
+  @Test (expected = IllegalArgumentException.class)
+  public void testCreateOutOfBoundsLength() {
     UnsignedByteArray.create(ba, 0, ba.length + 1);
   }
   
   @Test
-  public void testConstructorNested(){
+  public void testConstructorNested() {
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     int offset = 3;
     int length = 3;
@@ -57,14 +57,14 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testConstructorWindow(){
+  public void testConstructorWindow() {
     int offset = 3;
     int length = 3;
     UnsignedByteArray.create(ba, offset, length);
   }
   
   @Test
-  public void testGetByte(){
+  public void testGetByte() {
     int offset = 3;
     int length = 3;
     ba[4] = 1;
@@ -73,7 +73,7 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testSetByte(){
+  public void testSetByte() {
     int offset = 3;
     int length = 3;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
@@ -82,13 +82,13 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testGet12BitsSigned(){
-    ba[0] = (byte)0x07;
-    ba[1] = (byte)0xff;
-    ba[2] = (byte)0x0f;
-    ba[3] = (byte)0xff;
-    ba[4] = (byte)0x08;
-    ba[5] = (byte)0x00;
+  public void testGet12BitsSigned() {
+    ba[0] = (byte) 0x07;
+    ba[1] = (byte) 0xff;
+    ba[2] = (byte) 0x0f;
+    ba[3] = (byte) 0xff;
+    ba[4] = (byte) 0x08;
+    ba[5] = (byte) 0x00;
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     assertEquals(2047, uba.get12BitsSigned(0));
     assertEquals(-1, uba.get12BitsSigned(2));
@@ -96,7 +96,7 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testSet12BitsSigned(){
+  public void testSet12BitsSigned() {
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     uba.set12BitsSigned(0, 2047);
     assertEquals(2047, uba.get12BitsSigned(0));
@@ -107,101 +107,114 @@ public class UnsignedByteArrayUnitTest {
   }
   
   @Test
-  public void testGetBit(){
-    ba[0] = (byte)0x01;
-    ba[1] = (byte)0x80;
+  public void testGetBit() {
+    ba[0] = (byte) 0x01;
+    ba[1] = (byte) 0x80;
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     assertEquals(true, uba.getBit(0, 0));
     assertEquals(true, uba.getBit(1, 7));
   }
   
   @Test
-  public void testSetBit(){
+  public void testSetBit() {
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
     uba.setBit(0, 0, true);
     assertEquals(true, uba.getBit(0, 0));
-    uba.setBit(1, 7, true);
-    assertEquals(true, uba.getBit(1, 7));
+    final int bitIndex = 7;
+    final int value = 1;
+    uba.setBit(value, bitIndex, true);
+    assertEquals(true, uba.getBit(value, bitIndex));
   }
   
   @Test
-  public void testGetOffsetFold(){
-    int offset = 8;
-    int length = 4;
+  public void testGetOffsetFold() {
+    final int offset = 8;
+    final int length = 4;
     ba[0] = 1;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
     assertEquals(1, uba.getByte(2));
   }
   
   @Test
-  public void testSetOffsetFold(){
-    int offset = 8;
-    int length = 4;
+  public void testSetOffsetFold() {
+    final int offset = 8;
+    final int length = 4;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
     uba.setByte(2, (byte) 1);
     assertEquals(1, ba[0]);
   }
   
   @Test
-  public void testCreateUnsignedByteArrayFolding(){
-    int offset = 3;
-    int length = 3;
-    ba[4] = 1;
+  public void testCreateUnsignedByteArrayFolding() {
+    final int offset = 3;
+    final int length = 3;
+    final int index = 4;
+    final int value = 1;
+    ba[index] = value;
     UnsignedByteArray ubaTemp = UnsignedByteArray.create(ba);
     UnsignedByteArray uba = 
       UnsignedByteArray.createFolding(ubaTemp, offset, length);
-    assertEquals(1, uba.getByte(4));
-    assertEquals(1, uba.getByte(-2));
+    assertEquals(value, uba.getByte(index));
+    assertEquals(value, uba.getByte(index - 2 * offset));
   }
   
   @Test
-  public void testGetFolding(){
-    int offset = 3;
-    int length = 3;
-    ba[4] = 1;
+  public void testGetFolding() {
+    final int offset = 3;
+    final int length = 3;
+    final int index = 4;
+    final int value = 1;
+    ba[index] = value;
     UnsignedByteArray uba = 
       UnsignedByteArray.createFolding(ba, offset, length);
-    assertEquals(1, uba.getByte(4));
-    assertEquals(1, uba.getByte(-2));
+    assertEquals(value, uba.getByte(index));
+    assertEquals(value, uba.getByte(index - 2 * offset));
   }
   
   @Test
-  public void testSetFolding(){
-    int offset = 3;
-    int length = 3;
+  public void testSetFolding() {
+    final int offset = 3;
+    final int length = 3;
+    final int index = 4;
+    final int value1 = 1;
+    final int value2 = -2;
     UnsignedByteArray uba = 
       UnsignedByteArray.createFolding(ba, offset, length);
-    uba.setByte(4, (byte) 1);
-    assertEquals(1, ba[4]);
-    uba.setByte(-2, (byte) 2);
-    assertEquals(2, ba[4]);
+    uba.setByte(index, (byte) value1);
+    assertEquals(value1, ba[index]);
+    uba.setByte(index - 2 * offset, (byte) value2);
+    assertEquals(value2, ba[index]);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testGetOutOfBond(){
-    int offset = 3;
-    int length = 3;
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testGetOutOfBond() {
+    final int offset = 3;
+    final int length = 3;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
-    uba.getByte(3);
+    uba.getByte(offset);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testSetOutOfBound(){
-    int offset = 3;
-    int length = 3;
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testSetOutOfBound() {
+    final int offset = 3;
+    final int length = 3;
+    final int value = 1;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
-    uba.setByte(3, (byte) 1);
+    uba.setByte(offset, (byte) value);
   }
   
   @Test
   public void testGetInt() {
-    byte[] ba = new byte[4];
+    final int length = 4;
+    byte[] ba = new byte[length];
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
-    ba[1] = (byte) 0xfd;
-    assertEquals(253, uba.getShortUnsigned(0));
-    ba[2] = (byte) 0xfd;
-    ba[3] = (byte) 0xfc;
-    assertEquals(253*256 + 252, uba.getShortUnsigned(2));
+    final byte exValue1 = (byte) 0xfd; // 253
+    ba[1] = exValue1;
+    assertEquals(exValue1, uba.getShortUnsigned(0));
+    final byte exValue2 = (byte) 0xfc; // 252 
+    ba[2] = exValue1;
+    ba[3] = exValue2;
+    assertEquals(exValue1 * 256 + exValue2, uba.getShortUnsigned(2));
   }
   
   @Test
@@ -211,7 +224,7 @@ public class UnsignedByteArrayUnitTest {
     uba.setShortUnsigned(0, 255);
     assertEquals((byte) 0, ba[0]);
     assertEquals((byte) 255, ba[1]);
-    uba.setShortUnsigned(2, 253*256 + 252);
+    uba.setShortUnsigned(2, 253 * 256 + 252);
     assertEquals((byte) 0xfd, ba[2]);
     assertEquals((byte) 0xfc, ba[3]);
   }
@@ -220,7 +233,7 @@ public class UnsignedByteArrayUnitTest {
   public void testSetOutOfRangeInt() {
     byte[] ba = new byte[2];
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
-    uba.setShortUnsigned(0, 256*256 + 256 + 1);
+    uba.setShortUnsigned(0, 256 * 256 + 256 + 1);
     assertEquals((byte) 1, ba[0]);
     assertEquals((byte) 1, ba[1]);
   }
@@ -234,16 +247,16 @@ public class UnsignedByteArrayUnitTest {
     assertEquals((byte) 255, ba[1]);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testGetIntOutOfBond(){
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testGetIntOutOfBond() {
     int offset = 3;
     int length = 3;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);
     uba.getShortUnsigned(2);
   }
   
-  @Test (expected=IndexOutOfBoundsException.class)
-  public void testSetIntOutOfBound(){
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void testSetIntOutOfBound() {
     int offset = 3;
     int length = 3;
     UnsignedByteArray uba = UnsignedByteArray.create(ba, offset, length);

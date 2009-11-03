@@ -22,8 +22,10 @@ public class ByteArrayPacketUnitTest {
     rawPacket = UnsignedByteArray.create(
         PacketRawByteArrayBuilder.prepare(ByteArrayPacket.LENGTH));
     // initialize packets
-    current = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
-    previous = ByteArrayPacket.createPacket(Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
+    current = ByteArrayPacket.createPacket(
+        Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
+    previous = ByteArrayPacket.createPacket(
+        Arrays.copyOf(rawPacket.getArray(), rawPacket.length()));
     int packetIndex = 100;
     current.setCounter(packetIndex);
     previous.setCounter(packetIndex - 1);
@@ -64,8 +66,8 @@ public class ByteArrayPacketUnitTest {
   }
   
   @Test
-  public void testGetCounter(){
-    int value = 256*200 + 201;
+  public void testGetCounter() {
+    int value = 256 * 200 + 201;
     current.setCounter(value);
     assertEquals(value, current.getCounter());
   }

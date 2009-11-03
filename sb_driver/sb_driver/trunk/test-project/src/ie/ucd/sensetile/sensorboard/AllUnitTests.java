@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  DriverUnitTest.class})
+  DriverUnitTest.class })
 
 public class AllUnitTests {
   
