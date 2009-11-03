@@ -208,12 +208,12 @@ public class UnsignedByteArrayUnitTest {
     final int length = 4;
     byte[] ba = new byte[length];
     UnsignedByteArray uba = UnsignedByteArray.create(ba);
-    final byte exValue1 = (byte) 0xfd; // 253
-    ba[1] = exValue1;
+    final int exValue1 = 0xfd; // 253
+    ba[1] = (byte) exValue1;
     assertEquals(exValue1, uba.getShortUnsigned(0));
-    final byte exValue2 = (byte) 0xfc; // 252 
-    ba[2] = exValue1;
-    ba[3] = exValue2;
+    final int exValue2 = 0xfc; // 252 
+    ba[2] = (byte) exValue1;
+    ba[3] = (byte) exValue2;
     assertEquals(exValue1 * 256 + exValue2, uba.getShortUnsigned(2));
   }
   
