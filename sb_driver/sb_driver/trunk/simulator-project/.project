@@ -16,6 +16,16 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/net.sf.eclipsecs.core.CheckstyleBuilder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>BeetlzPlugin.beetlzBuilder</name>
 			<arguments>
 			</arguments>
@@ -24,6 +34,7 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>ie.ucd.bon.plugin.boncnature</nature>
+		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 		<nature>BeetlzPlugin.beetlzNature</nature>
 	</natures>
 </projectDescription>

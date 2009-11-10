@@ -13,7 +13,6 @@ import ie.ucd.sensetile.sensorboard.simulator.CloneablePacket;
  * @version       "$ Revision: 1.00 $"
  */
 public final class FormalInstancePacket implements CloneablePacket {
-	
 	//@ public model instance non_null FormalInstanceFrame[] mod_frames;  
 	
 	  //@ spec_public non_null

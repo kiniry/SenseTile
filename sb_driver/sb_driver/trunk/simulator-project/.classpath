@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="/test-project/lib/junit/junit.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/main-project"/>
 	<classpathentry kind="src" path="/jmlspecs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-sun-1.6.0.14"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

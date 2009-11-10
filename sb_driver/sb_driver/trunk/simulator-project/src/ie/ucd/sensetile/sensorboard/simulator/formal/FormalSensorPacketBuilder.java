@@ -18,7 +18,6 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.SensorIndexer;
  * @version       "$ Revision: 1.00 $"
  */
 public final class FormalSensorPacketBuilder implements PacketBuilder{
-	
   //@ spec_public non_null
   private transient FormalInstancePacket template;
   //@ spec_public non_null

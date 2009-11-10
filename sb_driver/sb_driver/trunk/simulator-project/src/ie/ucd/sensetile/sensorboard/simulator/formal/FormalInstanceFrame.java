@@ -12,8 +12,7 @@ import ie.ucd.sensetile.sensorboard.Frame;
  * @version       "$ Revision: 1.00 $"
  */
 
-public class FormalInstanceFrame implements Frame, Cloneable {
-	
+public class FormalInstanceFrame implements Frame, Cloneable {	
 //@ public model instance non_null char[] mod_audioSample;
 	
   //@ spec_public
@@ -22,7 +21,7 @@ public class FormalInstanceFrame implements Frame, Cloneable {
   private transient boolean isAudioActive;
   //@ spec_public
   private transient int audioFrequency;
-  //@ spec_public
+  //@ spec_public 
   private  final char[] audioSample = new char[AUDIO_CHANNELS];//@ in mod_audioSample;
 //@ represents mod_audioSample <-audioSample;
   //@ spec_public
