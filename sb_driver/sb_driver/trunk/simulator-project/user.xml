@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="escJava2Check" name="simulator-project">
+
+	<property name="main-project.location" location="../main-project" />
+	<property name="spec-project.location" location="../spec-project" />
+	<property name="simulator-project.location" location="." />
+	
+	<property name="jvm" location="/usr/lib/jvm/java-1.5.0-sun-1.5.0.19" />
+
+	<path id="bcel-library.classpath">
+		<pathelement
+			location="${simulator-project.location}/lib/escjava/BCEL/bcel-5.2/bcel-5.2.jar" />
+	</path>
+
+	<path id="Javafe-library.classpath">
+		<pathelement
+			location="${simulator-project.location}/lib/escjava/Javafe/Javafe2.0.5.jar" />
+	</path>
+
+	<path id="simplify.classpath">
+		<pathelement
+			location="${simulator-project.location}/lib/escjava/Simplify-1.5.4.linux.jar" />
+	</path>
+
+	<path id="Javafeb-library.classpath">
+		<pathelement
+			location="${simulator-project.location}/lib/escjava/Javafe/Javafe2.0.5b.jar" />
+	</path>
+
+	<path id="jml-libraries.classpath">
+		<pathelement location="${simulator-project.location}/lib/escjava/specs" />
+	</path>
+
+	<path id="esctools2-classpath">
+		<pathelement location="${simulator-project.location}/lib/escjava/esctools2.jar" />
+	</path>
+
+	<path id="spec-classpath">
+		<pathelement location="${spec-project.location}/src" />
+	</path>
+
+	<path id="simulator-classpath">
+		<pathelement location="${simulator-project.location}/src" />
+	</path>
+
+	<path id="escjava2.classpath">
+		<path refid="bcel-library.classpath" />
+		<path refid="Javafeb-library.classpath" />
+		<path refid="jml-libraries.classpath" />
+		<path refid="esctools2-classpath" />
+		<path refid="simplify.classpath" />
+		<path refid="spec-classpath" />
+		<path refid="simulator-classpath" />
+	</path>
+
+	<property name="escjava2.classpath" refid="escjava2.classpath" />	
+	<property name="sensor-type-packet"
+		value="ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type" />
+	<property name="sensor-packet"
+		value="ie.ucd.sensetile.sensorboard.simulator.formal.sensor" />
+	<property name="channel-packet"
+		value="ie.ucd.sensetile.sensorboard.simulator.formal.channel" />
+	<property name="frame-class"
+		value="ie.ucd.sensetile.sensorboard.Packet ie.ucd.sensetile.sensorboard.Frame" />
+	<property name="cloneable-class"
+		value="ie.ucd.sensetile.sensorboard.simulator.CloneablePacket" />
+	<property name="formal-packet" value="ie.ucd.sensetile.sensorboard.simulator.formal" />
+
+	<target name="escJava2Check">
+		<java failonerror="true" fork="true" jvm= "${jvm}/bin/java" classname="escjava.Main">
+			<jvmarg value="-Xms64m" />
+			<jvmarg value="-Xmx128m" />
+			<classpath>
+				<path refid="escjava2.classpath" />
+			</classpath>
+			<arg line="-loopSafe -era  -VCLimit 100000000" />
+			<arg line="${frame-class} ${cloneable-class}" />
+			<arg line="${sensor-type-packet} ${sensor-packet}" />
+			<arg line="${channel-packet} ${formal-packet}" />
+		</java>
+	</target>
+</project>
