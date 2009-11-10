@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="doc-generate" name="simulator-project">
+
+	<property name="simulator-project.location" location="." />
+	<property name="spec-project.location" location="../spec-project" />
+	
+	<property name="jvm" location="/usr/lib/jvm/java-6-openjdk" />
+	
+	<path id="openjml.classpath">
+		<pathelement
+			location="${simulator-project.location}/lib/openjml.jar" />
+	</path>
+
+	<path id="simulator-classpath">
+		<pathelement location="${simulator-project.location}/src/" />
+	</path>
+
+	<path id="spec-classpath">
+			<pathelement location="${spec-project.location}/src" />
+		</path>
+	
+	<path id="docs.classpath">
+		<path refid="openjml.classpath" />
+		<path refid="simulator-classpath" />
+		<path refid="spec-classpath" />
+	</path>
+
+	<property name="docs.classpath" refid="docs.classpath" />
+	
+	<property name="sensor-type-packet"
+			value="ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type" />
+		
+	<property name="sensor-packet"
+			value="ie.ucd.sensetile.sensorboard.simulator.formal.sensor" />
+		
+	<property name="channel-packet"
+			value="ie.ucd.sensetile.sensorboard.simulator.formal.channel" />
+		
+	<property name="sensorboard-packet"
+			value="ie.ucd.sensetile.sensorboard.Packet ie.ucd.sensetile.sensorboard" />
+		
+	<property name="simulator-packet"
+			value="ie.ucd.sensetile.sensorboard.simulator" />
+		
+	<property name="formal-packet" value="ie.ucd.sensetile.sensorboard.simulator.formal" />
+	
+	<property name="driver-packet"
+				value="ie.ucd.sensetile.sensorboard.driver" />
+	
+	<property name="driver-simulator-packet"
+					value="ie.ucd.sensetile.sensorboard.driver.simulator" />
+	
+	<property name="util-packet"
+						value="ie.ucd.sensetile.util" />
+	<property name="6doc-api"
+							value="http://java.sun.com/javase/6/docs/api/" />
+
+	<target name="doc-generate">
+		<java  failonerror="true" fork="true" jvm= "${jvm}/bin/java" classname="org.jmlspecs.openjml.jmldoc.Main">
+			<classpath>
+				<path refid="docs.classpath" />
+			</classpath>
+			
+			<arg line="-link ${6doc-api}"/>
+			<arg line="${sensor-type-packet} ${sensor-packet}" />
+			<arg line="${sensorboard-packet} ${simulator-packet}" />
+			<arg line="${channel-packet} ${formal-packet}" />
+			<arg line="${util-packet} ${driver-simulator-packet}" />
+			<arg line="${driver-packet} ${util-packet}" />
+		</java>
+	</target>
+</project>
