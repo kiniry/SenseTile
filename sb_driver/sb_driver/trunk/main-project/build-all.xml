@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="build" name="test-jml-project">
+<project basedir="." default="build" name="build-all">
 	<property name="main-project.location" value="../main-project" />
 	<property name="spec-project.location" value="../spec-project" />
 	<property name="test-project.location" value="../test-project" />
