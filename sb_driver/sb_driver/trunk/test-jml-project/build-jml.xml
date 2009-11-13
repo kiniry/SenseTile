@@ -38,15 +38,12 @@
   <pathconvert property="jml.src.compile" pathsep=" ">
     <path refid="jml.src.compile" />
   </pathconvert>
-
   <target name="clean-jml">
     <delete dir="${jml.junit.src}" />
   </target>
-  
   <target name="init-jml">
     <mkdir dir="${jml.junit.src}" />
   </target>
-  
   <target name="generate_source-jml" depends="init-jml">
     <!--
     <property name="jml.debug" value="- -debug" />
@@ -81,5 +78,6 @@
       <arg line="${jml.src.compile}" />
     </java>
   </target>
-
+  <target name="build-jml" depends="generate_source-jml">
+  </target>
 </project>
