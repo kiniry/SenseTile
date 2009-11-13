@@ -7,6 +7,7 @@
 <project basedir="." default="build" name="main-project">
     <property environment="env"/>
     <property name="driver-tries.location" value="../driver-tries"/>
+    <property name="mina-project.location" value="../mina-project"/>
     <property name="profile-jml-project.location" value="../profile-jml-project"/>
     <property name="simulator-project.location" value="../simulator-project"/>
     <property name="spec-project.location" value="../spec-project"/>
@@ -16,6 +17,7 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.2"/>
     <property name="source" value="1.3"/>
+    <import file="build-release.xml"/>
     <path id="main-project.classpath">
         <pathelement location="lib/d2xxj/ftd2xxj.jar"/>
         <pathelement location="lib/d2xxj/javax.util.property.jar"/>
@@ -31,6 +33,8 @@
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
         <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
         <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build"/>
+        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="clean"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>

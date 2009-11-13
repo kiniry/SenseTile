@@ -1,0 +1,12 @@
+<?eclipse.ant.import?>
+<project basedir="." name="spec-project.release">
+  <property name="main-project.location" value="../main-project"/>
+  <import file="${main-project.location}/release/build-release-common.xml"/>
+  <target name="build-release" depends="init-release, build">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <copy file="lib/ftdi_d2xx/x86/libftd2xx.so.0" todir="${release.lib.dependencies.location}/x86" />
+    <copy file="lib/d2xxj/x86/libftd2xxj.so" todir="${release.lib.dependencies.location}/x86" />
+    <copy file="lib/d2xxj/ftd2xxj.jar" todir="${release.lib.dependencies.location}" />
+    <copy file="lib/d2xxj/javax.util.property.jar" todir="${release.lib.dependencies.location}" />
+  </target>
+</project>
