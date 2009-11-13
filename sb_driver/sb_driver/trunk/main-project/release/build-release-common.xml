@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="build-release-common">
+  <property name="project.name" value="SenseTile" />
+  <property name="project.version" value="0.1" />
+  
+  <dirname property="base.location"
+           file="${ant.file.build-release-common}" />
+  <property name="release.location"
+            location="${base.location}/release" />
+  <property name="release.src.location" location="${release.location}/src" />
+  <property name="release.javadoc.location"
+            location="${release.location}/javadoc" />
+  <property name="release.lib.location" location="${release.location}/lib" />
+  <property name="release.lib.dependencies.location"
+            location="${release.location}/lib.dep" />
+  <property name="bundle.location"
+            location="${base.location}/bundle" />
+  
+  <target name="init-release">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <mkdir dir="${release.location}" />
+    <mkdir dir="${release.src.location}" />
+    <mkdir dir="${release.javadoc.location}" />
+    <mkdir dir="${release.lib.location}" />
+    <mkdir dir="${release.lib.dependencies.location}" />
+    <mkdir dir="${release.lib.dependencies.location}/x86" />
+    <mkdir dir="${bundle.location}" />
+  </target>
+  <target name="clean-release">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <delete dir="${release.location}" />
+    <delete dir="${bundle.location}" />
+  </target>
+
+</project>
