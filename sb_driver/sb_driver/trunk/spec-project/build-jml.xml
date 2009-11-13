@@ -1,5 +1,5 @@
 <?eclipse.ant.import?>
-<project basedir="." name="spec-project.user">
+<project basedir="." name="spec-project.jml">
   <path id="jml-libraries.classpath">
     <pathelement location="lib/jml/jml-release.jar" />
     <pathelement location="lib/jml/specs" />

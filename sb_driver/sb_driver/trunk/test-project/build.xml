@@ -6,6 +6,7 @@
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="test-project">
     <property environment="env"/>
+    <property name="mina-project.location" value="../mina-project"/>
     <property name="profile-jml-project.location" value="../profile-jml-project"/>
     <property name="simulator-project.location" value="../simulator-project"/>
     <property name="test-jml-project.location" value="../test-jml-project"/>
@@ -66,6 +67,8 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="clean"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>
@@ -73,11 +76,11 @@
         <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="clean"/>
         <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="build"/>
     </target>
-    <target name="AllUnitTests test-project">
+    <target name="InputStreamPacketInputStreamUnitTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="ie.ucd.sensetile.AllUnitTests" todir="${junit.output.dir}"/>
+            <test name="ie.ucd.sensetile.sensorboard.driver.InputStreamPacketInputStreamUnitTest" todir="${junit.output.dir}"/>
             <classpath refid="test-project.classpath"/>
         </junit>
     </target>
@@ -103,6 +106,14 @@
             <test name="ie.ucd.sensetile.util.AllUnitTests" todir="${junit.output.dir}"/>
             <test name="ie.ucd.sensetile.util.BytePatternUnitTest" todir="${junit.output.dir}"/>
             <test name="ie.ucd.sensetile.util.UnsignedByteArrayUnitTest" todir="${junit.output.dir}"/>
+            <classpath refid="test-project.classpath"/>
+        </junit>
+    </target>
+    <target name="AllUnitTests test-project">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.AllUnitTests" todir="${junit.output.dir}"/>
             <classpath refid="test-project.classpath"/>
         </junit>
     </target>
