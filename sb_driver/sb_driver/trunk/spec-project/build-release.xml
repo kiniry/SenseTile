@@ -1,0 +1,13 @@
+<?eclipse.ant.import?>
+<project basedir="." name="spec-project.release">
+  <import file="${main-project.location}/release/build-release-common.xml"/>
+  <target name="build-release" depends="init-release, build, build-jml">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <jar destfile="${release.lib.location}/${project.name}-${ant.project.name}.jar"
+         basedir="bin" />
+    <zip destfile="${release.src.location}/${project.name}-${ant.project.name}-src.jar"
+         basedir="src" />
+    <jar destfile="${release.lib.location}/${project.name}-${ant.project.name}-jml_rac.jar"
+         basedir="bin" />
+  </target>
+</project>
