@@ -1,13 +1,11 @@
 
-insert static attributes as instance in InputStreamPacket
+TODO: insert static attributes as instance in InputStreamPacket
+TODO: acceptance tests
 
-create ant
- run checkstyle
- run acceptance tests
- run pmd
+TODO: ant, run checkstyle
+TODO: ant, run pmd
 
-prepare testbench
- configure cron
-  svn update
-  make (c code)
-  ant (java code)
+TODO: testbench, configure cron
+TODO: testbench, svn update
+TODO: testbench, make (c code)
+TODO: testbench, ant (java code)
