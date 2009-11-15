@@ -14,6 +14,7 @@
     <property name="target" value="1.2"/>
     <property name="source" value="1.3"/>
     <import file="build-jml.xml"/>
+    <import file="build-checkstyle.xml"/>
     <path id="main-project.classpath">
         <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar"/>
         <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar"/>

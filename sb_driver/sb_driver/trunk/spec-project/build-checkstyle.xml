@@ -1,0 +1,13 @@
+<?eclipse.ant.import?>
+<project basedir="." name="spec-project.checkstyle">
+  <import file="${main-project.location}/configuration/build-checkstyle-common.xml" />
+  <target name="check-checkstyle" depends="init-checkstyle">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <checkstyle config="${main-project.location}/configuration/checkstyle.SenseTile.xml"
+                failOnViolation="false">
+      <formatter type="plain"/>
+      <formatter type="xml" tofile="checkstyle/checkstyle_report.xml" />
+      <fileset dir="src" includes="**/*.java" />
+    </checkstyle>
+  </target>
+</project>

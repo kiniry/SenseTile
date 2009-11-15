@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="build-checkstyle-common">
+  <target name="clean-checkstyle">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <delete dir="checkstyle" />
+  </target>
+  <target name="init-checkstyle">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <taskdef resource="checkstyletask.properties"
+             classpath="${main-project.location}/lib/checkstyle/checkstyle-all-5.0.jar" />
+    <mkdir dir="checkstyle" />
+  </target>
+</project>

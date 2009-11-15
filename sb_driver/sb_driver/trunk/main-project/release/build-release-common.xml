@@ -2,7 +2,7 @@
 <project basedir="." name="build-release-common">
   <property name="project.name" value="SenseTile" />
   <property name="project.version" value="0.1" />
-  
+
   <dirname property="base.location"
            file="${ant.file.build-release-common}" />
   <property name="release.location"
@@ -15,7 +15,7 @@
             location="${release.location}/lib.dep" />
   <property name="bundle.location"
             location="${base.location}/bundle" />
-  
+
   <target name="init-release">
     <echo message="${ant.project.name}: ${ant.file}" />
     <mkdir dir="${release.location}" />
@@ -31,5 +31,9 @@
     <delete dir="${release.location}" />
     <delete dir="${bundle.location}" />
   </target>
-
+  <target name="bundle-release" depends="init-release, build-release">
+    <tar destfile="${bundle.location}/${project.name}.${project.version}.tar.bz2"
+         basedir="${release.location}"
+         compression="bzip2" />
+  </target>
 </project>

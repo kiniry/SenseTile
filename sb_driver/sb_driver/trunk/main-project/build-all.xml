@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="build-all">
-	<property name="main-project.location" value="../main-project" />
-	<property name="spec-project.location" value="../spec-project" />
-	<property name="test-project.location" value="../test-project" />
-	<property name="test-jml-project.location" value="../test-jml-project" />
-	<target name="init">
-		<ant dir="${main-project.location}" inheritAll="false" target="init" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="init" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="init-jml" />
+  <property name="main-project.location" value="../main-project" />
+  <property name="spec-project.location" value="../spec-project" />
+  <property name="test-project.location" value="../test-project" />
+  <property name="test-jml-project.location" value="../test-jml-project" />
+  <import file="${main-project.location}/release/build-release-common.xml"/>
+  <target name="init">
+    <ant dir="${main-project.location}" inheritAll="false" target="init" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="init" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="init-jml" />
     <ant dir="${test-project.location}" inheritAll="false" target="init" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="init" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="init-jml" />
-	</target>
-	<target name="clean">
-		<ant dir="${main-project.location}" inheritAll="false" target="clean" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="clean-jml" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="clean" />
-		<ant dir="${test-project.location}" inheritAll="false" target="clean" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="clean-jml" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="clean" />
-	</target>
-	<target name="build" depends="init">
-		<ant dir="${main-project.location}" inheritAll="false" target="build" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="build-jml" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="build" />
-		<ant dir="${test-project.location}" inheritAll="false" target="build" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="build-jml" />
-		<ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
-	</target>
-	<target name="build-release" depends="init">
-		<ant dir="${main-project.location}" inheritAll="false" target="build-release" />
-		<ant dir="${spec-project.location}" inheritAll="false" target="build-release" />
-	</target>
+    <ant dir="${test-jml-project.location}" inheritAll="false" target="init" />
+    <ant dir="${test-jml-project.location}"
+         inheritAll="false"
+         target="init-jml" />
+  </target>
+  <target name="clean" depends="clean-release">
+    <ant dir="${main-project.location}" inheritAll="false" target="clean" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="clean-jml" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="clean" />
+    <ant dir="${test-project.location}" inheritAll="false" target="clean" />
+    <ant dir="${test-jml-project.location}"
+         inheritAll="false"
+         target="clean-jml" />
+    <ant dir="${test-jml-project.location}" inheritAll="false" target="clean" />
+  </target>
+  <target name="build" depends="init">
+    <ant dir="${main-project.location}" inheritAll="false" target="build" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="build-jml" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="build" />
+    <ant dir="${test-project.location}" inheritAll="false" target="build" />
+    <ant dir="${test-jml-project.location}"
+         inheritAll="false"
+         target="build-jml" />
+    <ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
+  </target>
+  <target name="check" depends="init">
+    <ant dir="${spec-project.location}"
+         inheritAll="false"
+         target="check-checkstyle" />
+    <ant dir="${test-project.location}"
+         inheritAll="false"
+         target="check-checkstyle" />
+    <ant dir="${test-jml-project.location}"
+         inheritAll="false"
+         target="check-checkstyle" />
+    <ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
+  </target>
+  <target name="build-release" depends="init">
+    <ant dir="${main-project.location}"
+         inheritAll="false"
+         target="build-release" />
+    <ant dir="${spec-project.location}"
+         inheritAll="false"
+         target="build-release" />
+  </target>
 </project>
