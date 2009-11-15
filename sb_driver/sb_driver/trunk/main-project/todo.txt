@@ -1,11 +1,9 @@
 
-TODO: insert static attributes as instance in InputStreamPacket
 TODO: acceptance tests
 
-TODO: ant, run checkstyle
+TODO: include checkstyle in Hudson
 TODO: ant, run pmd
 
-TODO: testbench, configure cron
-TODO: testbench, svn update
-TODO: testbench, make (c code)
-TODO: testbench, ant (java code)
+TODO: refine checkstyle rules
+
+TODO: refactor checkstyle target (2 parameters: sources and checkstyle rules configuration file)

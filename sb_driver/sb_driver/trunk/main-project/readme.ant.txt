@@ -9,8 +9,22 @@ custom user ant make files, included automatically by Eclipse, if starting
 with <?eclipse.ant.import?>
 
 actually the custom purposes are: 
- - jml: targets of jml2 tools
+ - jml: jml2 tools targets
+ - checkstyle: checkstyle targets
  - release: release targets
+
+
+main-project/configuration/build-checkstyle-common.xml
+ant make file containing common definitions to be used by custom 
+<project>/build-checkstyle.xml files
+
+
+main-project/configuration/checkstyle.SenseTile.xml
+general checkstyle configuration
+
+
+main-project/configuration/checkstyle.SenseTile-Test.xml
+general checkstyle for tests configuration
 
 
 <project>/build-release.xml

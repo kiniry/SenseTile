@@ -6,14 +6,14 @@
   <property name="test-jml-project.location" value="../test-jml-project" />
   <import file="${main-project.location}/release/build-release-common.xml"/>
   <target name="init">
-    <ant dir="${main-project.location}" inheritAll="false" target="init" />
-    <ant dir="${spec-project.location}" inheritAll="false" target="init" />
     <ant dir="${spec-project.location}" inheritAll="false" target="init-jml" />
-    <ant dir="${test-project.location}" inheritAll="false" target="init" />
-    <ant dir="${test-jml-project.location}" inheritAll="false" target="init" />
     <ant dir="${test-jml-project.location}"
          inheritAll="false"
          target="init-jml" />
+    <ant dir="${main-project.location}" inheritAll="false" target="init" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="init" />
+    <ant dir="${test-project.location}" inheritAll="false" target="init" />
+    <ant dir="${test-jml-project.location}" inheritAll="false" target="init" />
   </target>
   <target name="clean" depends="clean-release">
     <ant dir="${main-project.location}" inheritAll="false" target="clean" />
@@ -26,13 +26,13 @@
     <ant dir="${test-jml-project.location}" inheritAll="false" target="clean" />
   </target>
   <target name="build" depends="init">
-    <ant dir="${main-project.location}" inheritAll="false" target="build" />
     <ant dir="${spec-project.location}" inheritAll="false" target="build-jml" />
-    <ant dir="${spec-project.location}" inheritAll="false" target="build" />
-    <ant dir="${test-project.location}" inheritAll="false" target="build" />
     <ant dir="${test-jml-project.location}"
          inheritAll="false"
          target="build-jml" />
+    <ant dir="${main-project.location}" inheritAll="false" target="build" />
+    <ant dir="${spec-project.location}" inheritAll="false" target="build" />
+    <ant dir="${test-project.location}" inheritAll="false" target="build" />
     <ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
   </target>
   <target name="check" depends="init">
