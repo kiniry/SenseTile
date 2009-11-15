@@ -35,7 +35,9 @@
     <ant dir="${test-project.location}" inheritAll="false" target="build" />
     <ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
   </target>
-  <target name="check" depends="init">
+  <target name="check"
+          depends="init"
+          description="check project with checkers available">
     <ant dir="${spec-project.location}"
          inheritAll="false"
          target="check-checkstyle" />
@@ -47,7 +49,12 @@
          target="check-checkstyle" />
     <ant dir="${test-jml-project.location}" inheritAll="false" target="build" />
   </target>
-  <target name="build-release" depends="init">
+  <target name="build-bundle-release"
+          depends="build, bundle-release"
+          description="assemble release into a bundle file">
+  </target>
+  <target name="build-release" depends="init"
+    description="assemble release" >
     <ant dir="${main-project.location}"
          inheritAll="false"
          target="build-release" />

@@ -1,4 +1,11 @@
 
+main-project/build-all
+ant make file used to invokes all the targets in all the projects
+
+the targets are self explanatory, some of the targets comes with a description 
+(just to be sure) 
+
+
 <project>/build.xml
 every project has a build.xml ant make file, generated automatically by 
 Eclipse
@@ -36,7 +43,4 @@ main-project/release/build-release-common.xml
 ant make file containing common definitions to be used by custom 
 <project>/build-release.xml files
 
-
-main-project/build-all
-ant make file used to invokes all the targets in all the projects
 
