@@ -7,3 +7,7 @@ TODO: ant, run pmd
 TODO: refine checkstyle rules
 
 TODO: refactor checkstyle target (2 parameters: sources and checkstyle rules configuration file)
+
+TODO: ant, separate execution of unit tests, make them completely eclipse independent
+
+TODO: include license information into main project, update release to include it
