@@ -1,0 +1,10 @@
+<binding xmlns:tns="http://www.ucd.ie/SenseTile/sensorml/generator/SensorData" name="binding" package="ie.ucd.sensetile.sensorml.generator">
+  <namespace uri="http://www.ucd.ie/SenseTile/sensorml/generator/SensorData" default="elements"/>
+  <mapping class="ie.ucd.sensetile.sensorml.generator.SensorData" name="SensorData">
+    <value style="attribute" name="InputType" get-method="getInputType" set-method="setInputType"/>
+    <value style="attribute" name="Method" get-method="getMethod" set-method="setMethod"/>
+    <value style="attribute" name="OutPutType" get-method="getOutPutType" set-method="setOutPutType"/>
+    <value style="attribute" name="SensorName" get-method="getSensorName" set-method="setSensorName"/>
+    <value style="attribute" name="Version" get-method="getVersion" set-method="setVersion"/>
+  </mapping>
+</binding>

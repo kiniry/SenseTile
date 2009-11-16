@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.ucd.ie/SenseTile/SensorData" xmlns:sensordata="http://www.ucd.ie/SenseTile/SensorData">
+  <xs:element name="SensorData">
+    <xs:complexType>
+      <xs:attribute name="InputType" use="required" type="xs:NCName"/>
+      <xs:attribute name="Method" use="required" type="xs:anyURI"/>
+      <xs:attribute name="OutPutType" use="required" type="xs:NCName"/>
+      <xs:attribute name="SensorName" use="required" type="xs:NCName"/>
+      <xs:attribute name="Version" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

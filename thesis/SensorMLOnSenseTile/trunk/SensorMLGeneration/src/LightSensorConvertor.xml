@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SensorData xmlns="http://www.ucd.ie/sensetile/sensorml/generator"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.001"
+    SensorName  ="LightSensorConvertor"
+    InputType = "Count"
+    OutPutType = "Quantity"
+    Method="URN:SENSETILE:LIGHTSENSOR:CONVERTER"/>

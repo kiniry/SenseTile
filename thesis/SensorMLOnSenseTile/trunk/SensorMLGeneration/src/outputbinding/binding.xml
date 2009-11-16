@@ -1,0 +1,11 @@
+<binding xmlns:tns="http://ie.ucd/sensetile/sensorml/process" name="binding" package="ie.ucd.sensetile.sensorml.process">
+  <namespace uri="http://ie.ucd/sensetile/sensorml/process" default="elements"/>
+  <mapping abstract="true" type-name="tns:sensorML" class="ie.ucd.sensetile.sensorml.process.SensorML">
+    <structure field="member" usage="optional" name="member">
+      <value style="element" name="value" field="value" usage="optional"/>
+    </structure>
+  </mapping>
+  <mapping class="ie.ucd.sensetile.sensorml.process.SensorML" name="sensorML">
+    <structure map-as="tns:sensorML"/>
+  </mapping>
+</binding>
