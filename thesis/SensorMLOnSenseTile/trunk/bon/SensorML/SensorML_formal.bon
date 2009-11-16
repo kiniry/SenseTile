@@ -1,0 +1,714 @@
+static_diagram SENSORML
+component
+
+  effective class SensorML
+     indexing
+     about: "SensorML document root.";
+     title:        "connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->member_array:SEQUENCE[Member]
+       require
+         member_array/=Void;
+       ensure
+          for_all i:INTEGER such_that 0 <= i and i < member_array.length it_holds member.item(i) = member_array.item(i);
+       end
+
+     member:SEQUENCE[Member]
+       ensure
+          Result /= Void;
+       end
+
+ end --SensorML
+ 
+   effective class Member
+     indexing
+     about: "SensorML member.";
+     title:        "connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+     
+     feature
+
+     make
+       ->processIn:AbstractProcessType
+       ->arcroleIn:STRING
+       require
+         processIn/=Void;
+         arcroleIn/=Void;         
+       ensure
+         delta{process,arcrole};
+         process = processIn;
+         arcrole = arcroleIn;
+       end
+
+     process:AbstractProcessType
+       ensure
+          Result /= Void;
+       end
+
+     arcrole:STRING -- attribute of member element for mapping
+       ensure
+          Result /= Void;
+       end
+       
+   end --Member
+   
+   deferred class AbstractProcessType
+     indexing
+     about: "base substitution group for all processes.";
+     title:        "connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+     
+     feature
+
+     --make
+    --   ->identificationIn:SEQUENCE[Identification]
+    --   ->classificationIn:SEQUENCE[Classification]
+    --   ->validTimeIn:ValidTime
+    --   ->securityConstraintIn:SecurityConstraint
+    --   ->legalConstraintIn:SEQUENCE[LegalConstraint]
+    --   ->characteristicsIn:SEQUENCE[Characteristics]
+    --   ->capabilitiesIn:SEQUENCE[Capabilities]
+    --   ->contactIn:SEQUENCE[Contact]
+    --   ->documentationIn:SEQUENCE[Documentation]
+    --   ->historyIn:SEQUENCE[History]
+       
+     --  require
+     --    identificationIn/=Void;
+     --    classificationIn/=Void;
+     --    validTimeIn/=Void;
+     --    securityConstraintIn/=Void;
+     --    legalConstraintIn/=Void;
+     --    characteristicsIn/=Void;
+     --    capabilitiesIn/=Void;
+     --    contactIn/=Void;
+     --    documentationIn/=Void;
+     --    historyIn/=Void;        
+     --  ensure
+      --   delta{identification,classification,validTime,securityConstraint,
+     --             legalConstraint,characteristics,capabilities,contact,
+     --             documentation,historyIn}; 
+         
+     --    identification=identificationIn;
+     --    classification=classificationIn;
+     --    validTime=validTimeIn;
+     --    securityConstraint=securityConstraintIn;
+     --    legalConstraint=legalConstraintIn;
+     --    characteristics=characteristicsIn;
+     --    capabilities=capabilitiesIn;
+     --    contact=contactIn;
+     --    documentation=documentationIn;
+     --    history=historyIn; 
+     --  end
+
+     keywords:SEQUENCE[Keywords]
+
+
+     identification:SEQUENCE[Identification]
+
+
+     classification:SEQUENCE[Classification]
+
+       
+     validTime:ValidTime
+
+       
+     securityConstraint:SecurityConstraint
+
+       
+     legalConstraint:SEQUENCE[LegalConstraint]
+ 
+
+     characteristics:SEQUENCE[Characteristics]
+
+       
+     capabilities:SEQUENCE[Capabilities]
+
+     
+     contact:SEQUENCE[Contact]
+
+ 
+     documentation:SEQUENCE[Documentation]
+
+
+     history:SEQUENCE[History]
+             
+     
+   end --AbstractProcessType
+
+
+
+
+  effective class connections
+     indexing
+     about: "provides links between processes or between data sources and processes.";
+     title:        "connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+
+     feature
+
+     make
+       ->connection_array:SEQUENCE[connection]
+       require
+         connection_array/=Void;
+       ensure
+          for_all i:INTEGER such_that 0 <= i and i < connection_array.length it_holds connectionList.item(i) = connection_array.item(i);
+
+       end
+
+     ConnectionList:SEQUENCE[connection]
+       ensure
+          Result /= Void;
+       end
+
+ end --connections
+
+ effective class ConnectionList
+     indexing
+     about:        "List of Connection type.";
+     title:        "Connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/30.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     connectionList:SEQUENCE[Connection]
+         ensure
+           Result /= Void;
+         end
+
+
+
+ end --ConnectionList
+
+ effective class Connection
+
+     indexing
+     about:        "Specify a connection between two elements.";
+     title:        "Connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/30.";
+     version:      "Revision: 1.00.";
+
+
+     feature
+     make
+       ->name_in:STRING
+       ->link_in:Link
+       require
+         link_in/=Void;
+         name_in/=Void;
+       ensure
+         delta{link,name};
+         link = link_in;
+         name = name_in       
+       end
+      
+
+           
+     getLink:Link
+
+     arrayLink:ArrayLink
+
+     name:STRING
+       ensure
+         Result /= Void;
+       end
+
+
+ end--Connection
+
+
+
+  effective class Link
+     indexing
+     about: "Link object used to make connections between processes.";
+     title:        "connections.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+
+     feature
+
+     make
+       ->sourceIn:LinkRef
+       ->destinationIn:LinkRef
+       require
+         sourceIn/=Void;
+         destinationIn/=Void;
+         
+       ensure
+         delta{source,destination};
+         source = sourceIn;
+         destination = destinationIn;
+       end
+
+     source:Ref
+       ensure
+          Result /= Void;
+       end
+
+     destination:Ref
+       ensure
+          Result /= Void;
+       end
+
+ end --Link
+
+
+
+  effective class Ref
+     indexing
+     about: "LinkRef";
+     title:        "LinkRef.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+
+     feature
+
+     make
+       ->refIn:String
+       require
+         sourceIn/=Void;
+       ensure
+         delta{ref};
+         ref = refIn;
+       end
+
+     ref:STRING
+       ensure
+          Result /= Void;
+       end
+
+ end --Ref
+
+   deferred class AbstractDerivableComponentType -- not mapped
+     indexing
+     about: "AbstractDerivableComponentType.";
+     title:        "AbstractDerivableComponentType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     inherit AbstractProcessType
+     feature  
+            
+     spatialReferenceFrame:STRING     
+
+           --spatialReferenceFrame
+           --temporalReferenceFrame
+           --choice
+           -- location
+           -- position
+          --timePosition
+          -- interfaces      
+ end --AbstractDerivableComponentType
+  
+   deferred class AbstractComponentType
+     indexing
+     about: "Complex Type for all generic components (soft typed inputs/outputs/parameters).";
+     title:        "AbstractComponentType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     inherit AbstractDerivableComponentType
+     feature
+     make
+       ->inputsIn:Inputs
+       ->outputsIn:Outputs
+       require
+         inputsIn/=Void;
+         outputsIn/=Void;
+       ensure
+         delta{inputs,outputs};
+         inputs=inputsIn;
+         outputs=outputsIn;
+       end    
+
+   --  make
+   --    ->inputsIn:Inputs
+   --    ->outputsIn:Outputs
+   --    ->parametersIn:Parameters
+   --    require
+   --      inputsIn/=Void;
+   --      outputsIn/=Void;
+     --    parametersIn/=Void;         
+    --   ensure
+    --     delta{inputs,outputs,parameters};
+    --     inputs=inputsIn;
+    --     outputs=outputsIn;
+    --     parameters=parametersIn;         
+    --   end 
+            
+     inputs:Inputs
+       ensure
+          Result /= Void;
+       end     
+     outputs:Outputs
+       ensure
+          Result /= Void;
+       end
+            
+     parameters:Parameters
+        
+ end --AbstractComponentType
+ 
+
+         
+  effective class ComponentType
+     indexing
+     about: "ComponentType.";
+     title:        "ComponentType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     inherit AbstractComponentType
+     feature
+     
+     method:XlinkHRef
+ end --ComponentType
+
+
+ effective class XlinkHRef
+     indexing
+     about: "XlinkHRef.";
+     title:        "XlinkHRef.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+
+     feature
+
+     make
+       ->refIn:String
+       require
+         sourceIn/=Void;
+       ensure
+         delta{ref};
+         ref = refIn;
+       end
+
+     ref:STRING
+       ensure
+          Result /= Void;
+       end
+
+ end --XlinkHRef
+
+
+ effective class Inputs
+     indexing
+     about: "Inputs.";
+     title:        "Inputs.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->inputListIn:SEQUENCE[IoComponentPropertyType]
+       require
+         inputListIn/=Void;
+       ensure
+         delta{inputListElem};
+         inputList = inputListIn;
+       end
+
+     inputList:SEQUENCE[IoComponentPropertyType] --inputList is InputList in SensorML.
+       ensure
+          Result /= Void;
+       end
+
+ end --Inputs
+ 
+  effective class IoComponentPropertyType
+     indexing
+     about: "IoComponentPropertyType.";
+     title:        "IoComponentPropertyType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->nameIn:String
+       ->countIn:INTEGER
+       require
+         countIn/=Void;
+         dataIn/=Void;
+       ensure
+         delta{nameAttrib,count};
+         nameAtrib = nameIn;
+         count = countIn;
+       end
+
+     nameAtrib:String
+       ensure
+          Result /= Void;
+       end
+
+     count:INTEGER
+
+       
+       
+ end --IoComponentPropertyType
+ 
+ 
+ --SWE package
+    effective class AllowedValuesPropertyType
+     indexing
+     about: "AllowedValuesPropertyType.";
+     title:        "AllowedValuesPropertyType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->allowedValuesIn:AllowedValues
+       require
+         allowedValuesIn/=Void;
+       ensure
+         delta{allowedValues};
+         allowedValues = AllowedValuesIn;
+       end
+
+     allowedValues:AllowedValues
+       ensure
+          Result /= Void;
+       end
+       
+     --AssociationAttributeGroup not mapped;
+           
+ end --AllowedValues
+ 
+     effective class AllowedValues
+     indexing
+     about: "AllowedValues.";
+     title:        "AllowedValues.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+   --  make
+   --    ->maxIn:DOUBLE
+  --     require
+   ----      maxIn/=Void;
+   --    ensure
+   --      delta{max};
+   --      max = maxIn;
+   --    end
+
+    -- make
+    --   ->minIn:DOUBLE
+    --   require
+     --    minIn/=Void;
+     --  ensure
+     --    delta{min};
+     --    min = minIn;
+      -- end
+
+     make
+       ->intervalIn:SEQUENCE[DOUBLE]
+       require
+         intervalIn/=Void;
+         intervalIn.length = 2;
+       ensure
+         delta{interval};
+         interval = intervalIn;
+       end       
+ 
+      ----make
+       ----->valueListIn:SEQUENCE[DOUBLE]
+      -- require
+      --   valueListIn/=Void;
+      -- ensure
+       --  delta{valueList};
+        -- valueList = valueListIn;
+       --end
+       
+     min:DOUBLE
+
+     max:DOUBLE
+       
+     interval:SEQUENCE[DOUBLE]
+
+     valueList:SEQUENCE[DOUBLE]
+
+        --"id" not mapped           
+ end --AllowedValues
+ 
+   effective class Count
+     indexing
+     about: "Integer number used for a counting value.";
+     title:        "Count.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->valueIn:INTEGER
+       ->constraintIn:AllowedValuesPropertyType
+       require
+         valueIn/=Void;
+         constraintIn/=Void;
+       ensure
+         delta{value,constraintSML};
+         value = valueIn;
+         constraintSML = dataIn;
+       end
+
+     value:INTEGER
+       ensure
+          Result /= Void;
+       end
+
+     constraintSML:AllowedValuesPropertyType
+       ensure
+          Result /= Void;
+       end
+       
+     --quality not mapped
+     --axisID not mapped
+     --referenceFrame not mapped      
+ end --Count
+
+   effective class Quantity
+     indexing
+     about: "Integer number used for a counting value.";
+     title:        "Quantity.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->valueIn:INTEGER
+       ->constraintIn:AllowedValuesPropertyType
+       ->uomIn:UomPropertyType
+       require
+         valueIn/=Void;
+         constraintIn/=Void;
+         uomIn/=Void;
+       ensure
+         delta{value,constraintSML,uom};
+         value = valueIn;
+         constraintSML = dataIn;
+         uom = uomIn;
+       end
+
+     value:DOUBLE
+       ensure
+          Result /= Void;
+       end
+
+     uom:UomPropertyType
+        ensure
+          Result /= Void;
+       end
+          
+     constraintSML:AllowedValuesPropertyType
+       ensure
+          Result /= Void;
+       end
+       
+     --quality not mapped
+     --axisID not mapped
+     --referenceFrame not mapped      
+ end --Quantity
+
+   effective class UomPropertyType
+     indexing
+     about: "UomPropertyType.";
+     title:        "UomPropertyType.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+
+     make
+       ->codeIn:STRING
+       require
+         codeIn/=Void;
+       ensure
+         delta{codeAttrib};
+         codeAttrib = codeIn;
+       end
+
+       codeAttrib:STRING
+       ensure
+          Result /= Void;
+       end
+
+     --AssociationAttributeGroup not mapped
+     --unitDefinition not mapped
+           
+ end --UomPropertyType
+         
+end
