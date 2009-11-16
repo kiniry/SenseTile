@@ -1,0 +1,36 @@
+
+system_chart SENSORMLGERATOR_SYSTEM
+    explanation "Generate SensorML files for SenseTile."
+    cluster SENSORML_GENERATOR description "Generate SensorML files for SenseTile."
+end
+    
+cluster_chart SENSORML_GENERATOR
+  explanation "Generate SensorML files for SenseTile"
+  class SENSORMLGENERATOR description "Generates SensorML using JIBX marshaling"
+  class SENSORDATAMAPPER description "Generates SensorML using JIBX marshaling"
+end
+
+ class_chart SENSORMLGENERATOR
+  explanation "Generates SensorML using JIBX marshaling."
+  
+  query
+    "" 
+  command
+    "create Input senorML classes using SensorData values",
+    "create Component senorML classes using SensorData values",
+    "create Method senorML classes using SensorData values",
+    "marshal sensorML classes",
+  constraint
+  ""
+end
+
+ class_chart SENSORDATAMAPPER
+  explanation "Maps Sensor Data in xml file to SensorML xmlfile."
+  
+  query
+    "" 
+  command
+    "map Component SensorData from xml file",
+  constraint
+  ""
+end

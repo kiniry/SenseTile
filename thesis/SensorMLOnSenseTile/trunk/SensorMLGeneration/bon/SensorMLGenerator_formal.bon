@@ -1,0 +1,69 @@
+static_diagram SENSORMLGENERATOR
+component
+
+  effective class SensorMLGenerator
+     indexing
+     about: "Generates SensorML";
+     title:        "SensorMLGenerator.";
+     author:       "Ciaran Palmer.";
+     copyright:    "none.";
+     organisation: "School of Computer Science and Informatics, UCD.";
+     date:         "2009/10/29.";
+     version:      "Revision: 1.00.";
+
+     feature
+ 
+    --"create Input senorML classes using SensorData values",
+     createInput
+        ->sensorData:SensorData
+       require
+         sensorData/=Void;
+       ensure
+         delta{input};
+         input/=Void;
+       end
+      
+     input:Input
+       ensure
+          Result /= Void;
+       end 
+            
+    --"create Component senorML classes using SensorData values"
+      createComponent
+        ->sensorData:SensorData
+       require
+         sensorData/=Void;
+       ensure
+         delta{smlcomponent};
+         smlcomponent/=Void;
+       end
+      
+      smlcomponent:Component
+        ensure
+          Result /= Void;
+       end
+               
+    --"create Method senorML classes using SensorData values",
+       createMethod
+        ->sensorData:SensorData
+       require
+         sensorData/=Void;
+       ensure
+         delta{method};
+         method/=Void;
+       end
+      
+       method:Method
+        ensure
+          Result /= Void;
+       end 
+         
+    --"marshal sensorML classes",
+       marshal
+        ->outPutFile:STRING
+       require
+         outPutFile/=Void;
+       end
+       
+ end --SensorMLGenerator
+end
