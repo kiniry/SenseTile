@@ -7,9 +7,7 @@
 <project basedir="." default="build" name="main-project">
     <property environment="env"/>
     <property name="driver-tries.location" value="../driver-tries"/>
-    <property name="mina-project.location" value="../mina-project"/>
     <property name="profile-jml-project.location" value="../profile-jml-project"/>
-    <property name="simulator-project.location" value="../simulator-project"/>
     <property name="spec-project.location" value="../spec-project"/>
     <property name="test-jml-project.location" value="../test-jml-project"/>
     <property name="test-project.location" value="../test-project"/>
@@ -33,12 +31,8 @@
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
         <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
         <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build"/>
-        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="clean"/>
-        <ant antfile="${mina-project.location}/build.xml" dir="${mina-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="clean"/>
         <ant antfile="${profile-jml-project.location}/build.xml" dir="${profile-jml-project.location}" inheritAll="false" target="build"/>
-        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="clean"/>
-        <ant antfile="${simulator-project.location}/build.xml" dir="${simulator-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="clean"/>
         <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="build"/>
         <ant antfile="${test-jml-project.location}/build.xml" dir="${test-jml-project.location}" inheritAll="false" target="clean"/>
