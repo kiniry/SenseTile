@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="driver-jml-tries">
+    <property environment="env"/>
+    <property name="test-project.location" value="../test-project"/>
+    <property name="spec-project.location" value="../spec-project"/>
+    <property name="main-project.location" value="../main-project"/>
+    <property name="driver-tries.location" value="../driver-tries"/>
+    <property name="test-rac-project.location" value="../test-rac-project"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <import file="build-run.xml"/>
+    <path id="main-project.classpath">
+        <pathelement location="${main-project.location}/lib/d2xxj/ftd2xxj.jar"/>
+        <pathelement location="${main-project.location}/lib/d2xxj/javax.util.property.jar"/>
+    </path>
+    <path id="test-rac-project.classpath">
+        <path refid="main-project.classpath"/>
+        <pathelement location="${test-project.location}/bin"/>
+        <pathelement location="${spec-project.location}/lib/jml/jml-release.jar"/>
+        <pathelement location="${test-project.location}/lib/junit/junit.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/cglib-nodep.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/cglib-src.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/hamcrest-core.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/hamcrest-library.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock-junit4.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/jmock-legacy.jar"/>
+        <pathelement location="${test-project.location}/lib/jmock/objenesis.jar"/>
+        <pathelement location="${test-project.location}/lib/junit/junit-dep.jar"/>
+        <pathelement location="${spec-project.location}/jml/bin"/>
+    </path>
+    <path id="spec-project.classpath">
+        <pathelement location="${spec-project.location}/bin"/>
+        <path refid="main-project.classpath"/>
+    </path>
+    <path id="driver-tries.classpath">
+        <pathelement location="${driver-tries.location}/bin"/>
+        <path refid="main-project.classpath"/>
+        <path refid="spec-project.classpath"/>
+    </path>
+    <path id="driver-jml-tries.classpath">
+        <pathelement location="bin"/>
+        <path refid="test-rac-project.classpath"/>
+        <path refid="driver-tries.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${test-rac-project.location}/build.xml" dir="${test-rac-project.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="${main-project.location}/build.xml" dir="${main-project.location}" inheritAll="false" target="build-project"/>
+        <ant antfile="${spec-project.location}/build.xml" dir="${spec-project.location}" inheritAll="false" target="build-project"/>
+        <ant antfile="${driver-tries.location}/build.xml" dir="${driver-tries.location}" inheritAll="false" target="build-project"/>
+        <ant antfile="${test-rac-project.location}/build.xml" dir="${test-rac-project.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="driver-jml-tries.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="TestDriver-RAC">
+        <java classname="ie.ucd.sensetile.TestDriver" failonerror="true" fork="yes">
+            <classpath refid="driver-jml-tries.classpath"/>
+        </java>
+    </target>
+</project>

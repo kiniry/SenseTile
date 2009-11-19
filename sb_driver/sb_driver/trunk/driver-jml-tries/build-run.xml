@@ -1,0 +1,9 @@
+<?eclipse.ant.import?>
+<project basedir="." name="driver-tries.run">
+    <target name="RUN-TestDriver">
+        <java classname="ie.ucd.sensetile.TestDriver" failonerror="true" fork="yes">
+            <classpath refid="driver-jml-tries.classpath"/>
+            <env key="LD_LIBRARY_PATH" path="${main-project.location}/lib/d2xxj/x86:${main-project.location}/lib/ftdi_d2xx/x86" />
+        </java>
+    </target>
+</project>
