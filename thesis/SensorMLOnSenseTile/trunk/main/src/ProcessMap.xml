@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProcessMap>
+  
+ 
+   <Process>
+      <uri>urn:ucd:sensetile:sensorboard:thermistor</uri>
+      <class>ie.ucd.sensetile.webservice.dataproducer.Thermistor</class>
+   </Process> 
+</ProcessMap>

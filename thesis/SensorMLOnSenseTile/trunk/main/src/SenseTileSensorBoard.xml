@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+   <sml:member>
+      <sml:System gml:id="SENSOR BOARD">
+         <gml:description>A SenseTile is a sensor board including motion sensors, RFID sensors, temperature sensor, audio sensors and pressure sensors.</gml:description>
+         <gml:name>SenseTileSensorBoard</gml:name>
+         
+         <!-- Keywords -->
+         
+         <sml:keywords>
+            <sml:KeywordList>
+               <sml:keyword>sensors</sml:keyword>
+            </sml:KeywordList>
+         </sml:keywords>
+         
+         <!-- Identification -->
+         
+         <sml:identification>
+            <sml:IdentifierList>
+               <sml:identifier name="longName">
+                  <sml:Term definition="urn:ogc:def:identifier:longname">
+                     <sml:value>UCD SenseTile Sensor Board</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="shortname">
+                  <sml:Term definition="urn:ogc:def:identifier:OGC:shortname">
+                     <sml:value>Sensor Board</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="Model Number">
+                  <sml:Term definition="">
+                     <sml:value>1.0</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+            </sml:IdentifierList>
+         </sml:identification>
+         
+         <!-- Inputs -->
+         
+         <sml:inputs>
+            <sml:InputList name ="inputlist">
+               <sml:input name="txPacketTemperature">
+                  <swe:Count/>                 
+               </sml:input>
+            </sml:InputList>
+         </sml:inputs>
+         
+         <!-- Outputs -->
+         
+         <sml:outputs>
+            <sml:OutputList>
+               <sml:output name="temperature">
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
+                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
+                  </swe:Quantity>
+               </sml:output>
+            </sml:OutputList>
+         </sml:outputs>
+         
+         <!-- Components -->
+         
+         <sml:components>
+            <sml:ComponentList>
+               <sml:component name="thermistor"  xlink:href="SenseTileSensorBoardThermistor.xml"></sml:component>			   
+            </sml:ComponentList>
+         </sml:components>
+		 
+
+         <!-- Connections -->
+         <sml:connections>
+            <sml:ConnectionList>
+			               <sml:connection name="inputTxPacketTemperature">
+                  <sml:Link>
+                     <sml:source ref="this/inputs/txPacketTemperature"/>
+                     <sml:destination ref="thermistor/inputs/thermistorInput"></sml:destination>
+                  </sml:Link>
+               </sml:connection>
+               <sml:connection name="outputRealTemperature">
+                  <sml:Link>
+                     <sml:source ref="thermistor/outputs/thermistorOutput"/>
+                     <sml:destination ref="this/outputs/temperature"/>
+                  </sml:Link>
+               </sml:connection>
+            </sml:ConnectionList>
+         </sml:connections>
+      </sml:System>
+   </sml:member>
+</sml:SensorML>

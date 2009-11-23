@@ -108,7 +108,7 @@ public class DOMHelper
     {
         this.validation = validation;
         //eeicpr
-        System.out.println("DomHelper const");
+        System.out.println("DomHelper constr");
         try {
 			mainFragment = parseStream(inputStream, true);
 	        System.out.println("mainFragment "+mainFragment.getBaseElement().getPrefix());
@@ -1128,7 +1128,7 @@ public class DOMHelper
         //eeicpr
         newDocument = new XMLDocument(inputStream, validation);
 		//newDocument.setUri(new URI("file:///c://masters//tempproj//SensorML//Schemas//Sensors//SenseTileSensorBoardThermistor.xml"));
-		newDocument.setUri((new File(".")).toURI());
+		//newDocument.setUri((new File(".")).toURI());
         System.out.println("current dir "+System.getProperty("user.dir"));
 
         System.out.println("parseStream "+inputStream.toString());
@@ -1251,8 +1251,11 @@ public class DOMHelper
                     System.out.println("link to Uri "+baseUri);
                     if (baseUri==null){
                     	System.out.println("base uri is null ");
+                    	linkUri =this.getClass().getResource("/"+idRef).toURI();
                     }
-                    linkUri = baseUri.resolve(linkUri);
+                    else {
+                       linkUri = baseUri.resolve(linkUri);
+                    }
                 }     
                 xmlFragment = parseURI(linkUri.toString(), false);
             }
