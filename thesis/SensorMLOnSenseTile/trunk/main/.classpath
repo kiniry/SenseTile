@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="spec-project"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/javax.util.property.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/resolver.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/sensorml-core-0.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/serializer.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/swe-common-core-0.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/vecmath.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/lib/xml-apis.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="src" path="/jmlspecs"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="C:/masters/project/ucd-svn/SensorMLOnSenseTile/trunk/main/stubs/rmistubs.jar"/>
+	<classpathentry kind="lib" path="C:/ant/lib/ant.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
