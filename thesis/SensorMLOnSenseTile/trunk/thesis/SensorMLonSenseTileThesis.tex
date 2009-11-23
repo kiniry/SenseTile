@@ -49,9 +49,9 @@ SensorML Bon Mapping with a tool and method to develop sensorML descriptions
 
 The aim of this thesis project was to prototype a Web Service for accessing sensor observations from the SenseTile Sensor Board. SenseTile is a sensor and processing package including motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
 
-Descriptions of the SenseTile Sensor Board were to be developed using Sensor Model Language (SensorML)\cite{SensoMLref}. SensorML is a language that describes the process of sensor measurement by providing standard models and XML encoding for such processes. SensorML was be used as it is becoming a standard for describing sensor data processing as part of the SWE.
+Descriptions of the SenseTile Sensor Board were to be developed using Sensor Model Language (SensorML)\cite{SensoMLref}. SensorML is a language that describes the process of sensor measurement by providing standard models and XML encoding for such processes. SensorML was be used as it is becoming a standard for describing sensor data processing as part of the SWE[ref].
 
-Another part of the thesis was to define a SensorML to BON Mapping . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
+A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
 
 
 \chapter{ Background Research}
@@ -61,67 +61,52 @@ How was problem solved before.
 
 \chapter{SensorML}
 \section{SensorML Overview}
-The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) activity, is being executed through the OGC Web Services (OWS) initiatives (under the Interoperability Program). The SWE initiatives are establishing the interfaces and protocols that will enable a “Sensor Web” through which applications and services will be able to access sensors of all types over the Web.
-All processes define their inputs, outputs, parameters, and method, as well as provide relevant metadata. SensorML models detectors and sensors as processes that convert real phenomena to data.
+The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standerised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity. Sensor Modelling Language (SensorML) is one part of the SWE initiative and is used to describe sensor systems and the processing of observations from sensor systems.
 
-sensors modeled as processes that can be connected and participate equally within a process chain or system, and which utilize the same process model frame as any other process.
-Processes are entities that take one or more inputs and through the application of well-defined methods using specific parameters, results in one or more outputs.  SensorML also supports linking between processes and thus supports the concept of process chains, which are themselves defined as processes.
-The second possible role is to provide processing chains with which SensorML-enabled software could derive new data from existing observations on-demand.
+The purposes of SensorML are to:
+• Provide descriptions of sensors and sensor systems for inventory management
+• Provide sensor and process information in support of resource and observation discovery
+• Support the processing and analysis of the sensor observations
+• Support the geolocation of observed values (measured data)
+• Provide performance characteristics (e.g., accuracy, threshold, etc.)
+• Provide an explicit description of the process by which an observation was obtained (i.e., it’s lineage)
+• Provide an executable process chain for deriving new data products on demand (i.e., derivable observation)
+• Archive fundamental properties and assumptions regarding sensor systems
 
-A standard description format for sensors is important for the long-term definition of the sensor model’s fundamental characteristics and assumptions for use in future reprocessing and refining of sensor data.
+SensorML provides a functional model of sensors and an XML encoding to describe sensors and their observations.
+Sensors are modelled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs. They can also define relevant metadata. The processes can be connected together in chains using SensorML ProcessChains or Systems. 
 
-a System defines a collection of sensors that are related spatially and temporally to one another, as well as related to some geospatial domain.
-Detectors are typically simple devices (real or virtual) that take one input signal and generate one or more output signals.
+When Modelling a sensor system in SensorML the main entities used are Systems and Components. A SensorML System is used to group sensors that are related spatially to one another.  A Component is an atomic process that generally converts a physical phenomen to a digital number. ProcessModels are another modelling that is used to describe a pure process that has no physicality
 
-In SensorML, these simpler atomic processes are defined as “process models”, if they are pure processes with no real connection to a spatial or temporal domain, and as “components” if they are physical processing devices, such as detectors and actuators.
+Quantity, Count, Boolean, Category, and Time provide the basic primitives. Within SensorML, these serve as the basis for specifying all inputs, outputs, and parameters within a Process
 
-SensorML is mostly used to describe functional models of the sensors rather than the hardware.
+DataRecord or DataArray.
 
-The response characteristics of a sensor determine how the sensor will react to a particular stimulus (i.e., phenomenon) and how it will operate under given environmental conditions. Within the sensor response characteristics will be specifications for sensitivity (e.g., threshold, dynamic range, capacity, band width, etc.), accuracy and precision, and behavior under certain environmental conditions.
-
-    Component -
-
-    Physical atomic process that transforms information from one form to another. For example, a Detector typically transforms a physical observable property or phenomenon to a digital number. Example Components include detectors, actuators, and physical filters.
-
-    System -
-
-    Composite physically-based model of a group or array of components, which can include detectors, actuators, or sub-systems. A System relates a process to the real world and therefore provides additional definitions regarding relative positions of its components and communication interfaces.
-
-    Process Model -
-
-    Atomic non-physical processing block usually used within a more complex Process Chain. It is associated to a Process Method which defines the process interface as well as how to execute the model. It also precisely defines its own inputs, outputs and parameters.
-
-    Process Chain -
-
-    Composite non-physical processing block consisting of interconnected sub-processes, which can in turn be Process Models or Process Chains. A process chain also includes possible data sources as well as connections that explicitly link input and output signals of sub-processes together. It also precisely defines its own inputs, outputs and parameters.
-
-    Process Method -
-
-    Definition of the behavior and interface of a Process Model. It can be stored in a library so that it can be reused by different Process Model instances (by using 'xlink' mechanism). It essentially describes the process interface and algorithm, and can point the user to existing implementations.
-
-    Detector -
-
-    Atomic component of a composite Measurement System defining sampling and response characteristic of a simple detection device. A detector has only one input and one output, both being scalar quantities. More complex Sensors such as a frame camera which are composed of multiple detectors can be described as a detector group or array using a System or Sensor. In SensorML a detector is a particular type of Process Model.
-
-    Sensor -
-
-    Specific type of System representing a complete Sensor. This could be for example a complete airborne scanner which includes several Detectors (one for each band). 
+Detector model.
 
 The SensorML description of the SenseTile Sensor Board is shown in the following section.
 
 \section{SensorML Description of SenseTile}
 
-The SenseTile Sensor Board is modelled a SensorML System. Meta data such as position.
+SensorML System and Component were used to describe the SenseTile system and it's sensors. The sensor specifications were used to generate the metadata.
 The Sensors are modelled a detectors. They are process that take scalar values
 and can perform transformations on them.
 
 System is providing the mapping of inputs to processes and the outputs.
+
+It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
 The 
  \begin{figure}
-\includegraphics{SensorML_SenseTile_block_design.png}
+\includegraphics{SensorML_SenseTile_System_design_tuple_pa3.png}
 \caption{Block diagram of SenseTile System process}\label{fig:SensorML_SenseTile_design.png}
 \end{figure}
 
+\subsection{SenseTile System}
+\subsection{Light Sensor}
+\subsection{Thermistor}
+\subsection{Pressure Sensor}
+\subsection{Accelerometer}
+\subsection{Acoustic Sensor}
 
 Types
  - SWE -
@@ -135,9 +120,7 @@ Quantity - Double
 public class DataBlockInt extends AbstractDataBlock
 
 
-mapping packet data to process:packet->sensor process
-could be multiple inputs.
-
+\newpage
 \section{BON to SensorML mapping}
 
 \chapter{Design}
@@ -146,11 +129,22 @@ High level design
 
 DataProducer - use PacketInput stream to access SenseTile observation packets.
 
+Steps in the process these sensorml components are roughly.
+
+System reads packets and averages them for 1 second.
+
+Thermistor components reads out the temperature value
+and its output is sent to both the raw data and the celcius
+converter component and on to the tuples.
+
+These tuples are sent to webservice provider as observations.
+
+
 DataProvider - provides an RMI interface to the DataProducer to update. Provides a Web Service interface  based on Sensor Observation Service. Not fully as is a very complex interface.
 
 \section{SensorML generation tool}
 
-SensorML BON mapping
+SensorML to BON mapping
 
 BON to Java
 
@@ -170,7 +164,7 @@ DataProducer POJO/VastLib/UCD SenseTile Driver Lib
 
 \chapter{Results}
 
-
+Tested against real SenseTile and sensor data retrieved by a testclient.
 
 
 \chapter{ Conclusions and Future Work}
