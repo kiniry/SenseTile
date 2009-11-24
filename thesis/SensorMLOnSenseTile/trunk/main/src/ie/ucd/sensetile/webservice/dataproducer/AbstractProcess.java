@@ -8,7 +8,8 @@ import org.vast.data.DataValue;
 import org.vast.process.DataProcess;
 import org.vast.process.ProcessException;
 
-enum ProcessType {SENSOR,CONVERTER}
+enum ProcessType { SENSOR, CONVERTER }
+
 public abstract class AbstractProcess extends DataProcess {
 
     private DataValue input;
@@ -32,17 +33,20 @@ public abstract class AbstractProcess extends DataProcess {
         this.processType = processType;
     }
     /**
-     * * Initializes the process.
+     * * Initialises the process.
      * * Gets handles to input/output components.
+     * @throws ProcessException - Vast Library processing exception
      */
-    public void init() throws ProcessException {
+    public final void init() throws ProcessException {
         try {
-            System.out.println("abstact name ???? "+this.getName());
+            System.out.println("abstact name ???? " + this.getName());
             // I/O mappings
             input =
                 (DataValue) inputData.getComponent(this.getName() + "Input");
+
             output =
                 (DataValue) outputData.getComponent(this.getName() + "Output");
+
         } catch (ClassCastException e) {
             throw new ProcessException("Invalid I/O data", e);
         }
@@ -63,9 +67,10 @@ public abstract class AbstractProcess extends DataProcess {
     protected final void setIntOutput(final int value) {
         output.getData().setIntValue(value);
     }
-    
+
     /**
     * Executes process algorithm on inputs and set output data.
+    * @throws ProcessException  - Vast Library processing exception
     */
     public abstract void execute() throws ProcessException;
 

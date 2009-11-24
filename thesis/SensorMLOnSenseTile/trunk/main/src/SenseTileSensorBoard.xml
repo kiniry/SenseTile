@@ -54,6 +54,11 @@
                      <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
                   </swe:Quantity>
                </sml:output>
+			   <sml:output name="rawsensortemperature">
+                  <swe:Count definition="urn:ogc:def:phenomenon:temperature">
+                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
+                  </swe:Count>
+               </sml:output>
             </sml:OutputList>
          </sml:outputs>
          
@@ -61,23 +66,36 @@
          
          <sml:components>
             <sml:ComponentList>
-               <sml:component name="thermistor"  xlink:href="SenseTileSensorBoardThermistor.xml"></sml:component>			   
-            </sml:ComponentList>
+               <sml:component name="thermistor"  xlink:href="SenseTileSensorBoardThermistor.xml"></sml:component>
+               <sml:component name="celciusConv"  xlink:href="SenseTileCelciusConv.xml"></sml:component>			   
+            </sml:ComponentList>			   
          </sml:components>
 		 
 
          <!-- Connections -->
          <sml:connections>
             <sml:ConnectionList>
-			               <sml:connection name="inputTxPacketTemperature">
+			    <sml:connection name="inputTxPacketTemperature">
                   <sml:Link>
                      <sml:source ref="this/inputs/txPacketTemperature"/>
                      <sml:destination ref="thermistor/inputs/thermistorInput"></sml:destination>
                   </sml:Link>
                </sml:connection>
-               <sml:connection name="outputRealTemperature">
+			   <sml:connection name="RawSensorTemperature">
                   <sml:Link>
                      <sml:source ref="thermistor/outputs/thermistorOutput"/>
+                     <sml:destination ref="this/outputs/rawsensortemperature"/>
+                  </sml:Link>
+               </sml:connection>
+               <sml:connection name="convertToTemperature">
+                  <sml:Link>
+                     <sml:source ref="thermistor/outputs/thermistorOutput"/>
+                     <sml:destination ref="celciusConv/inputs/celciusConvInput"/>
+                  </sml:Link>
+               </sml:connection>
+			   <sml:connection name="outputRealTemperature">
+                  <sml:Link>
+                     <sml:source ref="celciusConv/outputs/celciusConvOutput"/>
                      <sml:destination ref="this/outputs/temperature"/>
                   </sml:Link>
                </sml:connection>

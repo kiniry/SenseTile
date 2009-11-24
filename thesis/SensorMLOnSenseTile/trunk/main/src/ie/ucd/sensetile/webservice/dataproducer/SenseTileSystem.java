@@ -33,7 +33,8 @@ public class SenseTileSystem {
     
     private String dataproviderName = "rmi://localhost/SenseTileService";
 
-    
+    SensorObservationIF sensorObs = null;
+
     private static Logger logger =
         Logger.getLogger(SenseTileSystem.class);
 
@@ -51,15 +52,27 @@ public class SenseTileSystem {
      public final void init() {
          InputStream inputxml = getSensorBoardInputStream();
          smlProcessEngine = new SensorMLProcessEngine(inputxml);
+         try {
+             sensorObs = (SensorObservationIF) Naming.lookup(dataproviderName);
+         } catch (MalformedURLException e1) {
+             // TODO Auto-generated catch block
+             e1.printStackTrace();
+         } catch (RemoteException e1) {
+             // TODO Auto-generated catch block
+             e1.printStackTrace();
+         } catch (NotBoundException e1) {
+             // TODO Auto-generated catch block
+             e1.printStackTrace();
+         }
      }
 
 
     /**
      * ProcessSensorData - get packets and send
      * data toSensorMLProcessEngine.
-     * @throws NotBoundException 
-     * @throws RemoteException 
-     * @throws MalformedURLException 
+     * @throws NotBoundException
+     * @throws RemoteException
+     * @throws MalformedURLException
      *
      * @requires this.packetInputStream /= null
      */
@@ -69,13 +82,13 @@ public class SenseTileSystem {
          pktemp.setIntValue(packet.getTemperature());
          smlProcessEngine.setInput("txPacketTemperature",pktemp);
          smlProcessEngine.execute();
-         
+
          //logger.info("result "+smlProcessEngine.getOutput("temperature"));
-         
-         SensorObservationIF sensorObs =null;
-         
+
+         SensorObservationIF sensorObs = null;
+
         try {
-            sensorObs = (SensorObservationIF)Naming.lookup(dataproviderName);
+            sensorObs = (SensorObservationIF) Naming.lookup(dataproviderName);
         } catch (MalformedURLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -86,8 +99,8 @@ public class SenseTileSystem {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-         
-         try {
+
+        try {
              
             sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperature"));
         } catch (RemoteException e) {
@@ -98,17 +111,22 @@ public class SenseTileSystem {
 
     /**
      * Register Clients for Observations.
+     * @param packetReader  reference to PacketStreamReader
      */
-    public void setPacketInputStream(final /*@ non_null @*/ PacketStreamReader packetInputStream) {
-         this.packetInputStream = packetInputStream;
-     }
+    public final void setPacketReader(final /*@ non_null @*/
+                                            PacketStreamReader packetReader) {
+         this.packetInputStream = packetReader;
+    }
 
      private InputStream getSensorBoardInputStream() {
          return this.getClass().getResourceAsStream("/SenseTileSensorBoard.xml");
 
      }
-     
-     public void registerSensors(){
+
+     /**
+      * Register Sensors for to receive packets from a PacketStreamReader.
+      */
+     public final void registerSensors() {
          List<DataProcess> sensorlist = smlProcessEngine.getSensors();
          Iterator<DataProcess> iter = sensorlist.iterator();
          while (iter.hasNext()) {
@@ -116,7 +134,22 @@ public class SenseTileSystem {
              if (sensor.getProcessType() == ProcessType.SENSOR) {
                  this.packetInputStream.registerSensor((Sensor)sensor);
              }
-         }         
+         }
      }
+
+     /**
+      * Execute the SensorML processes.
+      */
+    public final void execute() {
+       smlProcessEngine.execute();
+       try {
+           
+           sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperature"));
+           sensorObs.insertObservation((int)smlProcessEngine.getIntOutput("rawsensortemperature"));
+       } catch (RemoteException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+       }
+    }
 
 }

@@ -1,9 +1,14 @@
 package ie.ucd.sensetile.webservice.dataproducer;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
+import ie.ucd.sensetile.sensorboard.SenseTileException;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.NDC;
@@ -32,7 +37,7 @@ public class PacketStreamReader {
        public PacketStreamReader(SenseTileSystem senseTileSystem) {
            BasicConfigurator.configure();
            this.senseTileSystem = senseTileSystem;
-           sensorList = new ArrayList<Sensor>();
+           sensorList = new ArrayList < Sensor >();
 
        }
       /**
@@ -48,21 +53,21 @@ public class PacketStreamReader {
        /**
         * register sensors.
         */
-        public final void registerSensors(List<Sensor> sensorList) {
-            this.sensorList = sensorList;
+        public final void registerSensors(final List < Sensor > sensorlist) {
+            this.sensorList = sensorlist;
         }
 
-        public final List<Sensor> getSensors() {
+        public final List < Sensor > getSensors() {
             return this.sensorList;
         }
 
         /**
          * register sensor.
          */
-         public final void registerSensor(Sensor sensor) {
+         public final void registerSensor(final Sensor sensor) {
              this.sensorList.add(sensor);
          }
-      /** 
+      /**
        * get no of packets to read.
        */
        public final /*@ pure @*/ int getNumPacketsToRead() {
@@ -72,23 +77,46 @@ public class PacketStreamReader {
        public void setPacketInputStream(final /*@ non_null @*/ PacketInputStream packetInputStream) {
            this.packetInputStream = packetInputStream;
        }
+
        /**
         * read packets from input stream.
         */
        public void readPackets() {
-           readpackets = true;
-           while (readpackets){
-               try{
-                   senseTileSystem.processSensorData(
-                           this.packetInputStream.read());
-                   
-                   Thread.currentThread().sleep(5000);//sleep for 1000 ms
 
+
+
+           readpackets = true;
+           while (readpackets) {
+               try {
+                   Thread.currentThread().sleep(5000);
+                 } catch (InterruptedException e1) {
+                   // TODO Auto-generated catch block
+                   e1.printStackTrace();
                  }
-                 catch(Exception e1) {
-                     e1.printStackTrace();
-                    System.exit(0);
-                 }
+               for (int i = 0; i < numpackets; i++) {
+                updateSensors();
+               }
+
+               senseTileSystem.execute();
            }
        }
+
+       /**
+        * get no of packets to read.
+        */
+       private void updateSensors() {
+         try {
+            Packet packet = this.packetInputStream.read();
+            Iterator<Sensor> iter = sensorList.iterator();
+            while (iter.hasNext()) {
+                iter.next().processSensorData(packet);
+            }
+         } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         } catch (SenseTileException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+    }
 }

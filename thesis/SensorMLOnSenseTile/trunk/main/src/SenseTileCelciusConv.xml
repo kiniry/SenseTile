@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
    <sml:member xlink:arcrole="urn:ogc:def:process:OGC:detector">
-      <sml:Component gml:id="thermistor">
-         <gml:description>A Digital Temperature Sensor.</gml:description>
-         <gml:name>SenseTileThermistor</gml:name>
+      <sml:Component gml:id="celciusConv">
+         <gml:description>Converts digital number from thermistor to Celcius</gml:description>
+         <gml:name>SenseTileCelciusConv</gml:name>
          
          <!-- Keywords -->
          
          <sml:keywords>
             <sml:KeywordList>
-               <sml:keyword>sensor thermistor</sml:keyword>
+               <sml:keyword>converter</sml:keyword>
             </sml:KeywordList>
          </sml:keywords>
          
@@ -19,12 +19,12 @@
             <sml:IdentifierList>
                <sml:identifier name="longName">
                   <sml:Term definition="urn:ogc:def:identifier:longname">
-                     <sml:value>UCD SenseTile Sensor Board Thermistor</sml:value>
+                     <sml:value>UCD SenseTile Sensor Board Celcius Converter</sml:value>
                   </sml:Term>
                </sml:identifier>
                <sml:identifier name="shortname">
                   <sml:Term definition="urn:ogc:def:identifier:OGC:shortname">
-                     <sml:value>Sensor Board Thermistor</sml:value>
+                     <sml:value>Sensor Board Celcius Converter</sml:value>
                   </sml:Term>
                </sml:identifier>
                <sml:identifier name="Model Number">
@@ -84,7 +84,7 @@
          
          <sml:inputs>
             <sml:InputList>
-               <sml:input name="thermistorInput">
+               <sml:input name="celciusConvInput">
                   <swe:Count/>                 
                </sml:input>
             </sml:InputList>
@@ -94,21 +94,21 @@
          
          <sml:outputs>
             <sml:OutputList>
-               <sml:output name="thermistorOutput">
-                  <swe:Count definition="urn:ogc:def:phenomenon:temperature">
+               <sml:output name="celciusConvOutput">
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
                      <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
                      <swe:constraint>
                         <swe:AllowedValue id="temperatureRange">
                            <swe:interval>-45 125</swe:interval>
                         </swe:AllowedValue>
                      </swe:constraint>
-                  </swe:Count>
+                  </swe:Quantity>
                </sml:output>
             </sml:OutputList>
          </sml:outputs>
          
          <!-- Method -->
-         <method xlink:href="urn:ucd:sensetile:sensorboard:thermistor" /> 
+         <method xlink:href="urn:ucd:sensetile:sensorboard:celciusConv" /> 
 		 
       </sml:Component>
 	</sml:member>   

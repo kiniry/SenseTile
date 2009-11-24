@@ -73,7 +73,11 @@ public class SensorMLProcessEngine extends SMLSystem {
        return smlsystem.getOutputList().getComponent(outputname)
        .getData().getDoubleValue();
     }
-    
+
+    public double getIntOutput(final String outputname) {
+        return smlsystem.getOutputList().getComponent(outputname)
+        .getData().getIntValue();
+     }
     public List<DataProcess >getSensors(){
         return smlsystem.getProcessList();
     }
