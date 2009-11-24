@@ -58,6 +58,12 @@ A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notat
 
 How was problem solved before.
 
+\subsection{Sensor Networks}
+\subsection{BON}
+\subsection{Sensorml}
+reference chapter
+\subsection{WebService}
+\subsection{JIBX}
 
 \chapter{SensorML}
 \section{SensorML Overview}
@@ -94,6 +100,10 @@ and can perform transformations on them.
 
 System is providing the mapping of inputs to processes and the outputs.
 
+Naming rules inputs and outputs - allow more generic handling of implementation classes.
+
+Processed verus raw data.
+
 It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
 The 
  \begin{figure}
@@ -114,6 +124,8 @@ Types
 Count - BigInteger
 Quantity - Double
 
+DataArray
+
  * Carries an array of int primitives.
  * All data is casted to other types when requested.
 
@@ -126,12 +138,15 @@ public class DataBlockInt extends AbstractDataBlock
 \chapter{Design}
 High level design
 \section{SenseTile Web Service}
-
+ \begin{figure}
+\scalebox{0.65}{\includegraphics{sensetile_static_diagam.png}}
+\caption{SenseTile Static Diagram}\label{fig:sensetile_static_diagam.png}
+\end{figure}
 DataProducer - use PacketInput stream to access SenseTile observation packets.
 
 Steps in the process these sensorml components are roughly.
 
-System reads packets and averages them for 1 second.
+System reads packets and averages them for every configurable seconds. Defalut 1.
 
 Thermistor components reads out the temperature value
 and its output is sent to both the raw data and the celcius
@@ -139,19 +154,25 @@ converter component and on to the tuples.
 
 These tuples are sent to webservice provider as observations.
 
-
 DataProvider - provides an RMI interface to the DataProducer to update. Provides a Web Service interface  based on Sensor Observation Service. Not fully as is a very complex interface.
 
+\newpage
 \section{SensorML generation tool}
 
-SensorML to BON mapping
+BON to SensorML mapping.
 
-BON to Java
+Features to be elements or attributes.
 
-Instantiate Java classes with data
+Name rule suffix "Attrib" to make it an attribute.
 
-Walk Java class and generate sensorml.
+List handling - convention for mapping.
 
+Java binding wth JIBX  generate sensorml.
+
+Simple xml file with Sensor metadata.
+
+Naming rules allow connection of inputs and outputs
+in sensorML processes.
 
 
 \chapter{ Detailed Design and Implementation}
@@ -162,6 +183,7 @@ DataProvider is based on AXIS 2.0/Spring
 
 DataProducer POJO/VastLib/UCD SenseTile Driver Lib
 
+RMI used between DataProvider and DataProducer.
 \chapter{Results}
 
 Tested against real SenseTile and sensor data retrieved by a testclient.
@@ -173,18 +195,18 @@ what has been achieved
 the weaknesses of your approach
 
 \chapter{References}
-
-
-
-\chapter{Appendices}
-
-
 \newpage
 \begin{thebibliography}{99}
 \bibitem{SensoMLref}Open Geospatial Consortium Inc., OpenGIS Sensor Model Language (SensorML) Implementation Specification, 2007
 \bibitem{BONref}Kim Waldén and Jean-Marc Nerson , "Seamless Object-Oriented Software Architecture", 1995
 \end{thebibliography}
 \label{endpage}
+
+
+\chapter{Appendices}
+
+
+
 
 
 
