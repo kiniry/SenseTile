@@ -13,44 +13,26 @@ import ie.ucd.sensetile.sensorboard.simulator.formal.sensor.type.ThermistorSenso
 
 public final class ThermistorSensor implements ISensor 
 {
-	//@spec_public
-	private  transient int value= 1000;//@ in mod_value;
+	private/*@spec_public@*/  transient int value= 1000;//@ in mod_value;
 	  //@ represents mod_value <- value;
-	
-	//@spec_public
-	private transient boolean enabled;//@ in mod_enabled;
+	private/*@spec_public@*/ transient boolean enabled;//@ in mod_enabled;
 	  //@ represents mod_enabled <-enabled;
-	//@spec_public
-	private final static transient int MAX = 2047;
+	private /*@spec_public@*/final static transient int MAX = 2047;
 	  //@ public represents mod_max <-MAX;
-	//@spec_public
-	private final static transient int MIN = -880; 
+	private /*@spec_public@*/final static transient int MIN = -880; 
 	  //@ public represents mod_min <-MIN;
-	
-	private transient int index = 0;//@ in mod_mesure;
-	
+	private  int index = 0;//@ in mod_mesure;
 	//@ public model non_null int[] mod_set;
-	//@spec_public non_null
-	private transient  final int[] a_set;//@ in mod_set; 
+	private/*@spec_public non_null@*/ final int[] a_set;//@ in mod_set; 
 	  //@ represents mod_set <-a_set;
+	private/*@spec_public@*/ final int a_type= ThermistorSensorType.NTC;
+	private/*@spec_public@*/ final transient  int a_unit = MeasurementUnit.CELSIUS;
 	
-	//@spec_public
-	private final transient  int a_type= 
-		ThermistorSensorType.NTC;
-	
-	//@spec_public  
-	private final transient  int a_unit = 
-		MeasurementUnit.CELSIUS;
 	//@ invariant mod_min <= mod_value && mod_value <= mod_max;
-
-	  //@ constraint mod_max == 2047;
-	  //@ constraint mod_min == -880;
-	  //@ constraint a_type == ThermistorSensorType.NTC;
-	  //@ constraint a_unit == MeasurementUnit.CELSIUS;
-	  
-	  /**
-	   * Create component in initial state.
-	   */
+	//@ constraint mod_max == 2047;
+	//@ constraint mod_min == -880;
+	//@ constraint a_type == ThermistorSensorType.NTC;
+	//@ constraint a_unit == MeasurementUnit.CELSIUS;
     /*@ public normal_behavior
       @ assignable  mod_enabled, mod_set, mod_set[*];
       @ ensures mod_enabled == true;

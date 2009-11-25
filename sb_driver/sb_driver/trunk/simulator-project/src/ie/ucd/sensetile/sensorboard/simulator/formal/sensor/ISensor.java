@@ -16,15 +16,12 @@ public interface ISensor {
 	//@ public model instance int mod_max;
 	//@ public model instance int mod_min;
 	//@ public model instance boolean mod_enabled;
-	
 	  /**
 	   * Are you enabled ?
 	   * @return enabled.
 	   */
-	  
 	  //@ ensures \result == mod_enabled;
 	  /*@pure@*/ boolean isEnabled();
-	  
 	  /**
 	    * Turn off / on this component.
 	    * @param theFlag - on / off.
@@ -32,7 +29,6 @@ public interface ISensor {
 	  //@ assignable mod_enabled;
 	  //@ensures mod_enabled == theFlag;
 	  void setEnable(final boolean theFlag);
-	  
 	  /**
 	   * What is the measured value for this component ?
 	   * @return mod_value measured value.
@@ -41,8 +37,6 @@ public interface ISensor {
 	  //@ assignable \nothing;
 	  //@ ensures \result == mod_value;
 	  /*@pure@*/ int getValue();
-	  
-	  
 	  /**
 	   * Measure current value.If sensor is not available
 	   * throws an MissingSensorException.
