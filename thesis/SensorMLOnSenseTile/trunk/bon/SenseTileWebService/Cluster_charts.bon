@@ -1,0 +1,77 @@
+-- ===================================================================
+-- Cluster Charts
+-- ===================================================================
+
+-- ===================================================================
+-- Built-in BON types
+-- ===================================================================
+
+cluster_chart BUILT_IN_TYPES
+  class TUPLE
+    description "A tuple of typed values."
+  class BOOLEAN
+    description "The boolean type."
+  class VALUE
+    description "A generic value type that is comparable."
+  class INTEGER
+    description "The integer type."
+  class REAL
+    description "The real type."
+  class STRING
+    description "The string type."
+  class SEQUENCE
+    description "The sequence type."
+  class SET
+    description "The set type."
+  class BAG
+    description "The bag type."
+end
+
+cluster_chart SENSOR_BOARD_DRIVER
+explanation
+  "The sensor board driver is a software driver that is able to communicate \
+  \with the sensor board and to understand the structure of the data stream."
+end
+
+
+cluster_chart DATA_PRODUCER
+
+  class PACKET_STREAM_READER
+    description "Reads Sensor measurement values from SENSOR_BOARD_DRIVER. \
+                 \Updates SENSE_TILE_SYSTEM with the read values"
+ 
+ 
+  class SENSE_TILE_SYSTEM
+    description "SensorML Process Chain that populates the inputs to components and executes\
+    \ the processes. It provides the results of the processes to the SENSOR_OBSERVATION_PROVIDER."
+
+  class SYSTEM_INPUT_MAPPER
+    description "Maps packet values to System inputs"
+
+  class SYSTEM_OUTPUT_MAPPER
+    description "Maps System output values to Observation values"
+       
+  class SENSE_TILE_THERMISTOR
+    description "SensorML used by a SensorML Thermistor to process temperature observations."
+
+end
+
+cluster_chart DATA_PROVIDER
+
+  class SENSOR_OBSERVATION_PROVIDER
+    description "Provides WEB Service to access sensor data"
+
+end
+
+
+cluster_char SENSOR_METADATA
+explanation
+  "Sensor data needs to be identified with appropriate meta data."
+end
+
+cluster_chart DATA_PERSISTENCE
+
+  class SENSOR_DATA_PERSISTANCE_MANAGER
+    description "Manages the persistence of sensor data"
+
+end

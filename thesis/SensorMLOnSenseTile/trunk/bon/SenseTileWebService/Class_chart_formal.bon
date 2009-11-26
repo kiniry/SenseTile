@@ -1,0 +1,14 @@
+class_chart SENSE_TILE_SYSTEM
+  description ""
+  
+  query
+
+  command
+    "Initialise the vast library with the sensorml files",
+    "Initialise the packet stream reader",
+    "Initialise the CelciusThermistor",
+    "ProcessSensorData",
+    "Register Clients for Observations"
+  constraint
+
+end

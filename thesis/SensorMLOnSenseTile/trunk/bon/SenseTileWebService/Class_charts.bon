@@ -1,0 +1,148 @@
+class_chart PACKETSTREAMREADER
+  explanation "Reads parameterised no of packets every second"
+  
+  query
+    "get no of packets to read before excuting sensor processes"
+     
+  command
+    "read packets from input stream. Intiatiate sensor processing",
+    "set rate of packets to read no packets per time",
+    "register sensors that will be sent the read packet"
+  
+  constraint
+    "false"
+end
+
+
+class_chart SENSETILESYSTEM
+  explanation "process packets and initiates processing of sensor data by the system."
+  
+  query
+    "Get Clients for Observations"
+
+  command
+    "Initialise the vast library with the sensorml files.",
+    "Set packet stream reader.",
+    "Initialise sensor data reading.",
+    "Register with DataProvider.",
+    "execute sensor processes"
+
+  constraint
+    "false"    
+end
+
+class_chart THERMISTOR
+   explanation "Temperature sensor that generates average output from sensor reading"
+   
+   query
+   "get name"
+   command
+   "update sensor reading - add sensor reading value to current senor reading sum",
+   "initialise sensor",
+   "execute process - average the reading and generate output"
+    
+    constraint
+    "false"
+end
+
+class_chart LIGHTSENSOR
+   explanation "Light sensor that generates average output from sensor reading"
+   
+   query
+   "get name"
+   command
+   "update sensor reading - add sensor reading value to current senor reading sum",
+   "initialise sensor",
+   "execute process - average the reading and generate output"
+end
+
+
+class_chart ACCELEROMETER
+   explanation "Accelerometer sensor that generates average output from sensor reading"
+   
+   query
+   "get name"
+   command
+   "update sensor reading - add sensor reading value to current senor reading sum",
+   "initialise sensor",
+   "execute process - average the reading and generate output"
+end
+
+class_chart MAPPER
+  explanation "Map packet data to inputs Sets the values"
+  
+  query
+   "fred"
+   
+  command
+     "set packet Temperature data on SensoMLProcessEngine",
+     "set packet Pressure data on SensoMLProcessEngine",
+     "set packet LightLevel data on SensoMLProcessEngine",
+
+     "set packet Xaxis data on SensoMLProcessEngine",
+     "set packet Yaxis data on SensoMLProcessEngine",
+     "set packet Zaxis data on SensoMLProcessEngine"
+
+
+end
+
+class_chart SYSTEM_OUTPUT_MAPPER
+  explanation "Map process data outputs to clients"
+  
+  query
+     "get Celcius Temperature from SensoMLProcessEngine",
+     "get packet Temperature from SensoMLProcessEngine",
+     "getPressure from SensoMLProcessEngine",
+     "getLightLevel from SensoMLProcessEngine",
+     "getXaxis from SensoMLProcessEngine",
+     "getYaxis from SensoMLProcessEngine",
+     "getZaxis from SensoMLProcessEngine",
+
+
+end
+
+
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- DATA_PROVIDER cluster classes
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class_chart OBSERVATION
+  description ""
+    
+  query
+  "getSensorObservation given name"
+  command
+  "UpdateObservation"
+  constraint
+    
+end
+
+
+class_chart SENSOR_OBSERVATIONS
+  description ""
+    
+  query
+  "getObservation" --WebService Interface
+  command
+  "UpdateObservation" -- Interface to dataproducer
+  constraint
+    
+end
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- DATA_PERSISTENCE cluster classes
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class_chart SENSOR_DATA_PERSISTANCE_MANAGER
+  description ""
+  
+  query
+     "get sensor data based on type",
+     "get sensor data based on time interval" 
+  command
+    "save sensor data",
+    "save sensor data with time stamp"
+    
+  constraint
+
+end

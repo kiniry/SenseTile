@@ -1,0 +1,18 @@
+scenario_chart SENSETILE_SYSTEM
+    
+    indexing
+        author: "Ciaran Palmer";
+        module: "SenseTile";
+    
+    explanation "Mandatory scenarios for the System"
+    
+    scenario "Process Sensor Observations from Sensor Board"
+    description "Initialise system with SenorML descriptions.\
+    \Registor Sensors with the DataProvider.\
+    \Read the packets from the Sensor Board and process them.
+    \Send obervation to the DataProvider"
+    
+    scenario "Get Observation from the WebService"
+    description "Return observation to the client"   
+    
+end
