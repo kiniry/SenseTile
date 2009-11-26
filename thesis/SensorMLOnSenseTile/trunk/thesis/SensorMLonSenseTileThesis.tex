@@ -105,7 +105,7 @@ Naming rules inputs and outputs - allow more generic handling of implementation 
 Processed verus raw data.
 
 It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
-The 
+
  \begin{figure}
 \includegraphics{SensorML_SenseTile_System_design_tuple_pa3.png}
 \caption{Block diagram of SenseTile System process}\label{fig:SensorML_SenseTile_design.png}
@@ -129,24 +129,36 @@ DataArray
  * Carries an array of int primitives.
  * All data is casted to other types when requested.
 
-public class DataBlockInt extends AbstractDataBlock
-
 
 \newpage
 \section{BON to SensorML mapping}
+Features to be elements or attributes.
 
+Name rule suffix "Attrib" to make it an attribute.
+
+List handling - convention for mapping.
+
+SML prefix to handled key word clashes between sensorML and BON.
+
+How to display this in thesis?
 \chapter{Design}
-High level design
+
 \section{SenseTile Web Service}
+\subsection{Overview}
+ \begin{figure}
+\scalebox{0.65}{\includegraphics{SystemOverview.png}}
+\caption{SenseTile System Overview}\label{fig:SystemOverview.png}
+\end{figure}
+
  \begin{figure}
 \scalebox{0.65}{\includegraphics{sensetile_static_diagam.png}}
-\caption{SenseTile Static Diagram}\label{fig:sensetile_static_diagam.png}
+\caption{DataProducer Static Diagram}\label{fig:sensetile_static_diagam.png}
 \end{figure}
-DataProducer - use PacketInput stream to access SenseTile observation packets.
 
-Steps in the process these sensorml components are roughly.
+\subsection{DataProducer}
+Use PacketInput stream to access SenseTile observation packets.
 
-System reads packets and averages them for every configurable seconds. Defalut 1.
+System reads packets and averages them for every configurable seconds. Default 1.
 
 Thermistor components reads out the temperature value
 and its output is sent to both the raw data and the celcius
@@ -154,18 +166,23 @@ converter component and on to the tuples.
 
 These tuples are sent to webservice provider as observations.
 
-DataProvider - provides an RMI interface to the DataProducer to update. Provides a Web Service interface  based on Sensor Observation Service. Not fully as is a very complex interface.
+Observation as described in SOS.
+
+\subsection {DataProvider}
+
+Keeps track of sensorboards that register
+
+provides an RMI interface to the DataProducer to update with observations. 
+
+
+GetObservaton - marshal Observation to xml string and send as response.
+
+StreamObservation -  registered clients get new observation sent over UDP connection?
+
+Provides a Web Service interface  based on Sensor Observation Service. Not fully as is a very complex interface.
 
 \newpage
-\section{SensorML generation tool}
-
-BON to SensorML mapping.
-
-Features to be elements or attributes.
-
-Name rule suffix "Attrib" to make it an attribute.
-
-List handling - convention for mapping.
+\section{SensorML generation}
 
 Java binding wth JIBX  generate sensorml.
 
@@ -174,6 +191,9 @@ Simple xml file with Sensor metadata.
 Naming rules allow connection of inputs and outputs
 in sensorML processes.
 
+ component id +Input
+
+ component id+Output
 
 \chapter{ Detailed Design and Implementation}
 
@@ -184,10 +204,14 @@ DataProvider is based on AXIS 2.0/Spring
 DataProducer POJO/VastLib/UCD SenseTile Driver Lib
 
 RMI used between DataProvider and DataProducer.
+
+\section{SensorML Generation}
+
 \chapter{Results}
 
 Tested against real SenseTile and sensor data retrieved by a testclient.
 
+Generation of SensorML description of a Senstile Sensor
 
 \chapter{ Conclusions and Future Work}
 
