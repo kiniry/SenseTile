@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="escJava2Check" name="simulator-project">
-
-	<property name="main-project.location" location="../main-project" />
 	<property name="spec-project.location" location="../spec-project" />
 	<property name="simulator-project.location" location="." />
 	
@@ -9,12 +7,12 @@
 
 	<path id="bcel-library.classpath">
 		<pathelement
-			location="${simulator-project.location}/lib/escjava/BCEL/bcel-5.2/bcel-5.2.jar" />
+			location="${simulator-project.location}/lib/BCEL/bcel-5.2/bcel-5.2.jar" />
 	</path>
 
 	<path id="Javafe-library.classpath">
 		<pathelement
-			location="${simulator-project.location}/lib/escjava/Javafe/Javafe2.0.5.jar" />
+			location="${simulator-project.location}/lib/Javafe/Javafe/Javafe2.0.5.jar" />
 	</path>
 
 	<path id="simplify.classpath">
@@ -24,11 +22,11 @@
 
 	<path id="Javafeb-library.classpath">
 		<pathelement
-			location="${simulator-project.location}/lib/escjava/Javafe/Javafe2.0.5b.jar" />
+			location="${simulator-project.location}/lib/Javafe/Javafe/Javafe2.0.5b.jar" />
 	</path>
 
 	<path id="jml-libraries.classpath">
-		<pathelement location="${simulator-project.location}/lib/escjava/specs" />
+		<pathelement location="${simulator-project.location}/lib/specs" />
 	</path>
 
 	<path id="esctools2-classpath">
