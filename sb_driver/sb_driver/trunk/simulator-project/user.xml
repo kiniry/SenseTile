@@ -12,7 +12,7 @@
 
 	<path id="Javafe-library.classpath">
 		<pathelement
-			location="${simulator-project.location}/lib/Javafe/Javafe/Javafe2.0.5.jar" />
+			location="${simulator-project.location}/lib/Javafe/Javafe2.0.5.jar" />
 	</path>
 
 	<path id="simplify.classpath">
@@ -22,7 +22,7 @@
 
 	<path id="Javafeb-library.classpath">
 		<pathelement
-			location="${simulator-project.location}/lib/Javafe/Javafe/Javafe2.0.5b.jar" />
+			location="${simulator-project.location}/lib/Javafe/Javafe2.0.5b.jar" />
 	</path>
 
 	<path id="jml-libraries.classpath">
