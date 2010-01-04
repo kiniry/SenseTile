@@ -180,43 +180,124 @@ kiniry@acm.org and dragan.stosic@gmail.com\\
 %\thispagestyle{empty}
 \begin{abstract}
 
-The \textbf{UCD CASL SenseTile System} is a large-scale,
-general-purpose sensor system installed at the University College
-Dublin in Dublin, Ireland.  \textbf{Our facility provides a
-capability---unique in the world in terms of its scale and
-flexibility---for performing in-depth investigation of both the
-specific and general issues in large-scale sensor networking.}
-
-This system integrates a sensor platform, a datastore, and a compute
-farm.  The sensor platform is a custom-designed, but inexpensive,
-sensor platform (called the \ST) paired with general-purpose
-small-scale compute nodes, including everything from low-power PDAs to
-powerful touchscreen-based portable computers.  The datastore is a
-multi-terabyte scale scientific datastore into which sensor data
-flows, and in which online and offline scientific computation of
-sensor and other scientific data takes place.  The compute farm is a
-large-scale Linux, Solaris, and OS~X-based compute farm used by
-scientists for these online and offline scientific computations.
-
-The \STs, as an embedded system, have several unusual built-in sensors
-and emitters, sensor nodes can be extended via a general-purpose USB
-bus, and \STs contain an FPGA that is dynamically updated on a
-per-experiment basis.  \STs are custom-designed in VHDL-AMS.  Like
-many hardware-based systems, to write new software for or against the
-\ST architecture one either uses the actual hardware or one runs a
-\STS.  But this simulator emulates a piece of hardware, one would like
-to know if the simulator \emph{actually} simulates the hardware.  We
-have developed an approach through which we refine the VHDL-AMS
-specification up to the formal BON specification language, and from
-this specification we generate an executable, functional model-based
-specification in the JML language.  We have used this specification to
-implement a fully validated and verified \ST simulator.
+Complex software engineering projects often use high-level
+specification languages to describe system abstractions.  These
+abstractions, which typically capture static and dynamic architectural
+aspects, are meant to be more approachable, comprehensible, and useful
+than witnessing the gory details of the systems they describe.  In the
+hardware world, systems are described with hardware description
+languages like VHDL.  These languages exist at a similar level of
+abstraction as traditional software programming languages, like Java.
+But whence are the high-level hardware description languages?
+Moreover, if one is doing hardware/software co-design, what
+architecture description languages are usable and useful to both
+facets of the problem domain?  In this paper, we describe a
+non-trivial co-design effort, called SenseTile, and how requirements
+on its design and verification led us to define a formal refinement of
+VHDL-AMS to the EBON high-level specification language.  This
+refinement enables us to abstract away, in a seamless, reversible, and
+contract-based fashion, from the details of a particular hardware
+system to an neutral architecture description which, in turn, can be
+refined to an executable Java-based software simulator.  This pair of
+refinements permits full round-trip hardware/software co-design with
+verification, as the Java-based system is annotated with formal
+specifications using the Java Modeling Language.
 
 \end{abstract}
 
 %======================================================================
 \section{Introduction}
 \label{sec:introduction}
+
+The \textbf{UCD CASL SenseTile System} is a large-scale,
+general-purpose sensor system under development at the University
+College Dublin in Dublin, Ireland.  \emph{After its installation, it
+  is our intention that this facility will provide a
+  capability---unique in the world in terms of its scale and
+  flexibility---for performing in-depth investigation of both the
+  specific and general issues in large-scale sensor networking.}  This
+system integrates a \emph{sensor platform}, a \emph{datastore}, and a
+\emph{compute farm}.
+
+The \emph{sensor platform} is a custom-designed, but inexpensive,
+sensor platform called the \ST.  Each \ST is paired with
+general-purpose, small-scale compute node ranging is capability from a
+low-power PDA to a powerful touchscreen-based portable computer.  
+
+The \emph{datastore} is a multi-terabyte scale scientific datastore
+located in a server room across campus.  Sensor data flows into this
+datastore during experiments.  It is also used for online and offline
+computation of sensor and other scientific data.
+
+The \emph{compute farm} is a large-scale Linux, Solaris, Windows, and
+OS~X-based compute farm used by scientists for these computations.
+
+\subsection{The \ST}
+\label{subsec:st}
+
+The \STs contain several built-in sensors, ranging from typical
+sensors like temperature and humidity to more unusual ones like
+ultrasonic microphones.  They also contain several emitters, including
+visible and infrared light, audible and ultrasonic sound, and more.
+Sensor nodes are extended via a USB bus, and \STs contain an FPGA that
+is dynamically updated on a per-experiment basis.
+
+\STs are custom-designed by a third party based upon our high-level
+specifications in VHDL-AMS.  Common to many hardware prototype
+development efforts, writing software for the \ST architecture means
+either using the actual hardware, or running a \STS.  But this
+simulator must emulate a piece of hardware \emph{that does not yet
+  exist}.  Worse, as is typical with these kinds of development
+efforts, the hardware is several quarters late, and the show must go
+on.
+
+Consequently, the \STS becomes the primary focus of development
+efforts and, as we do not wish to loose any development time, we would
+like to know if the simulator \emph{actually} simulates the hardware,
+thus ensuring that the software we write for the simulator will run
+immediately on the hardware when it arrives.
+
+\subsection{Software}
+\label{subsec:software}
+
+Complementing these hardware development efforts, the software
+architecture that runs the \STs is under development.  This system
+consists of a low-level USB driver written in C and a packet framer
+and control system written in Java.
+
+It is vitally important that these low-level software systems are
+well-understood, work correctly from day zero, and have adequate
+non-functional characteristics---primarily that they do not use too
+much memory or CPU on the low-power devices for which they are
+destined.  As such, and following the standard development conventions
+of our research group, they are formally specified using the BON and
+JML specification languages.  Moreover, they are validated and
+verified using various forms of testing and static analysis, all of
+which are the focus of several other papers.
+
+\subsection{Co-design}
+\label{subsec:co-design}
+
+Even in the best of hardware-software co-design processes, hardware
+development typically focuses on correctness through rigorous
+specification, static analysis, and simulation, while software
+development uses the ``by the seat of the pants'' approach.  As is
+obvious from the previous section, that does not fly in our research
+group.
+
+Consequently, we have developed an approach through which we abstract
+(via a formal refinement) a VHDL-AMS specification up to a formal BON
+specification.  Using this specification, we then generate (again, via
+a formally defined refinement) an executable, functional, model-based
+specification in the JML language.  We have subsequently used this
+specification to implement a fully validated and verified \ST
+simulator.  Due to the semantic properties of these refinements, as
+seen in~\autoref{diagram}, we are guaranteed that all functional
+properties of the original VHDL-AMS specification are preserved in the
+software simulator, thereby witnessing full hardware-software
+co-design in a formal sense.
+
+XXX
 
 The \ST sensor platform, represents heterogeneous collection of
 digital, analog and mixed signal hardware circuits.  The complexity of
