@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+   <sml:member>
+      <sml:System gml:id="convertorSystem">
+         <gml:description>System that contains process for postprocess sensetile sensorboard observations</gml:description>
+         <gml:name>SenseTileConvertorSystem</gml:name>
+         
+         <!-- Keywords -->
+         
+         <sml:keywords>
+            <sml:KeywordList>
+               <sml:keyword>sensors</sml:keyword>
+            </sml:KeywordList>
+         </sml:keywords>
+         
+         <!-- Identification -->
+         
+         <sml:identification>
+            <sml:IdentifierList>
+               <sml:identifier name="longName">
+                  <sml:Term definition="urn:ogc:def:identifier:longname">
+                     <sml:value>UCD SenseTile Sensor Board</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="shortname">
+                  <sml:Term definition="urn:ogc:def:identifier:OGC:shortname">
+                     <sml:value>Sensor Board</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+               <sml:identifier name="Model Number">
+                  <sml:Term definition="">
+                     <sml:value>1.0</sml:value>
+                  </sml:Term>
+               </sml:identifier>
+            </sml:IdentifierList>
+         </sml:identification>
+         
+         <!-- Inputs -->
+         
+         <sml:inputs>
+            <sml:InputList name ="inputlist">
+               <sml:input name="celciusConvInput">
+                  <swe:Count/>                 
+               </sml:input>
+            </sml:InputList>
+         </sml:inputs>
+         
+         <!-- Outputs -->
+         
+         <sml:outputs>
+            <sml:OutputList>
+               <sml:output name="celciusConvOutput">
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
+                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
+                  </swe:Quantity>
+               </sml:output>
+            </sml:OutputList>
+         </sml:outputs>
+         
+         <!-- Components -->
+         
+         <sml:components>
+            <sml:ComponentList>
+               <sml:component name="celciusConv"  xlink:href="CelciusConveter.xml"></sml:component>			   
+            </sml:ComponentList>			   
+         </sml:components>
+		 
+
+         <!-- Connections -->
+         <sml:connections>
+            <sml:ConnectionList>
+
+               <sml:connection name="convertToTemperature">
+                  <sml:Link>
+                     <sml:source ref="thermistor/outputs/celciusConvInput"/>
+                     <sml:destination ref="celciusConv/inputs/celciusConvInput"/>
+                  </sml:Link>
+               </sml:connection>
+			   <sml:connection name="outputRealTemperature">
+                  <sml:Link>
+                     <sml:source ref="celciusConv/outputs/celciusConvOutput"/>
+                     <sml:destination ref="this/outputs/celciusConvOutput"/>
+                  </sml:Link>
+               </sml:connection>
+            </sml:ConnectionList>
+         </sml:connections>
+      </sml:System>
+   </sml:member>
+</sml:SensorML>
