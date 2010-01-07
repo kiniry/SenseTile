@@ -61,7 +61,7 @@
          
          <sml:components>
             <sml:ComponentList>
-               <sml:component name="celciusConv"  xlink:href="CelciusConveter.xml"></sml:component>			   
+               <sml:component name="celciusConv"  xlink:href="CelciusConverter.xml"></sml:component>			   
             </sml:ComponentList>			   
          </sml:components>
 		 
