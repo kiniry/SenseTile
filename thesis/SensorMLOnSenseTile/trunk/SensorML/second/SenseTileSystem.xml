@@ -35,7 +35,8 @@
          <sml:inputs>
             <sml:InputList name ="inputlist">
                <sml:input name="ambientTemperature">
-                   <swe:ObservableProperty definition="urn:x-ogc:def:property:OGC:ambientTemperature"/>                
+			   	    <swe:Count/> 
+                    <!--swe:ObservableProperty definition="urn:ogc:def:property:OGC:temperature"/-->				   
                </sml:input>
             </sml:InputList>
          </sml:inputs>
@@ -44,10 +45,10 @@
          
          <sml:outputs>
             <sml:OutputList>
-               <sml:output name="temperatureDN"> <!-- Raw Sensor Data -->
+               <sml:output name="temperatureDNOutput"> <!-- Raw Sensor Data -->
 			      <swe:Count/> 
                </sml:output>
-			   <sml:output name="temperature">
+			   <sml:output name="temperatureOutput">
                   <swe:Count definition="urn:ogc:def:phenomenon:temperature">
                      <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
                   </swe:Count>
