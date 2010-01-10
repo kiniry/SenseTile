@@ -24,7 +24,6 @@ public class ThermistorSensor extends AbstractProcess implements Sensor {
      */
     public ThermistorSensor() {
         super();
-        this.setProcessType(ProcessType.SENSOR);
     }
 
     /**

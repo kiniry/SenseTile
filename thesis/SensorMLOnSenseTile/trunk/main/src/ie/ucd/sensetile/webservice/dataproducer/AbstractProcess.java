@@ -25,13 +25,7 @@ public abstract class AbstractProcess extends DataProcess {
         BasicConfigurator.configure();
     }
 
-    public ProcessType getProcessType() {
-        return this.processType;
-    }
 
-    public void setProcessType(ProcessType processType) {
-        this.processType = processType;
-    }
     /**
      * * Initialises the process.
      * * Gets handles to input/output components.

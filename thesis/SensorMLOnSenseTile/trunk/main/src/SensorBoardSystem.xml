@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
    <sml:member>
-      <sml:System gml:id="SENSOR BOARD">
+      <sml:System gml:id="sensorBoardSystem">
          <gml:description>A SenseTile is a sensor board including motion sensors, RFID sensors, temperature sensor, audio sensors and pressure sensors.</gml:description>
          <gml:name>SenseTileSensorBoard</gml:name>
          
@@ -39,8 +39,8 @@
          
          <sml:inputs>
             <sml:InputList name ="inputlist">
-               <sml:input name="txPacketTemperature">
-                  <swe:Count/>                 
+               <sml:input name="ambientTemperatureInput">
+                   <swe:ObservableProperty definition="urn:x-ogc:def:property:OGC:ambientTemperature"/>                               
                </sml:input>
             </sml:InputList>
          </sml:inputs>
@@ -49,15 +49,8 @@
          
          <sml:outputs>
             <sml:OutputList>
-               <sml:output name="temperature">
-                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
-                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
-                  </swe:Quantity>
-               </sml:output>
-			   <sml:output name="rawsensortemperature">
-                  <swe:Count definition="urn:ogc:def:phenomenon:temperature">
-                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
-                  </swe:Count>
+			   <sml:output name="temperatureDNOutput">
+                  <swe:Count/>                 
                </sml:output>
             </sml:OutputList>
          </sml:outputs>
@@ -66,8 +59,7 @@
          
          <sml:components>
             <sml:ComponentList>
-               <sml:component name="thermistor"  xlink:href="SenseTileSensorBoardThermistor.xml"></sml:component>
-               <sml:component name="celciusConv"  xlink:href="SenseTileCelciusConv.xml"></sml:component>			   
+               <sml:component name="thermistor"  xlink:href="Thermistor.xml"></sml:component>
             </sml:ComponentList>			   
          </sml:components>
 		 
@@ -75,28 +67,16 @@
          <!-- Connections -->
          <sml:connections>
             <sml:ConnectionList>
-			    <sml:connection name="inputTxPacketTemperature">
+			    <sml:connection name="ambientTemperatureInput">
                   <sml:Link>
-                     <sml:source ref="this/inputs/txPacketTemperature"/>
+                     <sml:source ref="this/inputs/ambientTemperatureInput"/>
                      <sml:destination ref="thermistor/inputs/thermistorInput"></sml:destination>
                   </sml:Link>
                </sml:connection>
-			   <sml:connection name="RawSensorTemperature">
+			   <sml:connection name="temperatureDN">
                   <sml:Link>
                      <sml:source ref="thermistor/outputs/thermistorOutput"/>
-                     <sml:destination ref="this/outputs/rawsensortemperature"/>
-                  </sml:Link>
-               </sml:connection>
-               <sml:connection name="convertToTemperature">
-                  <sml:Link>
-                     <sml:source ref="thermistor/outputs/thermistorOutput"/>
-                     <sml:destination ref="celciusConv/inputs/celciusConvInput"/>
-                  </sml:Link>
-               </sml:connection>
-			   <sml:connection name="outputRealTemperature">
-                  <sml:Link>
-                     <sml:source ref="celciusConv/outputs/celciusConvOutput"/>
-                     <sml:destination ref="this/outputs/temperature"/>
+                     <sml:destination ref="this/outputs/temperatureDNOutput"/>
                   </sml:Link>
                </sml:connection>
             </sml:ConnectionList>

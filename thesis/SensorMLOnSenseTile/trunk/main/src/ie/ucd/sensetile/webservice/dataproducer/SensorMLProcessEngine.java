@@ -2,6 +2,7 @@ package ie.ucd.sensetile.webservice.dataproducer;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.vast.cdm.common.DataComponent;
@@ -13,6 +14,7 @@ import org.vast.sensorML.SystemReaderV1;
 import org.vast.sensorML.system.SMLSystem;
 import org.vast.xml.DOMHelper;
 import org.vast.xml.DOMHelperException;
+import org.vast.xml.XMLDocument;
 import org.w3c.dom.Element;
 
 public class SensorMLProcessEngine extends SMLSystem {
@@ -79,8 +81,16 @@ public class SensorMLProcessEngine extends SMLSystem {
         .getData().getIntValue();
      }
     public List<DataProcess >getSensors(){
-        return smlsystem.getProcessList();
+        List<DataProcess> processlist = smlsystem.getProcessList();
+        SMLSystem dp = null;
+        List<DataProcess> sensorList = null;
+        Iterator<DataProcess> iter = processlist.iterator();
+        while (iter.hasNext()) {
+            dp = (SMLSystem)iter.next();            
+            if (dp.getName().equals("sensorBoardSystem")) {
+                sensorList = dp.getProcessList();
+            }
+        }
+        return sensorList;
     }
-
-
 }

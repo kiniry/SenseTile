@@ -119,7 +119,7 @@ public class SenseTileSystem {
     }
 
      private InputStream getSensorBoardInputStream() {
-         return this.getClass().getResourceAsStream("/SenseTileSensorBoard.xml");
+         return this.getClass().getResourceAsStream("/SenseTileSystem.xml");
 
      }
 
@@ -131,9 +131,7 @@ public class SenseTileSystem {
          Iterator<DataProcess> iter = sensorlist.iterator();
          while (iter.hasNext()) {
              AbstractProcess sensor = (AbstractProcess)iter.next();
-             if (sensor.getProcessType() == ProcessType.SENSOR) {
-                 this.packetInputStream.registerSensor((Sensor)sensor);
-             }
+             this.packetInputStream.registerSensor((Sensor)sensor);
          }
      }
 
@@ -144,8 +142,8 @@ public class SenseTileSystem {
        smlProcessEngine.execute();
        try {
            
-           sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperature"));
-           sensorObs.insertObservation((int)smlProcessEngine.getIntOutput("rawsensortemperature"));
+           sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperatureOutput"));
+           sensorObs.insertObservation((int)smlProcessEngine.getIntOutput("temperatureDNOutput"));
        } catch (RemoteException e) {
            // TODO Auto-generated catch block
            e.printStackTrace();

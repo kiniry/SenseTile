@@ -16,7 +16,6 @@ public class CelciusConverter extends AbstractProcess {
      */
     public CelciusConverter() {
         super();
-        this.setProcessType(ProcessType.CONVERTER);
     }
 
     /**

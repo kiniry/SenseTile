@@ -87,8 +87,12 @@ public class ProcessReaderV1 extends AbstractSMLReader implements ProcessReader
     {
         //Element processElement = dom.getFirstChildElement(propertyElement);
     	Element processElement = dom
-		.getElement(propertyElement, "SensorML/member/Component");
-        DataProcess process = readProcess(dom, processElement);
+		.getElement(propertyElement, "SensorML/member/System");//Component
+        if (processElement == null) {
+            processElement = dom
+            .getElement(propertyElement, "SensorML/member/Component");
+        }
+    	DataProcess process = readProcess(dom, processElement);
         process.setName(dom.getAttributeValue(propertyElement, "@name"));
         return process;
     }
