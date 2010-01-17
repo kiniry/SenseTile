@@ -178,36 +178,37 @@ kiniry@acm.org and dragan.stosic@gmail.com\\
 
 \maketitle
 
-%======================================================================
+%=============================================
 %\thispagestyle{empty}
 \begin{abstract}
 
-Complex software engineering projects often use high-level
-specification languages to describe system abstractions.  These
-abstractions, which typically capture static and dynamic architectural
-aspects, are meant to be more approachable, comprehensible, and useful
-than witnessing the gory details of the systems they describe.  In the
-hardware world, systems are described with hardware description
-languages like VHDL.  These languages exist at a similar level of
-abstraction as traditional software programming languages, like Java.
-But whence are the high-level hardware description languages?
-Moreover, if one is doing hardware/software co-design, what
-architecture description languages are usable and useful to both
-facets of the problem domain?  In this paper, we describe a
-non-trivial co-design effort, called SenseTile, and how requirements
-on its design and verification led us to define a formal refinement of
-VHDL-AMS to the EBON high-level specification language.  This
-refinement enables us to abstract away, in a seamless, reversible, and
-contract-based fashion, from the details of a particular hardware
-system to an neutral architecture description which, in turn, can be
-refined to an executable Java-based software simulator.  This pair of
-refinements permits full round-trip hardware/software co-design with
-verification, as the Java-based system is annotated with formal
-specifications using the Java Modeling Language.
+  Complex software engineering projects often use high-level
+  specification languages to describe system abstractions.  These
+  abstractions, which typically capture static and dynamic
+  architectural aspects, are meant to be more approachable,
+  comprehensible, and useful than witnessing the gory details of the
+  systems they describe.  In the hardware world, systems are described
+  with hardware description languages like VHDL.  These languages
+  exist at a similar level of abstraction as traditional software
+  programming languages, like Java.  But whence are the high-level
+  hardware description languages?  Moreover, if one is doing
+  hardware/software co-design, what architecture description languages
+  are usable and useful to both facets of the problem domain?  In this
+  paper, we describe a non-trivial co-design effort, called SenseTile,
+  and how requirements on its design and verification led us to define
+  a formal refinement of VHDL-AMS to the EBON high-level specification
+  language.  This refinement enables us to abstract away, in a
+  seamless, reversible, and contract-based fashion, from the details
+  of a particular hardware system to an neutral architecture
+  description which, in turn, can be refined to an executable
+  Java-based software simulator.  This pair of refinements permits
+  full round-trip hardware/software co-design with verification, as
+  the Java-based system is annotated with formal specifications using
+  the Java Modeling Language.
 
 \end{abstract}
 
-%======================================================================
+%=============================================
 \section{Introduction}
 \label{sec:introduction}
 
@@ -333,17 +334,18 @@ low-pass filter in order to produce formal specification and software
 simulation.  In \autoref{sec:conclusion} we reflect on this work and
 point to some open problems and research opportunities.
  
-%=====================================================================
+%=============================================
 \section{VHDL-AMS}
 \label{sec:vhdlams} 
 
 The VHDL-AMS language, defined by IEEE VHDL-AMS 1076.1, is the
-industry standard mixed-signal high-level description language for
+industry-standard mixed-signal high-level description language for
 electronic and multi-domain systems.  VHDL-AMS, as an superset of
 VHDL, supports modeling and simulation of \emph{analog} and
-mixed-signal systems.  
+mixed-signal systems.  In short, one uses VHDL-AMS to describe
+hardware components ranging in complexity from filters to CPUs.
 
-\subsection{Key Qualities of VHDL-AM}
+\subsection{Key Qualities of VHDL-AMS}
 \label{subsec:key-qualities-vhdl}
 
 The main contribution of VHDL-AMS is ability to describe the behavior
@@ -391,6 +393,9 @@ notions:
   \notje{I have no idea what this last sentence means. -JRK}
 \end{itemize}
 
+A simple example will highlight some of the key aspects of VHDL-AMS
+language and will be used to motivate and explain our refinement.
+
 \subsection{A Running Example: A Low-Pass Filter}
 \label{subsec:lptransfunc} 
 
@@ -399,17 +404,17 @@ notions:
 A simple low-pass filter is a passive RC network shown in
 \autoref{fig:lowpassfig}.  According to the equation given above (see
 \autoref{fig:transfun}), we can produce VHDL-AMS \emph{simultaneous
-  statement} using \texttt{$s = d/dt = 'dot$} relation.  The
-transformation looks as follows:
+  statement} using \texttt{$s = d/dt = 'dot$} relation\notej{I don't
+  know what this means}.
+
+The transformation looks like the following:
 \begin{equation}
-v_{in} = v_{out} + \tau_psv_{out} 
-   \begin{array}[b]{c}                                                                                                                                    
-      {\scriptscriptstyle s = d/dt}  \\=                                                                                                                  
-   \end{array} 
-v_{out} + \tau_p\cfrac{dv_{out}}{dt}
-\begin{array}[b]{c}                                                                                                                                    
-      {\scriptscriptstyle d/dt = } {\scriptscriptstyle 'dot} \\=                                                                                                                  
-   \end{array}
+  v_{in} = v_{out} + \tau_psv_{out} 
+  \begin{array}[b]{c}                                                                                                                {\scriptscriptstyle s = d/dt}  \\=                                                                                 \end{array} 
+  v_{out} + \tau_p\cfrac{dv_{out}}{dt}
+  \begin{array}[b]{c}
+    {\scriptscriptstyle d/dt = } {\scriptscriptstyle 'dot} \\=
+  \end{array}
   v_{in} = v_{out} + \tau_pv_{out}{'dot} 
 \end{equation} 
 
@@ -427,12 +432,12 @@ that samples are taken at points in time incrementing by $\triangle$t.
 Now we have equivalent equations:
 \begin{equation}
   v_{in(i)}- v_{out(i)}=\tau_p(\frac{v_{out(i)}- v_{out(i-1)}}
-  {\triangle t});
+  {\triangle t})
 \end{equation}
 
 \begin{equation}
   v_{out(i)}=v_{in(i)}(\frac{\triangle t}{\tau_p + \triangle t}) +
-  v_{out(i-1)}(\frac{\tau_p}{\tau_p + \triangle t});                                                                \end{equation}
+  v_{out(i-1)}(\frac{\tau_p}{\tau_p + \triangle t})                                                                \end{equation}
 
 \begin{equation}
   v_{out(i)} 
@@ -440,7 +445,7 @@ Now we have equivalent equations:
    {\scriptscriptstyle \alpha= \triangle t / (\tau_p + \triangle t)}
    \\=
  \end{array}
- \alpha v_{in(i)} + (1- \alpha) v_{out(i-1)};                                                                           \end{equation}
+ \alpha v_{in(i)} + (1- \alpha) v_{out(i-1)}                                                                           \end{equation}
 
 The last equation gives us a way to calculate the output samples in
 terms of the input samples and the preceding output.  
@@ -456,7 +461,7 @@ like wrappers around unknowns, with features as follows:
   terminal(s). 
 \end{itemize}
 
-%===================================================================== 
+%=============================================
 \section{The Business Object Notation}
 \label{sec:choiceobon} 
 
@@ -552,7 +557,7 @@ require product replacement, which is associated with great expenses.
 In other words, we cannot patch a fabricated component once we started
 massive production.
 
-%=====================================================================
+%=============================================
 \section{Mapping between VHDL-AMS and BON}
 \label{sec:mappingVB} 
 
@@ -609,7 +614,8 @@ assignment, which schedules a new value to be applied to a signal
 later, is simulated in specification, but denotational semantic is not
 yet translated in the BON as well as for concurrency and the
 \texttt{wait} statement.
-  
+
+%=============================================  
 \section{Refinement from VHDL-AMS to BON }
 \label{sec:refVB} The main theme of this article is the translation
 from VHDL-AMS to BON using refinement approach.  We will refine the
@@ -658,7 +664,7 @@ Using all BON principles, we have developed an specification of RC
 low-pass filter, and we have produced fully validated and verified
 low-pass filter.  \input{lowpass1} \input{lowpass2}
 
-%=====================================================================
+%=============================================
 \section{Conclusion}
 \label{sec:conclusion} 
 
@@ -682,7 +688,7 @@ translated yet in the BON notation. We have started a new phase of
 project named \emph{eBon} in which the issues mentioned above, and
 creation of appropriate components and relations are main subject.
 
-\section {Acknowledgments} The research upon which this article is
+\paragraph{Acknowledgments} The research upon which this article is
 based was caried out with sponsorship from Science Foundation Ireland
 via the \textbf{UCD CASL SenseTile System} grant.
 
