@@ -51,6 +51,9 @@ The aim of this thesis project was to prototype a Web Service for accessing sens
 
 Descriptions of the SenseTile Sensor Board were to be developed using Sensor Model Language (SensorML)\cite{SensoMLref}. SensorML is a language that describes the process of sensor measurement by providing standard models and XML encoding for such processes. SensorML was be used as it is becoming a standard for describing sensor data processing as part of the SWE[ref].
 
+This description is executed on the processing unit as part of a webservice to generate data.
+SOS. Implemation added to allow the description to be used to generate observations. Processing of data.
+
 A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
 
 
@@ -67,7 +70,7 @@ reference chapter
 
 \chapter{SensorML}
 \section{SensorML Overview}
-The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standerised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity. Sensor Modelling Language (SensorML) is one part of the SWE initiative and is used to describe sensor systems and the processing of observations from sensor systems.
+The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standardised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity. Sensor Modelling Language (SensorML) is one part of the SWE initiative and is used to describe sensor systems and the processing of observations from sensor systems.
 
 The purposes of SensorML are to:
 • Provide descriptions of sensors and sensor systems for inventory management
@@ -81,6 +84,9 @@ The purposes of SensorML are to:
 
 SensorML provides a functional model of sensors and an XML encoding to describe sensors and their observations.
 Sensors are modelled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs. They can also define relevant metadata. The processes can be connected together in chains using SensorML ProcessChains or Systems. 
+
+including measurement by a sensor system, as well as post-measurement
+processing.
 
 When Modelling a sensor system in SensorML the main entities used are Systems and Components. A SensorML System is used to group sensors that are related spatially to one another.  A Component is an atomic process that generally converts a physical phenomen to a digital number. ProcessModels are another modelling that is used to describe a pure process that has no physicality
 
@@ -107,8 +113,13 @@ Processed verus raw data.
 It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
 
  \begin{figure}
-\includegraphics{SensorML_SenseTile_System_design_tuple_pa3.png}
-\caption{Block diagram of SenseTile System process}\label{fig:SensorML_SenseTile_design.png}
+\scalebox{0.65}{\includegraphics{SenseTileSystem.pdf}}
+\caption{SenseTile System Overview}\label{fig:SenseTileSystem.pdf}
+\end{figure}
+
+ \begin{figure}
+\scalebox{0.65}{\includegraphics{SensorML_SenseTile_System_2_pa1.pdf}}
+\caption{SenseTile System Components}\label{fig:SensorML_SenseTile_System_2_pa1.pdf}
 \end{figure}
 
 \subsection{SenseTile System}
@@ -146,13 +157,24 @@ How to display this in thesis?
 \section{SenseTile Web Service}
 \subsection{Overview}
 
+Web Service - SOS -standard access to sensor observations
+
+SOS diagram
+
 DataProvider
+
 DataProducer
+
+Deployment Scenarios - diagram
+
 Flexible Division - several dataproducers can register with one DataProvider.
+
+Seperate processes rmi.
  \begin{figure}
 \scalebox{0.65}{\includegraphics{SystemOverview.png}}
-\caption{SenseTile System Overview}\label{fig:SystemOverview.png}
+\caption{Overview}\label{fig:SystemOverview.png}
 \end{figure}
+
 
  \begin{figure}
 \scalebox{0.65}{\includegraphics{sensetile_static_diagam.png}}
@@ -173,7 +195,10 @@ These tuples are sent to webservice provider as observations.
 Observation as described in SOS.
 
 \subsection {DataProvider}
-
+ \begin{figure}
+\scalebox{0.65}{\includegraphics{bon_static_diagam_provider.png}}
+\caption{DataProvider Static Diagram}\label{fig:bon_static_diagam_provider.png}
+\end{figure}
 Keeps track of sensorboards that register
 
 provides an RMI interface to the DataProducer to update with observations. 
