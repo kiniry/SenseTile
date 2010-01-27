@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="main" basedir="." default="jar">
+    <property name="src" value="src"/>
+    <property name="output" value="bin"/>
+	<property name="dist" value="dist"/>
+    <property name="SOSInterface" value="C:\masters\project\ucd-svn\SensorMLOnSenseTile\trunk\SOSInterface\bin"/>
+    <property name="AxisHome" value="C:\axis2-1.5.1\"/>
+    <property name="AxisServices" value="${AxisHome}\repository\services"/>
+
+
+
+	<target name="copyfiles" depends="clean" description="Copy binary files to dist for packaging">
+        <copy todir="dist">
+		    <fileset dir ="bin" excludes="client\*"/>
+		    <fileset dir ="${SOSInterface}"/>
+		</copy>
+		<delete dir="dist\client"/>
+    </target>
+	
+    <target name="package" depends="copyfiles" description="Generate AAR file">
+        <jar destfile="dist/SenseTileService.aar" basedir="dist"/>
+    </target>
+
+	<target name="deploy" depends="package" description="Copy AAR file to Axis Server">
+	        <copy todir="${AxisServices}">
+		    <fileset file ="dist/SenseTileService.aar"/>
+		</copy>
+    </target>
+	
+    <target name="clean">
+        <delete dir="dist\ie"/>
+		<delete file="dist\SenseTileService.aar"/>
+    </target>
+
+    <target name="create" depends="clean">
+        <mkdir dir="${output}"/>
+    </target>
+
+</project>
