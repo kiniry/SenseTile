@@ -16,27 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ie.ucd.sensetile.dataprovider;
+package ie.ucd.sensetile.sos.dataprovider;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import ie.ucd.sensetile.webservice.sos.SensorObservationIF;
 
-public class SensorObservations extends UnicastRemoteObject
+public class SensorObservations
     implements SensorObservationIF {
     private int observation;
-    private String sensorId;
+    private String sensorIdUrnRoot ="urn:ie.ucd.sensetile:sensor:";
+    private String sensor1 = null;
+    private Long sensorId = 0l;
     private String serverObjectName ="rmi://localhost/SenseTileService";
+    private int counter =0;
     
     public SensorObservations() throws RemoteException{
-        super();
+        //super();
         try {
-            Naming.rebind(serverObjectName, this);
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
+            SensorObservationIF stub = (SensorObservationIF) UnicastRemoteObject.exportObject(this, 0);
+
+            // Bind the remote object's stub in the Registry
+            Registry registry = LocateRegistry.getRegistry();
+            registry.bind(serverObjectName, stub);
+
+        }
+        catch (AlreadyBoundException e) {
             e.printStackTrace();
         }
         System.out.println("SenseTileService RMI running");
@@ -45,13 +54,7 @@ public class SensorObservations extends UnicastRemoteObject
     @Override
     public void insertObservation(int obs) throws RemoteException {
         this.setObservation(obs);
-        System.out.println("Observations bean = "+obs);
-        
-    }
-    @Override
-    public void resgistorSensor(String sensorId) throws RemoteException {
-        this.setSensorId(sensorId);
-        
+        System.out.println("Observations bean = "+obs);       
     }
 
     public void setObservation(int observation) {
@@ -63,10 +66,26 @@ public class SensorObservations extends UnicastRemoteObject
     }
 
     public void setSensorId(String sensorId) {
-        this.sensorId = sensorId;
+        this.sensorIdUrnRoot = sensorId;
     }
 
     public String getSensorId() {
-        return sensorId;
+        return sensorIdUrnRoot;
+    }
+
+    @Override
+    public String RegisterSensor(String service, String version,
+            String SensorDescription, String ObservationTemplate)
+            throws RemoteException {
+        counter++;
+        System.out.println("Observations bean service = " + counter);       
+        return this.sensorIdUrnRoot;
+
+    }
+    
+    private String generateSensorURN(){
+        String id = sensorIdUrnRoot+sensorId;
+        sensorId++;
+        return id;
     }
 }
