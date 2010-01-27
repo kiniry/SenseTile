@@ -5,19 +5,20 @@ import ie.ucd.sensetile.sensorboard.Packet;
 import org.vast.process.ProcessException;
 
 /**
- *sum of sensor data readings received.
+ *Stores sum of sensor data readings received until requested to
+ *process the sensor data.
  */
 public class ThermistorSensor extends AbstractProcess implements Sensor {
 
     /**
      *sum of sensor data readings received.
      */
-    private int sensordatasum = 0;
+    private int sensorDataSum = 0;
 
     /**
      *number of sensor data readings received.
      */
-    private int nosensordata = 0;
+    private int numSensorData = 0;
 
     /**
      *set type at construction.
@@ -32,9 +33,9 @@ public class ThermistorSensor extends AbstractProcess implements Sensor {
      */
     public final void execute() throws ProcessException {
         AbstractProcess.logger.info("Thermistor execute");
-        this.setIntOutput(sensordatasum / nosensordata);
-        sensordatasum = 0;
-        nosensordata = 0;
+        this.setIntOutput(sensorDataSum / numSensorData);
+        sensorDataSum = 0;
+        numSensorData = 0;
     }
 
     /**
@@ -44,7 +45,7 @@ public class ThermistorSensor extends AbstractProcess implements Sensor {
     @Override
     public final void processSensorData(final Packet packet) {
         AbstractProcess.logger.info("Thermistor processSensorData");
-        sensordatasum += (int) packet.getTemperature();
-        nosensordata++;
+        sensorDataSum += (int) packet.getTemperature();
+        numSensorData++;
     }
 }

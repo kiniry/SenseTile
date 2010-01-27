@@ -40,7 +40,8 @@
          <sml:inputs>
             <sml:InputList name ="inputlist">
                <sml:input name="ambientTemperatureInput">
-                   <swe:ObservableProperty definition="urn:x-ogc:def:property:OGC:ambientTemperature"/>                               
+			       <swe:Count/>
+                   <!--swe:ObservableProperty definition="urn:x-ogc:def:property:OGC:ambientTemperature"/-->                               
                </sml:input>
             </sml:InputList>
          </sml:inputs>

@@ -3,7 +3,6 @@ package ie.ucd.sensetile.webservice.dataproducer;
 import ie.ucd.sensetile.dataprovider.SensorObservations;
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
-import ie.ucd.sensetile.webservice.sos.SensorObservationIF;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -29,18 +28,26 @@ public class SenseTileSystem {
 
     private PacketStreamReader packetInputStream;
 
-    private SensorMLProcessEngine smlProcessEngine;
-    
-    private String dataproviderName = "rmi://localhost/SenseTileService";
+    private SensorMLSystem smlSenseTileSystem;
+    private SystemOutput sensorBoardOutput;
+    private SensorMLSystem smlConvetorSystem;
 
-    SensorObservationIF sensorObs = null;
+    private DataProviderProxyIf dataProviderProxy = null;
+
+    public DataProviderProxyIf getDataProviderProxy() {
+        return dataProviderProxy;
+    }
+
+    public void setDataProviderProxy(DataProviderProxyIf dataProviderProxy) {
+        this.dataProviderProxy = dataProviderProxy;
+    }
 
     private static Logger logger =
         Logger.getLogger(SenseTileSystem.class);
 
     public SenseTileSystem() {
        BasicConfigurator.configure();
-       init();
+       //init();
     }
     /**
      * Get Clients for Observations.
@@ -50,67 +57,37 @@ public class SenseTileSystem {
      * Initialise the SensoMLProcessEngine with the sensorml files.
      */
      public final void init() {
-         InputStream inputxml = getSensorBoardInputStream();
-         smlProcessEngine = new SensorMLProcessEngine(inputxml);
-         try {
-             sensorObs = (SensorObservationIF) Naming.lookup(dataproviderName);
-         } catch (MalformedURLException e1) {
-             // TODO Auto-generated catch block
-             e1.printStackTrace();
-         } catch (RemoteException e1) {
-             // TODO Auto-generated catch block
-             e1.printStackTrace();
-         } catch (NotBoundException e1) {
-             // TODO Auto-generated catch block
-             e1.printStackTrace();
-         }
+         InputStream inputxml = getSensorBoardInputStream("SenseTileSystem.xml");
+         smlSenseTileSystem = new SensorMLSystem(inputxml);
+         //dataProviderProxy = DataProviderFactory.getProxy();
+         registerSensorsSOS();
+
+         System.out.println(smlSenseTileSystem.getComponentXML("sensorBoardSystem"));
      }
 
 
     /**
      * ProcessSensorData - get packets and send
      * data toSensorMLProcessEngine.
+     * @param packet  packet from sensor board
      * @throws NotBoundException
      * @throws RemoteException
      * @throws MalformedURLException
-     *
      * @requires this.packetInputStream /= null
      */
      public final void processSensorData(final Packet packet) {
          //logger.info("Received Packet to process");
          DataBlockInt pktemp = new DataBlockInt(1);
          pktemp.setIntValue(packet.getTemperature());
-         smlProcessEngine.setInput("txPacketTemperature",pktemp);
-         smlProcessEngine.execute();
+         smlSenseTileSystem.setInput("txPacketTemperature", pktemp);
+         smlSenseTileSystem.execute();
+         dataProviderProxy.insertObservation((int) smlSenseTileSystem.
+                               getOutput("temperature"));
 
-         //logger.info("result "+smlProcessEngine.getOutput("temperature"));
-
-         SensorObservationIF sensorObs = null;
-
-        try {
-            sensorObs = (SensorObservationIF) Naming.lookup(dataproviderName);
-        } catch (MalformedURLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (RemoteException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (NotBoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-
-        try {
-             
-            sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperature"));
-        } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
      }
 
     /**
-     * Register Clients for Observations.
+     * Set the packet reader.
      * @param packetReader  reference to PacketStreamReader
      */
     public final void setPacketReader(final /*@ non_null @*/
@@ -118,8 +95,12 @@ public class SenseTileSystem {
          this.packetInputStream = packetReader;
     }
 
-     private InputStream getSensorBoardInputStream() {
-         return this.getClass().getResourceAsStream("/SenseTileSystem.xml");
+    /**
+     * Get an Input stream for the sensetilesystem xml.
+     * @return InputSteam
+     */
+     private InputStream getSensorBoardInputStream(String name) {
+         return this.getClass().getResourceAsStream("/"+name);
 
      }
 
@@ -127,27 +108,29 @@ public class SenseTileSystem {
       * Register Sensors for to receive packets from a PacketStreamReader.
       */
      public final void registerSensors() {
-         List<DataProcess> sensorlist = smlProcessEngine.getSensors();
-         Iterator<DataProcess> iter = sensorlist.iterator();
+         List < DataProcess > sensorlist = smlSenseTileSystem.getSensors();
+         Iterator < DataProcess > iter = sensorlist.iterator();
          while (iter.hasNext()) {
-             AbstractProcess sensor = (AbstractProcess)iter.next();
-             this.packetInputStream.registerSensor((Sensor)sensor);
+             AbstractProcess sensor = (AbstractProcess) iter.next();
+             this.packetInputStream.registerSensor((Sensor) sensor);
          }
+     }
+
+     private final void registerSensorsSOS() {
+         sensorBoardOutput = new SystemOutput(dataProviderProxy);
+         sensorBoardOutput.setXmlDescription(
+                 smlSenseTileSystem.getComponentXML("sensorBoardSystem"));
+         sensorBoardOutput.registerSOS();
      }
 
      /**
       * Execute the SensorML processes.
       */
     public final void execute() {
-       smlProcessEngine.execute();
-       try {
-           
-           sensorObs.insertObservation((int)smlProcessEngine.getOutput("temperatureOutput"));
-           sensorObs.insertObservation((int)smlProcessEngine.getIntOutput("temperatureDNOutput"));
-       } catch (RemoteException e) {
-           // TODO Auto-generated catch block
-           e.printStackTrace();
-       }
+       smlSenseTileSystem.execute();
+       dataProviderProxy.insertObservation((int)
+                   smlSenseTileSystem.getOutput("temperatureOutput"));
+       dataProviderProxy.insertObservation((int)
+               smlSenseTileSystem.getOutput("temperatureDNOutput"));
     }
-
 }

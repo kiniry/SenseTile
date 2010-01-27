@@ -72,7 +72,7 @@
 
                <sml:connection name="convertToTemperature">
                   <sml:Link>
-                     <sml:source ref="thermistor/outputs/celciusConvInput"/>
+                     <sml:source ref="this/inputs/celciusConvInput"/>
                      <sml:destination ref="celciusConv/inputs/celciusConvInput"/>
                   </sml:Link>
                </sml:connection>
