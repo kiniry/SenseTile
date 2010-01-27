@@ -66,5 +66,6 @@
 	<classpathentry kind="lib" path="C:/axis2-1.5.1/lib/xml-resolver-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/axis2-1.5.1/lib/XmlSchema-1.4.3.jar"/>
 	<classpathentry kind="lib" path="C:/axis2-1.5.1/lib/spring.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SOSInterface"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
