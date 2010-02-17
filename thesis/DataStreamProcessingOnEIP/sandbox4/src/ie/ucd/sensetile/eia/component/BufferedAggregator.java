@@ -46,17 +46,22 @@ public class BufferedAggregator implements Processor, DataStreamAggregator {
 		}
 	}
 	
-	public int handleData(int [] data) {
+	public int handleData(int [] data, int start, int end) {
 		int packetsSent = 0;
 		if (data.length == 0) {
 			return 0;
 		}
 		
-		int dataIndex = 0;
-		while (dataIndex < (data.length-1)) {
-			while (bufferIndex < (bufferSize-1) && dataIndex < (data.length-1)) {
+		int dataIndex = start;
+		while (dataIndex < end) {
+			while (bufferIndex < (bufferSize-1) && dataIndex < end) {
 				buffer[bufferIndex++] = data[dataIndex++];
 			}
+			
+			if (dataIndex != start) {
+				notifyListenersOfSamplesWritten(start, dataIndex);
+			}
+			
 			if (bufferIndex == (bufferSize-1)) {
 				sendBuffer();
 				packetsSent++;
@@ -66,6 +71,28 @@ public class BufferedAggregator implements Processor, DataStreamAggregator {
 		return packetsSent;
 	}
 	
+	
+	public int handleData(int [] data) {
+		return handleData(data, 0, data.length - 1);
+//		int packetsSent = 0;
+//		if (data.length == 0) {
+//			return 0;
+//		}
+//		
+//		int dataIndex = 0;
+//		while (dataIndex < (data.length-1)) {
+//			while (bufferIndex < (bufferSize-1) && dataIndex < (data.length-1)) {
+//				buffer[bufferIndex++] = data[dataIndex++];
+//			}
+//			if (bufferIndex == (bufferSize-1)) {
+//				sendBuffer();
+//				packetsSent++;
+//			}
+//		}
+//		
+//		return packetsSent;
+	}
+	
 
 	public void addListener(AggregatorListener listener) {
 		this.listeners.add(listener);
@@ -73,6 +100,7 @@ public class BufferedAggregator implements Processor, DataStreamAggregator {
 	
 	protected void resetBuffer() {
 		bufferIndex = 0;
+		
 	}
 	
 	protected void sendBuffer() {
@@ -83,7 +111,7 @@ public class BufferedAggregator implements Processor, DataStreamAggregator {
 		for (String endpoint : endpoints) {
 			producer.sendBody(endpoint, packet);
 		}
-		
+		notifyListenersOfSentPackage(packet);
 		resetBuffer();
 	}
 	
@@ -91,9 +119,15 @@ public class BufferedAggregator implements Processor, DataStreamAggregator {
 		return bufferSize;
 	}
 	
-	protected void notifyListeners(CompositeDataPacket packet) {
+	protected void notifyListenersOfSentPackage(CompositeDataPacket packet) {
 		for (AggregatorListener l : listeners) {
 			l.packetSent(packet);
+		}
+	}
+	
+	protected void notifyListenersOfSamplesWritten(int start, int end) {
+		for (AggregatorListener l : listeners) {
+			l.samplesWritten(start, end);
 		}
 	}
 }

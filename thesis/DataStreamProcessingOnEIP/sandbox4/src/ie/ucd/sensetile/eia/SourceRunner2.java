@@ -9,17 +9,17 @@ import org.apache.camel.util.jndi.JndiContext;
 public class SourceRunner2 extends SourceRunner {
 	
 	public void runTest() throws Exception{
-			Demultiplexer2 demux = new Demultiplexer2();
+			
 			
 			BufferedAggregator primary = new BufferedAggregator(ctx);
-			primary.setPacketSize(8000);
+			primary.setPacketSize(4000);
 			primary.addEndpoint("direct: mainEndpoint");
-			demux.setPrimaryOutput(primary);
 			
 			BufferedAggregator secondary0 = new BufferedAggregator(ctx);
-			secondary0.setPacketSize(8000);
+			secondary0.setPacketSize(1000);
 			secondary0.addEndpoint("direct: secondaryEndpoint0");
-			demux.setSecondaryOutput(0, secondary0);
+			
+			Demultiplexer2 demux = new Demultiplexer2(primary, secondary0);
 			
 			JndiContext context = new JndiContext();
 			context.bind("demux",demux);
@@ -32,14 +32,19 @@ public class SourceRunner2 extends SourceRunner {
 			    	from("direct: sendData").to(MINA_ENDPOINT_1);
 			    	from(MINA_ENDPOINT_1).processRef("demux");
 			    	from("direct: mainEndpoint").processRef("testBean1");
-			    	from("direct: secondaryEndpoint0").to(MINA_ENDPOINT_2);
+			    	from("direct: secondaryEndpoint0").processRef("testBean2");
 		    	}
 			});
 			
 			start();
 			
-			sendSampleStreamData(1000, 4000, new short[] {7,328,328});
+			sendSampleStreamData(11, 1000, new short[] {10});
 			
-			end();
+			try {
+				while(1 == 1) {
+					Thread.sleep(500);
+				}
+			}catch (Exception e){}
+//			end();
 	}
 }
