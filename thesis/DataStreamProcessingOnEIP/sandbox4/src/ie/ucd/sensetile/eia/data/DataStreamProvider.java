@@ -17,7 +17,7 @@ public class DataStreamProvider {
 		
 		packet.setPrimaryStream(generateSampleAudioSamples(packetLength));
 		
-		short [][] syncData = new short [secondaryRates.length][];
+		int [][] syncData = new int [secondaryRates.length][];
 		
 		packet.setSecondaryStreams(generateSampleSecondaryStreams(packetLength, secondaryRates, syncData));
 		packet.setSyncData(syncData);
@@ -25,8 +25,8 @@ public class DataStreamProvider {
 		return packet;
 	}
 
-	private char[] generateSampleAudioSamples(int length) {
-		char [] data = new char[length];
+	private int[] generateSampleAudioSamples(int length) {
+		int [] data = new int[length];
 		
 		for (int i=0; i<data.length; i++) {
 			data[i] = '\u00B5';
@@ -35,8 +35,8 @@ public class DataStreamProvider {
 		return data;
 	}
 	
-	private char [][] generateSampleSecondaryStreams(int primaryLength, short [] rates, short [][] syncData) {
-		char [][] data = new char[rates.length][];
+	private int [][] generateSampleSecondaryStreams(int primaryLength, short [] rates, int [][] syncData) {
+		int [][] data = new int[rates.length][];
 		
 		for (int i=0; i<data.length; i++) {
 			
@@ -45,16 +45,16 @@ public class DataStreamProvider {
 				syncCount++;
 			}
 
-			syncData[i] = new short[syncCount];
-			data[i] = new char[syncCount];
+			syncData[i] = new int[syncCount];
+			data[i] = new int[syncCount];
 			fillRandomChannelData(data[i], rates[i], i, syncData[i]);
 		}
 		
 		return data;
 	}
 	
-	private void fillRandomChannelData(char [] data, int rate, int channel, short [] syncData) {
-		short index = 0;
+	private void fillRandomChannelData(int [] data, int rate, int channel, int [] syncData) {
+		int index = 0;
 		
 		for (int i=0; i<data.length; i++) {
 			data[i] = '\u00B6';

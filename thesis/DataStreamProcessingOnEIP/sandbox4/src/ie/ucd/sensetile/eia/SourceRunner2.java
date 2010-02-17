@@ -1,7 +1,7 @@
 package ie.ucd.sensetile.eia;
 
 import ie.ucd.sensetile.eia.component.BufferedAggregator;
-import ie.ucd.sensetile.eia.component.demultiplexer.Demultiplexer;
+import ie.ucd.sensetile.eia.component.demultiplexer2.Demultiplexer2;
 import ie.ucd.sensetile.eia.data.DataStreamProvider;
 
 import org.apache.camel.ProducerTemplate;
@@ -9,8 +9,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.jndi.JndiContext;
 
-
-public class SourceRunner {
+public class SourceRunner2 {
 
 	public static final String MINA_ENDPOINT_1  = "mina:tcp://localhost:7777?sync=false";
 	public static final String MINA_ENDPOINT_2 = "mina:tcp://localhost:7778?sync=false";
@@ -22,7 +21,7 @@ public class SourceRunner {
 	
 	public static void main (String [] args) {
 	
-		new SourceRunner().go();
+		new SourceRunner2().go();
 		
 	}
 	
@@ -37,7 +36,7 @@ public class SourceRunner {
 		DataStreamProvider provider = new DataStreamProvider();
 
 		long j = System.currentTimeMillis();
-		
+		System.out.println(provider.buildSamplePacket(8000, new short[] {7,328,328}));
 		for (int i=0; i<1000; i++) {
 			pt.sendBody("direct: sendData", provider.buildSamplePacket(8000, new short[] {7,328,328}));
 		}
@@ -66,10 +65,7 @@ public class SourceRunner {
 			    	from("direct: sendData").to(MINA_ENDPOINT_1);
 			    	from(MINA_ENDPOINT_1).processRef("demux");
 			    	from("direct: mainEndpoint").processRef("testBean1");
-			    	from("direct: secondaryEndpoint0").processRef("bufferedEndpoint1");
-			    	from("direct: secondaryEndpoint1").stop();
-			    	from("direct: secondaryEndpoint2").stop();
-			    	from("direct: bufferedEnpoint1Sink").to(MINA_ENDPOINT_2);
+			    	from("direct: secondaryEndpoint0").to(MINA_ENDPOINT_2);
 		    	}
 			});
 			
@@ -81,23 +77,22 @@ public class SourceRunner {
 	
 	public void configure() throws Exception {
 		
-		Demultiplexer demux = new Demultiplexer(ctx);
+		Demultiplexer2 demux = new Demultiplexer2();
 		
-		demux.addMainEndpoint("direct: mainEndpoint");
-		demux.addSecondaryEndpoint(0, "direct: secondaryEndpoint0");
-		demux.addSecondaryEndpoint(1, "direct: secondaryEndpoint1");
-		demux.addSecondaryEndpoint(2, "direct: secondaryEndpoint2");
+		BufferedAggregator primary = new BufferedAggregator(ctx);
+		primary.setPacketSize(8000);
+		primary.addEndpoint("direct: mainEndpoint");
+		demux.setPrimaryOutput(primary);
 		
-		BufferedAggregator ba = new BufferedAggregator(ctx);
-		ba.setPacketSize(1000);
-		ba.addEndpoint("direct: bufferedEnpoint1Sink");
-		
+		BufferedAggregator secondary0 = new BufferedAggregator(ctx);
+		secondary0.setPacketSize(8000);
+		secondary0.addEndpoint("direct: secondaryEndpoint0");
+		demux.setSecondaryOutput(0, secondary0);
 		
 		JndiContext context = new JndiContext();
 		context.bind("demux",demux);
-		context.bind("bufferedEndpoint1", ba);
-		context.bind("testBean1", new TestBean("testBean1"));
-		
+		context.bind("testBean1", new TestBean("TB1"));
+		context.bind("testBean2", new TestBean("TB2"));
 		ctx.setJndiContext(context);		
 	}
 	
@@ -106,8 +101,9 @@ public class SourceRunner {
 			
 			
 			Thread.sleep(2000);
-//			while(true) ;
-			
+//			while(true) {
+//				Thread.sleep(2000);
+//			}
 			ctx.stop();
 			System.out.println("Ending...");
 			System.out.println("End mesg: " + endMesg);
@@ -116,4 +112,6 @@ public class SourceRunner {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

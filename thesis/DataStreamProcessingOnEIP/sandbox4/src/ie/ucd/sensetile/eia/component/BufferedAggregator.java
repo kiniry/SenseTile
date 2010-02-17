@@ -2,31 +2,33 @@ package ie.ucd.sensetile.eia.component;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class BufferedAggregator implements Processor {
-	HashSet<String> endpoints = new HashSet<String>();
+public class BufferedAggregator implements Processor, DataStreamAggregator {
+	private HashSet<String> endpoints = new HashSet<String>();
 	
-	int bufferSize  = 0;
-	int bufferIndex = 0;
-	char [] buffer = new char[0];
+	private int bufferSize  = 0;
+	private int bufferIndex = 0;
+	private int [] buffer = new int[0];
 	
-	ProducerTemplate producer = null;
-	DefaultCamelContext ctx = null;
+	private ProducerTemplate producer = null;
 	
+	private List<AggregatorListener> listeners = new ArrayList<AggregatorListener>();
 	
 	public BufferedAggregator(DefaultCamelContext ctx) {
-		this.ctx = ctx;
 		producer = ctx.createProducerTemplate();
 	}
 	
 	public void setPacketSize(int size) {
 		bufferSize = size;
+		buffer = new int[size];
 		resetBuffer();
 	}
 	
@@ -35,12 +37,21 @@ public class BufferedAggregator implements Processor {
 	}
 	
 	public void process(Exchange exchange) throws Exception {
-		CompositeDataPacket packet = (CompositeDataPacket)exchange.getIn().getBody();
-		char [] data = packet.getPrimaryChannelData();
-		handleData(data);	
+		try {
+			CompositeDataPacket packet = (CompositeDataPacket)exchange.getIn().getBody();
+			int [] data = packet.getPrimaryChannelData();
+			handleData(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	protected void handleData(char [] data) {
+	public int handleData(int [] data) {
+		int packetsSent = 0;
+		if (data.length == 0) {
+			return 0;
+		}
+		
 		int dataIndex = 0;
 		while (dataIndex < (data.length-1)) {
 			while (bufferIndex < (bufferSize-1) && dataIndex < (data.length-1)) {
@@ -48,12 +59,19 @@ public class BufferedAggregator implements Processor {
 			}
 			if (bufferIndex == (bufferSize-1)) {
 				sendBuffer();
+				packetsSent++;
 			}
 		}
+		
+		return packetsSent;
+	}
+	
+
+	public void addListener(AggregatorListener listener) {
+		this.listeners.add(listener);
 	}
 	
 	protected void resetBuffer() {
-		buffer = new char [bufferSize];
 		bufferIndex = 0;
 	}
 	
@@ -67,5 +85,15 @@ public class BufferedAggregator implements Processor {
 		}
 		
 		resetBuffer();
+	}
+	
+	public int getBufferSize() {
+		return bufferSize;
+	}
+	
+	protected void notifyListeners(CompositeDataPacket packet) {
+		for (AggregatorListener l : listeners) {
+			l.packetSent(packet);
+		}
 	}
 }

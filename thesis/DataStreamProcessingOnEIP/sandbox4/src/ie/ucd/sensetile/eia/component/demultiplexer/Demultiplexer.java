@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class Demultiplexer {
+public class Demultiplexer implements Processor {
 	
 	List<String> mainChannelEndpoint = new ArrayList<String>();
 	Map<Integer, HashSet<String>> secondaryEndpoints = new HashMap<Integer, HashSet<String>>();
@@ -87,9 +87,9 @@ public class Demultiplexer {
 		}
 	}
 	
-	protected void processSyncData(int channel, short[] data) {
+	protected void processSyncData(int channel, int [] data) {
 		if (syncEndpoint != null) {
-			char [] newData = new char[data.length];
+			int [] newData = new int[data.length];
 			for (int i=0; i<newData.length; i++) {
 				newData[i] = (char) data[i];
 			}

@@ -6,37 +6,37 @@ public class CompositeDataPacket implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private char [] primaryChannel = new char [0];
-	private char [][] secondaryChannels = new char [0][0];
+	private int [] primaryChannel = new int [0];
+	private int [][] secondaryChannels = new int [0][0];
 	
-	private short syncData [][] = new short [0][0];;
+	private int syncData [][] = new int [0][0];;
 
 	private int packetCountFromSource = 0;
 	
 	public CompositeDataPacket() {
 	}
 	
-	public void setSecondaryStreams (char[][] secondaryStreams) {
+	public void setSecondaryStreams (int[][] secondaryStreams) {
 		this.secondaryChannels = secondaryStreams;
 	}
 
-	public void setPrimaryStream(char [] data) {
+	public void setPrimaryStream(int [] data) {
 		this.primaryChannel = data;
 	}
 	
-	public void setSyncData(short [][] syncData) {
+	public void setSyncData(int [][] syncData) {
 		this.syncData = syncData;
 	}
 	
-	public char[] getPrimaryChannelData() {
+	public int[] getPrimaryChannelData() {
 		return primaryChannel;
 	}
 	
-	public char[] getSecondaryChannel(int index) {
+	public int[] getSecondaryChannel(int index) {
 		if (index < secondaryChannels.length) {
 			return secondaryChannels[index];
 		} else {
-			return new char[0];
+			return new int[0];
 		}
 	}
 	
@@ -49,11 +49,11 @@ public class CompositeDataPacket implements Serializable {
 		}
 	}
 	
-	public short[] getSyncDataForChannel(int index) {
+	public int[] getSyncDataForChannel(int index) {
 		if (index < syncData.length) {
 			return syncData[index];
 		} else {
-			return new short[0];
+			return new int[0];
 		}
 	}
 	
@@ -72,10 +72,10 @@ public class CompositeDataPacket implements Serializable {
 	}
 	
 	public int getPayloadByteCount() {
-		int byteCount = primaryChannel.length * 2;
+		int byteCount = primaryChannel.length * 4;
 		
 		for (int i=0; i<secondaryChannels.length; i++) {
-			byteCount += secondaryChannels[i].length * 2;
+			byteCount += secondaryChannels[i].length * 4;
 		}
 		
 		return byteCount;
