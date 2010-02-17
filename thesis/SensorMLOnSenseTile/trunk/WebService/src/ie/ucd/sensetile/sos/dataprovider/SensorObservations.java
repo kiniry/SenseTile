@@ -23,17 +23,30 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import ie.ucd.sensetile.webservice.sos.SensorObservationIF;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
+
+import net.opengis.sos._1.Contents;
+import net.opengis.sos._1.ObjectFactory;
 
 public class SensorObservations
     implements SensorObservationIF {
     private int observation;
     private String sensorIdUrnRoot ="urn:ie.ucd.sensetile:sensor:";
-    private String sensor1 = null;
     private Long sensorId = 0l;
     private String serverObjectName ="rmi://localhost/SenseTileService";
-    private int counter =0;
+    private Map <String, SensorIF> sensors= new HashMap <String, SensorIF>();
+    
+    private SOSCapability sosCapability = null;
     
     public SensorObservations() throws RemoteException{
         //super();
@@ -77,9 +90,17 @@ public class SensorObservations
     public String RegisterSensor(String service, String version,
             String SensorDescription, String ObservationTemplate)
             throws RemoteException {
-        counter++;
-        System.out.println("Observations bean service = " + counter);       
-        return this.sensorIdUrnRoot;
+        String sensorurn = generateSensorURN();
+        Sensor sensor = new Sensor(sensorurn, SensorDescription, version,
+                ObservationTemplate,service);
+        this.sensors.put(sensorurn,sensor);
+        System.out.println("Observations bean service = " + sensorurn);
+        
+        if (sosCapability == null) {
+            sosCapability = new SOSCapability();
+            sosCapability.addOffering(sensor);
+        }
+        return sensorurn;
 
     }
     
@@ -87,5 +108,28 @@ public class SensorObservations
         String id = sensorIdUrnRoot+sensorId;
         sensorId++;
         return id;
+    }
+
+    public String getCapabilites() {
+
+       /* try {
+            JAXBContext jaxbContext = JAXBContext.newInstance("net.opengis.sos._1");
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT ,
+                   new Boolean(true));
+
+            ObjectFactory sosObjFactory = new ObjectFactory();
+            Contents contents = sosObjFactory.createContents();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            marshaller.marshal(contents,
+                    stream);
+            System.out.println(stream.toString());
+
+        } catch (JAXBException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+
+        return sosCapability.getCapabilitiesXml();
     }
 }

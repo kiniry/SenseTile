@@ -16,11 +16,11 @@ public interface SensorIF {
     /* get version */
     String getVersion();
 
-    /* get SensorDescription */
-    String getDescription();
 
     /* get ObservationTemplate */
-    String ObservationTemplate();
+    String getObservationTemplate();
+
+    String getXMLDescription();
 
 
 }
