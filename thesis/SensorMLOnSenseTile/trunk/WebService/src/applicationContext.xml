@@ -25,10 +25,10 @@
   <bean id="applicationContext" 
     class="org.apache.axis2.extensions.spring.receivers.ApplicationContextHolder" />
 
-  <bean id="senseTileService" class="ie.ucd.sensetile.dataprovider.service.SenseTileService">
+  <bean id="senseTileService" class="ie.ucd.sensetile.sos.dataprovider.service.SenseTileService">
     <property name="sensorObs" ref="senorObservationsBean"/>
   </bean>
 
-  <bean id="senorObservationsBean" class="ie.ucd.sensetile.dataprovider.SensorObservations">
+  <bean id="senorObservationsBean" class="ie.ucd.sensetile.sos.dataprovider.SensorObservations">
   </bean>
 </beans>
