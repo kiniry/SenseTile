@@ -16,18 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package ie.ucd.sensetile.dataprovider.service;
+package ie.ucd.sensetile.sos.dataprovider.service;
 
 
-import ie.ucd.sensetile.dataprovider.service.SenseTileServiceStub.GetSensorObsResponse;
-
+import ie.ucd.sensetile.sos.dataprovider.service.SenseTileServiceStub.GetSensorObsResponse;
+import ie.ucd.sensetile.sos.dataprovider.service.SenseTileServiceStub.GetCapabilitiesResponse;
 public class SenseTileServiceClient {
  
     public static void main(String[] args) throws Exception {
  
         SenseTileServiceStub stub = new SenseTileServiceStub();
-        
+        GetCapabilitiesResponse capabilities = stub.getCapabilities();
+		
         //Invoke the service
+        System.out.println("Response : " + capabilities.get_return() );
+
         GetSensorObsResponse response = stub.getSensorObs();
  
         System.out.println("Response : " + response.get_return().getObservation());
