@@ -47,29 +47,28 @@ SensorML Bon Mapping with a tool and method to develop sensorML descriptions
 
 \chapter{Introduction}
 
-The aim of this thesis project was to prototype a Web Service for accessing sensor observations from the SenseTile Sensor Board. SenseTile is a sensor and processing package including motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
+The aim of this thesis project was to model the SenseTile Sensor Board using Sensor Model Language (SensorML)\cite{SensoMLref} . A prototype of a Web Service for accessing SenseTile Sensor Board sensor observations was to be developed using this SensorML description of the SenseTile Sensor Board. An evaluation of the suitability of SensorML for use as part of the SenseTile System was also to be performed.
 
-Descriptions of the SenseTile Sensor Board were to be developed using Sensor Model Language (SensorML)\cite{SensoMLref}. SensorML is a language that describes the process of sensor measurement by providing standard models and XML encoding for such processes. SensorML was be used as it is becoming a standard for describing sensor data processing as part of the SWE[ref].
+SenseTile is a sensor and processing package including motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network. The SenseTile System is made up of two units a Sensor Board and Processor Unit. The sensors are interfaced or hosted on the Sensor Board. The Processor Unit interfaces to the Sensor Board allowing data from the Sensor Board to be processed futher as required.
 
-This description is executed on the processing unit as part of a webservice to generate data.
-SOS. Implemation added to allow the description to be used to generate observations. Processing of data.
+SensorML was developed to describe sensor systems and the processing of sensor observations. It provides standard models and XML encodings to describe the process of sensor measurement. SensorML is one of a suite of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types.
+
+The SenseTile Web Service allows access to the Sensor Board sensor observations and SensorML description. It would run on the SenseTile Processor Unit.  The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations. Sensor Board measurements that have been post processed and converted to real values or the raw Sensor Board data can be accessed using the Web Service.
+
+SensorML and SOS specification depend on another SWE specification, Observation and Measurements(O\&M)[ref]. This specification provides standard models and XML encoding for sensor observations.SWE Common - common data models and schema
 
 A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
 
 
 \chapter{ Background Research}
 
+
+
+\section{Sensor Networks and SWE}
 How was problem solved before.
 
-\subsection{Sensor Networks}
-\subsection{BON}
-\subsection{Sensorml}
-reference chapter
-\subsection{WebService}
-\subsection{JIBX}
 
-\chapter{SensorML}
-\section{SensorML Overview}
+\section{SensorML}
 The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standardised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity. Sensor Modelling Language (SensorML) is one part of the SWE initiative and is used to describe sensor systems and the processing of observations from sensor systems.
 
 The purposes of SensorML are to:
@@ -97,7 +96,12 @@ DataRecord or DataArray.
 Detector model.
 
 The SensorML description of the SenseTile Sensor Board is shown in the following section.
+\section{BON}
+\section{SOS}
+\section{OGC Lib}
 
+
+\chapter{Design}
 \section{SensorML Description of SenseTile}
 
 SensorML System and Component were used to describe the SenseTile system and it's sensors. The sensor specifications were used to generate the metadata.
@@ -152,13 +156,13 @@ List handling - convention for mapping.
 SML prefix to handled key word clashes between sensorML and BON.
 
 How to display this in thesis?
-\chapter{Design}
-
 \section{SenseTile Web Service}
 \subsection{Overview}
 
 Web Service - SOS -standard access to sensor observations
+The Sensor Observation Service (SOS) is an approved Open Geospatial Consortium standard. The standard defines a web service interface for the discovery and retrieval of real time or archived data produced by all kinds of sensors like mobile or stationary as well as in-situ or remote sensors.
 
+The sensor data can be either observations or descriptions of the producing sensors containing metadata like calibration information, positions, etc. Observations are returned encoded as OM Observations, while information about sensors are returned encoded in SensorML or TML. Used in conjunction with these OGC standards and other OGC specifications, the SOS provides a broad range of interoperable capability for discovering, binding to and interrogating individual sensors, sensor platforms, or networked constellations of sensors in real-time, archived or simulated environments. 
 SOS diagram
 
 DataProvider
@@ -251,6 +255,12 @@ the weaknesses of your approach
 \newpage
 \begin{thebibliography}{99}
 \bibitem{SensoMLref}Open Geospatial Consortium Inc., OpenGIS Sensor Model Language (SensorML) Implementation Specification, 2007
+\bibitem{SOSref}Open Geospatial Consortium Inc., OpenGIS  Implementation Specification, 2007
+\bibitem{OMref}Open Geospatial Consortium Inc., OpenGIS  Implementation Specification, 2007
+\bibitem{SWEArchref}Open Geospatial Consortium Inc., , 2007
+\bibitem{SMLTutorialref}Open Geospatial Consortium Inc., , 2007
+
+
 \bibitem{BONref}Kim Waldén and Jean-Marc Nerson , "Seamless Object-Oriented Software Architecture", 1995
 \end{thebibliography}
 \label{endpage}
