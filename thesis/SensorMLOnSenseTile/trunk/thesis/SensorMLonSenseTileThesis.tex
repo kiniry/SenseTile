@@ -51,11 +51,11 @@ The aim of this thesis project was to model the SenseTile Sensor Board using Sen
 
 SenseTile is a sensor and processing package including motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network. The SenseTile System is made up of two units a Sensor Board and Processor Unit. The sensors are interfaced or hosted on the Sensor Board. The Processor Unit interfaces to the Sensor Board allowing data from the Sensor Board to be processed futher as required.
 
-SensorML was developed to describe sensor systems and the processing of sensor observations. It provides standard models and XML encodings to describe the process of sensor measurement. SensorML is one of a suite of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types.
+SensorML is one of a number of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types. SensorML is used to describe sensor systems and the processing of sensor observations. It provides standard models and XML encodings to describe the process of sensor measurement. SensorML is described further in chapter x.
 
-The SenseTile Web Service allows access to the Sensor Board sensor observations and SensorML description. It would run on the SenseTile Processor Unit.  The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations. Sensor Board measurements that have been post processed and converted to real values or the raw Sensor Board data can be accessed using the Web Service.
+The SenseTile Web Service prototype allows access to the Sensor Board sensor observations and it's SensorML description. It runs on the SenseTile Processor Unit.  The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations. Sensor Board measurements that have been post processed and converted to real values or the raw Sensor Board data can be accessed using the Web Service.
 
-SensorML and SOS specification depend on another SWE specification, Observation and Measurements(O\&M)[ref]. This specification provides standard models and XML encoding for sensor observations.SWE Common - common data models and schema
+There are othe  SOS specification depend on another SWE specification, Observation and Measurements(O\&M)[ref]. This specification provides standard models and XML encoding for sensor observations.
 
 A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
 
@@ -63,43 +63,105 @@ A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notat
 \chapter{ Background Research}
 
 
+\section{Sensor Web Enablement}
+The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standardised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity.They provide a framework of open standards for use with Web-connected sensors and sensor systems. There are seven main specifications currently:
 
-\section{Sensor Networks and SWE}
-How was problem solved before.
+\begin{itemize}
+\item  SensorModel Language(SensorML) - models and schema for sensor systems and processes surrounding measurements
+\item  Observations \& Measurements (O\&M) - models and schema for packaging observation values
+\item  Transducer Markup Language (TML) - models and schema for multiplexed data from sensor systems
+\item  Sensor Observation Service (SOS) - standard web interface for accessing observations
+\item  Sensor Planning Service (SPS) - standard web interface for tasking sensor systems and model and requesting acquisitions
+\item   Sensor Alert Service (SAS) - standard web interface for publishing and subscribing to sensor alerts
+\item   Web Notification Service (WNS) - standard web interface for asynchronous notification
+\end{itemize}
+There is also the SWE Common that provides common data models and schemas for the above.
 
+Rather than define any new sensor models or XML formats for SenseTile it preferable to use the existing solutions if good enough for the task at hand. The SWE framework seems to cover all needs for modeling sensors and observations. Support the use of Web Services is the main rational and fits the needs of a SenseTile Sensor Network. In this case the SOS and SensorML are core.
+
+Scable - can be  large systems. Discovery. Process data without having to define an implemenation as this
+can be provodied as part of SensorML description.
+
+Other ways EEML? Small not suitable for Web explotiation. Anything gained by it's simpler approach.
 
 \section{SensorML}
-The Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) [ref]  is establishing interfaces and protocols that will enable a standardised “Sensor Web”. It is hoped that an easier integration and development of sensor applications across sensor networks will be facilitated by this standarising activity. Sensor Modelling Language (SensorML) is one part of the SWE initiative and is used to describe sensor systems and the processing of observations from sensor systems.
+Sensor Modelling Language (SensorML) is used to describe sensor systems and the processing of observations from sensor systems.
 
 The purposes of SensorML are to:
-• Provide descriptions of sensors and sensor systems for inventory management
-• Provide sensor and process information in support of resource and observation discovery
-• Support the processing and analysis of the sensor observations
-• Support the geolocation of observed values (measured data)
-• Provide performance characteristics (e.g., accuracy, threshold, etc.)
-• Provide an explicit description of the process by which an observation was obtained (i.e., it’s lineage)
-• Provide an executable process chain for deriving new data products on demand (i.e., derivable observation)
-• Archive fundamental properties and assumptions regarding sensor systems
+\begin{itemize}
+\item Provide sensor and process information in support of resource and observation discovery
+\item Support the processing and analysis of the sensor observations
+\item Support the geolocation of observed values (measured data)
+\item Provide performance characteristics (e.g., accuracy, threshold, etc.)
+\item Provide an explicit description of the process by which an observation was obtained (i.e., it’s lineage)
+\item Provide an executable process chain for deriving new data products on demand (i.e., derivable observation)
+\item Archive fundamental properties and assumptions regarding sensor systems
+\end{itemize}
 
 SensorML provides a functional model of sensors and an XML encoding to describe sensors and their observations.
-Sensors are modelled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs. They can also define relevant metadata. The processes can be connected together in chains using SensorML ProcessChains or Systems. 
+Sensors are modelled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs.
+
+Sensor metadata is also supported by SensorML.  
+
+The processes can be connected together in chains using SensorML ProcessChains or Systems. 
 
 including measurement by a sensor system, as well as post-measurement
 processing.
 
-When Modelling a sensor system in SensorML the main entities used are Systems and Components. A SensorML System is used to group sensors that are related spatially to one another.  A Component is an atomic process that generally converts a physical phenomen to a digital number. ProcessModels are another modelling that is used to describe a pure process that has no physicality
+When Modelling a sensor system in SensorML the main entities used are Systems and Components. 
 
-Quantity, Count, Boolean, Category, and Time provide the basic primitives. Within SensorML, these serve as the basis for specifying all inputs, outputs, and parameters within a Process
+A SensorML System is used to group sensors that are related spatially to one another.  As it is a processchaing it is hierarchical and so Systems can contain Systems.
 
-DataRecord or DataArray.
+A Component is an atomic process that generally converts a physical phenomen to a digital number. 
 
-Detector model.
+ProcessModels are another modelling that is used to describe a pure process that has no physicality. They point to an implementation or a description of one.
 
-The SensorML description of the SenseTile Sensor Board is shown in the following section.
-\section{BON}
+The data types used for inputs and out puts come another OGC sepc the SWE common. Examles are Quantity which is a decimal number, Count, Boolean, Category, and Time provide the basic primitives. Within SensorML, 
+
+Aggregation of primative data types are also provided DataRecord or DataArray.
+
+A sensor systems would likely to be based mainly on Systems and
+Detector model. Reference tutorial and sensorml specification.
+
+The SensorML description of the SenseTile Sensor Board is desctibed in chapter .
+
 \section{SOS}
-\section{OGC Lib}
+A Sensor Observation Service provides an API for managing deployed sensors and
+retrieving sensor data and specifically “observation” data.
 
+SOS has three mandatory “core” operations: GetObservation, DescribeSensor, and
+GetCapabilities. The GetObservation operation provides access to sensor observations
+and measurement data via a spatio-temporal query that can be filtered by phenomena.
+The DescribeSensor operation retrieves detailed information about the sensors and
+processes generating those measurements. The GetCapabilities operation provides the
+means to access SOS service metadata. Several optional, non-mandatory operations have
+also been defined. There are two operations to support transactions, RegisterSensor and
+InsertObservation, and six enhanced operations, including GetResult,
+GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest,
+DescribeObservationType, and DescribeResultModel.
+
+The assumption is that sensor data producers are software entities running on resource
+constrained platforms that are attached to sensors – either physically or through a
+wireless connection of some kind. The producers have just enough processing power to
+generate simple XML insert documents that can be published to the transactional SOS.
+The transactional SOS is expected to be running on a capable server in a data center
+which can easily handle a large number of simultaneous connections from data
+producers.
+Data consumers would request data from the transactional SOS using operations from the
+core profile and would not need to communicate with the ultimate data producers. Figure
+12 shows sensor data producers in the operational context described above. The catalog
+still appears in the diagram but there is only one and it will often be co-located with the
+SOS service. The catalog would be used for discovery of the SOS instance if the data
+producers were capable enough to support a catalog client application. In some cases the
+sensor data publishers will need to be configured with the location of the SOS when they
+are deployed. The diagram is meant to represent a facility that is under the control of a
+single organization. Scalability would be achieved through aggregating a number of
+sensor data producers on the sensor side and by aggregating a number of SOS instances
+on the data center side for providing data to consumers.
+\section{OGC Lib}
+DOM based. Reference on google code. Refernce of how to build. Quicker to build prototype. SensorML aware.
+
+\section{BON}
 
 \chapter{Design}
 \section{SensorML Description of SenseTile}
@@ -112,7 +174,7 @@ System is providing the mapping of inputs to processes and the outputs.
 
 Naming rules inputs and outputs - allow more generic handling of implementation classes.
 
-Processed verus raw data.
+Offerings Processed verus raw data.
 
 It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
 
