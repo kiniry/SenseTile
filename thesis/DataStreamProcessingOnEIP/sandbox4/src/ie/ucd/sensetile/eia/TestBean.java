@@ -16,7 +16,7 @@ public class TestBean implements Processor {
 	}
 	
 	public void process(Exchange e) {
-		go2(e);
+//		go2(e);
 		counter++;
 	}
 	

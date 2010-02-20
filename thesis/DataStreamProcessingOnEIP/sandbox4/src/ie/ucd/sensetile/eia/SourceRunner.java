@@ -91,7 +91,6 @@ public class SourceRunner {
 			
 			
 			Thread.sleep(2000);
-//			while(true) ;
 			
 			ctx.stop();
 			System.out.println("Ending...");

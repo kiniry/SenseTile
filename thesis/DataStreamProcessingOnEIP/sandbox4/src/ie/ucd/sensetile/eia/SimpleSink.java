@@ -22,7 +22,7 @@ public class SimpleSink {
 
 			ctx.addRoutes(new RouteBuilder() {
 				public void configure() {
-					from(SOURCE_URL2).bean(new TestBean("SinkTestBean"));
+					from(SOURCE_URL).bean(new TestBean("SinkTestBean"));
 				}
 			});
 		} catch (Exception e) {
