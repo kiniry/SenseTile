@@ -123,45 +123,52 @@ Aggregation of primative data types are also provided DataRecord or DataArray.
 A sensor systems would likely to be based mainly on Systems and
 Detector model. Reference tutorial and sensorml specification.
 
-The SensorML description of the SenseTile Sensor Board is desctibed in chapter .
+The SensorML description of the SenseTile Sensor Board is described in chapter .
 
-\section{SOS}
-A Sensor Observation Service provides an API for managing deployed sensors and
-retrieving sensor data and specifically “observation” data.
+\section{Sensor Observation Service}
+The SenseTile Web Service is based on the concepts described in the Sensor Observation Service (SOS) specification. The SOS defines a web service interface for the discovery of sensors systems and the retrieval of observations from sensor systems.  Observations are encoded as OGC O\&M Observations. Sensor systems metadata can be also be retrieved using the SOS interface and is generally defined in SensorML or TML with SensorML being used by the SenseTile Web Service.
 
-SOS has three mandatory “core” operations: GetObservation, DescribeSensor, and
-GetCapabilities. The GetObservation operation provides access to sensor observations
-and measurement data via a spatio-temporal query that can be filtered by phenomena.
-The DescribeSensor operation retrieves detailed information about the sensors and
-processes generating those measurements. The GetCapabilities operation provides the
-means to access SOS service metadata. Several optional, non-mandatory operations have
-also been defined. There are two operations to support transactions, RegisterSensor and
-InsertObservation, and six enhanced operations, including GetResult,
+There are there core operations that are provided by an SOS and used by SOS Clients to request sensor information:
+ \begin{itemize}
+\item GetObservation operation is used to obtain sensor observations and measurement data.
+\item GetCapabilities operation is used to retrieve SOS service metadata.
+\item DescribeSensor operation retrieves detailed information about the sensors .
+\end{itemize}
+
+Two other operations non RegisterSensor and InsertObservation are of interest to this thesis
+with the obvious functionality. These are part of the SOS transactional interface. They are used with SOS data producers which are software entities connected to the sensor and have enough processing power to generate XML descriptions of the sensor data.
+
+Six other enhanced operations, GetResult,
 GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest,
-DescribeObservationType, and DescribeResultModel.
+DescribeObservationType, and DescribeResultModel are not considered are not included in the SenseTileWeb Service.
 
-The assumption is that sensor data producers are software entities running on resource
-constrained platforms that are attached to sensors – either physically or through a
-wireless connection of some kind. The producers have just enough processing power to
-generate simple XML insert documents that can be published to the transactional SOS.
-The transactional SOS is expected to be running on a capable server in a data center
+These operations are encoded in XML and used in http post and get operations. The XML message needs to be parsed to identify the operations, parameters and results. There seems to be work ongoing to change this to a more industry standard view of Web Services with the use of WSDL/SOAP. I could not find this as part of current OGC SWE framework.
+
+para: The SOS is expected to be running on a  server that  handle large numbers of connections
+from sensor systems.
+
 which can easily handle a large number of simultaneous connections from data
 producers.
-Data consumers would request data from the transactional SOS using operations from the
-core profile and would not need to communicate with the ultimate data producers. Figure
-12 shows sensor data producers in the operational context described above. The catalog
-still appears in the diagram but there is only one and it will often be co-located with the
-SOS service. The catalog would be used for discovery of the SOS instance if the data
-producers were capable enough to support a catalog client application. In some cases the
-sensor data publishers will need to be configured with the location of the SOS when they
-are deployed. The diagram is meant to represent a facility that is under the control of a
-single organization. Scalability would be achieved through aggregating a number of
+
+ The catalog aspect of SOS that used for discovery of the SOS instance is not covered in the Web Service Prototype described in this thesis.
+
+para: Scalability would be achieved through aggregating a number of
 sensor data producers on the sensor side and by aggregating a number of SOS instances
-on the data center side for providing data to consumers.
+on the data center side for providing data to consumers. 
+
+
 \section{OGC Lib}
 DOM based. Reference on google code. Refernce of how to build. Quicker to build prototype. SensorML aware.
+This open source project aims at building a JAVA API and implementation of the SWE (Sensor Web Enablement) Common Data Model, that can be easily used to access and produce SWE Common Data, and convert in to/from existing formats such as NetCDF, HDF, GeoTIFF, JPEG2000, etc... It can also be used to quickly develop SWE services such as SOS, SPS and SAS which all rely on the SWE Common Data Model and thus to build a Sensor Network.
+The project was initiated by the VAST Team at the University of Alabama in Huntsville (UAH) and is now also maintained by Sensia Software, Spot Image, and Botts Innovative Research, Inc.. 
+http://code.google.com/p/swe-common-data-framework/
 
 \section{BON}
+\section{Trchnologies}
+JAXB
+JAVA
+AXIS 2.0
+SPRING
 
 \chapter{Design}
 \section{SensorML Description of SenseTile}
