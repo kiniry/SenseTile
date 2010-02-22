@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+      
+  <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+	<jmxAgent id="agent" createConnector="true"/>
+  </camelContext>    
+
+  <bean id="node" class="ie.ucd.sensetile.eia.node.registry.RegistryNode">
+      <property name="nodeDefinition">
+		  <bean id="nodeDefinition" class="ie.ucd.sensetile.eia.node.NodeDefinition">
+		  	  	<property name="homeURI" value="mina:tcp://localhost:7000"/>
+		  </bean>
+	  </property>
+	  <property name="store">
+	  	<bean id="store" class="ie.ucd.sensetile.eia.node.registry.RegistryStore"></bean>
+	  </property>
+  </bean>  
+</beans>
+  

@@ -9,5 +9,10 @@
 	<classpathentry kind="lib" path="lib/mina-core-1.1.7.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.5.9-RC0.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-simple-1.5.9-RC0.jar"/>
+	<classpathentry kind="lib" path="lib/camel-spring-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/spring-aop.jar"/>
+	<classpathentry kind="lib" path="lib/spring-beans.jar"/>
+	<classpathentry kind="lib" path="lib/spring-context.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+      
+  <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+  
+    <route>
+	  	<from uri="mina:tcp://localhost:7102?sync=false"/>
+		<to uri="bean:testBean"/>
+	</route>
+  </camelContext>    
+
+  <bean id="testBean" class="ie.ucd.sensetile.eia.util.buffer.TestBean"/>
+
+  <bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
+      <property name="nodeDefinition">
+		  <bean class="ie.ucd.sensetile.eia.node.NodeDefinition">
+		  	  	<property name="homeURI" value="mina:tcp://localhost:7002"/>
+		  	  	<property name="registryURI" value="mina:tcp://localhost:7000"/>
+		  </bean>
+	  </property>
+  </bean>  
+</beans>
+  
