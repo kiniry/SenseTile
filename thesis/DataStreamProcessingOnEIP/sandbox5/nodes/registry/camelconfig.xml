@@ -8,7 +8,6 @@
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
       
   <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-	<jmxAgent id="agent" createConnector="true"/>
   </camelContext>    
 
   <bean id="node" class="ie.ucd.sensetile.eia.node.registry.RegistryNode">

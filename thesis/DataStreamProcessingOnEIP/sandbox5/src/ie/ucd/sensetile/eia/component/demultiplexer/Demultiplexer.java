@@ -15,9 +15,12 @@ public class Demultiplexer implements Processor {
 	private List<ChannelProcessor> secondaryProcessors = null;
 	private List<CompositeDataBuffer> syncBuffers = null;
 	
-	public Demultiplexer(int primaryBufferSize, int syncBufferSize, int[] secondaryChannels, int [] secondaryBufferSizes) {
+	public Demultiplexer(DemultiplexerConfig config) {
 		
-		this.primaryProcessor = new ChannelProcessor(0, primaryBufferSize);
+		int [] secondaryChannels = config.getSecondaryChannels();
+		int [] secondaryBufferSizes = config.getSecondaryBufferSizes();
+		
+		this.primaryProcessor = new ChannelProcessor(0, config.getPrimaryBufferSize());
 		this.secondaryProcessors = new ArrayList<ChannelProcessor>(secondaryChannels.length);
 		this.syncBuffers = new ArrayList<CompositeDataBuffer>(secondaryChannels.length);
 		
@@ -26,7 +29,7 @@ public class Demultiplexer implements Processor {
 			ChannelProcessor cp = new ChannelProcessor(channelId, secondaryBufferSizes[i]);
 			secondaryProcessors.add(cp);
 			
-			CompositeDataBuffer cb = new CompositeDataBuffer(syncBufferSize, 4);
+			CompositeDataBuffer cb = new CompositeDataBuffer(config.getSyncBufferSize(), 4);
 			syncBuffers.add(cb);
 		}
 	}

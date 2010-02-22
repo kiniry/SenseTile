@@ -3,6 +3,9 @@ package ie.ucd.sensetile.eia.util.buffer;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 
 public class BufferDataProcessor {
+	
+	int count = 0;
+	
 	public void processBufferData(BasicBuffer buffer){
 		
 		CompositeDataPacket cdp = new CompositeDataPacket();
@@ -13,6 +16,11 @@ public class BufferDataProcessor {
 			cdp.setSecondaryStreams(cb.getBufferCompositeData());
 		}
 		buffer.reset();
-		//System.out.println("Sending: " + cdp);
+		
+		count++;
+		
+		if (count % 100 == 0) {
+			System.out.println(this + " processed " + count + " buffers");
+		}
 	}
 }

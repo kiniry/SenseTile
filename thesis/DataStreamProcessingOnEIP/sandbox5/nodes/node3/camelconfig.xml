@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+      
+  <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+  <jmxAgent id="agent" createConnector="true"/>
+    <route>
+	  	<from uri="mina:tcp://localhost:7103?sync=false"/>
+		<to uri="bean:demultiplexer_1"/>
+	</route>
+  </camelContext>    
+
+  <bean id="demultiplexer_1" class="ie.ucd.sensetile.eia.component.demultiplexer.Demultiplexer">
+  	<constructor-arg index="0"><ref bean="demuxConfig_1" /></constructor-arg>
+  </bean>
+
+  <bean id="demuxConfig_1" class="ie.ucd.sensetile.eia.component.demultiplexer.DemultiplexerConfig">
+	<property name="primaryBufferSize" value="80000"/>
+	<property name="syncBufferSize" value="80000"/>
+	<property name="secondaryChannels">
+		<list>
+			<value>0</value>
+	        <value>1</value>
+	        <value>2</value>
+		</list>
+	</property>
+	<property name="secondaryBufferSizes">
+		<list>
+			<value>80000</value>
+	        <value>80000</value>
+	        <value>80000</value>
+		</list>
+	</property>
+
+  </bean>
+
+  <bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
+      <property name="nodeDefinition">
+		  <bean class="ie.ucd.sensetile.eia.node.NodeDefinition">
+		  	  	<property name="homeURI" value="mina:tcp://localhost:7003"/>
+		  	  	<property name="registryURI" value="mina:tcp://localhost:7000"/>
+		  </bean>
+	  </property>
+  </bean>  
+</beans>
+  

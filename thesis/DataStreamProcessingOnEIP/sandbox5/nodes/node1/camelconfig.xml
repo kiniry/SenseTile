@@ -8,10 +8,13 @@
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
       
   <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-
 	  <route>  
 	  	<from uri="direct:sendData"/>
-		<to uri="mina:tcp://localhost:7102?sync=false"/>
+	    <!-- <throttle maximumRequestsPerPeriod="5" timePeriodMillis="1000">
+			<to uri="mina:tcp://localhost:7103?sync=false"/>
+		</throttle>
+		 -->
+		 <to uri="mina:tcp://localhost:7103?sync=false"/>
 	  </route>
   </camelContext>    
 
