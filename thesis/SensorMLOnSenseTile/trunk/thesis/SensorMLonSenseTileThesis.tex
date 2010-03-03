@@ -1,6 +1,7 @@
 \documentclass[]{final_report}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{listings}
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -79,12 +80,12 @@ There is also the SWE Common that provides common data models and schemas for th
 
 Rather than define any new sensor models or XML formats for SenseTile it preferable to use the existing solutions if good enough for the task at hand. The SWE framework seems to cover all needs for modeling sensors and observations. Support the use of Web Services is the main rational and fits the needs of a SenseTile Sensor Network. In this case the SOS and SensorML are core.
 
-Scable - can be  large systems. Discovery. Process data without having to define an implemenation as this
-can be provodied as part of SensorML description.
+Scalable - can be  large systems. Discovery. Process data without having to define an implementation as this
+can be provided as part of SensorML description.
 
-Other ways EEML? Small not suitable for Web explotiation. Anything gained by it's simpler approach.
+Other ways EEML? DAML?
 
-\section{SensorML}
+\section{Sensor Modeling Language}
 Sensor Modelling Language (SensorML) is used to describe sensor systems and the processing of observations from sensor systems.
 
 The purposes of SensorML are to:
@@ -108,17 +109,17 @@ The processes can be connected together in chains using SensorML ProcessChains o
 including measurement by a sensor system, as well as post-measurement
 processing.
 
-When Modelling a sensor system in SensorML the main entities used are Systems and Components. 
+When Modeling a sensor system in SensorML the main entities used are Systems and Components. 
 
-A SensorML System is used to group sensors that are related spatially to one another.  As it is a processchaing it is hierarchical and so Systems can contain Systems.
+A SensorML System is used to group sensors that are related spatially to one another.  As it is a process chain it is hierarchical and so Systems can contain Systems.
 
-A Component is an atomic process that generally converts a physical phenomen to a digital number. 
+A Component is an atomic process that generally converts a physical phenomena to a digital number. 
 
-ProcessModels are another modelling that is used to describe a pure process that has no physicality. They point to an implementation or a description of one.
+ProcessModels are another modeling that is used to describe a pure process that has no physicality. They point to an implementation or a description of one.
 
 The data types used for inputs and out puts come another OGC sepc the SWE common. Examles are Quantity which is a decimal number, Count, Boolean, Category, and Time provide the basic primitives. Within SensorML, 
 
-Aggregation of primative data types are also provided DataRecord or DataArray.
+Aggregation of primitive data types are also provided DataRecord or DataArray.
 
 A sensor systems would likely to be based mainly on Systems and
 Detector model. Reference tutorial and sensorml specification.
@@ -138,9 +139,7 @@ There are there core operations that are provided by an SOS and used by SOS Clie
 Two other operations non RegisterSensor and InsertObservation are of interest to this thesis
 with the obvious functionality. These are part of the SOS transactional interface. They are used with SOS data producers which are software entities connected to the sensor and have enough processing power to generate XML descriptions of the sensor data.
 
-Six other enhanced operations, GetResult,
-GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest,
-DescribeObservationType, and DescribeResultModel are not considered are not included in the SenseTileWeb Service.
+
 
 These operations are encoded in XML and used in http post and get operations. The XML message needs to be parsed to identify the operations, parameters and results. There seems to be work ongoing to change this to a more industry standard view of Web Services with the use of WSDL/SOAP. I could not find this as part of current OGC SWE framework.
 
@@ -150,21 +149,19 @@ from sensor systems.
 which can easily handle a large number of simultaneous connections from data
 producers.
 
- The catalog aspect of SOS that used for discovery of the SOS instance is not covered in the Web Service Prototype described in this thesis.
-
 para: Scalability would be achieved through aggregating a number of
 sensor data producers on the sensor side and by aggregating a number of SOS instances
 on the data center side for providing data to consumers. 
 
+The catalog aspect of SOS that used for discovery of the SOS instance is not covered in the Web Service Prototype described in this thesis. Also six enhanced operations, GetResult,
+GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest,
+DescribeObservationType, and DescribeResultModel are not included in the SenseTileWeb Service.
 
 \section{OGC Lib}
-DOM based. Reference on google code. Refernce of how to build. Quicker to build prototype. SensorML aware.
-This open source project aims at building a JAVA API and implementation of the SWE (Sensor Web Enablement) Common Data Model, that can be easily used to access and produce SWE Common Data, and convert in to/from existing formats such as NetCDF, HDF, GeoTIFF, JPEG2000, etc... It can also be used to quickly develop SWE services such as SOS, SPS and SAS which all rely on the SWE Common Data Model and thus to build a Sensor Network.
-The project was initiated by the VAST Team at the University of Alabama in Huntsville (UAH) and is now also maintained by Sensia Software, Spot Image, and Botts Innovative Research, Inc.. 
-http://code.google.com/p/swe-common-data-framework/
-
+The VAST Team at the University of Alabama in Huntsville (UAH)  developed an open source JAVA framework call swe-common-data-framework (http://code.google.com/p/swe-common-data-framework/) to allow the quick development of SWE services such as an SOS. In this project the library is used to as the basis for the DataProducer as described in the SOS section.
+\section{UCD Sensor Board library}
 \section{BON}
-\section{Trchnologies}
+\section{Technologies}
 JAXB
 JAVA
 AXIS 2.0
@@ -173,45 +170,32 @@ SPRING
 \chapter{Design}
 \section{SensorML Description of SenseTile}
 
-SensorML System and Component were used to describe the SenseTile system and it's sensors. The sensor specifications were used to generate the metadata.
-The Sensors are modelled a detectors. They are process that take scalar values
-and can perform transformations on them.
+A SensorML model of SenseTile was developed as part of this thesis. The model contains metadata about the SenseTile system and supports the needs of the SenseTile Web Service. Two main requirements of the SenseTile Web Service were to be supported by the SensorML model. Firstly the raw data from the senors was to be retievable to allow external system process the data as desired. Secondly there was a requirement to do post processing on the Processor Unit of the sensor data to convert it to meaningful values.
 
-System is providing the mapping of inputs to processes and the outputs.
-
-Naming rules inputs and outputs - allow more generic handling of implementation classes.
-
-Offerings Processed verus raw data.
-
-It is further recognized that most sensor observations consist of at least two processes: a sampling process and a conversion process.
-
- \begin{figure}
-\scalebox{0.65}{\includegraphics{SenseTileSystem.pdf}}
-\caption{SenseTile System Overview}\label{fig:SenseTileSystem.pdf}
+A block diagram of the Sensetile SensorML model is shown in figure \ref{fig:SenseTileSystem}.
+\begin{figure}[h]
+\scalebox{0.70}{\includegraphics{SenseTileSystem.png}}
+\caption{SenseTile System Block Diagram}\label{fig:SenseTileSystem}
 \end{figure}
 
- \begin{figure}
-\scalebox{0.65}{\includegraphics{SensorML_SenseTile_System_2_pa1.pdf}}
-\caption{SenseTile System Components}\label{fig:SensorML_SenseTile_System_2_pa1.pdf}
+Three SensorML Systems are used to model the SenseTile system. One SensorML System models the overall SenseTile System and connects the other two SensorML Systems used, the Sensor Board System and the Conversion System. The physical phenomena measured by the sensors are the input to the  SenseTile System. These values will be read in from packets received from the Sensor Board. The Digital Number output is the raw sensor data which is a digital number without a physical meaning. The Converted Measurement output contains the values from post processing the sensor data which have some physical meaning such as temperature in Celcius.
+
+The division of the systems is based on the concept that sensor observations are based on at least a sampling process and a conversion process{ref tutorial}. The Sensor Board System contains SensorML Components that model the sensors on the board that perform the sampling while the SensorML Components contained in the Conversion System model process that produce meaningful physical measurement values such as temperature and lumens.
+
+A block diagram of the Sensetile SensorML model with Componets is shown in figure \ref{fig:SensorML_SenseTile_System_comp}. Only the Thermistor Component and the Celcius Component are developed as part of this thesis. They are described in model detail in later sections.
+\begin{figure}[h]
+\scalebox{0.65}{\includegraphics{SensorML_SenseTile_System_comp.png}}
+\caption{SenseTile System Components}\label{fig:SensorML_SenseTile_System_comp}
 \end{figure}
 
-\subsection{SenseTile System}
-\subsection{Light Sensor}
-\subsection{Thermistor}
-\subsection{Pressure Sensor}
-\subsection{Accelerometer}
-\subsection{Acoustic Sensor}
+Naming rules for inputs and outputs - allow more generic handling of implementation classes.
 
-Types
- - SWE -
 
-Count - BigInteger
-Quantity - Double
+\subsection{Thermistor Component}
+The SensoML Thermistor component contains the metadata for the Sensor Board Thermistor x. It's temperature input is modeled using a quantity value without any units as is a measured phenomena. Its output is a digital number from the sensor.
+\subsection{Celcius Converter Component}
 
-DataArray
-
- * Carries an array of int primitives.
- * All data is casted to other types when requested.
+The SensoML Celcius Converter component performs a conversion of the Thermistors digital number output to a real quantity celcius value. 
 
 
 \newpage
@@ -224,58 +208,84 @@ List handling - convention for mapping.
 
 SML prefix to handled key word clashes between sensorML and BON.
 
-How to display this in thesis?
+
 \section{SenseTile Web Service}
 \subsection{Overview}
 
-Web Service - SOS -standard access to sensor observations
-The Sensor Observation Service (SOS) is an approved Open Geospatial Consortium standard. The standard defines a web service interface for the discovery and retrieval of real time or archived data produced by all kinds of sensors like mobile or stationary as well as in-situ or remote sensors.
+The SenseTile web Service is based on the Sensor Observation Service (SOS) as described previously. The concept of a DataProvider as described by the SOS and an SOS are core to the architecture of the prototype. The overall system structure is shown in figure \ref {fig:SystemOverview} .
 
-The sensor data can be either observations or descriptions of the producing sensors containing metadata like calibration information, positions, etc. Observations are returned encoded as OM Observations, while information about sensors are returned encoded in SensorML or TML. Used in conjunction with these OGC standards and other OGC specifications, the SOS provides a broad range of interoperable capability for discovering, binding to and interrogating individual sensors, sensor platforms, or networked constellations of sensors in real-time, archived or simulated environments. 
-SOS diagram
-
-DataProvider
-
-DataProducer
-
-Deployment Scenarios - diagram
-
-Flexible Division - several dataproducers can register with one DataProvider.
-
-Seperate processes rmi.
- \begin{figure}
+\begin{figure}[h]
 \scalebox{0.65}{\includegraphics{SystemOverview.png}}
-\caption{Overview}\label{fig:SystemOverview.png}
+\caption{Overview}\label{fig:SystemOverview}
 \end{figure}
+In this prototype there is a divergance from how the SOS is envisoned to be implemented. In the SenseTile Web Service the SOS runs on the Processor Unit to allow access to the sensor data directly from the SenseTile rather than on a external large server. 
+
+It is envisioned that the SOS does not need to be run on every Processor Unit. Several SenseTile could excute just the DataProducer software and be configured with the address of the SOS to use.
+
+\begin{table}[!th]
+\begin{tabular}{|l|c|r|}
+\hline
+
+Scenarios\\
+\hline
+Generate Observations from Sensor Data \\
+\hline
+Get Sensor Description from SOS\\
+\hline
+Get  Sensor Observation from SOS\\
+\hline
+\end{tabular}
+\caption{Scenario Chart for SenseTile Web Service}
+\label{ex:table}
+\end{table}
+
+\subsection{DataProducer}
+
+DataProducer generates observations in Observation xml standard.
+
+Interface to the SensorBoard Library.
+
+Uses observer pattern to update sensors with packets from the board.
+
+reads sensors from SensorBoard System xml
+
+Sensors iimplement interface to facilitate this.
+
+Vast lib connects all the processes
+
+implementation of sensor and convertor is named using URN read from the sensorMl descption.
 
 
- \begin{figure}
+The DataProducer was developed as a SensorML based software. It would be parse the SenseTile SensorML model to instantiate the code to excute the processes described. This required two aspects to be developed, a framework to run the processes and classes that implemented the components.
+
+\begin{figure}[h]
 \scalebox{0.65}{\includegraphics{sensetile_static_diagam.png}}
 \caption{DataProducer Static Diagram}\label{fig:sensetile_static_diagam.png}
 \end{figure}
 
-\subsection{DataProducer}
+Interfaces to the Sensor Board
 Use PacketInput stream to access SenseTile observation packets.
 
-System reads packets and averages them for every configurable seconds. Default 1.
+\subsubsection{Sensors}
 
 Thermistor components reads out the temperature value
 and its output is sent to both the raw data and the celcius
-converter component and on to the tuples.
-
+converter component and on to the tuples. System reads packets
+and averages them for every configurable seconds. Default 1.
 These tuples are sent to webservice provider as observations.
 
 Observation as described in SOS.
 
-\subsection {DataProvider}
- \begin{figure}
+
+\subsection {SOS}
+ \begin{figure}[h]
 \scalebox{0.65}{\includegraphics{bon_static_diagam_provider.png}}
 \caption{DataProvider Static Diagram}\label{fig:bon_static_diagam_provider.png}
 \end{figure}
 Keeps track of sensorboards that register
 
-provides an RMI interface to the DataProducer to update with observations. 
-
+provides an RMI interface to the DataProducer to update with observations. This has lower overhead
+than a web service. Though it would not be hard to change to use a Web Service Interface.
 
 GetObservaton - marshal Observation to xml string and send as response.
 
@@ -299,17 +309,22 @@ in sensorML processes.
 
 \chapter{ Detailed Design and Implementation}
 
-\section{SenseTile WebService}
+\section{DataProducer}
 
-DataProvider is based on AXIS 2.0/Spring
+DataProducer VastLib UCD SenseTile Driver Lib
 
-DataProducer POJO/VastLib/UCD SenseTile Driver Lib
+\section{SOS}
+ is based on AXIS 2.0/Spring
 
-RMI used between DataProvider and DataProducer.
+JAXB for SensorML XML to java binding.
+
+RMI used between DataProvider and SOS.
 
 \section{SensorML Generation}
 
 \chapter{Results}
+
+running prototype tested with UCD SensorBoard Simulator code
 
 Tested against real SenseTile and sensor data retrieved by a testclient.
 
@@ -318,7 +333,18 @@ Generation of SensorML description of a Senstile Sensor
 \chapter{ Conclusions and Future Work}
 
 what has been achieved
+
 the weaknesses of your approach
+SOS on the Processor Board. Is this right.
+
+difficult schemas to program against.
+JIBX did not generate a default binding.
+Jaxb did with some help but did not generate the process type correctly.
+
+Schemas cover all needs for sensor description and data.
+
+SWE not fully web services as W3C might define. Not SOAP. HTTP envelope
+
 
 \chapter{References}
 \newpage
@@ -337,6 +363,8 @@ the weaknesses of your approach
 
 \chapter{Appendices}
 
+\lstset{language=XML,basicstyle=\small}
+\lstinputlisting{Thermistor.xml}
 
 
 
