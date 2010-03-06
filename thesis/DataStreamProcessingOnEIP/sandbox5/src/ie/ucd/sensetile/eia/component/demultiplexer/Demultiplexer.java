@@ -1,15 +1,24 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.Service;
+import org.apache.camel.spi.ManagementAware;
+import org.springframework.jmx.export.annotation.ManagedResource;
 
-public class Demultiplexer implements Processor {
+@ManagedResource(description = "Managed Processor" )
+public class Demultiplexer implements Processor, ManagementAware<Demultiplexer>, Service {
+
+	@Override
+	public Object getManagedObject(Demultiplexer arg0) {
+		return this;
+	}
 	
 	private ChannelProcessor primaryProcessor = null;
 	private List<ChannelProcessor> secondaryProcessors = null;
@@ -69,4 +78,15 @@ public class Demultiplexer implements Processor {
 			}
 		}
 	}
+
+	@Override
+	public void start() throws Exception {
+		System.out.println("Called start() on demultiplexer");
+	}
+
+	@Override
+	public void stop() throws Exception {
+		System.out.println("Called stop() on demultiplexer");
+	}
+
 }
