@@ -8,7 +8,7 @@
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
       
   <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-  <jmxAgent id="agent" createConnector="true"/>
+  <jmxAgent id="agent" createConnector="true" usePlatformMBeanServer="true"/>
     <route>
 	  	<from uri="mina:tcp://localhost:7103?sync=false"/>
 		<to uri="bean:demultiplexer_1"/>

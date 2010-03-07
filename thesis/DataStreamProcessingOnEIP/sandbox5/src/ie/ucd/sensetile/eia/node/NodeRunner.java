@@ -8,7 +8,6 @@ public class NodeRunner {
 
 	public NodeRunner(String xmlPath) {
 	    try {
-
 			ApplicationContext context = new FileSystemXmlApplicationContext(xmlPath);
 		    CamelContext camel = (CamelContext) context.getBean("camel");
 		    SensetileNode node = (SensetileNode)camel.getRegistry().lookup("node");

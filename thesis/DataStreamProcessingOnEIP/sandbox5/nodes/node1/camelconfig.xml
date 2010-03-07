@@ -14,7 +14,9 @@
 			<to uri="mina:tcp://localhost:7103?sync=false"/>
 		</throttle>
 		 -->
-		 <to uri="mina:tcp://localhost:7103?sync=false"/>
+		 <throttle maximumRequestsPerPeriod="200" timePeriodMillis="1000">
+		 	<to uri="mina:tcp://localhost:7102?sync=false"/>
+		 </throttle>
 	  </route>
   </camelContext>    
 
@@ -25,7 +27,7 @@
 		  	  	<property name="registryURI" value="mina:tcp://localhost:7000"/>
 		  </bean>
 	  </property>
-	  <property name="packetsToSend" value="5000"/>
+	  <property name="packetsToSend" value="8000"/>
 	  <property name="primaryChannelSize" value="8000"/>
 	  <property name="secondaryChannelRates">
 	  	<list>
