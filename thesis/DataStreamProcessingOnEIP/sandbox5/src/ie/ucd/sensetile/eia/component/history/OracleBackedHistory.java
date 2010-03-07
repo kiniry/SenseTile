@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.management.openmbean.CompositeData;
-
 import org.apache.camel.Exchange;
 
 import com.sleepycat.bind.EntryBinding;
@@ -157,8 +155,8 @@ public class OracleBackedHistory implements History {
 		    try {
 		    	
 		    	int i=0;
+		    	long ts = LongBinding.entryToLong(theKey);
 				while (cursor.getNext(theKey, theData, LockMode.DEFAULT) == OperationStatus.SUCCESS) {
-					long ts = LongBinding.entryToLong(theKey);
 					if (ts < limit) {
 						cursor.delete();
 						i++;
