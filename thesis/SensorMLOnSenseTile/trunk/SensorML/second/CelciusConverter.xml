@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+                                  xmlns:gml="http://www.opengis.net/gml"
+								  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+								  xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
+								  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+								  xmlns:xlink="http://www.w3.org/1999/xlink"
+								  xmlns:xng="http://xng.org/1.0">
+								  
    <sml:member xlink:arcrole="urn:ogc:def:process:OGC:detector">
       <sml:Component gml:id="celciusConv">
-         <gml:description>Converts digital number from thermistor to Celcius</gml:description>
+         <gml:description>Converts digital number from Thermistor to Celcius</gml:description>
          <gml:name>SenseTileCelciusConv</gml:name>
          
          <!-- Keywords -->
@@ -75,7 +82,7 @@
             <Document>
                <gml:description>Specification sheet for the 175 thermistor</gml:description> 
                <format>pdf</format> 
-               <onlineResource xlink:href="http://www.xxxx/xxxxx.pdf" /> 
+               <onlineResource xlink:href="http://www.ucd.ie/sensetile/sensorboard/xxxxx.pdf" /> 
             </Document>
          </documentation>
 
@@ -99,7 +106,7 @@
                      <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
                      <swe:constraint>
                         <swe:AllowedValue id="temperatureRange">
-                           <swe:interval>-45 125</swe:interval>
+                           <swe:interval>-40 125</swe:interval>
                         </swe:AllowedValue>
                      </swe:constraint>
                   </swe:Quantity>

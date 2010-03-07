@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" 
+                                  xmlns:gml="http://www.opengis.net/gml"
+								  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+								  xmlns:sml="http://www.opengis.net/sensorML/1.0.1" 
+								  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+								  xmlns:xlink="http://www.w3.org/1999/xlink"
+								  xmlns:xng="http://xng.org/1.0">
    <sml:member>
       <sml:System gml:id="convertorSystem">
-         <gml:description>System that contains process for postprocess sensetile sensorboard observations</gml:description>
+         <gml:description>System that contains process for postprocess
+		                  sensetile sensorboard observations</gml:description>
          <gml:name>SenseTileConvertorSystem</gml:name>
          
          <!-- Keywords -->
@@ -19,12 +26,12 @@
             <sml:IdentifierList>
                <sml:identifier name="longName">
                   <sml:Term definition="urn:ogc:def:identifier:longname">
-                     <sml:value>UCD SenseTile Sensor Board</sml:value>
+                     <sml:value>UCD SenseTile Converter System</sml:value>
                   </sml:Term>
                </sml:identifier>
                <sml:identifier name="shortname">
                   <sml:Term definition="urn:ogc:def:identifier:OGC:shortname">
-                     <sml:value>Sensor Board</sml:value>
+                     <sml:value>Converter System</sml:value>
                   </sml:Term>
                </sml:identifier>
                <sml:identifier name="Model Number">
@@ -61,7 +68,7 @@
          
          <sml:components>
             <sml:ComponentList>
-               <sml:component name="celciusConv"  xlink:href="CelciusConverter.xml"></sml:component>			   
+               <sml:component name="celciusConv"  xlink:href="CelciusConverter.xml"/>		   
             </sml:ComponentList>			   
          </sml:components>
 		 

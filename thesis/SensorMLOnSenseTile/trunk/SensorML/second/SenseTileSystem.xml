@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xng="http://xng.org/1.0">
+<sml:SensorML rng:version="1.0.1" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" 
+                                  xmlns:gml="http://www.opengis.net/gml"
+								  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+								  xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
+								  xmlns:swe="http://www.opengis.net/swe/1.0.1"
+								  xmlns:xlink="http://www.w3.org/1999/xlink"
+								  xmlns:xng="http://xng.org/1.0">
    <sml:member>
       <sml:System gml:id="SENSETILE_SENSOR_SYSTEM">
-         <gml:description>A SenseTile Sensor System made up of a sensor board and conversion components.</gml:description>
+         <gml:description>A SenseTile Sensor System made up of a sensor board
+                     		 and conversion components.</gml:description>
          <gml:name>SenseTileSensorSystem</gml:name>
          
          <!-- Keywords -->
@@ -35,8 +42,7 @@
          <sml:inputs>
             <sml:InputList name ="inputlist">
                <sml:input name="ambientTemperature">
-			   	    <swe:Count/> 
-                    <!--swe:ObservableProperty definition="urn:ogc:def:property:OGC:temperature"/-->				   
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">				   
                </sml:input>
             </sml:InputList>
          </sml:inputs>
@@ -49,9 +55,9 @@
 			      <swe:Count/> 
                </sml:output>
 			   <sml:output name="temperatureOutput">
-                  <swe:Count definition="urn:ogc:def:phenomenon:temperature">
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
                      <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
-                  </swe:Count>
+                  </swe:Quantity>
                </sml:output>
             </sml:OutputList>
          </sml:outputs>
@@ -60,19 +66,24 @@
          
          <sml:components>
             <sml:ComponentList>
-               <sml:component name="sensorBoardSystem"  xlink:href="SensorBoardSystem.xml"></sml:component>
-               <sml:component name="convertorSystem"  xlink:href="ConverterSystem.xml"></sml:component>			   
+               <sml:component name="sensorBoardSystem"  
+			                  xlink:href="SensorBoardSystem.xml">
+			   </sml:component>
+               <sml:component name="convertorSystem"  
+			                  xlink:href="ConverterSystem.xml">
+			   </sml:component>			   
             </sml:ComponentList>			   
          </sml:components>
 		 
 
          <!-- Connections -->
+		 
          <sml:connections>
             <sml:ConnectionList>
 			    <sml:connection name="ambientTemperature">
                   <sml:Link>
                      <sml:source ref="this/inputs/ambientTemperature"/>
-                     <sml:destination ref="sensorBoardSystem/inputs/ambientTemperatureInput"></sml:destination>
+                     <sml:destination ref="sensorBoardSystem/inputs/ambientTemperatureInput"/>
                   </sml:Link>
                </sml:connection>
 			   <sml:connection name="temperatureDN">

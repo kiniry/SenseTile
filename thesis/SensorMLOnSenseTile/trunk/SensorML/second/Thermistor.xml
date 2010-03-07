@@ -53,7 +53,7 @@
                <swe:field name="Temperature Range" xlink:arcrole="urn:ogc:def:property:dynamicRange">
                   <swe:QuantityRange definition="urn:ogc:def:property:temperature">
                      <swe:uom code="cel" /> 
-                     <swe:value>-45 125</swe:value> 
+                     <swe:value>-40 125/swe:value> 
                   </swe:QuantityRange>
                </swe:field>
                <swe:field name="Absolute Accuracy" xlink:arcrole="urn:ogc:def:property:accuracy">
@@ -67,7 +67,7 @@
 
          <!-- Manafacturer contact -->
          
-         <contact xlink:href="./TexasInstruments" xlink:arcrole="urn:ogc:def:role:manufacturer" /> 
+         <contact xlink:href="http://www.ti.com" xlink:arcrole="urn:ogc:def:role:manufacturer" /> 
          
          <!-- Documentation -->
          
@@ -75,7 +75,7 @@
             <Document>
                <gml:description>Specification sheet for the 175 thermistor</gml:description> 
                <format>pdf</format> 
-               <onlineResource xlink:href="http://www.xxxx/xxxxx.pdf" /> 
+               <onlineResource xlink:href="http://www.ucd.ie/sensetile/sensorboard/xxxxx.pdf" /> 
             </Document>
          </documentation>
 
@@ -85,8 +85,8 @@
          <sml:inputs>
             <sml:InputList>
                <sml:input name="thermistorInput">
-                  <swe:Count/>                 
-               </sml:input>
+                  <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
+			   </sml:input>
             </sml:InputList>
          </sml:inputs>
          
@@ -95,11 +95,10 @@
          <sml:outputs>
             <sml:OutputList>
                <sml:output name="thermistorOutput">
-                  <swe:Count definition="urn:ogc:def:phenomenon:temperature">
-                     <swe:uom xlink:href="urn:ogc:def:unit:celsius"/>
-                     <swe:constraint>
-                        <swe:AllowedValue id="temperatureRange">
-                           <swe:interval>-45 125</swe:interval>
+                  <swe:Count>
+				  <swe:constraint>
+                        <swe:AllowedValue id="outputRange">
+                           <swe:interval>-880 2032</swe:interval>
                         </swe:AllowedValue>
                      </swe:constraint>
                   </swe:Count>
