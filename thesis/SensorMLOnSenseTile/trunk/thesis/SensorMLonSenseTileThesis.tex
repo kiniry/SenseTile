@@ -161,44 +161,107 @@ UCD Research group providing a Java lib to access the data
 
 
 \chapter{Design}
-\section{SensorML Description of SenseTile}
+\section{SensorML Model of SenseTile}
 
-A SensorML model of SenseTile was developed as part of this thesis. The model contains metadata about the SenseTile system and supports the needs of the SenseTile Web Service. Two main requirements of the SenseTile Web Service were to be supported by the SensorML model. Firstly the raw data from the senors was to be retievable to allow external system process the data as desired. Secondly there was a requirement to do post processing on the Processor Unit of the sensor data to convert it to meaningful values.
+A SensorML model of SenseTile was developed as part of this thesis. The model contains metadata about the SenseTile system and supports the needs of the SenseTile Web Service. Two main requirements of the SenseTile Web Service were to be supported by the SensorML model. Firstly the raw data from the senors was to be retievable to allow external system process the data as desired. Secondly there was a requirement to do post processing on the Processor Unit of the sensor data to convert it to meaningful values. A block diagram of the Sensetile SensorML model is shown in figure \ref{fig:SenseTileSystem}.
 
-A block diagram of the Sensetile SensorML model is shown in figure \ref{fig:SenseTileSystem}.
 \begin{figure}[h]
-\scalebox{0.70}{\includegraphics{SenseTileSystem.png}}
+\framebox{\scalebox{0.70}{\includegraphics{SenseTileSystem.png}}}
 \caption{SenseTile System Block Diagram}\label{fig:SenseTileSystem}
 \end{figure}
 
-Three SensorML Systems are used to model the SenseTile system. One SensorML System models the overall SenseTile System and connects the other two SensorML Systems used, the Sensor Board System and the Conversion System. The physical phenomena measured by the sensors are the input to the  SenseTile System. These values will be read in from packets received from the Sensor Board. The Digital Number output is the raw sensor data which is a digital number without a physical meaning. The Converted Measurement output contains the values from post processing the sensor data which have some physical meaning such as temperature in Celcius.
+Three SensorML Systems are used to model the SenseTile as shown in the block diagram. One SensorML System models the overall SenseTile which contains the Sensor Board and Conversion Systems. The below XML fragment shows how SensorML describes System containment using a component list and how the other SensorML Systems descriptions are referenced using xlink hrefs.
 
-The division of the systems is based on the concept that sensor observations are based on at least a sampling process and a conversion process{ref tutorial}. The Sensor Board System contains SensorML Components that model the sensors on the board that perform the sampling while the SensorML Components contained in the Conversion System model process that produce meaningful physical measurement values such as temperature and lumens.
+\lstset{language=XML,basicstyle=\scriptsize,frame=single}
+\begin{lstlisting}
+<sml:components>
+        <sml:ComponentList>
+               <sml:component name="sensorBoardSystem" 
+                                          xlink:href="SensorBoardSystem.xml">
+               </sml:component>
+               <sml:component name="convertorSystem"  
+                                          xlink:href="ConverterSystem.xml">
+               </sml:component>
+        </sml:ComponentList>			   
+ </sml:components>
+\end{lstlisting}
 
-A block diagram of the Sensetile SensorML model with Components is shown in figure \ref{fig:SensorML_SenseTile_System_comp}. Only the Thermistor Component and the Celcius Component are developed as part of this thesis. They are described in model detail in later sections.
+The physical phenomena measured by the sensors are the input to the  SenseTile System. These values will be read in from packets received from the Sensor Board. The Digital Number output is the raw sensor data which is a digital number without a physical meaning. The Converted Measurement output contains the values from post processing the sensor data which have some physical meaning such as temperature in Celcius.
+
+The division of the systems is based on the concept that sensor observations are based on at least a sampling process and a conversion process{ref tutorial}. The Sensor Board System contains SensorML Components that model the sensors on the board that perform the sampling. The SensorML Components contained in the Conversion System model processes that produce meaningful physical measurement values such as temperature and lumens from the sampled data.
+
+The SenseTile System connects up the inputs and outputs of the SensorBoard and Convertor Systems using SensorML connections. The below SensorML fragment shows how the temperature output from the SensorBoard System is connected to the input of the Conversion System is peformed in SensorML.
+\newpage
+\begin{lstlisting}
+<sml:connection name="convertToTemperature">
+    <sml:Link>
+        <sml:source ref="sensorBoardSystem/outputs/temperatureDNOutput"/>
+        <sml:destination ref="convertorSystem/inputs/celciusConvInput"/>
+     </sml:Link>
+ </sml:connection>
+\end{lstlisting}
+
+
+
+A more detailed block diagram of the Sensetile SensorML model with Components is shown in figure \ref{fig:SensorML_SenseTile_System_comp}. Only the Thermistor Component and the Celcius Component are developed as part of this thesis. They are described in model detail in later sections.
 \begin{figure}[h]
-\scalebox{0.65}{\includegraphics{SensorML_SenseTile_System_comp.png}}
+\framebox{\scalebox{0.65}{\includegraphics{SensorML_SenseTile_System_comp.png}}}
 \caption{SenseTile System Components}\label{fig:SensorML_SenseTile_System_comp}
 \end{figure}
 
+
+
+
 Naming rules for inputs and outputs - allow more generic handling of implementation classes.
 
-System and components are in several files. Inline in one file if desired.
+System and components are in several files. Inline in one file if desired.Choice to seperate files.
 
 \subsection{Thermistor Component}
-The SensoML Thermistor component contains the metadata for the Sensor Board Thermistor x. It's temperature input is modeled using a quantity value without any units as is a measured phenomena. Its output is a digital number from the sensor.
+The Thermistor on the SenseTile Sensor board is the Texas Instruments TMP175 Digital Temperature Sensor and is modeled with a SensorML Component. This is an indivisible process and can have a different location information than the Sensor Board if required. The SensorML Component allows the capabilities of the Thermsistor to be described. For example the TMP175 is  specified for operation over a temperature range of −40°C to +125°C. This is captured in the following SensorML:
 
-contraints.
+\begin{lstlisting}
+<swe:field name="TemperatureRange" 
+           xlink:arcrole="urn:ogc:def:property:dynamicRange">
+          <swe:QuantityRange definition="urn:ogc:def:property:temperature">
+                   <swe:uom code="cel" /> 
+                          <swe:value>-40 125/swe:value> 
+           </swe:QuantityRange>
+</swe:field>
+\end{lstlisting}
 
-fragment
+The SensorML Thermistor temperature input is modeled using a Quantity value without any units as is a measured physical phenomena. Its output is a digital number from the sensor. The range is constrained to the allowed value range from the Thermistor. The following fragment shows how the input and outputs for the Thermistor look in SensorML:
+
+\begin{lstlisting}
+<sml:inputs>
+    <sml:InputList>
+         <sml:input name="thermistorInput">
+             <swe:Quantity definition="urn:ogc:def:phenomenon:temperature">
+         </sml:input>
+    </sml:InputList>
+</sml:inputs>
+
+<sml:outputs>
+    <sml:OutputList>
+          <sml:output name="thermistorOutput">
+               <swe:Count>
+	        <swe:constraint>
+                         <swe:AllowedValue id="outputRange">
+                              <swe:interval>-880 2032</swe:interval>
+                         </swe:AllowedValue>
+                     </swe:constraint>
+                </swe:Count>
+           </sml:output>
+     </sml:OutputList>
+ </sml:outputs>
+\end{lstlisting}
+
+
 \subsection{Celcius Converter Component}
 
-The SensoML Celcius Converter component performs a conversion of the Thermistors digital number output to a real quantity celcius value. 
+The SensoML Celcius Converter SensorML Component  models a process that performs a conversion of the Thermistors digital number output to a real quantity celcius value. It similar to the Thermistor SensorML description but its inputs and outputs are different. It process method performs a simple calcution to perform the celcius conversion.
 
-make portable
-formula
+A Sensor process method was also developed. The process method describes the coversion algorithm and points to an implementation class. Process Methods are not implemented by the Vast Lib so it not used in the running system. Instead the method tag provides a URN that is used to lookup the implementation class.
 
-\newpage
 \section{BON to SensorML mapping}
 Features to be elements or attributes.
 
@@ -212,16 +275,16 @@ SML prefix to handled key word clashes between sensorML and BON.
 \section{SenseTile Web Service}
 \subsection{Overview}
 
-The SenseTile Web Service is based on the Sensor Observation Service (SOS) as described previously. The two main entities in the SOS, the Sensor Data Provider and the SOS,  are used to structure the SenseTile Web Service. The two entities are implemented as seperate software component that together provide the service. The Sensor Data Provider component will be referred to as the DataProvider in this design.
+The SenseTile Web Service is based on the Sensor Observation Service (SOS) as described previously. The two main entities in the SOS Specification, the Sensor Data Provider and the SOS,  are used to structure the SenseTile Web Service. These entities are implemented as seperate software components that together provide the service. The Sensor Data Provider component will be referred to as the DataProvider in this design.
 
-The two components are run as seperate processes on the SenseTile processor unit to allow a more flexible network architecture.  This network architecture is described in more detail in section. The basic system structure is shown in figure \ref {fig:Deployment_sensetile} .
+The two components are run as seperate processes on the SenseTile processor unit to allow a more flexible network architecture.  This network architecture is described in more detail in section \ref{subsec:SenseTile WebService Network Architecture}. The basic system structure is shown in figure \ref {fig:Deployment_sensetile} .
 
 \begin{figure}[h]
 \scalebox{0.65}{\includegraphics{Deployment_sensetile.png}}
 \caption{SenseTile Web Service}\label{fig:Deployment_sensetile}
 \end{figure}
 
-The DataProvider will be configured with a SensorML description of the SenseTile System, read sensor data form the Sensor Board and provide these as O\&M Observations to the SOS. The SenseTile SOS will implement the SOS core operations to allow a client to get the observations. The following sections describe the design of the DataProvider and SOS components as well as the scenarios they support.
+The DataProvider parses a SensorML description of the SenseTile System, reads sensor data form the Sensor Board and provides the sensor data as O\&M Observations to the SOS. The SenseTile SOS will implement the SOS core operations to allow a client to get these observations. The following sections describe the design of the DataProvider and SOS components as well as the scenarios they support.
 
 \subsection{Supported Scenarios}
 \begin{table}[!th]
@@ -230,6 +293,7 @@ The DataProvider will be configured with a SensorML description of the SenseTile
 Scenarios\\
 \hline
 Generate Observations from Sensor Data \\
+The DataProducer accesses data from the sensor board \\
 \hline
 Get Sensor Description from SOS\\
 \hline
@@ -240,23 +304,25 @@ Get  Sensor Observation from SOS\\
 \label{ex:table}
 \end{table}
 \subsection{SenseTile WebService Network Architecture}
-In this prototype there is a divergance from how the SOS is envisoned to be implemented. In the SenseTile Web Service the SOS runs on the Processor Unit to allow access to the sensor data directly from the SenseTile rather than on a external large server. 
+\label{subsec:SenseTile WebService Network Architecture}
+In the SenseTile Web Service the SOS acts as a gateway to the SenseTile Sensor Network. This prototype was designed with the network architecture as shown in fig \ref{fig:Deployment_network}. A client would access multiple SOS instances to get observations from the sensor network. An SOS could support several DataProducers and hence would not to be run on every SenseTile. 
+
 \begin{figure}[h]
 \scalebox{0.65}{\includegraphics{Deployment_sensetile_network.png}}
-\caption{SenseTile Web Service}\label{fig:Deployment_network}
+\caption{SenseTile Sensor Network Architecture}\label{fig:Deployment_network}
 \end{figure}
+The SOS Specification envisioned that the SOS would be run on a large external server as shown in fig \ref{fig:Deployment_ext_sos}. The DataProviders would update this external server with observations and clients would just access this large SOS.
 \begin{figure}[h]
 \scalebox{0.65}{\includegraphics{Deployment_sensetile_ext_sos.png}}
-\caption{SenseTile Web Service}\label{fig:Deployment_ext_sos}
+\caption{External SOS}\label{fig:Deployment_ext_sos}
 \end{figure}
+The SOS Specification describes the use of a Proxy SOS as shown in figure \ref{fig:Deployment_sos_aggr}. This architecture could be used with the SenseTile Sensor Network if accessing many SOSs is not feasible for the clients.
 \begin{figure}[h]
 \scalebox{0.65}{\includegraphics{Deployment_sensetile_sos_aggr.png}}
-\caption{SenseTile Web Service}\label{fig:Deployment_sos_aggr}
+\caption{Proxy SOS}\label{fig:Deployment_sos_aggr}
 \end{figure}
-It is envisioned that the SOS does not need to be run on every Processor Unit. Several SenseTile could excute just the DataProducer software and be configured with the address of the SOS to use.
 
-
-
+\newpage
 \subsection{DataProducer}
 
 DataProducer generates observations in Observation xml standard.
@@ -276,7 +342,7 @@ implementation of sensor and convertor is named using URN read from the sensorMl
 
 The DataProducer was developed as a SensorML based software. It would be parse the SenseTile SensorML model to instantiate the code to excute the processes described. This required two aspects to be developed, a framework to run the processes and classes that implemented the components.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \scalebox{0.65}{\includegraphics{sensetile_static_diagam.png}}
 \caption{DataProducer Static Diagram}\label{fig:sensetile_static_diagam.png}
 \end{figure}
@@ -294,7 +360,7 @@ These tuples are sent to webservice provider as observations.
 
 Observation as described in SOS.
 
-
+\newpage
 \subsection {SOS}
  \begin{figure}[h!]
 \scalebox{0.65}{\includegraphics{bon_static_diagam_provider.png}}
@@ -383,7 +449,6 @@ Streaming the data.
 
 \chapter{Appendices}
 
-\lstset{language=XML,basicstyle=\small}
 \lstinputlisting{Thermistor.xml}
 
 
