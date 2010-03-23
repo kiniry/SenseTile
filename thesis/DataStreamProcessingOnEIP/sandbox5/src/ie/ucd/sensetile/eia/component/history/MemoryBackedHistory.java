@@ -39,8 +39,7 @@ public class MemoryBackedHistory implements History {
 	
 	protected void setupPurger() {
 		purgeTimer = new Timer();
-		Date currentTimePlusInterval = new Date(System.currentTimeMillis() + purgeInterval);
-		purgeTimer.schedule(new PurgerTask(), currentTimePlusInterval, purgeInterval);
+		purgeTimer.schedule(new PurgerTask(), new Date(), purgeInterval);
 	}
 	
 	@Override

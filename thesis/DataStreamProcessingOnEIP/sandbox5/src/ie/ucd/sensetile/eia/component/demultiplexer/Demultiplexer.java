@@ -1,6 +1,7 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
+import ie.ucd.sensetile.eia.util.buffer.BufferDataProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class Demultiplexer implements Processor, ManagementAware<Demultiplexer>,
 			secondaryProcessors.add(cp);
 			
 			CompositeDataBuffer cb = new CompositeDataBuffer(config.getSyncBufferSize(), 4);
+			cb.setDataProcessor(new BufferDataProcessor());
 			syncBuffers.add(cb);
 		}
 	}

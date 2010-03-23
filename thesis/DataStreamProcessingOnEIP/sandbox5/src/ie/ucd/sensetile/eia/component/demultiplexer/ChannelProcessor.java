@@ -1,7 +1,15 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
 import ie.ucd.sensetile.eia.util.buffer.BasicBuffer;
+import ie.ucd.sensetile.eia.util.buffer.BufferDataProcessor;
 
+/**
+ * ChannelProcessor.
+ * @author damian
+ *
+ * This class is used to control the writing of data to a BasicBuffer.
+ * 
+ */
 public class ChannelProcessor {
 	
 	int channelId = 0;
@@ -11,9 +19,14 @@ public class ChannelProcessor {
 	
 	BasicBuffer buffer = null;
 
-	public ChannelProcessor(int channelId, int dataBufferSize) {
-		this.channelId = channelId;
+	public ChannelProcessor(int dataBufferSize) {
 		this.buffer = new BasicBuffer(dataBufferSize);
+		this.buffer.setDataProcessor(new BufferDataProcessor());
+	}
+	
+	public ChannelProcessor(int channelId, int dataBufferSize) {
+		this(dataBufferSize);
+		this.channelId = channelId;
 	}
 	
 	public void init(int [] data, int [] syncData) {
@@ -28,6 +41,7 @@ public class ChannelProcessor {
 			result = writeSample();
 		}
 		else {
+			// Find the equivalent sample in the sync data and write it to the buffer
 			for (int i=dataIndex-1; syncData[i] >= sampleIndex && i>=0; i--) {
 				if (syncData[i] == sampleIndex) {
 					result = writeSample();
@@ -46,6 +60,14 @@ public class ChannelProcessor {
 			result = true;
 		} 
 		return result;
+	}
+	
+	public BasicBuffer getBuffer() {
+		return buffer;
+	}
+	
+	public boolean hasData() {
+		return (dataIndex < data.length);
 	}
 	
 	public int getCurrentPacketIndex() {

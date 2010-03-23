@@ -6,10 +6,10 @@ public class BufferDataProcessor {
 	
 	int count = 0;
 	
-	public void processBufferData(BasicBuffer buffer){
+	public void processBufferData(Buffer buffer){
 		
 		CompositeDataPacket cdp = new CompositeDataPacket();
-		cdp.setPrimaryStream(buffer.getBufferData());
+		cdp.setPrimaryStream(buffer.getData());
 				
 		if (buffer instanceof CompositeDataBuffer) {
 			CompositeDataBuffer cb = (CompositeDataBuffer)buffer;
