@@ -42,8 +42,7 @@
 \usepackage[pdftex,bookmarks=false,a4paper=false,
             plainpages=false,naturalnames=true,
             colorlinks=true,pdfstartview=FitV,
-            linkcolor=blue,citecolor=blue,urlcolor=blue,
-            pdfauthor="Joseph R. Kiniry and Vieri del Bianco and Dragan Stosic"]{hyperref}
+            linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \else
 \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
@@ -74,90 +73,98 @@
 
 \title{The UCD CASL SenseTile System}
 
-\author{Joseph R. Kiniry, Vieri del Bianco, Dragan Stosic\\
-UCD CASL: Complex and Adaptive Systems Laboratory and\\
-School of Computer Science and Informatics,\\
-University College Dublin,\\
-Belfield, Dublin 4, Ireland,\\
-kiniry@acm.org, vieri.delbianco@gmail.com, dragan.stosic@gmail.com\\
-}
+\author{\ldots}
 
 \maketitle
 
 %======================================================================
 %\thispagestyle{empty}
 \begin{abstract}
-  
-\todo{\emph{We probably have only 8 pages, in the IEEE format, if this is going to
-\myhref{http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7756}{IEEE
-  Pervasive Computing}}.}
 
-The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose
+The \textbf{\ST System} is a large-scale, general-purpose
 sensor system installed at the University College Dublin in Dublin,
-Ireland.  \textbf{Our facility provides a capability---unique in the world in
-terms of its scale and flexibility---for performing in-depth
-investigation of both the specific and general issues in large-scale
-sensor networking.}
+Ireland. 
+Our facility provides services for performing in-depth
+investigation of aspects and issues related to large-scale sensor 
+networking.
 
-This system integrates a sensor platform, a datastore, and a compute
-farm.  The sensor platform is a custom-designed, but inexpensive,
-sensor platform (called the \ST) paired with general-purpose
-small-scale compute nodes, including everything from low-power PDAs to
-powerful touchscreen-based portable computers.  The datastore is a
-multi-terabyte scale scientific datastore into which sensor data
-flows, and in which online and offline scientific computation of
-sensor and other scientific data takes place.  The compute farm is a
-large-scale Linux, Solaris, and OS~X-based compute farm used by
-scientists for these online and offline scientific computations.
+This system integrates heterogenous hardware and software systems. 
+The hardware systems are composed by a sensors layer (1000+ sensors), a gateway 
+layer (100+ minipc), an High-performance computing cluster (50+ cores) and a datastore (100+ TB). 
+The software systems integrated in the platform comprehend: (1) a set of
+drivers to communicate with the severeal sensors systems deployed, (2)
+a distributed sensor data stream management to enable data streaming between 
+the processor nodes and to the datastore, (3) a data provenance and transformation
+distributed service to enable the search and inspection of the meta data associated to the sensor streams, 
+(4) a processor nodes monitoring and management system to ease deployment and mass 
+installation of software and configuration on processor nodes, (5) a scientific platform
+to process and inspect the data collected, batch or interactive computation are possible, using stand alone 
+servers or using the HPC dedicated cluster.
 
-This system has several novel features: (1) new deployments of \STs
-requires zero configuration; (2) \STs have several unusual built-in
-sensors and emitters, (3) sensor nodes can be extended via a
-general-purpose USB bus, (4) \STs contain an FPGA that is dynamically
-updatable on a per-experiment basis, and (5) configuring, deploying,
-and managing experiments using \STs is performed by scientists via
-either programmatic APIs or via a declarative graphical or textual
-specification language.
+The \ST Sensor Board is part of the sensors layer, and is a custom-designed, but inexpensive,
+sensor board, paired directly with a processor node through an USB channel.
+
+The \ST system exhibits the following novel aspects in sensor management: 
+(1) multi layer architecture, to keep separate sensors, gateways, HPC processing cluster and the datastore;
+(2) integrated management of a large number of gateways collecting data from several heterogenous sources;
+(3) the integration of several heterogeneous software systems, to support sensor, data streams, gateways and 
+datastore management, and scientifical experiments execution.
 
 \end{abstract}
 
-%======================================================================
+
+
 \Section{Introduction}
 
-Sensor networks are widely seen as an essential technology for
-supporting next-generation scientific and engineering challenges,
-including environmental monitoring, climate change, assisted living,
-national security and intensive agriculture. Addressing these problems
-requires two complementary strands of research:
-\begin{enumerate}
-\item to understand the \emph{specific physical and/or social
-    phenomena of interest} against which to fit data collection and
-  analysis; and
-\item to understand the \emph{general scientific and technological
-    principles governing scalable sensor networking} in order to
-  maximise the leverage gained from on-going developments.
-\end{enumerate}
- 
-Amongst the core general challenges are the collection of large
-volumes of multimedia data, its storage, cataloging, retrieval and
-processing in such a way as to minimise physical and intellectual
-costs of accessing the available data. This is especially important in
-pursuit of cross-disciplinary projects involving different analysis
-methodologies and constraints. At the same time, it is impossible to
-study sensor networking completely separate from practical
-applications which provide real-world validation and verification of
-the techniques being developed.
+Sensor networks are widely seen as an essential technology for supporting next-generation scientific and engineering
+challenges, including environmental monitoring, climate change, assisted living, national security and intensive
+agriculture. 
+Addressing these problems requires two complementary strands of research:
+(1) understand the specific physical and social phenomena of interest against which to fit data collection and analysis;
+(2) understand the general scientific and technological principles governing scalable sensor networking in order to 
+maximise the leverage gained from on-going developments.
 
-This paper describes a facility, the \ST system, to support
-large-scale experiments with complex multimedia sensing and processing
-at terabyte scales.  The key piece of equipment we have designed and
-fabricated is a rich and reusable sensor platform, called the \ST,
-that is easily deployed into the built environment for
-experimentation.  This particular piece of hardware is representative
-of platforms suitable for wider uses, including on-board data storage
-and processing capacity and associated high-speed interconnect.
+There are several technological challanges to be faced to solve these problems: (1) the collection, storage and management 
+of large volumes of multimedia data and the meta data associated; (2) the interactive and offline setup and monitoring of
+the sensors; (3) the interactive and offline setup of live data collection experiments (data streaming, and soft real time data 
+processing); (4) the post processing analysis and visualization of the data collected.
 
-The key research challenges this system supports includes:
+A vertical approach in sensor data collection and analysis, which is the nowadays dominant approach, is not 
+able to grasp the general problem.
+Each research community has its own requirements and constraints on data collection and analysis, and considering the 
+problem only from a single perspective would limit the usefulness of the tools developed, the data collected and the data analysis.
+When the problems addressed are too specific, too focused on a single discipline, the solutions found are hardly 
+reusable in different areas.
+Thus, the sensor management platforms and the data repositories designed and developed, and, most importantly, the data 
+collected are ineffective and inappropriate, if not completely unusable and useless, when they are 
+tried to be exported and reused in even slightly dissimilar domains from the original one.
+
+\TODO{provide examples, provide references}
+
+Merging requirements from heterogeneous disciplines is a challanging task; not only because different domains generates 
+different languages creating a de facto barrier in communication and reciprocal understanding \TODO{provide references}, but 
+also because big tradeoffs are needed to be made to accomodate most of the requirements. 
+The tradeoff, to be sensible, needs to be chosen directly by the involved research communities and domain experts, and 
+this is can be solved only involving them directly in cross-disciplinary projects.
+
+Sensor data collection and analysis, to be fully understood and exploited, and to make the solutions envisioned general 
+enough to be reusable, need to be studied and addressed in cross-disciplinary projects involving different analysis 
+methodologies and constraints. 
+Cross-disciplinary projects are irremissible in the development of general solutions and tools to sensor data acquisition, 
+storage and analysis.
+
+
+
+heterogeneous domains involved ->
+some domains are far away from computer science ->
+ease of use of tools, techniques, data ->
+increased probability of tools, techniques, data to be succesfully used
+
+
+
+
+
+
 \begin{itemize}
   \setlength{\itemsep}{1pt}
   \setlength{\parskip}{0pt}
@@ -170,20 +177,6 @@ The key research challenges this system supports includes:
 \item coding and securing sensor interactions.
 \end{itemize}
 
-Underpinning each of these key challenges is a fundamental need for an
-integrated, multi-modal sensor testbed that has two unique
-characteristics. Firstly, it must be \emph{reconfigurable and be
-  easily targeted} to collect defined data sets.  Secondly---and
-perhaps most importantly---it must be \emph{of sufficient size and
-  complexity} to ensure that the challenges listed above, and the
-resulting theories and techniques, can be evaluated in a
-scientifically rigorous manner.  It is our contention that \emph{our
-  facility provides a capability---unique in the world in terms of its
-  scale and flexibility---for performing in-depth investigation of
-  both the specific and general issues in large-scale sensor
-  networking.}  Furthermore, a synergistic benefit is the support for
-the development of reference data sets and services for use by other
-researchers internationally.
 
 %=====================================================================
 \Section{Conclusion}
