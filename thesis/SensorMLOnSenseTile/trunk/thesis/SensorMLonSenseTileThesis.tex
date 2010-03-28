@@ -48,14 +48,34 @@ Vieri del Bianco , Dragan Stosic and Joseph R. Kiniry.
 %%% Introduction
 
 \chapter{Introduction}
+  - introduce problems: 
+   - sensor interoperability
+   - reliable sensor processing
+  - SensorML proposed standard for sensor description and interoperability
+  - SOS proposed standard for sensor data retrieval
+  - no formal definition of sensor and sensor data processing
+  - introduce SenseTile, a real case study
+  - objective
+   - describe SenseTile with SensorML, access data through SOS
+    - assess SensorML and SOS
+   - formalize sensor description and process
+    - SensorML <-> BON <-> Java + JML
 
-The aim of this thesis project was to model the SenseTile Sensor Board using Sensor Model Language (SensorML)\cite{SMLref} . A prototype of a Web Service for accessing SenseTile Sensor Board sensor observations was to be developed using this SensorML description of the SenseTile Sensor Board. An evaluation of the suitability of SensorML for use as part of the SenseTile System was also to be performed.
+There is currently very little interoperability between different sensor systems making it difficult to access sensor observations. The ability to easily discover, access, and process sensors existing within different communities is very rare.Interoperability The  challenges for Sensor Networks include sensor interoperability and reliable sensor processing. These issues of sensor system interopetability and senor data processing are being address through the development of standards.
 
-SenseTile is a sensor and processing package that can contain motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network. The SenseTile System is made up of two units a Sensor Board and Processor Unit. The sensors are interfaced or hosted on the Sensor Board. The Processor Unit interfaces to the Sensor Board allowing data from the Sensor Board to be processed further as required.
+Sensor Model Language (SensorML)\cite{SMLref} is one such proposed standard for sensor description and interoperability.
 
-SensorML is one of a number of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types. SensorML is used to describe sensor systems and the processing of sensor observations. It provides standard models and XML encodings to describe the process of sensor measurement. SensorML is described further in chapter x.
+SensorML enables this processing without the need for sensor-specific software.
 
-The SenseTile Web Service prototype allows access to the Sensor Board sensor observations and it's SensorML description. It runs on the SenseTile Processor Unit.  The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations. Sensor Board measurements that have been post processed and converted to real values or the raw Sensor Board data can be accessed using the Web Service. SOS Lite.
+SensorML is used to describe sensor systems and the processing of sensor observations.
+SensorML provides a common way to describe sensor systems.
+SensorML is one of a number of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types.
+
+SenseTile is a sensor and processing package that can contain motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
+
+ . A prototype of a Web Service for accessing SenseTile Sensor Board sensor observations was to be developed using this SensorML description of the SenseTile Sensor Board. An evaluation of the suitability of SensorML for use as part of the SenseTile System was also to be performed.
+
+ The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations.
 
 There are other SOS specification depend on another SWE specification, Observation and Measurements(O\&M)[ref]. This specification provides standard models and XML encoding for sensor observations.
 
@@ -65,7 +85,7 @@ A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notat
 \chapter{ Background Research}
 
 \section{Sensor Web Enablement}
-SensorML is developed as part of the Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) initiative (http://www.opengeospatial.org/projects/groups/sensorweb). This initiative is establishing interfaces and protocols to enable a standardized Sensor Web. It is hoped that this allows for easier integration and development of sensor applications across sensor networks. The OGC SWE provides a framework of open standards for use with Web-connected sensors and sensor systems. There are seven main specifications currently:
+SensorML is developed as part of the Open Geospatial Consortium (OGC) Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. This initiative is establishing interfaces and protocols to enable a standardized Sensor Web. It is hoped that this allows for easier integration and development of sensor applications across sensor networks. The OGC SWE provides a framework of open standards for use with Web-connected sensors and sensor systems. There are seven main specifications currently:
 
 \begin{itemize}
 \item  SensorModel Language(SensorML) - models and schema for sensor systems and processes surrounding measurements
@@ -77,20 +97,18 @@ SensorML is developed as part of the Open Geospatial Consortium (OGC) Sensor Web
 \item   Web Notification Service (WNS) - standard web interface for asynchronous notification
 \end{itemize}
 
-SWE services based on the aboved specifications allow the discovery of sensors, access to the sensor data, as well as subscription to alerts, and tasking of sensors to con-trol observations. For a good overview of SWE and it's use in Sensor Web Network please see \cite{SWEArchref}
-
-Rather than define any new sensor models or XML formats for SenseTile it preferable to use the existing solutions if good enough for the task at hand. The SWE framework seems to cover all that is needed for modeling sensors and observations. Support for easy exchange of sensor meta-data and sensor observations is the main rational of SWE and fits the needs of the SenseTile Sensor Network.  SensorML, SOS and O\&M specifications are the focus of this thesis and are described in more detail in the following sections.
+SWE services based on the aboved specifications allow the discovery of sensors, access to the sensor data, as well as subscription to alerts, and tasking of sensors to control observations. For a good overview of SWE and it's use in Sensor Web Network see \cite{SWEArchref}.  SensorML, SOS and O\&M specifications are the focus of this thesis and are described in more detail in the following sections.
 
 
 \section{Sensor Modeling Language}\label{SMLsection}
 Sensor Modeling Language (SensorML) is primarily used to describe sensor systems and the processing of observations from sensor systems. The SensorML specification\cite{SMLref} provides a functional model of sensors and an XML encoding to describe sensors and their observations. Some of the main uses of SensorML described in the specification are:
 \begin{itemize}
-\item support sensor and sensor observation discovery
-\item support processing of the sensor observations
-\item support geolocation information about sensors
-\item provide accuracy information of sensors measurements
-\item Provide an explicit description of the process by which an observation was obtained
-\item Provide an executable process chain for deriving new data products on demand
+\item support sensor and sensor observation discovery.
+\item support processing of the sensor observations.
+\item support geolocation information about sensors.
+\item provide accuracy information of sensors measurements.
+\item provide an explicit description of the process by which an observation was obtained.
+\item provide an executable process chain for deriving new data products on demand.
 \end{itemize}
 
 In SensorML sensors are modeled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs. For example, a process can take a measurement generated by a thermistor which might be a resistance value and transform it to a celcius value. Processes can also be connected together in process chains to allow the sensor data to be processed by several processes sequentially. These processes and process chains are modeled in SensorML as shown in the  below SensorML Conceptual Model \ref{fig:SMLConceptualModel}.
@@ -115,7 +133,7 @@ The SensorML specification currently contains the Sensor Web Enablement (SWE) Co
 
 The data types in \ref{fig:SWESimpleConceptualModel} are scalar primitive values. They are the basis for the inputs, outputs and parameters in SensorML processes. Quantity models a floating point number. Count models a counting value or integer.  Boolean models a property that can be true or false. These types contain a number of properties that further define the type. The uom property provides a unit of measurement that indicate how the value should be interpreted.  A constraint property allows a value range or a enumerated list of values to be defined for the type. The quality property allows for a measure of its quality, for example the confidence level of a value being correct expressed as a percentage. Aggregation of these primitive data types is also provided by several types including DataRecord and DataArray.
 
-SensorML uses XML Linking Language (XLink) (http://www.w3.org/TR/xlink) to support hypertext referencing in SensorML XML documents using URNs and URIs. This allows SensorML models to be distributed over several documents. XLink attributes are also used to reference on-line unit definitions used to define a sensor measurement.
+SensorML uses XML Linking Language (XLink) \footnote{http://www.w3.org/TR/xlink} to support hypertext referencing in SensorML XML documents using URNs and URIs. This allows SensorML models to be distributed over several documents. XLink attributes are also used to reference on-line unit definitions used to define a sensor measurement.
 
 The XML encoding of the SensorML model is not described here. The OGC SWE specification uses XML Schema to define the allowable SensorML XML structure.It is noted here that sml is the XML namespace for SensorML and swe is the XML namespace for SWE Common. In the later SenseTile SensorML model section examples of the XML encoding are used to describe the SenseTile Model. 
 
@@ -153,8 +171,13 @@ The SenseTile Web Service developed in this thesis is based on the concepts desc
 
 
 \section{SenseTile}
-A case study of the use of SensorML in sensor networks is based on the SenseTile System. SenseTile is a general purpose sensor system developed at UCD CASL (http://kind.ucd.ie/
-products/opensource/SenseTile). The SenseTile System is used to investigate issues arising with large scale sensor networking. SenseTile is made up of a sensor platform, a datastore, and a compute farm.  The sensor platform is called the SenseTile Unit and is composed of one or more SenseTile Sensor Boards paired with a SenseTile Processor Unit. The Processor could be a PDA or small PC or any processing device that has a USB connection.  The Sensor Board has a USB connection used for communication with the Processor Unit. There are over a dozen sensors on the SenseTile Sensor Board including a thermistor and light sensor. Sensors are mounted on the Sensor Board and more sensors can be added using the USB connection.
+A case study of the use of SensorML in sensor networks is based on the SenseTile System. SenseTile is a general purpose sensor system developed at UCD CASL \footnote{http://kind.ucd.ie/
+products/opensource/SenseTile}. The SenseTile System is used to investigate issues arising with large scale sensor networking. SenseTile is made up of a sensor platform, a datastore, and a compute farm. The below figure shows a outline of this system. 
+\begin{figure}[h]
+\framebox{\scalebox{0.65}{\includegraphics{SenseTileDescription.png}}}
+\caption{SenseTile System}\label{fig:SenseTileDescription}
+\end{figure}
+ The sensor platform is called the SenseTile Unit and is composed of one or more SenseTile Sensor Boards paired with a SenseTile Processor Unit. The Processor could be a PDA or small PC or any processing device that has a USB connection.  The Sensor Board has a USB connection used for communication with the Processor Unit. There are over a dozen sensors on the SenseTile Sensor Board including a thermistor and light sensor. Sensors are mounted on the Sensor Board and more sensors can be added using the USB connection.
 
 This SenseTile unit is used here as case study on the use of SensorML, though SensorML can be used in other the parts of the SenseTile system. As the processor unit is  a relatively powerful computer, providing a Web Service on the SenseTile Unit is feasible. The part SensorML plays in this Web Service is explored in the context of the SenseTile system.
 
@@ -164,13 +187,25 @@ Thermistor?
 
 
 \section{VAST SensorML Engine}\label{VastSensorMLEngineSec}
-The VAST Team at the University of Alabama in Huntsville (UAH)  developed an open source Java based SensorML Processing Engine. This software provides types that implement SensorML processes and process  chains. The SensorML Processing Engine parses SensorML models and instantiates the required objects to performed the intended processing. The code is found at http://code.google.com/p/sensorml-data-processing and is referred to as the VastSMLEngine in rest of the thesis. This code is dependent on an implementation of the SWE Common data types described in the section on SensorML \ref{SMLsection}. This code is found at http://code.google.com/p/swe-common-data-framework.
+The VAST Team at the University of Alabama in Huntsville (UAH)  developed an open source Java based SensorML Processing Engine. This software provides types that implement SensorML processes and process  chains. The SensorML Processing Engine parses SensorML models and instantiates the required objects to performed the intended processing. The code is found at \footnote{http://code.google.com/p/sensorml-data-processing} and is referred to as the VastSMLEngine in rest of the thesis. This code is dependent on an implementation of the SWE Common data types described in the section on SensorML \ref{SMLsection}. This code is found at \footnote{http://code.google.com/p/swe-common-data-framework}.
 
 
 \section{BON}
-
-
+Business Object Notation (BON) is a method for analysis and design of
+object-oriented systems.
+seamlessness, reversibility and software contracting.
+same same semantic and conceptual base  analysis, design, and implementation by using the
+ for the notation on all three levels. It supports source code changes back into design and analysis.
+The idea is to treat each subprogram as a subcontractor
+who undertakes to deliver some service (specified by a postcondition), but only if
+certain prerequisites are fulfilled (the precondition).
+same concepts and semantics throughout the development of a
+software product allows for a smooth transition from the initial analysis and design models
+down to executable code.
+\cite{BONref}
 \chapter{Design}
+\section{Overview}
+Rather than define any new sensor models or XML formats for SenseTile it preferable to use the existing solutions if good enough for the task at hand. The SWE framework seems to cover all that is needed for modeling sensors and observations. Support for easy exchange of sensor meta-data and sensor observations is the main rational of SWE and fits the needs of the SenseTile Sensor Network.
 \section{SensorML Model of SenseTile}\label{SenseTileModelSec}
 
 A SensorML model of SenseTile Sensor Board and its sensors is developed as part of this thesis. The model of the Sensor Board is placed in a context to examine SensorML process chaining where processing of Sensor Board data is performed in a separate SensorML process.  The SensorML Systems and Components that are used to model the system are shown in a  block diagram in figure \ref{fig:SensorML_SenseTile_System_comp}.
@@ -449,18 +484,18 @@ The SensorBoardDriver is described previously in section \ref{SensorBoardDriverS
 
 The VastSensorMLEngine, described in section \ref{VastSensorMLEngineSec}, is used in conjunction with the SenseTile SensorML Model (section \ref{SenseTileModelSec}). The SensorML is parsed by the VastSensorMLEngine into a DOM tree. To perform the processing it propagates an execute method to the instantiated processes. A ProcessMap.xml file maps SensorML ProcessModel and Component method  URNs  (see section \ref{SMLsection}) to Java classes that provide the implementation of the processing to be performed. 
 
-There is no documentation that I can find for the VastSensorMLEngine. There are some reference implementations of SWE services pointed to from the OGC SWE website (http://www.ogcnetwork.net/SWE) that provide some information how to use it. The SenseTile SensorML model was not parsed initially by the VastSensorMLEngine. As it opensource the code is available and after a few small changes the model parsed. The VastSensorMLEngine processes the model fine and was very stable during testing.
+There is no documentation that I can find for the VastSensorMLEngine. There are some reference implementations of SWE services pointed to from the OGC SWE website \footnote{http://www.ogcnetwork.net/SWE} that provide some information how to use it. The SenseTile SensorML model was not parsed initially by the VastSensorMLEngine. As it opensource the code is available and after a few small changes the model parsed. The VastSensorMLEngine processes the model fine and was very stable during testing.
 
 
 \section{SOS}
-The SOS is the provider of the Web Service interface and is built on Apache Axis2 (http://ws.apache.org/axis2/). 
-Axis2 is described as a "Web Services / SOAP / WSDL engine"  with the Apache Axis2/Java implementation used in this thesis. The Spring framework (http://www.springsource.org/) was also used. Using these libraries a light Web Service is built to run on the reasonably powerful SenseTile Processor Unit. Axis2 is run standalone here though it can be on with any Servlet engine if a more powerful Web Service is needed.
+The SOS is the provider of the Web Service interface and is built on Apache Axis2 \footnote{http://ws.apache.org/axis2}. 
+Axis2 is described as a "Web Services / SOAP / WSDL engine"  with the Apache Axis2/Java implementation used in this thesis. The Spring framework\footnote{http://www.springsource.org/} was also used. Using these libraries a light Web Service is built to run on the reasonably powerful SenseTile Processor Unit. Axis2 is run standalone here though it can be on with any Servlet engine if a more powerful Web Service is needed.
 
 Developing a Web Service is straight forward with Axis2 and it supports several approaches. The supported POJOs (Plain Old Java Objects) approach was used for the SenseTile Web Service as straight forward and the code could be reused on a different framework if AXIS2 did not work well. The Spring framework, which Axis2 supports, was also used for it's dependency injection functionality. A SprinitInit class is needed for Axis to load up the framework.
 
-Axis2 a tool that automatically generates WSDL from the running Web Service. Another tool allows client side code to be generated for the WSDL easing the development of the Web Service clients.
+Axis2 a tool that automatically generates WSDL from the running Web Service. Another tool allows client side code to be generated from the WSDL easing the development of the Web Service clients.
 
-JAXB (http://java.sun.com/developer/technicalArticles/WebServices/jaxb) was used for SensorML XML to Java binding in the Web Service. JAXB is able to generate a default binding from the complex SWE schema. Some name collisions were corrected with a JAXB customization file found on the SensorML newsgroups.
+JAXB \footnote{http://java.sun.com/developer/technicalArticles/WebServices/jaxb} was used for SensorML XML to Java binding in the Web Service. JAXB is able to generate a default binding from the complex SWE schema. Some name collisions were corrected with a JAXB customization file found on the SensorML newsgroups.
 
 
 \chapter{Results}
@@ -512,6 +547,7 @@ Other technology approaches such as . Other ways such a XQUERY? XML techs?
 
 \newpage
 \begin{thebibliography}{99}
+\bibitem{OSWAref} Xingchen Chu, Tom Kobialka,  Durnota, and  Buyya, Open Sensor Web Architecture: Core Services
 \bibitem{SMLref}Open Geospatial Consortium Inc., OpenGIS Sensor Model Language (SensorML) Implementation Specification, 2007
 \bibitem{SOSref}Open Geospatial Consortium Inc.,  Sensor Observation Service, 2007
 \bibitem{OMref}Open Geospatial Consortium Inc., Observations and Measurements – Part 1 - Observation schema, 2007
