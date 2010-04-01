@@ -2,6 +2,7 @@ package ie.ucd.sensetile.eia.component.demultiplexer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.util.buffer.BufferDataProcessor;
+import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
 
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package ie.ucd.sensetile.eia.component.synchronizer;
 
-import org.apache.camel.CamelContext;
-
 import ie.ucd.sensetile.eia.component.history.History;
 
 public class StreamSynchronizerConfig {

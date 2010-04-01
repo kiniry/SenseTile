@@ -1,13 +1,12 @@
 package ie.ucd.sensetile.eia.component.synchronizer;
 
-import ie.ucd.sensetile.eia.component.demultiplexer.ChannelProcessor;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
+import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -26,8 +25,8 @@ public class StreamSynchronizer implements Processor {
 		buffers.put("1", new ChannelProcessor(size));
 		buffers.put("2", new ChannelProcessor(size));
 		
-		syncBuffers.put("1", new ChannelProcessor(size/2));
-		syncBuffers.put("2", new ChannelProcessor(size/2));
+		syncBuffers.put("1", new ChannelProcessor(size));
+		syncBuffers.put("2", new ChannelProcessor(size));
 	}
 	
 	@Override
@@ -45,7 +44,7 @@ public class StreamSynchronizer implements Processor {
 		if (dataBuffer == null || syncBuffer == null) {
 			// Stop the message
 		}
-		
+
 		int[] pData = cdp.getPrimaryChannelData(); 
 		dataBuffer.init(pData, null);
 		syncBuffer.init(cdp.getSecondaryChannel(0), cdp.getSyncDataForChannel(0));
@@ -53,29 +52,58 @@ public class StreamSynchronizer implements Processor {
 		for (int i=pData.length - 1; i >= 0; i--) {
 			dataBuffer.handlePrimarySample(i);
 			if(syncBuffer.handlePrimarySample(i)) {
-				
 				// We just wrote a sync value to our buffer.
 				handleSynchronizationPoint(streamID);
-				
 			}
 		}
 	}
 	
+	protected boolean syncAvailableOnOtherBuffers(String currentStreamID) { 
+		return true;
+	}
+	
 	protected boolean handleSynchronizationPoint(String currentStreamID) {
-		for (ChannelProcessor cp : syncBuffers.values()) {
-			if (!cp.hasData()) {
+		for (ChannelProcessor syncBuffer : syncBuffers.values()) {
+			if (!syncBuffer.getBuffer().bufferDirty()) {
 				// At least on of the sync buffers doesn't have a value so 
 				return false;
 			}
 		}
-		
 		writeSynchronizedData();
-		
 		return true;
 	}
 	
 	protected void writeSynchronizedData() {
-		
-	}
+
+		int [][] segments = new int[buffers.size()][];
 	
+		int shortestSubsequence = -1;
+		
+		Iterator<String> keys = buffers.keySet().iterator();
+		
+		for (int i=0; i<segments.length; i++){
+			String id = keys.next();
+			
+			ChannelProcessor dataProcessor = buffers.get(id);
+			ChannelProcessor syncProcessor = syncBuffers.get(id);
+			
+			int [] syncIndex = syncProcessor.getBuffer().popLast();
+			int [] dataSubsequence = dataProcessor.getBuffer().subSequence(syncIndex[0]); 
+		
+			if (dataSubsequence.length < shortestSubsequence || shortestSubsequence == -1) {
+				shortestSubsequence = dataSubsequence.length;
+			}
+			
+			// Move all existing sync points up by the size of the 
+			syncProcessor.getBuffer().shiftValues(dataSubsequence.length);
+			
+			segments[i] = dataSubsequence;
+		}
+		
+		// Discarding the trailing samples due to mismatch
+		for (int i=0; i<shortestSubsequence; i++) {
+			int [] samples = new int[segments.length];
+			output.writeData(samples);
+		}
+	}
 }

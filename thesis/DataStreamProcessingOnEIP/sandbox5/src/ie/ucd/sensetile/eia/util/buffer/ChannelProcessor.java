@@ -1,7 +1,5 @@
-package ie.ucd.sensetile.eia.component.demultiplexer;
+package ie.ucd.sensetile.eia.util.buffer;
 
-import ie.ucd.sensetile.eia.util.buffer.BasicBuffer;
-import ie.ucd.sensetile.eia.util.buffer.BufferDataProcessor;
 
 /**
  * ChannelProcessor.
@@ -42,10 +40,12 @@ public class ChannelProcessor {
 		}
 		else {
 			// Find the equivalent sample in the sync data and write it to the buffer
-			for (int i=dataIndex-1; syncData[i] >= sampleIndex && i>=0; i--) {
-				if (syncData[i] == sampleIndex) {
-					result = writeSample();
-					break;
+			if (dataIndex > 0) {
+				for (int i=dataIndex-1; syncData[i] >= sampleIndex && i>=0; i--) {
+					if (syncData[i] == sampleIndex) {
+						result = writeSample();
+						break;
+					}
 				}
 			}
 		}

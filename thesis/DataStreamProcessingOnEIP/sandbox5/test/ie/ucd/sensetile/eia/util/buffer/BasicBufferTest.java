@@ -44,17 +44,99 @@ public class BasicBufferTest extends TestCase {
 		}
 	}
 	
-	public void testSubsequence() {
-		BasicBuffer buffer = new BasicBuffer(100);
-		assertEquals(100, (int)buffer.getSampleIndex());
+	public void testGetData() {
+		BasicBuffer buffer = new BasicBuffer(20);
+		int [] data = buffer.getData();
 		
-		buffer.writeData(1);
-		assertEquals(99, (int)buffer.getSampleIndex());
-		
-		for (int i=0; i<50; i++) {
+		assertEquals(0, data.length);
+		for (int i=0; i<10; i++) {
 			buffer.writeData(i);
 		}
-		assertEquals(49,(int)buffer.getSampleIndex());
+		
+		data = buffer.getData();
+		assertEquals(10, data.length);
+		
+		for (int i=0; i<10; i++) {
+			buffer.writeData(i);
+		}
+		
+		data = buffer.getData();
+		assertEquals(20, data.length);		
 	}
 	
+	public void testSubsequence() {
+		BasicBuffer buffer = new BasicBuffer(20);
+		for (int i=1; i<11; i++) {
+			buffer.writeData(i);
+		}
+		assertEquals(10,(int)buffer.getSampleIndex());
+		
+		int [] result = buffer.subSequence(3);
+		assertEquals(10, result.length);
+		
+		result = buffer.subSequence(10);
+		assertEquals(0, result.length);
+		
+		buffer = new BasicBuffer(20);
+		for (int i=1; i<11; i++) {
+			buffer.writeData(i);
+		}
+		
+		result = buffer.subSequence(15);
+		assertEquals(5, result.length);
+		assertEquals(5, buffer.getData().length);
+		assertEquals(15, (int)buffer.getSampleIndex());
+		
+		result = buffer.subSequence(20);
+		assertEquals(0, result.length);
+		assertEquals(15, (int)buffer.getSampleIndex());
+		
+		result = buffer.subSequence(buffer.getSize()-1);
+		assertEquals(1, result.length);
+		
+		result = buffer.getData();
+		assertEquals(4, result.length);
+		
+		result = buffer.subSequence(19);
+		assertEquals(1, result.length);
+		
+		result = buffer.getData();
+		assertEquals(3, result.length);
+	}
+	
+	public void testGetCount() {
+		BasicBuffer buffer = new BasicBuffer(20);		
+		for (int i=1; i<21; i++) {
+			buffer.writeData(i);
+		}
+		
+		int [] result = buffer.subSequence(0);
+		assertEquals(20, result.length);
+		assertEquals(0, buffer.getCount());
+		
+		for (int i=1; i<21; i++) {
+			buffer.writeData(i);
+		}
+		
+		result = buffer.subSequence(10);
+		assertEquals(10, result.length);
+		assertEquals(10, buffer.getCount());
+	}
+	
+	public void testShiftValue() {
+		BasicBuffer buffer = new BasicBuffer(20);		
+		for (int i=1; i<21; i++) {
+			buffer.writeData(i);
+		}
+		
+		buffer.shiftValues(10);
+		
+		int [] data = buffer.getData();
+		
+		assertEquals(20, data.length);
+		
+		for (int i=0, j=30;i<20; i++, j--) {
+			assertEquals(j, data[i]);
+		}
+	}
 }

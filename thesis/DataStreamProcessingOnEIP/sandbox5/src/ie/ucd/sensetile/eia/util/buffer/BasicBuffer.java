@@ -1,5 +1,7 @@
 package ie.ucd.sensetile.eia.util.buffer;
 
+import java.util.Arrays;
+
 public class BasicBuffer implements Buffer {
 	
 	protected int currentPacketId = 0;
@@ -25,7 +27,7 @@ public class BasicBuffer implements Buffer {
 	 */
 	public int writeData(int sample) {
 	
-		if (index-1 < 0 || index > data.length) {
+		if (index-1 < 0 || index > size) {
 			return Integer.MIN_VALUE;
 		}
 		
@@ -42,11 +44,18 @@ public class BasicBuffer implements Buffer {
 		}
 	}
 	
+	public int[] popLast() {
+		return subSequence(size - 1);
+	}
+	
 	public int [] subSequence(int startIndex) {
+
+		if (!bufferDirty() || startIndex > size-1) {
+			return new int[0];
+		}
 		
-		// This is invalid.
 		if (startIndex < index) {
-			return null;
+			startIndex = index;
 		}
 		
 		int length = Math.abs(startIndex-(size-1)) + 1; 
@@ -56,13 +65,37 @@ public class BasicBuffer implements Buffer {
 			subsequence[i] = data[j];
 		}
 		
-		for (int i=index, j=size-1; i <= index; i--, j--) {
-			data[j] = data[i];
+		if (index == startIndex) {
+			index = size;
+		} else {
+			int gap = size - index - length;
+			for (int i=index+gap-1, j=size-1; i >= index; i--, j--) {
+				data[j] = data[i];
+			}
+			index +=length;
 		}
 		
-		index +=length;
-		
 		return subsequence;
+	}
+	
+	public void shiftValues(int shiftValue) {
+		for (int i=0; i<size; i++) {
+			data[i] += shiftValue;
+		}
+	}
+	
+	public boolean bufferDirty() {
+		return (index < size && index >= 0);
+	}
+	
+	public int getCount() {
+		if (index > size) {
+			return 0;
+		} else if (index <= 0) {
+			return size;
+		} else {
+			return size - index;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +109,11 @@ public class BasicBuffer implements Buffer {
 	 * @see ie.ucd.sensetile.eia.util.buffer.Buffer#getData()
 	 */
 	public int [] getData() {
-		return this.data;
+		if (index < size) {
+			return Arrays.copyOfRange(data, index, size);
+		} else {
+			return new int[0];
+		}
 	}
 	
 	/* (non-Javadoc)
