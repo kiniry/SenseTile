@@ -79,7 +79,7 @@ public class BasicBuffer implements Buffer {
 	}
 	
 	public void shiftValues(int shiftValue) {
-		for (int i=0; i<size; i++) {
+		for (int i=index; i<size; i++) {
 			data[i] += shiftValue;
 		}
 	}

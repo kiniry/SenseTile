@@ -3,30 +3,36 @@ package ie.ucd.sensetile.eia.component.synchronizer;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
+import ie.ucd.sensetile.eia.util.buffer.SyncChannelProcessor;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
 public class StreamSynchronizer implements Processor {
 
-	CompositeDataBuffer output = new CompositeDataBuffer(8000, 2);
+	CompositeDataBuffer output = null;
 	
-	Map<String, ChannelProcessor> buffers = new HashMap<String, ChannelProcessor>();
-	Map<String, ChannelProcessor> syncBuffers = new HashMap<String, ChannelProcessor>();
+	Map<String, ChannelProcessor> buffers = new TreeMap<String, ChannelProcessor>();
+	Map<String, SyncChannelProcessor> syncBuffers = new TreeMap<String, SyncChannelProcessor>();
 	
 	private Exchange currentExchange = null;
 	
 	public StreamSynchronizer(StreamSynchronizerConfig cfg) {
-		int size = 10000;
-		buffers.put("1", new ChannelProcessor(size));
-		buffers.put("2", new ChannelProcessor(size));
+		int size = cfg.getInputBufferSize();
 		
-		syncBuffers.put("1", new ChannelProcessor(size));
-		syncBuffers.put("2", new ChannelProcessor(size));
+		for (String id : cfg.getChannelIds()) {
+			ChannelProcessor cp = new ChannelProcessor(size);
+			buffers.put(id, cp);
+			
+			SyncChannelProcessor scp = new SyncChannelProcessor(size, cp.getBuffer());
+			syncBuffers.put(id, scp);
+		}
+		
+		output = new CompositeDataBuffer(cfg.getOutputBufferSize(), cfg.getChannelIds().length);
 	}
 	
 	@Override
@@ -56,10 +62,6 @@ public class StreamSynchronizer implements Processor {
 				handleSynchronizationPoint(streamID);
 			}
 		}
-	}
-	
-	protected boolean syncAvailableOnOtherBuffers(String currentStreamID) { 
-		return true;
 	}
 	
 	protected boolean handleSynchronizationPoint(String currentStreamID) {
@@ -101,8 +103,11 @@ public class StreamSynchronizer implements Processor {
 		}
 		
 		// Discarding the trailing samples due to mismatch
-		for (int i=0; i<shortestSubsequence; i++) {
+		for (int i=shortestSubsequence-1; i>=0; i--) {
 			int [] samples = new int[segments.length];
+			for (int j=0; j<segments.length; j++) {
+				samples[j] = segments[j][i];
+			}
 			output.writeData(samples);
 		}
 	}

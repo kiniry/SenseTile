@@ -1,25 +1,29 @@
 package ie.ucd.sensetile.eia.component.synchronizer;
 
-import ie.ucd.sensetile.eia.component.history.History;
 
 public class StreamSynchronizerConfig {
 
-	private History stream1;
-	private History stream2;
+	private int outputBufferSize;
+	private int inputBufferSize;
+	private String [] channelIds;
 	
-	public History getStream1() {
-		return stream1;
+	public int getInputBufferSize() {
+		return inputBufferSize;
 	}
-	public void setStream1(History stream1) {
-		this.stream1 = stream1;
+	public void setInputBufferSizes(int inputBufferSize) {
+		this.inputBufferSize = inputBufferSize;
 	}
-	public History getStream2() {
-		return stream2;
+	public String[] getChannelIds() {
+		return channelIds;
 	}
-	public void setStream2(History stream2) {
-		this.stream2 = stream2;
+	public void setChannelIds(String[] channelIds) {
+		this.channelIds = channelIds;
 	}
 	
-	
-	
-}
+	public int getOutputBufferSize() {
+		return outputBufferSize;
+	}
+	public void setOutputBufferSize(int outputBufferSize) {
+		this.outputBufferSize = outputBufferSize;
+	}
+} 

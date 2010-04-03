@@ -39,13 +39,19 @@ public class ChannelProcessor {
 			result = writeSample();
 		}
 		else {
-			// Find the equivalent sample in the sync data and write it to the buffer
-			if (dataIndex > 0) {
-				for (int i=dataIndex-1; syncData[i] >= sampleIndex && i>=0; i--) {
-					if (syncData[i] == sampleIndex) {
-						result = writeSample();
-						break;
-					}
+			result = handleSyncData(sampleIndex);
+		}
+		return result;
+	}
+	
+	protected boolean handleSyncData(int sampleIndex) {
+		boolean result = false;
+		// Find the equivalent sample in the sync data and write it to the buffer
+		if (dataIndex > 0) {
+			for (int i=dataIndex-1; syncData[i] >= sampleIndex && i>=0; i--) {
+				if (syncData[i] == sampleIndex) {
+					result = writeSample();
+					break;
 				}
 			}
 		}
