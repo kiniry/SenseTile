@@ -48,38 +48,24 @@ Vieri del Bianco , Dragan Stosic and Joseph R. Kiniry.
 %%% Introduction
 
 \chapter{Introduction}
-  - introduce problems: 
-   - sensor interoperability
-   - reliable sensor processing
-  - SensorML proposed standard for sensor description and interoperability
-  - SOS proposed standard for sensor data retrieval
-  - no formal definition of sensor and sensor data processing
-  - introduce SenseTile, a real case study
-  - objective
-   - describe SenseTile with SensorML, access data through SOS
-    - assess SensorML and SOS
-   - formalize sensor description and process
-    - SensorML <-> BON <-> Java + JML
 
-There is currently very little interoperability between different sensor systems making it difficult to access sensor observations. The ability to easily discover, access, and process sensors existing within different communities is very rare.Interoperability The  challenges for Sensor Networks include sensor interoperability and reliable sensor processing. These issues of sensor system interopetability and senor data processing are being address through the development of standards.
+problems.
 
-Sensor Model Language (SensorML)\cite{SMLref} is one such proposed standard for sensor description and interoperability.
+Sensor Networks are increasingly deployed to provide sensing information for a myriad of applications. These Sensor Networks are developed by communities working in different domains and contain many different sensor types. The heterogeneity of these systems means that interoperability is difficult and expensive. Reliably processing sensor observations from these heterogeneous systems is also issue. Need to have a sensor description, data description, observation, retrieval and information on accuracy etc for reliable processing. Standards are being developed to address these problems. Use internet.
 
-SensorML enables this processing without the need for sensor-specific software.
+Sensor Model Language (SensorML)\cite{SMLref} is one proposed standard for sensor description and processing of sensor observations. SensorML specifies models and XML Schema for describing sensors, the process of sensor measurement and the post processing of sensor observations. 
 
-SensorML is used to describe sensor systems and the processing of sensor observations.
-SensorML provides a common way to describe sensor systems.
-SensorML is one of a number of specifications provided by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement(SWE) initiative[ref]. The members of the OGC have the goal of developing open standards to exploit Web connected sensors of all types.
+The Sensor Observation Service (SOS)\cite{SOSref}  specification is a proposed standard for retrieving information about sensor and retrieving sensor observations. 
 
-SenseTile is a sensor and processing package that can contain motion sensors, RFID sensors, temperature sensor, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
+The SensorML and SOS specifications are developed by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. The members of the OGC have the goal of improving interoperability of sensor systems by developing open standards such as SensorML. This thesis investigates the use of these standards in developing sensor systems.
 
- . A prototype of a Web Service for accessing SenseTile Sensor Board sensor observations was to be developed using this SensorML description of the SenseTile Sensor Board. An evaluation of the suitability of SensorML for use as part of the SenseTile System was also to be performed.
+Currently there is no formal definition of sensors or sensor data processing. There are now formal verification based software development processes [kiniry] with the goal of developing very robust systems. Having formal sensor descriptions allows sensor system development with such a verification based process.
 
- The Web Service is based on another OGC SWE  specification, the Sensor Observation Service (SOS)[ref]. This specification defines a standard Web interface for retrieving information about sensor systems and sensor observations.
+The thesis uses a real sensor system called SenseTile as a case study. SenseTile is a sensor and processing package that can contain motion sensors, RFID sensors, temperature sensors, audio sensors, pressure sensors, light level sensors video sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
 
-There are other SOS specification depend on another SWE specification, Observation and Measurements(O\&M)[ref]. This specification provides standard models and XML encoding for sensor observations.
+This thesis describes SenseTile with SensorML. Based on this model a SenseTile Web Service prototype is developed to allow the retrieval of the sensor SensorML descriptions and sensor observations to be retrieved. The Web Service will be based on the SOS specification. An assessment of SensorML and SOS is provided based on this work.
 
-A  SensorML to BON Mapping was also to be explored . BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. Based on this mapping it was proposed to develop a tool/method to automatically generate SensorML descriptions. Generally SensorML is hand generated with all the shortcomings of such an approach. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java. 
+To formalize sensor description and process BON\cite{BONref} is a notation and a method for Object Oriented systems analysis and design. A BON to SensorML mapping is provided. The proposed approach would allow sensor processing to defined formally in BON and then refined to JML/Java.
 
 
 \chapter{ Background Research}
@@ -304,8 +290,32 @@ The SensoML Celsius Converter SensorML Component  models a process that performs
 A Sensor process method is also developed. The process method describes the conversion algorithm and points to an implementation class. Process Methods are not implemented by the Vast Lib so it not used in the running system. Instead the method tag provides a URN that is used to lookup the implementation class.
 
 \section{BON to SensorML mapping}
+\lstset{frame=none}
+\begin{table}[!th]
+\begin{tabular}{|l|r|}
+\hline
+BON & SensorML\\
+\hline
+   deferred class AbstractProcess  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
 
+\hline 
+     outputs:SEQUENCE[Output] & not mapped\\
+\hline
+     parameters:Parameters & not mapped\\
 
+\hline                 
+     metaDataGroup:MetaDataGroup & not mapped\\
+ \hline    
+
+\end{tabular}
+\caption{Scenario Chart for SenseTile Web Service}
+\label{ex:table}
+\end{table}
 
 \section{SenseTile Web Service}
 \subsection{Overview}
@@ -547,7 +557,7 @@ Other technology approaches such as . Other ways such a XQUERY? XML techs?
 
 \newpage
 \begin{thebibliography}{99}
-\bibitem{OSWAref} Xingchen Chu, Tom Kobialka,  Durnota, and  Buyya, Open Sensor Web Architecture: Core Services
+\bibitem{OSWAref} Chu, Kobialka,  Durnota, and  Buyya, Open Sensor Web Architecture: Core Services
 \bibitem{SMLref}Open Geospatial Consortium Inc., OpenGIS Sensor Model Language (SensorML) Implementation Specification, 2007
 \bibitem{SOSref}Open Geospatial Consortium Inc.,  Sensor Observation Service, 2007
 \bibitem{OMref}Open Geospatial Consortium Inc., Observations and Measurements – Part 1 - Observation schema, 2007
@@ -562,11 +572,14 @@ Complete Weather Station , 2006
 
 
 \chapter{Appendices}
+\section{SenseTile SensorML Model}
 
 \lstinputlisting{Thermistor.xml}
 
 
-
+\section{BON to SensorML Mapping}
+\lstset{basicstyle=\scriptsize,showspaces=false,showstringspaces=false}
+\lstinputlisting{SensorML_formal.bon}
 
 
 \end{document}
