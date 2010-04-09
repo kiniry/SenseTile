@@ -15,9 +15,15 @@ import ie.ucd.sensetile.dataprovider.rmi.SensorObservationIF;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 import java.io.ByteArrayOutputStream;
+import java.io.StringBufferInputStream;
 
 import net.opengis.sos._1.Contents;
+import net.opengis.sos._1.DescribeSensor;
+import net.opengis.sos._1.GetObservation;
+import net.opengis.sos._1.InsertObservation;
 import net.opengis.sos._1.ObjectFactory;
 
 public class SensorObservations
@@ -32,7 +38,8 @@ public class SensorObservations
     @SuppressWarnings("unused")
     private DataProducerService dataProducerService;
     private ObservationOffering observationOffering = null;
-    
+    static final String JAXB_SOS_PACKAGE = "net.opengis.sos._1";
+
     public SensorObservations(){
         try {
             this.dataProducerService = new DataProducerService(serverObjectName,this);
@@ -71,6 +78,7 @@ public class SensorObservations
         }
         observationOffering.addOffering(sensor);
             //this.offerings.put(sensor.getSystemName(), observationOffering);
+        System.out.println("Thread in registerSensor " + Thread.currentThread());
 
         return sensorurn;
 
@@ -104,17 +112,50 @@ public class SensorObservations
 
         return observationOffering.getCapabilitiesXml();
     }
-    
+
     public final String describeSensor(String describeSensor) {
-        parseDescribeSensor(describeSensor);
-        return "describeSensor";
+        
+        return sensors.get(parseDescribeSensor(describeSensor)).getXMLDescription();
     }
-    
+
     private final String parseDescribeSensor(String describeSensor) {
-        return "";
+        System.out.println("DescribeSensor\n" + describeSensor);
+        System.out.println("Thread in SensorObservations " + Thread.currentThread());
+
+        DescribeSensor desSensor = null;
+        try {
+            JAXBContext jc = JAXBContext.newInstance(JAXB_SOS_PACKAGE,
+                    this.getClass().getClassLoader());
+            //JAXBContext jc = JAXBContext.newInstance(JAXB_SOS_PACKAGE);
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            StringBufferInputStream stream = new StringBufferInputStream(describeSensor);
+            desSensor  = (DescribeSensor) unmarshaller.unmarshal(stream);
+
+        } catch (JAXBException e) {
+           e.printStackTrace();
+        }
+        return desSensor.getProcedure();
     }
-    
-    public String getObservation() {
-        return "getObservation";
+
+    public String getObservation(String getObservation) {
+        GetObservation  obs = parseGetObservation(getObservation);
+        return "returned "+obs.getOffering();
+    }
+    private GetObservation parseGetObservation(String getObservation){
+        return  (GetObservation)unmarshall(getObservation);
+    }
+    private Object unmarshall(String value){
+        Object rootObj = null;
+        try {
+            JAXBContext jc = JAXBContext.newInstance(JAXB_SOS_PACKAGE,
+                    this.getClass().getClassLoader());
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            StringBufferInputStream stream = new StringBufferInputStream(value);
+            rootObj  = unmarshaller.unmarshal(stream);
+
+        } catch (JAXBException e) {
+           e.printStackTrace();
+        }
+        return rootObj;        
     }
 }
