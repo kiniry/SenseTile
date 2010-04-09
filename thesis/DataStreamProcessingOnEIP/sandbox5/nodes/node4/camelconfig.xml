@@ -11,6 +11,7 @@
   <jmxAgent id="agent" createConnector="true" usePlatformMBeanServer="true"/>
     <route>
 	  	<from uri="mina:tcp://localhost:7104?sync=false"/>
+	  	
 		<to uri="bean:synchronizer_1"/>
 	</route>
   </camelContext>    
