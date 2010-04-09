@@ -45,22 +45,6 @@
 
         
            /**
-            * auto generated Axis2 call back method for getSensorObs method
-            * override this method for handling normal response from getSensorObs operation
-            */
-           public void receiveResultgetSensorObs(
-                    ie.ucd.sensetile.sos.dataprovider.service.SenseTileServiceStub.GetSensorObsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from getSensorObs operation
-           */
-            public void receiveErrorgetSensorObs(java.lang.Exception e) {
-            }
-                
-           /**
             * auto generated Axis2 call back method for getCapabilities method
             * override this method for handling normal response from getCapabilities operation
             */
@@ -90,6 +74,22 @@
            * override this method for handling error response from describeSensor operation
            */
             public void receiveErrordescribeSensor(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for getObservation method
+            * override this method for handling normal response from getObservation operation
+            */
+           public void receiveResultgetObservation(
+                    ie.ucd.sensetile.sos.dataprovider.service.SenseTileServiceStub.GetObservationResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from getObservation operation
+           */
+            public void receiveErrorgetObservation(java.lang.Exception e) {
             }
                 
                // No methods generated for meps other than in-out
