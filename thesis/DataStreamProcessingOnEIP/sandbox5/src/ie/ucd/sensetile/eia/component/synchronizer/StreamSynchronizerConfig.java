@@ -5,12 +5,19 @@ public class StreamSynchronizerConfig {
 
 	private int outputBufferSize;
 	private int inputBufferSize;
-	private String [] channelIds;
+	private String [] channelIds = new String[0];
+	private String outputEndpoint;
 	
+	public String getOutputEndpoint() {
+		return outputEndpoint;
+	}
+	public void setOutputEndpoint(String outputEndpoint) {
+		this.outputEndpoint = outputEndpoint;
+	}
 	public int getInputBufferSize() {
 		return inputBufferSize;
 	}
-	public void setInputBufferSizes(int inputBufferSize) {
+	public void setInputBufferSize(int inputBufferSize) {
 		this.inputBufferSize = inputBufferSize;
 	}
 	public String[] getChannelIds() {

@@ -33,7 +33,7 @@ public class BasicBufferTest extends TestCase {
 	public void testBufferProcessor() {
 		BasicBuffer buffer = new BasicBuffer(10);
 		
-		buffer.setDataProcessor(new BufferDataProcessor() {
+		buffer.setDataProcessor(new SimpleConsumingBufferDataListener() {
 			public void processBufferData(Buffer buffer) {
 				assertEquals((int)buffer.getSampleIndex(), 0);
 			}

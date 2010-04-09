@@ -10,7 +10,7 @@ public class BasicBuffer implements Buffer {
 	protected int [] data = null;
 	protected int index = 0;
 	
-	protected BufferDataProcessor dataProcessor = null;
+	protected BufferDataListener dataProcessor = null;
 	
 	public BasicBuffer(int size) {
 		this.size = size;
@@ -18,7 +18,7 @@ public class BasicBuffer implements Buffer {
 		this.index = size;
 	}
 	
-	public void setDataProcessor(BufferDataProcessor processor) {
+	public void setDataProcessor(BufferDataListener processor) {
 		this.dataProcessor = processor;
 	}
 	

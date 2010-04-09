@@ -9,12 +9,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
-public class StreamSynchronizer implements Processor {
+public class StreamSynchronizer implements Processor, CamelContextAware {
 
 	CompositeDataBuffer output = null;
+	
+	CamelContext ctx = null;
 	
 	Map<String, ChannelProcessor> buffers = new TreeMap<String, ChannelProcessor>();
 	Map<String, SyncChannelProcessor> syncBuffers = new TreeMap<String, SyncChannelProcessor>();
@@ -25,7 +29,7 @@ public class StreamSynchronizer implements Processor {
 		int size = cfg.getInputBufferSize();
 		
 		for (String id : cfg.getChannelIds()) {
-			ChannelProcessor cp = new ChannelProcessor(size);
+			ChannelProcessor cp = new ChannelProcessor(size, null);
 			buffers.put(id, cp);
 			
 			SyncChannelProcessor scp = new SyncChannelProcessor(size, cp.getBuffer());
@@ -33,13 +37,14 @@ public class StreamSynchronizer implements Processor {
 		}
 		
 		output = new CompositeDataBuffer(cfg.getOutputBufferSize(), cfg.getChannelIds().length);
+	//	output.setDataProcessor(new EndpointProducerBufferListener(cfg.getOutputEndpoint(), ctx.createProducerTemplate() ));
 	}
 	
 	@Override
 	public void process(Exchange exchange) throws Exception {
 		currentExchange = exchange;
 		CompositeDataPacket cdp = (CompositeDataPacket)exchange.getIn().getBody();
-		String id = (String)exchange.getIn().getHeader("streamID");
+		String id = (String)exchange.getIn().getHeader("streamid");
 		processPacket(cdp, id);
 	}
 	
@@ -48,7 +53,7 @@ public class StreamSynchronizer implements Processor {
 		ChannelProcessor syncBuffer = syncBuffers.get(streamID);
 		
 		if (dataBuffer == null || syncBuffer == null) {
-			// Stop the message
+			//
 		}
 
 		int[] pData = cdp.getPrimaryChannelData(); 
@@ -110,5 +115,16 @@ public class StreamSynchronizer implements Processor {
 			}
 			output.writeData(samples);
 		}
+	}
+
+	@Override
+	public CamelContext getCamelContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCamelContext(CamelContext ctx) {
+		this.ctx = ctx;
 	}
 }

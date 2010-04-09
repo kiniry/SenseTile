@@ -2,7 +2,7 @@ package ie.ucd.sensetile.eia.util.buffer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 
-public class BufferDataProcessor {
+public class SimpleConsumingBufferDataListener implements BufferDataListener {
 	
 	int count = 0;
 	

@@ -1,6 +1,5 @@
 package ie.ucd.sensetile.eia.util.buffer;
 
-
 /**
  * ChannelProcessor.
  * @author damian
@@ -17,13 +16,13 @@ public class ChannelProcessor {
 	
 	BasicBuffer buffer = null;
 
-	public ChannelProcessor(int dataBufferSize) {
+	public ChannelProcessor(int dataBufferSize, BufferDataListener bufferProcessor) {
 		this.buffer = new BasicBuffer(dataBufferSize);
-		this.buffer.setDataProcessor(new BufferDataProcessor());
+		this.buffer.setDataProcessor(bufferProcessor);
 	}
 	
-	public ChannelProcessor(int channelId, int dataBufferSize) {
-		this(dataBufferSize);
+	public ChannelProcessor(int channelId, int dataBufferSize, BufferDataListener bufferProcessor) {
+		this(dataBufferSize, bufferProcessor);
 		this.channelId = channelId;
 	}
 	

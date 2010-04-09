@@ -5,12 +5,12 @@ public class SyncChannelProcessor extends ChannelProcessor {
 	BasicBuffer primaryBuffer = null;
 	
 	public SyncChannelProcessor(int dataBufferSize, BasicBuffer primaryBuffer) {
-		super(dataBufferSize);
+		super(dataBufferSize, null);
 		this.primaryBuffer = primaryBuffer;
 	}
 	
 	public SyncChannelProcessor(int channelId, int dataBufferSize, BasicBuffer primaryBuffer) {
-		super(channelId, dataBufferSize);
+		super(channelId, dataBufferSize, null);
 		this.primaryBuffer = primaryBuffer;
 	}
 	

@@ -131,7 +131,7 @@ public class StreamSynchronizerTest extends TestCase {
 	private StreamSynchronizerConfig getSyncConfig() {
 		StreamSynchronizerConfig cfg = new StreamSynchronizerConfig();
 		cfg.setOutputBufferSize(8000);
-		cfg.setInputBufferSizes(8000);
+		cfg.setInputBufferSize(8000);
 		cfg.setChannelIds(new String [] {"1", "2"});
 		return cfg;
 	}

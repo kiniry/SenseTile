@@ -1,7 +1,7 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
-import ie.ucd.sensetile.eia.util.buffer.BufferDataProcessor;
+import ie.ucd.sensetile.eia.util.buffer.SimpleConsumingBufferDataListener;
 import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
 
@@ -30,18 +30,19 @@ public class Demultiplexer implements Processor, ManagementAware<Demultiplexer>,
 		
 		int [] secondaryChannels = config.getSecondaryChannels();
 		int [] secondaryBufferSizes = config.getSecondaryBufferSizes();
+		String [] outputEndpoints = config.getEndpoints();
 		
-		this.primaryProcessor = new ChannelProcessor(0, config.getPrimaryBufferSize());
+		this.primaryProcessor = new ChannelProcessor(0, config.getPrimaryBufferSize(), new SimpleConsumingBufferDataListener());
 		this.secondaryProcessors = new ArrayList<ChannelProcessor>(secondaryChannels.length);
 		this.syncBuffers = new ArrayList<CompositeDataBuffer>(secondaryChannels.length);
 		
 		for (int i=0; i<secondaryBufferSizes.length; i++) {
 			Integer channelId = secondaryChannels[i];
-			ChannelProcessor cp = new ChannelProcessor(channelId, secondaryBufferSizes[i]);
+			ChannelProcessor cp = new ChannelProcessor(channelId, secondaryBufferSizes[i], new SimpleConsumingBufferDataListener());
 			secondaryProcessors.add(cp);
 			
 			CompositeDataBuffer cb = new CompositeDataBuffer(config.getSyncBufferSize(), 4);
-			cb.setDataProcessor(new BufferDataProcessor());
+			cb.setDataProcessor(new SimpleConsumingBufferDataListener());
 			syncBuffers.add(cb);
 		}
 	}

@@ -5,6 +5,8 @@ public class DemultiplexerConfig {
 	private int syncBufferSize; 
 	private int[] secondaryChannels; 
 	private int [] secondaryBufferSizes;
+	private String [] endpoints;
+	private String syncEndpoint;
 	
 	public int getPrimaryBufferSize() {
 		return primaryBufferSize;
@@ -29,5 +31,17 @@ public class DemultiplexerConfig {
 	}
 	public void setSecondaryBufferSizes(int[] secondaryBufferSizes) {
 		this.secondaryBufferSizes = secondaryBufferSizes;
+	}
+	public String[] getEndpoints() {
+		return endpoints;
+	}
+	public void setEndpoints(String[] secondaryEndpoints) {
+		this.endpoints = secondaryEndpoints;
+	}
+	public String getSyncEndpoint() {
+		return syncEndpoint;
+	}
+	public void setSyncEndpoint(String syncEndpoint) {
+		this.syncEndpoint = syncEndpoint;
 	}
 }
