@@ -8,7 +8,7 @@ public interface SensorIF {
     Observation getObservation();
     
     /* addObservation */
-    void addObservation(Observation obs);
+    void addObservation(String obs);
 
     /* get service information */
     String getService();

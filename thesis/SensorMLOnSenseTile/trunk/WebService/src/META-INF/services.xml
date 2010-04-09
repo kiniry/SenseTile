@@ -18,11 +18,11 @@
   -->
 
 <serviceGroup>
-  <service name="SpringInit" class="ie.ucd.sensetile.dataprovider.service.SpringInit">
+  <service name="SpringInit" class="ie.ucd.sensetile.sos.dataprovider.service.SpringInit">
     <description>
       This web service initializes Spring.
     </description>
-    <parameter name="ServiceClass" >ie.ucd.sensetile.dataprovider.service.SpringInit</parameter>
+    <parameter name="ServiceClass" >ie.ucd.sensetile.sos.dataprovider.service.SpringInit</parameter>
     <parameter name="ServiceTCCL" >composite</parameter>
     <parameter name="load-on-startup" >true</parameter>
     <operation name="springInit">
@@ -31,7 +31,7 @@
   </service>
   <service name="SenseTileService">
     <description>SenseTile Service SOS</description>
-    <parameter name="ServiceClass" >ie.ucd.sensetile.dataprovider.service.SenseTileService</parameter>
+    <parameter name="ServiceClass" >ie.ucd.sensetile.sos.dataprovider.service.SenseTileService</parameter>
     <parameter name="ServiceObjectSupplier" >org.apache.axis2.extensions.spring.receivers.SpringAppContextAwareObjectSupplier</parameter>
     <parameter name="SpringBeanName" >senseTileService</parameter>
     <messageReceivers>

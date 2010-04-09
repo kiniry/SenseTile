@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements. See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership. The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 package ie.ucd.sensetile.sos.dataprovider;
 
 import java.rmi.AlreadyBoundException;
@@ -28,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ie.ucd.sensetile.webservice.sos.SensorObservationIF;
+import ie.ucd.sensetile.dataprovider.rmi.SensorObservationIF;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -40,43 +22,33 @@ import net.opengis.sos._1.ObjectFactory;
 
 public class SensorObservations
     implements SensorObservationIF {
-    private int observation;
+    private String observation;
     private String sensorIdUrnRoot ="urn:ie.ucd.sensetile:sensor:";
     private Long sensorId = 0l;
+    //private Long offeringId = 0l;
     private String serverObjectName ="rmi://localhost/SenseTileService";
     private Map <String, SensorIF> sensors= new HashMap <String, SensorIF>();
+    //private Map <String, ObservationOffering> offerings= new HashMap <String, ObservationOffering>();
+    @SuppressWarnings("unused")
+    private DataProducerService dataProducerService;
+    private ObservationOffering observationOffering = null;
     
-    private SOSCapability sosCapability = null;
-    
-    public SensorObservations() throws RemoteException{
-        //super();
+    public SensorObservations(){
         try {
-            SensorObservationIF stub = (SensorObservationIF) UnicastRemoteObject.exportObject(this, 0);
-
-            // Bind the remote object's stub in the Registry
-            Registry registry = LocateRegistry.getRegistry();
-            registry.bind(serverObjectName, stub);
-
-        }
-        catch (AlreadyBoundException e) {
+            this.dataProducerService = new DataProducerService(serverObjectName,this);
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("SenseTileService RMI running");
+
+        System.out.println("SenseTileService running!!!!");
     }
 
-    @Override
-    public void insertObservation(int obs) throws RemoteException {
-        this.setObservation(obs);
-        System.out.println("Observations bean = "+obs);       
+    public void insertObservation(String sosId, String obs) {
+        this.sensors.get(sosId).addObservation(obs);
+        System.out.println("Observations bean = "+obs + "id "+sosId);       
     }
 
-    public void setObservation(int observation) {
-        this.observation = observation;
-    }
 
-    public int getObservation() {
-        return observation;
-    }
 
     public void setSensorId(String sensorId) {
         this.sensorIdUrnRoot = sensorId;
@@ -86,20 +58,20 @@ public class SensorObservations
         return sensorIdUrnRoot;
     }
 
-    @Override
     public String RegisterSensor(String service, String version,
-            String SensorDescription, String ObservationTemplate)
-            throws RemoteException {
+            String SensorDescription, String ObservationTemplate) {
         String sensorurn = generateSensorURN();
         Sensor sensor = new Sensor(sensorurn, SensorDescription, version,
                 ObservationTemplate,service);
         this.sensors.put(sensorurn,sensor);
         System.out.println("Observations bean service = " + sensorurn);
         
-        if (sosCapability == null) {
-            sosCapability = new SOSCapability();
-            sosCapability.addOffering(sensor);
+        if (observationOffering == null) {
+            observationOffering = new ObservationOffering();
         }
+        observationOffering.addOffering(sensor);
+            //this.offerings.put(sensor.getSystemName(), observationOffering);
+
         return sensorurn;
 
     }
@@ -130,6 +102,19 @@ public class SensorObservations
             e.printStackTrace();
         }*/
 
-        return sosCapability.getCapabilitiesXml();
+        return observationOffering.getCapabilitiesXml();
+    }
+    
+    public final String describeSensor(String describeSensor) {
+        parseDescribeSensor(describeSensor);
+        return "describeSensor";
+    }
+    
+    private final String parseDescribeSensor(String describeSensor) {
+        return "";
+    }
+    
+    public String getObservation() {
+        return "getObservation";
     }
 }
