@@ -4,10 +4,10 @@
  
    <Process>
       <uri>urn:ucd:sensetile:sensorboard:thermistor</uri>
-      <class>ie.ucd.sensetile.webservice.dataproducer.ThermistorSensor</class>
+      <class>ie.ucd.sensetile.webservice.dataproducer.sensors.ThermistorSensor</class>
    </Process>
       <Process>
       <uri>urn:ucd:sensetile:sensorboard:celciusConv</uri>
-      <class>ie.ucd.sensetile.webservice.dataproducer.CelciusConverter</class>
+      <class>ie.ucd.sensetile.webservice.dataproducer.converters.CelciusConverter</class>
    </Process> 
 </ProcessMap>

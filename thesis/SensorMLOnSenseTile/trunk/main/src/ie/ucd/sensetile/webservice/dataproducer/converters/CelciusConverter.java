@@ -1,4 +1,6 @@
-package ie.ucd.sensetile.webservice.dataproducer;
+package ie.ucd.sensetile.webservice.dataproducer.converters;
+
+import ie.ucd.sensetile.webservice.dataproducer.smlengine.AbstractProcess;
 
 import org.vast.process.ProcessException;
 

@@ -102,12 +102,13 @@ public class PacketStreamReader {
        }
 
        /**
-        * get no of packets to read.
+        * get no of list of sensors and provide them
+        * with the next packet from the packInputSteam.
         */
        private void updateSensors() {
          try {
             Packet packet = this.packetInputStream.read();
-            Iterator<Sensor> iter = sensorList.iterator();
+            Iterator < Sensor > iter = sensorList.iterator();
             while (iter.hasNext()) {
                 iter.next().processSensorData(packet);
             }

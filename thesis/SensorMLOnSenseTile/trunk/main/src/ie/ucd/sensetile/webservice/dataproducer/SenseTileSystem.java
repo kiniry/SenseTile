@@ -3,6 +3,9 @@ package ie.ucd.sensetile.webservice.dataproducer;
 import ie.ucd.sensetile.dataprovider.SensorObservations;
 import ie.ucd.sensetile.sensorboard.Packet;
 import ie.ucd.sensetile.sensorboard.PacketInputStream;
+import ie.ucd.sensetile.webservice.dataproducer.smlengine.AbstractProcess;
+import ie.ucd.sensetile.webservice.dataproducer.smlengine.SensorMLSystem;
+
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -30,17 +33,10 @@ public class SenseTileSystem {
 
     private SensorMLSystem smlSenseTileSystem;
     private SystemOutput sensorBoardOutput;
+    private SystemOutput convertorOutput;
+
     private SensorMLSystem smlConvetorSystem;
 
-    private DataProviderProxyIf dataProviderProxy = null;
-
-    public DataProviderProxyIf getDataProviderProxy() {
-        return dataProviderProxy;
-    }
-
-    public void setDataProviderProxy(DataProviderProxyIf dataProviderProxy) {
-        this.dataProviderProxy = dataProviderProxy;
-    }
 
     private static Logger logger =
         Logger.getLogger(SenseTileSystem.class);
@@ -75,7 +71,7 @@ public class SenseTileSystem {
      * @throws MalformedURLException
      * @requires this.packetInputStream /= null
      */
-     public final void processSensorData(final Packet packet) {
+     /*public final void processSensorData(final Packet packet) {
          //logger.info("Received Packet to process");
          DataBlockInt pktemp = new DataBlockInt(1);
          pktemp.setIntValue(packet.getTemperature());
@@ -84,7 +80,7 @@ public class SenseTileSystem {
          dataProviderProxy.insertObservation((int) smlSenseTileSystem.
                                getOutput("temperature"));
 
-     }
+     }*/
 
     /**
      * Set the packet reader.
@@ -97,30 +93,41 @@ public class SenseTileSystem {
 
     /**
      * Get an Input stream for the sensetilesystem xml.
+     * @param name
      * @return InputSteam
      */
-     private InputStream getSensorBoardInputStream(String name) {
-         return this.getClass().getResourceAsStream("/"+name);
+     private InputStream getSensorBoardInputStream(final String name) {
+         return this.getClass().getResourceAsStream("/" + name);
 
      }
 
      /**
       * Register Sensors for to receive packets from a PacketStreamReader.
       */
-     public final void registerSensors() {
-         List < DataProcess > sensorlist = smlSenseTileSystem.getSensors();
-         Iterator < DataProcess > iter = sensorlist.iterator();
+     public final void registerSensorsReader() {
+         List < Sensor > sensorlist = smlSenseTileSystem.getSensors();
+         Iterator < Sensor > iter = sensorlist.iterator();
          while (iter.hasNext()) {
-             AbstractProcess sensor = (AbstractProcess) iter.next();
-             this.packetInputStream.registerSensor((Sensor) sensor);
+             this.packetInputStream.registerSensor(iter.next());
          }
      }
 
+     /**
+      * Register Sensors with SOS.
+      */
      private final void registerSensorsSOS() {
-         sensorBoardOutput = new SystemOutput(dataProviderProxy);
+
+         //register sensor board system
+         sensorBoardOutput = new SystemOutput();
          sensorBoardOutput.setXmlDescription(
-                 smlSenseTileSystem.getComponentXML("sensorBoardSystem"));
+                           smlSenseTileSystem.getComponentXML("sensorBoardSystem"));
          sensorBoardOutput.registerSOS();
+
+         //register conversion system
+         convertorOutput = new SystemOutput();
+         convertorOutput.setXmlDescription(
+                         smlSenseTileSystem.getComponentXML("convertorSystem"));
+         convertorOutput.registerSOS();
      }
 
      /**
@@ -128,9 +135,9 @@ public class SenseTileSystem {
       */
     public final void execute() {
        smlSenseTileSystem.execute();
-       dataProviderProxy.insertObservation((int)
+       sensorBoardOutput.insertObservation((int)
                    smlSenseTileSystem.getOutput("temperatureOutput"));
-       dataProviderProxy.insertObservation((int)
+       convertorOutput.insertObservation((double)
                smlSenseTileSystem.getOutput("temperatureDNOutput"));
     }
 }

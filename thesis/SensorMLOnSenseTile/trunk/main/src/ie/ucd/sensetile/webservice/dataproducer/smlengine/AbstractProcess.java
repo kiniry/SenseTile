@@ -1,4 +1,4 @@
-package ie.ucd.sensetile.webservice.dataproducer;
+package ie.ucd.sensetile.webservice.dataproducer.smlengine;
 
 import ie.ucd.sensetile.sensorboard.Packet;
 
@@ -10,10 +10,10 @@ import org.vast.process.ProcessException;
 
 enum ProcessType { SENSOR, CONVERTER }
 
-public abstract class AbstractProcess extends DataProcess {
+public class AbstractProcess extends DataProcess {
 
     private DataValue input;
- 
+   
     private DataValue output;
 
     protected static Logger logger =
@@ -36,10 +36,12 @@ public abstract class AbstractProcess extends DataProcess {
             System.out.println("abstact name ???? " + this.getName());
             // I/O mappings
             input =
-                (DataValue) inputData.getComponent(this.getName() + "Input");
+                (DataValue) this.inputData.getComponent(
+                                           this.getName() + "Input");
 
             output =
-                (DataValue) outputData.getComponent(this.getName() + "Output");
+                (DataValue) this.outputData.getComponent(
+                                       this.getName() + "Output");
 
         } catch (ClassCastException e) {
             throw new ProcessException("Invalid I/O data", e);
@@ -66,7 +68,7 @@ public abstract class AbstractProcess extends DataProcess {
     * Executes process algorithm on inputs and set output data.
     * @throws ProcessException  - Vast Library processing exception
     */
-    public abstract void execute() throws ProcessException;
+    public void execute() throws ProcessException {};
 
 
 }

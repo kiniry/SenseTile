@@ -1,8 +1,8 @@
 package ie.ucd.sensetile.webservice.dataproducer;
 
-public interface DataProviderProxyIf {
+public interface SOSProxyIf {
 
-    void insertObservation(int observation);
+    void insertObservation(String sosId, String observation);
     
     public String registerSensor( String service,
              String version,

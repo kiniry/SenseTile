@@ -1,4 +1,6 @@
-package ie.ucd.sensetile.webservice.dataproducer;
+package ie.ucd.sensetile.webservice.dataproducer.smlengine;
+
+import ie.ucd.sensetile.webservice.dataproducer.Sensor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class SensorMLSystem {
     private SystemReaderV1 sysReaderv1;
     private DOMHelper domHelper;
 
-    SensorMLSystem(final InputStream inputxml) {
+    public SensorMLSystem(final InputStream inputxml) {
         initialise(inputxml);
     }
 
@@ -78,13 +80,13 @@ public class SensorMLSystem {
        return smlsystem.getOutputList().getComponent(outputname)
        .getData().getDoubleValue();
     }
-
+    
     public double getIntOutput(final String outputname) {
         return smlsystem.getOutputList().getComponent(outputname)
         .getData().getIntValue();
      }
 
-    public final List < DataProcess > getSensors() {
+    public final List < Sensor > getSensors() {
         List  < DataProcess > processlist = smlsystem.getProcessList();
         SMLSystem dp = null;
         List < DataProcess > sensorList = null;
@@ -95,7 +97,22 @@ public class SensorMLSystem {
                 sensorList = dp.getProcessList();
             }
         }
-        return sensorList;
+        return convertSensorList(sensorList);
+    }
+
+    /**
+     * Produces a list of Sensor type given a list of DataProcess
+     * @param dplist List <DataProcess>
+     */
+    private List < Sensor > convertSensorList(List <DataProcess> dplist){
+        List <Sensor> aplist = new ArrayList <Sensor>();
+        DataProcess dp = null;
+        Iterator < DataProcess > iter = dplist.iterator();
+        while (iter.hasNext()) {
+            dp = iter.next();
+            aplist.add((Sensor)dp);       
+        }
+        return aplist;
     }
 
     public final SMLSystem getSMLSystem(String systemName) {

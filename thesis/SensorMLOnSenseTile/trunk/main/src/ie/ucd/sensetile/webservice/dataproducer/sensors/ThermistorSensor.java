@@ -1,6 +1,8 @@
-package ie.ucd.sensetile.webservice.dataproducer;
+package ie.ucd.sensetile.webservice.dataproducer.sensors;
 
 import ie.ucd.sensetile.sensorboard.Packet;
+import ie.ucd.sensetile.webservice.dataproducer.Sensor;
+import ie.ucd.sensetile.webservice.dataproducer.smlengine.AbstractProcess;
 
 import org.vast.process.ProcessException;
 
