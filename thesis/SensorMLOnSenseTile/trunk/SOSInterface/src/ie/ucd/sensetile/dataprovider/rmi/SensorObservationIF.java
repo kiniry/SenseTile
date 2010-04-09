@@ -1,11 +1,11 @@
-package ie.ucd.sensetile.webservice.sos;
+package ie.ucd.sensetile.dataprovider.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface SensorObservationIF extends Remote {
 
-   public void insertObservation(int obs) throws RemoteException;
+   public void insertObservation(String sosId, String observation) throws RemoteException;
 
    //AssignedSensorId urn returned.
 
