@@ -52,11 +52,11 @@ The SensorML and SOS specifications are developed by the Open Geospatial Consort
 
 Developing robust sensor systems is also a natural concern. There are now formal verification based software development processes \cite{Kiniryref} with the goal of developing very robust systems.  Currently there is no widely available formal definition of sensors or sensor data processing. Formal sensor descriptions allows sensor system development with such a verification based process and their development is examined also in this thesis.
 
-A real sensor system called SenseTile[ref] is used as a case study in this thesis. SenseTile is a sensor and processing package contains motion sensors, temperature sensors, audio sensors, pressure sensors and light level sensors among others. It is used as a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
+A real sensor system called SenseTile[ref] is used as a case study in this thesis. SenseTile is a sensor and processing package that contains motion sensors, temperature sensors, audio sensors, pressure sensors and light level sensors among others. It is a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
 
-This thesis describes a  SensorML model of SenseTile, in particular the SenseTile Sensor Board . Based on this model a SenseTile Web Service prototype is developed to allow the retrieval of the SenseTile sensor SensorML descriptions and sensor observations. The Web Service is based on the SOS specification. An assessment of SensorML and SOS specifications is provided based on this work.
+This thesis describes a  SensorML model of SenseTile, in particular the SenseTile Sensor Board . Based on this model a SenseTile Web Service prototype is developed to allow the retrieval of the SenseTile sensor descriptions and sensor observations. The Web Service is based on the SOS specification. An assessment of SensorML and SOS specifications is provided based on this work.
 
-To formalize sensor description BON\cite{BONref} is used. BON is a notation and a method for Object Oriented systems analysis and design. A BON to SensorML mapping is described in thesis which allows sensor data and processing to defined formally in BON and refined to JML/Java as described in \cite{Kiniryref}.
+Buisness Object Notatation(BON)\cite{BONref} isi used to formalize SensorML sensor descriptions in this thesis. BON is a notation and a method for Object Oriented systems analysis and design. The BON to SensorML mapping described in thesis allows SensorML sensor descriptions to then be refined to Java as described in \cite{Kiniryref} as part of developing a robust Sensor System.
 
 
 \chapter{ Background Research}
@@ -433,7 +433,7 @@ each system is an offering.
 Need to generate an observation model?
 
 
-The DataProducer was developed as a SensorML based software. It would be parse the SenseTile SensorML model to instantiate the code to execute the processes described. This required two aspects to be developed, a framework to run the processes and classes that implemented the components.
+The DataProducer was developed as a SensorML based software. It parses the SenseTile SensorML model to instantiate the code to execute the processes described. This required two aspects to be developed, a framework to run the processes and classes that implemented the components.
 
 \begin{figure}[h]
 \centering
@@ -477,7 +477,7 @@ The DataProducer, described in section \ref{DataProducerHigh}, accesses the sens
 
 The SensorBoardDriver is described previously in section \ref{SensorBoardDriverSec}. There is also a SensorBoard Simulator library developed by UCS CASL researchers. It produces sensor board packets that can be feed into the DataProvider. This was used during the development of the DataProvider to facilitate testing. 
 
-The VastSensorMLEngine, described in section \ref{VastSensorMLEngineSec}, is used in conjunction with the SenseTile SensorML Model (section \ref{SenseTileModelSec}). The SensorML is parsed by the VastSensorMLEngine into a DOM tree. To perform the processing it propagates an execute method to the instantiated processes. A ProcessMap.xml file maps SensorML ProcessModel and Component method  URNs  (see section \ref{SMLsection}) to Java classes that provide the implementation of the processing to be performed. 
+The VastSensorMLEngine, described in section \ref{VastSensorMLEngineSec}, is used in conjunction with the SenseTile SensorML Model (section \ref{SenseTileModelSec}). The SensorML is parsed by the VastSensorMLEngine into a DOM\footnote{http://www.w3.org/DOM/} tree. To perform the processing it propagates an execute method to the instantiated processes. A ProcessMap.xml file maps SensorML ProcessModel and Component method  URNs  (see section \ref{SMLsection}) to Java classes that provide the implementation of the processing to be performed. 
 
 There is no documentation that I can find for the VastSensorMLEngine. There are some reference implementations of SWE services pointed to from the OGC SWE website \footnote{http://www.ogcnetwork.net/SWE} that provide some information how to use it. The SenseTile SensorML model was not parsed initially by the VastSensorMLEngine. As it opensource the code is available and after a few small changes the model parsed. The VastSensorMLEngine processes the model fine and was very stable during testing.
 
@@ -494,19 +494,81 @@ JAXB \footnote{http://java.sun.com/developer/technicalArticles/WebServices/jaxb}
 
 \chapter{BON to SensorML mapping}
 \section{Overview}
-In this chapter a BON(see section\ref{BONsec}) to SensorML( see section \ref{SMLsection}) mapping is described. One motivation for this mapping is take advantage of formal software development processes described in \cite{Kiniryref}. This is a verification based process that refines BON to JML and then to Java. Robust software can thus be developed. Another motivation is that it XML is verbose and a more compact description of a SensorML model as facilitated by BON is naturally preferred. Lastly SensorML is complex and it is difficult to develop correct SenorML models based only on using the SensorML XML Schema definition. How a BON specification can help here is described later in the chapter.
+In this chapter a BON(see section\ref{BONsec}) to SensorML( see section \ref{SMLsection}) mapping is described. One motivation for this mapping is take advantage of formal software development processes described in \cite{Kiniryref}. This is a verification based process that refines BON to JML and then to Java. Robust software can thus be developed. Another motivation is that it XML is verbose and a more compact description of a SensorML model as facilitated by BON is naturally preferred. Lastly SensorML is complex and it is difficult to develop correct SenorML models based only on using the SensorML XML Schema definition. How a BON specification of SensorML can help here is described later in the chapter.
 
 \section{SensorML BON Specification}
-This sections shows an example of one BON specification to explain the approach used to develop BON specifications for SensorML. The BON specification of SensorML described is very close conceptually to the SensorML model shown in section \ref{SMLsection}. The BON specification developed in this thesis does not address the issue of the SensorML metadata. This information  is for descriptive purposes only and is not used for processing sensor data. BON adds no value here and a different way to add this property  to SensorML sensor descriptions is suggested to be used. One potential way to add this metadata is through the use of XSLT\footnote{http://www.w3.org/TR/xslt20/} but this is not examined further in this thesis.
-
-The listing \ref{BONListing} shows the BON specification for the SensorML AbstractProcess as described in section \ref{SMLsection}.  The AbstractProcess's inputs, outputs and parameters properties are specified as BON features of type SEQUENCE of the appropriate types. These AbstractProcess properties are optional according to the SensorML specification and so there is no postcondition to enforce that a value must be returned. Setter features are provided and also a constructor feature, make, with the most likely used features as the constructor parameters.
-
-The AbstractProcess's metaDataGroup property is not optional in AbstractProcess. In this case the metaDataGroup feature is used a placeholder for the metadata and returns a BON STRING rather than the expected MetaDataGroup. 
+The BON specification of SensorML described is very close conceptually to the SensorML model shown in section \ref{SMLsection}.  The BON SensorML model is shown in figure \ref{fig:bonSensoMLModel}. 
+\begin{figure}[h]
+\centering
+\scalebox{0.65}{\includegraphics{bonSensoMLModel.png}}
+\caption{BON SensorML Model}\label{fig:bonSensoMLModel}
+\end{figure}
+The inheritance heirarhcy is changed slightly with System inheriting from ProcessChain and Component inheriting from ProcessModel. A new abstraction called Port is added. Port contains all the properties of SensorML inputs, outputs and parameters with classes Input, Output and Parameter subtyping to make mapping to SensorML easier.
+A BON specification SWE Common data types Count and Quantity are also described along with needed dependent classes. The abstract class DataComponent is the base type for these. There are a many other types but only Count and Quantity are developed as they were the ones used in the SenseTile SensorML model.
+The BON specification developed in this thesis does not address the issue of the SensorML metadata and the MetaDataGroup is not specified. This information is for descriptive purposes only and is not used for processing sensor data. BON adds no value here. A different way to add this information to SensorML sensor descriptions is suggested to be used.
 
 The complete BON SensorML specification listing can be found in appendix \ref{appenBSMLBONSpec}.
-\newpage
 
- \begin{lstlisting}[basicstyle=\scriptsize,showspaces=false,showstringspaces=false, caption=BON AbstractProcess,label=BONListing]
+\section{BON to SensorML XML Mapping}
+Tables of mapping, like table\ref{tab:bonsmlexample} below, are developed to show the mapping of BON features to SensorML XML tags. The mapping is shown from a BON feature to the appropriate SensorML XML tags. The table below shows a mapping for AbstractProcess. The name of the class is not mapped as it is abstract with the sub-classes Component and ProcessModel providing the name of the enclosing tag names. The  BON SEQUENCE types such as SEQUENCE[Input] map to a sequence of Input mapped SensorML XML tags found in the Input mapping table. The full set of tables are in appendix \ref{appenBSMLBONTables}.
+
+\lstset{frame=none}
+
+\begin{table}[!th]
+
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class AbstractProcess  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:STRING &  \begin{lstlisting}
+<\sml:metaDataGroup>metaDataGroup<\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+
+\caption{BON to SensorML AbstractProcess Mapping table}
+\label{tab:bonsmlexample}
+\end{table}
+
+The MetaDataGroup is not described in BON as explained previously and only a place holder value is mapped from this feature.
+
+\section{ProcessChain connections problem}
+One of the major features of SensorML is the ablity to describe chains of processes. The SensorML ProcessChain and System types have a connections property that allows this chaining as decribed in section \ref{SMLref} .However strings are used to describe the connection. These connection strings are parsed to find out the inputs and outputs to connect up as described in SenseTile System section \ref. This is very error prone and the ability to check that connections are correct to a least some degree is desirable.
+Below are two fragents form SenseTile System and SenseTile Thermistor that descibe a connection form th 
+
+
+\begin{lstlisting}
+   <sml:connection name="convertToTemperature">
+          <sml:Link>
+              <sml:source ref="sensorBoardSystem/outputs/temperatureDNOutput"/>
+              <sml:destination ref="convertorSystem/inputs/celciusConvInput"/>
+          </sml:Link>
+   </sml:connection>
+\begin{lstlisting}
+
+ BON specification can enforce some level of correctness in that inputs in connections must be inputs in the components contained in that chain. This is shown in the BON fragment below.
+
+\begin{lstlisting}[basicstyle=\scriptsize,showspaces=false,showstringspaces=false, caption=BON AbstractProcess,label=BONListing]
    deferred class AbstractProcess
      indexing
      about: "base substitution group for all processes.";
@@ -574,61 +636,9 @@ The complete BON SensorML specification listing can be found in appendix \ref{ap
    end --AbstractProcess
  \end{lstlisting}
 
-
-
-\section{BON to SensorML Mapping}
-Tables of mapping, like table\ref{tab:bonsmlexample} below, are developed to show the mapping of BON features to SensorML XML tags. The mapping is shown from a BON feature to the appropriate SensorML XML tags. The table below shows a mapping for AbstractProcess. The name of the class is not mapped as it is abstract with the sub-classes Component and ProcessModel providing the name of the enclosing tag names. The  BON SEQUENCE types such as SEQUENCE[Input] map to a sequence of Input mapped SensorML XML tags found in the Input mapping table. The full set of tables are in appendix \ref{appenBSMLBONTables}.
-
-\lstset{frame=none}
-
-\begin{table}[!th]
-
-\centering
-\begin{tabular}{|l|l|}
-\hline
-BON features & SensorML XML tags\\
-\hline
-   deferred class AbstractProcess  & not mapped\\
-\hline     
-     inputs:SEQUENCE[Input] & \begin{lstlisting}
-<sml:inputs><sml:inputlist>
-SEQUENCE[Input]
-<\sml:InputList><\sml:inputs>\end{lstlisting}\\
-
-\hline 
-     outputs:SEQUENCE[Output] & \begin{lstlisting}
-<sml:outputs><sml:outputlist>
-SEQUENCE[Input]
-<\sml:outputList><\sml:outputs>\end{lstlisting}\\
-\hline
-     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
-<sml:parameters><sml:parametertlist>
-SEQUENCE[Input]
-<\sml:outputList><\sml:outputs>\end{lstlisting}\\
-
-\hline                 
-     metaDataGroup:STRING &  \begin{lstlisting}
-<\sml:metaDataGroup>metaDataGroup<\sml:metaDataGroup>\end{lstlisting}\\
- \hline    
-
-\end{tabular}
-
-\caption{BON to SensorML AbstractProcess Mapping table}
-\label{tab:bonsmlexample}
-\end{table}
-
-The MetaDataGroup is not described in BON as explained in the overview section. Only a place holder value mapped from this feature.
-
-Connections as described in section x are connected up using strings that have to be parsed to find out the inputs and outputs to connect up. Invariants written in BON can enforce some level of corrects in that inputs in connections must be inputs in the components contained in that chain. This is shown in the BON fragment below.
-
-BON fragment invariant.
-
 SWE and BON Clusters.
-\section{BON Thermistor}
+\section{SenseTile Thermistor BON SensorML Specification }
 Thermistor can be generated by the following BON class.
-\section{method}
-BON to SensorML
-BON to Java\\JML.
 
 \chapter{Results}
 
@@ -644,7 +654,7 @@ BON mapping developed for main SensorML types. A BON description of SenseTile Se
 was developed based on the mapping.
 
 \chapter{ Conclusions and Future Work}
-This thesis analyses the role SensorML plays in Sensor Web Networks. The UCD CASL SenseTile System is used a case study with the development of the SenseTile Web Service to access the SenseTile System sensor data. SensorML alone is not sufficient to model all aspects of Sensor Web Networks but is focused on providing a standard way to exchange sensor metadata, describing sensor input/output data and the processing of sensor data. This leads to examining other OGC SWE specifications, of which SensorML is one. The SWE SOS specification describes the operations for accessing sensor observations and it's concepts were used to develop the SenseTile Web Service. It uses SensorML provide sensor metadata to clients and the O\&M specification to encode observations. The OGC SWE initiative is trying to standardize a Web Service approach to accessing and processing sensor data.
+This thesis analyses the role SensorML and plays in Sensor Web Networks. The UCD CASL SenseTile System is used a case study with the development of the SenseTile Web Service to access the SenseTile System sensor data. SensorML alone is not sufficient to model all aspects of Sensor Web Networks but is focused on providing a standard way to exchange sensor metadata, describing sensor input/output data and the processing of sensor data. This leads to examining other OGC SWE specifications, of which SensorML is one. The SWE SOS specification describes the operations for accessing sensor observations and it's concepts were used to develop the SenseTile Web Service. It uses SensorML provide sensor metadata to clients and the O\&M specification to encode observations. The OGC SWE initiative is trying to standardize a Web Service approach to accessing and processing sensor data.
 
 SensorML is relatively intuitive but it is difficult to know if one has developed a "good" SensorML model. There are examples and tutorials to help. 
 
@@ -744,6 +754,281 @@ SEQUENCE[Input]
 \caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
 \label{ex:table}
 \end{table}
+
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class System  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class C  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class Link  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class ProcessChain  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class ProcessModel  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class Port  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class Quantity  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+\begin{table}[!th]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+BON features & SensorML XML tags\\
+\hline
+   deferred class Count  & not mapped\\
+\hline     
+     inputs:SEQUENCE[Input] & \begin{lstlisting}
+<sml:inputs><sml:inputlist>
+SEQUENCE[Input]
+<\sml:InputList><\sml:inputs>\end{lstlisting}\\
+
+\hline 
+     outputs:SEQUENCE[Output] & \begin{lstlisting}
+<sml:outputs><sml:outputlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+\hline
+     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
+<sml:parameters><sml:parametertlist>
+SEQUENCE[Input]
+<\sml:outputList><\sml:outputs>\end{lstlisting}\\
+
+\hline                 
+     metaDataGroup:MetaDataGroup &  \begin{lstlisting}
+<\sml:metaDataGroup><\sml:metaDataGroup>\end{lstlisting}\\
+ \hline    
+
+\end{tabular}
+\caption{BON to SensorML AbstractProcess Mapping table}\label{table:bon_sml_example}
+\label{ex:table}
+\end{table}
+
+
 \label{endpage}
 \end{document}
 
