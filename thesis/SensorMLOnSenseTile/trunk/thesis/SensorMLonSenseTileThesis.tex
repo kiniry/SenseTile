@@ -9,7 +9,7 @@
 %%% Input project details
 \def\studentname{Ciaran Palmer}
 \def\projecttitle{SensorML on SenseTile}
-\def\supervisorname{Your Supervisor Name}
+\def\supervisorname{Dr. Joseph Kiniry}
 \def\moderatorname{-}
 
 
@@ -70,8 +70,8 @@ As described in the introduction the SensorML and SOS specifications are develop
 \item  Observations \& Measurements (O\&M) - models and schema for packaging observation values
 \item  Transducer Markup Language (TML) - models and schema for multiplexed data from sensor systems
 \item  Sensor Planning Service (SPS) - standard web interface for tasking sensor systems and model and requesting acquisitions
-\item   Sensor Alert Service (SAS) - standard web interface for publishing and subscribing to sensor alerts
-\item   Web Notification Service (WNS) - standard web interface for asynchronous notification
+\item  Sensor Alert Service (SAS) - standard web interface for publishing and subscribing to sensor alerts
+\item  Web Notification Service (WNS) - standard web interface for asynchronous notification
 \end{itemize}
 
 SWE services based on the aboved specifications allow the discovery of sensors, access to the sensor data, as well as subscription to alerts, and tasking of sensors to control observations. For a good overview of SWE and it's use in Sensor Web Networks see \cite{SWEArchref}.  Along with with the SensorML and SOS specification, the O\&M specification is also used in developing the SenseTile Web Service as it defines the encoding of sensor observations. 
@@ -127,9 +127,9 @@ The SOS specification uses four main entities to describe the SOS's operation. T
 
 The diagram above shows the core and transactional operations provided by an SOS. The core operations are GetCapabilities, DescribeSensor and GetObservations. These are mandatory operations used by Data Consumers to request sensor information.  The core operations perform the following function:
  \begin{itemize}
-\item GetCapabilities  -   operation to retrieve SOS observation offering information.
-\item DescribeSensor - operation to retrieve detailed information about the sensors.
-\item GetObservation -   operation to obtain sensor observations.
+\item GetCapabilities  -    retrieve SOS observation offering information.
+\item DescribeSensor -    retrieve detailed information about the sensors.
+\item GetObservation -   obtain sensor observations.
 \end{itemize}
 
 The transactional operations are RegisterSensor and InsertObservation used by the Data Producer to provided sensor information and observations. The transactional operations supported are described in the following:
@@ -140,18 +140,17 @@ The transactional operations are RegisterSensor and InsertObservation used by th
 
 These operations are encoded in XML and are intended to be carried http  operations. The sensor observations contained in  GetObservation and InsertObservation operations are encoded according to the OGC O\&M Observations \cite{OMref}. Sensor systems metadata contained in DescribeSensor and RegisterSensor is defined in SensorML or TML.
 
-The SOS Operation Context diagram also shows a discovery process involving the  Data Consumer and a OGC Catalog Service (CS-W) catalog. The Data Consumer uses a CS-W catalog to find SOS instances. The GetCapabilites are then used toward each of the SOS instances returned to find sensor systems that are of interest to the Data Consumer. The CS-W catalog is covered in a separate specification \cite{OGCcatref}. This not covered in any real detail in the SOS specification. The OGC Catalog Service is not explored in this thesis.
-
-There are also six other operations the SOS refers to as enhanced operations. They are GetResult,
-GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest,
-DescribeObservationType, and DescribeResultModel. These operations are not covered in this thesis.
-
 The SenseTile Web Service developed in this thesis is based on the concepts described in the Sensor Observation Service (SOS) specification. The SOS Data Consumer and SOS Data Provider entities will referred to a DataConsumer and DataProvider respectively in this thesis when describing the SenseTile Web Service.
+ 
+The OGC Catalog Service is not explored in this thesis. The SOS Operation Context diagram shows a discovery process involving the  Data Consumer and a OGC Catalog Service (CS-W) catalog. The Data Consumer uses a CS-W catalog to find SOS instances. The GetCapabilites are then used toward each of the SOS instances returned to find sensor systems that are of interest to the Data Consumer. The CS-W catalog is covered in a separate specification \cite{OGCcatref}. This not covered in any real detail in the SOS specification. 
+
+There several optional SOS operations not covered in this thesis. The SOS refers to these as enhanced operations. They are GetResult,
+GetFeatureOfInterest, GetFeatureOfInterestTime, DescribeFeatureOfInterest, DescribeObservationType, and DescribeResultModel. 
 
 
 \section{SenseTile}
 A case study of the use of SensorML in sensor networks is based on the SenseTile System. SenseTile is a general purpose sensor system developed at UCD CASL \footnote{http://kind.ucd.ie/
-products/opensource/SenseTile}. The SenseTile System is used to investigate issues arising with large scale sensor networking. SenseTile is made up of a sensor platform, a datastore, and a compute farm. The below figure shows a outline of this system. 
+products/opensource/SenseTile}. The SenseTile System is used to investigate issues arising with large scale sensor networking. SenseTile is made up of a sensor platform, a datastore, and a compute farm. Figure \ref{SenseTileDescription} shows a outline of this system. 
 \begin{figure}[h]
 \centering
 \framebox{\scalebox{0.65}{\includegraphics{SenseTileDescription.png}}}
@@ -171,7 +170,7 @@ The VAST Team at the University of Alabama in Huntsville (UAH)  developed an ope
 
 
 \section{BON} \label{BONsec}
-Business Object Notation (BON) is a notation and a method for analysis and design of Object-Oriented (OO) systems. It supports a seamless transition from the design to the source code as it based on the same Object Oriented (OO) concepts supported by most OO languages. It is reversible as changes in the source code can be easily mapped back into the design and analysis models. It supports software contracting where each function will guarantee a postcondition specified service if a specified precondition is fulfilled by the caller of the function. BOB support for software contracting allows for a formal description of a system to be developed. For a detailed description of BON see \cite{BONref}.
+Business Object Notation (BON) is a notation and a method for analysis and design of Object-Oriented (OO) systems. It supports a seamless transition from the design to the source code as it based on the same Object Oriented (OO) concepts supported by most OO languages. It is reversible as changes in the source code can be easily mapped back into the design and analysis models. It supports design by contract\ref{meyerref} where a function will guarantee a postcondition if a specified precondition is fulfilled by the caller of the function. BON support for design by contract allows for a formal description of a system to be developed. For a detailed description of BON see \cite{BONref}.
 \chapter{Design}
 \section{Overview}
 This chapter describes the design of the SenseTile Web Service. Rather than define any new sensor models or XML formats for SenseTile it preferable to use the existing solutions if good enough for the task at hand. The OGC SWE framework as described in section\ref{SWESec} seems to cover all that is needed for modeling sensors and observations. Central to the design is a SensorML model of the SenseTile System. The section SensorML Model of SenseTile covers the details of this model. This model acts as both metadata about the SenseTile system and provides a description of how to process the sensor data for the SenseTile Web Service.
@@ -187,13 +186,13 @@ A SensorML model of SenseTile is developed as part of this thesis. The SenseTile
 \caption{SenseTile System SensorML Block Diagram}\label{fig:SensorML_SenseTile_System_comp}
 \end{figure}
 
-In the block diagram there are three SensorML Systems, the SenseTile System, the Sensor Board System and the Conversion System. The SenseTile System is used as container for the other two systems linking them in a process chain. The Sensor Board system contains metadata about the SenseTile Sensor Board and is a container for SensorML Components that model the Sensor Board's sensors. The block diagram shows the physical phenomena measured by the sensors being feed as inputs to the Components in the Sensor Board System. The SensorBoard System outputs digital numbers based on the sensors measurement that have no physical meaning yet. The SenseTile System outputs the digital numbers directly and also connects to the input of the Conversion System. The digital numbers from the sensors are fed into the relevant conversion process that produce a meaningful value such as Celsius of Lumen. This allows the SenseTile Web Service provide the raw data from the sensors or the data converted to meaningful values to clients.
+In the block diagram there are three SensorML Systems, the SenseTile System, the Sensor Board System and the Conversion System. The SenseTile System is used as container for the other two systems linking them in a process chain. The Sensor Board system contains metadata about the SenseTile Sensor Board and is a container for SensorML Components that model the Sensor Board's sensors.
 
-Only the Thermistor Component and the Celsius Component are developed as part of this thesis. However the same approach can applied to the other senors.
+The block diagram shows the physical phenomena measured by the sensors being feed as inputs to the Components in the Sensor Board System. The SensorBoard System outputs digital numbers based on the sensors measurement that have no physical meaning yet. The SenseTile System outputs the digital numbers directly and also connects this output to the input of the Conversion System. The digital numbers from the sensors are fed into the relevant conversion process that produce a meaningful value such as Celsius or Lumen. This allows the SenseTile Web Service provide the raw data from the sensors or the data converted to meaningful values to clients.
 
-Why use this structure? eeicpr
+Only the Thermistor is modeled in this thesis. The  CelsiusConv Component converts the digital number form the Thermistor Component to a Celcius value. The same approach can applied to the other senors though for some components no conversion may be necessary.
 
-A description of the Systems and Components used in the SenseTile are provided in the following sections.
+A description of the SenseTile Systems and Components used in the SenseTile model is provided in the following sections.
 
 \subsection{SenseTile System}
 The SenseTile System is a SensorML System as described in section \ref{SMLsection} and is a container for the Sensor Board and Conversion Systems connecting their inputs and outputs as appropriate. The below XML fragment shows how SensorML encodes the containment of these Systems. 
@@ -290,13 +289,12 @@ The SensorML Thermistor temperature input is modeled using a Quantity value with
 \end{lstlisting}
 
 \subsection{Converter System}
+The Converter System is a container for the processes that convert the sensor data to a meaningful value. It this case it connects up the inputs and outputs the CelsiusConv Component. 
 \subsection{Celsius Converter Component}
 
-The SensoML Celsius Converter SensorML Component  models a process that performs a conversion of the Thermistors digital number output to a real quantity celsius value. It similar to the Thermistor SensorML description but its inputs and outputs are different. It process method performs a simple calculation to perform the Celsius conversion.
+The SensorML Celsius Converter SensorML Component  models a process that performs a conversion of the Thermistors digital number output to a real quantity celsius value. It similar to the Thermistor SensorML description but its inputs and outputs are different. Its process method performs a simple calculation to perform the Celsius conversion.
 
 A Sensor process method is also developed. The process method describes the conversion algorithm and points to an implementation class. Process Methods are not implemented by the Vast Lib so it not used in the running system. Instead the method tag provides a URN that is used to lookup the implementation class.
-
-
 
 \section{SenseTile Web Service}
 \subsection{Overview}
@@ -313,41 +311,43 @@ The two components are run as seperate processes on the SenseTile processor unit
 
 The DataProvider parses a SensorML description of the SenseTile System, reads sensor data form the Sensor Board and provides the sensor data as O\&M Observations to the SOS. The SenseTile SOS will implement the SOS core operations to allow a client to get these observations. The following sections describe the design of the DataProvider and SOS components as well as the scenarios they support.
 
+\newpage
 \subsection{Supported Scenarios}
-\begin{table}[!th]
-\begin{tabular}{|l|c|r|}
-\hline
-Scenarios\\
-\hline
-Generate Observations from Sensor Data \\
-The DataProducer accesses data from the sensor board \\
-\hline
-Get Sensor Description from SOS\\
-\hline
-Get  Sensor Observation from SOS\\
-\hline
-\end{tabular}
-\caption{Scenario Chart for SenseTile Web Service}
-\label{ex:table}
-\end{table}
+This section provides UML sequence diagrams to show the how the DataProducer and SOS interact to provide the sensor to the DataConsumer client.
+
+\subsubsection{Generate Observations from Sensor Data}
+The DataProducer accesses data from the sensor board 
 \begin{figure}[h]
 \centering
 \framebox{\scalebox{0.65}{\includegraphics{InsertObs.png}}}
 \caption{Generate Observation}\label{fig:InsertObs}
 \end{figure}
+ \begin{enumerate}
+\item -
+\item -
+\item -
+\end{enumerate}
 
+\subsubsection{Get Sensor Description from SOS}
 \begin{figure}[h]
 \centering
 \framebox{\scalebox{0.65}{\includegraphics{GetMeta.png}}}
 \caption{Find SOS sensor}\label{fig:GetMeta}
 \end{figure}
-
+ \begin{enumerate}
+\item -
+\item -
+\end{enumerate}
+\subsubsection{Get  Sensor Observation from SOS}
 \begin{figure}[h]
 \centering
 \framebox{\scalebox{0.65}{\includegraphics{GetObs.png}}}
 \caption{Get Observation from Sensor}\label{fig:GetObs}
 \end{figure}
-\newpage
+ \begin{enumerate}
+\item -
+\end{enumerate}
+
 \subsection{SenseTile WebService Network Architecture}
 \label{subsec:SenseTile WebService Network Architecture}
 In the SenseTile Web Service the SOS acts as a gateway to the SenseTile Sensor Network. This prototype is designed with the network architecture as shown in fig \ref{fig:Deployment_network}. A client accesses multiple SOS instances to get observations from the sensor network. An SOS can support several DataProducers and hence would not to be run on every SenseTile Unit. 
@@ -412,7 +412,7 @@ but will average it before it sent to the SensorML Engine for processing.
 
 \subsubsection {2. Process Sensor Data}
 The PacketInputStream will request the SenseTileSystem to exexcute
-the SensorML engine to process the sensor data. The SensoML Enigine
+the SensorML engine to process the sensor data. The SensorML Enigine
 will execute the process chains described in the SenseTile SensorML model.
 The sensor objects output will be passed to the converter objects. The
 outputs of both object types are then available to generate observations.
@@ -503,140 +503,94 @@ The BON specification of SensorML described is very close conceptually to the Se
 \scalebox{0.65}{\includegraphics{bonSensoMLModel.png}}
 \caption{BON SensorML Model}\label{fig:bonSensoMLModel}
 \end{figure}
-The inheritance heirarhcy is changed slightly with System inheriting from ProcessChain and Component inheriting from ProcessModel. A new abstraction called Port is added. Port contains all the properties of SensorML inputs, outputs and parameters with classes Input, Output and Parameter subtyping to make mapping to SensorML easier.
-A BON specification SWE Common data types Count and Quantity are also described along with needed dependent classes. The abstract class DataComponent is the base type for these. There are a many other types but only Count and Quantity are developed as they were the ones used in the SenseTile SensorML model.
-The BON specification developed in this thesis does not address the issue of the SensorML metadata and the MetaDataGroup is not specified. This information is for descriptive purposes only and is not used for processing sensor data. BON adds no value here. A different way to add this information to SensorML sensor descriptions is suggested to be used.
+The inheritance heirarhcy is changed slightly with System inheriting from ProcessChain and Component inheriting from ProcessModel. A new abstraction called Port is added. Port contains all the properties of SensorML input, output and parameter as they all have the same properties. A PortType class that ensures legal port types of Input, Output and Parameter is also added to the SenorML BON model.
 
+A BON specification SWE Common data types Count and Quantity are also described along with needed dependent classes. The abstract class DataComponent is the base type for these. There are a many other types but only Count and Quantity are developed as they were the ones used in the SenseTile SensorML model.
+
+The BON specification developed in this thesis does not address the issue of the SensorML metadata and the MetaDataGroup is not specified. This information is for descriptive purposes only and is not used for processing sensor data. BON adds no value here. A different way to add this information to SensorML sensor descriptions is suggested to be used.
+AssociationAttributeGroup
+SensorML
+Member
 The complete BON SensorML specification listing can be found in appendix \ref{appenBSMLBONSpec}.
 
-\section{BON to SensorML XML Mapping}
-Tables of mapping, like table\ref{tab:bonsmlexample} below, are developed to show the mapping of BON features to SensorML XML tags. The mapping is shown from a BON feature to the appropriate SensorML XML tags. The table below shows a mapping for AbstractProcess. The name of the class is not mapped as it is abstract with the sub-classes Component and ProcessModel providing the name of the enclosing tag names. The  BON SEQUENCE types such as SEQUENCE[Input] map to a sequence of Input mapped SensorML XML tags found in the Input mapping table. The full set of tables are in appendix \ref{appenBSMLBONTables}.
+\section{SensorML BON to XML Mapping}
+SensorML is essential XML defined by XML Schema with its main purpose being interopeability. Therefore a mapping SensorML BON specification to the SensorML XML is needed. The BON types map closely to SensorML complex types and so a relatively simple scheme is needed.
+Effective BON classes map to XML elements. Features in the class map either to attributes of the XML element or a contained XML element. Whether a feature is an attribute is indicated in the class as a comment using @SensorML to make this comment as a mapping instruction. Otherwise an XML element is assumed. The type names of the BON classes and features are the XML element or attribute names. Values. Case of names.
 
-\lstset{frame=none}
+BON SEQUENCE types need a special rule for mapping to SensorML.
 
-\begin{table}[!th]
-
-\centering
-\begin{tabular}{|l|l|}
-\hline
-BON features & SensorML XML tags\\
-\hline
-   deferred class AbstractProcess  & not mapped\\
-\hline     
-     inputs:SEQUENCE[Input] & \begin{lstlisting}
-<sml:inputs><sml:inputlist>
-SEQUENCE[Input]
-<\sml:InputList><\sml:inputs>\end{lstlisting}\\
-
-\hline 
-     outputs:SEQUENCE[Output] & \begin{lstlisting}
-<sml:outputs><sml:outputlist>
-SEQUENCE[Input]
-<\sml:outputList><\sml:outputs>\end{lstlisting}\\
-\hline
-     parameters:SEQUENCE[Parameter] & \begin{lstlisting}
-<sml:parameters><sml:parametertlist>
-SEQUENCE[Input]
-<\sml:outputList><\sml:outputs>\end{lstlisting}\\
-
-\hline                 
-     metaDataGroup:STRING &  \begin{lstlisting}
-<\sml:metaDataGroup>metaDataGroup<\sml:metaDataGroup>\end{lstlisting}\\
- \hline    
-
-\end{tabular}
-
-\caption{BON to SensorML AbstractProcess Mapping table}
-\label{tab:bonsmlexample}
-\end{table}
-
-The MetaDataGroup is not described in BON as explained previously and only a place holder value is mapped from this feature.
+Connections rule.
 
 \section{ProcessChain connections problem}
-One of the major features of SensorML is the ablity to describe chains of processes. The SensorML ProcessChain and System types have a connections property that allows this chaining as decribed in section \ref{SMLref} .However strings are used to describe the connection. These connection strings are parsed to find out the inputs and outputs to connect up as described in SenseTile System section \ref. This is very error prone and the ability to check that connections are correct to a least some degree is desirable.
-Below are two fragents form SenseTile System and SenseTile Thermistor that descibe a connection form th 
-
-
-\begin{lstlisting}
+One of the major features of SensorML is the ablity to describe processing chains. The SensorML ProcessChain and System types have a connections property that allows process chaining as decribed in section \ref{SMLref}. Strings are used to describe the connection. An example of this is shown in listing \ref{connectionListing} shows one of the connections from the SenseTile System as described in section \ref{SenseTileModelSec}
+\begin{lstlisting}[label=connectionListing,caption=SenseTile System connectionconvertToTemperature]
    <sml:connection name="convertToTemperature">
           <sml:Link>
               <sml:source ref="sensorBoardSystem/outputs/temperatureDNOutput"/>
               <sml:destination ref="convertorSystem/inputs/celciusConvInput"/>
           </sml:Link>
    </sml:connection>
-\begin{lstlisting}
 
- BON specification can enforce some level of correctness in that inputs in connections must be inputs in the components contained in that chain. This is shown in the BON fragment below.
+\end{lstlisting}
 
-\begin{lstlisting}[basicstyle=\scriptsize,showspaces=false,showstringspaces=false, caption=BON AbstractProcess,label=BONListing]
-   deferred class AbstractProcess
+The source and destination reference strings need to be parsed to find out the inputs and outputs to connect. This is very error prone and the ability to check that connections are correct to a least some degree is desirable. A BON specification can enforce some level of correctness in setting up the connections using preconditions (ensure). The source reference must be either an input of the process chain itself or an output of one of the contained components. In the BON ProcessChain class a feature AddLink checks that Links are legal before adding the Link to the connections feature. This is shown in the BON listing below.
+
+\begin{lstlisting}[basicstyle=\scriptsize,showspaces=false,showstringspaces=false, caption=BON ProcessChaing]  
+effective class ProcessChain
      indexing
-     about: "base substitution group for all processes.";
-     title:        "AbstractProcess.";
+     about:        "Process formed by chaining sub-processes.";
+     title:        "ProcessChain.";
      author:       "Ciaran Palmer.";
      copyright:    "none.";
      organisation: "School of Computer Science and Informatics, UCD.";
-     date:         "2009/10/29.";
+     date:         "2010/04/01.";
      version:      "Revision: 1.00.";
-     
+
+     inherit AbstractProcess
      feature
-
+     
      make
-       ->inputsIn:SEQUENCE[Input]
-       ->outputsIn:SEQUENCE[Output]
+       ->componentsIn:AbstractProcess
        require
-         inputsIn/=Void;
-         inputsIn/=Void;
+         componentsIn/=Void;         
        ensure
-         delta{inputs,outputs};
-         inputs = inputsIn;
-         outputs = outputsIn;
+         delta{components};
+         components = componentsIn;
        end
-            
-     --optional       
-     inputs:SEQUENCE[Input]
- 
-      --optional        
-     outputs:SEQUENCE[Output]
+     
+     -- Collection of subprocesses that can be chained using connections      
+     components:SEQUENCE[AbstractProcess]
+     
+     -- Links between processes
+     connections:SEQUENCE[Link]
+     
+     -- Add a link with check that Link is legal
+     AddLink
+        ->linkIn:Link
+      require
+          linkIn /= Void;
 
-      --optional       
-     parameters:Parameters
-                 
-     metaDataGroup:STRING
+           -- check Link source is legal
+          (exists i:INTEGER such_that linkIn.source = Current.inputs[i]) or\
+          \(exists i:INTEGER and j:INTEGER such_that linkIn.source =\
+          \components[j].outputs[i]);
+
+          -- check Link destination is legal
+          (exists i:INTEGER such_that linkIn.destination = Current.outputs[i]) or\
+          \(exists i:INTEGER and j:INTEGER such_that linkIn.destination =\
+          \components[j].inputs[i]);
+
         ensure
-          Result = "metaDataGroup";
-       end
-       
-     setInputs
-       ->inputsIn:SEQUENCE[Input]
-       require
-         inputsIn/=Void;
-       ensure
-         delta{inputs};
-         inputs = inputsIn;
-       end
- 
-      setOutputs
-       ->outputsIn:SEQUENCE[Output]
-       require
-         outputsIn/=Void;
-       ensure
-         delta{outputs};
-         outputs = outputsIn;
-       end
-       
-      setParameters
-       ->ParametersIn:SEQUENCE[Parameter]
-       require
-         ParametersIn/=Void;
-       ensure
-         delta{Parameters};
-         Parameters = ParametersIn;
-       end               
-   end --AbstractProcess
+           delta{connections};
+          (exists i:INTEGER such_that connections[i] linkIn);
+      
+      invariant
+        components /= Void;
+        
+  end --ProcessChain
  \end{lstlisting}
 
-SWE and BON Clusters.
+
 \section{SenseTile Thermistor BON SensorML Specification }
 Thermistor can be generated by the following BON class.
 
@@ -654,35 +608,44 @@ BON mapping developed for main SensorML types. A BON description of SenseTile Se
 was developed based on the mapping.
 
 \chapter{ Conclusions and Future Work}
-This thesis analyses the role SensorML and plays in Sensor Web Networks. The UCD CASL SenseTile System is used a case study with the development of the SenseTile Web Service to access the SenseTile System sensor data. SensorML alone is not sufficient to model all aspects of Sensor Web Networks but is focused on providing a standard way to exchange sensor metadata, describing sensor input/output data and the processing of sensor data. This leads to examining other OGC SWE specifications, of which SensorML is one. The SWE SOS specification describes the operations for accessing sensor observations and it's concepts were used to develop the SenseTile Web Service. It uses SensorML provide sensor metadata to clients and the O\&M specification to encode observations. The OGC SWE initiative is trying to standardize a Web Service approach to accessing and processing sensor data.
+This thesis analyses the role of SensorML and SOS specifications in Sensor Systems. The UCD CASL SenseTile System is used as a case study for the use of these specifications. A SensorML model of SenseTile and a SenseTile Web Service prototype.
 
+SensorML address the issues of interoperabilty of Sensor Systems
+rich description of a sensor systems. Hard to think of any system that could no be described by SensorML. Weather systems to Geloloaction services. 
+Accurate elements. Processing data. Metadata.
+The supporting SWE Common data types are many data types.
+SensorML Frameworks.
+Precisely define its data.
+It also is bases for developement for Sensor Ontology work.\footnote{http://www.calebgoodwin.com/SEMANTIC.html}
 SensorML is relatively intuitive but it is difficult to know if one has developed a "good" SensorML model. There are examples and tutorials to help. 
 
 The SenseTile model uses a hierarachy to model the SenseTile. It seems repetitive to have keep defining the same inputs for each contained component. Maybe this is a flaw in the SenseTile model developed.
 
-Working in XML is error prone. SensorML connections type was a good example of where a graphical tool or another language, like BON,  that can be parsed should be used to check the connections. Running the model through the VastSensorMLEngine without a crash was only way other than by eye to see that the connections were set up correctly. 
-
 SensorML is defined by a heavy XML Schema. This XML Schema along with the other XML Schema for the SOS and dependent specifications are heavy indeed. Achieving a Java binding was difficult. JIBX would not generate a default XML binding. JAXB could with some help. There are many layers of abstraction in these XML Schema. This reflects the that the specifications cover a very wide range of needs of a senor system.
 
-The idea of automatically obtaining a SensoML model and executing it depends on the SensorML Engine being used. Only one Java implementation can be pointed. In the OGC examples the Java implementations of the 
+The idea of automatically obtaining a SensorML model and executing it depends on the SensorML Engine being used. Only one Java implementation can be pointed. In the OGC examples the Java implementations of the 
 
 Vast Lib use as a references only.
 Had to update library code to get it to work with the SenseTile schema even though the schema
 passed the validation test tool from the site. It uses DOM but XML binding is probably a better approach.
 
-
-the weaknesses of your approach
------------------------------------------
-SOS on the Processor Board. Is this right? RMI only useful if SenseTile Network is a lan.
-
+The SWE SOS specification describes the operations for accessing sensor observations and it's concepts were used to develop the SenseTile Web Service. It uses SensorML provide sensor metadata to clients and the O\&M specification to encode observations.
+Implement all functionality would be difficult. Maybe too heavy for SenseTile System. Simple querires. Or better a push system to send the data to the client as it is generated could be a better approach here.
 
 SWE not fully web services as W3C might define. Not SOAP. HTTP envelope
 flexible. There seems to be work ongoing to change this to a more industry standard view of Web Services with the use of WSDL/SOAP. I could not find this as part of current OGC SWE framework.
-what has been achieved
+what has been achieve
+
+SOS on the Processor Board. Is this right? RMI only useful if SenseTile Network is a lan.
+
+BON
+
+Working in XML is error prone. SensorML connections type was a good example of where a graphical tool or another language, like BON,  that can be parsed should be used to check the connections. Running the model through the VastSensorMLEngine without a crash was only way other than by eye to see that the connections were set up correctly. 
 
 
 further work.
 ---------------
+SensorML sensor accuracy.
 Complete BON mapping and parser.
 Streaming the data. See SWE Architecture dpcument for a description of one approach.
 Other technology approaches such as . Other ways such a XQUERY? XML techs?
@@ -700,6 +663,8 @@ Complete Weather Station , 2006
 \bibitem{ProcessTutorialref}Open Geospatial Consortium Inc.,
 \bibitem{OGCcatref}Open Geospatial Consortium Inc., OpenGIS® Catalogue Services Specification, 2007
 \bibitem{BONref}Kim Waldén and Jean-Marc Nerson , "Seamless Object-Oriented Software Architecture", 1995
+\bibitem{Meyerref}Bertrand Meyer., Object-Oriented Software Construction, 1997
+
 \end{thebibliography}
 
 
