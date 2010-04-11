@@ -16,6 +16,14 @@ public class CompositeDataPacket implements Serializable {
 	public CompositeDataPacket() {
 	}
 	
+	public int [] getStreamData(int streamNumber) {
+		if (streamNumber == 0) {
+			return getPrimaryChannelData();
+		} else {
+			return getSecondaryChannel(streamNumber - 1);
+		}
+	}
+	
 	public void setSecondaryStreams (int[][] secondaryStreams) {
 		this.secondaryChannels = secondaryStreams;
 	}

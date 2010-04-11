@@ -16,8 +16,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 
-public class MemoryBackedHistory implements History {
+public class MemoryBackedHistory implements History, Processor {
 	
 	private long windowSize = 0;
 	
