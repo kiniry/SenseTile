@@ -4,6 +4,7 @@ import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.data.DataStreamProvider;
 import junit.framework.TestCase;
 
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
@@ -18,12 +19,11 @@ public class SimpleProducer extends TestCase {
 		String endpoint = "direct:sendData";
 		CompositeDataPacket packet = dsp.buildSamplePacket(4000, new short[] {10});
 		String header = "streamID";
-		
-
-		
-		ctx.createProducerTemplate().sendBodyAndHeader(endpoint, packet, header, "1" );
-		
-		ctx.createProducerTemplate().sendBodyAndHeader(endpoint, packet, header, "2" );
+		System.out.println(packet);
+		ProducerTemplate pt = ctx.createProducerTemplate(); 
+		for (int i=0; i< 1; i++)
+		pt.sendBody(endpoint, packet);
+//		ctx.createProducerTemplate().sendBodyAndHeader(endpoint, packet, header, "2" );
 	}
 	
 	@Override
@@ -35,7 +35,8 @@ public class SimpleProducer extends TestCase {
 			ctx.addRoutes(new RouteBuilder() {
 			    public void configure() {
 			    	//from("direct: sendData").throttle(1000).timePeriodMillis(1000).to(SINK_URL);
-			    	from("direct:sendData").to("mina:tcp://localhost:7104?sync=false&transferExchange=true");
+			    	//from("direct:sendData").to("mina:tcp://localhost:7105?sync=false&transferExchange=true");
+			    	from("direct:sendData").throttle(1000).timePeriodMillis(1000).to("mina:tcp://localhost:7105?sync=false");
 		    	}
 			});
 		} catch (Exception e) {

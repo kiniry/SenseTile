@@ -4,15 +4,19 @@ import ie.ucd.sensetile.eia.component.change.strategy.ChangeRateStrategy;
 import ie.ucd.sensetile.eia.component.change.strategy.MinValueStrategy;
 import ie.ucd.sensetile.eia.component.change.strategy.PeakValueStrategy;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 
 
 public class TestPeakValueStrategy  extends TestCase {
 	
 	public void testGetPeakValue() {
-		CompositeDataPacket [] cdp = new CompositeDataPacket[2];
-		cdp[0] = new CompositeDataPacket();
-		cdp[1] = new CompositeDataPacket();
+		List<CompositeDataPacket>cdp = new ArrayList<CompositeDataPacket>();
+		cdp.add(new CompositeDataPacket());
+		cdp.add(new CompositeDataPacket());
 		
 		int [] primaryData = new int[1000];
 		int highestValue = 0;
@@ -23,24 +27,24 @@ public class TestPeakValueStrategy  extends TestCase {
 			}
 		}
 		
-		cdp[0].setPrimaryStream(primaryData);
-		cdp[1].setPrimaryStream(new int[1000]);
+		cdp.get(0).setPrimaryStream(primaryData);
+		cdp.get(1).setPrimaryStream(new int[1000]);
 		
 		PeakValueStrategy strategy = new PeakValueStrategy();
 		
 		int result = strategy.getValue(cdp, 0);
 		assertEquals(highestValue, result);
 		
-		cdp[1].setPrimaryStream(new int [] {1000});
+		cdp.get(1).setPrimaryStream(new int [] {1000});
 		result = strategy.getValue(cdp,0);
 		
 		assertEquals(1000, result);
 	}
 	
 	public void testGetMinValue() {
-		CompositeDataPacket [] cdp = new CompositeDataPacket[2];
-		cdp[0] = new CompositeDataPacket();
-		cdp[1] = new CompositeDataPacket();
+		List<CompositeDataPacket>cdp = new ArrayList<CompositeDataPacket>();
+		cdp.add(new CompositeDataPacket());
+		cdp.add(new CompositeDataPacket());
 		
 		int [] primaryData = new int[1000];
 		int minValue = Integer.MAX_VALUE;
@@ -51,15 +55,15 @@ public class TestPeakValueStrategy  extends TestCase {
 			}
 		}
 		
-		cdp[0].setPrimaryStream(primaryData);
-		cdp[1].setPrimaryStream(new int [] {minValue+1});
+		cdp.get(0).setPrimaryStream(primaryData);
+		cdp.get(1).setPrimaryStream(new int [] {minValue+1});
 		
 		ChangeRateStrategy strategy = new MinValueStrategy();
 		
 		int result = strategy.getValue(cdp, 0);
 		assertEquals(minValue, result);
 		
-		cdp[1].setPrimaryStream(new int [] {Integer.MIN_VALUE + 1});
+		cdp.get(1).setPrimaryStream(new int [] {Integer.MIN_VALUE + 1});
 		result = strategy.getValue(cdp,0);
 		
 		assertEquals(Integer.MIN_VALUE + 1, result);

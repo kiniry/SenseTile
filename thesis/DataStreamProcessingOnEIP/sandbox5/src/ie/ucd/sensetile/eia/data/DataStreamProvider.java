@@ -29,7 +29,7 @@ public class DataStreamProvider {
 		int [] data = new int[length];
 		
 		for (int i=0; i<data.length; i++) {
-			data[i] = '\u00B5';
+			data[i] = i;
 		}
 		
 		return data;

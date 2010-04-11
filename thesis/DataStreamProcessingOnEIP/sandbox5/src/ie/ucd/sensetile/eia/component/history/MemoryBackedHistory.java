@@ -69,12 +69,10 @@ public class MemoryBackedHistory implements History, Processor {
 	public List<CompositeDataPacket> getHistory(long time) {
 		long ts = System.currentTimeMillis() - time;
 		List<CompositeDataPacket> result = new ArrayList<CompositeDataPacket>();
-		
 		dataLock.lock();
 		try {
 			Collection<Long> keys = data.keySet();
 			for (Long t : keys) {
-				System.out.println(t-ts);
 				if (t > ts) {
 					List<CompositeDataPacket> list = data.get(t);
 					result.addAll(list);
@@ -83,7 +81,6 @@ public class MemoryBackedHistory implements History, Processor {
 		} finally {
 			dataLock.unlock();
 		}
-		
 		return result;
 	}
 	
@@ -110,6 +107,7 @@ public class MemoryBackedHistory implements History, Processor {
 				}
 			} finally {
 				dataLock.unlock();
+				System.gc();
 			}
 		}
 	}

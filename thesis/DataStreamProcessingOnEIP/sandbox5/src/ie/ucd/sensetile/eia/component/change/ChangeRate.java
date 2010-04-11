@@ -1,27 +1,34 @@
 package ie.ucd.sensetile.eia.component.change;
 
-import ie.ucd.sensetile.eia.component.history.History;
+import ie.ucd.sensetile.eia.data.CompositeDataPacket;
+
+import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import org.apache.camel.ProducerTemplate;
 
-public class ChangeRate implements Processor, CamelContextAware {
+public class ChangeRate implements CamelContextAware {
 
 	private CamelContext ctx = null;
-	private History history  = null;
+	ChangeRateConfig config = null;
+	
+	ProducerTemplate producer = null;
 	
 	public ChangeRate(ChangeRateConfig cfg) {
-		this.history = cfg.getHistory();
-		
-	}
-	
-	@Override
-	public void process(Exchange arg0) throws Exception {
-		
+		this.config = cfg;
 	}
 
+	public void processRateChange() {
+		List<CompositeDataPacket> history = config.getHistory().getHistory(config.getInterval());
+		int result = config.getStrategy().getValue(history, 0);
+		
+		CompositeDataPacket cdp = new CompositeDataPacket();
+		int [] primaryData = new int[] {result};
+		cdp.setPrimaryStream(primaryData);
+		getProducer().sendBody(config.getEndpoint(), cdp);
+	}
+	
 	@Override
 	public void setCamelContext(CamelContext ctx) {
 		this.ctx = ctx;
@@ -32,4 +39,10 @@ public class ChangeRate implements Processor, CamelContextAware {
 		return this.ctx;
 	}
 	
+	protected ProducerTemplate getProducer() {
+		if (producer == null) {
+			this.producer = ctx.createProducerTemplate();
+		}
+		return this.producer;
+	}	
 }

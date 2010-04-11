@@ -11,25 +11,40 @@
   <jmxAgent id="agent" createConnector="true" usePlatformMBeanServer="true"/>
     <route>
 	  	<from uri="mina:tcp://localhost:7105?sync=false"/>
-		<to uri="bean:synchronizer_1"/>
+		<to uri="bean:history_1"/>
 	</route>
+	<route>
+		<from uri="timer://changeRate?fixedRate=true&amp;period=3000"/>
+	    <to uri="bean:changeRate_1?method=processRateChange"/>
+	</route>
+	
+	<route>
+		<from uri="direct:changeRate_1"/>
+		<to uri="bean:history_2"/>
+	</route>
+	
   </camelContext>    
 
+  <bean id="changeRate_1" class="ie.ucd.sensetile.eia.component.change.ChangeRate">
+  	<constructor-arg index="0" ref="changeRateConfig_1" />
+  </bean>
  
-  <bean id="syncerConfig_1" class="ie.ucd.sensetile.eia.component.change.ChangeRateConfig">
-  
+  <bean id="changeRateConfig_1" class="ie.ucd.sensetile.eia.component.change.ChangeRateConfig">
 	  <property name="history" ref="history_1"/>
-	  <property name="produceInterval" value="1000"/>
 	  <property name="strategy" ref="changeRateStrategy_1"/>
+	  <property name="interval" value="10000"/>
+	  <property name="endpoint" value="direct:changeRate_1"/>
   </bean>
   
 
   <bean id="changeRateStrategy_1" class="ie.ucd.sensetile.eia.component.change.strategy.PeakValueStrategy"/>
 
   <bean id="history_1" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
-		<constructor-arg index="0">
-			<ref bean="historyConfig_1" />
-		</constructor-arg>
+		<constructor-arg index="0" ref="historyConfig_1" />
+  </bean>
+  
+  <bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
+		<constructor-arg index="0" ref="historyConfig_1" />
   </bean>
   
   <bean id="historyConfig_1" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">

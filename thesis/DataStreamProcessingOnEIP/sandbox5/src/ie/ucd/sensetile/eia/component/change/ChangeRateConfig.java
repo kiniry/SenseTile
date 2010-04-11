@@ -5,15 +5,32 @@ import ie.ucd.sensetile.eia.component.history.History;
 
 public class ChangeRateConfig {
 	private History history = null;
-	private int produceInterval = 0;
+	private int interval = 0;
 	private ChangeRateStrategy strategy = null;
+	private String endpoint = null;
 	
-	public int getProduceInterval() {
-		return produceInterval;
+	public String getEndpoint() {
+		return endpoint;
 	}
 
-	public void setProduceInterval(int produproduceIntervalceRate) {
-		this.produceInterval = produceInterval;
+	public void setEndpoint(String endpoint) {
+		this.endpoint = endpoint;
+	}
+
+	public ChangeRateStrategy getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(ChangeRateStrategy strategy) {
+		this.strategy = strategy;
+	}
+
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		this.interval = interval;
 	}
 
 	public History getHistory() {
