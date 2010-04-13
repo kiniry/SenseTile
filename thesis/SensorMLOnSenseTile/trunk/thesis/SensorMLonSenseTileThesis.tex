@@ -22,7 +22,7 @@
 %%% Your Abstract here
 
 \begin{abstract}
-This thesis evaluates the use of SensorML and SOS in the development of Sensor Systems. The SenseTile system is used as a case study for this evaluation. A SenseTile web service is developed to access SenseTile sensor data based on a SensorML model of SenseTile. Formalizing senor descriptions is also looked using BON to SensorML mapping.
+This thesis evaluates the Sensor Model Language(SensorML) and Sensor Observation Service(SOS) specifications. These specifications are intended for use in the development of open sensor systems. The UCD CASL SenseTile sensor system is used as a case study for this evaluation. A SensorML model of SenseTile is developed. A SenseTile Web Service is also developed based on the SenseTile SensorML model and the SOS specification. This Web Service provides access to SenseTile sensor metadata and sensor observations. The thesis finally examines formalizing SensorML using a formal specification language called Business Object Notation.
 
 \end{abstract}
 
@@ -44,37 +44,35 @@ Vieri del Bianco , Dragan Stosic and Joseph R. Kiniry.
 
 \chapter{Introduction}
 
-Sensor systems are increasingly deployed to provide sensing information for a myriad of applications. These sensor systems contain many different sensor types and are developed by communities working in different domains. The heterogeneity of these systems means that interoperability is difficult and expensive. Reliably processing sensor observations retrieved from these heterogeneous systems is also problematic. Standard ways to describe sensors and to retrieve sensor data and are needed to address the current problem of sensor system heterogeneity. 
+Sensor systems are increasingly deployed to provide sensing information for a myriad of applications. These sensor systems contain many different sensor types and are developed by communities working in different domains. The heterogeneity of these systems means that interoperability is difficult and expensive. Reliably processing sensor observations retrieved from these heterogeneous systems is also problematic. Standard ways to describe sensors and to retrieve sensor data are needed to address the problem of sensor system heterogeneity. 
 
-Standards are being developed to address the above issues. Two such standards are the Sensor Model Language (SensorML) specification\cite{SMLref} and the Sensor Observation Service (SOS) specification\cite{SOSref}. SensorML is a proposed standard for sensor description and processing of sensor observations. SensorML specifies models and XML Schema for describing sensors, the process of sensor measurement and the post processing of sensor observations. The SOS specification is a proposed standard for retrieving sensor information and sensor observations using Web Services. 
+Standards are being developed to address the above issues. Two such standards are the Sensor Model Language (SensorML) specification\cite{SMLref} and the Sensor Observation Service (SOS) specification\cite{SOSref}. SensorML is a proposed standard for both describing sensors and describing the processing of sensor observations. The SOS specification is a proposed standard for retrieving sensor descriptions and sensor observations using Web Services. 
 
-The SensorML and SOS specifications are developed by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. The members of the OGC have the goal of improving interoperability of sensor systems by developing open standards such as the SensorML and SOS specifications. This thesis investigates the use of these SWE standards in developing sensor systems with emphasis on the use of SensorML and SOS specifications.
+The SensorML and SOS specifications are developed by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. The members of the OGC have the goal of improving interoperability of sensor systems by developing open standards such as the SensorML and SOS specifications. This thesis investigates the use of these SWE SensorML and SOS standards in developing sensor systems.
 
-A real sensor system called SenseTile[ref] is used as a case study in this thesis. SenseTile is a sensor and processing package that contains motion sensors, temperature sensors, audio sensors, pressure sensors and light level sensors among others. It is a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
+A real sensor system called SenseTile[ref] is used as a case study for the evaluation of SensorML and SOS specifications. SenseTile is a sensor and processing package that contains motion sensors, temperature sensors, audio sensors, pressure sensors and light level sensors among others. It is a replacement for standard ceiling tiles to provide smart building services as part of a Web Sensor Network.
 
-This thesis describes a  SensorML model of SenseTile, in particular the SenseTile Sensor Board . Based on this model a SenseTile Web Service prototype is developed to allow the retrieval of the SenseTile sensor descriptions and sensor observations. The Web Service is based on the SOS specification. An assessment of SensorML and SOS specifications is provided based on this work.
+This thesis describes a  SensorML model of SenseTile, in particular the SenseTile Sensor Board. Based on this model a SenseTile Web Service prototype is developed to allow the retrieval of the SenseTile sensor descriptions and sensor observations. The Web Service is based on the SOS specification. An assessment of SensorML and SOS specifications is provided based on this work.
 
-Currently there is no widely available formal definition of sensors or sensor data processing. There are now formal verification based software development processes \cite{Kiniryref} with the goal of developing very robust systems.  Formal sensor descriptions allows sensor system development with such a verification based process. Business Object Notatation(BON)\cite{BONref} is used in \cite{Kiniryref} to formally specify the system being developed. BON is a notation and a method for analysis and design of Object Oriented systems. 
-
-This thesis looks at how BON can be used to formally specify SensorML. The BON to SensorML mapping described in thesis allows SensorML sensor descriptions to then be refined to Java as described in \cite{Kiniryref} as part of developing a robust Sensor System.
+Currently there is no widely available formal definition of sensors or sensor data processing. Formal sensor descriptions allows sensor system development to use a formal verification based process. A verification based software development processes is described in \cite{Kiniryref} which has the goal of developing very robust software systems. Business Object Notatation(BON)\cite{BONref} is used in this process to formally specify the system being developed. BON is a notation and a method for analysis and design of Object Oriented systems. This thesis looks at how BON can be used to formally specify SensorML. The BON to SensorML mapping described in thesis allows SensorML sensor descriptions to then be refined to JML\footnote{http://www.eecs.ucf.edu/~leavens/JML/} and then to Java\footnote{http://www.java.com/}, as described in \cite{Kiniryref}.
 
 
 \chapter{ Background Research}
 
 \section{Sensor Web Enablement}\label{SWESec}
-As described in the introduction the SensorML and SOS specifications are developed as part of the Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. This Open Geospatial Consortium (OGC) initiative is establishing interfaces and protocols to enable a standardized Sensor Web. This allows for easier integration of sensor applications across sensor systems. SWE provides a framework of open standards for use with Web-connected sensors and sensor systems. There are seven main specifications currently:
+As described in the introduction the SensorML and SOS specifications are developed by the Open Geospatial Consortium (OGC) as part of the Sensor Web Enablement (SWE) initiative \footnote{http://www.opengeospatial.org/projects/groups/sensorweb}. The initiative is establishing interfaces and protocols to enable a standardized Sensor Web. This allows for easier integration of sensor applications across sensor systems. SWE provides a framework of open standards for use with Web-connected sensors and sensor systems. There are seven main specifications currently:
 
 \begin{itemize}
-\item  SensorModel Language(SensorML) - models and schema for sensor systems and processes surrounding measurements
-\item  Sensor Observation Service (SOS) - standard web interface for accessing observations
-\item  Observations \& Measurements (O\&M) - models and schema for packaging observation values
+\item  SensorModel Language(SensorML) - models and schema for sensor system description and sensor measurement processing
+\item  Sensor Observation Service (SOS) - standard web interface for accessing sensor observations
+\item  Observations \& Measurements (O\&M) - models and schema for packaging sensor observation values
 \item  Transducer Markup Language (TML) - models and schema for multiplexed data from sensor systems
-\item  Sensor Planning Service (SPS) - standard web interface for tasking sensor systems and model and requesting acquisitions
+\item  Sensor Planning Service (SPS) - standard web interface for tasking sensor systems
 \item  Sensor Alert Service (SAS) - standard web interface for publishing and subscribing to sensor alerts
 \item  Web Notification Service (WNS) - standard web interface for asynchronous notification
 \end{itemize}
 
-SWE services based on the above specifications allow the discovery of sensors, access to the sensor data, as well as subscription to alerts, and tasking of sensors to control observations. For a good overview of SWE and it's use in Sensor Web Networks see \cite{SWEArchref}.  Along with with the SensorML and SOS specification, the O\&M specification is also used in developing the SenseTile Web Service as it defines the encoding of sensor observations. 
+SWE services based on the above specifications allow the discovery of sensors, access to the sensor data, as well as subscription to alerts, and tasking of sensors to control sensor meaurement. For a good overview of SWE and it's use in Sensor Web Networks see \cite{SWEArchref}.  The SensorML and SOS specifications, as mentioned, are used to develop the SenseTile Web Service. The O\&M specification is also used in developing the SenseTile Web Service. This specification defines the encoding of sensor observations and is used by the SOS specification. 
 
 
 \section{Sensor Model Language}\label{SMLsection}
@@ -84,29 +82,34 @@ Sensor Modeling Language (SensorML) is primarily used to describe sensor systems
 \item Support processing of the sensor observations.
 \item Support geolocation information about sensors.
 \item Provide accuracy information of sensors measurements.
-\item Provide an explicit description of the process by which an observation was obtained.
 \item Provide an executable process chain for deriving new data on demand.
 \end{itemize}
 
-\subsection{SensorML Core Model}
-In SensorML sensors are modeled as processes that convert real phenomena to data. Processes take inputs, process them and result in one or several outputs. For example, a process can take a measurement generated by a thermistor which might be a resistance value and transform it to a celcius value. Processes can also be connected together in process chains to allow the sensor data to be processed by several processes sequentially. These processes and process chains are modeled in SensorML as shown in the  below SensorML Conceptual Model \ref{fig:SMLConceptualModel}.
+XML Schema is used to specify the XML encoding of SensorML in the SensorML specification. This XML schema is based on two conceptual UML\footnote{http://www.uml.org/} models, the SensorML Conceptual Model and the SWE Common Conceptual Model, that describe SensorML. These models are explained in the following sections.
+
+\subsection{SensorML Conceptual Model}
+In SensorML sensors are modeled as processes that convert physical phenomena to data. Processes take inputs, process them and result in one or several outputs. For example, a process can take a measurement generated by a thermistor which might be an electrical resistance value and transform it to a Celsius value. Processes can also be connected together in process chains to allow the sensor data to be processed by several processes sequentially. These processes and process chains are modeled in SensorML as shown in the  below SensorML Conceptual Model \ref{fig:SMLConceptualModel}.
 
 \begin{figure}[h]
 \centering
-\framebox{\scalebox{0.65}{\includegraphics{SMLConceptualModel.png}}}
+\framebox{\scalebox{0.62}{\includegraphics{SMLConceptualModel.png}}}
 \caption{SensorML Conceptual Model}\label{fig:SMLConceptualModel}
 \end{figure}
+\newpage
 
-Processes in SensorML derive from AbstractProcess with it's inputs, output, parameters and metaDataGroup properties. The inputs and outputs represent data connections to other processes. Parameters are used to configure the process or provide other inputs that are not sensor measurements. For example a parameter might be the latency time of a measurement needed for a calculation.
+\subsubsection{Processes}
+The AbstractProcess models processes in SensorML and contains input, output, parameter and metaDataGroup properties. The input and output properties represent sensor data measurements or connections to other processes. The parameter property is used to configure the process or provide other inputs that are not sensor measurements. For example a parameter might be the latency time of a measurement needed for a calculation performed by the process. Finally each process provides sensor metadata as modeled by the MetaDataGroup. The MetaDataGroup contains properties such as capabilities of the sensor, contact information and documentation references. It is generally used to assist humans in understanding the sensor system described and not used when executing a process. AbstractProcess derives from AbstractFeature which contains a name and description properties.
 
-Finally each process provides sensor metadata as modeled by the MetaDataGroup.
+SensorML divides processes into two types, physical and non-physical. The non-physical process is one where  location, position etc. is not relevant to the process and is modeled by the ProcessModel type. Physical processes provide physical information, such as location, which can be used in processing if required and is modeled by the Component type. Both process types contain the method property. The method property is a ProcessMethod type describes the methodology for transforming the process inputs to outputs.
 
-SensorML divides processes into two types, physical and non-physical. The non-physical process is one where  location, position etc. is not relevant to the process. Physical processes provide physical information, such as location, which can be used in processing if required. The ProcessModel is a non-physical process while the Component is a physical process and contains extra properties for defining the needed spatial or temporal information. Both process types contain the processMethod property which points to the methodology for transforming inputs to outputs.
+\subsubsection{Process Chains}
+There is a similar division of the process chains into the non-physical ProcessChain and physical System. Both process chains can contain a mixture of ProcessModel and Component processes if desired. Process chains have inputs and outputs which define the beginning and end of the processing chain. They are points of connection to other processes and process chains. The connection property contained in the CompositePropertGroup referenced by the  ProcessChain and System types is a sequence of type Link. The Link type contains source and destination properties that reference inputs and outputs of the processes in the process chain thus connecting the processes.
 
-There is a similar division of the process chains into the non-physical ProcessChain and physical System. Both process chains can contain a mixture of ProcessModel and Component process if desired. Process chains have inputs and outputs which define the beginning and end of the processing chain. They are points of connection to other processes and process chains if needed. The connection property contained in the ProcessChain and System is a list of Link type. The Link type contains source and destination properties that reference inputs and outputs of the processes in the process chain thus connecting the processes. 
+\subsubsection{Linkable Properties}
+SensorML uses XML Linking Language (XLink) \footnote{http://www.w3.org/TR/xlink} to support hypertext referencing in SensorML XML documents using URNs\footnote{http://tools.ietf.org/html/rfc2141} and URIs\footnote{http://tools.ietf.org/html/rfc3986}. This allows SensorML models to be distributed over several XML documents. XLink attributes are also used to reference on-line unit definitions used to define a sensor measurement.
 
-\subsection{Common Data}
-The SensorML specification currently contains the Sensor Web Enablement (SWE) Common specification. This specification defines basic types and data encodings used by the SWE specifications. It describes both primitive data types as well as aggregate types such as arrays and records. There are a large number of types defined in this specification, too many to show here. Below is a Conceptual Model of some of the simple data types.
+\subsection{SWE Common Conceptual Model}\label{SMLsectionSWE}
+The SensorML specification currently contains the Sensor Web Enablement (SWE) Common specification. This specification defines basic types and data encodings used by the SWE specifications. It describes both simple data types as well as aggregate types such as arrays and records. There are a large number of types defined in this specification, too many to show here. Below is a Conceptual Model of some of the simple data types.
 
 \begin{figure}[h]
 \centering
@@ -114,28 +117,36 @@ The SensorML specification currently contains the Sensor Web Enablement (SWE) Co
 \caption{SWE Common Simple Data Types.}\label{fig:SWESimpleConceptualModel}
 \end{figure}
 
-The data types in \ref{fig:SWESimpleConceptualModel} are scalar primitive values. They are the basis for the inputs, outputs and parameters in SensorML processes. Quantity models a floating point number. Count models a counting value or integer. Boolean models a property that can be true or false. 
+The data types in \ref{fig:SWESimpleConceptualModel} model scalar primitive values. They are used to defined the type of day used by the inputs, outputs and parameters in SensorML processes. Quantity, for example, models a floating point number and can be used to represent Celsius temperature values. The data types in SWE Common derive from AbstractDataComponent which contains naming and description properties.
 
-These types contain a number of properties that further define the type. The uom property provides a unit of measurement that indicate how the value should be interpreted.  A constraint property allows a value range or a enumerated list of allowed values to be defined for the type. The quality property allows for a measure of its quality, for example the confidence level of a value being correct expressed as a percentage. Aggregation of these data types is also provided by several types including DataRecord and DataArray.
+To allow a more reliable processing of sensor data the types contain a number of properties to provide metadata about the value carried in the simple type. The uom property provides a unit of measurement reference that indicates how the value should be interpreted.  A constraint property allows a value range or a enumerated list of allowed values to be defined for the type. The quality property provides for a measure of the quality of the value.  For example the confidence level of a value being correct can be expressed as a percentage.
 
-SensorML uses XML Linking Language (XLink) \footnote{http://www.w3.org/TR/xlink} to support hypertext referencing in SensorML XML documents using URNs and URIs. This allows SensorML models to be distributed over several documents. XLink attributes are also used to reference on-line unit definitions used to define a sensor measurement.
+Aggregation of these data types is also provided by several types including the DataRecord and DataArray types.
 
-The XML encoding of the SensorML model is not described here. The OGC SWE specification uses XML Schema to define the allowable SensorML XML structure.It is noted here that sml is the XML namespace for SensorML and swe is the XML namespace for SWE Common.
+
 
 \subsection{VAST SensorML Engine}\label{VastSensorMLEngineSec}
-The VAST Team at the University of Alabama in Huntsville (UAH) has developed an open source Java based SensorML Processing Engine. This software provides types that implement SensorML processes and process  chains. The SensorML Processing Engine parses SensorML models and instantiates the required objects to performed the intended processing. The code is found at \footnote{http://code.google.com/p/sensorml-data-processing} and is referred to as the VastSMLEngine in rest of the thesis. This code is dependent on an implementation of the SWE Common data types described in the section on SensorML \ref{SMLsection}. This code is found at \footnote{http://code.google.com/p/swe-common-data-framework}.
+The VAST Team at the University of Alabama in Huntsville (UAH) has developed an open source Java based SensorML processing engine. This software provides types that implement SensorML processes and process chains. The SensorML Processing Engine parses SensorML models and instantiates the required objects to performed the intended processing. The code for the SensorML processing engine is found at \footnote{http://code.google.com/p/sensorml-data-processing}. This engine is used in the SenseTile Web Service and is referred to as the VastSMLEngine in rest of the thesis. 
+
+The SensorML processing engine is dependent on an implementation of the SWE Common data types described in the section \ref{SMLsectionSWE}. This code is found at \footnote{http://code.google.com/p/swe-common-data-framework}.
 
 \section{Sensor Observation Service}\label{SOSSec}
-The SOS specifications defines a web service interface for the retrieval of sensor descriptions and the sensor observations from sensor systems. It organizes related sensor observations into a collection called an observation offering.   
-SensorML is used in conjunction with a Sensor Observation Service as described in the SWE Architecture \cite{SOSref} for sensor descriptions.
+The SOS specifications defines a web service interface for the retrieval of sensor descriptions and the sensor observations from sensor systems. It organizes related sensor observations into a collection called an observation offering. The offering information is requested by clients to get the identity of senors they are interested in getting observations from.
 
-The SOS specification uses four main entities to describe the SOS's operation. The entities are Data Consumers, Data Producers, OGC Catalogs and the SOS itself. Data Consumers are clients of the SOS that request sensor observations and sensor metadata. Data Providers are entities have to access to the sensor and have enough processing power to generate an XML encoding of the sensor's observations. These observations are sent over a network to the SOS. The OGC Catalog is used to find SOS instances. SOS instances act as access points to a Sensor Web Network and provide the Web Service for retrieval of sensor observations. The figure \ref{fig:SOSoperationContext} below shows the entities described in the SOS in an operational context.
+The SOS specification uses four main entities to describe the SOS's operation. The entities are Data Consumers, Data Producers, OGC Catalogs and the SOS itself. 
+\begin{itemize}
+\item Data Consumers are clients of the SOS that request sensor observations and sensor metadata. 
+\item Data Providers are entities read the observations from the sensors and have enough processing power to generate an XML encoding of the sensor's observations. These observations are sent over a network to the SOS. 
+\item OGC Catalogs are used to locate SOS instances. 
+\item SOS instances act as access points to a Sensor Web Network and provide the Web Service for retrieval of sensor descriptions and sensor observations.
+\end{itemize}
+The figure \ref{fig:SOSoperationContext} below shows the entities described in the SOS in an operational context.
 \begin{figure}[h]
 \framebox{\scalebox{0.65}{\includegraphics{SOSoperationContext.png}}}
 \caption{SOS Operational Context}\label{fig:SOSoperationContext}
 \end{figure}
 
-The diagram above shows the core and transactional operations provided by an SOS. The core operations are GetCapabilities, DescribeSensor and GetObservations. These are mandatory operations used by Data Consumers to request sensor information.  The core operations perform the following function:
+The diagram above shows the core and transactional operations provided by an SOS used by DataConsumers and DataProducers. The core operations are GetCapabilities, DescribeSensor and GetObservations. These are mandatory operations used by Data Consumers to request sensor information.  The core operations provide the following service:
  \begin{itemize}
 \item GetCapabilities  -    retrieve SOS observation offering information.
 \item DescribeSensor -    retrieve detailed information about the sensors.
@@ -144,11 +155,11 @@ The diagram above shows the core and transactional operations provided by an SOS
 
 The transactional operations are RegisterSensor and InsertObservation used by the Data Producer to provided sensor information and observations. The transactional operations supported are described in the following:
  \begin{itemize}
-\item RegisterSensor - operation to register the Data Provider with the SOS.
-\item InsertObservation - operation to update SOS with a sensor observation.
+\item RegisterSensor -  register the Data Provider with the SOS.
+\item InsertObservation - update SOS with a sensor observation.
 \end{itemize}
 
-These operations are encoded in XML and are intended to be carried http  operations. The sensor observations contained in  GetObservation and InsertObservation operations are encoded according to the OGC O\&M Observations \cite{OMref}. Sensor systems metadata contained in DescribeSensor and RegisterSensor is defined in SensorML.
+These operations are encoded in XML and are intended to be carried in http\footnote{http://www.w3.org/Protocols/}  operations. The sensor observations contained in GetObservation and InsertObservation operations are encoded according to the OGC O\&M Observations \cite{OMref}. Sensor systems metadata used in DescribeSensor and RegisterSensor operations is provided with SensorML.
 
 The SenseTile Web Service developed in this thesis is based on the concepts described in the Sensor Observation Service (SOS) specification. The SOS Data Consumer and SOS Data Provider entities will referred to a DataConsumer and DataProvider respectively in this thesis when describing the SenseTile Web Service.
  
