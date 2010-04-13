@@ -17,12 +17,22 @@ public class SimpleProducer extends TestCase {
 	public void testSinglePacket() {
 		
 		String endpoint = "direct:sendData";
-		CompositeDataPacket packet = dsp.buildSamplePacket(4000, new short[] {10});
+		CompositeDataPacket packet = dsp.buildSamplePacket(8000, new short[] {10});
 		String header = "streamID";
 		System.out.println(packet);
-		ProducerTemplate pt = ctx.createProducerTemplate(); 
-		for (int i=0; i< 1; i++)
-		pt.sendBody(endpoint, packet);
+		ProducerTemplate pt = ctx.createProducerTemplate();
+		
+		long t1 = System.currentTimeMillis();
+		
+		for (int i=0; i< 20000; i++) {
+			pt.sendBody(endpoint, packet);
+			if (i % 500 == 0) {
+				System.out.println("Sent 500 : " + i);
+			}
+		}
+		
+		System.out.println("Sent in " + (System.currentTimeMillis() - t1));
+		
 //		ctx.createProducerTemplate().sendBodyAndHeader(endpoint, packet, header, "2" );
 	}
 	
@@ -36,7 +46,7 @@ public class SimpleProducer extends TestCase {
 			    public void configure() {
 			    	//from("direct: sendData").throttle(1000).timePeriodMillis(1000).to(SINK_URL);
 			    	//from("direct:sendData").to("mina:tcp://localhost:7105?sync=false&transferExchange=true");
-			    	from("direct:sendData").throttle(1000).timePeriodMillis(1000).to("mina:tcp://localhost:7105?sync=false");
+			    	from("direct:sendData").throttle(700).timePeriodMillis(1000).to("mina:tcp://localhost:7102?sync=false");
 		    	}
 			});
 		} catch (Exception e) {

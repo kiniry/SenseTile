@@ -107,9 +107,12 @@ public class OracleBackedHistory implements History {
 	}
 	
 	public List<CompositeDataPacket> getHistory(long time) {
+		long ts = System.currentTimeMillis();
+		return getHistory(ts-time, ts);
+	}
 	
+	public List<CompositeDataPacket> getHistory(long from, long to) {
 		List<CompositeDataPacket> result = new ArrayList<CompositeDataPacket>();
-		long limit = System.currentTimeMillis() - time;
 		
 		DatabaseEntry theKey = new DatabaseEntry();
 		DatabaseEntry theData = new DatabaseEntry();
@@ -118,7 +121,7 @@ public class OracleBackedHistory implements History {
 	    try {
 			while (cursor.getNext(theKey, theData, LockMode.DEFAULT) == OperationStatus.SUCCESS) {
 				long ts = LongBinding.entryToLong(theKey);
-				if (ts > limit) {
+				if (ts >= from && ts <= to) {
 					CompositeDataPacket[] loadedPackets = (CompositeDataPacket[])dataBinding.entryToObject(theData);
 					for (CompositeDataPacket p : loadedPackets) {
 						result.add(p);

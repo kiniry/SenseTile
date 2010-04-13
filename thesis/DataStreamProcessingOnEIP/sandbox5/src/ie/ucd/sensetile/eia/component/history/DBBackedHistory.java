@@ -3,7 +3,6 @@ package ie.ucd.sensetile.eia.component.history;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.util.db.DerbyDatabase;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.camel.Exchange;
 
@@ -38,6 +39,7 @@ public class DBBackedHistory implements History {
 	
 	
 	private List<CompositeDataPacket> buffer = new ArrayList<CompositeDataPacket>();
+	Lock bufferLock = new ReentrantLock();
 	
 	private long lastTS = System.currentTimeMillis();
 	private long lastSeq = 0;
@@ -74,7 +76,7 @@ public class DBBackedHistory implements History {
 		}
 		
 		try {
-			String query = "select data from " + historyTableName + " where ts < ?";
+			String query = "select data from " + historyTableName + " where ts >= ? AND ts <= ?" + " order by ts desc";
 			queryConn = db.getNewConnection();
 			queryStmt = queryConn.prepareStatement(query);
 		} catch (Exception e) {
@@ -97,12 +99,18 @@ public class DBBackedHistory implements History {
 	}
 	
 	protected void process(CompositeDataPacket p) {
-		buffer.add(p);
-		if (buffer.size() >= 100) {
-			List<CompositeDataPacket> dump = new ArrayList<CompositeDataPacket>();
-			dump.addAll(buffer);
-			buffer.clear();
-			process(dump);
+		p.setTimestamp(System.currentTimeMillis());
+		bufferLock.lock();
+		try {
+			buffer.add(p);
+			if (buffer.size() >= 500) {
+				List<CompositeDataPacket> dump = new ArrayList<CompositeDataPacket>();
+				dump.addAll(buffer);
+				buffer.clear();
+				process(dump);
+			}
+		} finally {
+			bufferLock.unlock();
 		}
 	}
 	
@@ -133,13 +141,25 @@ public class DBBackedHistory implements History {
 		System.out.println("Wrote: " + size + " packets in one record "+ (System.currentTimeMillis() - ts) + " msec");
 	}
 	
-	public List<CompositeDataPacket> getHistory(long time) {
+	public List<CompositeDataPacket> getHistory(long from, long to) {
 		try {
-			
 			List<CompositeDataPacket> result = new ArrayList<CompositeDataPacket>();
+			List<CompositeDataPacket> bufferRemnant = new ArrayList<CompositeDataPacket>();
 			
-			long cutoff = System.currentTimeMillis() - time;
-			queryStmt.setLong(1, cutoff);
+			bufferLock.lock();
+			try {
+				for (CompositeDataPacket p : buffer) {
+					long ts = p.getTimestamp(); 
+					if ( ts >= from && ts <= to) {
+						bufferRemnant.add(p);
+					}
+				}
+			} finally {
+				bufferLock.unlock();
+			}
+			
+			queryStmt.setLong(1, from);
+			queryStmt.setLong(2, to);
 			ResultSet rs = queryStmt.executeQuery();
 			
 			while (rs.next()){ 
@@ -151,11 +171,19 @@ public class DBBackedHistory implements History {
 					result.addAll(packets);
 				}
 			}
+			System.out.println("Returning " + result.size());
+			result.addAll(bufferRemnant);
+			
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Collections.EMPTY_LIST;
 		}
+	}
+	
+	public List<CompositeDataPacket> getHistory(long time) {
+		long ts = System.currentTimeMillis();
+		return getHistory(ts - time, ts);
 	}
 	
 	class TestResults extends TimerTask {
@@ -182,11 +210,11 @@ public class DBBackedHistory implements History {
 		public void run() {
 			try {
 				long oldTSCutoff = System.currentTimeMillis() - windowSize;	
-				System.out.println("PurgeTimer run() cutoff : " + oldTSCutoff);
-//				ResultSet rs = stmt.executeQuery("select count(*) from " + historyTableName);
-//				if (rs.next()){
-//					System.out.println("Records: "  + rs.getInt(1));
-//				}
+				System.out.println("DBHistory purging...");
+				ResultSet rs = stmt.executeQuery("select count(*) from " + historyTableName);
+				if (rs.next()){
+					System.out.println("Total db size Records: "  + rs.getInt(1));
+				}
 				stmt.execute("delete from " + historyTableName + " where ts < " + oldTSCutoff);
 				conn.commit();
 			} catch (SQLException e) {

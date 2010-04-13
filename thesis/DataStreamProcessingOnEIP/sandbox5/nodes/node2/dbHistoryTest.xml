@@ -10,7 +10,7 @@
 
 		<route>
 			<from uri="mina:tcp://localhost:7102?sync=false" />
-			<to uri="bean:history_1" />
+			<to uri="bean:history_2" />
 			<!-- <to uri="bean:history_3" /> -->
 		</route>
 		<route>
@@ -19,28 +19,61 @@
 		</route>
 	</camelContext>
 	
-	<bean id="history_1" class="ie.ucd.sensetile.eia.component.history.FileBackedHistory">
+<!-- 
+	<bean id="history_3" class="ie.ucd.sensetile.eia.component.history.OracleBackedHistory">
 		<constructor-arg index="0">
-			<ref bean="historyConfig" />
+			<ref bean="historyConfig_3" />
 		</constructor-arg>
-	</bean>
-	
-	<!--
-	<bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
-		<constructor-arg index="0">
-			<ref bean="historyConfig" />
-		</constructor-arg>
-	</bean>
-	 -->
-	
-	<bean id="historyConfig" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
-		<property name="windowSize" value="600000" />
 	</bean>
 
+
+	<bean id="historyConfig_3" class="ie.ucd.sensetile.eia.component.history.OracleHistoryConfig">
+		<property name="windowSize" value="10000" />
+		<property name="dbDirectory" value="C:/dbEnv" />
+		<property name="tableName" value="historyConfig_3" />
+	</bean>
+
+	
+-->
+
+	<bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
+		<constructor-arg index="0">
+			<ref bean="historyConfig_2" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="historyConfig_2" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
+		<property name="windowSize" value="10000" />
+	</bean>
+
+
 	<bean id="testHistory" class="ie.ucd.sensetile.eia.component.history.SimpleTestHistory">
-		<property name="history" ref="history_1"/>
+		<property name="history" ref="history_2"/>
 		<property name="window" value="5000"/>
 	</bean>
+	
+<!--
+	<bean id="history_1" class="ie.ucd.sensetile.eia.component.history.DBBackedHistory">
+		<constructor-arg index="0">
+			<ref bean="historyConfig_1" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="historyConfig_1" class="ie.ucd.sensetile.eia.component.history.DBHistoryConfig">
+		<property name="windowSize" value="100000" />
+		<property name="db">
+			<bean id="derbyDB_1" class="ie.ucd.sensetile.eia.util.db.DerbyDatabase">
+				<constructor-arg>
+					<ref bean="dbConfig_1" />
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="dbConfig_1" class="ie.ucd.sensetile.eia.util.db.DatabaseConfig">
+		<property name="dbName" value="db1" />
+	</bean>
+-->
  
 	<bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
 		<property name="nodeDefinition">

@@ -12,8 +12,10 @@ public class CompositeDataPacket implements Serializable {
 	private int syncData [][] = new int [0][0];;
 
 	private int packetCountFromSource = 0;
-	
+	private long timestamp = 0;
+
 	public CompositeDataPacket() {
+		timestamp = System.currentTimeMillis();
 	}
 	
 	public int [] getStreamData(int streamNumber) {
@@ -95,6 +97,14 @@ public class CompositeDataPacket implements Serializable {
 	
 	public int getPacketCountFromSource() {
 		return this.packetCountFromSource;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 	public String toString() {

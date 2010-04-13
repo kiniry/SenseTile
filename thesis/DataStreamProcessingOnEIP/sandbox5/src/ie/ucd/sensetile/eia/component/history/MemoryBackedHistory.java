@@ -64,6 +64,23 @@ public class MemoryBackedHistory implements History, Processor {
 		}
 	}
 	
+	@Override
+	public List<CompositeDataPacket> getHistory(long from, long to) {
+		List<CompositeDataPacket> result = new ArrayList<CompositeDataPacket>();
+		dataLock.lock();
+		try {
+			Collection<Long> keys = data.keySet();
+			for (Long t : keys) {
+				if (t >= from && t <= to) {
+					List<CompositeDataPacket> list = data.get(t);
+					result.addAll(list);
+				}
+			}
+		} finally {
+			dataLock.unlock();
+		}
+		return result;
+	}
 	
 	@Override
 	public List<CompositeDataPacket> getHistory(long time) {

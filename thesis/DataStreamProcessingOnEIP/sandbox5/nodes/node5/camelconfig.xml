@@ -1,63 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:camel="http://camel.apache.org/schema/spring"
-       xsi:schemaLocation="
-          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
-      
-  <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-  <jmxAgent id="agent" createConnector="true" usePlatformMBeanServer="true"/>
-    <route>
-	  	<from uri="mina:tcp://localhost:7105?sync=false"/>
-		<to uri="bean:history_1"/>
-	</route>
-	<route>
-		<from uri="timer://changeRate?fixedRate=true&amp;period=3000"/>
-	    <to uri="bean:changeRate_1?method=processRateChange"/>
-	</route>
-	
-	<route>
-		<from uri="direct:changeRate_1"/>
-		<to uri="bean:history_2"/>
-	</route>
-	
-  </camelContext>    
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://camel.apache.org/schema/spring 
+          http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-  <bean id="changeRate_1" class="ie.ucd.sensetile.eia.component.change.ChangeRate">
-  	<constructor-arg index="0" ref="changeRateConfig_1" />
-  </bean>
- 
-  <bean id="changeRateConfig_1" class="ie.ucd.sensetile.eia.component.change.ChangeRateConfig">
-	  <property name="history" ref="history_1"/>
-	  <property name="strategy" ref="changeRateStrategy_1"/>
-	  <property name="interval" value="10000"/>
-	  <property name="endpoint" value="direct:changeRate_1"/>
-  </bean>
-  
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<jmxAgent id="agent" createConnector="true"
+			usePlatformMBeanServer="true" />
+		<route>
+			<from uri="mina:tcp://localhost:7105?sync=false" />
+			<to uri="bean:history_1" />
+		</route>
+		<route>
+			<from uri="timer://changeRate?fixedRate=true&amp;period=3000" />
+			<to uri="bean:changeRate_1?method=processRateChange" />
+		</route>
+		<route>
+			<from uri="direct:changeRate_1" />
+			<to uri="log:test?level=INFO" />
+		</route>
+	</camelContext>
 
-  <bean id="changeRateStrategy_1" class="ie.ucd.sensetile.eia.component.change.strategy.PeakValueStrategy"/>
+	<bean 
+		id="changeRate_1" 
+		class="ie.ucd.sensetile.eia.component.change.ChangeRate">
+		<constructor-arg index="0" ref="changeRateConfig_1" />
+	</bean>
 
-  <bean id="history_1" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
+	<bean 
+		id="changeRateConfig_1" 
+		class="ie.ucd.sensetile.eia.component.change.ChangeRateConfig">
+		<property name="history" ref="history_1" />
+		<property name="strategy" ref="peakStrategy" />
+		<property name="interval" value="10000" />
+		<property name="endpoint" value="direct:changeRate_1" />
+	</bean>
+
+	<bean 
+		id="peakStrategy"
+		class="ie.ucd.sensetile.eia.component.change.strategy.PeakValueStrategy" 
+	/>
+		
+	<bean 
+		id="minStrategy"
+		class="ie.ucd.sensetile.eia.component.change.strategy.MinValueStrategy" 
+	/>
+
+	<bean 
+		id="history_1"
+		class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
 		<constructor-arg index="0" ref="historyConfig_1" />
-  </bean>
-  
-  <bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
-		<constructor-arg index="0" ref="historyConfig_1" />
-  </bean>
-  
-  <bean id="historyConfig_1" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
+	</bean>
+
+	<bean 
+		id="historyConfig_1" 
+		class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
 		<property name="windowSize" value="10000" />
-  </bean>
+	</bean>
 
-  <bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
-      <property name="nodeDefinition">
-		  <bean class="ie.ucd.sensetile.eia.node.NodeDefinition">
-		  	  	<property name="homeURI" value="mina:tcp://localhost:7003"/>
-		  	  	<property name="registryURI" value="mina:tcp://localhost:7000"/>
-		  </bean>
-	  </property>
-  </bean>  
+	<bean 
+		id="simpleLoggingBean" 
+		class="ie.ucd.sensetile.eia.util.buffer.SimpleLoggingBean" 
+	/>
+
+	<bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
+		<property name="nodeDefinition">
+			<bean class="ie.ucd.sensetile.eia.node.NodeDefinition">
+				<property name="homeURI" value="mina:tcp://localhost:7003" />
+				<property name="registryURI" value="mina:tcp://localhost:7000" />
+			</bean>
+		</property>
+	</bean>
 </beans>
   

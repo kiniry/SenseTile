@@ -120,7 +120,7 @@ public class StreamSynchronizer implements Processor, CamelContextAware {
 	@Override
 	public CamelContext getCamelContext() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.ctx;
 	}
 
 	@Override
