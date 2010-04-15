@@ -25,13 +25,12 @@
 		</constructor-arg>
 	</bean>
 	
-	<!--
 	<bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
 		<constructor-arg index="0">
 			<ref bean="historyConfig" />
 		</constructor-arg>
 	</bean>
-	 -->
+
 	
 	<bean id="historyConfig" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
 		<property name="windowSize" value="600000" />
