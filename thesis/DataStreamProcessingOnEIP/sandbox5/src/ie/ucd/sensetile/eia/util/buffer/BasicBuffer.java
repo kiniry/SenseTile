@@ -121,6 +121,7 @@ public class BasicBuffer implements Buffer {
 	 */
 	public void reset() {
 		this.index = size;
+		this.currentPacketId++;
 	}
 	
 	/* (non-Javadoc)

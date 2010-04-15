@@ -14,8 +14,8 @@
 			<to uri="mina:tcp://localhost:7103?sync=false"/>
 		</throttle>
 		 -->
-		 <throttle maximumRequestsPerPeriod="200" timePeriodMillis="1000">
-		 	<to uri="mina:tcp://localhost:7102?sync=false"/>
+		 <throttle maximumRequestsPerPeriod="1000" timePeriodMillis="1000">
+		 	<to uri="mina:tcp://localhost:7103?sync=false"/>
 		 </throttle>
 	  </route>
   </camelContext>    
@@ -37,17 +37,5 @@
 	  	</list>
 	  </property>
   </bean>  
-
-
-
-
-
-
-
-
-
-
-
-
  </beans>
   

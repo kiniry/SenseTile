@@ -1,6 +1,7 @@
 package ie.ucd.sensetile.eia.data;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class CompositeDataPacket implements Serializable {
 
@@ -13,6 +14,7 @@ public class CompositeDataPacket implements Serializable {
 
 	private int packetCountFromSource = 0;
 	private long timestamp = 0;
+	private boolean useSyncBuffers = true;
 
 	public CompositeDataPacket() {
 		timestamp = System.currentTimeMillis();
@@ -89,6 +91,29 @@ public class CompositeDataPacket implements Serializable {
 		}
 		
 		return byteCount;
+	}
+	
+	public int findSecondaryIndexForPrimaryIndex (int channel, int i) {
+
+		if (syncData.length -1 < channel) {
+			if (secondaryChannels.length -1 < channel) {
+				return -1;
+			} else {
+				if (secondaryChannels[channel].length == primaryChannel.length) {
+					return i;
+				}
+			}
+		}
+		
+		int [] sync = syncData[channel];
+		int [] sec  = secondaryChannels[channel];
+		
+		// Perfect alignment
+		if (sync.length == 0 && sec.length == primaryChannel.length) {
+			return i;
+		} else {
+			return Arrays.binarySearch(sync, i);
+		}
 	}
 	
 	public void setPacketCountFromSource(int value) {

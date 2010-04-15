@@ -4,7 +4,17 @@ import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 
 public class SimpleConsumingBufferDataListener implements BufferDataListener {
 	
+	private String name = "Default";
+	
 	int count = 0;
+	
+	public SimpleConsumingBufferDataListener() {
+		
+	}
+	
+	public SimpleConsumingBufferDataListener(String name) {
+		this.name = name;
+	}
 	
 	public void processBufferData(Buffer buffer){
 		
@@ -19,8 +29,11 @@ public class SimpleConsumingBufferDataListener implements BufferDataListener {
 		
 		count++;
 		
-		if (count % 100 == 0) {
-			System.out.println(this + " processed " + count + " buffers");
-		}
+		System.out.println(name + ": processed " + count + " buffers");
+		
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }

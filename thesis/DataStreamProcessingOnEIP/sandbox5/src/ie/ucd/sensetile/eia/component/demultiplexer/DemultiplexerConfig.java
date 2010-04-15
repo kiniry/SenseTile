@@ -1,6 +1,9 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
-public class DemultiplexerConfig {
+import org.apache.camel.CamelContext;
+import org.apache.camel.CamelContextAware;
+
+public class DemultiplexerConfig implements CamelContextAware {
 	private int primaryBufferSize; 
 	private int syncBufferSize; 
 	private int[] secondaryChannels; 
@@ -8,8 +11,21 @@ public class DemultiplexerConfig {
 	private String primaryEndpoint;
 	private String [] secondaryEndpoints;
 	private String syncEndpoint;
+	private CamelContext ctx = null;
 	
 	
+	public String[] getSecondaryEndpoints() {
+		return secondaryEndpoints;
+	}
+	public void setSecondaryEndpoints(String[] secondaryEndpoints) {
+		this.secondaryEndpoints = secondaryEndpoints;
+	}
+	public CamelContext getCamelContext() {
+		return ctx;
+	}
+	public void setCamelContext(CamelContext ctx) {
+		this.ctx = ctx;
+	}
 	public String getPrimaryEndpoint() {
 		return primaryEndpoint;
 	}
@@ -41,12 +57,6 @@ public class DemultiplexerConfig {
 	}
 	public void setSecondaryBufferSizes(int[] secondaryBufferSizes) {
 		this.secondaryBufferSizes = secondaryBufferSizes;
-	}
-	public String[] getEndpoints() {
-		return secondaryEndpoints;
-	}
-	public void setEndpoints(String[] secondaryEndpoints) {
-		this.secondaryEndpoints = secondaryEndpoints;
 	}
 	public String getSyncEndpoint() {
 		return syncEndpoint;

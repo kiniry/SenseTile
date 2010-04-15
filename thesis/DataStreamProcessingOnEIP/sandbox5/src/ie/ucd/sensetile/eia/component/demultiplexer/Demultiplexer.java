@@ -1,6 +1,7 @@
 package ie.ucd.sensetile.eia.component.demultiplexer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
+import ie.ucd.sensetile.eia.util.buffer.EndpointProducerBufferListener;
 import ie.ucd.sensetile.eia.util.buffer.SimpleConsumingBufferDataListener;
 import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
@@ -30,19 +31,20 @@ public class Demultiplexer implements Processor, ManagementAware<Demultiplexer>,
 		
 		int [] secondaryChannels = config.getSecondaryChannels();
 		int [] secondaryBufferSizes = config.getSecondaryBufferSizes();
-		String [] outputEndpoints = config.getEndpoints();
+		String [] outputEndpoints = config.getSecondaryEndpoints();
 		
-		this.primaryProcessor = new ChannelProcessor(0, config.getPrimaryBufferSize(), new SimpleConsumingBufferDataListener());
+		this.primaryProcessor = new ChannelProcessor(0, config.getPrimaryBufferSize(), new SimpleConsumingBufferDataListener("Primray"));
 		this.secondaryProcessors = new ArrayList<ChannelProcessor>(secondaryChannels.length);
 		this.syncBuffers = new ArrayList<CompositeDataBuffer>(secondaryChannels.length);
 		
 		for (int i=0; i<secondaryBufferSizes.length; i++) {
 			Integer channelId = secondaryChannels[i];
-			ChannelProcessor cp = new ChannelProcessor(channelId, secondaryBufferSizes[i], new SimpleConsumingBufferDataListener());
+			ChannelProcessor cp = new ChannelProcessor(channelId, secondaryBufferSizes[i], new SimpleConsumingBufferDataListener("Secondary" + i));
 			secondaryProcessors.add(cp);
 			
 			CompositeDataBuffer cb = new CompositeDataBuffer(config.getSyncBufferSize(), 4);
-			cb.setDataProcessor(new SimpleConsumingBufferDataListener());
+			cb.setDataProcessor(new EndpointProducerBufferListener(outputEndpoints[i], config.getCamelContext().createProducerTemplate()));
+			//cb.setDataProcessor(new SimpleConsumingBufferDataListener("Sync" + i));
 			syncBuffers.add(cb);
 		}
 	}
