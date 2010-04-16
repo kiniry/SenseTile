@@ -18,10 +18,10 @@ public class SimpleLoggingBean implements Processor, CamelContextAware {
 	@Override
 	public void process(Exchange arg0) throws Exception {
 		processCount++;
-	//if (processCount % 100 == 0) {
+	if (processCount % 1000 == 0) {
 			CompositeDataPacket cdp = (CompositeDataPacket)arg0.getIn().getBody();
-			System.out.println("SimpleLoggingBean got Message body : " + printer.printPacket(cdp, true));
-		//}
+			System.out.println("SimpleLoggingBean got Message body : " + cdp);
+	}
 		
 		
 		//System.out.println("TestBean:" +arg0);

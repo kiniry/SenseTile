@@ -17,7 +17,7 @@ public class SimpleProducer extends TestCase {
 	public void testSinglePacket() {
 		
 		String endpoint = "direct:sendData";
-		CompositeDataPacket packet = dsp.buildSamplePacket(8000, new short[] {10});
+		CompositeDataPacket packet = dsp.buildSamplePacket(8000, new short[] {20,20});
 		String header = "streamID";
 		System.out.println(packet);
 		ProducerTemplate pt = ctx.createProducerTemplate();
@@ -46,7 +46,7 @@ public class SimpleProducer extends TestCase {
 			    public void configure() {
 			    	//from("direct: sendData").throttle(1000).timePeriodMillis(1000).to(SINK_URL);
 			    	//from("direct:sendData").to("mina:tcp://localhost:7105?sync=false&transferExchange=true");
-			    	from("direct:sendData").throttle(700).timePeriodMillis(1000).to("mina:tcp://localhost:7102?sync=false");
+			    	from("direct:sendData").throttle(700).timePeriodMillis(1000).to("mina:tcp://localhost:7103?sync=false");
 		    	}
 			});
 		} catch (Exception e) {

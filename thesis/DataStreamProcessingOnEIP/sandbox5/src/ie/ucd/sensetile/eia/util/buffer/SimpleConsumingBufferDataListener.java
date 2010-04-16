@@ -29,6 +29,7 @@ public class SimpleConsumingBufferDataListener implements BufferDataListener {
 		
 		count++;
 		
+		if (count % 100 == 0)
 		System.out.println(name + ": processed " + count + " buffers");
 		
 	}

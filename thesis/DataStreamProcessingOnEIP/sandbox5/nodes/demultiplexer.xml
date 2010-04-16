@@ -9,11 +9,12 @@
       
   <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
   <!-- <jmxAgent id="agent" createConnector="true" usePlatformMBeanServer="true"/> -->
-  
+  <!-- 
  	<route>
  		<from uri="dataset:myDataSet?initialDelay=2000&amp;produceDelay=-1"/>
  		<to uri="bean:demultiplexer_1"/>
  	</route>
+ -->
     <route>
 	  	<from uri="mina:tcp://localhost:7103?sync=false"/>
 		<to uri="bean:demultiplexer_1"/>
@@ -25,8 +26,8 @@
   </bean>
 
   <bean id="demuxConfig_1" class="ie.ucd.sensetile.eia.component.demultiplexer.DemultiplexerConfig">
-	<property name="primaryBufferSize" value="1000"/>
-	<property name="syncBufferSize" value="1000"/>
+	<property name="primaryBufferSize" value="80000"/>
+	<property name="syncBufferSize" value="80000"/>
 	<property name="secondaryChannels">
 		<list>
 			<value>0</value>
