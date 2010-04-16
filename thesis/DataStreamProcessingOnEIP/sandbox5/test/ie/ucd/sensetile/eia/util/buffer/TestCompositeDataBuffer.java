@@ -1,7 +1,6 @@
 package ie.ucd.sensetile.eia.util.buffer;
 
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
-import ie.ucd.sensetile.eia.util.printer.CompositeDataPacketPrinter;
 import junit.framework.TestCase;
 
 public class TestCompositeDataBuffer extends TestCase {
@@ -29,7 +28,7 @@ public class TestCompositeDataBuffer extends TestCase {
 		p.setPrimaryStream(buffer.getData());
 		p.setSecondaryStreams(buffer.getBufferCompositeData());
 		
-		for (int i=0; i<4; i++) {
+		for (int i=0; i<3; i++) {
 			assertEquals(p.getPrimaryChannelData().length, p.getSecondaryChannel(i).length);
 		}
 	}

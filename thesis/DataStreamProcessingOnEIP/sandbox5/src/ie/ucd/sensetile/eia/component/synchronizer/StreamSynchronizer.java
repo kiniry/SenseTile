@@ -3,6 +3,7 @@ package ie.ucd.sensetile.eia.component.synchronizer;
 import ie.ucd.sensetile.eia.data.CompositeDataPacket;
 import ie.ucd.sensetile.eia.util.buffer.ChannelProcessor;
 import ie.ucd.sensetile.eia.util.buffer.CompositeDataBuffer;
+import ie.ucd.sensetile.eia.util.buffer.SimpleConsumingBufferDataListener;
 import ie.ucd.sensetile.eia.util.buffer.SyncChannelProcessor;
 
 import java.util.Iterator;
@@ -37,11 +38,12 @@ public class StreamSynchronizer implements Processor, CamelContextAware {
 		}
 		
 		output = new CompositeDataBuffer(cfg.getOutputBufferSize(), cfg.getChannelIds().length);
-	//	output.setDataProcessor(new EndpointProducerBufferListener(cfg.getOutputEndpoint(), ctx.createProducerTemplate() ));
+		output.setDataProcessor(new SimpleConsumingBufferDataListener("test"));
+	//	output.setDataProcessor(new EndpointProducerBufferListener(cfg.getOutputEndpoint(), cfg.getCamelContext().createProducerTemplate() ));
 	}
 	
 	@Override
-	public void process(Exchange exchange) throws Exception {
+	public synchronized void process(Exchange exchange) throws Exception {
 		currentExchange = exchange;
 		CompositeDataPacket cdp = (CompositeDataPacket)exchange.getIn().getBody();
 		String id = (String)exchange.getIn().getHeader("streamid");

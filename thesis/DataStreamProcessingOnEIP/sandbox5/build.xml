@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="sandbox5">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse"/>
+    <property name="BerkleyTest.location" value="../BerkleyTest"/>
+    <property name="junit.output.dir" value="antbuildfile"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit4_4.3.1/junit.jar"/>
+    </path>
+    <path id="sandbox5.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="lib/commons-management-1.0.jar"/>
+        <pathelement location="lib/mina-core-1.1.7.jar"/>
+        <pathelement location="lib/slf4j-api-1.5.9-RC0.jar"/>
+        <pathelement location="lib/slf4j-simple-1.5.9-RC0.jar"/>
+        <pathelement location="lib/camel-core-2.2.0.jar"/>
+        <pathelement location="lib/camel-mina-2.2.0.jar"/>
+        <pathelement location="lib/spring-aop-2.5.6.jar"/>
+        <pathelement location="lib/spring-beans-2.5.6.jar"/>
+        <pathelement location="lib/spring-context-2.5.6.jar"/>
+        <pathelement location="lib/spring-core-2.5.6.jar"/>
+        <pathelement location="lib/camel-spring-2.2.0.jar"/>
+        <pathelement location="lib/derby.jar"/>
+        <pathelement location="lib/je-4.0.92.jar"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src" excludes="**/*.launch, **/*.java"/>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="test" excludes="**/*.launch, **/*.java"/>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="sandbox5.classpath"/>
+        </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="test"/>
+            <classpath refid="sandbox5.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="${BerkleyTest.location}/build.xml" inheritAll="false" target="clean"/>
+        <ant antfile="${BerkleyTest.location}/build.xml" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="BasicBufferTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.util.buffer.BasicBufferTest" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="BasicBufferTest.testShiftValue">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.util.buffer.BasicBufferTest" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="BasicBufferTest.testSubSequence">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.util.buffer.BasicBufferTest" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="NetworkTest">
+        <java classname="evalution.NetworkTest" failonerror="true" fork="yes">
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="PacketTest">
+        <java classname="evalution.PacketTest" failonerror="true" fork="yes">
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Node 1">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/node1/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Node 2">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/node2/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Node 3">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/node3/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Node 4">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/node4/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Node 5">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/node5/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Run Registry">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="nodes/registry/camelconfig.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Server">
+        <java classname="evalution.Server" failonerror="true" fork="yes">
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="SimpleProducer">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.producer.SimpleProducer" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="StreamSynchronizerTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.component.synchronizer.StreamSynchronizerTest" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="TestArrayPacketStructure">
+        <java classname="evalution.TestArrayPacketStructure" failonerror="true" fork="yes">
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="TestObjectPacketStructure">
+        <java classname="evalution.TestObjectPacketStructure" failonerror="true" fork="yes">
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="TestPeakValueStrategy">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.data.component.change.strategy.TestPeakValueStrategy" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="TestDataStreamProvider">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.data.TestDataStreamProvider" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="TestCompositeDataPacketPrinter">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.util.printer.TestCompositeDataPacketPrinter" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="TestCompositeDataBuffer">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ie.ucd.sensetile.eia.util.buffer.TestCompositeDataBuffer" todir="${junit.output.dir}"/>
+            <classpath refid="sandbox5.classpath"/>
+        </junit>
+    </target>
+    <target name="Demultiplex">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/demultiplexer.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="Synchronizer">
+        <java classname="ie.ucd.sensetile.eia.node.NodeRunner" failonerror="true" fork="yes">
+            <arg line="/nodes/synchronizer.xml"/>
+            <classpath refid="sandbox5.classpath"/>
+        </java>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>

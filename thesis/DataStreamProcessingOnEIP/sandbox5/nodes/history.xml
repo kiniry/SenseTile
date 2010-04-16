@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+
+		<route>
+			<from uri="mina:tcp://localhost:7102?sync=false" />
+			<to uri="bean:history_1" />
+			<!-- <to uri="bean:history_3" /> -->
+		</route>
+		<route>
+			<from uri="timer://changeRate?fixedRate=true&amp;period=5000" />
+			<to uri="bean:testHistory?method=test" />
+		</route>
+	</camelContext>
+	
+	<bean id="history_1" class="ie.ucd.sensetile.eia.component.history.FileBackedHistory">
+		<constructor-arg index="0">
+			<ref bean="historyConfig" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="history_2" class="ie.ucd.sensetile.eia.component.history.MemoryBackedHistory">
+		<constructor-arg index="0">
+			<ref bean="historyConfig" />
+		</constructor-arg>
+	</bean>
+
+	
+	<bean id="historyConfig" class="ie.ucd.sensetile.eia.component.history.HistoryConfig">
+		<property name="windowSize" value="600000" />
+	</bean>
+
+	<bean id="testHistory" class="ie.ucd.sensetile.eia.component.history.SimpleTestHistory">
+		<property name="history" ref="history_1"/>
+		<property name="window" value="5000"/>
+	</bean>
+ 
+	<bean id="node" class="ie.ucd.sensetile.eia.node.SensetileNode">
+		<property name="nodeDefinition">
+			<bean class="ie.ucd.sensetile.eia.node.NodeDefinition">
+				<property name="homeURI" value="mina:tcp://localhost:7002" />
+				<property name="registryURI" value="mina:tcp://localhost:7000" />
+			</bean>
+		</property>
+	</bean>
+</beans>
+  
