@@ -20,7 +20,7 @@ public class AudioInfoHolder
     private boolean isFormatSigned = Boolean.TRUE;
     private AudioFormat audioFormat = null;
     private boolean isFormatFounded = Boolean.FALSE;
-    private DataLine.Info dlinfo = null ;
+    private DataLine.Info dlinfo = null;
    
     public static AudioInfoHolder createAudioInfoHolder(final AudioFormat auFormat)
     {
