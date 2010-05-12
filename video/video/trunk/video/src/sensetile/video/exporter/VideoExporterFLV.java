@@ -69,7 +69,7 @@ public class VideoExporterFLV extends VideoExporter {
         source.connect(new Element.HANDOFF() {
 
             public void handoff(Element element, org.gstreamer.Buffer buffer, Pad pad) {
-                data = ((java.awt.image.DataBufferInt) mixer.getImage().getRaster().getDataBuffer()).getData();
+                data = ((java.awt.image.DataBufferInt) _videoSource.getImage().getRaster().getDataBuffer()).getData();
                 ByteBuffer bytes = buffer.getByteBuffer();
                 IntBuffer b = bytes.asIntBuffer();
                 b.put(data);
@@ -105,22 +105,22 @@ public class VideoExporterFLV extends VideoExporter {
         output = null;
         this.port=port;
     }
-    public static void main(String[] args) {
-        Gst.init();
-        Mixer mixer = new Mixer();
-        VideoExporterFLV flv = new VideoExporterFLV(new java.io.File("/home/dragan/JAD/test.flv"));
-        flv.setMixer(mixer);
-        flv.startExport();
-        System.out.println("Recording for 10 sec");
-        try {
-            Thread.sleep(10000);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        flv.stopExport();
-        flv = null;
-        System.out.println("Done!");
-        System.exit(0);
-    }
+//    public static void main(String[] args) {
+//        Gst.init();
+//        
+//        VideoExporterFLV flv = new VideoExporterFLV(new java.io.File("/home/dragan/JAD/test.flv"));
+//        flv.setVideoSource(_videoSource);
+//        flv.startExport();
+//        System.out.println("Recording for 10 sec");
+//        try {
+//            Thread.sleep(10000);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        flv.stopExport();
+//        flv = null;
+//        System.out.println("Done!");
+//        System.exit(0);
+//    }
     private int port = 4888;
 }

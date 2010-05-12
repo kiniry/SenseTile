@@ -91,8 +91,6 @@ public class TelosViewer extends JInternalFrame
         tableInfo = new javax.swing.JTable();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sensetile/Languages"); // NOI18N
         setTitle(bundle.getString("IMAGE")); // NOI18N

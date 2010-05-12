@@ -74,7 +74,7 @@ public class VideoExporterOGG extends VideoExporter
 
             @Override
             public void handoff(Element element, org.gstreamer.Buffer buffer, Pad pad) {
-                data = ((java.awt.image.DataBufferInt) mixer.getImage().getRaster().getDataBuffer()).getData();
+                data = ((java.awt.image.DataBufferInt) _videoSource.getImage().getRaster().getDataBuffer()).getData();
                 ByteBuffer bytes = buffer.getByteBuffer();
                 IntBuffer b = bytes.asIntBuffer();
                 b.put(data);
@@ -117,22 +117,22 @@ public class VideoExporterOGG extends VideoExporter
         this.port = port;
     }
 
-    public static void main(String[] args) {
-        Gst.init();
-        Mixer mixer = new Mixer();
-        VideoExporterOGG ogg = new VideoExporterOGG(new java.io.File("/home/dragan/JAD/test.ogg"));
-        ogg.setMixer(mixer);
-        ogg.startExport();
-        System.out.println("Recording for 10 sec");
-        try {
-            Thread.sleep(10000);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        ogg.stopExport();
-        ogg = null;
-        System.out.println("Done!");
-        System.exit(0);
-    }
+//    public static void main(String[] args) {
+//        Gst.init();
+//        Mixer mixer = new Mixer();
+//        VideoExporterOGG ogg = new VideoExporterOGG(new java.io.File("/home/dragan/JAD/test.ogg"));
+//        ogg.setMixer(mixer);
+//        ogg.startExport();
+//        System.out.println("Recording for 10 sec");
+//        try {
+//            Thread.sleep(10000);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        ogg.stopExport();
+//        ogg = null;
+//        System.out.println("Done!");
+//        System.exit(0);
+//    }
     
 }

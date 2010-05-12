@@ -443,6 +443,7 @@ public class VideoGrabber extends javax.swing.JComponent
     private void renderVolatileImage(BufferedImage bufferedImage) {
         do
         {
+            
             int w = bufferedImage.getWidth(), h = bufferedImage.getHeight();
             GraphicsConfiguration gc = getGraphicsConfiguration();
             if (volatileImage == null || volatileImage.getWidth() != w
@@ -460,7 +461,7 @@ public class VideoGrabber extends javax.swing.JComponent
             Graphics2D g = volatileImage.createGraphics();
             g.drawImage(bufferedImage, 0, 0, null);
             g.dispose();
-        } while (volatileImage.contentsLost());
+        } while(volatileImage.contentsLost());
     }
 
     /**
@@ -476,7 +477,8 @@ public class VideoGrabber extends javax.swing.JComponent
     private void volatileRender(Graphics g, int x, int y, int w, int h) {
         do {
             if (_listener.getUpdatePending() || volatileImage == null
-                || volatileImage.validate(getGraphicsConfiguration()) != VolatileImage.IMAGE_OK) {
+                || volatileImage.validate(getGraphicsConfiguration()) != VolatileImage.IMAGE_OK)
+            {
                 _listener.getBufferLock().lock();
                 try {
                     _listener.setUpdatePanding(false);
@@ -486,7 +488,7 @@ public class VideoGrabber extends javax.swing.JComponent
                 }
             }
             g.drawImage(volatileImage, x, y, w, h, null);
-        } while (volatileImage.contentsLost());
+        } while(volatileImage.contentsLost());
     }
 
     /**

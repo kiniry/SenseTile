@@ -74,10 +74,16 @@ public class FrameViewer extends JInternalFrame {
 
         grpCaptureSize = new javax.swing.ButtonGroup();
         panViewer = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuOutput = new javax.swing.JMenu();
+        mnuMovieViewer = new javax.swing.JMenu();
+        mnuItemStart = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuBroadcast = new javax.swing.JMenu();
+        mnuBroadcastStart = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sensetile/Languages"); // NOI18N
         setTitle(bundle.getString("IMAGE")); // NOI18N
@@ -130,6 +136,52 @@ public class FrameViewer extends JInternalFrame {
         panViewer.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panViewer, java.awt.BorderLayout.CENTER);
 
+        jMenuBar1.setName("jMenuBar1"); // NOI18N
+
+        mnuOutput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_blue.png"))); // NOI18N
+        mnuOutput.setText(bundle.getString("OUTPUT")); // NOI18N
+        mnuOutput.setName("mnuOutput"); // NOI18N
+
+        mnuMovieViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/movie-viewer.png"))); // NOI18N
+        mnuMovieViewer.setText(bundle.getString("VIDEO_RECORDER")); // NOI18N
+        mnuMovieViewer.setName("mnuMovieViewer"); // NOI18N
+
+        mnuItemStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuItemStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/control_play_blue.png"))); // NOI18N
+        mnuItemStart.setText(bundle.getString("START")); // NOI18N
+        mnuItemStart.setName("mnuItemStart"); // NOI18N
+        mnuMovieViewer.add(mnuItemStart);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/control_stop_blue.png"))); // NOI18N
+        jMenuItem1.setText(bundle.getString("STOP")); // NOI18N
+        jMenuItem1.setName("jMenuItem1"); // NOI18N
+        mnuMovieViewer.add(jMenuItem1);
+
+        mnuOutput.add(mnuMovieViewer);
+
+        mnuBroadcast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit.png"))); // NOI18N
+        mnuBroadcast.setText(bundle.getString("BROADCAST")); // NOI18N
+        mnuBroadcast.setName("mnuBroadcast"); // NOI18N
+
+        mnuBroadcastStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuBroadcastStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_add.png"))); // NOI18N
+        mnuBroadcastStart.setText(bundle.getString("START")); // NOI18N
+        mnuBroadcastStart.setName("mnuBroadcastStart"); // NOI18N
+        mnuBroadcast.add(mnuBroadcastStart);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_delete.png"))); // NOI18N
+        jMenuItem2.setText(bundle.getString("STOP")); // NOI18N
+        jMenuItem2.setName("jMenuItem2"); // NOI18N
+        mnuBroadcast.add(jMenuItem2);
+
+        mnuOutput.add(mnuBroadcast);
+
+        jMenuBar1.add(mnuOutput);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -173,6 +225,14 @@ public class FrameViewer extends JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grpCaptureSize;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu mnuBroadcast;
+    private javax.swing.JMenuItem mnuBroadcastStart;
+    private javax.swing.JMenuItem mnuItemStart;
+    private javax.swing.JMenu mnuMovieViewer;
+    private javax.swing.JMenu mnuOutput;
     private javax.swing.JPanel panViewer;
     // End of variables declaration//GEN-END:variables
 

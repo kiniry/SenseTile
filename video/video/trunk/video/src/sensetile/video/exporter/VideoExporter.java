@@ -5,6 +5,7 @@ import org.gstreamer.*;
 
 import java.util.List;
 import java.io.File;
+import sensetile.common.utils.Guard;
 
 import sensetile.video.sources.IVideoSource;
 /**
@@ -22,7 +23,7 @@ public abstract class VideoExporter
     protected int rate = 70;
     
     protected int quality = 85;
-    protected Mixer mixer = null;
+    protected IVideoSource _videoSource = null;
     protected boolean stopMixer = true;
     protected int[] data = null;
     protected byte[] bdata = null;
@@ -82,11 +83,12 @@ public abstract class VideoExporter
         rate = r;
     }
 
-    public void setMixer(final Mixer theMixer)
+    public void setVideoSource(final IVideoSource videoSource)
     {
-        mixer = theMixer;
-        captureWidth = mixer.getImage().getWidth();
-        captureHeight = mixer.getImage().getHeight();
+        Guard.ArgumentNotNull(videoSource, "Video source cannot be a null.");
+        _videoSource = videoSource;
+        captureWidth = _videoSource.getImage().getWidth();
+        captureHeight = _videoSource.getImage().getHeight();
     }
 
     public int getVideoBitrate()

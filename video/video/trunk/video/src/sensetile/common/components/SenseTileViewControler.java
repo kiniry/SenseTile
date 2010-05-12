@@ -263,7 +263,7 @@ public class SenseTileViewControler implements IObservable
         About about = new About(_senseTileView, Boolean.TRUE);
         about.pack();
         about.setLocationRelativeTo(_senseTileView);
-        about.setVisible(Boolean.TRUE);
+        about.setVisible(Boolean.TRUE);       
     }
 
     public void videoInfoActionPerformed()

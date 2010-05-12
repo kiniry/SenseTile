@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
+
 /**
  *
  * @author SenseTile
@@ -121,9 +122,6 @@ public class SenseTileView extends JFrame implements Runnable
         mnuSourcesWebcams = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuSourcesSensors = new javax.swing.JMenu();
-        mnuOutput = new javax.swing.JMenu();
-        mnuOutputWebcams = new javax.swing.JMenu();
-        mnuVideoRecorder = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenu();
         mnuAboutItem = new javax.swing.JMenuItem();
         mnuGoToWebsite = new javax.swing.JMenuItem();
@@ -147,7 +145,7 @@ public class SenseTileView extends JFrame implements Runnable
         pgAudioLevel.setName("pgAudioLevel"); // NOI18N
         panelStatus.add(pgAudioLevel);
 
-        lblOutputDevice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/aboutCam.png"))); // NOI18N
+        lblOutputDevice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/script.png"))); // NOI18N
         lblOutputDevice.setText(bundle.getString("NO_OUTPUT!")); // NOI18N
         lblOutputDevice.setName("lblOutputDevice"); // NOI18N
         panelStatus.add(lblOutputDevice);
@@ -327,7 +325,7 @@ public class SenseTileView extends JFrame implements Runnable
         mnuSources.setName("mnuSources"); // NOI18N
         mnuSources.setPreferredSize(new java.awt.Dimension(100, 23));
 
-        mnuSourcesWebcams.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/camera-video.png"))); // NOI18N
+        mnuSourcesWebcams.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/webcam_add.png"))); // NOI18N
         mnuSourcesWebcams.setText(bundle.getString("WEBCAMS")); // NOI18N
         mnuSourcesWebcams.setName("mnuSourcesWebcams"); // NOI18N
 
@@ -336,36 +334,12 @@ public class SenseTileView extends JFrame implements Runnable
 
         mnuSources.add(mnuSourcesWebcams);
 
-        mnuSourcesSensors.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_blue.png"))); // NOI18N
+        mnuSourcesSensors.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/shading.png"))); // NOI18N
         mnuSourcesSensors.setText(bundle.getString("SENSORS")); // NOI18N
         mnuSourcesSensors.setName("mnuSourcesSensors"); // NOI18N
         mnuSources.add(mnuSourcesSensors);
 
         menuBar.add(mnuSources);
-
-        mnuOutput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/image-x-generic.png"))); // NOI18N
-        mnuOutput.setText(bundle.getString("OUTPUT")); // NOI18N
-        mnuOutput.setName("mnuOutput"); // NOI18N
-        mnuOutput.setPreferredSize(new java.awt.Dimension(100, 23));
-
-        mnuOutputWebcams.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/camera-video.png"))); // NOI18N
-        mnuOutputWebcams.setText(bundle.getString("WEBCAMS")); // NOI18N
-        mnuOutputWebcams.setName("mnuOutputWebcams"); // NOI18N
-
-        mnuVideoRecorder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        mnuVideoRecorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/media-record.png"))); // NOI18N
-        mnuVideoRecorder.setText(bundle.getString("VIDEO_RECORDER")); // NOI18N
-        mnuVideoRecorder.setName("mnuVideoRecorder"); // NOI18N
-        mnuVideoRecorder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuVideoRecorderActionPerformed(evt);
-            }
-        });
-        mnuOutputWebcams.add(mnuVideoRecorder);
-
-        mnuOutput.add(mnuOutputWebcams);
-
-        menuBar.add(mnuOutput);
 
         mnuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/aboutst.png"))); // NOI18N
         mnuAbout.setText(bundle.getString("ABOUT")); // NOI18N
@@ -398,7 +372,7 @@ public class SenseTileView extends JFrame implements Runnable
         mnuAbout.add(mnuGoToWebsite);
 
         mnuVideoInfo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        mnuVideoInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/aboutCam.png"))); // NOI18N
+        mnuVideoInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/script.png"))); // NOI18N
         mnuVideoInfo.setText(bundle.getString("DEVICEINFO")); // NOI18N
         mnuVideoInfo.setName("mnuVideoInfo"); // NOI18N
         mnuVideoInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -481,10 +455,6 @@ public class SenseTileView extends JFrame implements Runnable
         st_controler.removeSourceActionPerformed();
 }//GEN-LAST:event_btnRemoveSourceActionPerformed
 
-    private void mnuVideoRecorderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVideoRecorderActionPerformed
-
-}//GEN-LAST:event_mnuVideoRecorderActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackward;
@@ -505,13 +475,10 @@ public class SenseTileView extends JFrame implements Runnable
     private javax.swing.JMenu mnuAbout;
     private javax.swing.JMenuItem mnuAboutItem;
     private javax.swing.JMenuItem mnuGoToWebsite;
-    private javax.swing.JMenu mnuOutput;
-    private javax.swing.JMenu mnuOutputWebcams;
     private javax.swing.JMenu mnuSources;
     private javax.swing.JMenu mnuSourcesSensors;
     private javax.swing.JMenu mnuSourcesWebcams;
     private javax.swing.JMenuItem mnuVideoInfo;
-    private javax.swing.JMenuItem mnuVideoRecorder;
     private javax.swing.JCheckBoxMenuItem mnuchkShowBackground;
     private javax.swing.JPanel panControls;
     private javax.swing.JPanel panDesktop;

@@ -62,7 +62,8 @@ public class VideoExporterAVI extends VideoExporter
 
             public void handoff(Element element, Buffer buffer, Pad pad)
             {
-                data = ((DataBufferInt)mixer.getImage().getRaster().getDataBuffer()).getData();
+               //data=  ((DataBufferInt)_videoSource.getRGBMediatorListener().getCurrentImage().getRaster().getDataBuffer()).getData();
+                data = _videoSource.getPixels();
                 ByteBuffer bytes = buffer.getByteBuffer();
                 IntBuffer b = bytes.asIntBuffer();
                 b.put(data);
@@ -112,25 +113,25 @@ public class VideoExporterAVI extends VideoExporter
         output = outputFile;
     }
 
-    public static void main(String args[])
-    {
-        Gst.init();
-        Mixer mixer = new Mixer();
-        VideoExporterAVI avi = new VideoExporterAVI(new File("/home/dragan/JAD/test.avi"));
-        avi.setMixer(mixer);
-        avi.startExport();
-        System.out.println("Recording for 10 sec");
-        try
-        {
-            Thread.sleep(10000);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        avi.stopExport();
-        avi = null;
-        System.out.println("Done!");
-        System.exit(0);
-    }
+//    public static void main(String args[])
+//    {
+//        Gst.init();
+//
+//        VideoExporterAVI avi = new VideoExporterAVI(new File("/home/dragan/JAD/test.avi"));
+//        avi.setVideoSource(_videoSource);
+//        avi.startExport();
+//        System.out.println("Recording for 10 sec");
+//        try
+//        {
+//            Thread.sleep(10000);
+//        }
+//        catch(Exception ex)
+//        {
+//            ex.printStackTrace();
+//        }
+//        avi.stopExport();
+//        avi = null;
+//        System.out.println("Done!");
+//        System.exit(0);
+//    }
 }
