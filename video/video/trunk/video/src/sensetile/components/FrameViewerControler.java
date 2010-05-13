@@ -27,6 +27,7 @@ import sensetile.video.controls.MissingVideoGrabberException;
 import sensetile.video.controls.VideoGrabber;
 import sensetile.video.sources.IVideoSource;
 
+
 /**
  *
  * @author dragan
@@ -35,6 +36,7 @@ public class FrameViewerControler implements IObservable
 {
     
     private List<FrameViewer> _frames = null;
+    private List<FileChooserHandler> _chooserHandlers = null;
     private LayerService _layerService = LayerService.NONE;
 
 
@@ -42,6 +44,7 @@ public class FrameViewerControler implements IObservable
     {
       _frames = new ArrayList<FrameViewer>();
       _layerService = LayerService.getInstance();
+      _chooserHandlers = new ArrayList<FileChooserHandler>();
       
     }
 
@@ -66,6 +69,56 @@ public class FrameViewerControler implements IObservable
         {
             frameViewer.doDefaultCloseAction();
         }
+    }
+
+
+    public void openFileChooser(ISource source)
+    {
+        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        FileChooserHandler chooserHandler = null;
+        FrameViewer frameViewer = findFrameViewerFrom(source);
+        if(!source.isPlaying() && !source.isPaused())
+        {
+          return ;
+      
+        }else
+        {
+            chooserHandler = new FileChooserHandler(frameViewer);
+            if(!_chooserHandlers.contains(chooserHandler)) 
+            {
+             _chooserHandlers.add(chooserHandler);
+            }
+        }
+    }
+
+    public void stopExporting(final ISource source)
+    {
+       Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        FrameViewer frameViewer = findFrameViewerFrom(source);
+       FileChooserHandler fileChooserHandler = findFileChooserHandler(frameViewer);
+       fileChooserHandler.stopExporting();
+       if(_chooserHandlers.contains(fileChooserHandler))
+       {
+            _chooserHandlers.remove(fileChooserHandler);
+       }
+
+    }
+
+
+    private FileChooserHandler findFileChooserHandler(final FrameViewer frameViewer)
+    {
+        FileChooserHandler fileChooser = null;
+        Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
+        for(FileChooserHandler chooserHandler : _chooserHandlers)
+        {
+            FrameViewer fv = chooserHandler.getFrameViewer();
+            if( fv != null && fv.equals(frameViewer))
+            {
+                fileChooser = chooserHandler;
+                break;
+            }
+        }
+        return fileChooser;
     }
 
     public void updateSequence(List<IMessage> messages)
@@ -232,7 +285,9 @@ public class FrameViewerControler implements IObservable
         if (autoStart)
         {
             source.startSource();
+           
         }
+        
     }
 
     public String getTitle(final IVideoSource source)
@@ -242,7 +297,7 @@ public class FrameViewerControler implements IObservable
                 " (" + (_layerService.size() - _layerService.getIndex(source)) + ")";
     }
 
-
+   
 
 
 }

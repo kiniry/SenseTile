@@ -8,11 +8,14 @@ package sensetile.components;
 import java.awt.Graphics;
 
 import java.awt.BorderLayout;
+import java.io.File;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import sensetile.common.components.SenseTileView;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.Guard;
 import sensetile.video.controls.VideoGrabber;
+import sensetile.video.exporter.VideoExporterAVI;
 import sensetile.video.sources.IVideoSource;
 /**
  *
@@ -25,11 +28,13 @@ public class FrameViewer extends JInternalFrame {
     private int _height = ISource.DEFAULT_HEIGHT;
     private int _parentWidth = 640;
     private int _parentHeight =480;
+    private  VideoExporterAVI avi= null;
    
     /** Creates new form FrameWebcam */
     public FrameViewer()
     {
         initComponents();
+       
     }
     public void setParentSize(int width,int height){
         _parentWidth=width;
@@ -74,16 +79,20 @@ public class FrameViewer extends JInternalFrame {
 
         grpCaptureSize = new javax.swing.ButtonGroup();
         panViewer = new javax.swing.JPanel();
+        panelStatus = new java.awt.Panel();
+        lblActualFileSize = new javax.swing.JLabel();
+        lblActualRecordingTime = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuOutput = new javax.swing.JMenu();
         mnuMovieViewer = new javax.swing.JMenu();
         mnuItemStart = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuItemStop = new javax.swing.JMenuItem();
         mnuBroadcast = new javax.swing.JMenu();
         mnuBroadcastStart = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setClosable(true);
+        setMaximizable(true);
         setResizable(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sensetile/Languages"); // NOI18N
         setTitle(bundle.getString("IMAGE")); // NOI18N
@@ -114,15 +123,6 @@ public class FrameViewer extends JInternalFrame {
                 formComponentResized(evt);
             }
         });
-        addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                formAncestorMoved(evt);
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         panViewer.setBackground(java.awt.Color.red);
         panViewer.setDoubleBuffered(false);
@@ -135,6 +135,38 @@ public class FrameViewer extends JInternalFrame {
         });
         panViewer.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panViewer, java.awt.BorderLayout.CENTER);
+
+        panelStatus.setName("paneStatus"); // NOI18N
+
+        lblActualFileSize.setForeground(new java.awt.Color(236, 11, 11));
+        lblActualFileSize.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblActualFileSize.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lblActualFileSize.setName("lblActualFileSize"); // NOI18N
+        lblActualFileSize.setPreferredSize(new java.awt.Dimension(200, 19));
+
+        lblActualRecordingTime.setForeground(new java.awt.Color(236, 11, 11));
+        lblActualRecordingTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblActualRecordingTime.setName("lblActualRecordingTime"); // NOI18N
+        lblActualRecordingTime.setPreferredSize(new java.awt.Dimension(100, 17));
+
+        javax.swing.GroupLayout panelStatusLayout = new javax.swing.GroupLayout(panelStatus);
+        panelStatus.setLayout(panelStatusLayout);
+        panelStatusLayout.setHorizontalGroup(
+            panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStatusLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblActualFileSize, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblActualRecordingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelStatusLayout.setVerticalGroup(
+            panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblActualFileSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblActualRecordingTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelStatus, java.awt.BorderLayout.PAGE_END);
 
         jMenuBar1.setName("jMenuBar1"); // NOI18N
 
@@ -150,13 +182,23 @@ public class FrameViewer extends JInternalFrame {
         mnuItemStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/control_play_blue.png"))); // NOI18N
         mnuItemStart.setText(bundle.getString("START")); // NOI18N
         mnuItemStart.setName("mnuItemStart"); // NOI18N
+        mnuItemStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemStartActionPerformed(evt);
+            }
+        });
         mnuMovieViewer.add(mnuItemStart);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/control_stop_blue.png"))); // NOI18N
-        jMenuItem1.setText(bundle.getString("STOP")); // NOI18N
-        jMenuItem1.setName("jMenuItem1"); // NOI18N
-        mnuMovieViewer.add(jMenuItem1);
+        mnuItemStop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuItemStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/control_stop_blue.png"))); // NOI18N
+        mnuItemStop.setText(bundle.getString("STOP")); // NOI18N
+        mnuItemStop.setName("mnuItemStop"); // NOI18N
+        mnuItemStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemStopActionPerformed(evt);
+            }
+        });
+        mnuMovieViewer.add(mnuItemStop);
 
         mnuOutput.add(mnuMovieViewer);
 
@@ -201,10 +243,6 @@ public class FrameViewer extends JInternalFrame {
         _source.setSelected(false);
     }//GEN-LAST:event_formInternalFrameIconified
 
-    private void formAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorMoved
-
-    }//GEN-LAST:event_formAncestorMoved
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if (_source != null) {
             int w = getWidth() * _width / _parentWidth;
@@ -213,6 +251,19 @@ public class FrameViewer extends JInternalFrame {
             _source.setHeight(IVideoSource.DEFAULT_HEIGHT);
         }
     }//GEN-LAST:event_formComponentResized
+
+    private void mnuItemStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemStartActionPerformed
+//        avi = new VideoExporterAVI(new File("/home/dragan/JAD/test.avi"));
+//        avi.setVideoSource(_source);
+//        avi.startExport();
+        FrameViewerControler controler = FrameViewerControler.getInstance();
+        controler.openFileChooser(_source);
+    }//GEN-LAST:event_mnuItemStartActionPerformed
+
+    private void mnuItemStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemStopActionPerformed
+         FrameViewerControler controler = FrameViewerControler.getInstance();
+        controler.stopExporting(_source);
+    }//GEN-LAST:event_mnuItemStopActionPerformed
 
     @Override
     public void paint(Graphics g) {
@@ -223,17 +274,30 @@ public class FrameViewer extends JInternalFrame {
         }
         
     }
+
+    public JLabel getLblActualFileSize()
+    {
+        return lblActualFileSize;
+    }
+    public JLabel getLblActualRecordingTime()
+    {
+        return lblActualRecordingTime;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grpCaptureSize;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JLabel lblActualFileSize;
+    private javax.swing.JLabel lblActualRecordingTime;
     private javax.swing.JMenu mnuBroadcast;
     private javax.swing.JMenuItem mnuBroadcastStart;
     private javax.swing.JMenuItem mnuItemStart;
+    private javax.swing.JMenuItem mnuItemStop;
     private javax.swing.JMenu mnuMovieViewer;
     private javax.swing.JMenu mnuOutput;
     private javax.swing.JPanel panViewer;
+    private java.awt.Panel panelStatus;
     // End of variables declaration//GEN-END:variables
 
 }

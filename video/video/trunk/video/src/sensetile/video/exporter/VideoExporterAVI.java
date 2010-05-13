@@ -1,11 +1,10 @@
 
 package sensetile.video.exporter;
-
-import java.awt.image.*;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import org.gstreamer.*;
+import sensetile.video.sources.VideoSourceProvider;
 /**
  *
  * @author SenseTile
@@ -62,8 +61,8 @@ public class VideoExporterAVI extends VideoExporter
 
             public void handoff(Element element, Buffer buffer, Pad pad)
             {
-               //data=  ((DataBufferInt)_videoSource.getRGBMediatorListener().getCurrentImage().getRaster().getDataBuffer()).getData();
-                data = _videoSource.getPixels();
+               data=  ((java.awt.image.DataBufferInt)_videoSource.getRGBMediatorListener().getCurrentImage().getRaster().getDataBuffer()).getData();
+                //data = _videoSource.getPixels();
                 ByteBuffer bytes = buffer.getByteBuffer();
                 IntBuffer b = bytes.asIntBuffer();
                 b.put(data);
@@ -118,7 +117,7 @@ public class VideoExporterAVI extends VideoExporter
 //        Gst.init();
 //
 //        VideoExporterAVI avi = new VideoExporterAVI(new File("/home/dragan/JAD/test.avi"));
-//        avi.setVideoSource(_videoSource);
+//        avi.setVideoSource(VideoSourceProvider.getInstance().getVideoSourceAt(0));
 //        avi.startExport();
 //        System.out.println("Recording for 10 sec");
 //        try
