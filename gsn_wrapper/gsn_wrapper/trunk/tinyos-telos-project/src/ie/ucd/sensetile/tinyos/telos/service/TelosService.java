@@ -1,10 +1,14 @@
 package ie.ucd.sensetile.tinyos.telos.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -18,6 +22,8 @@ import net.tinyos.util.PrintStreamMessenger;
 
 public class TelosService implements MessageListener {
 
+  private static final Pattern SOURCE_SERIAL_PATTERN = Pattern.compile("@.*:");
+  
   private String source;
   private int cycleTime;
   private int cycleMessagesMax;
@@ -90,11 +96,37 @@ public class TelosService implements MessageListener {
   private StringBuffer buffer;
 
   public boolean initialize() {
+    if (! verifySource()){
+      return false;
+    }
     isActive = true;
     buffer = new StringBuffer();
-    initializeMif();
-    getMoteIF().registerListener(new PrintfMsg(), this);
-    initializeSender();
+    try {
+      initializeMif();
+      initializeSender();
+    } catch (Exception e) {
+      logger.log(Level.ERROR, 
+          "service not intialized\n" + 
+          "source: " + getSource(),
+          e);
+      isActive = false;
+    }
+    return isActive;
+  }
+
+  private boolean verifySource() {
+    Matcher matcher;
+    matcher = SOURCE_SERIAL_PATTERN.matcher(getSource());
+    if(matcher.find()) {
+      File device = new File(
+          matcher.group().substring(1, matcher.group().length() -1));
+      if (! device.exists()) {
+        logger.log(Level.ERROR, 
+            "source " + getSource() + " does not exist",
+            new FileNotFoundException(device.getPath()));
+        return false;
+      }
+    }
     return true;
   }
 
@@ -102,6 +134,7 @@ public class TelosService implements MessageListener {
     PhoenixSource phoenix = 
       BuildSource.makePhoenix(getSource(), PrintStreamMessenger.err);
     moteIF = new MoteIF(phoenix);
+    moteIF.registerListener(new PrintfMsg(), this);
   }
 
   private void initializeSender() {

@@ -45,21 +45,37 @@ public class TelosWrapper extends AbstractWrapper implements TelosMessageListene
 
   @Override
   public boolean initialize() {
-    service = new TelosService();
-    service.setListener(this);
-    initializeWithParameters();
-    boolean result = service.initialize();
+    boolean result = false;
+    try {
+      result = initializeService();
+    } catch (Exception e) {
+      logger.log(Level.ERROR, 
+          "initialization failed\n " + 
+          "source: " + service.getSource(), 
+          e);
+      return false;
+    }
     if (result) {
       logger.log(Level.INFO, 
-          "initialization succesfull");
+          "initialization succesfull\n " + 
+          "source: " + service.getSource());
     } else {
       logger.log(Level.ERROR, 
-        "initialization failed");
+        "initialization failed\n " + 
+        "source: " + service.getSource());
     }
     return result;
   }
 
-  private void initializeWithParameters() {
+  private boolean initializeService() {
+    service = new TelosService();
+    service.setListener(this);
+    configureServiceWithParameters();
+    boolean result = service.initialize();
+    return result;
+  }
+
+  private void configureServiceWithParameters() {
     AddressBean address = getActiveAddressBean();
     if(address == null) {
       logger.log(Level.WARN, 
