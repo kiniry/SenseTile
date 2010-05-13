@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test/bin" path="test/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/gsn-project/jars/gsn-core.jar" sourcepath="/gsn-project/src"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/optional/tinyos/tinyos-2.x.jar"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/axis-2/log4j-1.2.15.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/axis-2/jibx-run-1.1.5.jar"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/core/jetty/jetty-util-7.0.2.v20100331.jar"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/core/jetty/jetty-server-7.0.2.v20100331.jar"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/core/jetty/jetty-security-7.0.2.v20100331.jar"/>
+	<classpathentry kind="lib" path="/gsn-project/lib/core/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

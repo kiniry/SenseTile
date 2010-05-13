@@ -1,0 +1,21 @@
+
+make documentation
+  requirement
+    TinyOS
+      http://nmlaxaman.blogspot.com/2009/01/installing-tinyos-2x-in-ubuntu-intrepid.html
+  describe gsn parameters
+    source
+    cycle-time
+
+make bugs documentation
+  document collision
+    collision ST sensor board vs Telos
+      both are using usb seria
+      ST needs to blacklist ftdi_so
+      Telos needs to use ftdi_so
+  
+  document time not implemented in gsn
+
+refactor
+  when runnable exit in TelosWrapper do something 
+    communicate the error to the container class
