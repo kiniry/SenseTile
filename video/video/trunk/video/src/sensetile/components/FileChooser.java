@@ -16,7 +16,8 @@ import sensetile.common.utils.Guard;
 
 /**
  *
- * @author pballeux
+ * @author SenseTile
+ * @TODO DESIGN SHOULD BE BETTER - NO TIME AT THIS MOMENT TO IMPROVE DESIGN!
  */
 public class FileChooser extends javax.swing.JDialog {
 
@@ -134,7 +135,10 @@ public class FileChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBrowseFileActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-   
+       if(_chooserHandler.isRecording())
+       {
+        _chooserHandler.stopExporting();
+       }
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -155,24 +159,7 @@ public class FileChooser extends javax.swing.JDialog {
         return txtSelectedFileName;
     }
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-//                FileChooser dialog = new FileChooser( new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowseFile;

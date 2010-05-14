@@ -71,7 +71,10 @@ public class FrameViewerControler implements IObservable
         }
     }
 
-
+    /**
+     * @TODO DESIGN SHOULD BE BETTER - NO TIME AT THIS MOMENT TO IMPROVE DESIGN!
+     * @param source
+     */
     public void openFileChooser(ISource source)
     {
         Guard.ArgumentNotNull(source, "Source cannot be a null.");
@@ -81,14 +84,37 @@ public class FrameViewerControler implements IObservable
         {
           return ;
       
-        }else
+        }
+        chooserHandler = findFileChooserHandlerBy(source);
+        
+        if(chooserHandler != null && chooserHandler.isRecording())
         {
-            chooserHandler = new FileChooserHandler(frameViewer);
+            return;
+        }
+        else
+        {
+            chooserHandler =  FileChooserHandler.createHandler(frameViewer);
             if(!_chooserHandlers.contains(chooserHandler)) 
             {
              _chooserHandlers.add(chooserHandler);
             }
         }
+    }
+
+
+    private FileChooserHandler findFileChooserHandlerBy( ISource source)
+    {
+        FileChooserHandler chooserHandler = null;
+        for(FileChooserHandler fch : _chooserHandlers)
+        {
+            ISource currentSource = fch.getFrameViewer().getSource();
+            if(currentSource.equals(source))
+            {
+                chooserHandler = fch;
+                break;
+            }
+        }
+        return chooserHandler;
     }
 
     public void stopExporting(final ISource source)

@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.text.DecimalFormat;
 import sensetile.common.sources.ISource;
+import sensetile.common.utils.Guard;
 
 import sensetile.video.exporter.VideoExporterAVI;
 import sensetile.video.sources.IVideoSource;
@@ -28,13 +29,27 @@ public class FileChooserHandler implements Runnable
     private boolean _flag = Boolean.FALSE;
     private VideoExporterAVI _avi = null;
     private ISource _source = ISource.NO_SOURCE;
-   public FileChooserHandler(final FrameViewer frameViewer )
+    private boolean _isRecording = Boolean.FALSE;
+   private FileChooserHandler(final FrameViewer frameViewer )
    {
        _frameViewer = frameViewer;
        _file = new java.io.File("video" +
             java.util.UUID.randomUUID().toString() + ".avi");
        _source = frameViewer.getSource();
        createFileChooser();
+   }
+
+
+   public boolean isRecording()
+   {
+       return _isRecording;
+   }
+
+   public static FileChooserHandler createHandler(final FrameViewer frameViewer)
+   {
+       Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
+       return new FileChooserHandler(frameViewer);
+
    }
 
 
@@ -69,11 +84,13 @@ public class FileChooserHandler implements Runnable
    public void stopExporting()
    {
        _flag = Boolean.TRUE;
+
        _frameViewer.getLblActualFileSize().setText("");
        _frameViewer.getLblActualFileSize().revalidate();
        _frameViewer.getLblActualRecordingTime().setText("");
        _frameViewer.getLblActualRecordingTime().revalidate();
        _avi.stopExport();
+       _isRecording = Boolean.FALSE;
    }
 
    public void startExporting()
@@ -81,6 +98,7 @@ public class FileChooserHandler implements Runnable
       _avi = new VideoExporterAVI(new File(_file.getAbsolutePath()));
         _avi.setVideoSource((IVideoSource)_source);
         _avi.startExport();
+        _isRecording = Boolean.TRUE;
        new Thread(this).start();
    }
    
@@ -105,6 +123,8 @@ public class FileChooserHandler implements Runnable
 
     public void run() {
         long  timeStamp = System.currentTimeMillis();
+        System.out.println("Ovde sam?");
+                
         if(_flag)
         {
             _avi.stopExport();

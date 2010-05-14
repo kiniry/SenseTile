@@ -4,7 +4,6 @@ import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import org.gstreamer.*;
-import sensetile.video.sources.VideoSourceProvider;
 /**
  *
  * @author SenseTile
@@ -61,8 +60,7 @@ public class VideoExporterAVI extends VideoExporter
 
             public void handoff(Element element, Buffer buffer, Pad pad)
             {
-               data=  ((java.awt.image.DataBufferInt)_videoSource.getRGBMediatorListener().getCurrentImage().getRaster().getDataBuffer()).getData();
-                //data = _videoSource.getPixels();
+                data = _videoSource.getPixels();
                 ByteBuffer bytes = buffer.getByteBuffer();
                 IntBuffer b = bytes.asIntBuffer();
                 b.put(data);
