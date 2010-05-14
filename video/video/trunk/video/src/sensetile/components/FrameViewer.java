@@ -232,6 +232,8 @@ public class FrameViewer extends JInternalFrame {
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
+
+
         FrameViewerControler.getInstance().formInternalFrameClosed(_source);
     }//GEN-LAST:event_formInternalFrameClosed
 

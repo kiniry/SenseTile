@@ -6,12 +6,12 @@
 package sensetile.components;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.Guard;
 
@@ -83,8 +83,9 @@ public class FileChooserHandler implements Runnable
 
    public void stopExporting()
    {
+       Logger.getLogger(FileChooserHandler.class.getName()).
+                    log(Level.INFO, "Stop exporting video stream into the file.");
        _flag = Boolean.TRUE;
-
        _frameViewer.getLblActualFileSize().setText("");
        _frameViewer.getLblActualFileSize().revalidate();
        _frameViewer.getLblActualRecordingTime().setText("");
@@ -95,6 +96,8 @@ public class FileChooserHandler implements Runnable
 
    public void startExporting()
    {
+       Logger.getLogger(FileChooserHandler.class.getName()).
+                    log(Level.INFO, "Start exporting video stream into the file.");
       _avi = new VideoExporterAVI(new File(_file.getAbsolutePath()));
         _avi.setVideoSource((IVideoSource)_source);
         _avi.startExport();
@@ -122,9 +125,7 @@ public class FileChooserHandler implements Runnable
     }
 
     public void run() {
-        long  timeStamp = System.currentTimeMillis();
-        System.out.println("Ovde sam?");
-                
+        long  timeStamp = System.currentTimeMillis();        
         if(_flag)
         {
             _avi.stopExport();

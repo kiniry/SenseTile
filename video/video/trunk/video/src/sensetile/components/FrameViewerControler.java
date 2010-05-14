@@ -122,12 +122,14 @@ public class FrameViewerControler implements IObservable
        Guard.ArgumentNotNull(source, "Source cannot be a null.");
         FrameViewer frameViewer = findFrameViewerFrom(source);
        FileChooserHandler fileChooserHandler = findFileChooserHandler(frameViewer);
-       fileChooserHandler.stopExporting();
-       if(_chooserHandlers.contains(fileChooserHandler))
+       if(fileChooserHandler != null && fileChooserHandler.isRecording()) 
        {
+         fileChooserHandler.stopExporting();
+         if(_chooserHandlers.contains(fileChooserHandler))
+         {
             _chooserHandlers.remove(fileChooserHandler);
+         }
        }
-
     }
 
 
@@ -283,6 +285,7 @@ public class FrameViewerControler implements IObservable
     {
         Guard.ArgumentNotNull(source, "Video source cannot be a null.");
         FrameViewer frame = findFrameViewerFrom(source);
+        stopExporting(frame);
         if (source.isPlaying())
         {
             source.stopSource();
@@ -293,6 +296,15 @@ public class FrameViewerControler implements IObservable
         removeFrame(frame);
     }
 
+    private void stopExporting(FrameViewer frame)
+    {
+      Guard.ArgumentNotNull(frame, "FrameViewer cannot be a null.");
+      FileChooserHandler chooserHandler = findFileChooserHandler(frame);
+      if(chooserHandler != null && chooserHandler.isRecording())
+      {
+          chooserHandler.stopExporting();
+      }
+    }
     private void doNotification( final ISource source)
     {
         IMessage message = SourceMessage.createSourceMessage(source, Validity.INVALID);
