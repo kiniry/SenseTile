@@ -20,6 +20,7 @@ import sensetile.video.sources.IVideoSource;
 /**
  *
  * @author SenseTile
+ * @TODO DESIGN SHOULD BE BETTER - NO TIME AT THIS MOMENT TO IMPROVE DESIGN!
  */
 public class FileChooserHandler implements Runnable
 {

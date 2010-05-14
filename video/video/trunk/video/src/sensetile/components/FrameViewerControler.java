@@ -121,14 +121,16 @@ public class FrameViewerControler implements IObservable
     {
        Guard.ArgumentNotNull(source, "Source cannot be a null.");
         FrameViewer frameViewer = findFrameViewerFrom(source);
-       FileChooserHandler fileChooserHandler = findFileChooserHandler(frameViewer);
-       if(fileChooserHandler != null && fileChooserHandler.isRecording()) 
+       FileChooserHandler fileChooserHandler =
+               findFileChooserHandler(frameViewer);
+       if(fileChooserHandler != null &&
+               fileChooserHandler.isRecording())
        {
-         fileChooserHandler.stopExporting();
-         if(_chooserHandlers.contains(fileChooserHandler))
-         {
-            _chooserHandlers.remove(fileChooserHandler);
-         }
+             fileChooserHandler.stopExporting();
+             if(_chooserHandlers.contains(fileChooserHandler))
+             {
+                _chooserHandlers.remove(fileChooserHandler);
+             }
        }
     }
 
