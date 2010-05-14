@@ -117,8 +117,8 @@ public class FileChooserHandler implements Runnable
         }
     }
 
-    public void run() {
-        System.out.println(_frameViewer.getSource().getDeviceName());
+    public void run()
+    {
         long  timeStamp = System.currentTimeMillis();        
         if(_flag)
         {
