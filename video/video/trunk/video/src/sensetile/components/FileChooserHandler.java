@@ -31,29 +31,24 @@ public class FileChooserHandler implements Runnable
     private VideoExporterAVI _avi = null;
     private ISource _source = ISource.NO_SOURCE;
     private boolean _isRecording = Boolean.FALSE;
-   private FileChooserHandler(final FrameViewer frameViewer )
-   {
+
+    private FileChooserHandler(final FrameViewer frameViewer )
+    {
        _frameViewer = frameViewer;
        _file = new java.io.File("video" +
             java.util.UUID.randomUUID().toString() + ".avi");
        _source = frameViewer.getSource();
        createFileChooser();
-   }
-
-
+    }
    public boolean isRecording()
    {
        return _isRecording;
    }
-
    public static FileChooserHandler createHandler(final FrameViewer frameViewer)
    {
        Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
        return new FileChooserHandler(frameViewer);
-
    }
-
-
    private FileChooser createFileChooser()
    {
        _fileChooser = new FileChooser( new JFrame(), true);
@@ -64,13 +59,10 @@ public class FileChooserHandler implements Runnable
         _fileChooser.setVisible(Boolean.TRUE);
        return _fileChooser;
    }
-
    public void setAlive(boolean isAlive)
    {
        _flag = isAlive;
    }
-
-  
 
    public FrameViewer getFrameViewer()
    {
@@ -106,7 +98,8 @@ public class FileChooserHandler implements Runnable
        new Thread(this).start();
    }
    
-   public void fileActionPerformed() {
+   public void fileActionPerformed()
+   {
        JFileChooser chooser = 
                new JFileChooser(_fileChooser.
                getTxtSelectedFileName().getText());
@@ -115,7 +108,6 @@ public class FileChooserHandler implements Runnable
         chooser.setMultiSelectionEnabled(false);
         chooser.setMultiSelectionEnabled(false);
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("AVI", "AVI", "avi"));
-
         if (chooser.showSaveDialog(_fileChooser) == JFileChooser.APPROVE_OPTION) {
             _file = chooser.getSelectedFile();
             if (!_file.getAbsolutePath().toLowerCase().endsWith(".avi") ) {
@@ -126,22 +118,28 @@ public class FileChooserHandler implements Runnable
     }
 
     public void run() {
+        System.out.println(_frameViewer.getSource().getDeviceName());
         long  timeStamp = System.currentTimeMillis();        
         if(_flag)
         {
             _avi.stopExport();
         }
          while (!_flag) {
-            try {
-                if (_file.exists()) {
+           
+                if (_file.exists())
+                {
                     _frameViewer.getLblActualFileSize().setText("File size: " + 
                             (new DecimalFormat().format((_file.length() / 1024) / 1024f)) + " Mb");
-                } else {
+                } else
+                {
                     _frameViewer.getLblActualFileSize().setText("");
                 }
-                if (timeStamp == 0) {
+                if (timeStamp == 0)
+                {
                     _frameViewer.getLblActualRecordingTime().setText("");
-                } else {
+                } 
+                else
+                {
                     int delta = (int) ((System.currentTimeMillis() - timeStamp) / 1000);
                     int h = (delta / 3600);
                     delta -= (h * 3600);
@@ -166,9 +164,11 @@ public class FileChooserHandler implements Runnable
 
                 _frameViewer.getLblActualRecordingTime().revalidate();
                 _frameViewer.getLblActualFileSize().revalidate();
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-            }
+            try
+            {
+             Thread.sleep(1000);
+            } 
+            catch (InterruptedException ex){}
         }
     }
 
