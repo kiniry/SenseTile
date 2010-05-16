@@ -15,7 +15,6 @@ import sensetile.common.sources.ISource;
 import sensetile.common.utils.CommonUtils;
 import sensetile.common.utils.Guard;
 import sensetile.common.utils.ListUtils;
-import sensetile.components.FrameViewerControler;
 import sensetile.devices.TelosDevice;
 import sensetile.sensor.sources.telos.ITelosHolder;
 
@@ -66,11 +65,7 @@ public class TelosViewerControler implements IObservable
     private void processTelosHolder(final ITelosHolder holder)
     {
         String[] line = new String[3];
-        line[0] = new StringBuffer().append(holder.getDate()).
-                append(":").append(holder.getHour()).
-                append(":").append( holder.getMinute()).
-                append(":").append(holder.getSecond()).
-                toString() ;
+        line[0] = new StringBuffer().append(holder.getDate().toString()).toString();
         line[1] = String.valueOf(holder.getTemperature());
         line[2] = String.valueOf(holder.getHumidity());
         _frame.getDefaultTableModel().addRow(line);

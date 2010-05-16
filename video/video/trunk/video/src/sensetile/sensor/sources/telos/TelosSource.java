@@ -145,12 +145,15 @@ public class TelosSource implements ISource
     @Override
     public void startSource()
     {
-        if(_service == null)
-        {
-
-        }
-        final String[]  telosCommand = TelosSource.createTelos().getTelosCommand();
-        _service = TelosService.create(telosCommand);
+//        if(_service == null)
+//        {
+//
+//        }
+//        final String[]  telosCommand = TelosSource.createTelos().getTelosCommand();
+//        _service = Telos_Service.create(telosCommand);
+        _service = new TelosService();
+        _service.initialize();
+        
         _isPlaying = Boolean.TRUE;
 
     }

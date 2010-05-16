@@ -1,4 +1,7 @@
 package sensetile.sensor.sources.telos;
+
+import java.util.Date;
+
 /**
  *
  * @author SenseTile
@@ -10,7 +13,7 @@ public interface ITelosHolder
 
     void initialize( final String message);
 
-    String getDate();
+    Date getDate();
 
     String getHour();
 
@@ -20,7 +23,7 @@ public interface ITelosHolder
 
     int getIdentifier() ;
 
-    String getNodeId();
+    int getNodeId();
     
     double getTemperature();
 
