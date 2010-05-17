@@ -193,7 +193,7 @@ public class DeviceDetectorService  implements Runnable
                     delay == 0 && new File(DEV).list(filter).length != nbDevices;
                 if ( isflagTrue )
                 {
-                    Thread.sleep(1700); // WAITING OP SYSTEM TO VALIDATE DRIVERS
+                    Thread.sleep(3000); // WAITING OP SYSTEM TO VALIDATE DRIVERS
                     List<IMessage> messagesList = createMessages();
                     load();
                     doNotification(messagesList);

@@ -50,7 +50,7 @@ public class VideoDevice implements IDevice
 
         } catch (InterruptedException ex)
         {
-            Logger.getLogger(Video_Device.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VideoDevice.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         VideoCapability.ByReference vidCaps = new VideoCapability.ByReference();
@@ -90,7 +90,7 @@ public class VideoDevice implements IDevice
 
         if(!isVidiocQueryCap && !isVidiocGCap )
         {
-            Logger.getLogger(Video_Device.class.getName()).log(Level.SEVERE,
+            Logger.getLogger(VideoDevice.class.getName()).log(Level.SEVERE,
                     "Video Capability Problem: " +
                     "Current device is nether v4l2Caps nor vidCaps.");
         }
