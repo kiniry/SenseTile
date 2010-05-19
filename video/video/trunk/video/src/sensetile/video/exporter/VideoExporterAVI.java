@@ -62,14 +62,13 @@ public class VideoExporterAVI extends VideoExporter
             {
                 data = _videoSource.getPixels();
                 ByteBuffer bytes = buffer.getByteBuffer();
-                IntBuffer b = bytes.asIntBuffer();
-                b.put(data);
+                IntBuffer intBuffer = bytes.asIntBuffer();
+                intBuffer.put(data);
             }
 
             final VideoExporterAVI VEAVI;
             {
                 VEAVI = VideoExporterAVI.this;
-             //   super();
             }
         });
         source.connect("handoff", new Closure()

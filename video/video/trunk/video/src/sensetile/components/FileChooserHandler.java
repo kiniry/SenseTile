@@ -12,6 +12,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sensetile.common.messages.IMessage;
+import sensetile.common.messages.MessageType.Validity;
+import sensetile.common.messages.SourceMessage;
+import sensetile.common.services.BroadcasterService;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.Guard;
 
@@ -56,12 +60,16 @@ public class FileChooserHandler implements Runnable
        _fileChooser.setLocationRelativeTo(_frameViewer);
        _fileChooser.getTxtSelectedFileName().setText(_file.getAbsolutePath());
         _fileChooser.pack();
-        _fileChooser.setVisible(Boolean.TRUE);
        return _fileChooser;
    }
    public void setAlive(boolean isAlive)
    {
        _flag = isAlive;
+   }
+
+   public FileChooser getFileChooser()
+   {
+       return _fileChooser;
    }
 
    public FrameViewer getFrameViewer()
@@ -98,6 +106,15 @@ public class FileChooserHandler implements Runnable
        new Thread(this).start();
    }
    
+   public void doNotification()
+    {
+        IMessage message = SourceMessage.createSourceMessage(_source, Validity.INVALID);
+        BroadcasterService broadcasterService = BroadcasterService.getInstance();
+        broadcasterService.broadcastMessage(message);
+         Logger.getLogger(FrameViewerControler.class.getName()).
+                    log(Level.INFO, "Source message is broadcasted. " +
+                    "REASON: [FileChooser has been closed].");
+    }
    public void fileActionPerformed()
    {
        JFileChooser chooser = 

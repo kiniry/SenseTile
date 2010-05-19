@@ -139,12 +139,12 @@ public class FileChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-
+        _chooserHandler.doNotification();
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnRecordingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordingActionPerformed
-        if(_chooserHandler != null)
+        if(_chooserHandler != null && !_chooserHandler.isRecording())
         {
          _chooserHandler.startExporting();
          dispose();

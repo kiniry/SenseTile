@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package sensetile.components;
 
@@ -30,7 +27,7 @@ import sensetile.video.sources.IVideoSource;
 
 /**
  *
- * @author dragan
+ * @author SenseTile
  */
 public class FrameViewerControler implements IObservable
 {
@@ -56,19 +53,32 @@ public class FrameViewerControler implements IObservable
     public void update(IMessage message)
     {
          Guard.ArgumentNotNull(message, "Message cannot be a null.");
-        if (!CommonUtils.isTypeOf(message,
+        if (CommonUtils.isTypeOf(message,
                  "sensetile.common.messages.PipeMessage"))
         {
-            return;
-        }
-        PipeMessage packetMessage = (PipeMessage)message;
-        PipeType type = packetMessage.getPacketType();
-        IVideoSource source = (IVideoSource)packetMessage.getMessage();
-        FrameViewer frameViewer = findFrameViewerFrom(source);
-        if(type == PipeType.PIPE_BUS_ERROR && source.isEqual(frameViewer.getSource()))
-        {
-            frameViewer.doDefaultCloseAction();
-        }
+            PipeMessage packetMessage = (PipeMessage)message;
+            PipeType type = packetMessage.getPacketType();
+            IVideoSource source = (IVideoSource)packetMessage.getMessage();
+            FrameViewer frameViewer = findFrameViewerFrom(source);
+            if(type == PipeType.PIPE_BUS_ERROR && source.isEqual(frameViewer.getSource()))
+            {
+              frameViewer.doDefaultCloseAction();
+            }
+         }else if(CommonUtils.isTypeOf(message,
+                 "sensetile.common.messages.SourceMessage"))
+         {
+             SourceMessage sourceMessage = (SourceMessage)message;
+             IVideoSource source = (IVideoSource)sourceMessage.getMessage();
+              FileChooserHandler fch = findFileChooserHandlerBy(source);
+              _chooserHandlers.remove(fch);
+         }else
+         {
+              Logger.getLogger(FrameViewerControler.class.getName()).
+                    log(Level.INFO, "This type of message: " +
+                    message.getClass().getName() + "is not supported.");
+         }
+
+        
     }
 
     /**
@@ -87,6 +97,7 @@ public class FrameViewerControler implements IObservable
         }
         chooserHandler = findFileChooserHandlerBy(source);
         
+        
         if(chooserHandler != null && chooserHandler.isRecording())
         {
             return;
@@ -97,6 +108,7 @@ public class FrameViewerControler implements IObservable
             if(!_chooserHandlers.contains(chooserHandler)) 
             {
              _chooserHandlers.add(chooserHandler);
+             chooserHandler.getFileChooser().setVisible(Boolean.TRUE);
             }
         }
     }
