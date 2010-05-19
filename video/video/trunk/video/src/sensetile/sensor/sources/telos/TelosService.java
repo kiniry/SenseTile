@@ -17,10 +17,12 @@ import net.tinyos.message.MoteIF;
 import net.tinyos.packet.BuildSource;
 import net.tinyos.packet.PhoenixSource;
 import net.tinyos.util.PrintStreamMessenger;
+import sensetile.common.messages.DeviceMessage;
 import sensetile.common.messages.IMessage;
 import sensetile.common.messages.MessageType;
 import sensetile.common.messages.PacketMessage;
 import sensetile.common.services.BroadcasterService;
+import sensetile.devices.TelosDevice;
 
 public class TelosService implements MessageListener {
 
@@ -179,10 +181,21 @@ public class TelosService implements MessageListener {
                     log(Level.SEVERE,
             "Exception thrown when sending packets. " + "Exiting:[ "
                 + exception.getMessage() + " ]", exception);
+          errorBroadcasting();
 
       }
     }
   }
+
+  private void errorBroadcasting()
+      {
+          TelosDevice DUMMY_DEVICE = new TelosDevice("/dev/ttyUSB0");
+          IMessage DUMMY_MESSAGE = DeviceMessage.
+                  createDeviceMessage(DUMMY_DEVICE, MessageType.Validity.INVALID);
+          BroadcasterService.getInstance().broadcastMessage(DUMMY_MESSAGE);
+           Logger.getLogger(TelosService.class.getName()).
+                        log(Level.SEVERE, "Message broadcasted with DUMMY TelosDevice object.");
+      }
 
   @Override
   public void messageReceived(int to, Message rawMessage) {
