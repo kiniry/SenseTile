@@ -36,7 +36,7 @@ public class About extends javax.swing.JDialog
         setModal(true);
         setResizable(false);
 
-        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/process-stop.png"))); // NOI18N
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/cancel.png"))); // NOI18N
         btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
         btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
         btnClose.setPreferredSize(new java.awt.Dimension(32, 32));

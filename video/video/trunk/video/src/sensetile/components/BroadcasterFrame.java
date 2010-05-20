@@ -14,7 +14,8 @@ public class BroadcasterFrame extends javax.swing.JDialog {
     {
         super(parent, modal);
         initComponents();
-        Image img = getToolkit().getImage(URLClassLoader.getSystemResource("sensetile/resources/tango/transmit_blue.png"));
+        Image img = getToolkit().getImage(URLClassLoader.
+                getSystemResource("sensetile/resources/tango/transmit_blue.png"));
         this.setIconImage(img);
     }
 
