@@ -26,7 +26,7 @@ import sensetile.video.sources.IVideoSource;
  * @author SenseTile
  * @TODO DESIGN SHOULD BE BETTER - NO TIME AT THIS MOMENT TO IMPROVE DESIGN!
  */
-public class FileChooserHandler implements Runnable
+public class VideoRecorderHandler implements Runnable
 {
     private FrameViewer _frameViewer = null;
     private FileChooser _fileChooser = null;
@@ -36,7 +36,7 @@ public class FileChooserHandler implements Runnable
     private ISource _source = ISource.NO_SOURCE;
     private boolean _isRecording = Boolean.FALSE;
 
-    private FileChooserHandler(final FrameViewer frameViewer )
+    private VideoRecorderHandler(final FrameViewer frameViewer )
     {
        _frameViewer = frameViewer;
        _file = new java.io.File("video" +
@@ -48,10 +48,10 @@ public class FileChooserHandler implements Runnable
    {
        return _isRecording;
    }
-   public static FileChooserHandler createHandler(final FrameViewer frameViewer)
+   public static VideoRecorderHandler createHandler(final FrameViewer frameViewer)
    {
        Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
-       return new FileChooserHandler(frameViewer);
+       return new VideoRecorderHandler(frameViewer);
    }
    private FileChooser createFileChooser()
    {
@@ -84,7 +84,7 @@ public class FileChooserHandler implements Runnable
 
    public void stopRecording()
    {
-       Logger.getLogger(FileChooserHandler.class.getName()).
+       Logger.getLogger(VideoRecorderHandler.class.getName()).
                     log(Level.INFO, "Stop exporting video stream into the file.");
        _flag = Boolean.TRUE;
        _frameViewer.getLblActualFileSize().setText("");
@@ -99,7 +99,7 @@ public class FileChooserHandler implements Runnable
    public void startRecording()
    {
         doNotification(TransmissionType.RECORDING_PROCESS_STARTED);
-       Logger.getLogger(FileChooserHandler.class.getName()).
+       Logger.getLogger(VideoRecorderHandler.class.getName()).
                     log(Level.INFO, "Start exporting video stream into the file.");
       _avi = new VideoExporterAVI(new File(_file.getAbsolutePath()));
         _avi.setVideoSource((IVideoSource)_source);
@@ -116,7 +116,7 @@ public class FileChooserHandler implements Runnable
                 createTransmissionMessage(_source,aType);
         BroadcasterService broadcasterService = BroadcasterService.getInstance();
         broadcasterService.broadcastMessage(message);
-         Logger.getLogger(FileChooserHandler.class.getName()).
+         Logger.getLogger(VideoRecorderHandler.class.getName()).
                     log(Level.INFO, "Transmission message is broadcasted. " +
                     "REASON: [" + aType.toString() + "; FileChooser has been closed].");
     }
@@ -169,15 +169,18 @@ public class FileChooserHandler implements Runnable
                     delta -= m * 60;
                     int s = delta;
                     String time = "";
-                    if (h < 10) {
+                    if (h < 10) 
+                    {
                         time += "0";
                     }
                     time += h + ":";
-                    if (m < 10) {
+                    if (m < 10)
+                    {
                         time += "0";
                     }
                     time += m + ":";
-                    if (s < 10) {
+                    if (s < 10)
+                    {
                         time += "0";
                     }
                     time += s;

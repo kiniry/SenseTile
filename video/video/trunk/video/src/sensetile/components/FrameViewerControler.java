@@ -35,7 +35,7 @@ public class FrameViewerControler implements IObservable
 {
     
     private List<FrameViewer> _frames = null;
-    private List<FileChooserHandler> _chooserHandlers = null;
+    private List<VideoRecorderHandler> _recorderHandlers = null;
     private LayerService _layerService = LayerService.NONE;
 
 
@@ -43,7 +43,7 @@ public class FrameViewerControler implements IObservable
     {
       _frames = new ArrayList<FrameViewer>();
       _layerService = LayerService.getInstance();
-      _chooserHandlers = new ArrayList<FileChooserHandler>();
+      _recorderHandlers = new ArrayList<VideoRecorderHandler>();
       
     }
 
@@ -93,8 +93,8 @@ public class FrameViewerControler implements IObservable
          if(transmissionMessage.getTransmissionType() ==
          TransmissionType.RECORDING_PROCESS_STOPPED)
          {
-           FileChooserHandler fch = findFileChooserHandlerBy(source);
-           _chooserHandlers.remove(fch);
+           VideoRecorderHandler vrh = findVideoRecorderHandlerBy(source);
+           _recorderHandlers.remove(vrh);
          }
     }
 
@@ -105,79 +105,79 @@ public class FrameViewerControler implements IObservable
     public void openFileChooser(ISource source)
     {
         Guard.ArgumentNotNull(source, "Source cannot be a null.");
-        FileChooserHandler chooserHandler = null;
+        VideoRecorderHandler recorderHandler = null;
         FrameViewer frameViewer = findFrameViewerFrom(source);
         if(!source.isPlaying() && !source.isPaused())
         {
           return ;
       
         }
-        chooserHandler = findFileChooserHandlerBy(source);
+        recorderHandler = findVideoRecorderHandlerBy(source);
         
         
-        if(chooserHandler != null && chooserHandler.isRecording())
+        if(recorderHandler != null && recorderHandler.isRecording())
         {
             return;
         }
         else
         {
-            chooserHandler =  FileChooserHandler.createHandler(frameViewer);
-            if(!_chooserHandlers.contains(chooserHandler)) 
+            recorderHandler =  VideoRecorderHandler.createHandler(frameViewer);
+            if(!_recorderHandlers.contains(recorderHandler))
             {
-             _chooserHandlers.add(chooserHandler);
-             chooserHandler.getFileChooser().setVisible(Boolean.TRUE);
+             _recorderHandlers.add(recorderHandler);
+             recorderHandler.getFileChooser().setVisible(Boolean.TRUE);
             }
         }
     }
 
 
-    private FileChooserHandler findFileChooserHandlerBy( ISource source)
+    private VideoRecorderHandler findVideoRecorderHandlerBy( ISource source)
     {
-        FileChooserHandler chooserHandler = null;
-        for(FileChooserHandler fch : _chooserHandlers)
+        VideoRecorderHandler recorderHandler = null;
+        for(VideoRecorderHandler fch : _recorderHandlers)
         {
             ISource currentSource = fch.getFrameViewer().getSource();
             if(currentSource.equals(source))
             {
-                chooserHandler = fch;
+                recorderHandler = fch;
                 break;
             }
         }
-        return chooserHandler;
+        return recorderHandler;
     }
 
     public void stopExporting(final ISource source)
     {
        Guard.ArgumentNotNull(source, "Source cannot be a null.");
         FrameViewer frameViewer = findFrameViewerFrom(source);
-       FileChooserHandler fileChooserHandler =
-               findFileChooserHandler(frameViewer);
-       if(fileChooserHandler != null &&
-               fileChooserHandler.isRecording())
+       VideoRecorderHandler recorderHandler =
+               findVideoRecorderHandler(frameViewer);
+       if(recorderHandler != null &&
+               recorderHandler.isRecording())
        {
-             fileChooserHandler.stopRecording();
-             if(_chooserHandlers.contains(fileChooserHandler))
+             recorderHandler.stopRecording();
+             if(_recorderHandlers.contains(recorderHandler))
              {
-                _chooserHandlers.remove(fileChooserHandler);
+                _recorderHandlers.remove(recorderHandler);
              }
        }
     }
 
 
-    private FileChooserHandler findFileChooserHandler(final FrameViewer frameViewer)
+    private VideoRecorderHandler findVideoRecorderHandler(final FrameViewer frameViewer)
     {
-        FileChooserHandler fileChooser = null;
+        VideoRecorderHandler recorderHandler = null;
         Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
-        for(FileChooserHandler chooserHandler : _chooserHandlers)
+        for(VideoRecorderHandler recHandler : _recorderHandlers)
         {
-            FrameViewer fv = chooserHandler.getFrameViewer();
+            FrameViewer fv = recHandler.getFrameViewer();
             if( fv != null && fv.equals(frameViewer))
             {
-                fileChooser = chooserHandler;
+                recorderHandler = recHandler;
                 break;
             }
         }
-        return fileChooser;
+        return recorderHandler;
     }
 
     public void updateSequence(List<IMessage> messages)
@@ -330,10 +330,10 @@ public class FrameViewerControler implements IObservable
     private void stopExporting(FrameViewer frame)
     {
       Guard.ArgumentNotNull(frame, "FrameViewer cannot be a null.");
-      FileChooserHandler chooserHandler = findFileChooserHandler(frame);
-      if(chooserHandler != null && chooserHandler.isRecording())
+      VideoRecorderHandler recorderHandler = findVideoRecorderHandler(frame);
+      if(recorderHandler != null && recorderHandler.isRecording())
       {
-          chooserHandler.stopRecording();
+          recorderHandler.stopRecording();
       }
     }
     private void doNotification( final ISource source)

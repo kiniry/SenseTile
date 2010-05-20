@@ -23,7 +23,7 @@ import sensetile.common.utils.Guard;
 public class FileChooser extends javax.swing.JDialog {
 
     
-    private FileChooserHandler _chooserHandler = null;
+    private VideoRecorderHandler _videoRecorderHandler = null;
    
     /** Creates new form VideoRecorder */
     public FileChooser(java.awt.Frame parent, boolean modal)
@@ -34,10 +34,10 @@ public class FileChooser extends javax.swing.JDialog {
     }
     
 
-    public void setFileChooserHandler( FileChooserHandler chooserHandler)
+    public void setFileChooserHandler( VideoRecorderHandler recorderHandler)
     {
-        Guard.ArgumentNotNull(chooserHandler, "FileChooserHandler cannot be a null.");
-        _chooserHandler = chooserHandler;
+        Guard.ArgumentNotNull(recorderHandler, "FileChooserHandler cannot be a null.");
+        _videoRecorderHandler = recorderHandler;
     }
 
     /** This method is called from within the constructor to
@@ -132,7 +132,7 @@ public class FileChooser extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseFileActionPerformed
-        _chooserHandler.fileActionPerformed();
+        _videoRecorderHandler.fileActionPerformed();
     }//GEN-LAST:event_btnBrowseFileActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -140,14 +140,14 @@ public class FileChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        _chooserHandler.doNotification(TransmissionType.RECORDING_PROCESS_STOPPED);
+        _videoRecorderHandler.doNotification(TransmissionType.RECORDING_PROCESS_STOPPED);
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnRecordingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordingActionPerformed
-        if(_chooserHandler != null && !_chooserHandler.isRecording())
+        if(_videoRecorderHandler != null && !_videoRecorderHandler.isRecording())
         {
-         _chooserHandler.startRecording();
+         _videoRecorderHandler.startRecording();
          dispose();
         }
     }//GEN-LAST:event_btnRecordingActionPerformed
