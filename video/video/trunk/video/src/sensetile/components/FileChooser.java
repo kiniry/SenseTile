@@ -11,6 +11,8 @@
 package sensetile.components;
 
 
+import java.awt.Image;
+import java.net.URLClassLoader;
 import javax.swing.JTextField;
 import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.utils.Guard;
@@ -30,6 +32,8 @@ public class FileChooser extends javax.swing.JDialog {
     {
         super(parent, modal);
         initComponents();
+        Image img = getToolkit().getImage(URLClassLoader.getSystemResource("sensetile/resources/tango/transmit_blue.png"));
+        this.setIconImage(img);
 
     }
     
