@@ -13,9 +13,11 @@ import sensetile.common.messages.IMessage;
 import sensetile.common.services.IObservable;
 import sensetile.common.services.LayerService;
 import sensetile.common.messages.MessageType.PipeType;
+import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.messages.MessageType.Validity;
 import sensetile.common.messages.PipeMessage;
 import sensetile.common.messages.SourceMessage;
+import sensetile.common.messages.TransmissionMessage;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.CommonUtils;
 import sensetile.common.utils.Guard;
@@ -55,22 +57,15 @@ public class FrameViewerControler implements IObservable
          Guard.ArgumentNotNull(message, "Message cannot be a null.");
         if (CommonUtils.isTypeOf(message,
                  "sensetile.common.messages.PipeMessage"))
-        {
-            PipeMessage packetMessage = (PipeMessage)message;
-            PipeType type = packetMessage.getPacketType();
-            IVideoSource source = (IVideoSource)packetMessage.getMessage();
-            FrameViewer frameViewer = findFrameViewerFrom(source);
-            if(type == PipeType.PIPE_BUS_ERROR && source.isEqual(frameViewer.getSource()))
-            {
-              frameViewer.doDefaultCloseAction();
-            }
-         }else if(CommonUtils.isTypeOf(message,
-                 "sensetile.common.messages.SourceMessage"))
          {
-             SourceMessage sourceMessage = (SourceMessage)message;
-             IVideoSource source = (IVideoSource)sourceMessage.getMessage();
-              FileChooserHandler fch = findFileChooserHandlerBy(source);
-              _chooserHandlers.remove(fch);
+            PipeMessage pipeMessage = (PipeMessage)message;
+            resolvePipeMessage(pipeMessage);
+         }
+        else if(message.getClass().isAssignableFrom(TransmissionMessage.class))
+         {
+             TransmissionMessage transmissionMessage =
+                     (TransmissionMessage)message;
+             resolveTransmissionMessage(transmissionMessage);
          }else
          {
               Logger.getLogger(FrameViewerControler.class.getName()).
@@ -79,6 +74,28 @@ public class FrameViewerControler implements IObservable
          }
 
         
+    }
+
+    private void resolvePipeMessage(final PipeMessage pipeMessage)
+    {
+        PipeType type = pipeMessage.getPacketType();
+        IVideoSource source = (IVideoSource)pipeMessage.getMessage();
+        FrameViewer frameViewer = findFrameViewerFrom(source);
+        if(type == PipeType.PIPE_BUS_ERROR && source.isEqual(frameViewer.getSource()))
+        {
+          frameViewer.doDefaultCloseAction();
+        }
+    }
+
+    private void resolveTransmissionMessage(TransmissionMessage transmissionMessage)
+    {
+        IVideoSource source = (IVideoSource)transmissionMessage.getMessage();
+         if(transmissionMessage.getTransmissionType() ==
+         TransmissionType.RECORDING_PROCESS_STOPPED)
+         {
+           FileChooserHandler fch = findFileChooserHandlerBy(source);
+           _chooserHandlers.remove(fch);
+         }
     }
 
     /**
@@ -138,7 +155,7 @@ public class FrameViewerControler implements IObservable
        if(fileChooserHandler != null &&
                fileChooserHandler.isRecording())
        {
-             fileChooserHandler.stopExporting();
+             fileChooserHandler.stopRecording();
              if(_chooserHandlers.contains(fileChooserHandler))
              {
                 _chooserHandlers.remove(fileChooserHandler);
@@ -316,7 +333,7 @@ public class FrameViewerControler implements IObservable
       FileChooserHandler chooserHandler = findFileChooserHandler(frame);
       if(chooserHandler != null && chooserHandler.isRecording())
       {
-          chooserHandler.stopExporting();
+          chooserHandler.stopRecording();
       }
     }
     private void doNotification( final ISource source)

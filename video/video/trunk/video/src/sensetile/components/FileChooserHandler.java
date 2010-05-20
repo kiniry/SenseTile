@@ -13,8 +13,8 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sensetile.common.messages.IMessage;
-import sensetile.common.messages.MessageType.Validity;
-import sensetile.common.messages.SourceMessage;
+import sensetile.common.messages.MessageType.TransmissionType;
+import sensetile.common.messages.TransmissionMessage;
 import sensetile.common.services.BroadcasterService;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.Guard;
@@ -82,7 +82,7 @@ public class FileChooserHandler implements Runnable
        return _flag;
    }
 
-   public void stopExporting()
+   public void stopRecording()
    {
        Logger.getLogger(FileChooserHandler.class.getName()).
                     log(Level.INFO, "Stop exporting video stream into the file.");
@@ -93,27 +93,32 @@ public class FileChooserHandler implements Runnable
        _frameViewer.getLblActualRecordingTime().revalidate();
        _avi.stopExport();
        _isRecording = Boolean.FALSE;
+       doNotification(TransmissionType.RECORDING_PROCESS_FINISHED);
    }
 
-   public void startExporting()
+   public void startRecording()
    {
+        doNotification(TransmissionType.RECORDING_PROCESS_STARTED);
        Logger.getLogger(FileChooserHandler.class.getName()).
                     log(Level.INFO, "Start exporting video stream into the file.");
       _avi = new VideoExporterAVI(new File(_file.getAbsolutePath()));
         _avi.setVideoSource((IVideoSource)_source);
+       
         _avi.startExport();
         _isRecording = Boolean.TRUE;
+       
        new Thread(this).start();
    }
    
-   public void doNotification()
+   public void doNotification(TransmissionType aType)
     {
-        IMessage message = SourceMessage.createSourceMessage(_source, Validity.INVALID);
+        IMessage message = TransmissionMessage.
+                createTransmissionMessage(_source,aType);
         BroadcasterService broadcasterService = BroadcasterService.getInstance();
         broadcasterService.broadcastMessage(message);
-         Logger.getLogger(FrameViewerControler.class.getName()).
-                    log(Level.INFO, "Source message is broadcasted. " +
-                    "REASON: [FileChooser has been closed].");
+         Logger.getLogger(FileChooserHandler.class.getName()).
+                    log(Level.INFO, "Transmission message is broadcasted. " +
+                    "REASON: [" + aType.toString() + "; FileChooser has been closed].");
     }
    public void fileActionPerformed()
    {

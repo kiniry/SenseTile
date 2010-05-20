@@ -36,4 +36,15 @@ public class MessageType {
         VALID,
         INVALID
     }
+
+    public enum TransmissionType
+    {
+        NO_TRAMSMISSION,
+        BROADCASTING_PROCESS_FINISHED,
+        BROADCASTING_PROCESS_STARTED,
+        BROADCASTING_PROCESS_STOPPED,
+        RECORDING_PROCESS_STOPPED,
+        RECORDING_PROCESS_STARTED,
+        RECORDING_PROCESS_FINISHED;
+    }
 }

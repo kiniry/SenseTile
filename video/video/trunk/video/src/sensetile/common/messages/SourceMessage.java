@@ -23,7 +23,7 @@ public class SourceMessage implements IMessage {
     public static final SourceMessage createSourceMessage(final ISource source,
             final Validity validity)
     {
-        Guard.ArgumentNotNull(source, "Device cannot be a null.");
+        Guard.ArgumentNotNull(source, "Source cannot be a null.");
         return new SourceMessage(source, validity);
     }
 

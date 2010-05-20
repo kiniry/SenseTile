@@ -12,6 +12,7 @@ package sensetile.components;
 
 
 import javax.swing.JTextField;
+import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.utils.Guard;
 
 /**
@@ -139,14 +140,14 @@ public class FileChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        _chooserHandler.doNotification();
+        _chooserHandler.doNotification(TransmissionType.RECORDING_PROCESS_STOPPED);
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnRecordingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordingActionPerformed
         if(_chooserHandler != null && !_chooserHandler.isRecording())
         {
-         _chooserHandler.startExporting();
+         _chooserHandler.startRecording();
          dispose();
         }
     }//GEN-LAST:event_btnRecordingActionPerformed
