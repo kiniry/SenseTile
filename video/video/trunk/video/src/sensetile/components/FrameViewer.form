@@ -91,8 +91,11 @@
                     </Property>
                     <Property name="name" type="java.lang.String" value="mnuBroadcastStart" noResource="true"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuBroadcastStartActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+                <MenuItem class="javax.swing.JMenuItem" name="mnuBroadcastStop">
                   <Properties>
                     <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                       <KeyStroke key="Ctrl+Alt+P"/>
@@ -103,8 +106,11 @@
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="sensetile/Languages.properties" key="STOP" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="jMenuItem2" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="mnuBroadcastStop" noResource="true"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuBroadcastStopActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -203,7 +209,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblActualFileSize">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" noResource="true" editor="org.netbeans.beaninfo.editors.ColorEditor">
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b" green="b" red="ec" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
@@ -220,7 +226,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblActualRecordingTime">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" noResource="true" editor="org.netbeans.beaninfo.editors.ColorEditor">
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b" green="b" red="ec" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>

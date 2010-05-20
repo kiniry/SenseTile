@@ -131,6 +131,22 @@ public class FrameViewerControler implements IObservable
     }
 
 
+    public void openBroadcasterFrame( ISource source)
+    {
+        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        VideoBroadcastHandler videoBroadcastHandler = null;
+        FrameViewer frameViewer = findFrameViewerFrom(source);
+        if(!source.isPlaying() && !source.isPaused())
+        {
+          return;
+
+        }
+        videoBroadcastHandler= VideoBroadcastHandler.createHandler(frameViewer);
+        videoBroadcastHandler.getBroadcasterFrame().setVisible(true);
+
+    }
+
+
     private VideoRecorderHandler findVideoRecorderHandlerBy( ISource source)
     {
         VideoRecorderHandler recorderHandler = null;
@@ -146,7 +162,7 @@ public class FrameViewerControler implements IObservable
         return recorderHandler;
     }
 
-    public void stopExporting(final ISource source)
+    public void stopRecording(final ISource source)
     {
        Guard.ArgumentNotNull(source, "Source cannot be a null.");
         FrameViewer frameViewer = findFrameViewerFrom(source);
@@ -161,6 +177,12 @@ public class FrameViewerControler implements IObservable
                 _recorderHandlers.remove(recorderHandler);
              }
        }
+    }
+
+    public void stopBroadcasting(final ISource source)
+    {
+        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        throw new RuntimeException("This method is not yet implemented.");
     }
 
 

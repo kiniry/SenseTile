@@ -89,7 +89,7 @@ public class FrameViewer extends JInternalFrame {
         mnuItemStop = new javax.swing.JMenuItem();
         mnuBroadcast = new javax.swing.JMenu();
         mnuBroadcastStart = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnuBroadcastStop = new javax.swing.JMenuItem();
 
         setClosable(true);
         setMaximizable(true);
@@ -210,13 +210,23 @@ public class FrameViewer extends JInternalFrame {
         mnuBroadcastStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_add.png"))); // NOI18N
         mnuBroadcastStart.setText(bundle.getString("START")); // NOI18N
         mnuBroadcastStart.setName("mnuBroadcastStart"); // NOI18N
+        mnuBroadcastStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBroadcastStartActionPerformed(evt);
+            }
+        });
         mnuBroadcast.add(mnuBroadcastStart);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_delete.png"))); // NOI18N
-        jMenuItem2.setText(bundle.getString("STOP")); // NOI18N
-        jMenuItem2.setName("jMenuItem2"); // NOI18N
-        mnuBroadcast.add(jMenuItem2);
+        mnuBroadcastStop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuBroadcastStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sensetile/resources/tango/transmit_delete.png"))); // NOI18N
+        mnuBroadcastStop.setText(bundle.getString("STOP")); // NOI18N
+        mnuBroadcastStop.setName("mnuBroadcastStop"); // NOI18N
+        mnuBroadcastStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBroadcastStopActionPerformed(evt);
+            }
+        });
+        mnuBroadcast.add(mnuBroadcastStop);
 
         mnuOutput.add(mnuBroadcast);
 
@@ -255,17 +265,25 @@ public class FrameViewer extends JInternalFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void mnuItemStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemStartActionPerformed
-//        avi = new VideoExporterAVI(new File("/home/dragan/JAD/test.avi"));
-//        avi.setVideoSource(_source);
-//        avi.startExport();
+
         FrameViewerControler controler = FrameViewerControler.getInstance();
         controler.openFileChooser(_source);
     }//GEN-LAST:event_mnuItemStartActionPerformed
 
     private void mnuItemStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemStopActionPerformed
          FrameViewerControler controler = FrameViewerControler.getInstance();
-        controler.stopExporting(_source);
+        controler.stopRecording(_source);
     }//GEN-LAST:event_mnuItemStopActionPerformed
+
+    private void mnuBroadcastStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBroadcastStartActionPerformed
+         FrameViewerControler controler = FrameViewerControler.getInstance();
+         controler.openBroadcasterFrame(_source);
+    }//GEN-LAST:event_mnuBroadcastStartActionPerformed
+
+    private void mnuBroadcastStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBroadcastStopActionPerformed
+        FrameViewerControler controler = FrameViewerControler.getInstance();
+         controler.stopBroadcasting(_source);
+    }//GEN-LAST:event_mnuBroadcastStopActionPerformed
 
     @Override
     public void paint(Graphics g) {
@@ -289,11 +307,11 @@ public class FrameViewer extends JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grpCaptureSize;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel lblActualFileSize;
     private javax.swing.JLabel lblActualRecordingTime;
     private javax.swing.JMenu mnuBroadcast;
     private javax.swing.JMenuItem mnuBroadcastStart;
+    private javax.swing.JMenuItem mnuBroadcastStop;
     private javax.swing.JMenuItem mnuItemStart;
     private javax.swing.JMenuItem mnuItemStop;
     private javax.swing.JMenu mnuMovieViewer;
