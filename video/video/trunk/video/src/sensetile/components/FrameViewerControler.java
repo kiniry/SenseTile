@@ -87,7 +87,7 @@ public class FrameViewerControler implements IObservable
         }
     }
 
-    private void resolveTransmissionMessage(TransmissionMessage transmissionMessage)
+    private void resolveTransmissionMessage(final TransmissionMessage transmissionMessage)
     {
         IVideoSource source = (IVideoSource)transmissionMessage.getMessage();
          if(transmissionMessage.getTransmissionType() ==
