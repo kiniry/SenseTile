@@ -36,6 +36,7 @@ public class FrameViewerControler implements IObservable
     
     private List<FrameViewer> _frames = null;
     private List<VideoRecorderHandler> _recorderHandlers = null;
+    private List<VideoBroadcastHandler> _broadcastHandlers = null;
     private LayerService _layerService = LayerService.NONE;
 
 
@@ -44,7 +45,7 @@ public class FrameViewerControler implements IObservable
       _frames = new ArrayList<FrameViewer>();
       _layerService = LayerService.getInstance();
       _recorderHandlers = new ArrayList<VideoRecorderHandler>();
-      
+      _broadcastHandlers = new ArrayList<VideoBroadcastHandler>();
     }
 
     public static FrameViewerControler getInstance()
@@ -94,7 +95,18 @@ public class FrameViewerControler implements IObservable
          TransmissionType.RECORDING_PROCESS_STOPPED)
          {
            VideoRecorderHandler vrh = findVideoRecorderHandlerBy(source);
-           _recorderHandlers.remove(vrh);
+           if(vrh != null)
+           {
+                _recorderHandlers.remove(vrh);
+           }
+         }else if(transmissionMessage.getTransmissionType() ==
+         TransmissionType.BROADCASTING_PROCESS_STOPPED)
+         {
+            VideoBroadcastHandler vbh = findVideoBroadcastHandlerBy(source);
+            if(vbh != null)
+            {
+                _broadcastHandlers.remove(vbh);
+            }
          }
     }
 
@@ -141,22 +153,59 @@ public class FrameViewerControler implements IObservable
           return;
 
         }
-        videoBroadcastHandler= VideoBroadcastHandler.createHandler(frameViewer);
-        videoBroadcastHandler.getBroadcasterFrame().setVisible(true);
 
+        videoBroadcastHandler = findVideoBroadcastHandlerBy(source);
+        
+        if(videoBroadcastHandler != null &&
+                videoBroadcastHandler.isBroadcasting())
+        {
+            return;
+        }
+        else
+        {
+           videoBroadcastHandler=
+                   VideoBroadcastHandler.createHandler(frameViewer);
+           if(!_broadcastHandlers.contains(videoBroadcastHandler))
+           {
+               _broadcastHandlers.add(videoBroadcastHandler);
+               videoBroadcastHandler.getBroadcasterFrame().setVisible(true);
+           }
+           
+        }             
     }
 
-
+    private VideoBroadcastHandler findVideoBroadcastHandlerBy( ISource source)
+    {
+        VideoBroadcastHandler broadcastHandler = null;
+        for(VideoBroadcastHandler bch : _broadcastHandlers)
+        {
+            FrameViewer fw = bch.getFrameViewer();
+            if(fw != null)
+            {
+                ISource currentSource = fw.getSource();
+                if(currentSource.equals(source))
+                {
+                    broadcastHandler = bch;
+                    break;
+                }
+            }
+        }
+        return broadcastHandler;
+    }
     private VideoRecorderHandler findVideoRecorderHandlerBy( ISource source)
     {
         VideoRecorderHandler recorderHandler = null;
         for(VideoRecorderHandler fch : _recorderHandlers)
         {
-            ISource currentSource = fch.getFrameViewer().getSource();
-            if(currentSource.equals(source))
+            FrameViewer fw = fch.getFrameViewer();
+            if(fw != null)
             {
-                recorderHandler = fch;
-                break;
+                ISource currentSource = fw.getSource();
+                if(currentSource.equals(source))
+                {
+                    recorderHandler = fch;
+                    break;
+                }
             }
         }
         return recorderHandler;
@@ -165,9 +214,8 @@ public class FrameViewerControler implements IObservable
     public void stopRecording(final ISource source)
     {
        Guard.ArgumentNotNull(source, "Source cannot be a null.");
-        FrameViewer frameViewer = findFrameViewerFrom(source);
        VideoRecorderHandler recorderHandler =
-               findVideoRecorderHandler(frameViewer);
+               findVideoRecorderHandlerBy(source);
        if(recorderHandler != null &&
                recorderHandler.isRecording())
        {
@@ -182,26 +230,19 @@ public class FrameViewerControler implements IObservable
     public void stopBroadcasting(final ISource source)
     {
         Guard.ArgumentNotNull(source, "Source cannot be a null.");
-        throw new RuntimeException("This method is not yet implemented.");
+       VideoBroadcastHandler broadcastHandler =
+               findVideoBroadcastHandlerBy(source);
+       if(broadcastHandler != null &&
+               broadcastHandler.isBroadcasting())
+       {
+             broadcastHandler.stopBroadcasting();
+             if(_broadcastHandlers.contains(broadcastHandler))
+             {
+                _broadcastHandlers.remove(broadcastHandler);
+             }
+       }
     }
-
-
-    private VideoRecorderHandler findVideoRecorderHandler(final FrameViewer frameViewer)
-    {
-        VideoRecorderHandler recorderHandler = null;
-        Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
-        for(VideoRecorderHandler recHandler : _recorderHandlers)
-        {
-            FrameViewer fv = recHandler.getFrameViewer();
-            if( fv != null && fv.equals(frameViewer))
-            {
-                recorderHandler = recHandler;
-                break;
-            }
-        }
-        return recorderHandler;
-    }
-
+    
     public void updateSequence(List<IMessage> messages)
     {
        Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
@@ -338,7 +379,8 @@ public class FrameViewerControler implements IObservable
     {
         Guard.ArgumentNotNull(source, "Video source cannot be a null.");
         FrameViewer frame = findFrameViewerFrom(source);
-        stopExporting(frame);
+        stopRecording(source);
+        stopBroadcasting(source);
         if (source.isPlaying())
         {
             source.stopSource();
@@ -349,15 +391,7 @@ public class FrameViewerControler implements IObservable
         removeFrame(frame);
     }
 
-    private void stopExporting(FrameViewer frame)
-    {
-      Guard.ArgumentNotNull(frame, "FrameViewer cannot be a null.");
-      VideoRecorderHandler recorderHandler = findVideoRecorderHandler(frame);
-      if(recorderHandler != null && recorderHandler.isRecording())
-      {
-          recorderHandler.stopRecording();
-      }
-    }
+    
     private void doNotification( final ISource source)
     {
         IMessage message = SourceMessage.createSourceMessage(source, Validity.INVALID);

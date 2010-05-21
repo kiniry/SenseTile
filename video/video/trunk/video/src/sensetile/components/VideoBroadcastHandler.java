@@ -5,6 +5,7 @@
 
 package sensetile.components;
 
+import com.google.gdata.util.NotImplementedException;
 import javax.swing.JFrame;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.Guard;
@@ -31,6 +32,11 @@ public class VideoBroadcastHandler
        return _isBroadcasting;
     }
 
+    public  FrameViewer getFrameViewer()
+    {
+        return _frameViewer;
+    }
+    
     public static VideoBroadcastHandler createHandler(final FrameViewer frameViewer)
     {
        Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
@@ -49,6 +55,11 @@ public class VideoBroadcastHandler
    public BroadcasterFrame getBroadcasterFrame()
    {
        return _broadcasterFrame;
+   }
+
+   public void stopBroadcasting()
+   {
+       throw new RuntimeException("Method is not yet implemented.");
    }
 
 }
