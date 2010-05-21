@@ -1,47 +1,33 @@
-
-
 package sensetile.common.utils;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
     public  class Guard
     {
-        public static void ArgumentNotNullOrEmptyString(String argumentValue, String argumentName)
+        public static void ArgumentNotNullOrEmptyString(String argumentValue, String description)
         {
-            ArgumentNotNull(argumentValue, argumentName);
-            if (argumentValue.length() == 0)
-            {
-              throw new InvalidParameterException(argumentName);
-            }
+            ArgumentNotNull(argumentValue, description);
+            assert argumentValue.length() != 0: description;
         }
-        public static void ArgumentNotNull(Object argumentValue, String argumentName)
+        public static void ArgumentNotNull(Object argumentValue, String description)
         {
-                if (argumentValue == null)
-                {
-                  throw new NullPointerException(argumentName);
-                }
+             assert argumentValue != null:description;
         }
         public static void TypeIsAssignableFromType(Class<?> assignee,
-                Object providedType, String argumentName)
+                Object providedType, String description)
         {
-                ArgumentNotNull(assignee, "assignee");
-                ArgumentNotNull(providedType, "providedType");
-                ArgumentNotNullOrEmptyString(argumentName, "argumentName");
-                if (!providedType.getClass().isAssignableFrom(assignee))
-                {
-                     throw new InvalidParameterException(argumentName);
-                }
+                ArgumentNotNull(assignee, "assignee cannot be a null.");
+                ArgumentNotNull(providedType, "providedType cannot be a null.");
+                ArgumentNotNullOrEmptyString(description, "description cannot be a null or empty string.");
+                assert !providedType.getClass().isAssignableFrom(assignee) : description;
+                
         }
 
         public static void IndexOutOfBounds( List<?> targetList, int index )
         {
-            ArgumentNotNull(targetList, "targetList");
-            
-            if(index <0 && index >= targetList.size())
-            {
-                throw new IndexOutOfBoundsException("targetList");
-            }
+            ArgumentNotNull(targetList, "targetList cannot be a null.");
+            assert index >=0 : "Index cannot be a less than 0";
+            assert index < targetList.size() : "Index cannot be a greater than list size.";
         }
     }
 
