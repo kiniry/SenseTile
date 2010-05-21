@@ -56,7 +56,7 @@ public class VideoRecorderHandler implements Runnable
    private FileChooser createFileChooser()
    {
        _fileChooser = new FileChooser( new JFrame(), true);
-       _fileChooser.setFileChooserHandler(this);
+       _fileChooser.setVideoRecorderHandler(this);
        _fileChooser.setLocationRelativeTo(_frameViewer);
        _fileChooser.getTxtSelectedFileName().setText(_file.getAbsolutePath());
         _fileChooser.pack();
@@ -74,6 +74,7 @@ public class VideoRecorderHandler implements Runnable
 
    public FrameViewer getFrameViewer()
    {
+        assert _frameViewer != null: "Frame viewer cannot be a null.";
        return _frameViewer;
    }
 
@@ -81,6 +82,7 @@ public class VideoRecorderHandler implements Runnable
    {
        return _flag;
    }
+
 
    public void stopRecording()
    {

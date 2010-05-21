@@ -3,11 +3,14 @@ package sensetile.components;
 
 import java.awt.Image;
 import java.net.URLClassLoader;
+import sensetile.common.messages.MessageType.TransmissionType;
+import sensetile.common.utils.Guard;
 
 /**
  * @author SenseTile
  */
 public class BroadcasterFrame extends javax.swing.JDialog {
+    private VideoBroadcastHandler _videoBroadcastHandler = null;
 
     /** Creates new form BroadcasterFrame */
     public BroadcasterFrame( java.awt.Frame parent, boolean modal)
@@ -19,7 +22,11 @@ public class BroadcasterFrame extends javax.swing.JDialog {
         this.setIconImage(img);
     }
 
- 
+    public void setVideoBroadcastHandler( VideoBroadcastHandler broadcastHandler)
+    {
+        Guard.ArgumentNotNull(broadcastHandler, "FileChooserHandler cannot be a null.");
+        _videoBroadcastHandler = broadcastHandler;
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -187,16 +194,24 @@ public class BroadcasterFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+       assert _videoBroadcastHandler != null: "VideoBroadcastHandler cannot be a null.";
+        _videoBroadcastHandler.doNotification(TransmissionType.BROADCASTING_PROCESS_STOPPED);
+        dispose();
         
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-       
+      assert _videoBroadcastHandler != null: "VideoBroadcastHandler cannot be a null.";
+        _videoBroadcastHandler.doNotification(TransmissionType.BROADCASTING_PROCESS_STOPPED);
+        dispose();
 }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnRecordingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordingActionPerformed
-        
+        if(_videoBroadcastHandler != null && !_videoBroadcastHandler.isBroadcasting())
+        {
+         _videoBroadcastHandler.startBroadcasting();
+         dispose();
+        }
         
 }//GEN-LAST:event_btnRecordingActionPerformed
 

@@ -39,9 +39,9 @@ public class FileChooser extends javax.swing.JDialog {
     }
     
 
-    public void setFileChooserHandler( VideoRecorderHandler recorderHandler)
+    public void setVideoRecorderHandler( VideoRecorderHandler recorderHandler)
     {
-        Guard.ArgumentNotNull(recorderHandler, "FileChooserHandler cannot be a null.");
+        Guard.ArgumentNotNull(recorderHandler, "RecorderHandler cannot be a null.");
         _videoRecorderHandler = recorderHandler;
     }
 
@@ -137,6 +137,7 @@ public class FileChooser extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseFileActionPerformed
+        assert _videoRecorderHandler != null: "VideoRecorderHandler cannot be a null.";
         _videoRecorderHandler.fileActionPerformed();
     }//GEN-LAST:event_btnBrowseFileActionPerformed
 
@@ -145,6 +146,7 @@ public class FileChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+       assert _videoRecorderHandler != null: "VideoRecorderHandler cannot be a null.";
         _videoRecorderHandler.doNotification(TransmissionType.RECORDING_PROCESS_STOPPED);
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
