@@ -94,6 +94,9 @@ public class SenseTileViewControler implements IObservable
     }
     private void realizePipeMessageFromNotification(final IMessage message)
     {
+        assert message != null : "Message object cannot be a null.";
+         assert message.getClass().isAssignableFrom(PipeMessage.class):
+            "Message is not assignable from PipeMessage.class.";
         PipeMessage pipeMessage = (PipeMessage)message;
         Object obj = pipeMessage.getMessage();
         if(obj instanceof VideoSource &&
@@ -101,29 +104,45 @@ public class SenseTileViewControler implements IObservable
         {
             VideoSource vSource = (VideoSource)obj;
             String name = vSource.getDeviceName();
+            assert name != null && ! name.equalsIgnoreCase(""):
+                "name cannot be a null or an empty string.";
             removeJManuItemVideoFor(name);
         }
     }
      private void realizeDeviceMessageFromNotification(final IMessage message)
      {
+         assert message != null : "Message object cannot be a null.";
+         assert message.getClass().isAssignableFrom(DeviceMessage.class):
+            "Message is not assignable from DeviceMessage.class.";
+
         DeviceMessage devMessage = (DeviceMessage)message;
         if(devMessage.getValidity()== Validity.INVALID)
         {
             IDevice telosDevice = (IDevice)devMessage.getMessage();
+            assert telosDevice.getName() != null &&
+                    ! telosDevice.getName().equalsIgnoreCase(""):
+                "name cannot be a null or an empty string.";
             removeJMenuTelosFor(telosDevice.getName());
         }
      }
 
      private void realizeSourceMessageFromNotification(final IMessage message)
      {
+         assert message != null : "Message object cannot be a null.";
+         assert message.getClass().isAssignableFrom(SourceMessage.class):
+            "Message is not assignable from SourceMessage.class.";
          SourceMessage sourceMessage =(SourceMessage)message;
          ISource source = (ISource)sourceMessage.getMessage();
+         assert source.getDeviceName() != null &&
+                 ! source.getDeviceName().equalsIgnoreCase(""):
+                "name cannot be a null or an empty string.";
          removeComboItem(source.getDeviceName());
      }
     private void removeJMenuTelosFor(String name)
     {
         Component[] components = _senseTileView.
                  getMnuSourcesSensors().getMenuComponents();
+        assert components != null: "component tuple cannot be a null.";
         _senseTileView.getMnuSourcesSensors().removeAll();
 
         for(JMenuItem item : createItemList(components, name))
@@ -136,6 +155,7 @@ public class SenseTileViewControler implements IObservable
     {
         Component[] components = _senseTileView.
                  getMnuSourcesWebcams().getMenuComponents();
+        assert components != null: "component tuple cannot be a null.";
         _senseTileView.getMnuSourcesWebcams().removeAll();
 
         for(JMenuItem item : createItemList(components, name))
@@ -145,9 +165,10 @@ public class SenseTileViewControler implements IObservable
         _senseTileView.getMnuSourcesWebcams().revalidate();
     }
 
-    List<JMenuItem> createItemList(final Component[] components,
+    private List<JMenuItem> createItemList(final Component[] components,
             String name )
     {
+        assert components != null: "component tuple cannot be a null.";
         List<JMenuItem> itemList = new ArrayList<JMenuItem>();
         for(int i=0; i< components.length; i++)
          {
@@ -157,7 +178,6 @@ public class SenseTileViewControler implements IObservable
                  JMenuItem item = (JMenuItem) comp;
                  if(item.getText().equalsIgnoreCase(name))
                  {
-
                      removeComboItem(name);
                      continue;
                  }
@@ -170,7 +190,7 @@ public class SenseTileViewControler implements IObservable
     public void updateSequence(List<IMessage> messages)
     {
         Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
-       
+         assert messages.size() >=0 : "Message list cannot be empty.";
            for(IMessage message :messages )
            {
 
@@ -199,6 +219,9 @@ public class SenseTileViewControler implements IObservable
     }
     private void realizeDeviceMessageFromSequenceNotification(final IMessage message)
     {
+        assert message != null : "Message object cannot be a null.";
+         assert message.getClass().isAssignableFrom(DeviceMessage.class):
+                 "Message object is not assignable from DeviceMessage.class";
         DeviceMessage devMessage = (DeviceMessage)message;
         if(devMessage.getValidity()== Validity.INVALID)
         {
@@ -208,6 +231,9 @@ public class SenseTileViewControler implements IObservable
     }
     private void realizeSourceMessageFromSequenceNotification(final IMessage message)
     {
+        assert message != null : "Message object cannot be a null.";
+        assert message.getClass().isAssignableFrom(SourceMessage.class):
+                 "Message object is not assignable from SourceMessage.class";
         SourceMessage sourceMessage = (SourceMessage) message;
         ISource source = (ISource) sourceMessage.getMessage();
         final boolean isNotValid =
@@ -224,6 +250,7 @@ public class SenseTileViewControler implements IObservable
         _senseTileView.getMnuSourcesWebcams().removeAll();
         WebCamItemCreator camItemCreator = new WebCamItemCreator(_senseTileView);
         List<JMenuItem> videoItemList = camItemCreator.createVideoItemList();
+        assert videoItemList != null: "videoItemList cannot be a null.";
         for(JMenuItem item : videoItemList)
         {
           _senseTileView.getMnuSourcesWebcams().add(item);
@@ -369,6 +396,8 @@ public class SenseTileViewControler implements IObservable
 
     private void removeComboItem( final String  name)
     {
+        assert name != null && !name.equalsIgnoreCase(""):
+            "Name cannot be a null or an empty string.";
         JComboBox combo =  _senseTileView.getCboSelectedSource();
         int count = combo.getItemCount();
         for(int i=0; i< count; i++)
@@ -379,8 +408,7 @@ public class SenseTileViewControler implements IObservable
                 combo.removeItem(source);
                 break;
             }
-        }
-        
+        }        
         combo.revalidate();
         combo.repaint();
         combo.setSelectedIndex(-1);

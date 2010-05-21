@@ -45,7 +45,7 @@ public class VideoBroadcastHandler
     private BroadcasterFrame createBroadcaster()
    {
        _broadcasterFrame = new BroadcasterFrame( new JFrame(), true);
-      // _broadcasterFrame.setFileChooserHandler(this);
+      
        _broadcasterFrame.setLocationRelativeTo(_frameViewer);
 
         _broadcasterFrame.pack();
@@ -59,7 +59,7 @@ public class VideoBroadcastHandler
 
    public void stopBroadcasting()
    {
-       throw new RuntimeException("Method is not yet implemented.");
+       assert false;
    }
 
 }

@@ -31,10 +31,15 @@ public class LayerService implements IObservable
         {
             return;
         }
+        assert message.getClass().isAssignableFrom(PipeMessage.class):
+            "Message is not assignable from PipeMessage.class.";
 
         PipeMessage packetMessage = (PipeMessage)message;
+
         MessageType.PipeType type = packetMessage.getPacketType();
+
         ISource currentSource = (ISource)packetMessage.getMessage();
+
         boolean isError = type == MessageType.PipeType.PIPE_BUS_ERROR;
      
         ISource targetSource = ISource.NO_SOURCE;

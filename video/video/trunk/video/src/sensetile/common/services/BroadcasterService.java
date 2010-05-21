@@ -40,7 +40,7 @@ public class BroadcasterService
         if (! _observableList.contains(observer))
         {
             _observableList.add(observer);
-           
+            assert _observableList.contains(observer);
         }
     }
 
@@ -59,6 +59,7 @@ public class BroadcasterService
         if ( _observableList.contains(observer))
         {
             _observableList.remove(observer);
+             assert !_observableList.contains(observer);
         }
     }
 
@@ -79,6 +80,7 @@ public class BroadcasterService
 
       private void notifyObservers(final IMessage message)
       {
+        assert message != null: "Message cannot be a null.";
         for (IObservable observable : _observableList)
         {
           observable.update(message);
@@ -88,6 +90,7 @@ public class BroadcasterService
       public void processMessageSequence(final List<IMessage> messages)
       {
           Guard.ArgumentNotNull(messages, "Message sequence cannot be a null.");
+          assert messages.size() > 0: "Message's list  cannot be empty.";
           for(IMessage message : messages)
           {
               broadcastMessage(message);
@@ -98,7 +101,8 @@ public class BroadcasterService
        public void processMessageList(final List<IMessage> messages)
        {
           Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
-         for (IObservable observable : _observableList)
+         assert messages.size() > 0: "Message's list  cannot be empty.";
+          for (IObservable observable : _observableList)
          {
            observable.updateSequence(messages);
          }

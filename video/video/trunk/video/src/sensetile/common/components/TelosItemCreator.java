@@ -28,6 +28,7 @@ public class TelosItemCreator implements IActionListener
     {
         super();
         _telosSource = TelosSource.createTelos();
+        assert _telosSource != null: "Telos creation failed.";
     }
 
 
@@ -41,7 +42,14 @@ public class TelosItemCreator implements IActionListener
               return menuItemTelos;
           }
           String telosName = TelosSource.createTelos().getDeviceName();
+
+          assert telosName != null && telosName.equalsIgnoreCase(telosName) :
+              "Telos name cannot be a null or an empty string.";
+
           menuItemTelos = new JMenuItem(telosName,1);
+          
+          assert menuItemTelos != null : "menuItemTelos cannot be a null.";
+
           menuItemTelos.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent evt)
@@ -60,9 +68,13 @@ public class TelosItemCreator implements IActionListener
         {
             return;
         }
+        assert (obj.getClass().isAssignableFrom(SenseTileView.class));
+
         SenseTileView senseTileView = (SenseTileView)obj;
 
         TelosViewerControler controler = TelosViewerControler.getInstance();
+        assert (controler.getClass().isAssignableFrom(TelosViewerControler.class));
+
         if(controler.containsFrameFrom(_telosSource))
         {
             return;
@@ -71,6 +83,7 @@ public class TelosItemCreator implements IActionListener
                 controler.createFrame(_telosSource, senseTileView.getDesktopWebcam().getWidth(),
                 senseTileView.getDesktopWebcam().getHeight(), senseTileView.getDesktopTaskbarHeight());
         senseTileView.getDesktopWebcam().add(telosViewer, 0);
+        assert telosViewer != null: "Telos View cannot be a null";
 
         telosViewer.requestFocus();
         try
