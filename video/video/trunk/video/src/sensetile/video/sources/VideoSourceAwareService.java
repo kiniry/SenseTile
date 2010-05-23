@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sensetile.video.sources;
 
 import java.util.ArrayList;
@@ -58,7 +53,8 @@ public class VideoSourceAwareService
                 IVideoSource newVideoSource =
                         createVideoSource(videoDevice);
                 tempList.add(newVideoSource);
-            }else
+            }
+            else
             {
                 updateSource(source, videoDevice);
                 tempList.add(source);
@@ -98,8 +94,10 @@ public class VideoSourceAwareService
             final List<IVideoSource> sourcesWebcams,
             final List<IVideoSource> tempList)
     {
-         assert sourcesWebcams != null : "Sources Webcams cannot be a null.";
+
+        assert sourcesWebcams != null : "Sources Webcams cannot be a null.";
         assert tempList != null : "TempList cannot be a null.";
+
         List<IVideoSource> destiledList = new ArrayList<IVideoSource>();
        
         if(tempList.size() >= sourcesWebcams.size())
@@ -141,7 +139,8 @@ public class VideoSourceAwareService
      private IVideoSource findValidFor(List<IVideoSource> targetList,
                                         IVideoSource videoSource)
     {
-
+        assert videoSource != null : "Video source cannot be a null.";
+        assert targetList != null : "Target list cannot be a null.";
         IVideoSource target = IVideoSource.NO_VIDEO_SOURCE;
         for(IVideoSource currentSource : targetList)
         {
@@ -161,6 +160,8 @@ public class VideoSourceAwareService
     private IVideoSource findByPath(List<IVideoSource> sourcesWebcams,
             final VideoDevice videoDevice)
     {
+        assert videoDevice != null : "Video dvice cannot be a null.";
+        assert sourcesWebcams != null : "SourcesWebcams dvice cannot be a null.";
         IVideoSource targetSource = IVideoSource.NO_VIDEO_SOURCE;
         for(IVideoSource videoSource : sourcesWebcams)
         {
