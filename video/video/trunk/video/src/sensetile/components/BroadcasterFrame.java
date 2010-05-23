@@ -4,8 +4,6 @@ package sensetile.components;
 import java.awt.Image;
 import java.net.URLClassLoader;
 import sensetile.common.messages.MessageType.TransmissionType;
-import sensetile.common.utils.Guard;
-
 /**
  * @author SenseTile
  */
@@ -24,7 +22,7 @@ public class BroadcasterFrame extends javax.swing.JDialog {
 
     public void setVideoBroadcastHandler( VideoBroadcastHandler broadcastHandler)
     {
-        Guard.ArgumentNotNull(broadcastHandler, "FileChooserHandler cannot be a null.");
+        assert broadcastHandler != null :"VideoBroadcastHandler cannot be a null.";
         _videoBroadcastHandler = broadcastHandler;
     }
     

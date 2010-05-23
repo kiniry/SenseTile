@@ -15,8 +15,6 @@ import java.awt.Image;
 import java.net.URLClassLoader;
 import javax.swing.JTextField;
 import sensetile.common.messages.MessageType.TransmissionType;
-import sensetile.common.utils.Guard;
-
 /**
  *
  * @author SenseTile
@@ -41,7 +39,7 @@ public class FileChooser extends javax.swing.JDialog {
 
     public void setVideoRecorderHandler( VideoRecorderHandler recorderHandler)
     {
-        Guard.ArgumentNotNull(recorderHandler, "RecorderHandler cannot be a null.");
+        assert recorderHandler != null : "RecorderHandler cannot be a null.";
         _videoRecorderHandler = recorderHandler;
     }
 

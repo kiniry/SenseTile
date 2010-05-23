@@ -20,7 +20,6 @@ import sensetile.common.messages.SourceMessage;
 import sensetile.common.messages.TransmissionMessage;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.CommonUtils;
-import sensetile.common.utils.Guard;
 import sensetile.devices.IDevice;
 import sensetile.video.controls.MissingVideoGrabberException;
 import sensetile.video.controls.VideoGrabber;
@@ -55,7 +54,8 @@ public class FrameViewerControler implements IObservable
 
     public void update(IMessage message)
     {
-         Guard.ArgumentNotNull(message, "Message cannot be a null.");
+        assert message != null : "Message object cannot be a null.";
+         
         if (CommonUtils.isTypeOf(message,
                  "sensetile.common.messages.PipeMessage"))
          {
@@ -79,6 +79,7 @@ public class FrameViewerControler implements IObservable
 
     private void resolvePipeMessage(final PipeMessage pipeMessage)
     {
+        assert pipeMessage != null : "pipeMessage cannot be a null.";
         PipeType type = pipeMessage.getPacketType();
         IVideoSource source = (IVideoSource)pipeMessage.getMessage();
         FrameViewer frameViewer = findFrameViewerFrom(source);
@@ -90,6 +91,7 @@ public class FrameViewerControler implements IObservable
 
     private void resolveTransmissionMessage(final TransmissionMessage transmissionMessage)
     {
+        assert transmissionMessage != null : "transmissionMessage cannot be a null.";
         IVideoSource source = (IVideoSource)transmissionMessage.getMessage();
          if(transmissionMessage.getTransmissionType() ==
          TransmissionType.RECORDING_PROCESS_STOPPED)
@@ -116,7 +118,8 @@ public class FrameViewerControler implements IObservable
      */
     public void openFileChooser(ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
+
         VideoRecorderHandler recorderHandler = null;
         FrameViewer frameViewer = findFrameViewerFrom(source);
         if(!source.isPlaying() && !source.isPaused())
@@ -145,7 +148,7 @@ public class FrameViewerControler implements IObservable
 
     public void openBroadcasterFrame( ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         VideoBroadcastHandler videoBroadcastHandler = null;
         FrameViewer frameViewer = findFrameViewerFrom(source);
         if(!source.isPlaying() && !source.isPaused())
@@ -176,6 +179,7 @@ public class FrameViewerControler implements IObservable
 
     private VideoBroadcastHandler findVideoBroadcastHandlerBy( ISource source)
     {
+        assert source != null : "Source cannot be a null.";
         VideoBroadcastHandler broadcastHandler = null;
         for(VideoBroadcastHandler bch : _broadcastHandlers)
         {
@@ -194,6 +198,7 @@ public class FrameViewerControler implements IObservable
     }
     private VideoRecorderHandler findVideoRecorderHandlerBy( ISource source)
     {
+        assert source != null : "Source cannot be a null.";
         VideoRecorderHandler recorderHandler = null;
         for(VideoRecorderHandler fch : _recorderHandlers)
         {
@@ -213,7 +218,7 @@ public class FrameViewerControler implements IObservable
 
     public void stopRecording(final ISource source)
     {
-       Guard.ArgumentNotNull(source, "Source cannot be a null.");
+       assert source != null : "Source cannot be a null.";
        VideoRecorderHandler recorderHandler =
                findVideoRecorderHandlerBy(source);
        if(recorderHandler != null &&
@@ -229,7 +234,7 @@ public class FrameViewerControler implements IObservable
 
     public void stopBroadcasting(final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
        VideoBroadcastHandler broadcastHandler =
                findVideoBroadcastHandlerBy(source);
        if(broadcastHandler != null &&
@@ -245,7 +250,7 @@ public class FrameViewerControler implements IObservable
     
     public void updateSequence(List<IMessage> messages)
     {
-       Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
+       assert messages != null : "messages  cannot be a null.";
        for (IMessage iMessage :messages)
        {
             if (! CommonUtils.isTypeOf(iMessage, "sensetile.common.messages.DeviceMessage"))
@@ -282,8 +287,8 @@ public class FrameViewerControler implements IObservable
 
     public boolean contains(final FrameViewer frame )
     {
+        assert frame != null : "FrameViewer cannot be a null.";
         boolean contains = Boolean.FALSE;
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
         if(_frames.contains(frame))
         {
            contains = Boolean.TRUE;
@@ -293,24 +298,27 @@ public class FrameViewerControler implements IObservable
 
     public void addFrame( final FrameViewer frame)
     {
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
+         assert frame != null : "FrameViewer cannot be a null.";
         if(!contains(frame))
         {
             _frames.add(frame);
+            assert _frames.contains(frame);
         }
     }
 
     public void removeFrame(final FrameViewer frame)
     {
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
+         assert frame != null : "FrameViewer cannot be a null.";
         if(contains(frame))
         {
             _frames.remove(frame);
+            assert !_frames.contains(frame);
         }
     }
      
     public boolean containsFrameFrom(IVideoSource source) 
     {
+        assert source != null : "Source cannot be a null.";
         boolean contains = Boolean.FALSE;
         if(findFrameViewerFrom(source) != null)
         {
@@ -322,7 +330,7 @@ public class FrameViewerControler implements IObservable
     public FrameViewer createFrame(ISource source, final int width,
             final int height, int desktopTaskbarHeight)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         FrameViewer frame = new FrameViewer();
         initialize(source,width,height,desktopTaskbarHeight, frame);
         BroadcasterService.getInstance().attachObserver(this);
@@ -337,6 +345,7 @@ public class FrameViewerControler implements IObservable
     private void initialize(ISource source, final int width,
             final int height, int desktopTaskbarHeight ,FrameViewer frame )
     {
+        assert source != null : "Source cannot be a null.";
         frame.setParentSize(width, height);
         frame.setSource((IVideoSource)source);
         frame.setGrabberToPanViewer( createGrabber(frame));
@@ -353,6 +362,7 @@ public class FrameViewerControler implements IObservable
 
     private VideoGrabber createGrabber(FrameViewer frame)
     {
+        assert frame != null : "FrameViewer cannot be a null.";
         if(frame.getSource() == IVideoSource.NO_VIDEO_SOURCE)
         {
           throw new MissingVideoGrabberException("VideoGrabber instance cannot be a null.");
@@ -363,6 +373,7 @@ public class FrameViewerControler implements IObservable
     }
     private FrameViewer findFrameViewerFrom(final ISource source)
     {
+        assert source != null : "Source cannot be a null.";
         FrameViewer frameViewer = null;
         for(FrameViewer current : _frames )
         {
@@ -377,7 +388,7 @@ public class FrameViewerControler implements IObservable
 
     public void formInternalFrameClosed(final IVideoSource source)
     {
-        Guard.ArgumentNotNull(source, "Video source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         FrameViewer frame = findFrameViewerFrom(source);
         stopRecording(source);
         stopBroadcasting(source);
@@ -394,6 +405,7 @@ public class FrameViewerControler implements IObservable
     
     private void doNotification( final ISource source)
     {
+        assert source != null : "Source cannot be a null.";
         IMessage message = SourceMessage.createSourceMessage(source, Validity.INVALID);
         BroadcasterService broadcasterService = BroadcasterService.getInstance();
         broadcasterService.broadcastMessage(message);
@@ -404,7 +416,7 @@ public class FrameViewerControler implements IObservable
     
     public void startSource(IVideoSource source , boolean autoStart)
     {
-        Guard.ArgumentNotNull(source, "Video source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         FrameViewer frame =findFrameViewerFrom(source);
         frame.setTitle(getTitle(source));
         if (autoStart)
@@ -417,7 +429,7 @@ public class FrameViewerControler implements IObservable
 
     public String getTitle(final IVideoSource source)
     {
-        Guard.ArgumentNotNull(source, "Video source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         return source.getDeviceName()+
                 " (" + (_layerService.size() - _layerService.getIndex(source)) + ")";
     }

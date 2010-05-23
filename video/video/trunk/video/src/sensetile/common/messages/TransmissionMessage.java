@@ -7,7 +7,6 @@ package sensetile.common.messages;
 
 import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 
 /**
  *
@@ -27,17 +26,15 @@ public class TransmissionMessage implements IMessage {
     public static final TransmissionMessage createTransmissionMessage(final ISource source,
             final TransmissionType transmissionType)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source object cannot be a null.";
         return new TransmissionMessage(source, transmissionType);
     }
 
     public void setMessage(Object messageObject)
     {
-        Guard.ArgumentNotNull(messageObject, "Message object cannot be a null.");
-        if(!messageObject.getClass().isAssignableFrom(ISource.class))
-        {
-           throw new MessageException("Invalid message object type.");
-        }
+        assert messageObject != null : "Message object cannot be a null.";
+        assert messageObject.getClass().isAssignableFrom(ISource.class) :
+            "Invalid message object type.";
         _source = (ISource)messageObject;
 
     }

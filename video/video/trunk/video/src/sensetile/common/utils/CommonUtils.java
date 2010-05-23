@@ -13,8 +13,9 @@ public class CommonUtils
 {
     public static <Type> boolean isTypeOf( final Type message, final String clazzName )
     {
-        Guard.ArgumentNotNull(message, "Target list cannot be a null");
-        Guard.ArgumentNotNullOrEmptyString(clazzName, "Source objects cannot be a null");
+        assert message != null: "Message cannot be a null.";
+        assert clazzName != null  && !clazzName.equalsIgnoreCase(""):
+            "Source cannot be a null.or empty string.";
          boolean isInstanceOf = Boolean.FALSE;
          try {
                Class aClass = Class.forName(clazzName);

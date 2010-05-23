@@ -1,19 +1,11 @@
-
-/*
- * FrameWebcam.java
- * Created on 2009-09-02, 18:27:52
- */
 package sensetile.components;
 
 import java.awt.Graphics;
-
 import java.awt.BorderLayout;
-import java.io.File;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import sensetile.common.components.SenseTileView;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 import sensetile.video.controls.VideoGrabber;
 import sensetile.video.exporter.VideoExporterAVI;
 import sensetile.video.sources.IVideoSource;
@@ -48,14 +40,14 @@ public class FrameViewer extends JInternalFrame {
 
     public void setSource(final IVideoSource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         _source = source;
 
     }
 
     public void setGrabberToPanViewer(final VideoGrabber grabber)
     {
-        Guard.ArgumentNotNull(grabber, "VideoGrabber cannot be a null.");
+        assert grabber != null : "VideoGrabber cannot be a null.";
         panViewer.add(grabber, BorderLayout.CENTER);
     }
   

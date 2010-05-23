@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import sensetile.common.messages.IMessage;
 import sensetile.common.services.BroadcasterService;
 import sensetile.common.services.IObservable;
-import sensetile.common.utils.Guard;
 import sensetile.common.utils.ListUtils;
 import sensetile.devices.DeviceDetectorService;
 import sensetile.devices.VideoDevice;
@@ -46,7 +45,8 @@ public class VideoSourceProvider implements IObservable
 
     public IVideoSource getVideoSourceAt( final int index)
     {
-        Guard.IndexOutOfBounds(_sourcesWebcams, index);
+        assert index >=0 : "Index cannot be a less than 0";
+         assert index < _sourcesWebcams.size() : "Index cannot be a greater than list size.";
         return _sourcesWebcams.get(index);
     }
 
@@ -74,7 +74,7 @@ public class VideoSourceProvider implements IObservable
     public void updateSequence( List<IMessage> messages)
     {
         // DO UPDATE WEB CAM SOURCES AND BROADCAST MESSAGE SEQUENCE.
-        Guard.ArgumentNotNull(messages, "List of messages cannot be a null.");
+        assert messages != null : "Message list cannot be a null.";
         if(!ListUtils.listIsAssignableFrom(messages,
                 "sensetile.common.messages.DeviceMessage"))
         {

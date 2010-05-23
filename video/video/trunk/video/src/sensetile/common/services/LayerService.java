@@ -5,7 +5,6 @@ import sensetile.common.messages.IMessage;
 import java.util.List;
 import java.util.Vector;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 /**
  * @author SenseTile
  */
@@ -25,7 +24,7 @@ public class LayerService implements IObservable
     }
 
     public void update(final IMessage message) {
-         Guard.ArgumentNotNull(message, "Message cannot be a null.");
+         assert message != null: "Message object cannot be a null.";
 
         if (!message.getClass().isAssignableFrom(PipeMessage.class))
         {
@@ -70,19 +69,22 @@ public class LayerService implements IObservable
     
     public  void add( final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null :"Source cannot be a null.";
+        
         if(!contains(source))
         {
           _sources.add(source);
+          assert _sources.contains(source);
         }
     }
 
     public  void remove(final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         if(contains(source))
         {
           _sources.remove(source);
+          assert !_sources.contains(source);
         }
     }
 
@@ -93,7 +95,8 @@ public class LayerService implements IObservable
 
     public  ISource get(final int index)
     {
-        Guard.IndexOutOfBounds(_sources, index);
+         assert index >=0 : "Index cannot be a less than 0";
+         assert index < _sources.size() : "Index cannot be a greater than list size.";
         return _sources.get(index);
     }
     public  int size()
@@ -102,19 +105,21 @@ public class LayerService implements IObservable
     }
     public  void remove(final int index)
     {
-        Guard.IndexOutOfBounds(_sources, index);
+        assert index >=0 : "Index cannot be a less than 0";
+        assert index < _sources.size() : "Index cannot be a greater than list size.";
         _sources.remove(index);
     }
 
     public boolean contains(ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         return _sources.contains(source);
     }
 
     public int getIndex(final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
+        
         int index = Integer.MIN_VALUE;
         if(contains(source))
         {
@@ -130,7 +135,7 @@ public class LayerService implements IObservable
 
     public void moveDown( final ISource source )
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         if(!contains(source))
         {
             return;
@@ -147,8 +152,9 @@ public class LayerService implements IObservable
 
     public ISource getByUUID(final String uuid)
     {
-        Guard.ArgumentNotNullOrEmptyString(uuid, "uuid cannot be " +
-                "a null or empty string.");
+        assert uuid != null  && !uuid.equalsIgnoreCase(""):
+            "Source cannot be a null.or empty string.";
+               
         ISource source = null;
         for (ISource s : _sources)
         {
@@ -162,7 +168,7 @@ public class LayerService implements IObservable
     }
 
     public void moveUp(final ISource source) {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         if(!contains(source)) 
         {
             return;

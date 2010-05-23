@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import sensetile.common.components.SenseTileView;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
+
 /**
  *
  * @author SenseTile
@@ -65,7 +65,8 @@ public class TelosViewer extends JInternalFrame
 
     public void setSource( final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
+        
         _source = source;
     }
 

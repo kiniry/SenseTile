@@ -14,21 +14,22 @@ public class ListUtils
 	 */
 	public static <Type> void addToTypedList( List<Type> targetList, Object[] objects )
         {
-           Guard.ArgumentNotNull(targetList, "Target list cannot be a null");
-           Guard.ArgumentNotNull(objects, "Source objects cannot be a null");
-
+            assert targetList != null : "Target list cannot be a null";
+            assert objects != null : "Source objects cannot be a null";
             for( Object anObject : objects )
             {
                     Type typedObject = (Type) anObject;
                     targetList.add( typedObject );
+                    assert targetList.contains(typedObject);
             }
 	}
 
         public static <Type> boolean listIsAssignableFrom( final List<Type> targetList,
             final String clazzName )
         {
-           Guard.ArgumentNotNull(targetList, "Target list cannot be a null");
-           Guard.ArgumentNotNullOrEmptyString(clazzName, "Source objects cannot be a null");
+           assert targetList != null : "Target list cannot be a null";
+            assert clazzName != null  && !clazzName.equalsIgnoreCase(""):
+            "Source cannot be a null.or empty string.";
            boolean isTypeOf = Boolean.FALSE;
             if(!targetList.isEmpty())
             {

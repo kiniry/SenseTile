@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import sensetile.common.services.LayerService;
-import sensetile.common.utils.Guard;
 import sensetile.components.FrameViewer;
 import sensetile.components.FrameViewerControler;
 import sensetile.video.sources.IVideoSource;

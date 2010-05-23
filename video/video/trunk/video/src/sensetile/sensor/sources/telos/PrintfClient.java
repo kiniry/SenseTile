@@ -2,8 +2,6 @@ package sensetile.sensor.sources.telos;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import net.tinyos.message.*;
-import sensetile.common.utils.Guard;
-
 
 public class PrintfClient implements MessageListener
 {
@@ -17,7 +15,7 @@ public class PrintfClient implements MessageListener
 
   public static PrintfClient createPrintfClient(MoteIF moteIF)
   {
-      Guard.ArgumentNotNull(moteIF, "MoteIF object cannot be a null.");
+      assert moteIF != null : "MoteIF object cannot be a null.";
       return new PrintfClient(moteIF);
   }
   private PrintfClient(MoteIF moteIF)

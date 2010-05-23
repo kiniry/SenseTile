@@ -7,8 +7,6 @@ package sensetile.audio;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
-import sensetile.common.utils.Guard;
-
 /**
  *
  * @author SenseTile
@@ -24,7 +22,7 @@ public class AudioInfoHolder
    
     public static AudioInfoHolder createAudioInfoHolder(final AudioFormat auFormat)
     {
-        Guard.ArgumentNotNull(auFormat, "AudioFormat cannot be a null.");
+        assert auFormat != null : "AudioFormat cannot be a null.";
         return new AudioInfoHolder( auFormat);
     }
     private AudioInfoHolder( final AudioFormat auFormat)

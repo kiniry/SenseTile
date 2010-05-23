@@ -17,7 +17,6 @@ import sensetile.common.services.BroadcasterService;
 import sensetile.common.messages.IMessage;
 import sensetile.common.messages.MessageType.PipeType;
 import sensetile.common.messages.PipeMessage;
-import sensetile.common.utils.Guard;
 import sensetile.video.controls.RGBDataSinkExtended;
 import sensetile.video.sources.IVideoSource;
 /**
@@ -39,8 +38,8 @@ public class PipeProvider {
     
     public void  initializePipe(final IVideoSource videoSource)
     {
-        Guard.ArgumentNotNull(videoSource, "Video source cannot be a null.");
-
+        assert videoSource != null : "Video source cannot be a null.";
+        
        _elementSink = RGBDataSinkExtended.createRGBSink(videoSource);
        String rescaling = "! videoscale ! video/x-raw-yuv,width=" +
                     videoSource.getWidth() + ",height=" + videoSource.getHeight() +

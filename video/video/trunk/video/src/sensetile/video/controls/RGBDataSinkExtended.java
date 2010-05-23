@@ -11,7 +11,7 @@ import org.gstreamer.Structure;
 import org.gstreamer.elements.BaseSink;
 import org.gstreamer.lowlevel.GstBinAPI;
 import org.gstreamer.lowlevel.GstNative;
-import sensetile.common.utils.Guard;
+
 import sensetile.video.sources.IVideoSource;
 
 /**
@@ -27,7 +27,8 @@ public class RGBDataSinkExtended extends Bin
 
     public static RGBDataSinkExtended createRGBSink( final IVideoSource source)
     {
-        Guard.ArgumentNotNull(source, "IVideo source cannot be a null.");
+        assert source != null : "Video source cannot be a null.";
+        
         return new RGBDataSinkExtended(source);
     }
     private RGBDataSinkExtended(IVideoSource source)

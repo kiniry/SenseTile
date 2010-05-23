@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensetile.common.messages;
-import sensetile.common.utils.Guard;
+
 /**
  * @author SenseTile
  */
@@ -22,7 +18,9 @@ public class PipeMessage implements IMessage
 
     public void setMessage(Object messageObject)
     {
-        Guard.ArgumentNotNull(messageObject, "Message cannot be a null.");
+        assert messageObject != null : "Message object cannot be a null.";
+        assert messageObject.getClass().isAssignableFrom(PipeMessage.class) :
+            "Invalid message object type.";
         _message = messageObject;
     }
 
@@ -43,7 +41,7 @@ public class PipeMessage implements IMessage
     public static final PipeMessage createMessage( final Object messageObject,
             final MessageType.PipeType messageType)
     {
-        Guard.ArgumentNotNull(messageObject, "Message object cannot be a null.");
+       assert messageObject != null : "Message object cannot be a null.";
         return new PipeMessage(messageObject, messageType);
     }
 }

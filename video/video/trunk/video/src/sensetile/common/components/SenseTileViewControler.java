@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import sensetile.common.messages.IMessage;
 import sensetile.common.services.LayerService;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 import sensetile.components.ButtonControler;
 import sensetile.components.DeviceInfo;
 import sensetile.video.sources.IVideoSource;
@@ -69,7 +68,7 @@ public class SenseTileViewControler implements IObservable
 
     public void update(IMessage message)
     {
-        Guard.ArgumentNotNull(message, "Message cannot be a null.");
+        assert message != null : "Message cannot be a null.";
         if (message.getClass().
                 isAssignableFrom(PipeMessage.class))
         {
@@ -189,7 +188,7 @@ public class SenseTileViewControler implements IObservable
 
     public void updateSequence(List<IMessage> messages)
     {
-        Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
+        assert messages != null : "Message list cannot be a null.";
          assert messages.size() >=0 : "Message list cannot be empty.";
            for(IMessage message :messages )
            {
@@ -268,8 +267,8 @@ public class SenseTileViewControler implements IObservable
     public Component getListCellRendererComponent(
             final Component component, final Object value)
     {
-        Guard.ArgumentNotNull(component, "Component cannot be a null.");
-        Guard.ArgumentNotNull(value, "Value cannot be a null.");
+        assert component != null : "Component cannot be a null.";
+        assert value != null : "Value cannot be a null.";
         JLabel label = (JLabel) component;
         if (value instanceof IVideoSource)
         {

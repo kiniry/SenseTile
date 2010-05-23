@@ -17,8 +17,6 @@ import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.messages.TransmissionMessage;
 import sensetile.common.services.BroadcasterService;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
-
 import sensetile.video.exporter.VideoExporterAVI;
 import sensetile.video.sources.IVideoSource;
 /**
@@ -50,7 +48,7 @@ public class VideoRecorderHandler implements Runnable
    }
    public static VideoRecorderHandler createHandler(final FrameViewer frameViewer)
    {
-       Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
+       assert frameViewer != null : "FrameViewer cannot be a null.";
        return new VideoRecorderHandler(frameViewer);
    }
    private FileChooser createFileChooser()

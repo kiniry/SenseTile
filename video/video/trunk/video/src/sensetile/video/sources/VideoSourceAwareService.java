@@ -12,7 +12,6 @@ import sensetile.common.messages.IMessage;
 import sensetile.common.messages.MessageType.Validity;
 import sensetile.common.messages.SourceMessage;
 import sensetile.common.utils.CommonUtils;
-import sensetile.common.utils.Guard;
 import sensetile.devices.VideoDevice;
 
 /**
@@ -37,8 +36,8 @@ public class VideoSourceAwareService
     public List<IVideoSource> createTempList(final List<IVideoSource> sourcesWebcams,
             final List<IMessage> messages)
     {
-        Guard.ArgumentNotNull(sourcesWebcams, "Message list cannot be a null.");
-        Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
+        assert sourcesWebcams != null : "Sources Webcams cannot be a null.";
+        assert messages != null : "Messages cannot be a null.";
 
         List<IVideoSource> tempList = new ArrayList<IVideoSource>();
         for(IMessage message : messages)
@@ -70,7 +69,7 @@ public class VideoSourceAwareService
 
     public IVideoSource createVideoSource(final VideoDevice device)
     {
-        
+        assert device != null: "Video device cannot be a null.";
         IVideoSource videoSource = IVideoSource.NO_VIDEO_SOURCE;
         switch( device.getVersion() )
         {
@@ -99,8 +98,8 @@ public class VideoSourceAwareService
             final List<IVideoSource> sourcesWebcams,
             final List<IVideoSource> tempList)
     {
-        Guard.ArgumentNotNull(tempList, "Temporary list cannot be a null.");
-        Guard.ArgumentNotNull(tempList, "SourcesWebcams list cannot be a null.");
+         assert sourcesWebcams != null : "Sources Webcams cannot be a null.";
+        assert tempList != null : "TempList cannot be a null.";
         List<IVideoSource> destiledList = new ArrayList<IVideoSource>();
        
         if(tempList.size() >= sourcesWebcams.size())
@@ -199,7 +198,7 @@ public class VideoSourceAwareService
 
     public List<IMessage> createVideoMessages(final List<IVideoSource> tempList)
     {
-        Guard.ArgumentNotNull(tempList, "Video message list cannot be a null.");
+        assert tempList != null : "Temp list cannot be a null.";
         List<IMessage> messageList = new ArrayList<IMessage>();
         IMessage videoMessage = IMessage.NO_MESSAGE;
         for(IVideoSource videoSource : tempList)

@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sensetile.devices;
 
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sensetile.common.utils.Guard;
-
 /**
  *
  * @author SenseTile
@@ -30,7 +23,8 @@ public class VideoDevice implements IDevice
 
     public VideoDevice(final String fileName)
     {
-        Guard.ArgumentNotNullOrEmptyString(fileName, "Device name cannot be a null or empty string.");
+        assert fileName != null && !fileName.equalsIgnoreCase("") :
+            "Device name cannot be a null or empty string.";
         _file = new java.io.File(fileName);
         openDevice();
         initDevice();
@@ -135,8 +129,8 @@ public class VideoDevice implements IDevice
     }
 
     public void setName(final String name) {
-        Guard.ArgumentNotNullOrEmptyString(name,
-                "Name cannot be a null or empty string.");
+        assert name != null && !name.equalsIgnoreCase("") :
+            "Device name cannot be a null or empty string.";
         _name = name;
     }
 }

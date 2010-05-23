@@ -3,8 +3,6 @@ package sensetile.video.sources;
 
 import java.awt.image.BufferedImage;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
-
 import sensetile.video.controls.RGBListenerMediator;
 import sensetile.video.sources.pipe.PipeProvider;
 /**
@@ -35,12 +33,12 @@ public class VideoSource implements IVideoSource
                         final String location,
                         final String deviceName)
     {
-        Guard.ArgumentNotNullOrEmptyString(source,
-                "Source name cannot be a null or an empty string.");
-        Guard.ArgumentNotNullOrEmptyString(location,
-                "Location name cannot be a null or an empty string.");
-        Guard.ArgumentNotNullOrEmptyString(deviceName,
-                "Device name cannot be a null or an empty string.");
+        assert source != null && !source.equalsIgnoreCase("") :
+            "Source name cannot be a null or an empty string.";
+        assert location != null && !location.equalsIgnoreCase("") :
+            "Location name cannot be a null or an empty string.";
+        assert deviceName != null && !deviceName.equalsIgnoreCase("") :
+            "Device name name cannot be a null or an empty string.";
         return new VideoSource(source, location, deviceName);
     }
 
@@ -231,7 +229,8 @@ public class VideoSource implements IVideoSource
     @Override
     public boolean isEqual(final ISource targetSource) 
     {
-        Guard.ArgumentNotNull(targetSource, "Target source cannot be a null.");
+        assert targetSource != null :"Target source cannot be a null.";
+        
         boolean isEqual = Boolean.FALSE;
          boolean isNameIsEqual = targetSource.getDeviceName()
                     .equalsIgnoreCase(this.getDeviceName());
@@ -261,8 +260,8 @@ public class VideoSource implements IVideoSource
     }
 
     public boolean hasPathAs(final String path) {
-         Guard.ArgumentNotNullOrEmptyString(path,
-                "Path cannot be a null or empty string.");
+         assert path != null && !path.equalsIgnoreCase("") :
+            "Path name cannot be a null or an empty string.";
         boolean isEqual = Boolean.FALSE;
             boolean isPathIsEqual = path.trim()
                     .equalsIgnoreCase(this.getLocation().trim());
@@ -276,8 +275,8 @@ public class VideoSource implements IVideoSource
 
     public void setDeviceName(String deviceName)
     {
-        Guard.ArgumentNotNullOrEmptyString(deviceName,
-                "Device name cannot be a null or empty string.");
+       assert deviceName != null && !deviceName.equalsIgnoreCase("") :
+            "Device name name cannot be a null or an empty string.";
         _deviceName = deviceName;
     }
 }

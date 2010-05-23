@@ -34,7 +34,6 @@ import org.gstreamer.Element;
 import org.gstreamer.Pad;
 import org.gstreamer.event.NavigationEvent;
 import com.sun.jna.Platform;
-import sensetile.common.utils.Guard;
 import sensetile.video.sources.IVideoSource;
 
 /**
@@ -105,7 +104,7 @@ public class VideoGrabber extends javax.swing.JComponent
 
     public static VideoGrabber createVideGrabber( final IVideoSource videoSource)
     {
-        Guard.ArgumentNotNull(videoSource, "IVideoSource cannot be a null.");
+        assert videoSource != null :" Video Source cannot be a null.";
         return new VideoGrabber( videoSource );
     }
 

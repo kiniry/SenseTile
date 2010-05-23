@@ -7,7 +7,6 @@ import sensetile.common.messages.MessageType.TransmissionType;
 import sensetile.common.messages.TransmissionMessage;
 import sensetile.common.services.BroadcasterService;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 
 /**
  *
@@ -39,7 +38,7 @@ public class VideoBroadcastHandler implements Runnable
     
     public static VideoBroadcastHandler createHandler(final FrameViewer frameViewer)
     {
-       Guard.ArgumentNotNull(frameViewer, "Frame Viewer cannot be a null.");
+       assert frameViewer != null : "FrameViewer cannot be a null.";
        return new VideoBroadcastHandler(frameViewer);
     }
     private BroadcasterFrame createBroadcaster()

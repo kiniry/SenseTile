@@ -2,7 +2,6 @@ package sensetile.sensor.sources.telos;
 
 import java.util.List;
 import sensetile.common.sources.ISource;
-import sensetile.common.utils.Guard;
 import sensetile.devices.DeviceDetectorService;
 import sensetile.devices.TelosDevice;
 
@@ -167,7 +166,8 @@ public class TelosSource implements ISource
     @Override
     public boolean isEqual(final ISource targetSource) 
     {
-        Guard.ArgumentNotNull(targetSource, "Target source cannot be a null.");
+        assert targetSource != null : "Target source cannot be a null.";
+        
         boolean isEqual = Boolean.FALSE;
          boolean isNameIsEqual = targetSource.getDeviceName()
                     .equalsIgnoreCase(this.getDeviceName());
@@ -183,8 +183,8 @@ public class TelosSource implements ISource
     @Override
     public boolean hasPathAs(final String path)
     {
-        Guard.ArgumentNotNullOrEmptyString(path,
-                "Path cannot be a null or empty string.");
+        assert path != null && !path.equalsIgnoreCase(""):
+            "Path cannot be a null or empty string.";
         boolean isEqual = Boolean.FALSE;
         boolean isPathIsEqual = path
                     .equalsIgnoreCase(this.getLocation());

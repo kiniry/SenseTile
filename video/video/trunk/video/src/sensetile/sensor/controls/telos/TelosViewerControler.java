@@ -13,7 +13,6 @@ import sensetile.common.messages.PacketMessage;
 import sensetile.common.messages.SourceMessage;
 import sensetile.common.sources.ISource;
 import sensetile.common.utils.CommonUtils;
-import sensetile.common.utils.Guard;
 import sensetile.common.utils.ListUtils;
 import sensetile.devices.TelosDevice;
 import sensetile.sensor.sources.telos.ITelosHolder;
@@ -45,7 +44,8 @@ public class TelosViewerControler implements IObservable
 
     public void update(IMessage message)
     {
-        Guard.ArgumentNotNull(message, "Message cannot be a null.");
+        assert message != null : "Message cannot be a null.";
+        
         if (message.getClass().isAssignableFrom(PacketMessage.class))
         {
             PacketMessage packetMessage = (PacketMessage)message;
@@ -76,7 +76,8 @@ public class TelosViewerControler implements IObservable
     {
         
         // DO UPDATE WEB CAM SOURCES AND BROADCAST MESSAGE SEQUENCE.
-        Guard.ArgumentNotNull(messages, "List of messages cannot be a null.");
+        assert messages != null : "List of messages cannot be a null.";
+        
         if(!ListUtils.listIsAssignableFrom(messages,
                 "sensetile.common.messages.DeviceMessage"))
         {
@@ -115,7 +116,7 @@ public class TelosViewerControler implements IObservable
 
     public void addFrame( final TelosViewer frame)
     {
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
+        assert frame != null : "Frame cannot be a null.";
         if(!contains(frame))
         {
             _frame = frame;
@@ -124,7 +125,8 @@ public class TelosViewerControler implements IObservable
 
     public void removeFrame( final TelosViewer frame)
     {
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
+        assert frame != null : "Frame cannot be a null.";
+        
         if(contains(frame))
         {
             _frame = null;
@@ -133,8 +135,8 @@ public class TelosViewerControler implements IObservable
 
     public boolean contains(final TelosViewer frame)
     {
+        assert frame != null : "Frame cannot be a null.";
         boolean contains = Boolean.FALSE;
-        Guard.ArgumentNotNull(frame, "Frame cannot be a null.");
         if(_frame != null)
         {
             contains = Boolean.TRUE;
@@ -156,7 +158,7 @@ public class TelosViewerControler implements IObservable
     public TelosViewer  createFrame(ISource source, final int width,
             final int height, int desktopTaskbarHeight)
     {
-        Guard.ArgumentNotNull(source,"Source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         _frame = new TelosViewer();
         initialize(source,width,height,desktopTaskbarHeight);
         if (!_layerService.contains(source))
@@ -224,7 +226,7 @@ public class TelosViewerControler implements IObservable
 
     public String getTitle(final ISource source)
     {
-        Guard.ArgumentNotNull(source, "Video source cannot be a null.");
+        assert source != null : "Source cannot be a null.";
         return source.getDeviceName()+
                 " (" + (_layerService.size() - _layerService.getIndex(source)) + ")";
     }

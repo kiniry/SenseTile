@@ -12,7 +12,6 @@ import sensetile.common.messages.DeviceMessage;
 import sensetile.common.messages.MessageType.Validity;
 import sensetile.common.services.IObservable;
 import sensetile.common.utils.CommonUtils;
-import sensetile.common.utils.Guard;
 import sensetile.devices.TelosDevice;
 /**
  * Represent an Vide Device info tabular presentation.
@@ -170,6 +169,7 @@ public class DeviceInfo extends JDialog implements IObservable {
 
     public void update(IMessage message)
     {
+        assert message != null : "Message object cannot be a null.";
         if(!CommonUtils.isTypeOf(message,
                 "sensetile.common.messages.DeviceMessage"))
         {
@@ -190,6 +190,9 @@ public class DeviceInfo extends JDialog implements IObservable {
 
     private void removeItem(final String deviceName)
     {
+        assert deviceName != null && !deviceName.equalsIgnoreCase(""):
+            "Device name cannot be a null or an empty string.";
+        
         DefaultTableModel model = (DefaultTableModel) tableInfo.getModel();
          for(int i = tableInfo.getRowCount() - 1; i >= 0; i--)
          {
@@ -211,7 +214,8 @@ public class DeviceInfo extends JDialog implements IObservable {
 
     public void updateSequence(final List<IMessage> messages)
     {
-        Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
+        assert messages != null :"Message list cannot be a null.";
+        
         clearTable();
         List<IDevice> newList = new ArrayList<IDevice>();
         for(IMessage message :messages ) 

@@ -5,8 +5,6 @@ import org.gstreamer.*;
 
 import java.util.List;
 import java.io.File;
-import sensetile.common.utils.Guard;
-
 import sensetile.video.sources.IVideoSource;
 /**
  *
@@ -85,7 +83,8 @@ public abstract class VideoExporter
 
     public void setVideoSource(final IVideoSource videoSource)
     {
-        Guard.ArgumentNotNull(videoSource, "Video source cannot be a null.");
+        assert videoSource != null : "Video source cannot be a null.";
+        
         _videoSource = videoSource;
         captureWidth = _videoSource.getImage().getWidth();
         captureHeight = _videoSource.getImage().getHeight();

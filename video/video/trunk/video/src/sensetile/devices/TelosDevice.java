@@ -6,7 +6,7 @@
 package sensetile.devices;
 
 import java.io.File;
-import sensetile.common.utils.Guard;
+
 
 /**
  *
@@ -20,7 +20,9 @@ public class TelosDevice implements IDevice{
 
     public TelosDevice(final String fileName)
     {
-        Guard.ArgumentNotNullOrEmptyString(fileName, "Device name cannot be a null or empty string.");
+        assert fileName != null && !fileName.equalsIgnoreCase("") :
+            "Device name cannot be a null or empty string.";
+        
         _file = new java.io.File(fileName);
         _isReady = Boolean.TRUE;
     }

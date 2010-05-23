@@ -8,8 +8,6 @@ package sensetile.common.services;
 import sensetile.common.messages.IMessage;
 import java.util.ArrayList;
 import java.util.List;
-import sensetile.common.utils.Guard;
-
 /**
  *
  * @author SenseTile
@@ -36,7 +34,7 @@ public class BroadcasterService
 
     public void attachObserver(final IObservable observer)
     {
-        Guard.ArgumentNotNull(observer, "Observer cannot be a null");
+        assert observer != null :"Observer cannot be a null";
         if (! _observableList.contains(observer))
         {
             _observableList.add(observer);
@@ -44,10 +42,10 @@ public class BroadcasterService
         }
     }
 
-    public void attachObservableTuple(final IObservable... _observables)
+    public void attachObservableTuple(final IObservable... observables)
     {
-        Guard.ArgumentNotNull(_observables, "Tuple of observers cannot be a null");
-        for(IObservable currentObs : _observables)
+        assert observables != null : "Tuple of observers cannot be a null";
+        for(IObservable currentObs : observables)
         {
             attachObserver(currentObs);
         }
@@ -55,7 +53,7 @@ public class BroadcasterService
 
     public void detachObserver(final IObservable observer)
     {
-        Guard.ArgumentNotNull(observer, "Observer cannot be a null");
+        assert observer != null :"Observer cannot be a null";
         if ( _observableList.contains(observer))
         {
             _observableList.remove(observer);
@@ -63,10 +61,10 @@ public class BroadcasterService
         }
     }
 
-     public void detachObservableTuple(final IObservable... _observables)
+     public void detachObservableTuple(final IObservable... observables)
      {
-        Guard.ArgumentNotNull(_observables, "Tuple of observers cannot be a null");
-        for(IObservable currentObs : _observables)
+        assert observables != null : "Tuple of observers cannot be a null";
+        for(IObservable currentObs : observables)
         {
             detachObserver(currentObs);
 
@@ -74,7 +72,7 @@ public class BroadcasterService
      }
      public void broadcastMessage(final IMessage message)
      {
-        Guard.ArgumentNotNull(message, "Message cannot be a null.");
+         assert message != null :"Message cannot be a null.";
         notifyObservers(message);
      }
 
@@ -89,18 +87,18 @@ public class BroadcasterService
 
       public void processMessageSequence(final List<IMessage> messages)
       {
-          Guard.ArgumentNotNull(messages, "Message sequence cannot be a null.");
+          assert messages != null : "Message sequence cannot be a null.";
           assert messages.size() > 0: "Message's list  cannot be empty.";
+
           for(IMessage message : messages)
           {
               broadcastMessage(message);
           }
-
       }
 
        public void processMessageList(final List<IMessage> messages)
        {
-          Guard.ArgumentNotNull(messages, "Message list cannot be a null.");
+         assert messages != null : "Message sequence cannot be a null.";
          assert messages.size() > 0: "Message's list  cannot be empty.";
           for (IObservable observable : _observableList)
          {

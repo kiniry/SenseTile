@@ -8,7 +8,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.gstreamer.elements.RGBDataSink;
 import java.awt.image.DataBufferInt;
 import org.gstreamer.Element;
-import sensetile.common.utils.Guard;
 
 /**
  *
@@ -104,15 +103,13 @@ public class RGBListenerMediator implements RGBDataSink.Listener
 
       public void setVideoGrabber( VideoGrabber videoGrabber)
       {
-          Guard.ArgumentNotNull(videoGrabber,
-                  "Video grabber cannot be a null.");
+          assert videoGrabber != null : "Video grabber cannot be a null.";
           _videoGrabber = videoGrabber;
       }
 
       public Element getVideoElement()
       {
-          Guard.ArgumentNotNull(_videoGrabber, "getVideoElement() failed: " +
-                      "VideoGrabber can't be a null");
+          assert  _videoGrabber.getElement() != null :"Element os grabber cannot be a null.";
           return _videoGrabber.getElement();
       }
    }
