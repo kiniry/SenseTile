@@ -45,19 +45,24 @@ public class VideoSourceAwareService
                 continue;
             }
 
+            assert deviceMessage.getMessage().getClass().isAssignableFrom(VideoDevice.class);
 
             VideoDevice videoDevice = (VideoDevice)deviceMessage.getMessage();
             IVideoSource source = findByPath(sourcesWebcams,videoDevice);
+
             if( source == IVideoSource.NO_VIDEO_SOURCE)
             {
                 IVideoSource newVideoSource =
                         createVideoSource(videoDevice);
+                assert newVideoSource != null;
                 tempList.add(newVideoSource);
+                assert tempList.contains(newVideoSource): "Video source is not added properly.";
             }
             else
             {
                 updateSource(source, videoDevice);
                 tempList.add(source);
+                assert tempList.contains(source): "Source is not added properly.";
             }
         }
         return tempList;
@@ -66,14 +71,21 @@ public class VideoSourceAwareService
     public IVideoSource createVideoSource(final VideoDevice device)
     {
         assert device != null: "Video device cannot be a null.";
+        assert device.getFile().getAbsolutePath() != null && 
+                        !device.getFile().getAbsolutePath().equalsIgnoreCase(""):
+                            "AbsolutePath cannot be a null or empty string.";
+        assert device.getName() != null && !device.getName().equalsIgnoreCase(""):
+                    "Device name cannot be a null or empty string.";
+
         IVideoSource videoSource = IVideoSource.NO_VIDEO_SOURCE;
         switch( device.getVersion() )
         {
             case V4L:
                 videoSource =
                         VideoSource.createVideoSource("v4lsrc",
-                                device.getFile().getAbsolutePath(),
-                                device.getName());
+                        device.getFile().getAbsolutePath(),
+                        device.getName());
+
                 break;
             case V4L2:
                 videoSource =
@@ -86,6 +98,7 @@ public class VideoSourceAwareService
                          "Cannot create new VideoSource. Version: "
                          +  device.getVersion() + " is not supported.");
         }
+        assert videoSource != null;
         videoSource.enableProcess(Boolean.TRUE);
         return videoSource;
     }
@@ -146,11 +159,13 @@ public class VideoSourceAwareService
         {
             boolean pathIsEqual = currentSource.hasPathAs(videoSource.getLocation()) ;
             boolean isReadyToProcess = currentSource.isReadyToProcess();
+
             if(pathIsEqual && isReadyToProcess)
             {
                 
                 target = currentSource;
             }
+
             break;
         }
         return target;
@@ -165,7 +180,6 @@ public class VideoSourceAwareService
         IVideoSource targetSource = IVideoSource.NO_VIDEO_SOURCE;
         for(IVideoSource videoSource : sourcesWebcams)
         {
-
             if(pathIsEqual(videoSource, videoDevice))
             {
                 targetSource = videoSource;
@@ -178,6 +192,11 @@ public class VideoSourceAwareService
     private boolean pathIsEqual(final IVideoSource videoSource,
                                 final VideoDevice videoDevice)
     {
+        assert videoSource != null && videoDevice != null;
+        assert videoDevice.getFile().getAbsolutePath() != null &&
+                !videoDevice.getFile().getAbsolutePath().equalsIgnoreCase(""):
+                    "Absolute path cannot be a null or empty string.";
+
         final boolean hasSamePath = videoSource.hasPathAs(videoDevice.getFile().getAbsolutePath());
         return hasSamePath;
     }
@@ -185,14 +204,22 @@ public class VideoSourceAwareService
     private void updateSource( final IVideoSource source,
               final VideoDevice device)
     {
-         if(!device.isReady())
+        assert source != null && device != null;
+        assert device.getName() != null && !device.getName().equalsIgnoreCase(""):
+            "device name cannot be a null or empty string.";
+        assert source.getDeviceName() != null && !source.getDeviceName().equalsIgnoreCase(""):
+            "device name from source  cannot be a null or empty string.";
+
+        if(!device.isReady())
          {
              source.enableProcess(Boolean.FALSE);
+             assert !source.isReadyToProcess();
          }
          if(!device.getName().equalsIgnoreCase(
                  source.getDeviceName()))
          {
              source.setDeviceName(device.getName());
+             assert source.getDeviceName().equalsIgnoreCase(device.getName());
          }
 
     }
@@ -204,6 +231,7 @@ public class VideoSourceAwareService
         IMessage videoMessage = IMessage.NO_MESSAGE;
         for(IVideoSource videoSource : tempList)
         {
+            assert videoSource != null: "Video source cannot be a null.";
             if( videoSource.isReadyToProcess())
             {
                 videoMessage = SourceMessage.
@@ -214,6 +242,9 @@ public class VideoSourceAwareService
                 videoMessage = SourceMessage.
                         createSourceMessage(videoSource, Validity.INVALID);
             }
+            assert videoMessage != null &&
+                    videoMessage.getClass().isAssignableFrom(SourceMessage.class);
+
             messageList.add(videoMessage);
         }
         return messageList;
