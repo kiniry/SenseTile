@@ -1,0 +1,168 @@
+% The elements of the set Ports represent all elements of the formal
+% port clauses. A port is (unconnected) if it is associated with the element (open).
+% If the port is associated with an actual port, declared signal or expression,
+% then is said to be (connected). A default expression is necessary if the port is
+% of mode (in) and is (unconnected).
+%
+ports : THEORY
+
+  BEGIN
+     IMPORTING datatypes
+
+    p_name, conn, unconn :NONEMPTY_TYPE = v_string    
+    in_data:TYPE
+    p_data_type :NONEMPTY_TYPE =data_type
+    p_res_fun :TYPE = lift[in_data -> data_type]
+    p_effv, p_drivv :NONEMPTY_TYPE
+    p_def_exp :TYPE 
+    p_mode :NONEMPTY_TYPE ={m_in ,m_out , m_inout, m_buffer, m_linkage}
+    p_m: VAR  p_mode
+    p_conn :NONEMPTY_TYPE ={conn, unconn}
+
+    p_t :TYPE = [p_name,           
+  	   	 p_res_fun,         
+		 p_data_type,
+		 p_mode,
+		 p_conn,
+		 p_def_exp,
+		 p_effv,
+		 p_drivv]
+
+    set_pt :NONEMPTY_TYPE = setof[p_t]
+   
+  END ports
+
+% In conjunction with VHDL component instalations there is a set Port-associations
+% whose elements links the formal port names in the component definition with the
+% actual signal (or port) names in instantiating environment.
+% The set Port-associations contains all of the port associations on one elaborated
+% VHDL description.Formally, a port-association is represented as a 4-tuple where:
+% formal - (element of Ports ) is the formal in the association,
+% fnf2a - is the type conversion function that maps the values of the formal's type
+%         to the values of the actual's type,
+% actual - (element of Signals union Ports union Expressions u {open}) is the actual
+%         in the association,
+% fna2f - is the type conversion function mapping the values of the actual's type to
+%         values of formal's type.
+%
+% In the case where no type conversion function(s) is/are specified fnf2a/fna2f will
+% be a function(s) that returns the input value. 
+port_associations :THEORY 
+ BEGIN
+   IMPORTING vhdl, datatypes
+   
+   formal :TYPE  =p_t
+   actual :TYPE  = sig_port_expr_open
+   fnf2a  :NONEMPTY_TYPE = [formal -> actual]
+   fna2f  :NONEMPTY_TYPE = [actual -> formal]
+   p_ta :TYPE =  [ formal, fnf2a, actual, fna2f ]
+   plist:VAR set_pt
+
+% The set of port association
+  set_pa : NONEMPTY_TYPE = setof[p_ta]
+  tlist : VAR typelist
+
+
+% The subtype of formal-port  must be equal 
+% the subtype of actual (port).                            
+  subt_signal_port_eq? (s: s_t, port :p_t , st:typelist):boolean =
+               LET sd_type = PROJ_3(s) IN
+                member( sd_type, st )   AND
+                sd_type = PROJ_3(port)
+
+
+% The subtype of formal-port  must be equal 
+% the subtype of actual (signal).
+  subt_port_port_eq? (p: p_t, port :p_t , st:typelist):boolean =
+                LET pd_type =  PROJ_3(p) IN 
+                 member( pd_type, st )   AND
+                 pd_type = PROJ_3(port)
+           
+
+  subt_eq?( pa: p_ta, port :p_t , st:typelist):boolean =
+              
+               CASES PROJ_3(pa) OF
+                IN_1(s) : subt_signal_port_eq?(s,port,st),
+                IN_2(p) : subt_port_port_eq?(p,port,st),
+                IN_3(open) : TRUE
+               ENDCASES  
+
+
+linkage_all?( pa:p_ta ) :boolean =
+   PROJ_4( PROJ_1(pa) )(m_linkage)=  
+     CASES PROJ_3(pa) OF
+                IN_1(s): FALSE,
+                IN_2(p) :LET mode = 
+                 PROJ_4(p) IN 
+                 mode(m_out)    OR 
+                 mode(m_inout)  OR
+                 mode(m_in)     OR
+                 mode(m_buffer) OR
+                 mode(m_linkage),
+                
+                IN_3(open):FALSE
+     ENDCASES 
+    
+
+   out_out_inout?( pa:p_ta ) :boolean = 
+    PROJ_4( PROJ_1(pa) )(m_out)=  
+     CASES PROJ_3(pa) OF
+                IN_1(s): FALSE,
+                IN_2(p) :LET mode = PROJ_4(p) IN mode(m_out) OR mode(m_inout),
+                IN_3(open):FALSE
+     ENDCASES 
+     
+
+  in_inout_buff?( pa:p_ta ) :boolean =
+     PROJ_4( PROJ_1(pa) )(m_in)=  
+     CASES PROJ_3(pa) OF
+                IN_1(s): FALSE,
+                IN_2(p) :LET mode = PROJ_4(p) IN mode(m_in) OR mode(m_inout),
+                IN_3(open):FALSE
+     ENDCASES 
+     
+
+  inout_inout?( pa:p_ta ) :boolean = 
+     PROJ_4( PROJ_1(pa) )(m_inout)= 
+     CASES PROJ_3(pa) OF
+                IN_1(s): FALSE,
+                IN_2(p) :PROJ_4(p)(m_inout),
+                IN_3(open):FALSE
+     ENDCASES 
+
+
+  buffer_buffer?( pa:p_ta ) : boolean =
+     PROJ_4( PROJ_1(pa) )(m_buffer)= 
+     CASES PROJ_3(pa) OF
+                IN_1(s): FALSE,
+                IN_2(p) :PROJ_4(p)(m_buffer),
+                IN_3(open):FALSE
+     ENDCASES 
+     
+
+% The subtype of formal must be equal the subtype of actual                            
+  subtype_formal_subtype_actual_eq : AXIOM FORALL (sp : set_pa):
+         FORALL ( pa :p_ta ): 
+            member(pa,sp ) AND
+            ( 
+	      LET port = PROJ_1(pa) IN
+              member( PROJ_3( port ),tlist )AND 
+              subt_eq?( pa,port, tlist ) 
+            )
+
+
+% AXIOM: A formal of mode (in) can't be associated with an actual of mode (out) 
+   formal_in_actual_out_neq: AXIOM FORALL (sp : set_pa):
+    FORALL (pa :p_ta): 
+             member (pa,sp)              AND  
+             member (PROJ_1(pa) ,plist ) AND 
+             member (OUT_2(PROJ_3(pa)),plist ) 
+             AND   
+            ( in_inout_buff?(pa) OR
+              out_out_inout?(pa) OR
+              inout_inout?(pa)   OR
+              buffer_buffer?(pa) OR
+              linkage_all?(pa)
+            )
+ 
+END port_associations

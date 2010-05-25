@@ -1,0 +1,25 @@
+% The theory statement describes all statements in a VHDL description,
+% both sequential and concurrent.  Formally, statements represent a
+% union over all sets described below.  All concurrent statements have
+% corresponding process statement implementation.  Actually each
+% concurrent statement will be rewritten in the process statement.
+%
+% For example, a *conditional concurrent signal assignment* statement
+% and its equivalent process statement are shown below:
+%
+% [a <= b after 5 ns;]
+%
+% is represented as
+%
+%                   process
+%                       a <= b after 5 ns;
+%                       wait on b;
+%                   end process;
+%   
+statements: THEORY
+BEGIN
+  IMPORTING sequential_statement, concurrent_statement
+
+  statement: TYPE = [sequential_statement + concurrent_statement]
+ 
+END statements

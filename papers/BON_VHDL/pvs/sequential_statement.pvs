@@ -1,0 +1,36 @@
+% Sequential statements are represented using the datatype
+% "sequential_statement".
+%
+% The following statements are described:
+%
+% wait statement, assert statement, report statement, signal
+% statement, signal assignment, variable assignment, procedure call,
+% return statement, if statement, case statement, loop statement, next
+% statement and exit statement.
+
+% See http://tams-www.informatik.uni-hamburg.de/vhdl/tools/grammar/vhdl93-bnf.html
+
+sequential_statement: DATATYPE
+BEGIN
+  IMPORTING vhdl, variables, grammar
+
+  null(label: lift[identifier]): null?
+  wait(slist: sensitivity_list, condition: property_t, time: time_t): wait? 
+  asstmt(condition: property_t, message: mesg_t, severity: severity_t): asstmt?
+  report(message: mesg_t, severity: severity_t): report?
+  sa(dest: s_t, pulse_reject: nat, waveform: property_t): sa?
+  va(dest: variable_t, expr: property_t): va?
+  return(exp:expression_t): return?
+  if_(condition: property_t, then_: list[sequential_statement], else_: list[sequential_statement]): if_?
+  loop(condition: property_t, os: list[sequential_statement]): loop?
+  % next_statement ::= [ label : ] NEXT [ loop_label ] [ WHEN condition ] ;
+  next(label: lift[identifier], loop_label: lift[identifier], when_condition: lift[property_t]): next?
+  % exit_statement ::= [ label : ] EXIT [ loop_label ] [ WHEN condition ] ;
+  exit(label: lift[identifier], loop_label: lift[identifier], when_condition: lift[property_t]): exit?
+  % case:  case? to be developed (perhaps not as a case is syntactic sugar for a nested conditional)
+  % procedure_call ::= procedure_name [ ( actual_parameter_part ) ]
+  procedure_call(procedure_name: identifier, actual_parameter_part: lift[parameter_association_list]): procedure_call?
+  % procedure_call_statement ::= [ label : ] procedure_call ;
+  procedure_call_statement(label: lift[identifier], call: procedure_call): procedure_call_statement?
+
+END sequential_statement

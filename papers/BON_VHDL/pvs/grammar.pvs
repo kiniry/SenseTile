@@ -1,0 +1,6 @@
+grammar: THEORY
+BEGIN
+  % VHDL identifiers are actually more complex than string but we do
+  % not care about that in this model for now.
+  identifier: vhdl_string
+END grammar

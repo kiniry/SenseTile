@@ -1,0 +1,38 @@
+% The VHDL datatypes include a set of basic types and an extensible
+% set of user-defined types.
+
+% N represents the size of bitvectors in our VHDL formalization.
+datatypes[N: nat]: THEORY
+BEGIN
+  IMPORTING bv[N]
+
+  % The basic VHDL datatypes.
+  vhdl_boolean: TYPE+ = boolean
+  vhdl_bit: TYPE+ = bit
+  vhdl_char: TYPE+ = char
+  vhdl_int: TYPE+ = int
+  vhdl_posint: TYPE+ = posint
+  vhdl_natural: TYPE+ = nat
+  vhdl_real: TYPE+ = real
+  % VHDL time in femtoseconds.
+  vhdl_time: TYPE+ = int
+  vhdl_string: TYPE+ = string
+  vhdl_bit_vector: TYPE+ = bvec
+  vhdl_severity_level: TYPE+ = {none, warning, error, failure}
+  vhdl_file_open_kind: TYPE+ = {read_mode, write_mode, append_mode}
+  vhdl_file_open_status: TYPE+ = {open_ok, status_error, name_error, mode_error}
+
+  % All of the basic VHDL datatypes.
+  basic_type: TYPE+ = [vhdl_boolean + vhdl_bit + vhdl_char + vhdl_int + 
+                       vhdl_posint + vhdl_natural + vhdl_real + 
+                       vhdl_time + vhdl_string + vhdl_bit_vector +
+                       vhdl_severity_level + vhdl_file_open_kind +
+                       vhdl_file_open_status]
+  % User-defined types will be added here structurally.
+  user_type: TYPE
+
+  % A VHDL datatype which is exactly one of the core/basic VHDL
+  % datatypes or one of a user defined set of types.
+  data_type: TYPE+ = [basic_type + user_type]
+  typelist: TYPE+ = setof[data_type] 
+END datatypes

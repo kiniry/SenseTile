@@ -1,0 +1,16 @@
+% See http://tams-www.informatik.uni-hamburg.de/vhdl/tools/grammar/vhdl93-bnf.html
+
+concurrent_statement: DATATYPE
+BEGIN 
+%   concurrent_statement ::=
+% 	block_statement
+% 	| process_statement
+% 	| concurrent_procedure_call_statement
+% 	| concurrent_assertion_statement
+% 	| concurrent_signal_assignment_statement
+% 	| component_instantiation_statement
+% 	| generate_statement
+
+ % TODO define all concurrency statements.
+ not_defined_yet: not_defined_yet? 
+END concurrent_statement

@@ -1,0 +1,294 @@
+%%%%%%
+%%%%%%  The VHDL typesystem
+%%%%%%  PVS formalization by Joseph Kiniry & Dragan Stosic
+%%%%%%  typesystem by Joseph Kiniry & Dragan Stosic
+%%%%%%
+%%%%%%  Represents an new VHDL semantics 
+vhdl: THEORY 
+BEGIN
+  IMPORTING signals, ports
+
+  % Open represents an set with exactly one element.
+  open : TYPE = { open }
+
+  % This sum of co-products represents an union of signal , port and open elements. 
+  sig_port_expr_open :TYPE = [s_t + p_t +  open] % need expr coproducts.
+
+% This is a list of signals and ports  that the process is sensitive.
+    sensitivity_list :TYPE  = [setof[ s_t ] + setof[ p_t] ] 
+  
+% TODO explain what is a basic_prop_t? 
+   basic_prop_t : NONEMPTY_TYPE
+  
+% The property_t  represent a list of basic properties.
+   property_t   : TYPE = list[ basic_prop_t ]
+  
+   w_true, w_false : property_t 
+  
+% The  mesg_t is the string to be displayed in report statement. 
+   mesg_t : TYPE = string
+
+% Represents severity level associated with report statement.
+   severity_t :TYPE = {note, warning, error, failure }
+
+% TODO description  
+   file_open_kind :TYPE ={read_mode, write_mode, append_mode}
+
+% TODO description  
+   file_open_status :TYPE ={open_ok, status_error, name_error, mode_error}
+
+   expression_t :TYPE
+   
+% The postponement represents whether the process is postponed process or not.
+   postponement_t :TYPE = {not_postponed, postponed }
+
+% This label has been related to the wait statement. If no time out in the original
+% VHDL wait statement, then an value of infinity is used. 
+  infinity : TYPE = nat  
+
+  parameter_association_list: TYPE
+  
+  END vhdl
+
+
+
+%+ - * / mod rem abs **
+%= /= < <= > >=
+% Arithmetic operations for real valued objects.
+% Relational operations for real valued objects.
+%
+arithmetic_operators: THEORY
+  
+  BEGIN
+    IMPORTING reals,integers
+    
+    p,q :VAR real
+    i,k: VAR int
+    j: VAR nonzero_integer
+    div(i, j): integer = sgn(i) * sgn(j) * floor(abs(i) / abs(j));
+
+% multiplying_operators * | / | mod | rem
+    *, /: [real,real -> real]
+    mod: [real -> integer]
+    rem(i, j): {k | abs(k) < abs(j)} = i - (j * div(i, j));
+    
+% miscellaneous_operators ** | abs | not
+    **: [real,real -> real]
+    abs: [real -> real]
+
+% adding_operators + | -
+    +, -: [real,real -> real]
+
+% relational_operators = | /= | < | <= | > | >=
+     =:[real ,real -> boolean]
+    /=(p , q): bool = NOT(p = q);
+    < (p,  q): bool
+    <=(p,  q): bool = p < q OR p = q;
+     >(p,  q): bool = q < p;
+    >=(p,  q): bool = q <= p
+  
+  END arithmetic_operators
+
+% In VHDL Process statements are typically used to describe digital functionality. 
+% The process statements are collections of statements that are executed sequentially.
+% Formaly representation of the process statement is a 5-tuple given by name,
+% postponement, sensitivity-list,ordered-statements and set of drivers.
+% The sensitivity list of the process statement contains ports and signals which 
+% the process statement is sensitive to.
+% The postponement represents whether the process is postponed process or not.
+% Any process has an list of ordered statements that are executed sequentially. (see the
+% definition of seq_stmt). At the end, set of drivers represents associating signals to 
+% coresponding drivers.
+% Instead of 5-tuple presentation of the process we will use reduced form which is 
+% 2-tuple formal presentation given as postponement and ordered sensitive list. 
+% (The name, sensitivity list and the  transaction list as set of drivers 
+% are not considered).   
+     process : THEORY 
+      BEGIN 
+       IMPORTING  seq_stmt
+
+       process_t : TYPE =  [# postponement_v: postponement_t, os_v: list[seq_stmt] #]
+       vhdl_desc_t : TYPE = setof [process_t]
+
+      END process
+
+
+
+
+
+%%%%%%%% PROPERTY OPERATORS PREDICATES AND AXIOMS %%%%%%%%
+
+property_t_lemmas: THEORY
+
+ BEGIN
+ IMPORTING vhdl
+
+pr, pr_1, pr_2 : VAR  property_t
+
+bool_prop_ax1: AXIOM (FORALL (x, y: property_t):
+              ((x = w_true) AND (y = w_false)) => (x /= y))
+
+bool_prop?(pr: property_t): bool = (pr = w_true OR pr = w_false)
+
+bool_prop_two?(pr_1,pr_2: property_t): bool = 
+             bool_prop?(pr_1) AND bool_prop?(pr_2)
+
+bool_prop_three?(pr,pr_1,pr_2: property_t): bool = 
+            bool_prop?(pr)  AND  bool_prop_two?(pr_1,pr_2)
+
+
+% predicate and
+w_and(x: property_t, y: property_t): (bool_prop?) =
+      IF (x = w_true) & (y = w_true)
+         THEN w_true
+         ELSE w_false
+      ENDIF
+
+% predicate or
+w_or(x: property_t, y: property_t): (bool_prop?) =
+      IF (x = w_true) OR (y = w_true)
+         THEN w_true
+         ELSE w_false
+      ENDIF
+
+% predicate not
+w_not(x: property_t): (bool_prop?) =
+      IF (x = w_true)
+         THEN w_false
+         ELSE w_true
+      ENDIF 
+
+double_w_not: AXIOM w_not(w_not(pr)) = pr
+
+% predicate not(and)
+w_nand(pr1: property_t, pr2: property_t): (bool_prop?) =
+              w_not(w_and(pr1, pr2))
+
+% predicate not(or)
+w_nor(pr1: property_t, pr2: property_t): (bool_prop?) =
+              w_not(w_or(pr1, pr2))
+
+% predicate xor - exclusive disjunction:   
+% ( pr1 AND not(pr2) ) OR ( not(pr1) AND pr2 )
+w_xor(pr1: property_t, pr2: property_t): (bool_prop?) =
+              IF NOT (pr1 = pr2)
+              THEN w_true
+              ELSE w_false
+              ENDIF
+
+% Inverse function of the exclusive or (w_xor).
+w_xnor(pr1: property_t, pr2: property_t): (bool_prop?) =
+             IF pr1 = pr2
+              THEN w_true
+              ELSE w_false
+              ENDIF
+
+w_false_is_not_w_true: LEMMA w_true = w_not(w_false) 
+
+commutative_w_and:LEMMA w_and(pr_1, pr_2) = w_and(pr_2, pr_1)
+
+commutative_w_or:LEMMA w_or(pr_1, pr_2) = w_or(pr_2, pr_1)
+
+distributive_w_and:LEMMA w_and(pr, w_or(pr_1, pr_2)) =
+                         w_or(w_and(pr, pr_1), w_and(pr, pr_2))
+
+distributive_w_or:LEMMA w_or(pr, w_and(pr_1, pr_2)) =
+                        w_and(w_or(pr, pr_1), w_or(pr, pr_2))
+
+associative_w_and:LEMMA w_and(pr, w_and(pr_1, pr_2)) =
+                        w_and(w_and(pr, pr_1), pr_2)
+
+associative_w_or:LEMMA w_or(pr, w_or(pr_1, pr_2)) =
+                       w_or(w_or(pr, pr_1), pr_2)
+
+commutative_w_xor : LEMMA w_xor(pr_1,pr_2) = w_xor (pr_2, pr_1)
+
+associative_w_xor:LEMMA FORALL (pr, pr_1,pr_2 : property_t): 
+                  bool_prop_three?( pr,pr_1, pr_2 ) =>
+                   w_xor( pr, w_xor(pr_1,pr_2)) = w_xor(w_xor (pr, pr_1), pr_2)
+
+dem_w_and:LEMMA (FORALL (pr, pr_1: property_t):
+                w_not(w_and(pr, pr_1)) = w_or(w_not(pr), w_not(pr_1)))
+
+dem_w_or:LEMMA (FORALL (pr, pr_1: property_t):
+              w_not(w_or(pr, pr_1)) = w_and(w_not(pr), w_not(pr_1)))
+
+xor_w_true_not_p : LEMMA w_xor(pr, w_true) = w_not(pr)
+
+w_false_lemma:LEMMA w_xor(pr,pr) = w_false
+
+w_true_lemma:LEMMA w_xor( pr_1 , w_not(pr_1)) = w_true
+
+inverse_xor:LEMMA  w_xor( pr_1, pr_2 ) = w_not(w_xnor( pr_1  , pr_2 ))
+
+identity_w_false:LEMMA FORALL (pr : property_t):
+                  bool_prop?(pr) IMPLIES  w_xor(pr, w_false) = pr
+
+w_xor_eq_w_or_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                  bool_prop_two?( pr_1, pr_2 ) IMPLIES 
+                  w_xor(pr_1 , w_and(w_not(pr_1),pr_2))= w_or(pr_1, pr_2)
+ 
+xor_negated_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                  bool_prop_two?( pr_1, pr_2 ) IMPLIES 
+                  w_xor(pr_1, pr_2) = w_xor (w_not (pr_1), w_not(pr_2))
+
+w_or_w_xor_lemma:LEMMA  FORALL (pr_1,pr_2 : property_t): 
+                  bool_prop_two?( pr_1, pr_2 ) IMPLIES
+                  w_or(pr_1, w_xor( pr_1, pr_2 ) ) = w_or( pr_1, pr_2 )
+
+xor_definition_lemma1:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?( pr_1, pr_2 ) IMPLIES
+                    w_xor( pr_1, pr_2) = 
+                    w_or(w_and(w_not( pr_1), pr_2), w_and(pr_1, w_not(pr_2)))
+
+xor_definition_lemma2:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                  bool_prop_two?( pr_1, pr_2 ) IMPLIES
+                    w_xor( pr_1, pr_2) = 
+                    w_and(w_or( pr_1,pr_2), w_or(w_not(pr_1), w_not(pr_2)))
+
+xor_definition_lemma3:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?( pr_1, pr_2 ) IMPLIES
+                    w_xor( pr_1, pr_2) = 
+                    w_and(w_or( pr_1,pr_2), w_not(w_and(pr_1,pr_2)))
+
+w_xor_triple_lemma: LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(pr_1, w_xor(pr_2,pr_1)) = pr_2 
+
+w_or_w_xor_w_or_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_or(pr_1, w_xor(pr_1,pr_2)) = w_or(pr_1,pr_2) 
+
+w_xor_w_or_lemma1:  LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(pr_1, w_and(w_not(pr_1),pr_2)) = w_or(pr_1,pr_2) 
+
+w_xor_w_and_lemma1: LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(pr_1, w_and(pr_1,w_not(pr_2))) = w_and(pr_1,pr_2)
+
+w_xor_w_or_w_and_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(pr_1, w_or(pr_1,pr_2)) = w_and(w_not(pr_1),pr_2)
+
+w_not_w_xor_w_or_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(w_not(pr_1), w_or(pr_1,w_not(pr_2))) = w_or(pr_1,pr_2)
+
+w_and_w_xor_w_and_lemma:LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES
+                    w_and(pr_1,w_xor(pr_1, w_not(pr_2))) = w_and(pr_1, pr_2)
+
+w_xor_neg_lemma : LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES  
+                    w_xor(pr_1,pr_2) = w_xor(w_not(pr_1),w_not(pr_2))
+
+neg_w_xor_lemma1 :LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES 
+                    w_not( w_xor(pr_1, pr_2)) = w_xor(w_not(pr_1), pr_2)
+
+neg_w_xor_lemma2 :LEMMA FORALL (pr_1,pr_2 : property_t): 
+                    bool_prop_two?(pr_1, pr_2) IMPLIES 
+                    w_not( w_xor(pr_1, pr_2)) = w_xor(pr_1, w_not(pr_2))
+
+END  property_t_lemams

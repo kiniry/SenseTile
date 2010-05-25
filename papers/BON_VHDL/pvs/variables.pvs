@@ -1,0 +1,18 @@
+% VHDL variables are named, typed mathematical variables which have
+% initial values.  Variables are either "shared" or "not shared,"
+% which indicates if the variable may be used by multiple signals.
+
+variables: THEORY
+BEGIN
+ IMPORTING datatypes, grammar
+
+ name: TYPE+ = identifier
+ shared_status: TYPE+ = {shared, not_shared}
+ variable: TYPE = [# name: identifier, status: shared_status,
+                     vhdl_type: data_type, initial_value: vhdl_type #]
+
+%  an_example: VAR variable_t = [# "foo", shared, vhdl_boolean, true #]
+%  bad_example: VAR variable_t = [# "foo", shared, vhdl_boolean, 2 #]
+
+END variables 
+

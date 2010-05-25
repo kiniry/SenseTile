@@ -1,0 +1,72 @@
+% The set Signals in VHDL denote enities that hold values of machine state.
+% Distinction between signals declared with a signal declaration and port 
+% declaration are made. Port declarations are not considered to be in the
+% set Signals.
+%
+% The basic concepts and definitions are given below:
+%
+% Resolved signal: a signal for which several drivers exist (several 
+% processes assign values to that signal). For each resolved signal the 
+% designer has to specify an associated resolution function.
+%
+% Here is an example : signal Connect: Bus_resolution BIT_8 bus;
+%
+% The resolution function computes the value which is used to update the 
+% current signal value, depending on the actual values of the drivers.
+%
+% The resolution functions are user-defined and are evaluated when one of 
+% the drivers of the signal receives a new value (event).
+%
+signals : THEORY
+  BEGIN
+  IMPORTING datatypes
+
+  name: TYPE = v_string
+  input_data: TYPE
+  data_t: NONEMPTY_TYPE = data_type
+  resolution: TYPE = lift[in_data -> data_t]
+
+  % When a disconnection specification is fully elaborated, disconnection 
+  % delay will be added to each signal. For guarded signals, disconnection 
+  % delay describes delay involved in a null transaction. For a non-guarded
+  % signals disconnection delay is equal zero. 
+  disconn_delay :TYPE = nonneg_int    
+  init_v, effv, drivv :TYPE 
+ 
+  % signal-kind: Three choices for the signal kind are allowed.
+  %
+  % A register is a storage model that is multiply driven, and hence it 
+  % retains the previous value, if all the drivers are disconnected.
+  %
+  % However, if a signal is used to describe a bus, the resolution function 
+  % is called with a set of null drivers to obtain the new value.
+  % 
+  % The third possibility is discrete class of signals. 
+ 
+  s_kind :NONEMPTY_TYPE ={register , bus , discrete} 
+
+  signal: TYPE = [name,           
+                  resolution,         
+                  data_type,
+                  s_kind,
+                disconn_delay,
+                init_v,
+                effv,
+                drivv] 
+
+% The set Signals provide abstraction for a wires in the circuit.
+  set_s :NONEMPTY_TYPE = setof[signal]
+
+  vt : VAR  typelist
+  in_d: VAR in_data
+% The type of resolution function must match type of the signal and
+% validity of a given type must be as element of typelist. 
+   type_signal_match_type_resolution : AXIOM FORALL ( ss:set_s ): 
+         FORALL ( s:signal ): member( s,ss ) AND         
+            CASES PROJ_2(s) OF
+              value( fun ): 
+                      LET sd_type =  PROJ_3(s) IN
+                      member( sd_type , vt ) AND  sd_type = fun(in_d),
+              none: TRUE
+              ENDCASES
+  END signals

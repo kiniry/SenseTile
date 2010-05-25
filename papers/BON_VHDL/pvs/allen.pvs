@@ -1,0 +1,419 @@
+% The Allen interval logic as defined in the paper "Maintaining
+% Knowledge about Temporal Intervals" by James F. Allen (CACM,
+% Vol. 26, No. 11, Nov. 1983).
+
+allen_time_int: THEORY
+BEGIN
+  time: TYPE = real
+  % lesser_interval, greater_interval: time
+
+  % In the paper James denotes our "bottom" as "t-" and "top" as "t+"
+  % which are awkward to use in PVS.
+  interval: TYPE = 
+            {i: [# bottom, top: time #] |
+                 i`bottom < i`top }
+
+  s, t, i: VAR interval
+
+  % Figure 1's interval relations.
+
+  % t < s  means  t+ < s-
+  <(t, s): bool = t`top < s`bottom;
+  >(t, s): bool = s < t;
+
+  % t = s  means  (t- = s-) & (t+ = s+)
+  =(t, s): bool = t`bottom = s`bottom AND t`top = s`top;
+
+  % t overlaps s  means  (t- < s-) & (t+ > s-) & (t+ < s+)
+  overlaps(t, s): bool = t`bottom < s`bottom AND
+                         t`top > s`bottom AND
+                         t`top < s`top;
+  o(t, s): bool = overlaps(t, s)
+  oi(t, s): bool = o(s, t)
+
+  % t meets s  means  t+ = s-
+  meets(t, s): bool = t`top = s`bottom;
+  m(t, s): bool = meets(t, s)
+  mi(t, s): bool = m(s, t)
+
+  % t during s  means  ((t- > s-) & (t+ =< s+)) or
+  %                    ((t- >= s-) & (t+ < s+))
+  during(t, s): bool = ((t`bottom > s`bottom) AND (t`top <= s`top)) OR
+                       ((t`bottom >= s`bottom) AND (t`top < s`top))
+  d(t, s): bool = during(t, s)
+  di(t, s): bool = d(s, t)
+
+  % Figure 2's interval relations not yet defined in figure 1 (and are
+  % actually implicit in the paper).
+
+  % X starts Y  means  XXX
+  %                    YYYYYY
+  starts(t, s): bool = t`bottom = s`bottom AND t`top < s`top
+  s(t, s): bool = starts(t, s)
+  si(t, s): bool = s(s, t)
+
+  % X finishes Y  means   XXX
+  %                     YYYYY
+  finishes(t, s): bool = t`top = s`top AND t`bottom > s`bottom
+  f(t, s): bool = finishes(t, s)
+  fi(t, s): bool = f(s, t)
+
+  % From the second paragraph on page 835.
+  dur(t, s): bool = d(t, s) OR s(t, s) OR f(t, s)
+  con(t, s): bool = di(t, s) OR si(t, s) OR fi(t, s)
+
+  AUTO_REWRITE+ <, >, =, overlaps, o, oi, meets, m, mi, during, d, di, 
+                starts, s, si, finishes, f, fi, dur, con
+
+  % The Transitivity Temporal theorems from Table 4
+  A, B, C: VAR interval
+
+  before_before: LEMMA <(A, B) AND <(B, C) IMPLIES <(A, C) %-)
+
+  % before_after: LEMMA A < B AND B > C IMPLIES no info
+
+  before_during: LEMMA A < B AND d(B, C) IMPLIES 
+                       A < C OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C) %-)
+
+s_before_t_contains_i:LEMMA <(A, B) AND di(B, C) IMPLIES <(A, C)
+
+s_before_t_overlaps_i:LEMMA <(A, B) AND o(B, C) IMPLIES <(A, C)
+
+s_before_t_overlapped_by_i:LEMMA <(A, B) AND oi(B, C) IMPLIES 
+                            <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C)
+
+s_before_t_meets_i:LEMMA <(A, B) AND m(B, C) IMPLIES <(A, C) 
+
+s_before_t_met_by_i:LEMMA <(A, B) AND mi(B, C) IMPLIES 
+                            <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C)
+
+s_before_t_starts_i:LEMMA <(A, B) AND s(B, C) IMPLIES <(A, C)
+
+s_before_t_started_by_i:LEMMA <(A, B) AND si(B, C) IMPLIES <(A, C)
+
+s_before_t_finishes_i:LEMMA <(A, B) AND f(B, C) IMPLIES 
+                            <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C)
+
+s_before_t_finished_by_i:LEMMA <(A, B) AND fi(B, C) IMPLIES <(A, C)
+
+s_after_t_after_i:LEMMA >(A, B) AND >(B, C) IMPLIES >(A, C)
+
+s_after_t_during_i:LEMMA >(A, B) AND d(B, C) IMPLIES 
+                   >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_after_t_contains_i:LEMMA >(A, B) AND di(B, C) IMPLIES >(A, C)
+
+s_after_t_overlaps_i:LEMMA >(A, B) AND o(B, C) IMPLIES 
+                   >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_after_t_meets_i:LEMMA >(A, B) AND m(B, C) IMPLIES 
+                   >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_after_t_met_by_i:LEMMA >(A, B) AND mi(B, C) IMPLIES >(A, C)
+
+s_after_t_starts_i:LEMMA >(A, B) AND s(B, C) IMPLIES 
+                   >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_after_t_started_by_i:LEMMA >(A, B) AND si(B, C) IMPLIES >(A, C)
+
+s_after_t_finishes_i:LEMMA >(A, B) AND f(B, C) IMPLIES >(A, C)
+
+s_after_t_finished_by_i:LEMMA >(A, B) AND fi(B, C) IMPLIES >(A, C)
+
+s_during_t_before_i:LEMMA d(A, B) AND >(B, C) IMPLIES >(A, C)
+
+s_during_t_after_i:LEMMA d(A, B) AND <(B, C) IMPLIES <(A, C)
+
+s_during_t_during_i:LEMMA d(A, B) AND d(B, C) IMPLIES d(A, C)
+
+s_during_t_overlaps_i:LEMMA d(A, B) AND o(B, C) IMPLIES 
+                       <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C)
+
+s_during_t_overlapped_by_i:LEMMA d(A, B) AND oi(B, C) IMPLIES 
+                            >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_during_t_meets_i:LEMMA d(A, B) AND m(B, C) IMPLIES <(A, C)
+
+s_during_t_meet_bay_i:LEMMA d(A, B) AND mi(B, C) IMPLIES >(A, C)
+
+s_during_t_starts_i:LEMMA d(A, B) AND s(B, C) IMPLIES d(A, C)
+
+s_during_t_started_by_i:LEMMA d(A, B) AND si(B, C) IMPLIES 
+                            >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)
+
+s_during_t_finished_by_i:LEMMA d(A, B) AND fi(B, C) IMPLIES 
+                         <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C)
+
+s_during_t_finishes_i:LEMMA d(A, B) AND f(B, C) IMPLIES  d(A, C)
+
+s_contains_t_before_i:LEMMA di(A, B) AND <(B, C) IMPLIES 
+                      <(A, C) OR o(A, C) OR m(A, C) OR di(A, C) OR fi(A, C)
+
+s_contains_t_after_i:LEMMA di(A, B) AND >(B, C) IMPLIES 
+                        >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C)
+
+  contains_during: LEMMA di(A, B) AND d(B, C) IMPLIES
+                         o(A, C) OR oi(A, C) OR dur(A, C) OR con(A, C) OR A = C
+
+s_contains_t_contains_i:LEMMA di(A, B) AND di(B, C) IMPLIES di(A, C)
+
+s_contains_t_overlaps_i:LEMMA di(A, B) AND o(B, C) IMPLIES 
+                        o(A, C) OR di(A, C) OR fi(A, C)
+
+s_contains_t_overlapped_by_i:LEMMA di(A, B) AND oi(B, C) IMPLIES 
+                             oi(A, C) OR di(A, C) OR si(A, C)
+
+s_contains_t_meets_i:LEMMA di(A, B) AND m(B, C) IMPLIES 
+                      o(A, C) OR di(A, C) OR fi(A, C)
+
+s_contains_t_meet_by_i:LEMMA di(A, B) AND mi(B, C) IMPLIES 
+                      oi(A, C) OR di(A, C) OR si(A, C)
+
+s_contains_t_starts_i:LEMMA di(A, B) AND s(B, C) IMPLIES 
+                      di(A, C) OR fi(A, C) OR o(A, C) 
+
+s_contains_t_started_by_i:LEMMA di(A, B) AND si(B, C) IMPLIES di(A, C) 
+
+s_contains_t_finishes_i:LEMMA di(A, B) AND f(B, C) IMPLIES 
+                        di(A, C) OR si(A, C) OR oi(A, C) 
+
+s_contains_t_finished_by_i:LEMMA di(A, B) AND fi(B, C) IMPLIES di(A, C)
+
+s_overlaps_t_before_i:LEMMA o(A, B) AND <(B, C) IMPLIES <(A, C)
+
+s_overlaps_t_after_i:LEMMA o(A, B) AND >(B, C) IMPLIES 
+                     >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C)
+
+s_overlaps_t_during_i:LEMMA o(A, B) AND d(B, C) IMPLIES 
+                      o(A, C) OR d(A, C) OR s(A, C)
+
+s_overlaps_t_contains_i:LEMMA o(A, B) AND di(B, C) IMPLIES 
+                        <(A, C) OR o(A, C) OR m(A, C) OR di(A, C) OR fi(A, C)
+
+s_overlaps_t_overlaps_i:LEMMA o(A, B) AND o(B, C) IMPLIES 
+                        <(A, C) OR o(A, C) OR m(A, C)
+
+s_overlaps_t_meets_i:LEMMA o(A, B) AND m(B, C) IMPLIES  <(A, C) 
+ 
+s_overlaps_t_met_by_i:LEMMA o(A, B) AND mi(B, C) IMPLIES 
+                      oi(A, C) OR di(A, C) OR si(A, C)
+
+s_overlaps_t_starts_i:LEMMA o(A, B) AND s(B, C) IMPLIES o(A, C)
+
+s_overlaps_t_start_by_i:LEMMA o(A, B) AND si(B, C) IMPLIES 
+                        di(A, C) OR o(A, C) OR fi(A, C)
+
+s_overlaps_t_finishes_i:LEMMA o(A, B) AND f(B, C) IMPLIES 
+                        d(A, C) OR o(A, C) OR s(A, C)
+
+s_overlaps_t_finished_by_i:LEMMA o(A, B) AND fi(B, C) IMPLIES 
+                        <(A, C) OR o(A, C) OR m(A, C)
+
+s_overlapped_by_t_before_i:LEMMA oi(A, B) AND <(B, C) IMPLIES 
+                           <(A, C) OR o(A, C) OR m(A, C) OR di(A, C) OR fi(A, C)
+
+s_overlapped_by_t_after_i:LEMMA oi(A, B) AND >(B, C) IMPLIES  >(A, C) 
+
+s_overlapped_by_t_during_i:LEMMA oi(A, B) AND d(B, C) IMPLIES  
+                           oi(A, C) OR d(A, C) OR f(A, C) 
+
+s_overlapped_by_t_contains_i:LEMMA oi(A, B) AND di(B, C) IMPLIES  
+                             >(A, C) OR oi(A, C) OR di(A, C) OR mi(A, C) OR si(A, C) 
+
+s_overlapped_by_t_overlapped_by_i:LEMMA oi(A, B) AND oi(B, C) IMPLIES  
+                                  >(A, C) OR oi(A, C) OR mi(A, C) 
+
+s_overlapped_by_t_meets_i:LEMMA oi(A, B) AND m(B, C) IMPLIES  
+                                  o(A, C) OR fi(A, C) OR di(A, C)
+ 
+s_overlapped_by_t_meet_by_i:LEMMA oi(A, B) AND mi(B, C) IMPLIES >(A, C) 
+
+s_overlapped_by_t_starts_i:LEMMA oi(A, B) AND s(B, C) IMPLIES 
+                           oi(A, C) OR d(A, C) OR f(A, C) 
+
+s_overlapped_by_t_started_by_i:LEMMA oi(A, B) AND si(B, C) IMPLIES 
+                               >(A, C) OR oi(A, C) OR mi(A, C) 
+
+s_overlapped_by_t_finishes_i:LEMMA oi(A, B) AND f(B, C) IMPLIES oi(A, C)
+
+s_overlapped_by_t_finished_by_i:LEMMA oi(A, B) AND fi(B, C) IMPLIES 
+                                oi(A, C) OR di(A, C) OR si(A, C)
+
+s_meets_t_before_i:LEMMA m(A, B) AND <(B, C) IMPLIES <(A, C) 
+                                
+s_meets_t_after_i:LEMMA m(A, B) AND >(B, C) IMPLIES 
+                  >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C) 
+
+s_meets_t_during_i:LEMMA m(A, B) AND d(B, C) IMPLIES 
+                   o(A, C) OR d(A, C) OR s(A, C) 
+
+s_meets_t_contains_i:LEMMA m(A, B) AND di(B, C) IMPLIES <(A, C)
+
+s_meets_t_overlaps_i:LEMMA m(A, B) AND o(B, C) IMPLIES <(A, C)
+
+s_meets_t_overlapped_by_i:LEMMA m(A, B) AND oi(B, C) IMPLIES
+                          o(A, C) OR d(A, C) OR s(A, C) 
+
+s_meets_t_meets_i:LEMMA m(A, B) AND m(B, C) IMPLIES s < i
+
+s_meets_t_meet_by_i:LEMMA m(A, B) AND mi(B, C) IMPLIES
+                    f(A, C) OR fi(A, C) OR s=i
+
+s_meets_t_starts_i:LEMMA m(A, B) AND s(B, C) IMPLIES m(A, C)
+
+s_meets_t_started_by_i:LEMMA m(A, B) AND si(B, C) IMPLIES m(A, C)
+
+s_meets_t_finishes_i:LEMMA m(A, B) AND f(B, C) IMPLIES % not good!
+                     d(A, C) OR s(A, C) OR oi(A, C)
+
+s_meets_t_finished_by_i:LEMMA m(A, B) AND fi(B, C) IMPLIES <(A, C)
+
+s_meet_by_t_before_i:LEMMA mi(A, B) AND <(B, C) IMPLIES 
+                     <(A, C) OR o(A, C) OR m(A, C) OR di(A, C)OR fi(A, C) 
+
+s_meet_by_t_after_i:LEMMA mi(A, B) AND >(B, C) IMPLIES >(A, C)
+
+s_meet_by_t_during_i:LEMMA mi(A, B) AND d(B, C) IMPLIES 
+                     oi(A, C)OR d(A, C) OR f(A, C)
+
+s_meet_by_t_contains_i:LEMMA mi(A, B) AND di(B, C) IMPLIES >(A, C) 
+
+s_meet_by_t_overlaps_i:LEMMA mi(A, B) AND o(B, C) IMPLIES 
+                       oi(A, C)OR d(A, C)OR f(A, C) 
+
+s_meet_by_t_meet_i:LEMMA mi(A, B) AND m(B, C) IMPLIES 
+                            si(A, C)OR s(A, C)OR s=i 
+
+s_meet_by_t_overlapped_by_i:LEMMA mi(A, B) AND oi(B, C) IMPLIES >(A, C) 
+
+s_meet_by_t_meet_by_i:LEMMA mi(A, B) AND mi(B, C) IMPLIES >(A, C) 
+
+s_meet_by_t_starts_i:LEMMA mi(A, B) AND s(B, C) IMPLIES 
+                     d(A, C) OR f(A, C) OR oi(A, C) 
+
+s_meet_by_t_started_by_i:LEMMA mi(A, B) AND si(B, C) IMPLIES s > i 
+
+s_meet_by_t_finishes_i:LEMMA mi(A, B) AND f(B, C) IMPLIES mi(A, C) 
+
+  met_by_finished: LEMMA mi(A, B) AND fi(B, C) IMPLIES mi(A, C)
+
+s_starts_by_t_before_i:LEMMA s(A, B) AND <(B, C) IMPLIES <(A, C) 
+
+s_starts_by_t_after_i:LEMMA s(A, B) AND >(B, C) IMPLIES >(A, C) 
+
+s_starts_by_t_during_i:LEMMA s(A, B) AND d(B, C) IMPLIES d(A, C) 
+
+s_starts_by_t_contains_i:LEMMA s(A, B) AND di(B, C) IMPLIES 
+                         <(A, C) OR o(A, C) OR m(A, C) OR di(A, C) OR fi(A, C)
+
+s_starts_by_t_overlaps_i:LEMMA s(A, B) AND o(B, C) IMPLIES 
+                         <(A, C) OR o(A, C) OR m(A, C)
+
+s_starts_by_t_overlapped_by_i:LEMMA s(A, B) AND oi(B, C) IMPLIES 
+                              oi(A, C) OR d(A, C) OR f(A, C)
+
+s_starts_by_t_meet_i:LEMMA s(A, B) AND m(B, C) IMPLIES s < i
+
+s_starts_by_t_meet_by_i:LEMMA s(A, B) AND mi(B, C) IMPLIES mi(B, C)
+
+s_starts_by_t_starts_i:LEMMA s(A, B) AND s(B, C) IMPLIES s(B, C)
+
+s_starts_by_t_started_by_i:LEMMA s(A, B) AND si(B, C) IMPLIES 
+                           s(B, C) OR si(B, C) OR s = i
+
+s_starts_by_t_finishes_i:LEMMA s(A, B) AND f(B, C) IMPLIES d(A, C)
+
+s_starts_by_t_finished_by_i:LEMMA s(A, B) AND fi(B, C) IMPLIES 
+                            o(A, C) OR m(A, C) OR <(A, C)
+
+s_started_by_t_before_i:LEMMA si(A, B) AND <(B, C) IMPLIES 
+                        o(A, C) OR m(A, C) OR <(A, C) OR di(A, C) OR fi(A, C)
+
+s_started_by_t_after_i:LEMMA si(A, B) AND >(B, C) IMPLIES >(A, C) 
+
+s_started_by_t_during_i:LEMMA si(A, B) AND d(B, C) IMPLIES 
+                        oi(A, C) OR d(A, C) OR f(A, C) 
+
+s_started_by_t_contains_i:LEMMA si(A, B) AND di(B, C) IMPLIES di(A, C) 
+
+s_started_by_t_overlaps_i:LEMMA si(A, B) AND o(B, C) IMPLIES 
+                          di(A, C) OR fi(A, C) OR o(A, C) 
+
+s_started_by_t_overlapped_by_i:LEMMA si(A, B) AND oi(B, C) IMPLIES oi(A, C) 
+
+s_started_by_t_meet_i:LEMMA si(A, B) AND m(B, C) IMPLIES 
+                      di(A, C) OR fi(A, C) OR o(A, C)
+
+s_started_by_t_meet_by_i:LEMMA si(A, B) AND mi(B, C) IMPLIES mi(A, C)
+
+s_started_by_t_starts_i:LEMMA si(A, B) AND s(B, C) IMPLIES 
+                          si(A, C) OR s(A, C) OR s = i
+
+s_started_by_t_started_by_i:LEMMA si(A, B) AND si(B, C) IMPLIES si(A, C)
+
+  started_by_finishes: LEMMA si(A, B) AND f(B, C) IMPLIES oi(A, C) %-)
+
+s_started_by_t_finished_by_i:LEMMA si(A, B) AND fi(B, C) IMPLIES di(A, C)
+
+s_finishes_t_before_i:LEMMA f(A, B) AND <(B, C) IMPLIES <(A, C)
+
+s_finishes_t_after_i:LEMMA f(A, B) AND >(B, C) IMPLIES >(A, C)
+
+s_finishes_t_during_i:LEMMA f(A, B) AND d(B, C) IMPLIES d(A, C)
+
+s_finishes_t_contains_i:LEMMA f(A, B) AND di(B, C) IMPLIES 
+                        >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C)
+
+s_finishes_t_overlaps_i:LEMMA f(A, B) AND o(B, C) IMPLIES
+                        o(A, C) OR d(A, C) OR s(A, C) 
+
+s_finishes_t_overlapped_by_i:LEMMA f(A, B) AND oi(B, C) IMPLIES
+                              >(A, C) OR mi(A, C) OR oi(A, C) 
+
+s_finishes_t_meets_i:LEMMA f(A, B) AND m(B, C) IMPLIES m(A, C) % not proved
+
+s_finishes_t_meet_by_i:LEMMA f(A, B) AND mi(B, C) IMPLIES >(A, C)
+
+s_finishes_t_starts_i:LEMMA f(A, B) AND s(B, C) IMPLIES d(A, C)
+
+s_finishes_t_started_by_i:LEMMA f(A, B) AND si(B, C) IMPLIES 
+                          >(A, C) OR mi(A, C) OR oi(A, C)
+
+s_finishes_t_finishes_i:LEMMA f(A, B) AND f(B, C) IMPLIES f(A, C) 
+
+s_finishes_t_finished_by_i:LEMMA f(A, B) AND fi(B, C) IMPLIES 
+                           f(A, C) OR fi(A, C) OR s = i 
+
+s_finished_by_t_before_i:LEMMA fi(A, B) AND <(B, C) IMPLIES t < i 
+
+s_finished_by_t_after_i:LEMMA fi(A, B) AND >(B, C) IMPLIES
+                         >(A, C) OR mi(A, C) OR oi(A, C) OR di(A, C) OR si(A, C)  
+
+s_finished_by_t_during_i:LEMMA fi(A, B) AND d(B, C) IMPLIES
+                         o(A, C) OR d(A, C) OR s(A, C)  
+
+s_finished_by_t_contains_i:LEMMA fi(A, B) AND di(B, C) IMPLIES di(A, C)
+
+s_finished_by_t_overlaps_i:LEMMA fi(A, B) AND o(B, C) IMPLIES o(A, C)
+
+s_finished_by_t_overlapped_by_i:LEMMA fi(A, B) AND oi(B, C) IMPLIES 
+                                oi(A, C) OR di(A, C) OR si(A, C)
+
+s_finished_by_t_meets_i:LEMMA fi(A, B) AND m(B, C) IMPLIES m(A, C) 
+
+s_finished_by_t_meet_by_i:LEMMA fi(A, B) AND mi(B, C) IMPLIES % not proved
+                          oi(A, C) OR di(A, C) OR si(A, C) 
+
+s_finished_by_t_starts_i:LEMMA fi(A, B) AND s(B, C) IMPLIES o(A, C) % not proved
+
+s_finished_by_t_started_by_i:LEMMA fi(A, B) AND si(B, C) IMPLIES di(A, C) 
+
+s_finished_by_t_finishes_i:LEMMA fi(A, B) AND f(B, C) IMPLIES 
+                           f(A, C) OR fi(A, C) OR s = i
+ 
+s_finished_by_t_finished_by_i:LEMMA fi(A, B) AND fi(B, C) IMPLIES fi(B, C) 
+
+
+
+
+END allen_time_int

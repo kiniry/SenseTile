@@ -1,0 +1,112 @@
+(allen_time_int
+ (before_before 0
+  (before_before-1 nil 3483772463 3483772603
+   ("" (skosimp) (("" (assert) nil nil)) nil) unchecked
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (< const-decl "bool" allen_time_int nil))
+   24221 10 t shostak))
+ (before_during 0
+  (before_during-1 nil 3483772642 3483773023
+   ("" (skosimp)
+    (("" (assert)
+      (("" (expand "starts")
+        (("" (expand "during")
+          (("" (expand "overlaps")
+            (("" (expand "meets")
+              (("" (assert) (("" (smash) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (s const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil))
+   67317 60 t shostak))
+ (contains_during 0
+  (contains_during-1 nil 3483773923 3483773949
+   ("" (skosimp)
+    (("" (assert)
+      (("" (expand "dur")
+        (("" (expand "con") (("" (assert) (("" (smash) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (= const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (con const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (dur const-decl "bool" allen_time_int nil))
+   26611 260 t shostak))
+ (met_by_finished 0
+  (met_by_finished-1 nil 3483773166 3483773241
+   ("" (skosimp) (("" (assert) nil nil)) nil) unchecked
+   ((fi const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil))
+   9225 20 t shostak))
+ (started_by_finishes 0
+  (started_by_finishes-1 nil 3483773297 3483773554
+   ("" (skosimp)
+    (("" (assert)
+      (("" (prop)
+        (("1" (assert) nil nil) ("2" (ground) nil nil)
+         ("3" (grind) nil nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((starts const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil))
+   14037 40 t shostak)))
+
