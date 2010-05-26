@@ -326,17 +326,17 @@ starts_by_finishes: LEMMA s(A, B) AND f(B, C) IMPLIES d(A, C)
 starts_by_finished_by :LEMMA s(A, B) AND fi(B, C) IMPLIES 
                             o(A, C) OR m(A, C) OR <(A, C)
 
-s_started_by_t_before_i:LEMMA si(A, B) AND <(B, C) IMPLIES 
+started_by_before: LEMMA si(A, B) AND <(B, C) IMPLIES 
                         o(A, C) OR m(A, C) OR <(A, C) OR di(A, C) OR fi(A, C)
 
-s_started_by_t_after_i:LEMMA si(A, B) AND >(B, C) IMPLIES >(A, C) 
+started_by_after: LEMMA si(A, B) AND >(B, C) IMPLIES >(A, C) 
 
-s_started_by_t_during_i:LEMMA si(A, B) AND d(B, C) IMPLIES 
-                        oi(A, C) OR d(A, C) OR f(A, C) 
+started_by_during: LEMMA si(A, B) AND d(B, C) IMPLIES 
+                        oi(A, C) OR d(A, C) OR f(A, C) % not proved !! 
 
-s_started_by_t_contains_i:LEMMA si(A, B) AND di(B, C) IMPLIES di(A, C) 
+started_by_contains: LEMMA si(A, B) AND di(B, C) IMPLIES di(A, C) 
 
-s_started_by_t_overlaps_i:LEMMA si(A, B) AND o(B, C) IMPLIES 
+started_by_overlaps: LEMMA si(A, B) AND o(B, C) IMPLIES 
                           di(A, C) OR fi(A, C) OR o(A, C) 
 
 s_started_by_t_overlapped_by_i:LEMMA si(A, B) AND oi(B, C) IMPLIES oi(A, C) 
