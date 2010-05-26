@@ -355,63 +355,63 @@ started_by_finishes: LEMMA si(A, B) AND f(B, C) IMPLIES oi(A, C) %-)
 
 started_by_finished_by: LEMMA si(A, B) AND fi(B, C) IMPLIES di(A, C)
 
-s_finishes_t_before_i:LEMMA f(A, B) AND <(B, C) IMPLIES <(A, C)
+finishes_before: LEMMA f(A, B) AND <(B, C) IMPLIES <(A, C)
 
-s_finishes_t_after_i:LEMMA f(A, B) AND >(B, C) IMPLIES >(A, C)
+finishes_after: LEMMA f(A, B) AND >(B, C) IMPLIES >(A, C)
 
-s_finishes_t_during_i:LEMMA f(A, B) AND d(B, C) IMPLIES d(A, C)
+finishes_during :LEMMA f(A, B) AND d(B, C) IMPLIES d(A, C)
 
-s_finishes_t_contains_i:LEMMA f(A, B) AND di(B, C) IMPLIES 
-                        >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C)
+finishes_contains: LEMMA f(A, B) AND di(B, C) IMPLIES 
+                        >(A, C) OR oi(A, C) OR mi(A, C) OR di(A, C) OR si(A, C) % not proved !!
 
-s_finishes_t_overlaps_i:LEMMA f(A, B) AND o(B, C) IMPLIES
+finishes_overlaps:  LEMMA f(A, B) AND o(B, C) IMPLIES
                         o(A, C) OR d(A, C) OR s(A, C) 
 
-s_finishes_t_overlapped_by_i:LEMMA f(A, B) AND oi(B, C) IMPLIES
+finishes_overlapped_by: LEMMA f(A, B) AND oi(B, C) IMPLIES
                               >(A, C) OR mi(A, C) OR oi(A, C) 
 
-s_finishes_t_meets_i:LEMMA f(A, B) AND m(B, C) IMPLIES m(A, C) % not proved
+finishes_meets: LEMMA f(A, B) AND m(B, C) IMPLIES m(A, C) % not proved
 
-s_finishes_t_meet_by_i:LEMMA f(A, B) AND mi(B, C) IMPLIES >(A, C)
+finishes_meet_by: LEMMA f(A, B) AND mi(B, C) IMPLIES >(A, C)
 
-s_finishes_t_starts_i:LEMMA f(A, B) AND s(B, C) IMPLIES d(A, C)
+finishes_starts: LEMMA f(A, B) AND s(B, C) IMPLIES d(A, C)
 
-s_finishes_t_started_by_i:LEMMA f(A, B) AND si(B, C) IMPLIES 
+finishes_started_by: LEMMA f(A, B) AND si(B, C) IMPLIES 
                           >(A, C) OR mi(A, C) OR oi(A, C)
 
-s_finishes_t_finishes_i:LEMMA f(A, B) AND f(B, C) IMPLIES f(A, C) 
+finishes_finishes: LEMMA f(A, B) AND f(B, C) IMPLIES f(A, C) 
 
-s_finishes_t_finished_by_i:LEMMA f(A, B) AND fi(B, C) IMPLIES 
-                           f(A, C) OR fi(A, C) OR s = i 
+finishes_finished_by: LEMMA f(A, B) AND fi(B, C) IMPLIES 
+                           f(A, C) OR fi(A, C) OR A = C 
 
-s_finished_by_t_before_i:LEMMA fi(A, B) AND <(B, C) IMPLIES A < C 
+finished_by_before: LEMMA fi(A, B) AND <(B, C) IMPLIES A < C 
 
-s_finished_by_t_after_i:LEMMA fi(A, B) AND >(B, C) IMPLIES
+finished_by_after: LEMMA fi(A, B) AND >(B, C) IMPLIES
                          >(A, C) OR mi(A, C) OR oi(A, C) OR di(A, C) OR si(A, C)  
 
-s_finished_by_t_during_i:LEMMA fi(A, B) AND d(B, C) IMPLIES
-                         o(A, C) OR d(A, C) OR s(A, C)  
+finished_by_during: LEMMA fi(A, B) AND d(B, C) IMPLIES
+                         o(A, C) OR d(A, C) OR s(A, C) % not proved !!  
 
-s_finished_by_t_contains_i:LEMMA fi(A, B) AND di(B, C) IMPLIES di(A, C)
+finished_by_contains: LEMMA fi(A, B) AND di(B, C) IMPLIES di(A, C)
 
-s_finished_by_t_overlaps_i:LEMMA fi(A, B) AND o(B, C) IMPLIES o(A, C)
+finished_by_overlaps: LEMMA fi(A, B) AND o(B, C) IMPLIES o(A, C)
 
-s_finished_by_t_overlapped_by_i:LEMMA fi(A, B) AND oi(B, C) IMPLIES 
+finished_by_overlapped_by: LEMMA fi(A, B) AND oi(B, C) IMPLIES 
                                 oi(A, C) OR di(A, C) OR si(A, C)
 
-s_finished_by_t_meets_i:LEMMA fi(A, B) AND m(B, C) IMPLIES m(A, C) 
+finished_by_meets: LEMMA fi(A, B) AND m(B, C) IMPLIES m(A, C) 
 
-s_finished_by_t_meet_by_i:LEMMA fi(A, B) AND mi(B, C) IMPLIES % not proved
+finished_by_meet_by: LEMMA fi(A, B) AND mi(B, C) IMPLIES
                           oi(A, C) OR di(A, C) OR si(A, C) 
 
-s_finished_by_t_starts_i:LEMMA fi(A, B) AND s(B, C) IMPLIES o(A, C) % not proved
+finished_by_starts: LEMMA fi(A, B) AND s(B, C) IMPLIES o(A, C)
 
-s_finished_by_t_started_by_i:LEMMA fi(A, B) AND si(B, C) IMPLIES di(A, C) 
+finished_by_started_by :LEMMA fi(A, B) AND si(B, C) IMPLIES di(A, C) 
 
-s_finished_by_t_finishes_i:LEMMA fi(A, B) AND f(B, C) IMPLIES 
+finished_by_finishes:LEMMA fi(A, B) AND f(B, C) IMPLIES 
                            f(A, C) OR fi(A, C) OR A = C
  
-s_finished_by_t_finished_by_i:LEMMA fi(A, B) AND fi(B, C) IMPLIES fi(B, C) 
+finished_by_finished_by: LEMMA fi(A, B) AND fi(B, C) IMPLIES fi(B, C) 
 
 
 END allen_time_int
