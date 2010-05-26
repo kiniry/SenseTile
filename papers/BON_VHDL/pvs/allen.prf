@@ -1,21 +1,17 @@
 (allen_time_int
  (before_before 0
-  (before_before-1 nil 3483772463 3483792672
-   ("" (skosimp) (("" (assert) nil nil)) nil) unfinished
+  (before_before-1 nil 3483772463 3483877949
+   ("" (skosimp) (("" (assert) nil nil)) nil) unchecked
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" allen_time_int nil))
-   22 20 t shostak))
+   16 10 t shostak))
  (before_during 0
-  (before_during-1 nil 3483772642 3483792672
+  (before_during-1 nil 3483772642 3483877949
    ("" (skosimp)
     (("" (assert) (("" (assert) (("" (smash) nil nil)) nil)) nil)) nil)
-   unfinished
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
+   unchecked
+   ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -29,9 +25,9 @@
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil))
-   90 90 t shostak))
+   48 50 t shostak))
  (before_contains 0
-  (before_contains-1 nil 3483783289 3483792672
+  (before_contains-1 nil 3483783289 3483877949
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -42,30 +38,26 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (d const-decl "bool" allen_time_int nil))
-   69 40 t shostak))
+   38 30 t shostak))
  (before_overlaps 0
-  (before_overlaps-1 nil 3483783346 3483792672
+  (before_overlaps-1 nil 3483783346 3483877949
    ("" (skosimp)
     (("" (expand "o ")
       (("" (expand "overlaps")
         (("" (prop) (("" (assert) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((O const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -74,9 +66,9 @@
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil))
-   26 20 t shostak))
+   21 20 t shostak))
  (before_overlapped_by 0
-  (before_overlapped_by-1 nil 3483783381 3483792674
+  (before_overlapped_by-1 nil 3483783381 3483877949
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "d")
@@ -104,19 +96,15 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
@@ -124,22 +112,22 @@
     (during const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   1951 140 t shostak))
+   95 90 t shostak))
  (before_meets 0
-  (before_meets-1 nil 3483783469 3483792674
+  (before_meets-1 nil 3483783469 3483877949
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets") (("" (assert) nil nil)) nil)) nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (meets const-decl "bool" allen_time_int nil))
-   39 30 t shostak))
+   17 20 t shostak))
  (before_met_by 0
-  (before_met_by-1 nil 3483783505 3483792674
+  (before_met_by-1 nil 3483783505 3483877949
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -155,19 +143,15 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -175,19 +159,19 @@
     (s const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   107 110 t shostak))
+   61 60 t shostak))
  (before_starts 0
-  (before_starts-1 nil 3483783611 3483792674
+  (before_starts-1 nil 3483783611 3483877949
    ("" (skosimp) (("" (assert) (("" (assert) nil nil)) nil)) nil)
-   unfinished
+   unchecked
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (s const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil))
-   24 20 t shostak))
+   40 20 t shostak))
  (before_started_by 0
-  (before_started_by-1 nil 3483783663 3483792674
+  (before_started_by-1 nil 3483783663 3483877949
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -196,16 +180,16 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (s const-decl "bool" allen_time_int nil))
-   97 20 t shostak))
+   26 20 t shostak))
  (before_finishes 0
-  (before_finishes-1 nil 3483784983 3483792674
+  (before_finishes-1 nil 3483784983 3483877950
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "d")
@@ -245,13 +229,11 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (< const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
@@ -260,15 +242,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   305 260 t shostak))
+   150 130 t shostak))
  (before_finished_by 0
-  (before_finished_by-1 nil 3483785127 3483792674
+  (before_finished_by-1 nil 3483785127 3483877950
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "f")
@@ -277,7 +257,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((fi const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
@@ -287,17 +267,17 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (f const-decl "bool" allen_time_int nil))
-   26 20 t shostak))
+   24 30 t shostak))
  (after_after 0
-  (after_after-1 nil 3483785167 3483792674
-   ("" (skosimp) (("" (assert) nil nil)) nil) unfinished
+  (after_after-1 nil 3483785167 3483877950
+   ("" (skosimp) (("" (assert) nil nil)) nil) unchecked
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil))
-   24 20 t shostak))
+   17 10 t shostak))
  (after_during 0
-  (after_during-1 nil 3483785191 3483792675
+  (after_during-1 nil 3483785191 3483877950
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes")
@@ -314,7 +294,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
@@ -328,17 +308,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (oi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil))
-   315 270 t shostak))
+   100 90 t shostak))
  (after_contains 0
-  (after_contains-1 nil 3483785235 3483792675
+  (after_contains-1 nil 3483785235 3483877950
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -349,24 +325,20 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (d const-decl "bool" allen_time_int nil))
-   38 40 t shostak))
+   23 20 t shostak))
  (after_overlaps 0
-  (after_overlaps-1 nil 3483785268 3483792675
+  (after_overlaps-1 nil 3483785268 3483877950
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes")
@@ -386,16 +358,12 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -408,9 +376,9 @@
     (m const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil))
-   180 170 t shostak))
+   95 80 t shostak))
  (after_meets 0
-  (after_meets-1 nil 3483785312 3483792675
+  (after_meets-1 nil 3483785312 3483877950
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -433,7 +401,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
@@ -441,8 +409,6 @@
     (overlaps const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" allen_time_int nil)
@@ -450,21 +416,19 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   129 120 t shostak))
+   64 70 t shostak))
  (after_met_by 0
-  (after_met_by-1 nil 3483788183 3483792675
+  (after_met_by-1 nil 3483788183 3483877950
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
         (("" (expand "meets") (("" (assert) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -472,9 +436,9 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   26 20 t shostak))
+   31 20 t shostak))
  (after_starts 0
-  (after_starts-1 nil 3483788211 3483792675
+  (after_starts-1 nil 3483788211 3483877950
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes")
@@ -527,15 +491,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -543,17 +505,15 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil))
-   261 250 t shostak))
+   137 140 t shostak))
  (after_started_by 0
-  (after_started_by-1 nil 3483788293 3483792675
+  (after_started_by-1 nil 3483788293 3483877950
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -563,7 +523,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -571,16 +531,16 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   40 30 t shostak))
+   35 20 t shostak))
  (after_finishes 0
-  (after_finishes-1 nil 3483788330 3483792675
+  (after_finishes-1 nil 3483788330 3483877950
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes")
         (("" (prop) (("" (assert) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -590,9 +550,9 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil))
-   26 30 t shostak))
+   25 30 t shostak))
  (after_finished_by 0
-  (after_finished_by-1 nil 3483788356 3483792676
+  (after_finished_by-1 nil 3483788356 3483877950
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "f")
@@ -601,7 +561,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((fi const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
@@ -612,50 +572,42 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (f const-decl "bool" allen_time_int nil))
-   28 30 t shostak))
+   22 20 t shostak))
  (during_before 0
-  (during_before-1 nil 3483788408 3483792676
+  (during_before-1 nil 3483788408 3483877950
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "during") (("" (smash) nil nil)) nil)) nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (during const-decl "bool" allen_time_int nil))
-   36 40 t shostak))
+   40 30 t shostak))
  (during_after 0
-  (during_after-1 nil 3483788436 3483792676
+  (during_after-1 nil 3483788436 3483877950
    ("" (skosimp*)
     (("" (expand "d")
       (("" (expand "during") (("" (smash) nil nil)) nil)) nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (during const-decl "bool" allen_time_int nil))
-   46 20 t shostak))
+   26 30 t shostak))
  (during_during 0
-  (during_during-1 nil 3483788460 3483792676
+  (during_during-1 nil 3483788460 3483877950
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "during")
@@ -675,21 +627,17 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (> const-decl "bool" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (during const-decl "bool" allen_time_int nil))
-   175 180 t shostak))
+   42 40 t shostak))
  (during_overlaps 0
-  (during_overlaps-1 nil 3483788635 3483792676
+  (during_overlaps-1 nil 3483788635 3483877950
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "d")
@@ -702,7 +650,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
@@ -714,16 +662,12 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (meets const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   311 300 t shostak))
+   112 90 t shostak))
  (during_overlapped_by 0
-  (during_overlapped_by-1 nil 3483788687 3483792676
+  (during_overlapped_by-1 nil 3483788687 3483877950
    ("" (skosimp)
     (("" (assert)
       (("" (prop)
@@ -754,12 +698,8 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
+   unchecked
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -776,9 +716,9 @@
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil))
-   384 360 t shostak))
+   114 110 t shostak))
  (during_meets 0
-  (during_meets-1 nil 3483788790 3483792677
+  (during_meets-1 nil 3483788790 3483877951
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "m")
@@ -791,9 +731,20 @@
         nil))
       nil))
     nil)
-   unfinished nil 69 70 t shostak))
+   unchecked
+   ((d const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil))
+   27 30 t shostak))
  (during_t_meet_bay 0
-  (during_t_meet_bay-1 nil 3483789008 3483792677
+  (during_t_meet_bay-1 nil 3483789008 3483877951
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "during")
@@ -811,9 +762,22 @@
         nil))
       nil))
     nil)
-   unfinished nil 82 60 t shostak))
+   unchecked
+   ((d const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (m const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil))
+   36 30 t shostak))
  (during_starts 0
-  (during_starts-1 nil 3483789193 3483792677
+  (during_starts-1 nil 3483789193 3483877951
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "s")
@@ -822,23 +786,19 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   102 100 t shostak))
+   36 30 t shostak))
  (during_started_by 0
-  (during_started_by-1 nil 3483789235 3483792678
+  (during_started_by-1 nil 3483789235 3483877951
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "d")
@@ -866,23 +826,41 @@
         nil))
       nil))
     nil)
-   unfinished nil 828 760 t shostak))
- (s_during_t_finished_by_i 0
-  (s_during_t_finished_by_i-1 nil 3483789408 3483792678
+   unchecked
+   ((f const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil))
+   195 180 t shostak))
+ (during_finished_by 0
+  (during_finished_by-1 nil 3483877591 3483877626
    ("" (skosimp)
     (("" (expand "d")
-      (("" (expand "m")
-        (("" (expand "during")
-          (("" (expand "meets")
-            (("" (expand "s")
-              (("" (expand "starts")
-                (("" (expand "fi")
-                  (("" (expand "f")
-                    (("" (expand "o ")
-                      (("" (expand "overlaps")
-                        (("" (smash)
-                          (("" (grind) (("" (postpone) nil nil)) nil))
-                          nil))
+      (("" (expand "fi")
+        (("" (expand "f")
+          (("" (expand "o ")
+            (("" (expand "m")
+              (("" (expand "overlaps")
+                (("" (expand "meets")
+                  (("" (expand "during")
+                    (("" (expand "s")
+                      (("" (expand "finishes") (("" (smash) nil nil))
                         nil))
                       nil))
                     nil))
@@ -894,9 +872,62 @@
         nil))
       nil))
     nil)
-   unfinished nil 413 390 t shostak))
+   unchecked
+   ((d const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil))
+   35334 100 t shostak))
+ (during_finishes 0
+  (during_finishes-1 nil 3483877635 3483877658
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "d")
+        (("" (expand "during")
+          (("" (expand "f")
+            (("" (expand "finishes") (("" (smash) nil nil)) nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((during const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (f const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   22474 60 t shostak))
  (contains_before 0
-  (contains_before-1 nil 3483790534 3483792678
+  (contains_before-1 nil 3483790534 3483877951
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -914,7 +945,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
@@ -927,17 +958,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (meets const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   204 180 t shostak))
+   92 80 t shostak))
  (contains_after 0
-  (contains_after-1 nil 3483790573 3483792678
+  (contains_after-1 nil 3483790573 3483877951
    ("" (skosimp*)
     (("" (expand "di")
       (("" (expand "oi")
@@ -960,7 +987,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
@@ -970,23 +997,19 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (O const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (meets const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil))
-   239 230 t shostak))
+   116 120 t shostak))
  (contains_during 0
-  (contains_during-1 nil 3483773923 3483792679
+  (contains_during-1 nil 3483773923 3483877951
    ("" (skosimp)
     (("" (assert)
       (("" (expand "dur")
@@ -995,12 +1018,8 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
+   unchecked
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1020,9 +1039,9 @@
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil))
-   713 700 t shostak))
+   205 180 t shostak))
  (contains_contains 0
-  (contains_contains-1 nil 3483790632 3483792679
+  (contains_contains-1 nil 3483790632 3483877951
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -1041,22 +1060,18 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (d const-decl "bool" allen_time_int nil))
-   212 190 t shostak))
+   64 60 t shostak))
  (contains_overlaps 0
-  (contains_overlaps-1 nil 3483790717 3483792680
+  (contains_overlaps-1 nil 3483790717 3483877951
    ("" (skosimp*)
     (("" (expand "o ")
       (("" (expand "di")
@@ -1072,16 +1087,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((O const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (finishes const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
@@ -1089,9 +1101,9 @@
     (during const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil))
-   270 250 t shostak))
+   151 130 t shostak))
  (contains_overlapped_by 0
-  (contains_overlapped_by-1 nil 3483790763 3483792680
+  (contains_overlapped_by-1 nil 3483790763 3483877952
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "oi")
@@ -1108,7 +1120,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
@@ -1117,21 +1129,70 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil))
-   219 200 t shostak))
+   87 90 t shostak))
  (contains_meets 0
-  (contains_meets-1 nil 3483790804 3483792680 ("" (postpone) nil nil)
-   unfinished nil 9 10 t shostak))
+  (contains_meets-1 nil 3483790804 3483877707
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "di")
+        (("" (expand "d")
+          (("" (expand "m")
+            (("" (expand "during")
+              (("" (expand "fi")
+                (("" (expand "f")
+                  (("" (expand "finishes")
+                    (("" (expand "meets")
+                      (("" (expand "o ")
+                        (("" (expand "overlaps") (("" (smash) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((d const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (O const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   39217 120 t shostak))
  (contains_meet_by 0
-  (contains_meet_by-1 nil 3483790991 3483792680
+  (contains_meet_by-1 nil 3483790991 3483877952
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -1160,9 +1221,27 @@
         nil))
       nil))
     nil)
-   unfinished nil 189 180 t shostak))
+   unchecked
+   ((di const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil))
+   98 80 t shostak))
  (contains_starts 0
-  (contains_starts-1 nil 3483791080 3483792681
+  (contains_starts-1 nil 3483791080 3483877952
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "di")
@@ -1191,9 +1270,25 @@
         nil))
       nil))
     nil)
-   unfinished nil 476 390 t shostak))
+   unchecked
+   ((s const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil))
+   127 110 t shostak))
  (contains_started_by 0
-  (contains_started_by-1 nil 3483791242 3483792681
+  (contains_started_by-1 nil 3483791242 3483877952
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "si")
@@ -1214,25 +1309,79 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil))
-   107 110 t shostak))
+   38 40 t shostak))
+ (contains_finishes 0
+  (contains_finishes-1 nil 3483877716 3483877757
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "di")
+        (("" (expand "d")
+          (("" (expand "f")
+            (("" (expand "during")
+              (("" (expand "finishes")
+                (("" (expand "si")
+                  (("" (expand "s")
+                    (("" (expand "starts")
+                      (("" (expand "oi")
+                        (("" (expand "o ")
+                          (("" (expand "overlaps")
+                            (("" (smash) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((d const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   41147 120 t shostak))
  (contains_finished_by 0
-  (contains_finished_by-1 nil 3483791490 3483792681
+  (contains_finished_by-1 nil 3483791490 3483877952
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "fi")
@@ -1246,7 +1395,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
@@ -1254,24 +1403,20 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil))
-   105 80 t shostak))
+   55 40 t shostak))
  (overlaps_before 0
-  (overlaps_before-1 nil 3483791872 3483792681
+  (overlaps_before-1 nil 3483791872 3483877952
    ("" (skosimp)
     (("" (expand "o ")
       (("" (expand "overlaps")
         (("" (prop) (("" (assert) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((O const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1280,9 +1425,9 @@
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (overlaps const-decl "bool" allen_time_int nil))
-   29 30 t shostak))
+   24 30 t shostak))
  (overlaps_after 0
-  (overlaps_after-1 nil 3483791943 3483792681
+  (overlaps_after-1 nil 3483791943 3483877952
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -1305,7 +1450,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
@@ -1320,18 +1465,14 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   168 150 t shostak))
+   116 100 t shostak))
  (overlaps_during 0
-  (overlaps_during-1 nil 3483792156 3483792681
+  (overlaps_during-1 nil 3483792156 3483877952
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "s")
@@ -1340,7 +1481,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
@@ -1350,15 +1491,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   236 230 t shostak))
+   95 100 t shostak))
  (overlaps_contains 0
-  (overlaps_contains-1 nil 3483792725 3483792809
+  (overlaps_contains-1 nil 3483792725 3483877952
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -1376,7 +1513,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
@@ -1389,17 +1526,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   30806 380 t shostak))
+   123 100 t shostak))
  (overlaps_overlaps 0
-  (overlaps_overlaps-1 nil 3483792967 3483793011
+  (overlaps_overlaps-1 nil 3483792967 3483877952
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -1414,7 +1547,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1425,9 +1558,9 @@
     (< const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   43795 90 t shostak))
+   73 70 t shostak))
  (overlaps_meets 0
-  (overlaps_meets-1 nil 3483793122 3483793145
+  (overlaps_meets-1 nil 3483793122 3483877952
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -1438,7 +1571,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1449,9 +1582,9 @@
     (> const-decl "bool" reals nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   22460 50 t shostak))
+   44 20 t shostak))
  (overlaps_met_by 0
-  (overlaps_met_by-1 nil 3483793248 3483793287
+  (overlaps_met_by-1 nil 3483793248 3483877952
    ("" (skosimp*)
     (("" (expand "mi")
       (("" (expand "oi")
@@ -1474,7 +1607,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
@@ -1487,18 +1620,14 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (meets const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil))
-   38482 170 t shostak))
+   92 90 t shostak))
  (overlaps_starts 0
-  (overlaps_starts-1 nil 3483793730 3483793765
+  (overlaps_starts-1 nil 3483793730 3483877953
    ("" (skosimp)
     (("" (expand "o ")
       (("" (expand "s")
@@ -1507,7 +1636,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((O const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1517,9 +1646,9 @@
     (> const-decl "bool" reals nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   34711 60 t shostak))
+   78 60 t shostak))
  (overlaps_start_by 0
-  (overlaps_start_by-1 nil 3483793975 3483794162
+  (overlaps_start_by-1 nil 3483793975 3483877953
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "di")
@@ -1544,18 +1673,14 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1565,9 +1690,9 @@
     (d const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil))
-   186769 210 t shostak))
+   119 120 t shostak))
  (overlaps_finishes 0
-  (overlaps_finishes-1 nil 3483794815 3483794851
+  (overlaps_finishes-1 nil 3483794815 3483877953
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "o ")
@@ -1585,7 +1710,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
@@ -1594,18 +1719,14 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil))
-   36292 160 t shostak))
+   83 60 t shostak))
  (overlaps_finished_by 0
-  (overlaps_finished_by-1 nil 3483795971 3483795999
+  (overlaps_finished_by-1 nil 3483795971 3483877953
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -1621,7 +1742,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
@@ -1635,9 +1756,9 @@
     (f const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   28012 100 t shostak))
+   75 70 t shostak))
  (overlapped_by_before 0
-  (overlapped_by_before-1 nil 3483796013 3483796049
+  (overlapped_by_before-1 nil 3483796013 3483877953
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "di")
@@ -1662,7 +1783,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((fi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
@@ -1671,8 +1792,6 @@
     (overlaps const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1682,9 +1801,9 @@
     (meets const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil))
-   35706 270 t shostak))
+   100 100 t shostak))
  (overlapped_by_after 0
-  (overlapped_by_after-1 nil 3483854129 3483854151
+  (overlapped_by_after-1 nil 3483854129 3483877953
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "o ")
@@ -1693,7 +1812,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
@@ -1704,9 +1823,9 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (O const-decl "bool" allen_time_int nil))
-   21151 60 t shostak))
+   47 30 t shostak))
  (overlapped_by_during 0
-  (overlapped_by_during-1 nil 3483854165 3483854186
+  (overlapped_by_during-1 nil 3483854165 3483877953
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "d")
@@ -1715,7 +1834,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
@@ -1726,15 +1845,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (O const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   21384 320 t shostak))
+   72 70 t shostak))
  (overlapped_by_contains 0
-  (overlapped_by_contains-1 nil 3483854201 3483854240
+  (overlapped_by_contains-1 nil 3483854201 3483877953
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -1761,7 +1876,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
@@ -1772,22 +1887,62 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   38489 290 t shostak))
+   114 110 t shostak))
+ (overlapped_by_overlapped_by 0
+  (overlapped_by_overlapped_by-1 nil 3483868486 3483877953
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "oi")
+        (("" (expand "o ")
+          (("" (expand "mi")
+            (("" (expand "m")
+              (("" (expand "overlaps")
+                (("" (expand "meets") (("" (smash) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((O const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   110 80 t shostak))
  (overlapped_by_meets 0
-  (overlapped_by_meets-1 nil 3483854308 3483854345
+  (overlapped_by_meets-1 nil 3483854308 3483877953
    ("" (skosimp)
     (("" (expand "di")
       (("" (expand "d")
@@ -1812,15 +1967,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((di const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1831,9 +1984,50 @@
     (oi const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   36813 200 t shostak))
+   79 80 t shostak))
+ (overlapped_by_meet_by 0
+  (overlapped_by_meet_by-1 nil 3483877769 3483877798
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "oi")
+        (("" (expand "mi")
+          (("" (expand "m")
+            (("" (expand "meets")
+              (("" (expand "o ")
+                (("" (expand "overlaps") (("" (assert) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((mi const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   28546 50 t shostak))
  (overlapped_by_starts 0
-  (overlapped_by_starts-1 nil 3483854411 3483854441
+  (overlapped_by_starts-1 nil 3483854411 3483877953
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "s")
@@ -1853,15 +2047,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1870,9 +2062,9 @@
     (finishes const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   29637 210 t shostak))
+   97 90 t shostak))
  (overlapped_by_started_by 0
-  (overlapped_by_started_by-1 nil 3483854457 3483854486
+  (overlapped_by_started_by-1 nil 3483854457 3483877954
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -1892,7 +2084,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
@@ -1909,9 +2101,9 @@
     (overlaps const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   29459 110 t shostak))
+   77 70 t shostak))
  (overlapped_by_finishes 0
-  (overlapped_by_finishes-1 nil 3483854667 3483854696
+  (overlapped_by_finishes-1 nil 3483854667 3483877954
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "o ")
@@ -1924,7 +2116,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
@@ -1935,9 +2127,9 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (O const-decl "bool" allen_time_int nil))
-   29399 80 t shostak))
+   53 50 t shostak))
  (overlapped_by_finished_by 0
-  (overlapped_by_finished_by-1 nil 3483854708 3483854745
+  (overlapped_by_finished_by-1 nil 3483854708 3483877954
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -1958,16 +2150,12 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1980,22 +2168,22 @@
     (during const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   36701 210 t shostak))
+   87 80 t shostak))
  (meets_before 0
-  (meets_before-1 nil 3483854758 3483854773
+  (meets_before-1 nil 3483854758 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets") (("" (smash) nil nil)) nil)) nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (meets const-decl "bool" allen_time_int nil))
-   14673 50 t shostak))
+   18 20 t shostak))
  (meets_after 0
-  (meets_after-1 nil 3483854787 3483854819
+  (meets_after-1 nil 3483854787 3483877954
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -2019,21 +2207,17 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (< const-decl "bool" allen_time_int nil)
     (> const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (overlaps const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2043,9 +2227,9 @@
     (m const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   32527 150 t shostak))
+   82 60 t shostak))
  (meets_during 0
-  (meets_during-1 nil 3483854836 3483855218
+  (meets_during-1 nil 3483854836 3483877954
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "d")
@@ -2055,20 +2239,7 @@
               (("" (expand "meets")
                 (("" (prop)
                   (("1" (assert) nil nil) ("2" (assert) nil nil)
-                   ("3" (assert) nil nil) ("4" (assert) nil nil)
-                   ("5" (assert) nil nil) ("6" (assert) nil nil)
-                   ("7" (assert) nil nil) ("8" (assert) nil nil)
-                   ("9" (assert)
-                    (("9" (delete 1)
-                      (("9" (delete 1)
-                        (("9" (grind) (("9" (postpone) nil nil)) nil))
-                        nil))
-                      nil))
-                    nil)
-                   ("10" (assert) nil nil) ("11" (assert) nil nil)
-                   ("12" (assert) nil nil) ("13" (assert) nil nil)
-                   ("14" (assert) nil nil) ("15" (assert) nil nil)
-                   ("16" (assert) nil nil))
+                   ("3" (assert) nil nil) ("4" (assert) nil nil))
                   nil))
                 nil))
               nil))
@@ -2077,34 +2248,50 @@
         nil))
       nil))
     nil)
-   unfinished nil 382071 550 t shostak))
+   unchecked
+   ((s const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (O const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil))
+   56 60 t shostak))
  (meets_contains 0
-  (meets_contains-1 nil 3483855247 3483855321
+  (meets_contains-1 nil 3483855247 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "di")
         (("" (expand "d")
           (("" (expand "meets")
             (("" (expand "during")
-              (("" (split)
-                (("1" (prop) (("1" (assert) nil nil)) nil)
-                 ("2" (assert)
-                  (("2" (prop)
-                    (("2" (assert)
-                      (("2" (grind) (("2" (postpone) nil nil)) nil))
-                      nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
+              (("" (prop) (("" (assert) nil nil)) nil)) nil))
             nil))
           nil))
         nil))
       nil))
     nil)
-   unfinished nil 74223 120 t shostak))
+   unchecked
+   ((m const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (< const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil))
+   36 20 t shostak))
  (meets_overlaps 0
-  (meets_overlaps-1 nil 3483855349 3483855373
+  (meets_overlaps-1 nil 3483855349 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -2115,7 +2302,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2126,9 +2313,9 @@
     (> const-decl "bool" reals nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   23901 60 t shostak))
+   26 30 t shostak))
  (meets_overlapped_by 0
-  (meets_overlapped_by-1 nil 3483855386 3483855542
+  (meets_overlapped_by-1 nil 3483855386 3483877954
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "starts")
@@ -2149,41 +2336,37 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((starts const-decl "bool" allen_time_int nil)
-    (during const-decl "bool" allen_time_int nil)
-    (meets const-decl "bool" allen_time_int nil)
-    (O const-decl "bool" allen_time_int nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+   unchecked
+   ((s const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (overlaps const-decl "bool" allen_time_int nil)
-    (oi const-decl "bool" allen_time_int nil)
-    (m const-decl "bool" allen_time_int nil)
-    (d const-decl "bool" allen_time_int nil)
-    (s const-decl "bool" allen_time_int nil))
-   397 150 t shostak))
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (O const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil))
+   50 50 t shostak))
  (meets_meets 0
-  (meets_meets-1 nil 3483855439 3483855566
+  (meets_meets-1 nil 3483855439 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets") (("" (assert) nil nil)) nil)) nil))
     nil)
-   unfinished
-   ((meets const-decl "bool" allen_time_int nil)
+   unchecked
+   ((m const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (< const-decl "bool" allen_time_int nil)
-    (m const-decl "bool" allen_time_int nil))
-   17224 30 t shostak))
+    (meets const-decl "bool" allen_time_int nil))
+   29 20 t shostak))
  (meets_meet_by 0
-  (meets_meet_by-1 nil 3483855583 3483855633
+  (meets_meet_by-1 nil 3483855583 3483877954
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "fi")
@@ -2204,7 +2387,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
@@ -2217,9 +2400,9 @@
     (meets const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil))
-   50299 90 t shostak))
+   45 40 t shostak))
  (meets_starts 0
-  (meets_starts-1 nil 3483855709 3483855735
+  (meets_starts-1 nil 3483855709 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "s")
@@ -2230,16 +2413,16 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   26246 50 t shostak))
+   33 20 t shostak))
  (meets_started_by 0
-  (meets_started_by-1 nil 3483855749 3483855768
+  (meets_started_by-1 nil 3483855749 3483877813
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "si")
@@ -2250,17 +2433,17 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((m const-decl "bool" allen_time_int nil)
-    (s const-decl "bool" allen_time_int nil)
-    (starts const-decl "bool" allen_time_int nil)
+   unchecked
+   ((si const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (meets const-decl "bool" allen_time_int nil)
-    (si const-decl "bool" allen_time_int nil))
-   18513 40 t shostak))
+    (starts const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil))
+   77 30 t shostak))
  (meets_finishes 0
-  (meets_finishes-1 nil 3483855781 3483855859
+  (meets_finishes-1 nil 3483855781 3483878350
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -2270,19 +2453,10 @@
               (("" (expand "during")
                 (("" (expand "s")
                   (("" (expand "starts")
-                    (("" (expand "oi")
-                      (("" (expand "o ")
-                        (("" (prop)
-                          (("1" (assert) (("1" (postpone) nil nil))
-                            nil)
-                           ("2" (assert) nil nil)
-                           ("3" (assert) nil nil)
-                           ("4" (assert) nil nil)
-                           ("5" (assert) nil nil)
-                           ("6" (assert) nil nil)
-                           ("7" (assert) nil nil)
-                           ("8" (assert) nil nil))
-                          nil))
+                    (("" (expand "o ")
+                      (("" (prop)
+                        (("1" (assert) nil nil) ("2" (assert) nil nil)
+                         ("3" (assert) nil nil) ("4" (assert) nil nil))
                         nil))
                       nil))
                     nil))
@@ -2294,9 +2468,25 @@
         nil))
       nil))
     nil)
-   unfinished nil 78144 220 t shostak))
+   proved
+   ((meets const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (O const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil))
+   3302 100 t shostak))
  (meets_finished_by 0
-  (meets_finished_by-1 nil 3483855891 3483855912
+  (meets_finished_by-1 nil 3483855891 3483877954
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "fi")
@@ -2309,7 +2499,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
@@ -2321,9 +2511,9 @@
      "(strict_total_order?[real])" real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil))
-   20207 40 t shostak))
+   37 30 t shostak))
  (meet_by_before 0
-  (meet_by_before-1 nil 3483855924 3483855964
+  (meet_by_before-1 nil 3483855924 3483877954
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "f")
@@ -2352,7 +2542,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((fi const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
@@ -2363,8 +2553,6 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (overlaps const-decl "bool" allen_time_int nil)
@@ -2372,16 +2560,16 @@
     (during const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil))
-   39879 180 t shostak))
+   78 70 t shostak))
  (meet_by_after 0
-  (meet_by_after-1 nil 3483855981 3483856263
+  (meet_by_after-1 nil 3483855981 3483877954
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
         (("" (expand "meets") (("" (smash) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2389,9 +2577,9 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   282390 40 t shostak))
+   33 20 t shostak))
  (meet_by_during 0
-  (meet_by_during-1 nil 3483856276 3483856536
+  (meet_by_during-1 nil 3483856276 3483877954
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -2400,8 +2588,7 @@
             (("" (expand "during")
               (("" (expand "oi")
                 (("" (expand "o ")
-                  (("" (expand "overlaps")
-                    (("" (smash) (("" (postpone) nil nil)) nil)) nil))
+                  (("" (expand "overlaps") (("" (smash) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -2410,12 +2597,54 @@
         nil))
       nil))
     nil)
-   unfinished nil 259965 250 t shostak))
+   unchecked
+   ((mi const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (f const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil))
+   79 80 t shostak))
  (meet_by_contains 0
-  (meet_by_contains-1 nil 3483857223 3483857307 ("" (postpone) nil nil)
-   unfinished nil 83840 110 t shostak))
+  (meet_by_contains-1 nil 3483857223 3483877954
+   ("" (skosimp)
+    (("" (expand "di")
+      (("" (expand "mi")
+        (("" (expand "m")
+          (("" (expand "d")
+            (("" (expand "during")
+              (("" (expand "meets") (("" (smash) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((di const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil))
+   36 20 t shostak))
  (meet_by_overlaps 0
-  (meet_by_overlaps-1 nil 3483857320 3483857359
+  (meet_by_overlaps-1 nil 3483857320 3483877954
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "o ")
@@ -2442,7 +2671,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
@@ -2452,17 +2681,15 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (finishes const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil))
-   39336 180 t shostak))
+   84 70 t shostak))
  (meet_by_meet 0
-  (meet_by_meet-1 nil 3483857374 3483857460
+  (meet_by_meet-1 nil 3483857374 3483877955
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "si")
@@ -2481,19 +2708,19 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((si const-decl "bool" allen_time_int nil)
-    (starts const-decl "bool" allen_time_int nil)
-    (meets const-decl "bool" allen_time_int nil)
-    (= const-decl "bool" allen_time_int nil)
+   unchecked
+   ((mi const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (m const-decl "bool" allen_time_int nil)
-    (s const-decl "bool" allen_time_int nil)
-    (mi const-decl "bool" allen_time_int nil))
-   40626 80 t shostak))
+    (= const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil))
+   44 40 t shostak))
  (meet_by_overlapped_by 0
-  (meet_by_overlapped_by-1 nil 3483857474 3483857497
+  (meet_by_overlapped_by-1 nil 3483857474 3483877955
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "o ")
@@ -2506,7 +2733,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
@@ -2520,16 +2747,16 @@
     (meets const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil))
-   22828 60 t shostak))
+   28 20 t shostak))
  (meet_by_meet_by 0
-  (meet_by_meet_by-1 nil 3483857517 3483857532
+  (meet_by_meet_by-1 nil 3483857517 3483877955
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
         (("" (expand "meets") (("" (smash) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2537,9 +2764,9 @@
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   14535 30 t shostak))
+   30 20 t shostak))
  (meet_by_starts 0
-  (meet_by_starts-1 nil 3483857550 3483857577
+  (meet_by_starts-1 nil 3483857550 3483877955
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -2556,7 +2783,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
@@ -2565,10 +2792,6 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (d const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
@@ -2578,9 +2801,9 @@
     (f const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   27219 90 t shostak))
+   43 50 t shostak))
  (meet_by_started_by 0
-  (meet_by_started_by-1 nil 3483857591 3483857725
+  (meet_by_started_by-1 nil 3483857591 3483877955
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "si")
@@ -2593,67 +2816,106 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((si const-decl "bool" allen_time_int nil)
+   unchecked
+   ((mi const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (meets const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil))
+   38 30 t shostak))
+ (meet_by_finishes 0
+  (meet_by_finishes-1 nil 3483877826 3483877853
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "mi")
+        (("" (expand "m")
+          (("" (expand "f")
+            (("" (expand "meets")
+              (("" (expand "finishes") (("" (smash) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((m const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (> const-decl "bool" allen_time_int nil)
-    (< const-decl "bool" allen_time_int nil)
-    (starts const-decl "bool" allen_time_int nil)
-    (m const-decl "bool" allen_time_int nil)
-    (mi const-decl "bool" allen_time_int nil))
-   4443 40 t shostak))
- (met_by_finished 0
-  (met_by_finished-1 nil 3483773166 3483857794
-   ("" (skosimp) (("" (assert) (("" (assert) nil nil)) nil)) nil)
-   unfinished
-   ((meets const-decl "bool" allen_time_int nil)
-    (m const-decl "bool" allen_time_int nil)
-    (mi const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (> const-decl "bool" reals nil)
     (finishes const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
-    (fi const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   27271 40 t shostak))
+ (met_by_finished 0
+  (met_by_finished-1 nil 3483773166 3483877955
+   ("" (skosimp) (("" (assert) (("" (assert) nil nil)) nil)) nil)
+   unchecked
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   9139 60 t shostak))
+    (fi const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil))
+   24 20 t shostak))
  (starts_by_before 0
-  (starts_by_before-1 nil 3483857812 3483857839
+  (starts_by_before-1 nil 3483857812 3483877955
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "starts") (("" (prop) (("" (assert) nil nil)) nil))
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil))
-   26350 40 t shostak))
+   20 20 t shostak))
  (starts_by_after 0
-  (starts_by_after-1 nil 3483857856 3483857872
+  (starts_by_after-1 nil 3483857856 3483877955
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "starts") (("" (prop) (("" (assert) nil nil)) nil))
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil))
-   16580 40 t shostak))
+   24 20 t shostak))
  (starts_by_during 0
-  (starts_by_during-1 nil 3483857888 3483857905
+  (starts_by_during-1 nil 3483857888 3483877955
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "during")
@@ -2662,26 +2924,65 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil))
-   16925 120 t shostak))
+   45 40 t shostak))
  (starts_by_contains 0
-  (starts_by_contains-1 nil 3483857923 3483858040
-   ("" (postpone) nil nil) unfinished nil 117501 550 t shostak))
+  (starts_by_contains-1 nil 3483857923 3483877955
+   ("" (skosimp)
+    (("" (expand "s")
+      (("" (expand "di")
+        (("" (expand "d")
+          (("" (expand "m")
+            (("" (expand "meets")
+              (("" (expand "starts")
+                (("" (expand "during")
+                  (("" (expand "o ")
+                    (("" (expand "fi")
+                      (("" (expand "f")
+                        (("" (expand "finishes") (("" (smash) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((s const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (< const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil))
+   87 80 t shostak))
  (starts_by_overlaps 0
-  (starts_by_overlaps-1 nil 3483858054 3483858075
+  (starts_by_overlaps-1 nil 3483858054 3483877955
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -2694,7 +2995,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
@@ -2707,9 +3008,9 @@
     (starts const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   21930 100 t shostak))
+   52 50 t shostak))
  (starts_by_overlapped_by 0
-  (starts_by_overlapped_by-1 nil 3483858094 3483858121
+  (starts_by_overlapped_by-1 nil 3483858094 3483877955
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "oi")
@@ -2729,15 +3030,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2746,9 +3045,9 @@
     (finishes const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil))
-   27816 180 t shostak))
+   92 80 t shostak))
  (starts_by_meet 0
-  (starts_by_meet-1 nil 3483858659 3483858679
+  (starts_by_meet-1 nil 3483858659 3483877955
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "m")
@@ -2759,7 +3058,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2767,10 +3066,10 @@
     (< const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   19807 40 t shostak))
+   21 20 t shostak))
  (starts_by_meet_by 0
-  (starts_by_meet_by-1 nil 3483858703 3483858724
-   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unfinished
+  (starts_by_meet_by-1 nil 3483858703 3483877955
+   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unchecked
    ((interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
     (< const-decl "bool" reals nil)
@@ -2783,10 +3082,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   21234 30 t shostak))
+   12 20 t shostak))
  (starts_by_starts 0
-  (starts_by_starts-1 nil 3483858750 3483858762
-   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unfinished
+  (starts_by_starts-1 nil 3483858750 3483877955
+   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unchecked
    ((interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
     (< const-decl "bool" reals nil)
@@ -2799,10 +3098,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   11890 30 t shostak))
+   27 10 t shostak))
  (starts_by_started_by 0
-  (starts_by_started_by-1 nil 3483858834 3483858846
-   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unfinished
+  (starts_by_started_by-1 nil 3483858834 3483877955
+   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unchecked
    ((interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
     (< const-decl "bool" reals nil)
@@ -2815,9 +3114,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   12394 40 t shostak))
+   16 20 t shostak))
  (starts_by_finishes 0
-  (starts_by_finishes-1 nil 3483858858 3483858900
+  (starts_by_finishes-1 nil 3483858858 3483877955
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "d")
@@ -2838,19 +3137,15 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((during const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (f const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
@@ -2866,9 +3161,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   41958 120 t shostak))
+   53 50 t shostak))
  (starts_by_finished_by 0
-  (starts_by_finished_by-1 nil 3483858914 3483858938
+  (starts_by_finished_by-1 nil 3483858914 3483877955
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "s")
@@ -2884,7 +3179,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
@@ -2900,9 +3195,9 @@
     (finishes const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   24593 60 t shostak))
+   34 30 t shostak))
  (started_by_before 0
-  (started_by_before-1 nil 3483859622 3483859653
+  (started_by_before-1 nil 3483859622 3483877955
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "m")
@@ -2923,15 +3218,11 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((meets const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2959,9 +3250,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   31400 200 t shostak))
+   92 80 t shostak))
  (started_by_after 0
-  (started_by_after-1 nil 3483859667 3483859691
+  (started_by_after-1 nil 3483859667 3483877955
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "si")
@@ -2970,7 +3261,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -2990,20 +3281,41 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   23835 60 t shostak))
+   29 30 t shostak))
  (started_by_during 0
-  (started_by_during-1 nil 3483859915 3483860060
-   ("" (grind :if-match best*) (("" (postpone) nil nil)) nil)
-   unfinished nil 144757 950 t shostak))
- (started_by_contains 0
-  (started_by_contains-1 nil 3483860084 3483860110
-   ("" (smash) (("" (skosimp*) (("" (smash) nil nil)) nil)) nil)
-   unfinished
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+  (started_by_during-1 nil 3483859915 3483877955
+   ("" (grind :if-match best*) nil nil) unchecked
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (< const-decl "bool" reals nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (during const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil))
+   121 110 t shostak))
+ (started_by_contains 0
+  (started_by_contains-1 nil 3483860084 3483877955
+   ("" (smash) (("" (skosimp*) (("" (smash) nil nil)) nil)) nil)
+   unchecked
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (di const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
@@ -3012,9 +3324,9 @@
     (si const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil))
-   26174 130 t shostak))
+   48 50 t shostak))
  (started_by_overlaps 0
-  (started_by_overlaps-1 nil 3483860216 3483860261
+  (started_by_overlaps-1 nil 3483860216 3483877956
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -3039,18 +3351,14 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3060,9 +3368,9 @@
     (d const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   45629 260 t shostak))
+   118 100 t shostak))
  (started_by_overlapped_by 0
-  (started_by_overlapped_by-1 nil 3483860292 3483860412
+  (started_by_overlapped_by-1 nil 3483860292 3483877956
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "si")
@@ -3078,7 +3386,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
@@ -3102,10 +3410,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   120270 80 t shostak))
+   54 60 t shostak))
  (started_by_meet 0
-  (started_by_meet-1 nil 3483860425 3483860438
-   ("" (grind :if-match best*) nil nil) unfinished
+  (started_by_meet-1 nil 3483860425 3483877956
+   ("" (grind :if-match best*) nil nil) unchecked
    ((interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
     (< const-decl "bool" reals nil)
@@ -3120,8 +3428,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil)
@@ -3136,9 +3442,9 @@
     (fi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil))
-   12119 150 t shostak))
+   117 100 t shostak))
  (started_by_meet_by 0
-  (started_by_meet_by-1 nil 3483860450 3483860492
+  (started_by_meet_by-1 nil 3483860450 3483877956
    ("" (skosimp*)
     (("" (expand "si")
       (("" (expand "s")
@@ -3153,32 +3459,32 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   42770 50 t shostak))
+   22 30 t shostak))
  (started_by_starts 0
-  (started_by_starts-1 nil 3483860516 3483860533
+  (started_by_starts-1 nil 3483860516 3483877956
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
         (("" (expand "starts") (("" (smash) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (= const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (s const-decl "bool" allen_time_int nil))
-   17545 80 t shostak))
+   59 30 t shostak))
  (started_by_started_by 0
-  (started_by_started_by-1 nil 3483860544 3483860574
+  (started_by_started_by-1 nil 3483860544 3483877956
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -3189,13 +3495,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
-   29470 40 t shostak))
+   26 20 t shostak))
  (started_by_finishes 0
-  (started_by_finishes-1 nil 3483773297 3483792681
+  (started_by_finishes-1 nil 3483773297 3483877956
    ("" (skosimp)
     (("" (assert)
       (("" (prop)
@@ -3204,7 +3510,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3218,9 +3524,9 @@
     (si const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil))
-   56 50 t shostak))
+   51 50 t shostak))
  (started_by_finished_by 0
-  (started_by_finished_by-1 nil 3483860592 3483860618
+  (started_by_finished_by-1 nil 3483860592 3483877956
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "fi")
@@ -3240,15 +3546,13 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((si const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3257,9 +3561,9 @@
     (d const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil))
-   26294 70 t shostak))
+   48 30 t shostak))
  (finishes_before 0
-  (finishes_before-1 nil 3483864516 3483864540
+  (finishes_before-1 nil 3483864516 3483877956
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes")
@@ -3267,7 +3571,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
     (< const-decl "bool" allen_time_int nil)
@@ -3276,28 +3580,28 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (finishes const-decl "bool" allen_time_int nil))
-   23843 30 t shostak))
+   24 30 t shostak))
  (finishes_after 0
-  (finishes_after-1 nil 3483864587 3483864603
+  (finishes_after-1 nil 3483864587 3483877867
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "finishes") (("" (prop) (("" (smash) nil nil)) nil))
         nil))
       nil))
     nil)
-   unfinished
-   ((f const-decl "bool" allen_time_int nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+   unchecked
+   ((finishes const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" allen_time_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (> const-decl "bool" allen_time_int nil)
-    (< const-decl "bool" allen_time_int nil)
-    (> const-decl "bool" reals nil)
-    (finishes const-decl "bool" allen_time_int nil))
-   16087 30 t shostak))
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (f const-decl "bool" allen_time_int nil))
+   75 30 t shostak))
  (finishes_during 0
-  (finishes_during-1 nil 3483864614 3483864631
+  (finishes_during-1 nil 3483864614 3483877956
    ("" (skosimp)
     (("" (expand "d")
       (("" (expand "during")
@@ -3306,23 +3610,19 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((d const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil))
-   16953 130 t shostak))
+   34 30 t shostak))
  (finishes_contains 0
-  (finishes_contains-1 nil 3483864643 3483864692
+  (finishes_contains-1 nil 3483864643 3483877956
    ("" (skosimp)
     (("" (expand "si")
       (("" (expand "s")
@@ -3339,10 +3639,7 @@
                             (("" (expand "starts")
                               ((""
                                 (expand "finishes")
-                                ((""
-                                  (smash)
-                                  (("" (postpone) nil nil))
-                                  nil))
+                                (("" (smash) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -3358,9 +3655,31 @@
         nil))
       nil))
     nil)
-   unfinished nil 48803 270 t shostak))
+   unchecked
+   ((si const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" allen_time_int nil)
+    (< const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil))
+   82 70 t shostak))
  (finishes_overlaps 0
-  (finishes_overlaps-1 nil 3483864725 3483864753
+  (finishes_overlaps-1 nil 3483864725 3483877956
    ("" (skosimp)
     (("" (expand "s")
       (("" (expand "d")
@@ -3378,7 +3697,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((s const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
@@ -3388,17 +3707,13 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil))
-   28262 110 t shostak))
+   68 60 t shostak))
  (finishes_overlapped_by 0
-  (finishes_overlapped_by-1 nil 3483864765 3483864793
+  (finishes_overlapped_by-1 nil 3483864765 3483877956
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "mi")
@@ -3414,7 +3729,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
@@ -3442,9 +3757,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   27967 120 t shostak))
+   95 70 t shostak))
  (finishes_meets 0
-  (finishes_meets-1 nil 3483864807 3483864823
+  (finishes_meets-1 nil 3483864807 3483877956
    ("" (skosimp)
     (("" (expand "m")
       (("" (expand "meets")
@@ -3453,7 +3768,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((m const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
@@ -3463,9 +3778,9 @@
     (> const-decl "bool" reals nil)
     (finishes const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil))
-   16548 30 t shostak))
+   22 30 t shostak))
  (finishes_meet_by 0
-  (finishes_meet_by-1 nil 3483867028 3483867053
+  (finishes_meet_by-1 nil 3483867028 3483877956
    ("" (skosimp)
     (("" (expand "mi")
       (("" (expand "m")
@@ -3480,7 +3795,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((mi const-decl "bool" allen_time_int nil)
     (meets const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
@@ -3493,9 +3808,9 @@
     (> const-decl "bool" reals nil)
     (f const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil))
-   24820 60 t shostak))
+   24 20 t shostak))
  (finishes_starts 0
-  (finishes_starts-1 nil 3483867065 3483867087
+  (finishes_starts-1 nil 3483867065 3483877956
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "d")
@@ -3506,13 +3821,9 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((during const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3534,9 +3845,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   21925 110 t shostak))
+   61 50 t shostak))
  (finishes_started_by 0
-  (finishes_started_by-1 nil 3483867100 3483867132
+  (finishes_started_by-1 nil 3483867100 3483877957
    ("" (skosimp)
     (("" (expand "oi")
       (("" (expand "o ")
@@ -3561,7 +3872,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((oi const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (m const-decl "bool" allen_time_int nil)
@@ -3580,21 +3891,21 @@
     (meets const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (O const-decl "bool" allen_time_int nil))
-   32390 110 t shostak))
+   82 60 t shostak))
  (finishes_finishes 0
-  (finishes_finishes-1 nil 3483867143 3483867166
+  (finishes_finishes-1 nil 3483867143 3483877957
    ("" (smash)
     (("" (skosimp)
       (("" (prop) (("1" (record) nil nil) ("2" (record) nil nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((f const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil))
-   22924 60 t shostak))
+   53 50 t shostak))
  (finishes_finished_by 0
-  (finishes_finished_by-1 nil 3483867177 3483867328
+  (finishes_finished_by-1 nil 3483867177 3483877957
    ("" (skosimp)
     (("" (expand "f")
       (("" (expand "fi")
@@ -3603,24 +3914,24 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((fi const-decl "bool" allen_time_int nil)
-    (finishes const-decl "bool" allen_time_int nil)
-    (> const-decl "bool" reals nil)
-    (= const-decl "bool" allen_time_int nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+   unchecked
+   ((f const-decl "bool" allen_time_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (f const-decl "bool" allen_time_int nil))
-   4589 90 t shostak))
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (= const-decl "bool" allen_time_int nil)
+    (> const-decl "bool" reals nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil))
+   60 60 t shostak))
  (finished_by_before 0
-  (finished_by_before-1 nil 3483867348 3483867364
+  (finished_by_before-1 nil 3483867348 3483877957
    ("" (smash)
     (("" (skolem-typepred) (("" (flatten) (("" (record) nil nil)) nil))
       nil))
     nil)
-   unfinished
+   unchecked
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -3638,84 +3949,45 @@
     (f const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil))
-   16535 60 t shostak))
+   33 30 t shostak))
  (finished_by_after 0
-  (finished_by_after-1 nil 3483867375 3483867468
+  (finished_by_after-1 nil 3483867375 3483878212
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "mi")
-        (("" (expand "m")
-          (("" (expand "meets")
-            (("" (expand "oi")
-              (("" (expand "o ")
-                (("" (expand "di")
-                  (("" (expand "d")
-                    (("" (expand "during")
+        (("" (expand "oi")
+          (("" (expand "di")
+            (("" (expand "si")
+              (("" (expand "s")
+                (("" (expand "d")
+                  (("" (expand "m")
+                    (("" (expand "o ")
                       (("" (expand "overlaps")
-                        (("" (expand "si")
-                          (("" (expand "s")
-                            (("" (expand "starts")
+                        (("" (expand "during")
+                          (("" (expand "starts")
+                            (("" (expand "meets")
                               ((""
-                                (prop)
-                                (("1" (record) nil nil)
-                                 ("2" (record) nil nil)
-                                 ("3" (record) nil nil)
-                                 ("4"
-                                  (record)
-                                  (("4"
+                                (split)
+                                (("1"
+                                  (prop)
+                                  (("1" (assert) nil nil)
+                                   ("2"
+                                    (assert)
+                                    (("2" (assert) nil nil))
+                                    nil)
+                                   ("3"
+                                    (assert)
+                                    (("3" (assert) nil nil))
+                                    nil)
+                                   ("4"
                                     (assert)
                                     (("4" (assert) nil nil))
                                     nil))
                                   nil)
-                                 ("5" (assert) nil nil)
-                                 ("6" (assert) nil nil)
-                                 ("7"
+                                 ("2" (assert) nil nil)
+                                 ("3"
                                   (assert)
-                                  (("7" (assert) nil nil))
-                                  nil)
-                                 ("8"
-                                  (assert)
-                                  (("8" (assert) nil nil))
-                                  nil)
-                                 ("9" (assert) nil nil)
-                                 ("10" (assert) nil nil)
-                                 ("11" (assert) nil nil)
-                                 ("12" (assert) nil nil)
-                                 ("13" (assert) nil nil)
-                                 ("14" (assert) nil nil)
-                                 ("15" (assert) nil nil)
-                                 ("16" (assert) nil nil)
-                                 ("17"
-                                  (assert)
-                                  (("17" (assert) nil nil))
-                                  nil)
-                                 ("18"
-                                  (assert)
-                                  (("18" (assert) nil nil))
-                                  nil)
-                                 ("19"
-                                  (assert)
-                                  (("19" (assert) nil nil))
-                                  nil)
-                                 ("20"
-                                  (assert)
-                                  (("20" (assert) nil nil))
-                                  nil)
-                                 ("21"
-                                  (assert)
-                                  (("21" (assert) nil nil))
-                                  nil)
-                                 ("22"
-                                  (assert)
-                                  (("22" (assert) nil nil))
-                                  nil)
-                                 ("23"
-                                  (assert)
-                                  (("23" (assert) nil nil))
-                                  nil)
-                                 ("24"
-                                  (assert)
-                                  (("24" (assert) nil nil))
+                                  (("3" (assert) nil nil))
                                   nil))
                                 nil))
                               nil))
@@ -3732,32 +4004,28 @@
         nil))
       nil))
     nil)
-   unfinished
-   ((m const-decl "bool" allen_time_int nil)
-    (oi const-decl "bool" allen_time_int nil)
-    (di const-decl "bool" allen_time_int nil)
-    (during const-decl "bool" allen_time_int nil)
+   unchecked
+   ((oi const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil)
-    (starts const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (d const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
     (> const-decl "bool" allen_time_int nil)
     (< const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (f const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
-    (> const-decl "bool" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (s const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
-    (d const-decl "bool" allen_time_int nil)
-    (O const-decl "bool" allen_time_int nil)
-    (meets const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
     (mi const-decl "bool" allen_time_int nil)
     (interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
@@ -3771,13 +4039,61 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   92941 620 t shostak))
+   74780 230 t shostak))
  (finished_by_during 0
-  (finished_by_during-1 nil 3483867655 3483867669
-   ("" (grind :if-match nil) (("" (postpone) nil nil)) nil) unfinished
-   nil 14069 380 t shostak))
+  (finished_by_during-1 nil 3483867655 3483878041
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "fi")
+        (("" (expand "f")
+          (("" (expand "d")
+            (("" (expand "s")
+              (("" (expand "o ")
+                (("" (expand "finishes")
+                  (("" (expand "during")
+                    (("" (expand "overlaps")
+                      (("" (expand "starts") (("" (grind) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((f const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   43271 110 t shostak))
  (finished_by_contains 0
-  (finished_by_contains-1 nil 3483867694 3483867731
+  (finished_by_contains-1 nil 3483867694 3483877957
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "di")
@@ -3805,14 +4121,10 @@
     (f const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (fi const-decl "bool" allen_time_int nil)
     (di const-decl "bool" allen_time_int nil)
@@ -3828,9 +4140,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   36830 190 t shostak))
+   54 50 t shostak))
  (finished_by_overlaps 0
-  (finished_by_overlaps-1 nil 3483867742 3483867765
+  (finished_by_overlaps-1 nil 3483867742 3483877957
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (assert)
@@ -3864,9 +4176,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   23413 80 t shostak))
+   46 50 t shostak))
  (finished_by_overlapped_by 0
-  (finished_by_overlapped_by-1 nil 3483867778 3483867854
+  (finished_by_overlapped_by-1 nil 3483867778 3483877957
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "oi")
@@ -3939,19 +4251,15 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (finishes const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (si const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil)
     (oi const-decl "bool" allen_time_int nil))
-   76251 340 t shostak))
+   175 160 t shostak))
  (finished_by_meets 0
-  (finished_by_meets-1 nil 3483867865 3483867897
+  (finished_by_meets-1 nil 3483867865 3483877957
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "m")
@@ -3989,9 +4297,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   31750 50 t shostak))
+   29 30 t shostak))
  (finished_by_meet_by 0
-  (finished_by_meet_by-1 nil 3483867911 3483868011
+  (finished_by_meet_by-1 nil 3483867911 3483877935
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "oi" 1)
@@ -4024,36 +4332,19 @@
                                 nil))
                               nil))
                             nil)
-                           ("2" (assert) nil nil)
-                           ("3" (assert) nil nil)
+                           ("2" (assert) (("2" (assert) nil nil)) nil)
+                           ("3" (assert) (("3" (assert) nil nil)) nil)
                            ("4" (assert) (("4" (assert) nil nil)) nil)
-                           ("5" (assert) nil nil)
+                           ("5" (assert) (("5" (assert) nil nil)) nil)
                            ("6" (assert) nil nil)
-                           ("7" (assert) (("7" (assert) nil nil)) nil)
-                           ("8" (assert) (("8" (assert) nil nil)) nil)
+                           ("7" (assert) nil nil)
+                           ("8" (assert) nil nil)
                            ("9" (assert) (("9" (assert) nil nil)) nil)
-                           ("10" (assert) nil nil)
-                           ("11" (assert) nil nil)
-                           ("12" (assert) nil nil)
-                           ("13" (assert) nil nil)
-                           ("14" (assert) nil nil)
-                           ("15" (assert) nil nil)
-                           ("16" (assert) nil nil)
-                           ("17" (assert) (("17" (assert) nil nil))
+                           ("10" (assert) (("10" (assert) nil nil))
                             nil)
-                           ("18" (assert) (("18" (assert) nil nil))
+                           ("11" (assert) (("11" (assert) nil nil))
                             nil)
-                           ("19" (assert) (("19" (assert) nil nil))
-                            nil)
-                           ("20" (assert) (("20" (assert) nil nil))
-                            nil)
-                           ("21" (assert) (("21" (assert) nil nil))
-                            nil)
-                           ("22" (assert) (("22" (assert) nil nil))
-                            nil)
-                           ("23" (assert) (("23" (assert) nil nil))
-                            nil)
-                           ("24" (assert) (("24" (assert) nil nil))
+                           ("12" (assert) (("12" (assert) nil nil))
                             nil))
                           nil))
                         nil))
@@ -4068,45 +4359,41 @@
       nil))
     nil)
    unchecked
-   ((O const-decl "bool" allen_time_int nil)
-    (di const-decl "bool" allen_time_int nil)
-    (during const-decl "bool" allen_time_int nil)
-    (s const-decl "bool" allen_time_int nil)
-    (f const-decl "bool" allen_time_int nil)
-    (m const-decl "bool" allen_time_int nil)
-    (finishes const-decl "bool" allen_time_int nil)
-    (> const-decl "bool" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (meets const-decl "bool" allen_time_int nil)
-    (mi const-decl "bool" allen_time_int nil)
-    (fi const-decl "bool" allen_time_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (starts const-decl "bool" allen_time_int nil)
-    (si const-decl "bool" allen_time_int nil)
-    (d const-decl "bool" allen_time_int nil)
-    (overlaps const-decl "bool" allen_time_int nil)
-    (oi const-decl "bool" allen_time_int nil)
-    (interval type-eq-decl nil allen_time_int nil)
-    (time type-eq-decl nil allen_time_int nil)
-    (< const-decl "bool" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil))
-   100534 600 t shostak))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (< const-decl "bool" reals nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (mi const-decl "bool" allen_time_int nil)
+    (meets const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (m const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil))
+   37228 380 t shostak))
  (finished_by_starts 0
-  (finished_by_starts-1 nil 3483868023 3483868059
+  (finished_by_starts-1 nil 3483868023 3483877957
    ("" (skosimp)
     (("" (expand "o ")
       (("" (expand "overlaps")
@@ -4140,9 +4427,9 @@
     (f const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
     (overlaps const-decl "bool" allen_time_int nil))
-   36468 90 t shostak))
+   73 60 t shostak))
  (finished_by_started_by 0
-  (finished_by_started_by-1 nil 3483868091 3483868126
+  (finished_by_started_by-1 nil 3483868091 3483877957
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "fi")
@@ -4176,15 +4463,11 @@
     (f const-decl "bool" allen_time_int nil)
     (d const-decl "bool" allen_time_int nil)
     (starts const-decl "bool" allen_time_int nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (> const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (during const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil)
@@ -4202,9 +4485,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   35302 120 t shostak))
+   62 50 t shostak))
  (finished_by_finishes 0
-  (finished_by_finishes-1 nil 3483868139 3483868157
+  (finished_by_finishes-1 nil 3483868139 3483877957
    ("" (skosimp)
     (("" (expand "fi")
       (("" (expand "f")
@@ -4227,10 +4510,10 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (f const-decl "bool" allen_time_int nil))
-   18283 80 t shostak))
+   70 70 t shostak))
  (finished_by_finished_by 0
-  (finished_by_finished_by-1 nil 3483868173 3483868182
-   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) proved
+  (finished_by_finished_by-1 nil 3483868173 3483877958
+   ("" (skolem-typepred) (("" (flatten) nil nil)) nil) unchecked
    ((interval type-eq-decl nil allen_time_int nil)
     (time type-eq-decl nil allen_time_int nil)
     (< const-decl "bool" reals nil)
@@ -4243,5 +4526,5 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   8971 30 t shostak)))
+   14 10 t shostak)))
 

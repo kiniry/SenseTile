@@ -38,8 +38,17 @@ BEGIN
 
   % t during s  means  ((t- > s-) & (t+ =< s+)) or
   %                    ((t- >= s-) & (t+ < s+))
-  during(t, s): bool = ((t`bottom > s`bottom) AND (t`top <= s`top)) OR
-                       ((t`bottom >= s`bottom) AND (t`top < s`top))
+%  during(t, s): bool = ((t`bottom > s`bottom) AND (t`top <= s`top)) OR
+%                       ((t`bottom >= s`bottom) AND (t`top < s`top))
+% by the definition of during  (from paper FIGURE 1. Interval Relation Defined by Endpoints),
+% we cannot prove all properties. That's the reason why we have changed this definition 
+% (see the figure :E 2. The Thirteen Possible Relationships.)
+% here is new definition of during
+% 
+  during(t, s): bool = ((t`bottom > s`bottom) AND (t`top < s`top)) 
+ 
+  %OR((t`bottom >= s`bottom) AND (t`top < s`top))
+
   d(t, s): bool = during(t, s)
   di(t, s): bool = d(s, t)
 
@@ -140,7 +149,7 @@ BEGIN
  during_started_by :LEMMA d(A, B) AND si(B, C) IMPLIES 
                             >(A, C) OR oi(A, C) OR mi(A, C) OR d(A, C) OR f(A, C)% not proved !!
 
-s_during_t_finished_by_i:LEMMA d(A, B) AND fi(B, C) IMPLIES 
+during_finished_by: LEMMA d(A, B) AND fi(B, C) IMPLIES 
                          <(A, C) OR o(A, C) OR m(A, C) OR d(A, C) OR s(A, C) % not proved !!
 
 during_finishes:LEMMA d(A, B) AND f(B, C) IMPLIES  d(A, C)
@@ -246,7 +255,7 @@ meets_after: LEMMA m(A, B) AND >(B, C) IMPLIES
 meets_during: LEMMA m(A, B) AND d(B, C) IMPLIES  % not proved !!!
                    o(A, C) OR d(A, C) OR s(A, C) 
 
-meets_contains: LEMMA m(A, B) AND di(B, C) IMPLIES <(A, C)  % not proved !!!
+meets_contains: LEMMA m(A, B) AND di(B, C) IMPLIES <(A, C)
 
 meets_overlaps: LEMMA m(A, B) AND o(B, C) IMPLIES <(A, C)
 
@@ -264,7 +273,7 @@ meets_starts: LEMMA m(A, B) AND s(B, C) IMPLIES m(A, C)
 meets_started_by: LEMMA m(A, B) AND si(B, C) IMPLIES m(A, C)
 
 meets_finishes: LEMMA m(A, B) AND f(B, C) IMPLIES % not proved!
-                     d(A, C) OR s(A, C) OR oi(A, C)
+                     d(A, C) OR s(A, C) OR o(A, C)
 
 meets_finished_by: LEMMA m(A, B) AND fi(B, C) IMPLIES <(A, C)
 
