@@ -1494,6 +1494,837 @@
     (starts const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
    95 100 t shostak))
+ (overlaps_overlapped_by 0
+  (overlaps_overlapped_by-1 nil 3483880232 3483880760
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "oi")
+        (("" (expand "dur")
+          (("" (expand "con")
+            (("" (expand "d")
+              (("" (prop)
+                (("" (expand "during")
+                  (("" (expand "s")
+                    (("" (expand "f")
+                      (("" (expand "di")
+                        (("" (expand "d")
+                          (("" (expand "si")
+                            (("" (expand "s")
+                              ((""
+                                (expand "fi")
+                                ((""
+                                  (expand "f")
+                                  ((""
+                                    (expand "o ")
+                                    ((""
+                                      (expand "overlaps")
+                                      ((""
+                                        (expand "starts")
+                                        ((""
+                                          (expand "finishes")
+                                          ((""
+                                            (expand "during")
+                                            ((""
+                                              (split)
+                                              (("1"
+                                                (prop)
+                                                (("1" (assert) nil nil)
+                                                 ("2" (assert) nil nil)
+                                                 ("3" (assert) nil nil)
+                                                 ("4" (assert) nil nil)
+                                                 ("5" (assert) nil nil)
+                                                 ("6" (assert) nil nil)
+                                                 ("7" (assert) nil nil)
+                                                 ("8" (assert) nil nil)
+                                                 ("9" (assert) nil nil)
+                                                 ("10"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("11"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("12"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("13"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("14"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("15"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("16"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("17"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("18"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("19"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("20"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("21"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("22"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("23"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("24"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("25"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("26"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("27"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("28"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("29"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("30"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("31"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("32"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("33"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("34"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("35"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("36"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("37"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("38"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("39"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("40"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("41"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("42"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("43"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("44"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("45"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("46"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("47"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("48"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("49"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("50"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("51"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("52"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("53"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("54"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("55"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("56"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("57"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("58"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("59"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("60"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("61"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("62"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("63"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("64"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("65"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("66"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("67"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("68"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("69"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("70"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("71"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("72"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("73"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("74"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("75"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("76"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("77"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("78"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("79"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("80"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("81"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("82"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("83"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("84"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("85"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("86" (smash) nil nil)
+                                                 ("87"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("88"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("89"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("90"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("91"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("92"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("93"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("94"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("95"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("96"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("97"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("98"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("99"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("100"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("101"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("102"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("103"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("104"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("105"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("106"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("107"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("108"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("109"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("110"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("111"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("112"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("113"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("114"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("115"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("116"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("117"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("118"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("119"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("120"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("121"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("122"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("123"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("124"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("125"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("126"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("127"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("128"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("129"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("130"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("131"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("132"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("133"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("134"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("135"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("136"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("137"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("138"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("139"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("140"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("141"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("142"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("143"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("144"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("145"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("146"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("147"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("148"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("149"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("150"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("151"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("152"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("153"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("154"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("155"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("156"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("157"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("158"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("159"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("160"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("161"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("162"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("163"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("164"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("165"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("166"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("167"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("168"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("169"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("170"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("171"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("172"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("173"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("174"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("175"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("176"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("177"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("178"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("179"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("180"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("181"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("182"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("183"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("184"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("185"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("186"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("187"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("188"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("189"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("190"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("191"
+                                                  (assert)
+                                                  nil
+                                                  nil)
+                                                 ("192"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil)
+                                               ("2" (smash) nil nil)
+                                               ("3" (smash) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (< const-decl "bool" reals nil)
+    (time type-eq-decl nil allen_time_int nil)
+    (interval type-eq-decl nil allen_time_int nil)
+    (oi const-decl "bool" allen_time_int nil)
+    (con const-decl "bool" allen_time_int nil)
+    (s const-decl "bool" allen_time_int nil)
+    (di const-decl "bool" allen_time_int nil)
+    (si const-decl "bool" allen_time_int nil)
+    (fi const-decl "bool" allen_time_int nil)
+    (O const-decl "bool" allen_time_int nil)
+    (starts const-decl "bool" allen_time_int nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (= const-decl "bool" allen_time_int nil)
+    (finishes const-decl "bool" allen_time_int nil)
+    (overlaps const-decl "bool" allen_time_int nil)
+    (f const-decl "bool" allen_time_int nil)
+    (during const-decl "bool" allen_time_int nil)
+    (d const-decl "bool" allen_time_int nil)
+    (dur const-decl "bool" allen_time_int nil))
+   304513 45770 t shostak))
  (overlaps_contains 0
   (overlaps_contains-1 nil 3483792725 3483877952
    ("" (skosimp)
@@ -1897,6 +2728,11 @@
     (mi const-decl "bool" allen_time_int nil)
     (s const-decl "bool" allen_time_int nil))
    114 110 t shostak))
+ (overlapped_by_overlaps 0
+  (overlapped_by_overlaps-1 nil 3483880812 3483880832
+   ("" (use "overlaps_overlapped_by") nil nil) proved
+   ((overlaps_overlapped_by formula-decl nil allen_time_int nil)) 19482
+   20 t shostak))
  (overlapped_by_overlapped_by 0
   (overlapped_by_overlapped_by-1 nil 3483868486 3483877953
    ("" (skolem-typepred)
@@ -2468,7 +3304,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((meets const-decl "bool" allen_time_int nil)
     (finishes const-decl "bool" allen_time_int nil)
     (during const-decl "bool" allen_time_int nil)

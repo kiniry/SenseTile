@@ -197,6 +197,10 @@ overlaps_after :LEMMA o(A, B) AND >(B, C) IMPLIES
 overlaps_during:LEMMA o(A, B) AND d(B, C) IMPLIES 
                       o(A, C) OR d(A, C) OR s(A, C)
 
+
+overlaps_overlapped_by: LEMMA o(A, B) AND oi(B,C) IMPLIES 
+                              o(A,C) OR  oi(A,C) OR dur(A,C) OR con(A,C) OR A = C 
+
 overlaps_contains :LEMMA o(A, B) AND di(B, C) IMPLIES 
                         <(A, C) OR o(A, C) OR m(A, C) OR di(A, C) OR fi(A, C)
 
@@ -229,6 +233,10 @@ overlapped_by_during: LEMMA oi(A, B) AND d(B, C) IMPLIES
 
 overlapped_by_contains: LEMMA oi(A, B) AND di(B, C) IMPLIES  
                              >(A, C) OR oi(A, C) OR di(A, C) OR mi(A, C) OR si(A, C) 
+
+overlapped_by_overlaps: LEMMA o(A, B) AND oi(B,C) IMPLIES 
+                              o(A,C) OR  oi(A,C) OR dur(A,C) OR con(A,C) OR A = C 
+
 
 overlapped_by_overlapped_by: LEMMA oi(A, B) AND oi(B, C) IMPLIES  
                                   >(A, C) OR oi(A, C) OR mi(A, C) 
