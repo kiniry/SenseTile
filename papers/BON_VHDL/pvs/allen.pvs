@@ -339,21 +339,21 @@ started_by_contains: LEMMA si(A, B) AND di(B, C) IMPLIES di(A, C)
 started_by_overlaps: LEMMA si(A, B) AND o(B, C) IMPLIES 
                           di(A, C) OR fi(A, C) OR o(A, C) 
 
-s_started_by_t_overlapped_by_i:LEMMA si(A, B) AND oi(B, C) IMPLIES oi(A, C) 
+started_by_overlapped_by: LEMMA si(A, B) AND oi(B, C) IMPLIES oi(A, C) 
 
-s_started_by_t_meet_i:LEMMA si(A, B) AND m(B, C) IMPLIES 
+started_by_meet: LEMMA si(A, B) AND m(B, C) IMPLIES 
                       di(A, C) OR fi(A, C) OR o(A, C)
 
-s_started_by_t_meet_by_i:LEMMA si(A, B) AND mi(B, C) IMPLIES mi(A, C)
+started_by_meet_by: LEMMA si(A, B) AND mi(B, C) IMPLIES mi(A, C)
 
-s_started_by_t_starts_i:LEMMA si(A, B) AND s(B, C) IMPLIES 
+started_by_starts: LEMMA si(A, B) AND s(B, C) IMPLIES 
                           si(A, C) OR s(A, C) OR A = C
 
-s_started_by_t_started_by_i:LEMMA si(A, B) AND si(B, C) IMPLIES si(A, C)
+started_by_started_by: LEMMA si(A, B) AND si(B, C) IMPLIES si(A, C)
 
 started_by_finishes: LEMMA si(A, B) AND f(B, C) IMPLIES oi(A, C) %-)
 
-s_started_by_t_finished_by_i:LEMMA si(A, B) AND fi(B, C) IMPLIES di(A, C)
+started_by_finished_by: LEMMA si(A, B) AND fi(B, C) IMPLIES di(A, C)
 
 s_finishes_t_before_i:LEMMA f(A, B) AND <(B, C) IMPLIES <(A, C)
 
