@@ -318,12 +318,12 @@ starts_by_meet_by: LEMMA s(A, B) AND mi(B, C) IMPLIES mi(B, C)
 
 starts_by_starts: LEMMA s(A, B) AND s(B, C) IMPLIES s(B, C)
 
-s_starts_by_t_started_by_i:LEMMA s(A, B) AND si(B, C) IMPLIES 
+starts_by_started_by: LEMMA s(A, B) AND si(B, C) IMPLIES 
                            s(B, C) OR si(B, C) OR s = i
 
-s_starts_by_t_finishes_i:LEMMA s(A, B) AND f(B, C) IMPLIES d(A, C)
+starts_by_finishes: LEMMA s(A, B) AND f(B, C) IMPLIES d(A, C)
 
-s_starts_by_t_finished_by_i:LEMMA s(A, B) AND fi(B, C) IMPLIES 
+starts_by_finished_by :LEMMA s(A, B) AND fi(B, C) IMPLIES 
                             o(A, C) OR m(A, C) OR <(A, C)
 
 s_started_by_t_before_i:LEMMA si(A, B) AND <(B, C) IMPLIES 
@@ -412,8 +412,6 @@ s_finished_by_t_finishes_i:LEMMA fi(A, B) AND f(B, C) IMPLIES
                            f(A, C) OR fi(A, C) OR A = C
  
 s_finished_by_t_finished_by_i:LEMMA fi(A, B) AND fi(B, C) IMPLIES fi(B, C) 
-
-
 
 
 END allen_time_int
