@@ -11,7 +11,7 @@ BEGIN
   % which are awkward to use in PVS.
   interval: TYPE = 
             {i: [# bottom, top: time #] |
-                 i`bottom < i`top }
+                 i`bottom < i`top}
 
   s, t, i: VAR interval
 
@@ -40,10 +40,11 @@ BEGIN
   %                    ((t- >= s-) & (t+ < s+))
 %  during(t, s): bool = ((t`bottom > s`bottom) AND (t`top <= s`top)) OR
 %                       ((t`bottom >= s`bottom) AND (t`top < s`top))
-% by the definition of during  (from paper FIGURE 1. Interval Relation Defined by Endpoints),
-% we cannot prove all lemmas. That's the reason why we have changed this definition 
-% (see the figure :E 2. The Thirteen Possible Relationships.)
-% here is new definition of during
+
+% by the definition of during (from paper FIGURE 1. Interval Relation
+% Defined by Endpoints), we cannot prove all lemmas. That's the reason
+% why we have changed this definition (see the figure :E 2. The
+% Thirteen Possible Relationships.)  here is new definition of during
 %
 % NEW DEFINITION:
 %
