@@ -1,0 +1,17 @@
+vhdl_bon: THEORY
+BEGIN
+  architecture: TYPE
+  module: TYPE = set[architecture]
+  feature: TYPE
+  class: TYPE = set[feature]
+
+  |-: [module, class -> bool]
+  extract: [module -> class]
+  generate: [class -> module]
+
+  M: VAR module
+  C: VAR class
+
+  is_a_refinement: LEMMA extract(generate(C)) = C
+
+END vhdl_bon
