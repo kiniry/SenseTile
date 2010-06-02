@@ -1,0 +1,149 @@
+itl1   : THEORY
+
+  BEGIN
+
+IMPORTING  itl0
+
+  f0, f1, f2, f3: VAR form
+
+   p, p1, p2, p3: VAR pform
+
+BiImpDiImpDi: LEMMA 
+ Bi(f0 => f1) => (Di(f0) => Di(f1))
+
+DiImpDi: LEMMA 
+ |-(f0 => f1) implies |-(Di(f0) => Di(f1))
+
+BiImpBiRule: LEMMA 
+ |-(f0 => f1) implies |-(Bi(f0) => Bi(f1))
+
+DiEqvDi: LEMMA 
+ |-(f0 == f1) implies |-(Di(f0) == Di(f1))
+
+NotDiFalse: LEMMA 
+ -Di(F)
+
+BiEqvBi: LEMMA 
+ |-(f0 == f1) implies |-(Bi(f0) == Bi(f1))
+
+LeftChopChopImpChopRule: LEMMA 
+ |-((f0^f1) => f1) implies |-((f0^f1^f2) => (f1^f2))
+
+AndChopCommute: LEMMA 
+ ((f0 /\ f2)^f1) == ((f2 /\ f0)^f1)
+
+ChopAndCommute: LEMMA  
+ (f0^(f1 /\ f2)) == (f0^(f2 /\ f1))
+
+AndChopAndCommute: LEMMA 
+ ((f0 /\ f1)^(f2 /\ f3)) == ((f1 /\ f0)^(f3 /\ f2))
+
+ImpDi: LEMMA 
+ f0  => Di(f0)
+
+DiState: LEMMA 
+ Di(p) == p
+
+StateChop: LEMMA 
+ (p^f0) => p
+
+StateChopExportA: LEMMA 
+ ((p /\ f0)^f1) => p
+
+BiAndChopImport: LEMMA 
+ (Bi(f0) /\ (f2^f1)) => ((f0 /\ f2)^f1)
+
+StateAndChopImport: LEMMA 
+ (p /\ (f0^f1)) => (p /\ f0)^f1
+
+StateAndChop: LEMMA 
+ ((p /\ f0)^f1) == (p /\ (f0^f1))
+
+StateAndDi: LEMMA 
+ (p /\ Di(f0)) == Di(p /\ f0)
+
+DiNext: LEMMA 
+ Di(O(f0)) == O(Di(f0))
+
+DiNextState: LEMMA 
+ Di(O(p)) == O(p)
+
+StateImpBiGen: LEMMA 
+ |-(p => f0) implies |-(p => Bi(f0))
+
+StateAndEmptyChop: LEMMA 
+ ((p /\  empty)^f0) == (p /\ f0)
+
+StateAndNextChop: LEMMA 
+ ((p /\ O(f0))^f1) == (p /\ O(f0^f1))
+
+StateAndChopImpChopRule: LEMMA 
+ |-((p /\ f0) => f2) implies |-((p /\ (f0^f1)) => (f2^f1))
+
+StateImpChopEqvChop: LEMMA 
+ |-(p => (f0 == f2)) implies |-(p => ((f0^f1) == (f2^f1)))
+
+ChopEqvStateAndChop: LEMMA 
+ |-(f0 == (p /\ f2)) implies |-((f0^f1) == (p /\ (f2^f1)))
+
+DiIntro: LEMMA 
+ f0  => Di(f0)
+
+BiElim: LEMMA 
+ Bi(f0) => f0
+
+StateEqvBi: LEMMA 
+ p == Bi(p)
+
+DiNotEqvNotBi: LEMMA 
+ Di(-f0) == -Bi(f0)
+
+DiEqvNotBiNot: LEMMA 
+ Di(f0) == -Bi(-f0)
+
+BiContraPosImpDist: LEMMA 
+ Bi(-f1 => -f0) => (Bi(f0) => Bi(f1))
+
+BiImpDist: LEMMA 
+ Bi(f0 => f1)  => (Bi(f0) => Bi(f1))
+
+IfChopEqvRule: LEMMA 
+ |-(f0 == ife(p,f2,f3)) implies |-((f0^f1) == ife(p,(f2^f1), (f3^f1)))
+
+EmptyOrChopEqv: LEMMA 
+ ((empty \/ f0)^f1) == (f1 \/ (f0^f1))
+
+EmptyOrNextChopEqv: LEMMA  
+ ((empty \/ O(f0))^f1) == (f1 \/ O(f0^f1))
+
+EmptyOrChopImpRule: LEMMA 
+ |-(f0 => (empty \/ f2)) implies |-((f0^f1) => (f1 \/ (f2^f1)))
+
+EmptyOrChopEqvRule: LEMMA 
+ |-(f0 == (empty \/ f2)) implies |-((f0^f1) == (f1 \/ (f2^f1)))
+
+EmptyOrNextChopImpRule: LEMMA 
+ |-(f0 => (empty \/ O(f2))) implies |-((f0^f1) => (f1 \/ O(f2^f1)))
+
+EmptyOrNextChopEqvRule: LEMMA 
+ |-(f0 == (empty \/ O(f2))) implies |-((f0^f1) == (f1 \/ O(f2^f1)))
+
+ChopEmptyOrImpRule: LEMMA 
+ |-(f1 => (empty \/ f2)) implies |-((f0^f1) => (f0 \/ (f0^f2)))
+
+ChopImpChop: LEMMA 
+ |-(f0 => f2) and |-(f1 => f3) implies |-((f0^f1) => (f2^f3))
+
+ChopEqvChop: LEMMA 
+ |-(f0 == f2) and |-(f1== f3) implies |-((f0^f1) == (f2^f3))
+
+NotChopEqvYieldsNot: LEMMA 
+ -(f0^f1) == (f0 |>  -f1)
+
+StateYieldsEqv: LEMMA 
+ (p  => (f0 |> f1)) == ((p /\ f0) |> f1)
+
+ChopAndNotChopImp: LEMMA 
+ ((f0^f1) /\ -(f0^f2)) => (f0^(f1 /\ -f2))
+
+  END itl1

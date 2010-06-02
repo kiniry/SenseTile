@@ -1,0 +1,121 @@
+itlsynextra  : THEORY
+
+  BEGIN
+
+importing itlsyntax 
+
+  env            : VAR SState  
+  sigma          : VAR Interval
+
+  f0,f1,f2       : VAR form;
+  i,m,x1,n       : VAR nat;   
+  l              : VAR ninterval 
+  pe1            : VAR pexp
+  e1,e2,e3,e4    : VAR exp
+  va             : VAR (vr?);
+
+  sv0 : (vr?) = vr(0,static);
+  v0  : (vr?) = vr(0,state);
+  
+%%%% frequently used abbreviations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  <=(f1,f2)         : form = f2 => f1;
+
+  TE(va,f1)         : form = -FA(va,-f1);
+
+  T                 : pform = (cst(0)=cst(0));
+
+  F                 : pform = -T;
+
+  O(f1)             : form = skip^f1;
+
+  ==(f1,f2)         : form = (f1 => f2) /\ (f2 => f1);
+
+  <=(e1,e2)         : form = (e1 < e2) \/ (e1 = e2);
+
+  >(e1,e2)          : form = (e2 < e1);
+
+  >=(e1,e2)         : form = (e1 > e2) \/ (e1 = e2);
+
+  /=(e1,e2)         : form = -(e1=e2);              
+
+  more              : form = O(T);
+
+  empty             : form = -more;
+
+  inf               : form = T^F
+
+  finite            : form = -inf
+
+  fmore             : form = more /\ finite
+
+  isinf(f1)         : form = f1 /\ inf
+
+  isfin(f1)         : form = f1 /\ finite
+
+  <>(f1)            : form = finite^f1;
+
+  [](f1)            : form = -(<>(-f1));
+
+  wO(f1)            : form = -(O(-f1));
+
+  |>(f1,f2)         : form = -(f1^(-f2));
+
+  Di(f1)            : form = f1^T
+
+  Bi(f1)            : form = -(Di(-f1))
+
+  Da(f1)            : form = finite^f1^T
+
+  Ba(f1)            : form = -(Da(-f1))
+
+  Dm(f1)            : form = <>(more /\ f1)
+
+  Bm(f1)            : form = -(Dm(-f1))
+
+  ife(f0, f1, f2)   : form = (f0 /\ f1) \/ (-f0 /\ f2)
+
+  ifo(f0, f1)       : form = ife(f0, f1, empty)
+
+  fin(f1)           : form = [](empty => f1)
+
+  sfin(f1)          : form = -(fin(-f1))
+
+  halt(f1)          : form = [](empty == f1)
+
+  shalt(f1)         : form = -(halt(-f1))
+
+  keep(f1)          : form = Ba(skip => f1)
+
+  keepn(f1)         : form = Di(skip /\ f1)
+
+  assign(e1,e2)     : form = nx(e1) = e2
+
+  equal(e1,e2)      : form = [](e1 = e2)
+
+  tas(e1, e2)       : form = finite /\ (fin(e1) = e2)
+
+  gets(e1, e2)      : form = keep(tas(e1, e2))
+
+  stable(e1)        : form = gets(e1,e1)
+
+  padded(e1)        : form = (stable(e1)^skip) \/ empty
+
+  pta(e1, e2)       : form = tas(e1, e2) /\ padded(e1)
+
+  goodindex(e1)     : form = keep(tas(e1,e1) \/ tas(e1,e1+cst(1)))
+
+  intlen(e1)        : form = TE(v0, (v0 = cst(0)) /\ 
+                                    gets(v0,v0+cst(1)) /\ tas(v0,e1))
+
+  omega(f1)         : form = isinf(chopstar(isfin(f1)))
+
+  fstar(f1)         : form = (isfin(chopstar(isfin(f1))) \/ 
+                             isfin(chopstar(isfin(f1)))^isinf(f1))
+
+  while(f0, f1)     : form = chopstar(f0 /\ f1) /\ fin(-f0) 
+
+  repeat(f0, f1)    : form = f0^while(-f1, f0)
+
+
+  END itlsynextra

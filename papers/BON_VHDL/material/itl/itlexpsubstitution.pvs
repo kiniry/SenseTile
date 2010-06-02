@@ -1,0 +1,51 @@
+itlexpsubstitution  : THEORY
+
+  BEGIN
+
+importing itlhelplemma
+
+ env            : VAR SState
+ sigma          : VAR Interval
+ e1             : VAR exp
+ pe             : VAR pexp
+ x,v2           : VAR (vr?)
+ x1             : VAR Value
+ val            : VAR IIValue
+
+
+%%%% definition of syntactic substitution of  variable by %%%%%%%%%%%%%%%%%%%
+%%%% an expression containing no temporal constructs %%%%%%%%%%%%%%%%%%%%%%%%
+su(e1, x, pe) : RECURSIVE exp = 
+    CASES e1 OF
+     cst(n)                   : cst(n),
+     vr(v,t)                  : if v(x)=v and t(x)=t 
+                                then pe else vr(v,t) endif,
+     ivr(iv,it,iexp)          : ivr(iv,it,su(iexp, x, pe)),
+     one(oe,ot)               : one(su(oe,x,pe),ot),
+     two(te1,te2,tt)          : two(su(te1,x,pe),su(te2,x,pe),tt),
+     four(fe1,fe2,fe3,fe4,ft) : four(su(fe1,x,pe),su(fe2,x,pe),
+                                     su(fe3,x,pe),su(fe4,x,pe),ft)
+     ENDCASES
+   MEASURE sizeexp(e1)    
+
+
+%%%% syntactic subsitution of a  variable by an expression containing %%%%%%%
+%%%% no temporal constructs is the same as semantic substitution %%%%%%%%%%%%
+l_sub_exp : LEMMA 
+    if t(x)=state then 
+      E(su(e1,x,pe))(env,sigma)=
+      E(e1)(env,
+            (# infinite:=infinite(sigma),
+               len:=len(sigma),
+               seq:=(lambda (i : index[State](sigma)):
+                   (PROJ_1(seq(sigma)(i)) with 
+                     [(v(x)) := E(pe)(env,sub(sigma,i,i))],
+                    PROJ_2(seq(sigma)(i))) ) #))
+    else
+      semstable(pe) implies
+        E(su(e1,x,pe))(env,sigma) =
+        E(e1)( (PROJ_1(env) with [(v(x)) := E(pe)(env,sigma)],
+                PROJ_2(env)), sigma)
+    endif
+  
+  END itlexpsubstitution

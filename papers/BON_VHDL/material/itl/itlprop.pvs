@@ -1,0 +1,112 @@
+itlprop  : THEORY
+
+  BEGIN
+
+  importing itlproofsystem
+
+  f0, f1, f2, f3 : VAR form
+
+
+%%%% some usefull propositional lemma's and rewrite rules %%%%%%%%%%%%%%%%%%%
+  Prop1  : LEMMA (f0 \/ f0) => f0
+
+  Prop2  : LEMMA f1 => (f0 \/ f1)
+
+  Prop3  : LEMMA (f0 \/ f1) => (f1 \/ f0)
+
+  Prop4  : LEMMA (f1 => f3) => (f0 \/ f1) => (f0 \/ f3)
+
+  Prop5  : LEMMA f0 == --f0
+
+  Prop6  : LEMMA -(f0 \/ f1) == (-f0 /\ -f1)
+
+  Prop7  : LEMMA f0 == f0
+
+  Prop8  : LEMMA f0 => T
+
+  Prop9  : LEMMA -(f0 /\ f1) == (-f0 \/ -f1)
+
+  Prop10 : LEMMA f0 => f0
+
+  Prop11 : LEMMA f0 => (f0 \/ f1)
+
+  Prop12 : LEMMA F == -T
+
+  Prop13 : LEMMA (f0 /\ f1) => f0
+
+  Propeq0  : LEMMA |-(f0 /\ f1)           = ( |-(f0) and |-(f1)) 
+
+  Propeq1  : LEMMA |-(f0 /\ f1 => f2)     = |-(f0 => (f1 => f2))
+
+  Propeq2  : LEMMA |-(f0 /\ f1 => f2)     = |-(f1 => (f0 => f2))
+
+  Propeq3  : LEMMA |-((f0 /\ -f1) => f2)  = |-(f0 => (f1 \/ f2))
+
+  Propeq4  : LEMMA |-(f0 => (f1 \/ f2))   = |-((-f2) => (f0 => f1))
+
+  Propeq5  : LEMMA |-(-f0 => -f1)         = |-(f1 => f0)
+
+  Propeq6  : LEMMA |-(f0 => (-f1 => -f2)) = |-(f0 => (f2 => f1))  
+
+  Propeq7  : LEMMA |-((-f0) == (-f1))     = |-(f0 == f1)
+
+  Propeq8  : LEMMA |-(f0 == f1)           = |-(f1 == f0)
+
+  Propeq9  : LEMMA |-(f0 => f1)           = |-(-f0 \/ f1)
+
+  Propeq10 : LEMMA |-(T => f0)            = |-(f0)
+
+  Propeq11 : LEMMA |-((f0 /\ -f1) => f2)  = |-(f0 => (f2 \/ f1))
+
+  Propeq12 : LEMMA |-(f0 /\ f1 => f2)     = |-(f0 /\ f1 => (T /\ f2))
+
+  Propeq13 : LEMMA |-(F)                  = |-(-T)
+
+  Propimp0  : LEMMA |-(f0) or |-(f1) implies |-(f0 \/ f1)  
+
+  Propimp1  : LEMMA |-(f0=>f1) and |-(f2=>f1) implies |-((f0 \/ f2)=>f1) 
+
+  Propimp2  : LEMMA |-(f0=>f1) and |-(f1=>f0) implies |-(f0==f1)
+
+  Propimp3  : LEMMA |-(f0==f1) implies ( |-(f0=>f1) and |-(f1=>f0)) 
+
+  Propimp4  : LEMMA |-(f1==f0) and |-(f2=>f1) implies |-(f2=>f0)
+
+  Propimp5  : LEMMA |-(f0=>f1) and |-(f0=>f2) implies |-(f0=>(f1 /\ f2))
+
+  Propimp6  : LEMMA |-(f0=>(f1 /\ f2)) implies ( |-(f0=>f1) and |-(f0=>f2))  
+
+  Propimp7  : LEMMA |-(f1==f0) and |-(f2==f1) implies |-(f2==f0)
+
+  Propimp8  : LEMMA |-(f0==f1) and |-(f2=>-f0) implies |-(f2=>-f1)
+
+  Propimp9  : LEMMA |-(f0=>f1) and |-(f1=>f2) implies |-(f0=>f2)
+
+  Propimp10 : LEMMA |-(f0==f1) and |-(f0=>f2) implies |-(f1=>f2)
+
+  Propimp11 : LEMMA |-(f0==f1) and |-(f2==f3) implies 
+                    |-((f0 \/ f2)==(f1 \/ f3))
+
+  Propimp12 : LEMMA |-(f0=>f1) implies |-((f2=>f0)=>(f2=>f1))  
+
+  Propimp13 : LEMMA |-(f0=>(f1=>f2)) and |-(f0=>(f2=>f1)) implies
+                   |-(f0=>(f1==f2))  
+
+  Propimp14 : LEMMA |-(f0=>(f1==f2)) implies
+                   ( |-(f0=>(f1=>f2)) and |-(f0=>(f2=>f1))) 
+
+  Propimp15 : LEMMA |-(f0==f1) implies |-((f0 /\ f2)==(f1 /\ f2))            
+
+  Propimp16 : LEMMA |-(f0==f1) and |-(f2==f3) implies 
+                   |-((f0 /\ f2)==(f1 /\ f3))
+
+  Propimp17 : LEMMA |-(f0=>f1) and |-(f2 => f3) implies 
+                      |-((f0 /\ f2)=>(f1 /\ f3))
+
+  Propimp18 : LEMMA |-(f1==f2) and |-((f3 /\ f1) == f0) implies
+                      |-((f3 /\ f2) == f0)
+
+  Propimpeq1 : LEMMA |-(f0 == f1)  implies ( |-(f0) = |-(f1))
+  
+
+  END itlprop

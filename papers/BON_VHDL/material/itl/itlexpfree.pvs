@@ -1,0 +1,20 @@
+itlexpfree  : THEORY
+
+  BEGIN
+
+importing itlsemanticstype
+
+%%%% set of free  variables in an expresion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+freeexp(e:exp) : RECURSIVE setof[(vr?)] =
+    CASES e OF
+     cst(n)                   : emptyset,
+     vr(v,t)                  : singleton(vr(v,t)),
+     ivr(iv,it,iexp)          : freeexp(iexp),
+     one(oe,ot)               : freeexp(oe),
+     two(te1,te2,tt)          : union(freeexp(te1),freeexp(te2)),
+     four(fe1,fe2,fe3,fe4,ft) : union(union(freeexp(fe1), freeexp(fe2)),
+                                      union(freeexp(fe3), freeexp(fe4)))
+    ENDCASES
+   MEASURE sizeexp(e) 
+
+  END itlexpfree

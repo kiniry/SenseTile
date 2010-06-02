@@ -1,0 +1,70 @@
+itlproofsystem : THEORY
+  BEGIN
+  
+  IMPORTING itlhelplemma
+  
+  f0, f1, f2, f3 : VAR form
+  p              : VAR pform                                    
+  
+%%%% the axioms %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ChopAssoc: LEMMA  ((f0^f1)^f2) == (f0^(f1^f2)) 
+
+OrChopImp: LEMMA  ((f0 \/ f1)^f2) => ((f0^f2) \/ (f1^f2))   
+
+ChopOrImp: LEMMA  (f0^(f1 \/ f2)) => ((f0^f1) \/ (f0^f2))  
+
+EmptyChop: LEMMA  (empty^f1) == f1 
+
+ChopEmpty: LEMMA  (f1^empty) == f1 
+
+BiBoxChopImpChop: LEMMA  
+  (Bi(f0 => f1) /\ [](f2 => f3)) => ((f0^f2) => (f1^f3)) 
+ 
+StateImpBi: LEMMA  p => Bi(p) 
+
+NextImpNotNextNot: LEMMA  O(f0) => -O(-f0) 
+
+KeepnowImpNotKeepnowNot: LEMMA keepn(f0) => -keepn(-f0)  
+
+BoxInduct: LEMMA (f0 /\ [](f0 => wO(f0))) => [](f0)     
+
+InfChop: LEMMA ((f0 /\ inf)^f1) == (f0 /\ inf)  
+
+ChopStarEqv: LEMMA chopstar(f0) == (empty \/ ((f0 /\ more)^chopstar(f0)))  
+
+ChopstarInduct: LEMMA (inf /\ f0 /\ [](f0 => (f1 /\ fmore)^f0)) => chopstar(f1)
+
+
+%%%% the rules
+MP: LEMMA |-(f0 => f1) AND |-(f0) IMPLIES |-(f1)  
+
+BoxGen: LEMMA |-(f0) IMPLIES |-([](f0))  
+
+BiGen: LEMMA |-(f0) IMPLIES |-(Bi(f0))  
+
+%%%% basic axioms/rewrite rules %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+SkipFinite: LEMMA skip => finite
+
+FiniteChopTrue: LEMMA finite^T
+
+InfEqvSkipChopInf: LEMMA  inf == (skip^inf)
+
+FiniteChopFiniteEqvFinite: LEMMA (finite^finite) == finite
+
+FiniteAndMoreEqvFiniteChopSkip: LEMMA (finite /\ more) == (finite^skip)
+
+FiniteAndMoreEqvSkipChopFinite: LEMMA (finite /\ more) == (skip^finite)
+
+SkipChopFiniteImpFinite: LEMMA (skip^finite) => finite
+
+FiniteChopSkipImpFinite: LEMMA (finite^skip) => finite
+
+FiniteChopInfEqvInfinite : LEMMA (finite^inf) == inf
+
+EmptyFinite: LEMMA empty => finite
+
+InfChopFiniteEqvInf : LEMMA (inf^finite) == inf
+
+InfChopInfEqvInf : LEMMA (inf^inf) == inf
+
+  END itlproofsystem

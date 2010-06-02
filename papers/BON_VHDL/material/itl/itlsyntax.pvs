@@ -1,0 +1,46 @@
+itlsyntax : THEORY
+
+  BEGIN
+
+importing itlformsemanticsfixpoints
+
+  e1,e2,e3,e4    : VAR exp
+
+  f1,f2          : VAR form;
+
+
+  =(e1,e2)          : form = etwo(e1,e2,teq);
+
+  <(e1,e2)          : form = etwo(e1,e2,tle);
+
+  ifeq(e1,e2,e3,e4) : exp  = four(e1,e2,e3,e4,teqce);
+
+  ifle(e1,e2,e3,e4) : exp  = four(e1,e2,e3,e4,tlece);
+
+  -(f1)             : form = fone(f1,tnot);
+
+  chopstar(f1)      : form = fone(f1,tcs);
+
+  /\(f1,f2)         : form = ftwo(f1,f2,tand);
+
+  \/(f1,f2)         : form = ftwo(f1,f2,tor);
+
+  =>(f1,f2)         : form = ftwo(f1,f2,timpl); 
+
+  ^(f1,f2)          : form = ftwo(f1,f2,tchop);
+  
+  +(e1,e2)          : exp  = two(e1,e2,tplus);
+
+  -(e1,e2)          : exp  = two(e1,e2,tmin);
+
+  *(e1,e2)          : exp  = two(e1,e2,ttimes);
+
+%  div(e1,e2)        : exp  = two(e1,e2,tdiv);
+
+%  mod(e1,e2)        : exp  = two(e1,e2,tmod);
+
+  nx(e1)            : exp  = one(e1,tnext);
+
+  fin(e1)           : exp  = one(e1,tfin);
+
+  END itlsyntax

@@ -1,0 +1,138 @@
+itlformsemanticsfixpoints  : THEORY
+
+  BEGIN
+
+importing itlformsemanticsnew
+%%%%
+Infinterval : TYPE = {sigma:Interval| infinite(sigma)}
+  l              : VAR ninterval 
+  val            : VAR IIValue
+  env,env1,env2  : VAR SState
+  sigma,sigma1,sigma2   : VAR Interval 
+  E1,E2,E3,E4    : VAR IValue;
+  F1,F2          : VAR Iform;
+  f1,f2          : VAR form;
+  i, m           : VAR nat;
+  va             : VAR (vr?) 
+  x1,x2          : VAR Value  
+
+  F0,F3    : VAR Iform;
+
+
+%%%% 
+
+csinner(env,sigma,l,F1) : bool =
+  seq(l)(0) = 0 and
+         ( (not infinite(l) and 
+            ( (infinite(sigma) or seq(l)(len(l)) < len(sigma)
+              ) and 
+               F1(env,suf(sigma, seq(l)(len(l))))
+            )  
+           ) or 
+           (infinite(l) and infinite(sigma)) ) and 
+         (FORALL (i: nat): i<len(l) or infinite(l) implies
+             (infinite(l) or infinite(sigma) or seq(l)(i+1)<len(sigma)) and
+             seq(l)(i) < seq(l)(i + 1) and
+             F1(env,sub(sigma, seq(l)(i), seq(l)(i + 1)))
+         )
+
+semcsold(F1)(env,sigma) : bool = 
+  (len(sigma)=0 and not infinite(sigma)) or 
+ (EXISTS l : csinner(env,sigma,l,F1) ) 
+
+
+
+Cpoint(F0:Iform,F1:Iform,env:SState,sigma:Infinterval,n:nat) 
+   : RECURSIVE nat = 
+       (if n=0 then 0
+        else 
+%let cp: {i:nat|true:bool} = Cpoint(F0,F1,env,sigma,n-1) in
+             epsilon(lambda (x:nat) : 
+               (exists (m:nat):
+%          index[State](suf(sigma,cp))):
+        F0(env,sub(sigma,Cpoint(F0,F1,env,sigma,n-1),
+                         m+Cpoint(F0,F1,env,sigma,n-1))) and m>0 
+        and F1(env,suf(sigma,m+Cpoint(F0,F1,env,sigma,n-1))) 
+                           and x=m+Cpoint(F0,F1,env,sigma,n-1)))
+        endif)
+        MEASURE (LAMBDA (F0:Iform,F1:Iform,env:SState,sigma:Infinterval,n:nat): n)
+
+%l_cpoint_1 : LEMMA 
+% infinite(sigma) and 
+% (FORALL (s: sta): F1(s) IMPLIES ((semfmore AND F0) ^^ F1)(s))
+% and F1(env,sigma)
+% implies 
+% (forall (i:nat): F1(env,suf(sigma,Cpoint(F0, F1, env, sigma, i)))
+%         implies F1(env,suf(sigma,Cpoint(F0, F1, env, sigma, i+1))))
+%
+%l_cpoint_2 : LEMMA 
+% infinite(sigma) and 
+%  (FORALL (s: sta): F1(s) IMPLIES ((semfmore AND F0) ^^ F1)(s))
+%  and F1(env,sigma)
+%  implies
+%   (forall (i:nat): F1(env,suf(sigma,Cpoint(F0, F1, env, sigma, i))))
+%
+%l_cpoint_3 : LEMMA 
+% infinite(sigma) and
+%   (FORALL (s: sta): F1(s) IMPLIES ((semfmore AND F0) ^^ F1)(s)) 
+%    and F1(env,sigma) implies
+%    ((Cpoint(F0,F1,env,sigma,m)<Cpoint(F0,F1,env,sigma,m+1)) and
+%    F0(env,sub(sigma,Cpoint(F0,F1,env,sigma,m),Cpoint(F0,F1,env,sigma,m+1))))
+
+
+
+l_help: LEMMA
+       (FORALL (i: nat): i<len(l) or infinite(l) implies
+                   seq(l)(i) < seq(l)(i + 1)) and (infinite(l) or len(l) > 0)
+        implies
+          (FORALL (i: nat): (i<len(l) or infinite(l)) and i>=1 implies
+             seq(l)(1) < seq(l)(i + 1))
+
+l_test_1 : LEMMA 
+  Ts(F1,m)(env,sigma) = 
+   ( (m=0 and len(sigma)=0 and not infinite(sigma)) or 
+     (EXISTS l : m>0 and len(l)=m-1 and not infinite(l) and 
+       csinner(env,sigma,l,F1)
+     )
+   )
+
+p, p1, p2: VAR pred[sta]
+predicate_transformer: TYPE = [pred[sta]->pred[sta]]
+  pp: VAR predicate_transformer
+
+ismono(pp):bool =
+    FORALL p1,p2: p1 <= p2 IMPLIES pp(p1) <= pp(p2)
+
+
+  
+l_ismono: LEMMA ismono(LAMBDA F2 : ((lambda (env,sigma): F1(env,sigma) and semfmore(env,sigma))^^F2))
+  
+l_test_4 : LEMMA  infinite(sigma) implies
+ Csinu(F1)(env,sigma) =
+ ( (len(sigma)=0 and not infinite(sigma)) or 
+   (EXISTS l :  infinite(l) and
+     csinner(env,sigma,l,F1) 
+   )
+ ) 
+
+l_old_new_1 : LEMMA (semcsold(F1)(env,sigma) = 
+                      (Csf(F1)(env,sigma) or Csinu(F1)(env,sigma)))
+
+l_iterate_1: LEMMA m>0 implies
+  (iterate((LAMBDA F2 :  
+      (lambda (env1,sigma1) :
+      ((lambda (env,sigma): F1(env,sigma) and 
+                            semfmore(env,sigma))^^F2)(env1,sigma1) or 
+      semempty(env1,sigma1) or 
+      (lambda (env,sigma): F1(env,sigma) and 
+                          semmore(env,sigma))(env1,sigma1)
+     )
+    )
+  , m)((lambda (env1,sigma1):FALSE))(env2,sigma2) =
+  (exists (i:nat): i<=m  and Ts(F1, i)(env2,sigma2)))
+
+l_Csf_CsfMu1: LEMMA CsfMu(F1) = Csf(F1)
+
+      
+
+  END itlformsemanticsfixpoints

@@ -1,0 +1,30 @@
+itlfoproofsystem : THEORY
+
+  BEGIN
+
+  IMPORTING itlformsubstitution
+
+  f0,f1, f2      : VAR form
+  pe             : VAR pexp
+  v1             : VAR (vr?)
+
+ForallSub: LEMMA not member(v1,bound(f1)) and 
+     (t(v1)=static implies |-(stable(pe))) and
+     (forall (z:(vr?)): 
+        member(z,freeexp(pe)) implies not member(z,bound(f1))) 
+     implies
+          |-(FA(v1,f1) => suform(f1,v1,pe))
+
+ForallImplies : LEMMA not member(v1,freeform(f1)) implies
+          |-(FA(v1,f1=>f2) => (f1 => FA(v1,f2))) 
+
+ExistsChopRight : LEMMA not member(v1,freeform(f2)) implies
+          |-(TE(v1,f1^f2) => (TE(v1,f1)^f2))
+
+ExistsChopLeft : LEMMA not member(v1,freeform(f1)) implies
+          |-(TE(v1,f1^f2) => (f1^TE(v1,f2)))
+
+%%%% the rule
+ForallGen: LEMMA |-(f0) implies |-(FA(v1,f0))  
+
+  END itlfoproofsystem

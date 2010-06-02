@@ -1,0 +1,10 @@
+%%%% definition of datatype formula %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+form : DATATYPE 
+ BEGIN
+  importing exp,formtypes  
+  FA(va: (vr?), fa : form)            : FA?       : form
+  skip                                : skip?     : form
+  etwo(ee1,ee2: exp, et: ettype)      : etwo?     : form  
+  fone(fo: form, fot: fotype)         : fone?     : form 
+  ftwo(ft1,ft2: form, ftt: fttype)    : ftwo?     : form                  
+ END form

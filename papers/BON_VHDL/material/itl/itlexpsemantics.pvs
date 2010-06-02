@@ -1,0 +1,83 @@
+itlexpsemantics  : THEORY
+
+  BEGIN
+
+importing itlsemanticstype
+
+%divs : LIBRARY = "/home/soltemp/software/pvs/lib/bitvectors"
+%importing divs@div, divs@mod
+
+  env            : VAR SState
+  sigma          : VAR Interval 
+  E1,E2,E3,E4    : VAR IValue
+  pe             : VAR pexp
+  i              : VAR nat
+  vrt            : VAR vrtype
+  ot             : VAR otype
+  tt             : VAR ttype
+  ft             : VAR ftype
+  e1             : VAR exp
+  x,x1,x2,x3,x4  : VAR Value  
+
+  varsem(i,vrt,env,sigma) : Value =
+   cond vrt=state -> PROJ_1(seq(sigma)(0))(i),
+   else           -> PROJ_1(env)(i)
+   endcond
+
+  ivarsem(i,vrt,x1,env,sigma) : Value =
+   cond vrt=state -> PROJ_2(seq(sigma)(0))(i,x1),
+   else           -> PROJ_2(env)(i,x1)
+   endcond   
+
+  onesem(E1,ot,env,sigma) : Value =
+  cond ot=tnext -> if infinite(sigma) or 1<=len(sigma) 
+                   then E1(env,suf(sigma,1)) 
+                   else epsilon(lambda x1 : false)
+                   endif,
+  else          -> if infinite(sigma) 
+                   then epsilon(lambda x1 : false) 
+                   else E1(env,suf(sigma,len(sigma)))
+                   endif
+  endcond
+ 
+  twosem(x1,x2,tt) : Value =
+   cond  tt=tplus  -> x1 + x2,
+         tt=tmin   -> x1 - x2,
+    else           -> x1 * x2
+%        tt=tdiv   -> if x2 /=0 then div(x1,x2) 
+%                     else epsilon(lambda x :  false )
+%                     endif, 
+%   else           -> if x2 /=0 then mod(x1,x2) 
+%                     else epsilon(lambda x1 :  false)
+%                     endif
+   endcond
+   
+  foursem(x1,x2,x3,x4,ft) : Value =
+   cond ft=teqce -> if x1=x2 then x3 else x4 endif,
+   else          -> if x1<x2 then x3 else x4 endif
+   endcond
+    
+%%%% semantics of expression %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  E(e : exp)(env,sigma) : RECURSIVE Value =
+     CASES e OF
+     cst(n)            : n,
+     vr(v,t)           : varsem(v,t,env,sigma),
+     ivr(iv,it,iexp)   : ivarsem(iv,it,E(iexp)(env,sigma),env,sigma),   
+     one(oe,ot)        : onesem(E(oe),ot,env,sigma),
+     two(te1,te2,tt)   : twosem(E(te1)(env,sigma),E(te2)(env,sigma),tt),
+     four(fe1,fe2,fe3,fe4,ft): foursem(E(fe1)(env,sigma),
+                                       E(fe2)(env,sigma),
+                                       E(fe3)(env,sigma),
+                                       E(fe4)(env,sigma), ft)     
+     ENDCASES
+   MEASURE sizeexp(e)     
+
+%%%% semantic definition of a stable(exp), i.e. expression doesn't change %%%
+%%%% within an interval %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+semstable(e1) : bool = 
+   (forall env: (forall sigma: 
+      (forall (i:index[State](sigma)) : 
+         E(e1)(env,suf(sigma,i)) = E(e1)(env,sub(sigma,0,0))
+   )))
+
+  END itlexpsemantics

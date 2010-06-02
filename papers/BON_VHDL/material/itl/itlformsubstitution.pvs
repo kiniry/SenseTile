@@ -1,0 +1,62 @@
+itlformsubstitution  : THEORY
+
+  BEGIN
+
+importing itlexpsubstitution
+
+ f1             : VAR form 
+ env            : VAR SState
+ sigma          : VAR Interval
+ pe             : VAR pexp
+ x,v1,v2        : VAR (vr?)
+ x1             : VAR Value
+ val            : VAR IIValue  
+
+%%%% definition of syntactic substitution of a  variable by %%%%%%%%%%%%%%%%%
+%%%% an expression containing no temporal constructs %%%%%%%%%%%%%%%%%%%%%%%%
+suform(f1, x, pe) : RECURSIVE form =
+ CASES f1 OF
+     FA(va,fa)        : FA(va,suform(fa,x,pe)),
+     skip             : skip,
+     etwo(ee1,ee2,et) : etwo(su(ee1,x,pe),su(ee2,x,pe),et), 
+     fone(fo,fot)     : fone(suform(fo,x,pe),fot),
+     ftwo(ft1,ft2,ft) : ftwo(suform(ft1,x,pe),suform(ft2,x,pe),ft)
+     ENDCASES
+   MEASURE sizeform(f1) 
+
+%%%% syntactic substitution of a  variable by an expression containing %
+%%%% no temporal contructs is the same as semantic substitution provided %%%%
+%%%% this  variable is not bound in f and this expression doesn't %%%%%%
+%%%% contain bound variables of f %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  l_sub_form : LEMMA 
+  not member(x, bound(f1)) and 
+  (forall (z:(vr?)): 
+    member(z,freeexp(pe)) implies not member(z,bound(f1)))  
+  implies 
+   if t(x)=state then
+    M(suform(f1, x, pe))(env,sigma) = 
+    M(f1)(env,
+      (# infinite:=infinite(sigma),
+         len:=len(sigma),
+         seq:=(lambda (i : index[State](sigma)):
+             (PROJ_1(seq(sigma)(i)) with [(v(x))
+                := E(pe)(env,sub(sigma,i,i))],
+              PROJ_2(seq(sigma)(i))) ) #))
+   else
+    semstable(pe) implies
+     M(suform(f1,x,pe))(env,sigma) =
+     M(f1)( (PROJ_1(env) with [(v(x)) := E(pe)(env,sigma)],
+             PROJ_2(env)), sigma)
+   endif
+  
+
+%%%% a bound  variable of f can be renamed to a "fresh" bound variable %%%%%%
+  l_ren : LEMMA 
+   not member(v1,bound(f1)) and
+   not member(v2,bound(f1)) and 
+   v(v2) /= v(v1) and t(v1)=t(v2) and not member(v2,freeform(f1)) 
+   implies 
+    M(FA(v1,f1))(env,sigma) = M(FA(v2,suform(f1,v1,v2)))(env,sigma)
+  
+
+  END itlformsubstitution

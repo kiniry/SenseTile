@@ -1,0 +1,19 @@
+itlformfree  : THEORY
+
+  BEGIN
+
+importing itlexpfree
+
+
+%%%% set of free  variables in a formula %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+freeform(f:form) : RECURSIVE setof[(vr?)] =
+    CASES f OF
+     FA(va,fa)         : difference(freeform(fa), singleton(va)),
+     skip              : emptyset,
+     etwo(ee1,ee2,et)  : union(freeexp(ee1), freeexp(ee2)),
+     fone(fo,for)      : freeform(fo), 
+     ftwo(ft1,ft2,ftt) : union(freeform(ft1), freeform(ft2))
+     ENDCASES
+   MEASURE sizeform(f) 
+
+  END itlformfree

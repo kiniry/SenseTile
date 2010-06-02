@@ -1,0 +1,20 @@
+itlformbound  : THEORY
+
+  BEGIN
+
+importing itlsemanticstype
+  
+%%%% set of bound  variables in a formula %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+bound(f:form) : RECURSIVE setof[(vr?)] =
+    CASES f OF
+     FA(va,fa)         : union(singleton(va),bound(fa)),
+     skip              : emptyset,
+     etwo(ee1,ee2,et)  : emptyset,
+     fone(fo,fot)      : bound(fo),
+     ftwo(ft1,ft2,ftt) : union(bound(ft1), bound(ft2))
+     ENDCASES
+   MEASURE sizeform(f)   
+
+  
+
+  END itlformbound

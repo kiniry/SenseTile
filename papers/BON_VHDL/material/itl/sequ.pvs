@@ -1,0 +1,56 @@
+sequ[T: TYPE]: THEORY
+  BEGIN
+
+%%%% definition of an (in)finite sequence %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Sequ: TYPE = [# infinite : bool,
+                      len: nat,
+                      seq: ARRAY[{i:nat | infinite or i<=len} -> T] #]
+
+%%%% definition of an infinite sequence %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Infsequ: TYPE = { tau0: Sequ | infinite(tau0) }
+
+%%%% definition of a finite sequence %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Finsequ: TYPE = { tau0: Sequ | not infinite(tau0) }
+  
+%%%% sequ is same as Sequ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  sequ: TYPE = Sequ
+  
+  tau : VAR sequ
+  m   : VAR nat
+
+index(tau0:sequ) : TYPE = {i:nat | infinite(tau0) or i<=len(tau0)}
+
+index2(tau0:sequ, m0:index(tau0)) : TYPE =
+  {i:nat |  m0 <= i AND (infinite(tau0) OR i <= len(tau0)) }
+
+%%%% definition of subsequence %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  sub(tau0: sequ, m0: index(tau0), n0: index2(tau0,m0)) : sequ =
+   LET lsum = n0-m0 IN
+   (# infinite:=false ,
+      len :=  lsum,
+      seq := (LAMBDA (x: {i:nat|i<=lsum} ) : seq(tau0)(x + m0)) 
+   #)
+
+%%%% definition of suffix of a sequence  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  suf(tau0 : sequ, m0 : index(tau0)) : sequ =
+    if infinite(tau0) then
+    (# infinite:= infinite(tau0),
+       len :=  len(tau0), 
+       seq := (LAMBDA (x: {i:nat| infinite(tau0) or i<=len(tau0)}) : seq(tau0)(x + m0)) 
+    #) else
+   Let lsum = len(tau0)-m0 IN 
+   (# infinite:= infinite(tau0),
+       len :=  lsum, 
+       seq :=  (Lambda (x: {i:nat|  i<=lsum }): seq(tau0)(x + m0))
+    #)
+    endif
+
+%%%% suffix of a sequence at point 0 is the sequence itself %%%%%%%%%%%%%%%%%
+  l_suf: LEMMA  suf(tau, 0) = tau 
+
+%%%% subsequence from point 0 to end of sequence is the sequence itself %%%%%
+  l_sub: LEMMA not infinite(tau) implies  sub(tau, 0, len(tau))= tau 
+   
+  END sequ
+
+

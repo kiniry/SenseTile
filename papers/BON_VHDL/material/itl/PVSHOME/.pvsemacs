@@ -1,0 +1,81 @@
+;(load "/home/charity/acau/elisp/pvs-hi")
+(setq font-lock-support-mode 'lazy-lock-mode)
+;(pvs-dont-write-bin-files)
+(defun scroll-down-in-place () (interactive) (scroll-down 1) (previous-line 1))
+(defun scroll-up-in-place   () (interactive) (scroll-up 1) (next-line 1))
+(setq line-number-mode t)
+(setq make-backup-files nil)
+(setq load-path (cons (expand-file-name "~/elisp") load-path))
+;(load "rc_tcl_pipe")
+;(transient-mark-mode 1)
+;(load "mouse-19")
+;;(setq visible-bell t)
+;(setq vc-initial-comment t)
+(setq find-file-visit-truename t)
+;(require 'disp-table)
+;(require 'iso-insert)
+;(require 'iso-syntax)
+(standard-display-european t)
+(add-hook 'find-file-hooks 'turn-on-font-lock)
+;
+;(if (equal window-system 'x)
+;    (setq baud-rate 153600))
+;
+(add-hook 'shell-mode-hook
+          (function
+           (lambda ()
+            (modify-syntax-entry ?. "_")
+            (process-kill-without-query (get-buffer-process "*shell*")))))
+
+
+;   (global-set-key [f1] 'show-next-buffer) ; T1
+;   (global-set-key [f1] 'bury-buffer)
+   (global-set-key [S-f1] 'kill-this-buffer)
+   (global-set-key [C-f1] 'bury-buffer)
+   (global-set-key [f2] 'goto-line)     ; T2
+   (global-set-key [S-f2] 'what-line)
+   (global-set-key [f3] 'rmail) ; T3
+   (global-set-key [f4] 'gnus) ; T4
+   (global-set-key [f5] 'shell)         ; T5
+;   (global-set-key [S-f5] 'shell1)         ; shift-T5
+   (global-set-key [f6] 'shrink-window) ; T6
+   (global-set-key [f7] 'enlarge-window) ; T7
+   (global-set-key [f8] 'compile) ; T8
+   (global-set-key [S-f8] 'ipl) ; T8
+   (global-set-key [f9] 'delete-char) ; T9
+;   (global-set-key [DEL] 'delete-char) 
+
+   (global-set-key [f21] 'other-window) ; R1 Pause
+   (global-set-key [f22] 'call-last-kbd-macro) ; R2 PrSc
+;   (global-set-key [S-f22] ')
+
+   (global-set-key [f25] 'query-replace-regexp)   ; R5 /
+
+ 
+   (global-set-key [f24] 'tags-search) ; R4 =
+   (global-set-key [f26] 'tags-query-replace) ; R6 *
+   (global-set-key [f27] 'beginning-of-buffer) ; R7 Home
+   (global-set-key [S-f28] 'scroll-down-in-place) ; R8 up
+   (global-set-key [f29] 'scroll-down)  ; R9 PgUp
+   (global-set-key [S-f30] 'beginning-of-line) ; R10 left
+   (global-set-key [f31] 'recenter)     ; R11
+   (global-set-key [S-f32] 'end-of-line) ; R12 right
+   (global-set-key [f33] 'end-of-buffer) ; R13 End
+   (global-set-key [S-f34] 'scroll-up-in-place) ; R14 down
+   (global-set-key [f35] 'scroll-up)    ; R15 PgDn
+
+   (global-set-key [f11] 'server-edit)  ; L1  Stop
+   (global-set-key [f12] 'repeat-complex-command) ; L2  Again
+   (global-set-key [f14] 'advertised-undo) ; L4 Undo
+   (global-set-key [f16] 'copy-region-as-kill) ; L6 Copy
+   (global-set-key [f18] 'yank) ; L8 Paste
+   (global-set-key [f19] 'exchange-point-and-mark) ; L9 Find
+   (global-set-key [f20] 'kill-region)  ; L10 Cut
+   (global-set-key [S-f24] 'comment-80)
+   (global-set-key [S-f25] 'comment-under)
+   (global-set-key [kp-subtract] 'call-last-kbd-macro)
+   (global-set-key [kp-add] 'todo)
+   (global-set-key [insert] 'overwrite-mode)
+
+;(global-set-key [kp-add] 'todo)                 ; +
+(global-set-key [insert] 'overwrite-mode)       ; Ins

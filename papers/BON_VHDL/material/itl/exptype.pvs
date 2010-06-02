@@ -1,0 +1,10 @@
+exptype  : THEORY
+
+  BEGIN
+
+  otype  : TYPE = {tnext,tfin}
+  ttype  : TYPE = {tplus,tmin,ttimes}
+  ftype  : TYPE = {teqce,tlece}
+  vrtype : TYPE = {state,static}
+
+  END exptype

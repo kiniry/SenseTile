@@ -1,0 +1,137 @@
+itlhelplemma  : THEORY
+
+  BEGIN
+
+  importing itlsynextra,itlformfree,itlformbound
+
+  env            : VAR SState  
+  sigma          : VAR Interval
+
+  f0,f1,f2       : VAR form;
+  i,m,n          : VAR nat; 
+  x1             : VAR Value  
+  l              : VAR ninterval 
+  pe,pe1         : VAR pexp
+  p              : VAR pform
+  e1,e2,e3,e4    : VAR exp
+  va             : VAR (vr?);
+  val            : VAR IIValue
+
+
+%%%% the semantics of expressions without temporal constructs depends %%%%%%%
+%%%% only on the first state of the interval %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+l_pexp_E : LEMMA E(pe)(env,sigma) = E(pe)(env,sub(sigma,0,0))
+ 
+%%%% the semantics of formulae without temporal constructs depends %%%%%%%%%%
+%%%% only on the first state of the interval %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+l_pform_M : LEMMA M(p)(env,sigma) = M(p)(env,sub(sigma,0,0))
+
+%%%% if a  variable doesn't occur in an expression then the value %%%%%%
+%%%% of this expression doesn't depend on this  variable %%%%%%%%%%%%%%%
+l_var_exp : LEMMA  
+   not member(va,freeexp(e1)) implies 
+   if t(va)=state then 
+    (forall val: infinite(val)=infinite(sigma) and len(val)=len(sigma)
+           implies 
+    E(e1)(env,sigma)=
+    E(e1)(env,(# infinite:=infinite(sigma),
+                 len:=len(sigma),
+                 seq:=(lambda (i:index[State](sigma)) :
+                        ( PROJ_1(seq(sigma)(i)) with [(v(va)):= seq(val)(i)],
+                          PROJ_2(seq(sigma)(i))) ) #)))
+   else
+    (forall x1 : 
+        E(e1)(env,sigma) = E(e1)( (PROJ_1(env) with [(v(va)):=x1],
+                                   PROJ_2(env)), sigma))
+   endif
+
+%%%% if a  variable doesn't occur in a formula then the truth %%%%%%%%%%%%%%%
+%%%% of this formula doesn't depend on this variable %%%%%%%%%%%%%%%%%%%%%%%%
+l_var_form : LEMMA 
+  not member(va,freeform(f1)) 
+  implies 
+  if t(va)=state then
+    (forall val: infinite(val)=infinite(sigma) and len(val)=len(sigma)
+           implies
+      M(f1)(env,sigma)=
+      M(f1)(env,(# infinite:=infinite(sigma),
+                  len:=len(sigma),
+                  seq:=(lambda (i: index[State](sigma)):
+                         (PROJ_1(seq(sigma)(i)) with 
+                         [(v(va)):=seq(val)(i)],
+                          PROJ_2(seq(sigma)(i))) ) #)))
+  else
+   (forall x1 : 
+        M(f1)(env,sigma) = M(f1)( (PROJ_1(env) with [(v(va)):=x1],
+                                   PROJ_2(env)), sigma))
+  endif
+
+%%%% semantics of some abbreviations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ l_T:  LEMMA  M(T)(env,sigma)
+
+ l_more: LEMMA M(more)(env,sigma) = 
+   ((not infinite(sigma) and len(sigma) > 0) OR infinite(sigma))
+
+ l_empty: LEMMA M(empty)(env,sigma) = 
+   (not infinite(sigma) and len(sigma) = 0)
+  
+ l_inf: LEMMA M(inf)(env,sigma) = (infinite(sigma))
+
+ l_finite: LEMMA M(finite)(env,sigma) = (not infinite(sigma))
+
+ l_fmore : LEMMA M(fmore)(env,sigma) = 
+      (not infinite(sigma) and len(sigma) > 0)
+
+ l_always: LEMMA
+           M([](f1))(env,sigma) = 
+           (FORALL (i: index[State](sigma)):  M(f1)(env,suf(sigma, i)))
+
+ l_wnext: LEMMA
+    (Forall (i:index[State](sigma)):
+        M(wO(f1))(env,suf(sigma, i)) =
+          ( ( (infinite(sigma) or i<len(sigma)) and
+              M(f1)(env,suf(sigma, i + 1)) 
+            ) 
+            or 
+            (not infinite(sigma) and i=len(sigma))
+          )
+     )
+    
+
+ l_nx_exp : LEMMA
+   E(nx(e1))(env,sigma) = 
+     if infinite(sigma) or 1 <= len(sigma) then
+       E(e1)(env, suf(sigma, 1))
+     else 
+       epsilon(lambda (x1 : Value): false)
+     endif
+
+ l_tas : LEMMA  t(va)=state implies 
+           M(tas(va,e1))(env,sigma) = 
+            (not infinite(sigma) and
+             PROJ_1(seq(sigma)(len(sigma)))(v(va))=E(e1)(env,sigma))
+
+ l_getsinc1 : LEMMA  t(va)=state implies 
+          M(gets(va,va+cst(1)))(env,sigma) = 
+           (forall (i:index[State](sigma)):   
+            PROJ_1(seq(sigma)(i))(v(va))=PROJ_1(seq(sigma)(0))(v(va))+i)
+ 
+ l_intlen : LEMMA not member(v0,freeexp(e1)) implies
+        M(intlen(e1))(env,sigma)= 
+    (len(sigma) = E(e1)(env,sigma) and not infinite(sigma))
+
+%%%% semstable needed for substitution can be expressed as a formula %%%%%%%%
+  l_stable_1: LEMMA
+      M(stable(pe1))(env,sigma) =
+      (FORALL (i: index[State] (sigma)):
+                 E(pe1)(env, suf(sigma, i))
+                     = E(pe1)(env, sub(sigma, 0, 0))) 
+
+  l_stable: LEMMA
+      |-(stable(pe1)) = semstable(pe1)
+
+
+  END itlhelplemma

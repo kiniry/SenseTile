@@ -1,0 +1,180 @@
+(setq *rewrite-msg-off* t)
+
+(defstep propeq1 (&optional (fnums *)) (apply (rewrite "Propeq1" fnums))
+"|-(f0 /\\ f1 => f2) = |-(f0 => (f1 => f2))"
+"Using |-(f0 /\\ f1 => f2) = |-(f0 => (f1 => f2))")
+(defstep propeq2 (&optional (fnums *)) (apply (rewrite "Propeq2" fnums))
+"|-(f0 /\\ f1 => f2) = |-(f1 => (f0 => f2))"
+"Using |-(f0 /\\ f1 => f2) = |-(f1 => (f0 => f2))")
+(defstep propeq4 (&optional (fnums *)) (apply (rewrite "Propeq4" fnums))
+"|-(f0 => (f1 \\/ f2)) = |-((-f2) => (f0 => f1))"
+"Using |-(f0 => (f1 \\/ f2)) = |-((-f2) => (f0 => f1))")
+(defstep propeq5 (&optional (fnums *)) (apply (rewrite "Propeq5" fnums))
+"|-(-f0 => -f1) = |-(f1 => f0)"
+"Using |-(-f0 => -f1) = |-(f1 => f0)")
+(defstep propeq6 (&optional (fnums *)) (apply (rewrite "Propeq6" fnums))
+"|-(f0 => (-f1 => -f2)) = |-(f0 => (f2 => f1))"
+"Using |-(f0 => (-f1 => -f2)) = |-(f0 => (f2 => f1))")
+(defstep propeq7 (&optional (fnums *)) (apply (rewrite "Propeq7" fnums))
+"|-((-f0) == (-f1)) = |-(f0 == f1)"
+"Using |-((-f0) == (-f1)) = |-(f0 == f1)")
+(defstep propeq8 (&optional (fnums *)) (apply (rewrite "Propeq8" fnums))
+"|-(f0 == f1) = |-(f1 == f0)"
+"Using |-(f0 == f1) = |-(f1 == f0)")
+(defstep propeq10 (&optional (fnums *)) (apply (rewrite "Propeq10" fnums))
+"|-(T => f0) = |-(f0)"
+"Using |-(T => f0) = |-(f0)")
+(defstep propeq11 (&optional (fnums *)) (apply (rewrite "Propeq11" fnums))
+"|-((f0 /\\ -f1) => f2) = |-(f0 => (f2 \\/ f1))"
+"Using |-((f0 /\\ -f1) => f2) = |-(f0 => (f2 \\/ f1))")
+
+(defstep propimp1 (&optional (fnums *)) (apply (rewrite "Propimp1" fnums))
+"(f0 => f1) and (f2 => f1) implies ((f0 \/ f2) => f1)"
+"Using (f0 => f1) and (f2 => f1) implies ((f0 \\/ f2) => f1)")
+(defstep propimp2 (&optional (fnums *)) (apply (rewrite "Propimp2" fnums))
+"(f0 => f1) and (f1 => f0) implies (f0 == f1)"
+"Using (f0 => f1) and (f1 => f0) implies (f0 == f1)")
+(defstep propimp5 (&optional (fnums *)) (apply (rewrite "Propimp5" fnums))
+"(f0 => f1) and (f0 => f2) implies (f0 => (f1 /\\ f2))"
+"Using (f0 => f1) and (f0 => f2) implies (f0 => (f1 /\\ f2))")
+(defstep propimp12 (&optional (fnums *)) (apply (rewrite "Propimp12" fnums))
+"(f0 => f1) implies ((f2 => f0) => (f2 => f1))"
+"Using (f0 => f1) implies ((f2 => f0) => (f2 => f1))")
+
+(defstep prop2 (&optional (fnums *)) (apply (rewrite "Prop2" fnums))
+"f1 => (f0 \\/ f1)"
+"Using f1 => (f0 \\/ f1)")
+(defstep prop5 (&optional (fnums *)) (apply (rewrite "Prop5" fnums))
+"(f0 == --f0)"
+"Using (f0 == --f0)")
+(defstep prop7 (&optional (fnums *)) (apply (rewrite "Prop7" fnums))
+"(f0 == f0)"
+"Using (f0 == f0)")
+(defstep prop10 (&optional (fnums *)) (apply (rewrite "Prop10" fnums))
+"f0 => f0"
+"Using f0 => f0")
+(defstep prop11 (&optional (fnums *)) (apply (rewrite "Prop11" fnums))
+"f0 => (f0 \\/ f1)"
+"Using f0 => (f0 \\/ f1)")
+
+(defstep chopassoc (&optional (fnums *)) (apply (rewrite "ChopAssoc" fnums))
+"((f0^f1)^f2) == (f0^(f1^f2))"
+"Using ((f0^f1)^f2) == (f0^(f1^f2))")
+(defstep orchopimp (&optional (fnums *)) (apply (rewrite "OrChopImp" fnums))
+"((f0 \\/ f1)^f2) => ((f0^f2) \\/ (f1^f2))"
+"Using ((f0 \\/ f1)^f2) => ((f0^f2) \\/ (f1^f2))")
+(defstep choporimp (&optional (fnums *)) (apply (rewrite "ChopOrImp" fnums))
+"(f0^(f1 \\/ f2)) => ((f0^f1) \\/ (f0^f2)) "
+"Using (f0^(f1 \\/ f2)) => ((f0^f1) \\/ (f0^f2))")
+(defstep chopempty (&optional (fnums *)) (apply (rewrite "ChopEmpty" fnums))
+"(f1^empty) == f1"
+"Using (f1^empty) == f1")
+(defstep emptyfinite (&optional (fnums *)) (apply (rewrite "EmptyFinite" fnums))
+"empty => finite"
+"Using empty => finite")
+
+(defstep leftchopimpchop (&optional (fnums *)) (apply (rewrite "LeftChopImpChop" fnums))
+"(f0 => f1) implies ((f0^f2) => (f1^f2))"
+"Using (f0 => f1) implies ((f0^f2) => (f1^f2))")
+(defstep rightchopimpchop (&optional (fnums *)) (apply (rewrite "RightChopImpChop" fnums))
+"((f0 => f1)) implies ((f2^f0) => (f2^f1))"
+"Using ((f0 => f1)) implies ((f2^f0) => (f2^f1))")
+(defstep leftchopeqvchop (&optional (fnums *)) (apply (rewrite "LeftChopEqvChop" fnums))
+"(f0 == f1) implies ((f0^f2) == (f1^f2))"
+"Using (f0 == f1) implies ((f0^f2) == (f1^f2))")
+(defstep rightchopeqvchop (&optional (fnums *)) (apply (rewrite "RightChopEqvChop" fnums))
+"((f0 == f1)) implies ((f2^f0) == (f2^f1))"
+"Using ((f0 == f1)) implies ((f2^f0) == (f2^f1))")
+
+(defstep propimp3 () (apply (forward-chain "Propimp3"))
+"(f0 == f1) implies ((f0 => f1) and (f1 => f0))"
+"Using (f0 == f1) implies ((f0 => f1) and (f1 => f0))")
+(defstep propimp4 () (apply (forward-chain "Propimp4"))
+"(f1 == f0) and (f2 => f1) implies (f2 => f0)"
+"Using (f1 == f0) and (f2 => f1) implies (f2 => f0)")
+(defstep propimp6 () (apply (forward-chain "Propimp6"))
+"(f0 => (f1 /\\ f2)) implies ((f0 => f1) and (f0 => f2))"
+"Using (f0 => (f1 /\ f2)) implies ((f0 => f1) and (f0 => f2))")
+(defstep propimp7 () (apply (forward-chain "Propimp7"))
+"(f1 == f0) and (f2 == f1) implies (f2 == f0)"
+"Using (f1 == f0) and (f2 == f1) implies (f2 == f0)")
+(defstep propimp8 () (apply (forward-chain "Propimp8"))
+"(f0 == f1) and (f2 => -f0) implies (f2 => -f1)"
+"Using (f0 == f1) and (f2 => -f0) implies (f2 => -f1)")
+(defstep propimp9 () (apply (forward-chain "Propimp9"))
+"(f0 => f1) and (f1 => f2) implies (f0 =>f2)"
+"Using (f0 => f1) and (f1 => f2) implies (f0 =>f2)")
+(defstep propimp10 () (apply (forward-chain "Propimp10"))
+"(f0 == f1) and (f0 => f2) implies (f1 =>f2)"
+"Using (f0 == f1) and (f0 => f2) implies (f1 =>f2)")
+(defstep propimp14 () (apply (forward-chain "Propimp14"))
+"(f0 => (f1 == f2)) implies ((f0 => (f1 => f2)) and (f0 => (f2 =>f1)))"
+"Using (f0=>(f1 == f2)) implies ((f0=>(f1 => f2)) and (f0=>(f2=> f1)))")
+
+(defstep mp () (apply (forward-chain "MP"))
+"|-(f0 => f1) AND |-(f0) IMPLIES |-(f1)"
+"Using |-(f0 => f1) AND |-(f0) IMPLIES |-(f1)")
+(defstep boxgen () (apply (forward-chain "BoxGen"))
+"|-(f0) IMPLIES |-([](f0))"
+"Using |-(f0) IMPLIES |-([](f0))")
+(defstep bigen () (apply(forward-chain "BiGen"))
+"|-(f0) IMPLIES |-(Bi(f0))"
+"Using |-(f0) IMPLIES |-(Bi(f0))")
+
+
+(defstep state (type &optional (fnums *)) (then  (EXPAND "subterm" fnums (1
+2 3 4 9)) (typepred type) (prop))
+"expand subterm and then prop"
+"expand subterm and then prop")
+
+(defstep sem () (then (auto-rewrite-theory "itlsynextra") (auto-rewrite-theory "itlsyntax") (auto-rewrite-theory "itlformsemanticsnew") (auto-rewrite-theory "itlexpsemantics") (do-rewrite))
+"giving the semantics"
+"giving the semantics")
+
+(defstep ordi () (then (auto-rewrite-theory "sordinals_type") (do-rewrite))
+"rewriting sordinals"
+"rewriting sordinals")
+
+(defstep dsem () (then (auto-rewrite-theory "ditlsynextra")  (auto-rewrite-theory "ditldformsemantics") (auto-rewrite-theory "ditldexpsemantics") (do-rewrite))
+"giving the semantics"
+"giving the semantics")
+
+
+(defstep emptychop ()
+  (else (rewrite "EmptyChop") (forward-chain "EmptyChop"))
+""
+"Using EmptyChop axiom")
+(defstep biboxchopimpchop ()
+  (else (rewrite "BiBoxChopImpChop") (forward-chain "BiBoxChopImpChop"))
+""
+"Using BiBoxChopImpChop axiom")
+(defstep stateimpbi ()
+  (else (rewrite "StateImpBi") (forward-chain "StateImpBi"))
+""
+"Using StateImpBi axiom")
+(defstep nextimpnotnextnot ()
+  (else (rewrite "NextImpNotNextNot") (forward-chain "NextImpNotNextNot"))
+""
+"Using NextImpNotNextNot axiom")
+(defstep keepnowimpnotkeepnownot ()
+  (else (rewrite "KeepnowImpNotKeepnowNot") (forward-chain "KeepnowImpNotKeepnowNot"))
+""
+"Using KeepnowImpNotKeepnowNot axiom")
+(defstep boxinduct ()
+  (else (rewrite "BoxInduct") (forward-chain "BoxInduct"))
+""
+"Using BoxInduct axiom")
+(defstep chopstareqv ()
+  (else (rewrite "ChopStarEqv") (forward-chain "ChopStarEqv"))
+""
+"Using ChopStarEqv axiom")
+(defstep infchop ()
+  (else (rewrite "InfChop") (forward-chain "InfChop"))
+""
+"Using InfChop axiom")
+
+(defstep forallgen ()
+  (else (rewrite "ForallGen") (forward-chain "ForallGen"))
+""
+"Using ForallGen rule")
+

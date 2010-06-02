@@ -1,0 +1,9 @@
+top  : THEORY
+
+  BEGIN
+
+  importing itl1,itlfoproofsystem
+
+  
+
+  END top

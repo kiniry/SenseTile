@@ -1,0 +1,172 @@
+itl0   : THEORY
+
+  BEGIN
+
+  IMPORTING  itlprop
+
+  f0, f1, f2, f3 : VAR form
+
+   p, p1, p2, p3 : VAR pform
+
+
+NextChop : LEMMA 
+ (O(f0)^f1) == O(f0^f1)
+
+BiChopImpChop : LEMMA 
+ Bi(f0=>f1)  =>  (f0^f2) => (f1^f2)
+
+BoxChopImpChop : LEMMA 
+ [](f0=>f1) =>  (f2^f0) => (f2^f1)  
+
+LeftChopImpChop : LEMMA 
+ |-(f0 => f1) implies |-((f0^f2) => (f1^f2)) 
+
+RightChopImpChop : LEMMA 
+ |-(f0 => f1) implies |-((f2^f0) => (f2^f1))
+
+OrChopEqv : LEMMA 
+ ((f0 \/ f1)^f2) == ((f0^f2) \/ (f1^f2)) 
+
+ChopOrEqv : LEMMA 
+ (f0^(f1 \/ f2)) == ((f0^f1) \/ (f0^f2))
+
+OrChopImpRule : LEMMA 
+ |-(f0 => (f1 \/ f2)) implies |-(f0^f3 => ((f1^f3) \/ (f2^f3)))
+
+ChopOrImpRule : LEMMA 
+ |-(f0 => (f1 \/ f2)) implies |-(f3^f0 => ((f3^f1) \/ (f3^f2)))
+
+LeftChopEqvChop : LEMMA 
+ |-(f0 == f1) implies |-((f0^f2) == (f1^f2))
+
+RightChopEqvChop : LEMMA 
+ |-(f0 == f1) implies |-((f2^f0) == (f2^f1))
+
+OrChopEqvRule : LEMMA 
+ |-(f0 == (f1 \/ f2)) implies |-((f0^f3) == ((f1^f3) \/ (f2^f3)))
+
+ChopOrEqvRule: LEMMA 
+ |-(f1 == (f2 \/ f3)) implies |-((f0^f1) == ((f0^f2) \/ (f0^f3)))
+
+NextImpNext : LEMMA 
+ |-(f0 => f1) implies |-(O(f0) => O(f1))
+
+NextImpDist : LEMMA 
+ O(f0 => f1) => (O(f0) => O(f1))
+
+AndChopImp : LEMMA 
+ ((f0 /\ f1)^f2) => ((f0^f2) /\ (f1^f2)) 
+
+ChopAndImp : LEMMA 
+ (f0^(f1 /\ f2)) => ((f0^f1) /\ (f0^f2))
+
+ChopImpDiamond : LEMMA 
+ (isfin(f0)^f1) => <> f1
+
+NowImpDiamond : LEMMA 
+ f1 => <>f1 
+
+NextDiamondImpDiamond : LEMMA 
+ O(<> f1) => <>f1
+
+DiamondNextImpDiamond : LEMMA
+ <>(O(f1)) => <>f1
+
+NextEqvNext : LEMMA 
+ |-(f0 == f1) implies |-(O(f0) == O(f1))
+
+BoxImpNowAndWeakNext : LEMMA 
+ []f1 => (f1 /\ wO([]f1))
+
+BoxImpBoxRule : LEMMA 
+ |-(f0 => f1) implies |-([](f0) => [](f1))
+
+BoxImpDist : LEMMA 
+ [](f0 => f1) => ([]f0 =>[]f1)
+
+DiamondEmptyEqvFinite : LEMMA 
+ (<> empty) == finite
+
+NextAndNextImpNextRule: LEMMA 
+ |-((f0 /\ f1) => f2) implies |-((O(f0) /\ O(f1)) => O(f2))
+
+NextAndNextEqvNextRule: LEMMA 
+ |-((f0 /\ f1) ==  f2) implies |-((O(f0) /\ O(f1)) == O(f2))
+
+WeakNextEqvWeakNext : LEMMA 
+ |-(f0 == f1) implies |-(wO(f0) == wO(f1))
+
+DiamondImpDiamond   : LEMMA 
+ |-(f0 => f1) implies |-(<>(f0) => <>(f1))
+
+DiamondEqvDiamond   : LEMMA 
+ |-(f0 == f1) implies |-(<>(f0) == <>(f1))
+
+BoxEqvBox           : LEMMA 
+ |-(f0 == f1) implies |-([](f0) == [](f1))
+
+BoxAndBoxImpBoxRule : LEMMA 
+ |-((f0 /\ f1) => f2) implies |-(([](f0) /\ [](f1)) => [](f2))
+
+BoxAndBoxEqvBoxRule : LEMMA 
+ |-((f0 /\ f1) == f2) implies |-(([](f0) /\ [](f1)) == [](f2))
+
+BoxAndBoxEqvBoxAnd : LEMMA
+ ([](f0) /\ [](f1)) == [](f0 /\ f1)
+
+DiamondOrDiamondEqvDiamondOr: LEMMA
+ (<>(f0) \/ <>(f1)) == <>(f0 \/ f1)
+
+%changed
+BoxIntro            : LEMMA 
+ |-(f0 => f1) and |-(f0 => wO(f0)) implies |-(f0 => []f1)
+
+%changed
+DiamondIntro        : LEMMA 
+ |-(f1 => f0) and |-(O(f0) => f0) implies |-(<>f1 => f0)
+
+%changed
+NextLoop            : LEMMA 
+ |-(f0 => O(f0)) implies |-(f0 => []f0)
+
+% sound ??
+%NextContra          : LEMMA 
+% ((f0 /\ -f1) => (O(f0) /\ -O(f1))) implies 
+% (f0 => f1)
+
+% sound ??
+%WeakNextBoxInduct   : LEMMA 
+% (wO([]f0) => f0) implies f0
+
+% changed
+EmptyNextInducta    : LEMMA 
+ |-(finite) and |-(empty => f0) and |-(O(f0) => f0) implies |-(f0)
+
+% changed
+EmptyNextInductb    : LEMMA 
+ |-(finite) and
+ |-(empty=>(f0 => f1)) and 
+ |-(O(f0 => f1) => (f0 => f1)) implies
+ |-(f0 => f1)
+
+FinImpFin           : LEMMA 
+ |-(f0 => f1) implies |-(fin(f0) => fin(f1))
+
+FinEqvFin           : LEMMA 
+ |-(f0 == f1) implies |-(fin(f0) == fin(f1))
+
+FinAndFinImpFinRule : LEMMA 
+ |-((f0 /\ f1) => f2) implies |-((fin(f0) /\ fin(f1)) => fin(f2))  
+
+FinAndFinEqvFinRule : LEMMA 
+ |-((f0 /\ f1) == f2) implies |-((fin(f0) /\ fin(f1)) == fin(f2))
+
+% sound ?
+%HaltImpHalt         : LEMMA 
+% (f0 => f1) implies (halt(f0) => halt(f1))
+
+HaltEqvHalt         : LEMMA 
+ |-(f0 == f1) implies |-(halt(f0) == halt(f1))
+
+
+  END itl0

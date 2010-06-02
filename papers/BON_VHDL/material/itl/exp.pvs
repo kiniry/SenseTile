@@ -1,0 +1,11 @@
+exp : DATATYPE
+  BEGIN 
+   importing exptype
+   cst(n: int)                                 : cst?  : exp
+   vr(v: nat, t: vrtype)                       : vr?   : exp
+   ivr(iv: nat, it: vrtype, iexp: exp)         : ivr?  : exp
+   one(oe: exp, ot: otype)                     : one?  : exp
+   two(te1,te2: exp, tt: ttype)                : two?  : exp
+   four(fe1,fe2,fe3,fe4: exp, ft: ftype)       : four? : exp
+  END exp
+

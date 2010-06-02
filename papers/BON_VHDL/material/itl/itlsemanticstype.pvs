@@ -1,0 +1,89 @@
+itlsemanticstype  : THEORY
+
+  BEGIN
+
+importing itlstate,sequ[State],sequ[nat],sequ[Value],form 
+
+%%%% definition of (in)finite) interval i.e. a sequence of states %%%%%%%%%%%
+  Interval    : TYPE = sequ[State]
+
+%%%% definition of (in)finite list of chopping points %%%%%%%%%%%%%%%%%%%%%%%
+  ninterval    : TYPE = sequ[nat]
+  
+%%%% definition of (in)finite list of values %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  IIValue     : TYPE = sequ[Value]
+
+%%%% model for interpreting formulae and expressions
+  sta : TYPE = [SState,Interval]
+
+%%%% semantic function for formulae %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Iform        : TYPE = [sta -> bool]
+
+%%%% semantic function for expressions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  IValue       : TYPE = [sta -> Value]
+
+%%%% some freq. used constants %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%state     : upto(1) = 0
+%static    : upto(1) = 1
+%tnext     : upto(1) = 0
+%tfin      : upto(1) = 1
+%tplus     : upto(4) = 0
+%tmin      : upto(4) = 1
+%ttimes    : upto(4) = 2
+%tdiv      : upto(4) = 3
+%tmod      : upto(4) = 4
+%teqce     : upto(1) = 0
+%tlece     : upto(1) = 1
+%teq       : upto(1) = 0
+%tle       : upto(1) = 1
+%tnot      : upto(1) = 0
+%tcs       : upto(1) = 1
+%tand      : upto(3) = 0
+%tor       : upto(3) = 1
+%timpl     : upto(3) = 2
+%tchop     : upto(3) = 3 
+
+ncst : TYPE = {c:(cst?) | n(c)>=0}
+
+%%%% definition of expressions containing no temporal constructs %%%%%%%%%%%%
+  pexp         : TYPE = 
+     { e: exp | forall (oexp1: exp) : 
+                  forall (i: otype) : not subterm(one(oexp1,i), e)}
+
+%%%%% definition of formulae containing no temporal contructs %%%%%%%%%%%%%%%
+  pform        : TYPE = 
+     { f: form | not subterm(skip,f) and
+                 (forall (fone?_var: (fone?)) : 
+                  subterm(fone?_var,f) implies fot(fone?_var)=tnot) and
+                 (forall (ftwo?_var: (ftwo?)) : 
+                  subterm(ftwo?_var,f) implies ftt(ftwo?_var)/=tchop) and
+                 (forall (e?_v: (etwo?)):
+                    subterm(e?_v,f) implies
+                    (forall (e1:exp) : 
+                       forall (i: otype) :
+                       not subterm(one(e1,i),ee1(e?_v)) and
+                       not subterm(one(e1,i),ee2(e?_v)))) } 
+
+
+%%%% lenght of an expression (needed for recursive definition) %%%%%%%%%%%%%%
+  sizeexp(e:exp) : nat =
+   reduce_nat( 
+    (LAMBDA (i:int): 1 ),                        %cst(n) 
+    (LAMBDA (i:nat, j:vrtype): 1+i),             %vr(v,t)  
+    (LAMBDA (i:nat, j:vrtype, k:nat): 1+i+k),    %ivr(iv,t,exp)
+    (LAMBDA (i:nat, j:otype) : 1+i),             %one(e1,ot)
+    (LAMBDA (i,j:nat, k:ttype): 1+i+j),          %two(e1,e2,tt)
+    (LAMBDA (i,j,k,l:nat, m:ftype): 1+i+j+k+l)   %four(e1,e2,e3,e4,ft)
+     )(e)  
+
+%%%% lenght of a formula (needed for recursive definition) %%%%%%%%%%%%%%%%%%
+   sizeform(f:form) : nat =
+    reduce_nat( 
+    (LAMBDA (i:(vr?), j:nat): 1+sizeexp(i)+j),               %FA(v,f1)
+            0,                                             %skip
+    (LAMBDA (i,j:exp, k:ettype): 1+sizeexp(i)+sizeexp(j)), %etwo(e1,e2,et)
+    (LAMBDA (i:nat, j:fotype): 1+i),                       %fone(fo,fot)
+    (LAMBDA (i,j:nat, k:fttype): 1+i+j)                    %ftwo(ft1,ft2,ftt)
+     )(f)
+
+  END itlsemanticstype

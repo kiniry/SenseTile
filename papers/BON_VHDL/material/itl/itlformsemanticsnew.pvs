@@ -1,0 +1,137 @@
+itlformsemanticsnew  : THEORY
+
+  BEGIN
+
+importing itlexpsemantics
+%%%%
+%mc: LIBRARY = "/export/home/pvs/lib/MU"
+
+%importing mc@more_mucalculus_theorems[sta]
+%%%%
+  l              : VAR ninterval 
+  val            : VAR IIValue
+  env,env1       : VAR SState
+  sigma,sigma1   : VAR Interval 
+  E1,E2,E3,E4    : VAR IValue;
+  F1,F2          : VAR Iform;
+  f1,f2          : VAR form;
+  i, m           : VAR nat;
+  va             : VAR (vr?)
+  fo             : VAR fotype
+  et             : VAR ettype
+  ftt            : VAR fttype
+  x1,x2          : VAR Value  
+
+  F0,F3    : VAR Iform;
+
+  
+%%%% semantics of ftwo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  ^^(F1,F2) : Iform =  (lambda (env,sigma):
+   (EXISTS (m: index[State](sigma)):
+           F1(env,sub(sigma, 0, m)) and F2(env,suf(sigma,m))
+   )
+   or (infinite(sigma) and F1(env,sigma) ));
+
+
+  semftwo(F1,F2,ftt,env,sigma) : bool =
+  cond ftt=tand  -> F1(env,sigma) and F2(env,sigma),
+       ftt=tor   -> F1(env,sigma) or F2(env,sigma),
+       ftt=timpl -> F1(env,sigma) implies F2(env,sigma),
+  else           -> (F1^^F2)(env,sigma)
+  endcond
+    
+%%%% semantics of FA(va,f) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  semforall(F1,va,env,sigma) : bool = 
+   cond t(va)=state ->  
+     (FORALL val : infinite(val)=infinite(sigma) and len(val)=len(sigma)
+           implies  
+        F1(env, 
+           (# infinite:=infinite(sigma),
+              len:=len(sigma),
+              seq:=(lambda (i: index[State](sigma)) : 
+                       (PROJ_1(seq(sigma)(i)) with 
+                      [(v(va)):= seq(val)(i)], PROJ_2(seq(sigma)(i))) ) #))),
+   else             ->
+    (FORALL x1 : F1( (PROJ_1(env) with 
+                 [(v(va)) := x1], 
+                      PROJ_2(env)) ,sigma) )
+   endcond
+
+%%%% semantics of semetwo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ semetwo(x1,x2,et) : bool =
+  cond et=teq -> x1=x2,
+  else        -> x1<x2
+  endcond
+
+
+%%%% semantics of fone%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+semempty: Iform = (lambda (env,sigma): not infinite(sigma) and len(sigma)=0) 
+
+semmore: Iform = (lambda (env,sigma): infinite(sigma) or len(sigma)>0)
+
+semfmore: Iform = (lambda (env,sigma): not infinite(sigma) and len(sigma)>0)
+
+semfinite: Iform = (lambda (env,sigma): not infinite(sigma))
+
+seminfinite : Iform = (lambda (env,sigma): infinite(sigma))
+
+Ts(F0 : Iform, n:nat): RECURSIVE Iform =
+         (IF n=0 THEN semempty
+          ELSIF n=1 THEN (lambda (env,sigma): F0(env,sigma) and semmore(env,sigma)) 
+          ELSE ((lambda (env,sigma): F0(env,sigma) and semfmore(env,sigma))^^Ts(F0,n-1))
+          ENDIF)
+         MEASURE (LAMBDA (F0:Iform,n:nat): n)
+
+Csf(F1): Iform = lambda (env,sigma):(EXISTS (n:nat):  Ts(F1,n)(env,sigma))
+
+s: VAR sta
+predtt: TYPE = [pred[sta]->pred[sta]]
+p : VAR pred[sta]
+pp: VAR predtt
+
+Mu(pp)(s): bool =   lub({p | (EXISTS (j:nat):  p = iterate(pp, j)(emptyset[sta]))})(s)
+
+CsfMu(F1): Iform =  
+  Mu(LAMBDA F2: (lambda (env1,sigma1):
+((lambda (env,sigma): F1(env,sigma) and semfmore(env,sigma))^^F2 )(env1,sigma1) or semempty(env1,sigma1) or (lambda (env,sigma):F1(env,sigma) and semmore(env,sigma))(env1,sigma1)))
+
+Csinu(F1):  Iform = 
+  (lambda (env1,sigma1): seminfinite(env1,sigma1) and nu(LAMBDA F2: (lambda (env,sigma): semfmore(env,sigma) and F1(env,sigma))^^F2)(env1,sigma1))
+
+%(EXISTS l : seq(l)(0) = 0 and
+%         ( (not infinite(l) and 
+%           (((infinite(sigma) or seq(l)(len(l)) < len(sigma)) and 
+%           F1(env,suf(sigma, seq(l)(len(l))))) or 
+%           (len(l)=0 and len(sigma)=0 and not infinite(sigma))) ) or 
+%           (infinite(l) and infinite(sigma)) ) and 
+%         (FORALL (i: nat): i<len(l) or infinite(l) implies
+%             (infinite(l) or infinite(sigma) or seq(l)(i+1)<len(sigma)) and
+%             seq(l)(i) < seq(l)(i + 1) and
+%             F1(env,sub(sigma, seq(l)(i), seq(l)(i + 1)))
+%         )
+%      ) 
+
+  semfone(F1,fo,env,sigma) : bool =
+  cond fo=tnot -> not F1(env,sigma),
+  else         -> (lambda (env,sigma): Csf(F1)(env,sigma) or Csinu(F1)(env,sigma))(env,sigma)
+  endcond
+
+%%%% semantics of formulae %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  M(f:form)(env,sigma) : RECURSIVE bool = 
+     CASES f OF
+       FA(v,f1)          : semforall(M(f1),v,env,sigma),
+       skip              : (len(sigma) = 1 and not infinite(sigma)),
+       etwo(ee1,ee2,et)  : semetwo(E(ee1)(env,sigma),E(ee2)(env,sigma),et),
+       fone(fo, fot)     : semfone(M(fo),fot,env,sigma),
+       ftwo(ft1,ft2,ftt) : semftwo(M(ft1),M(ft2),ftt,env,sigma)
+     ENDCASES
+   MEASURE sizeform(f);
+
+%%%% definition of validity of formulae %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+|-: pred[form] = (LAMBDA f1: (FORALL env: (FORALL sigma: M(f1)(env,sigma))));
+
+   CONVERSION |-  
+
+  
+
+  END itlformsemanticsnew

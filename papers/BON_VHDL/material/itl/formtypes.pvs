@@ -1,0 +1,9 @@
+formtypes  : THEORY
+
+  BEGIN
+
+  fotype : TYPE = {tnot,tcs}
+  fttype : TYPE = {tand,tor,timpl,tchop} 
+  ettype : TYPE = {teq,tle} 
+
+  END formtypes

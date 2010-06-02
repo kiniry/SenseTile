@@ -1,0 +1,21 @@
+itlstate  : THEORY
+
+  BEGIN
+
+%%%% state variables are of sort integers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Value: TYPE = int
+
+%%%% Vars the names of state variables (infinite number of them) %%%%%%%%%%%%
+  Vars: TYPE = nat
+
+%%%% SVars the names of static variables (infinite number of them) %%%%%%%%%%
+  SVars: TYPE = nat
+
+%%%%  state variable State %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  State: TYPE = [ [Vars -> Value] , [Vars,Value -> Value] ]
+
+%%%%  static variable State %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  SState: TYPE = [ [SVars -> Value] , [SVars,Value -> Value]  ]
+
+  END itlstate
