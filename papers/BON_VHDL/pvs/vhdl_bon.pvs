@@ -33,13 +33,15 @@ predicate_trans[T:TYPE] :THEORY
 BEGIN
 
 p,q,r : VAR PRED[T]
-%predicate and ?
-%predicate or?
-%predicate eq?
-%predicate implication
-|>(p,q): bool = (FORALL (u:T): p(u) IMPLIES q(u));
+true     :PRED[T] = (LAMBDA (u:T): TRUE);
+false    :PRED[T] = (LAMBDA (u:T): FALSE);
+and(p,q) :PRED[T] = (LAMBDA (u:T): p(u) AND q(u));
+or(p,q)  :PRED[T] = (LAMBDA (u:T): p(u) OR q(u));
+not(q)   :PRED[T] = (LAMBDA (u:T): NOT q(u));
+|>(p,q)  :bool = (FORALL (u:T): p(u) IMPLIES q(u));
+iff(p,q) :bool = (p |> q) AND (q |> p)
 
-AUTO_REWRITE+ |>;
+AUTO_REWRITE+ true, false, and, or, not,|>, iff;
 
 implies_reflexivity : LEMMA p |> p
 
