@@ -33,7 +33,10 @@ predicate_trans[T:TYPE] :THEORY
 BEGIN
 
 p,q,r : VAR PRED[T]
-
+%predicate and ?
+%predicate or?
+%predicate eq?
+%predicate implication
 |>(p,q): bool = (FORALL (u:T): p(u) IMPLIES q(u));
 
 AUTO_REWRITE+ |>;
