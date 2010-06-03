@@ -1,17 +1,77 @@
-vhdl_bon: THEORY
+refinement[T1,T2: TYPE]: THEORY
 BEGIN
-  a: TYPE
-  m: TYPE = set[a]
-  f: TYPE
-  c: TYPE = set[f]
+  IMPORTING refines_t[T1,T2]
+  t1: VAR p_transf
+  t2: VAR p_transf
 
-  |-: [m, c -> bool]
-  extract: [m -> c]
-  generate: [c -> m]
+  |-(t1,t2):bool = refines(t1,t2)
 
-  M: VAR m
-  C: VAR c
+  AUTO_REWRITE+ |-
 
-  is_a_refinement: LEMMA |-(M,C) AND generate(C) = M AND extract(M) = C IMPLIES extract(generate(C)) = C
+  extract: [T1 -> T2]
+  generate: [T2 -> T1]
 
-END vhdl_bon
+  refinement_ref: LEMMA extract |- extract;
+  
+  refinement_ref1:LEMMA  
+ 
+END refinement
+
+%
+%set_refinement
+%
+set_refinement[a, b: TYPE]: THEORY
+BEGIN
+
+  IMPORTING refinement[set[a], set[b]]
+
+END set_refinement
+ 
+%
+%predicate_implication
+%
+predicate_implication[T:TYPE] :THEORY
+BEGIN
+
+p,q,r : VAR PRED[T]
+
+|>(p,q): bool = (FORALL (u:T): p(u) IMPLIES q(u));
+
+AUTO_REWRITE+ |>;
+
+implies_reflexivity : LEMMA p |> p
+
+implies_transitivity: LEMMA (p |> r)  AND 
+                      (r |> q)  IMPLIES  (p |> q)
+
+END predicate_implication
+
+%
+%refines_t
+%
+refines_t[T1, T2: TYPE]: THEORY
+BEGIN
+
+IMPORTING predicate_implication 
+                                                  
+p_transf : TYPE = [PRED[T1] -> PRED[T2]]
+
+c, c1, c2 :VAR  p_transf
+
+monotonic(c):bool = FORALL (p,q:PRED[T1]): (p |> q) => (c(p) |> c(q));
+
+% refinement relation - definition
+refines(c1,c): bool = FORALL (q:PRED[T1]): c(q)|> c1(q)
+
+AUTO_REWRITE+ refines 
+
+refines_reflexivity: LEMMA refines(c,c)
+
+refines_transitivity: LEMMA refines(c1,c) AND 
+                      refines(c2,c1) => refines(c2, c)
+
+END refines_t
+
+
+
+
