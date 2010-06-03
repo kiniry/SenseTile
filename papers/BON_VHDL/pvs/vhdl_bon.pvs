@@ -13,7 +13,6 @@ BEGIN
 
   refinement_ref: LEMMA extract |- extract;
   
-  refinement_ref1:LEMMA  
  
 END refinement
 
