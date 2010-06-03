@@ -12,8 +12,27 @@ BEGIN
   generate: [T2 -> T1]
 
   refinement_ref: LEMMA extract |- extract;
-  
- 
+
+
+  % model   |-   model'
+  %   >            |
+  %   |            |
+  %   | extract    | generate
+  %   |            |
+  %   |            >
+  % impl    |-   impl'
+
+  % model   |-   model'
+  %   |            >
+  %   |            |
+  %   | generate   | extract
+  %   |            |
+  %   >            |
+  % impl    |-   impl'
+
+% AXIOM? 
+% LEMMA?
+
 END refinement
 
 %
@@ -61,8 +80,14 @@ IMPORTING predicate_trans
 p_transf : TYPE = [PRED[T1] -> PRED[T2]]
 
 c, c1, c2 :VAR  p_transf
+p: VAR PRED[T1]
+t1: VAR T1
+q: VAR PRED[T2]
+t2: VAR T2
+t: VAR [PRED[T1] -> PRED[T2]]
+monotonic2?(c): bool = FORALL (t1,t2,t,p,q): (p(t1) => q(t2)) => (t(p)(t1)) => t(q(t2)));
 
-monotonic(c):bool = FORALL (p,q:PRED[T1]): (p |> q) => (c(p) |> c(q));
+monotonic?(c):bool = FORALL (p,q:PRED[T1]): (p |> q) => (c(p) |> c(q));
 
 % refinement relation - definition
 refines(c1,c): bool = FORALL (q:PRED[T1]): c(q)|> c1(q)
