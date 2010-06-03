@@ -27,9 +27,9 @@ BEGIN
 END set_refinement
  
 %
-%predicate_implication
+%predicate_transformers
 %
-predicate_implication[T:TYPE] :THEORY
+predicate_trans[T:TYPE] :THEORY
 BEGIN
 
 p,q,r : VAR PRED[T]
@@ -43,7 +43,7 @@ implies_reflexivity : LEMMA p |> p
 implies_transitivity: LEMMA (p |> r)  AND 
                       (r |> q)  IMPLIES  (p |> q)
 
-END predicate_implication
+END predicate_trans
 
 %
 %refines_t
@@ -51,7 +51,7 @@ END predicate_implication
 refines_t[T1, T2: TYPE]: THEORY
 BEGIN
 
-IMPORTING predicate_implication 
+IMPORTING predicate_trans
                                                   
 p_transf : TYPE = [PRED[T1] -> PRED[T2]]
 
@@ -70,6 +70,7 @@ refines_transitivity: LEMMA refines(c1,c) AND
                       refines(c2,c1) => refines(c2, c)
 
 END refines_t
+
 
 
 
