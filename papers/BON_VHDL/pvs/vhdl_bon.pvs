@@ -114,8 +114,19 @@ END refines_t
 fixed_point[T:TYPE]: THEORY
 BEGIN
 IMPORTING refines_t
+
 s : VAR setof[[PRED[T]]]
+
 f:  VAR p_transf [T,T]
+
+glb(s) : PRED [T] = (LAMBDA (u:T): (FORALL (p:PRED[T]): s(p) => p(u)))
+
+fix(f) : PRED [T] = glb(LAMBDA (p:PRED [T]): f(p) |> p)
+
+p,q : VAR PRED [T]
+
+glb_lower : LEMMA s(p) => glb(s) |> p
+
 
 END fixed_point
 
