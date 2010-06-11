@@ -1,34 +1,39 @@
-refinement[T1,T2: TYPE]: THEORY
+refinement[i,m: TYPE]: THEORY
 BEGIN
-  IMPORTING refines_t[T1,T2]
-  t1: VAR p_transf
-  t2: VAR p_transf
-
-  |-(t1,t2):bool = refines(t1,t2)
-
-  AUTO_REWRITE+ |-
-
-  extract: [T1 -> T2]
-  generate: [T2 -> T1]
-
-  refinement_ref: LEMMA extract |- extract;
-
-
+ mod : VAR m
+ imp : VAR i
+ extract: [i -> m]  
+ generate:[m -> i]
+ ex : VAR [i -> m]
+ ge: VAR  [m -> i];  
+ |-: [m,i -> bool] = {(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
+   
+  refinement_ex?(ex): bool = surjective?(ex) 
+  refinement_ge(ge):bool = injective?(ge)
+  
   % model   |-   model'
-  %   >            |
-  %   |            |
-  %   | extract    | generate
-  %   |            |
-  %   |            >
-  % impl    |-   impl'
-
+  %  /\ --------->|
+  %   |           |
+  %   |extract    |generate
+  %   |           |
+  %   |           |
+  %   |           V 
+  %   impl------->impl' 
+  %         |-
+        
+  
   % model   |-   model'
-  %   |            >
-  %   |            |
-  %   | generate   | extract
-  %   |            |
-  %   >            |
-  % impl    |-   impl'
+  %   | --------->/\
+  %   |           |
+  %   | generate  | extract
+  %   |           |
+  %   V --------->|
+  % impl  |-  impl'
+
+
+  l_composition_ext_ge: LEMMA FORALL (mod:m ): o(extract,generate)(mod) = mod 
+  l_composition_ge_ext: LEMMA FORALL (imp:i ): o(generate,extract)(imp) = imp 
+  
 
 % AXIOM? 
 % LEMMA?
@@ -38,11 +43,9 @@ END refinement
 %
 %set_refinement
 %
-set_refinement[a, b: TYPE]: THEORY
+set_refinement[T, R: TYPE]: THEORY
 BEGIN
-
-  IMPORTING refinement[set[a], set[b]]
-
+  IMPORTING refinement[set[T], set[R]]
 END set_refinement
  
 %
@@ -50,8 +53,8 @@ END set_refinement
 %
 predicate_trans[T:TYPE] :THEORY
 BEGIN
-
 p,q,r : VAR PRED[T]
+t: VAR T
 true     :PRED[T] = (LAMBDA (u:T): TRUE);
 false    :PRED[T] = (LAMBDA (u:T): FALSE);
 and(p,q) :PRED[T] = (LAMBDA (u:T): p(u) AND q(u));
@@ -67,39 +70,54 @@ implies_reflexivity : LEMMA p |> p
 implies_transitivity: LEMMA (p |> r)  AND 
                       (r |> q)  IMPLIES  (p |> q)
 
+impl_lema: LEMMA (p |>q )=> (p(t) => q(t)) 
+
+eqv_lema : LEMMA (iff(p,q))=> p(t) = q(t)
+
+
 END predicate_trans
 
 %
-%refines_t
+%refines_t theory
 %
 refines_t[T1, T2: TYPE]: THEORY
 BEGIN
 
 IMPORTING predicate_trans
-                                                  
-p_transf : TYPE = [PRED[T1] -> PRED[T2]]
 
+p_transf : TYPE = [PRED[T1] -> PRED[T2]]                                                  
 c, c1, c2 :VAR  p_transf
 p: VAR PRED[T1]
-t1: VAR T1
 q: VAR PRED[T2]
-t2: VAR T2
-t: VAR [PRED[T1] -> PRED[T2]]
-monotonic2?(c): bool = FORALL (t1,t2,t,p,q): (p(t1) => q(t2)) => (t(p)(t1)) => t(q(t2)));
+
+abort(q):bool  = false
+magic(q):bool  = true
 
 monotonic?(c):bool = FORALL (p,q:PRED[T1]): (p |> q) => (c(p) |> c(q));
 
-% refinement relation - definition
-refines(c1,c): bool = FORALL (q:PRED[T1]): c(q)|> c1(q)
+% refinement relation - definition for predicate transformers
+refines?(c1,c): bool = FORALL (q:PRED[T1]): c(q)|> c1(q)
 
-AUTO_REWRITE+ refines 
+AUTO_REWRITE+ refines? 
 
-refines_reflexivity: LEMMA refines(c,c)
+refines_reflexivity: LEMMA refines?(c,c)
 
-refines_transitivity: LEMMA refines(c1,c) AND 
-                      refines(c2,c1) => refines(c2, c)
+refines_transitivity: LEMMA refines?(c1,c) AND 
+                      refines?(c2,c1) => refines?(c2, c)
+ 
 
 END refines_t
+
+% fixed_point theory
+% Important because garantees the existance of (meet , join) fixed
+% points, which are needed for defining recursion and iteration. 
+fixed_point[T:TYPE]: THEORY
+BEGIN
+IMPORTING refines_t
+s : VAR setof[[PRED[T]]]
+f:  VAR p_transf [T,T]
+
+END fixed_point
 
 
 
