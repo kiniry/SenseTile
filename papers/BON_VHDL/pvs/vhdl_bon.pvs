@@ -79,7 +79,7 @@ implies_transitivity: LEMMA (p |> r)  AND
                       (r |> q)  IMPLIES  (p |> q)
 
 implies_antisymmetry:LEMMA (p |> r)  AND 
-		      ( r |> p ) => p(t) = r(t)
+		      ( r |> p ) => iff( p,r )
 % Implication and equivalence on predicate 
 % transformers can also be defined as 
 % pointwise extension: 

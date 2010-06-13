@@ -46,23 +46,13 @@
     (\|> const-decl "bool" predicate_trans nil))
    44700 30 t shostak))
  (implies_antisymmetry 0
-  (implies_antisymmetry-1 nil 3485421497 3485421636
+  (implies_antisymmetry-1 nil 3485421497 3485443208
    ("" (skolem-typepred)
-    (("" (flatten)
-      (("" (assert)
-        (("" (inst -2 "t!1")
-          (("" (inst - "t!1")
-            (("" (prop) (("1" (assert) nil nil) ("2" (assert) nil nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   unchecked
-   ((T formal-type-decl nil predicate_trans nil)
+    (("" (flatten) (("" (assert) (("" (prop) nil nil)) nil)) nil)) nil)
+   proved
+   ((IFF const-decl "bool" predicate_trans nil)
     (\|> const-decl "bool" predicate_trans nil))
-   67730 30 t shostak))
+   3376 30 t shostak))
  (impl_lema 0
   (impl_lema-1 nil 3484560954 3484562296
    ("" (skolem-typepred) (("" (flatten) (("" (grind) nil nil)) nil))
@@ -311,10 +301,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (T3 formal-type-decl nil seq_comp nil))
    81971 120 t shostak))
- (seq_mono_refinement3 0
-  (seq_mono_refinement3-1 nil 3485441891 3485441901
-   ("" (grind) (("" (postpone) nil nil)) nil) unfinished nil 9725 210 t
-   shostak))
  (seq_extensionality 0
   (seq_extensionality-1 nil 3485438429 3485438466
    ("" (skolem-typepred)
