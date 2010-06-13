@@ -48,20 +48,28 @@ BEGIN
   IMPORTING refinement[set[T], set[R]]
 END set_refinement
  
-%
-%predicate_transformers
-%
+%%%%%PREDICATE TRANSFORMER%%%%%%%
 predicate_trans[T:TYPE] :THEORY
 BEGIN
 p,q,r : VAR PRED[T]
 t: VAR T
 true     :PRED[T] = (LAMBDA (u:T): TRUE);
+
 false    :PRED[T] = (LAMBDA (u:T): FALSE);
+
 and(p,q) :PRED[T] = (LAMBDA (u:T): p(u) AND q(u));
+
 or(p,q)  :PRED[T] = (LAMBDA (u:T): p(u) OR q(u));
+
 not(q)   :PRED[T] = (LAMBDA (u:T): NOT q(u));
+
 |>(p,q)  :bool = (FORALL (u:T): p(u) IMPLIES q(u));
+
 iff(p,q) :bool = (p |> q) AND (q |> p)
+
+abort(q):bool  = false
+
+magic(q):bool  = true
 
 AUTO_REWRITE+ true, false, and, or, not,|>, iff;
 
@@ -70,47 +78,100 @@ implies_reflexivity : LEMMA p |> p
 implies_transitivity: LEMMA (p |> r)  AND 
                       (r |> q)  IMPLIES  (p |> q)
 
+implies_antisymmetry:LEMMA (p |> r)  AND 
+		      ( r |> p ) => p(t) = r(t)
+% Implication and equivalence on predicate 
+% transformers can also be defined as 
+% pointwise extension: 
+
 impl_lema: LEMMA (p |>q )=> (p(t) => q(t)) 
 
 eqv_lema : LEMMA (iff(p,q))=> p(t) = q(t)
 
-
 END predicate_trans
 
-%
-%refines_t theory
-%
+%%%%%%% REFINES THEORY %%%%%%%%%
 refines_t[T1, T2: TYPE]: THEORY
 BEGIN
-
 IMPORTING predicate_trans
 
 p_transf : TYPE = [PRED[T1] -> PRED[T2]]                                                  
+
 c, c1, c2 :VAR  p_transf
+
 p: VAR PRED[T1]
+
 q: VAR PRED[T2]
 
-abort(q):bool  = false
-magic(q):bool  = true
+t1: VAR T1
 
 monotonic?(c):bool = FORALL (p,q:PRED[T1]): (p |> q) => (c(p) |> c(q));
 
-% refinement relation - definition for predicate transformers
+% We define the refinement ordering on predicate transformers 
+% as the pointwise extension of the subset ordering.
+% Hence , (p_transf, refines) is complete Boolean lattice,
+% by pointwise extension property.
 refines?(c1,c): bool = FORALL (q:PRED[T1]): c(q)|> c1(q)
 
-AUTO_REWRITE+ refines? 
+AUTO_REWRITE+ refines?, monotonic?
 
 refines_reflexivity: LEMMA refines?(c,c)
 
 refines_transitivity: LEMMA refines?(c1,c) AND 
                       refines?(c2,c1) => refines?(c2, c)
  
+refines_antisymmetry: LEMMA refines?(c1,c) AND 
+                      refines?(c,c1) => iff(c(t1),c1(t1))
 
 END refines_t
 
-% fixed_point theory
-% Important because garantees the existance of (meet , join) fixed
-% points, which are needed for defining recursion and iteration. 
+
+
+
+%%%%%%% SEQUENTIAL COMPOSITION %%%%%%%%%
+seq_comp [T1, T2, T3, T4 :TYPE ]:THEORY
+BEGIN IMPORTING refines_t
+
+a1, b1 : VAR p_transf[T3, T4]
+
+a2, b2 : VAR p_transf[T2, T3]
+
+a3 : VAR p_transf[T1, T2]
+
+skip: p_transf[T3,T3]  = (LAMBDA (q:PRED [T3]) : q)
+
+lemma_skip_mono:LEMMA monotonic?(skip)
+
+seq_monotonic: LEMMA monotonic?(a1) AND monotonic?(a2)
+                      =>  monotonic?(a1 o a2)
+
+seq_mono_refinement : LEMMA monotonic?(b1) AND refines?(b1,a1) 
+                            AND refines?(b2,a2) => refines?(b1 o b2, a1 o a2)
+
+
+seq_mono_refinement2 : LEMMA monotonic?(a1) AND refines?(b1,a1) 
+                            AND refines?(b2,a2) => refines?(b1 o b2, a1 o a2)
+
+seq_extensionality : LEMMA (a1 = b1 AND a2 = b2) => (a1 o a2)= (b1 o b2)
+
+seq_extension: LEMMA (a1 = b1) => (a1 o a2) = (b1 o a2)
+
+remove_left_skip : LEMMA refines?( a2, skip  o a2 )
+
+remove_right_skip : LEMMA refines?( a1, a1 o skip )
+
+eliminate_parentheses1 : LEMMA a1 o a2 o a3 = a1 o ( a2 o a3)
+
+eliminate_parentheses2 : LEMMA a1 o a2 o a3 = (a1 o  a2) o a3
+
+END seq_comp
+
+
+%%%%%%% FIXED POINTS %%%%%%%%%
+% Important because garantees the existance of 
+% (meet , join) fixed points, which are needed for 
+% defining recursion and iteration. 
+
 fixed_point[T:TYPE]: THEORY
 BEGIN
 IMPORTING refines_t
@@ -126,7 +187,6 @@ fix(f) : PRED [T] = glb(LAMBDA (p:PRED [T]): f(p) |> p)
 p,q : VAR PRED [T]
 
 glb_lower : LEMMA s(p) => glb(s) |> p
-
 
 END fixed_point
 
