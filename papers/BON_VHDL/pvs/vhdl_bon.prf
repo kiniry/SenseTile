@@ -1,20 +1,20 @@
 (refinement
  (extract_TCC1 0
-  (wer "qwerweqewq" 3484633944 3484633944
-   ("" (existence-tcc) (("" (postpone) nil nil)) nil) unchecked nil
-   32911 20 t shostak)
+  (wer "qwerweqewq" 3484633944 3485444597
+   ("" (existence-tcc) (("" (postpone) nil nil)) nil) unfinished nil 18
+   20 t shostak)
   (extract_TCC1-1 nil 3484487082 3484633880
    ("" (existence-tcc) nil nil) unfinished nil 28 20 nil nil))
  (generate_TCC1 0
-  (generate_TCC1-1 nil 3484487082 3484633880
-   ("" (existence-tcc) nil nil) unchecked nil 13 10 nil nil))
+  (generate_TCC1-1 nil 3484487082 3485444597
+   ("" (existence-tcc) nil nil) unfinished nil 38 20 nil nil))
  (l_composition_ext_ge 0
-  (l_composition_ext_ge-1 nil 3485438965 3485438988
+  (l_composition_ext_ge-1 nil 3485438965 3485444597
    ("" (skolem!) (("" (expand "o") (("" (postpone) nil nil)) nil)) nil)
-   unfinished nil 23139 0 t shostak))
+   unfinished nil 9 0 t shostak))
  (l_composition_ge_ext 0
-  (l_composition_ge_ext-1 nil 3485248106 3485248216
-   ("" (grind) (("" (postpone) nil nil)) nil) untried nil 109525 50 t
+  (l_composition_ge_ext-1 nil 3485248106 3485444597
+   ("" (grind) (("" (postpone) nil nil)) nil) unfinished nil 52 40 t
    shostak)))
 (set_refinement)
 (predicate_trans
@@ -108,27 +108,17 @@
     (refines? const-decl "bool" refines_t nil))
    138466 110 t shostak))
  (refines_antisymmetry 0
-  (refines_antisymmetry-1 nil 3485421642 3485422264
+  (refines_antisymmetry-1 nil 3485421642 3485496988
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "refines?")
         (("" (assert)
-          (("" (prop)
-            (("1" (skosimp*)
-              (("1" (inst -2 "singleton[T1](t1!1)")
-                (("1" (inst -3 "singleton[T1](t1!1)")
-                  (("1" (inst -2 "u!1")
-                    (("1" (inst -3 "u!1") (("1" (prop) nil nil)) nil))
-                    nil))
-                  nil))
-                nil))
-              nil)
-             ("2" (skosimp*)
-              (("2" (inst -2 "singleton[T1](t1!1)")
-                (("2" (inst -3 "singleton[T1](t1!1)")
-                  (("2" (inst -2 "u!1")
-                    (("2" (inst -3 "u!1") (("2" (prop) nil nil)) nil))
-                    nil))
+          (("" (inst -2 "singleton[T1](t1!1)")
+            (("" (apply-extensionality)
+              (("" (inst?)
+                (("" (inst? -2)
+                  (("" (prop)
+                    (("1" (grind) nil nil) ("2" (grind) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -137,21 +127,21 @@
         nil))
       nil))
     nil)
-   unchecked
-   ((nonempty_singleton_finite application-judgement
-     "non_empty_finite_set" finite_sets nil)
-    (IFF const-decl "bool" predicate_trans nil)
-    (\|> const-decl "bool" predicate_trans nil)
-    (T2 formal-type-decl nil refines_t nil)
-    (singleton const-decl "(singleton?)" sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (set type-eq-decl nil sets nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   proved
+   ((refines? const-decl "bool" refines_t nil)
     (T1 formal-type-decl nil refines_t nil)
-    (refines? const-decl "bool" refines_t nil))
-   210082 120 t shostak)))
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (set type-eq-decl nil sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (singleton const-decl "(singleton?)" sets nil)
+    (p_transf type-eq-decl nil refines_t nil)
+    (T2 formal-type-decl nil refines_t nil)
+    (\|> const-decl "bool" predicate_trans nil)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set" finite_sets nil))
+   50933 110 t shostak)))
 (seq_comp
  (lemma_skip_mono 0
   (lemma_skip_mono-1 nil 3485434285 3485434301

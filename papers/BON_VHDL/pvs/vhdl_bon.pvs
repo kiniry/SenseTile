@@ -121,11 +121,9 @@ refines_transitivity: LEMMA refines?(c1,c) AND
                       refines?(c2,c1) => refines?(c2, c)
  
 refines_antisymmetry: LEMMA refines?(c1,c) AND 
-                      refines?(c,c1) => iff(c(t1),c1(t1))
+                      refines?(c,c1) => c(t1) = c1(t1)
 
 END refines_t
-
-
 
 
 %%%%%%% SEQUENTIAL COMPOSITION %%%%%%%%%
