@@ -1,16 +1,24 @@
 refinement[i,m: TYPE]: THEORY
 BEGIN
+
  mod : VAR m
  imp : VAR i
- extract: [i -> m]  
- generate:[m -> i]
  ex : VAR [i -> m]
- ge: VAR  [m -> i];  
- |-: [m,i -> bool] = {(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
-   
+ ge: VAR  [m -> i]
+extract: [i -> m] = {imp:i |( LAMBDA (mo:m) :EXISTS (ex:[i->m]) : ex(imp)=mo ) } 
+generate:[m -> i] = {mo:m |( LAMBDA (imp:i) :EXISTS (ge:[m->i]) : ge(mo)=imp ) };
+
+%(LAMBDA (mo:m):( LAMBDA (im:i) :EXISTS (ge:[m->i]) : ge(mo)=im ));
+
+ % deterministic (angelic) relation.
+ |-: PRED[[m,i]] = {(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
+
+  AUTO_REWRITE+ extract, generate,|-
+
   refinement_ex?(ex): bool = surjective?(ex) 
-  refinement_ge(ge):bool = injective?(ge)
-  
+  refinement_ge?(ge):bool = injective?(ge)
+
+
   % model   |-   model'
   %  /\ --------->|
   %   |           |
@@ -31,15 +39,10 @@ BEGIN
   % impl  |-  impl'
 
 
-  l_composition_ext_ge: LEMMA FORALL (mod:m ): o(extract,generate)(mod) = mod 
-  l_composition_ge_ext: LEMMA FORALL (imp:i ): o(generate,extract)(imp) = imp 
+  lemma_comp_ext_ge: LEMMA FORALL (mod:m ): o(extract,generate)(mod) = mod 
+  lemma_comp_ge_ext: LEMMA FORALL (imp:i ): o(generate,extract)(imp) = imp 
   
-
-% AXIOM? 
-% LEMMA?
-
 END refinement
-
 %
 %set_refinement
 %
@@ -79,7 +82,8 @@ implies_transitivity: LEMMA (p |> r)  AND
                       (r |> q)  IMPLIES  (p |> q)
 
 implies_antisymmetry:LEMMA (p |> r)  AND 
-		      ( r |> p ) => iff( p,r )
+		      ( r |> p ) => p = r
+
 % Implication and equivalence on predicate 
 % transformers can also be defined as 
 % pointwise extension: 
@@ -175,16 +179,29 @@ BEGIN
 IMPORTING refines_t
 
 s : VAR setof[[PRED[T]]]
-
 f:  VAR p_transf [T,T]
+
+p,q : VAR PRED [T]
+c, d : VAR p_transf [T,T]
+
 
 glb(s) : PRED [T] = (LAMBDA (u:T): (FORALL (p:PRED[T]): s(p) => p(u)))
 
 fix(f) : PRED [T] = glb(LAMBDA (p:PRED [T]): f(p) |> p)
 
-p,q : VAR PRED [T]
 
-glb_lower : LEMMA s(p) => glb(s) |> p
+gr_lower_lower : LEMMA s(p) => glb(s) |> p
+
+gr_lower_greatest : LEMMA
+      (FORALL (r:PRED [T]): s(r) => (q |> r)) => (q |> glb(s))
+
+
+fix_monotonic: LEMMA monotonic?(f) => f(fix(f)) = fix(f)
+
+fix_point_least:LEMMA (f(p) |> p) => (fix(f) |> p)            
+
+fix_point_mono : LEMMA
+      (FORALL (q:PRED [T]): c(q) |> d(q)) => (fix(c) |> fix(d))
 
 END fixed_point
 

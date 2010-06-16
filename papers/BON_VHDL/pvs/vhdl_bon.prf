@@ -1,28 +1,29 @@
 (refinement
  (extract_TCC1 0
   (wer "qwerweqewq" 3484633944 3485444597
-   ("" (existence-tcc) (("" (postpone) nil nil)) nil) unfinished nil 18
+   ("" (existence-tcc) (("" (postpone) nil nil)) nil) unchecked nil 18
    20 t shostak)
   (extract_TCC1-1 nil 3484487082 3484633880
    ("" (existence-tcc) nil nil) unfinished nil 28 20 nil nil))
  (generate_TCC1 0
-  (generate_TCC1-1 nil 3484487082 3485444597
-   ("" (existence-tcc) nil nil) unfinished nil 38 20 nil nil))
- (l_composition_ext_ge 0
-  (l_composition_ext_ge-1 nil 3485438965 3485444597
-   ("" (skolem!) (("" (expand "o") (("" (postpone) nil nil)) nil)) nil)
-   unfinished nil 9 0 t shostak))
- (l_composition_ge_ext 0
-  (l_composition_ge_ext-1 nil 3485248106 3485444597
-   ("" (grind) (("" (postpone) nil nil)) nil) unfinished nil 52 40 t
-   shostak)))
+  (generate_TCC1-1 nil 3485512485 nil ("" (subtype-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (lemma_comp_ext_ge 0
+  (lemma_comp_ext_ge-1 nil 3485516915 3485516991
+   ("" (skolem!)
+    (("" (expand "o")
+      (("" (expand "generate")
+        (("" (expand "extract") (("" (postpone) nil nil)) nil)) nil))
+      nil))
+    nil)
+   untried nil 75355 50 t shostak)))
 (set_refinement)
 (predicate_trans
  (implies_reflexivity 0
   (implies_reflexivity-1 nil 3484562307 3484982650
    ("" (skolem-typepred)
     (("" (rewrite "|>") (("" (grind) nil nil)) nil)) nil)
-   unfinished
+   untried
    ((PRED type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -41,28 +42,41 @@
         nil))
       nil))
     nil)
-   unfinished
+   untried
    ((T formal-type-decl nil predicate_trans nil)
     (\|> const-decl "bool" predicate_trans nil))
    44700 30 t shostak))
  (implies_antisymmetry 0
-  (implies_antisymmetry-1 nil 3485421497 3485443208
+  (implies_antisymmetry-1 nil 3485421497 3485504859
    ("" (skolem-typepred)
-    (("" (flatten) (("" (assert) (("" (prop) nil nil)) nil)) nil)) nil)
-   proved
-   ((IFF const-decl "bool" predicate_trans nil)
-    (\|> const-decl "bool" predicate_trans nil))
-   3376 30 t shostak))
+    (("" (prop)
+      (("" (apply-extensionality)
+        (("" (inst - "x!1")
+          (("" (inst -2 "x!1")
+            (("" (prop) (("1" (assert) nil nil) ("2" (assert) nil nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   untried
+   ((\|> const-decl "bool" predicate_trans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil predicate_trans nil))
+   53345 60 t shostak))
  (impl_lema 0
   (impl_lema-1 nil 3484560954 3484562296
    ("" (skolem-typepred) (("" (flatten) (("" (grind) nil nil)) nil))
     nil)
-   unfinished
+   untried
    ((T formal-type-decl nil predicate_trans nil)
     (\|> const-decl "bool" predicate_trans nil))
    56 10 t shostak))
  (eqv_lema 0
-  (eqv_lema-1 nil 3484561661 3484562296 ("" (grind) nil nil) unfinished
+  (eqv_lema-1 nil 3484561661 3484562296 ("" (grind) nil nil) untried
    ((T formal-type-decl nil predicate_trans nil)
     (\|> const-decl "bool" predicate_trans nil)
     (IFF const-decl "bool" predicate_trans nil))
@@ -75,7 +89,7 @@
       (("" (assert) (("" (skolem!) (("" (skosimp) nil nil)) nil)) nil))
       nil))
     nil)
-   unfinished nil 217 70 t shostak))
+   untried nil 217 70 t shostak))
  (refines_transitivity 0
   (refines_transitivity-1 nil 3484493123 3484667109
    ("" (skolem-typepred)
@@ -98,7 +112,7 @@
         nil))
       nil))
     nil)
-   unfinished
+   untried
    ((T2 formal-type-decl nil refines_t nil)
     (\|> const-decl "bool" predicate_trans nil)
     (PRED type-eq-decl nil defined_types nil)
@@ -108,7 +122,7 @@
     (refines? const-decl "bool" refines_t nil))
    138466 110 t shostak))
  (refines_antisymmetry 0
-  (refines_antisymmetry-1 nil 3485421642 3485496988
+  (refines_antisymmetry-1 nil 3485421642 3485505091
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "refines?")
@@ -127,7 +141,7 @@
         nil))
       nil))
     nil)
-   proved
+   untried
    ((refines? const-decl "bool" refines_t nil)
     (T1 formal-type-decl nil refines_t nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -141,7 +155,7 @@
     (\|> const-decl "bool" predicate_trans nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   50933 110 t shostak)))
+   414 120 t shostak)))
 (seq_comp
  (lemma_skip_mono 0
   (lemma_skip_mono-1 nil 3485434285 3485434301
@@ -151,7 +165,7 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((skip const-decl "p_transf[T3, T3]" seq_comp nil)
     (monotonic? const-decl "bool" refines_t nil))
    16412 30 t shostak))
@@ -169,7 +183,7 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((O const-decl "T3" function_props nil)
     (p_transf type-eq-decl nil refines_t nil)
     (T3 formal-type-decl nil seq_comp nil)
@@ -225,7 +239,7 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((refines? const-decl "bool" refines_t nil)
     (O const-decl "T3" function_props nil)
     (monotonic? const-decl "bool" refines_t nil)
@@ -278,7 +292,7 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((refines? const-decl "bool" refines_t nil)
     (O const-decl "T3" function_props nil)
     (monotonic? const-decl "bool" refines_t nil)
@@ -295,7 +309,7 @@
   (seq_extensionality-1 nil 3485438429 3485438466
    ("" (skolem-typepred)
     (("" (flatten) (("" (apply-extensionality) nil nil)) nil)) nil)
-   unchecked
+   untried
    ((T4 formal-type-decl nil seq_comp nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T2 formal-type-decl nil seq_comp nil)
@@ -311,7 +325,7 @@
     (("" (flatten)
       (("" (use "seq_extensionality") (("" (prop) nil nil)) nil)) nil))
     nil)
-   unchecked
+   untried
    ((T3 formal-type-decl nil seq_comp nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -322,7 +336,7 @@
     (seq_extensionality formula-decl nil seq_comp nil))
    29653 30 t shostak))
  (remove_left_skip 0
-  (remove_left_skip-1 nil 3485433998 3485434149
+  (remove_left_skip-1 nil 3485433998 3485586763
    ("" (skolem-typepred)
     (("" (expand "refines?")
       (("" (skolem!)
@@ -338,12 +352,12 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((refines? const-decl "bool" refines_t nil)
     (O const-decl "T3" function_props nil)
     (skip const-decl "p_transf[T3, T3]" seq_comp nil)
     (\|> const-decl "bool" predicate_trans nil))
-   48620 30 t shostak))
+   35791 30 t shostak))
  (remove_right_skip 0
   (remove_right_skip-1 nil 3485434153 3485434181
    ("" (skolem-typepred)
@@ -361,7 +375,7 @@
         nil))
       nil))
     nil)
-   unchecked
+   untried
    ((refines? const-decl "bool" refines_t nil)
     (\|> const-decl "bool" predicate_trans nil)
     (skip const-decl "p_transf[T3, T3]" seq_comp nil)
@@ -370,32 +384,194 @@
  (eliminate_parentheses1 0
   (eliminate_parentheses1-1 nil 3485439845 3485439857
    ("" (skolem!) (("" (expand "o ") (("" (propax) nil nil)) nil)) nil)
-   unchecked ((O const-decl "T3" function_props nil)) 11781 10 t
+   untried ((O const-decl "T3" function_props nil)) 11781 10 t
    shostak))
  (eliminate_parentheses2 0
   (eliminate_parentheses2-1 nil 3485439825 3485439868
-   ("" (skolem!) nil nil) unchecked nil 5744 0 t shostak)))
+   ("" (skolem!) nil nil) untried nil 5744 0 t shostak)))
 (fixed_point
- (glb_lower 0
-  (glb_lower-1 nil 3485254646 3485254685
-   ("" (skolem-typepred)
+ (gr_lower_lower 0
+  (gr_lower_lower-1 nil 3485683746 3485683782
+   ("" (skolem!)
     (("" (flatten)
-      (("" (expand "|>")
+      (("" (rewrite "|>")
         (("" (skolem!)
-          (("" (prop)
+          (("" (flatten)
             (("" (expand "glb")
-              (("" (inst?) (("" (prop) nil nil)) nil)) nil))
+              (("" (inst -2 "p!1") (("" (prop) nil nil)) nil)) nil))
             nil))
           nil))
         nil))
       nil))
     nil)
-   unfinished
-   ((glb const-decl "PRED[T]" fixed_point nil)
+   untried
+   ((T formal-type-decl nil fixed_point nil)
+    (glb const-decl "PRED[T]" fixed_point nil)
+    (setof type-eq-decl nil defined_types nil)
     (PRED type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil fixed_point nil)
     (\|> const-decl "bool" predicate_trans nil))
-   38764 60 t shostak)))
+   35641 20 t shostak))
+ (gr_lower_greatest 0
+  (gr_lower_greatest-1 nil 3485698036 3485698663
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "glb")
+        (("" (rewrite "|>")
+          (("" (skolem!)
+            (("" (prop)
+              (("" (skolem!)
+                (("" (inst - "p!1")
+                  (("" (prop)
+                    (("" (auto-rewrite-defs :always? t)
+                      (("" (assert :let-reduce? t :cases-rewrite? nil)
+                        (("" (inst? :if-match t :polarity? nil)
+                          (("" (replace*) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   untried
+   ((\|> const-decl "bool" predicate_trans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (setof type-eq-decl nil defined_types nil)
+    (T formal-type-decl nil fixed_point nil)
+    (glb const-decl "PRED[T]" fixed_point nil))
+   627376 310 t shostak))
+ (fix_monotonic 0
+  (fix_monotonic-1 nil 3485685472 3485702750
+   ("" (use "gr_lower_greatest")
+    (("" (skolem!)
+      (("" (flatten)
+        (("" (apply-extensionality :hide? T)
+          (("" (inst?)
+            (("" (auto-rewrite-defs :always? true)
+              (("" (assert)
+                (("" (delete -1)
+                  (("" (grind)
+                    (("1" (use "gr_lower_greatest")
+                      (("1" (prop)
+                        (("1" (rewrite "|>")
+                          (("1" (smash)
+                            (("1" (inst - "x!1")
+                              (("1"
+                                (prop)
+                                (("1"
+                                  (rewrite -2 "gr_lower_lower")
+                                  (("1"
+                                    (inst - "p!1")
+                                    (("1"
+                                      (prop)
+                                      (("1" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (skolem!)
+                          (("2" (flatten)
+                            (("2" (inst - "x!1")
+                              (("2" (postpone) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (postpone) nil nil) ("3" (postpone) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unfinished nil 573044 1050 t shostak))
+ (fix_point_least 0
+  (fix_point_least-1 nil 3485683785 3485683855
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (rewrite "|>")
+        (("" (expand "fix") (("" (rewrite "gr_lower_lower") nil nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   untried
+   ((fix const-decl "PRED[T]" fixed_point nil)
+    (setof type-eq-decl nil defined_types nil)
+    (gr_lower_lower formula-decl nil fixed_point nil)
+    (T formal-type-decl nil fixed_point nil)
+    (p_transf type-eq-decl nil refines_t nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (\|> const-decl "bool" predicate_trans nil))
+   69739 40 t shostak))
+ (fix_point_mono 0
+  (fix_point_mono-1 nil 3485683918 3485684663
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (rewrite "|>")
+        (("" (skolem!)
+          (("" (prop)
+            (("" (expand "fix")
+              (("" (expand "glb")
+                (("" (skolem!)
+                  (("" (inst?)
+                    (("" (flatten)
+                      (("" (inst -2 "p!1")
+                        (("" (prop)
+                          (("" (assert)
+                            (("" (skolem!)
+                              ((""
+                                (flatten)
+                                ((""
+                                  (inst -3 "u!1")
+                                  ((""
+                                    (prop)
+                                    ((""
+                                      (inst -2 "u!1")
+                                      ((""
+                                        (prop)
+                                        ((""
+                                          (assert)
+                                          ((""
+                                            (grind)
+                                            (("" (postpone) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   untried nil 745270 170 t shostak)))
 
