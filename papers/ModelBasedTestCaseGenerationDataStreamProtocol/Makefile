@@ -21,7 +21,7 @@ pdffiles =	$(foreach texfile,$(texfiles),\
 
 .PHONY: all talk archive
 
-all:	${paper}.pdf
+all:	${paper}.pdf ${talk}.pdf
 
 talk: 	${talk}.ps ${talk}.pdf
 
@@ -34,6 +34,12 @@ ${paper}.pdf:	${paper}.tex
 	export TEXINPUTS="$(LATEXDIR)//:"; \
 	rubber --pdf ${paper}
 
+${talk}.pdf:	${talk}.tex
+	export BIBINPUTS=".//:$(BIBDIR)//:"; \
+	export BSTINPUTS="$(LATEXDIR)//:"; \
+	export TEXINPUTS="$(LATEXDIR)//:"; \
+	rubber --pdf ${talk}
+
 view:	${paper}.pdf
 	open -a Skim.app ${paper}.pdf
 
@@ -42,3 +48,4 @@ cleanup:
 
 clean:
 	rubber --pdf --clean ${paper}
+	rubber --pdf --clean ${talk}

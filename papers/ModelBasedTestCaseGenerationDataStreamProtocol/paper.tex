@@ -70,17 +70,14 @@ R. Kiniry and Vieri del Bianco"]{hyperref} \else
 
 \begin{document}
 
-Agile Formality: A Mole of Software Processes
+\title{Agile Formality: A Mole of Software Processes}
 
-\title{Deriving an Executable Model of a Data Stream Protocol from its
-  Specification}
-
-\author{Joseph R. Kiniry, Vieri del Bianco and Dragan Stosic\\
+\author{Vieri del Bianco, Joseph R. Kiniry and Dragan Stosic\\
   UCD CASL: Complex and Adaptive Systems Laboratory and\\
   School of Computer Science and Informatics,\\
   University College Dublin,\\
   Belfield, Dublin 4, Ireland,\\
-  kiniry@acm.org, vieri.delbianco@ucd.ie and dragan.stosic@gmail.com\\
+  vieri.delbianco@ucd.ie, kiniry@acm.org and dragan.stosic@gmail.com\\
 }
 
 \maketitle
@@ -91,43 +88,34 @@ Agile Formality: A Mole of Software Processes
 
 %  A punchy abstract that makes the reader want to know more.
 
-  Agile people hate formal people.  Formal people think agile people
-  are flakes.  These two worlds do not talk to or learn from each
-  other.  This is bullshit.  This paper summarizes a complex case
-  study which shows that it is not only possible, but tasty, to
-  combine the garlic of formal methods and the chocolate of agile
-  programming.
+  Agile and formal people do not amalgamate nicely.
+  These two communities do not talk to or learn from each other. 
+  We recognize that the problem solving approches and mind attitudes 
+differs widely, but we strongly believe that this clash of view points 
+can be exploited to grow new development process that actually blends, 
+and not simply compose, practices from the two worlds.
+  This paper summarizes a complex case study which shows that it is not 
+only possible, but tasty, to combine the ``garlic'' of formal methods and the 
+``chocolate'' of agile programming... that is, a ``Mole'' of Software Development 
+Processes.
 
-%   Sensor equipped devices typically communicate with a streaming
-%   packet-based network protocol.  The communication is focused on
-%   controlling the sensors and reporting the sensors measurements.  The
-%   \STSB is an example of such a device: it communicates with an
-%   arbitrary computer system, the \STPU, over a USB bus using a
-%   streaming packet-based protocol.  The \STU is a custom-designed, but
-%   inexpensive, sensor platform: it is composed by a one or more \STSBs
-%   paired with a general-purpose small-scale compute node, the \STPU
-%   (including everything from PDAs to powerful touchscreen-based
-%   portable computers).  There are over a dozen sensors on the \STSB
-%   itself, and new sensors can be added either using expansion slots on
-%   the \STSB, or adding them directly to the USB bus.  A third-party
-%   low-level library creates and parses generic USB communication
-%   packets; the library has been provided by the vendor of the USB chip
-%   vendor, the USB chip that has been used in the \STSB.
+  The case study focuses on the development of a driver to pilot an 
+embedded custom board equipped with more than a dozen sensors: the communication 
+protocol with the board is asynchronous and packet based.
+ The communication is focused on controlling the sensors and reporting 
+the sensors measurements.
 
-%   A custom medium-level Java driver creates and parses the \STSB
-%   streaming communication packets.  The driver is formally specified,
-%   validated and verified with rigorous unit testing, both hand made
-%   and automatically generated.  Because of this process and
-%   combination of technologies, we are able to verify a real \ST and a
-%   simulated one as well.  The system has been developed concurrently
-%   with the protocol specification and the real \STSB, the boards have
-%   not been available until the last months of development.  The
-%   protocol model is itself an executable stream simulator that can be
-%   used to develop new \ST user applications without having the \ST
-%   hardware at all.  Consequently, from this single specification, we
-%   are able to test that the \ST hardware communicates as expected,
-%   that our \ST simulator communicates as expected, and simulate the
-%   \ST protocol stream itself.
+  The software driver have been developed fulfilling contrasting requirements: 
+(1) the driver is formally specified, verified and validated;
+(2) a board simulator is built to match the specifications and the board behaviour;
+(3) if the board components is changed during development, the formal 
+specifications and the simulator reflect the changes accordingly;
+(4) strict software delivery deadlines.
+
+  An innovative development process has been drafted to cope with the contrasting 
+requirements of the case study, blending agile and formal practices; the 
+development process has been succesfully applied to the case study yelding promising 
+results.
 
 \end{abstract}
 
