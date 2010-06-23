@@ -614,7 +614,7 @@
     (\|> const-decl "bool" predicate_trans nil))
    69739 40 t shostak))
  (fix_point_mono 0
-  (fix_point_mono-1 nil 3485683918 3486288169
+  (fix_point_mono-1 nil 3485683918 3486288248
    ("" (skolem!)
     (("" (flatten)
       (("" (rewrite "|>" 1)
@@ -639,7 +639,7 @@
                                       (inst -2 "u!2")
                                       ((""
                                         (inst -3 "u!2")
-                                        (("" (smash) nil nil))
+                                        (("" (prop) nil nil))
                                         nil))
                                       nil))
                                     nil))
@@ -668,5 +668,5 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (\|> const-decl "bool" predicate_trans nil))
-   785872 230 t shostak)))
+   37377 90 t shostak)))
 
