@@ -7,7 +7,7 @@ IMPORTING refines_t
  imp: VAR i
 
  extract: [i -> m] = {e: [i -> m] | surjective?(e)}; 
- generate:[m -> i] = {g: [m -> i] | injective?(g)};
+ generate:[m -> i] = {g: [m -> i] | surjective?(g)};
 
  |-: PRED[[m,i]] = {(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
 
@@ -85,6 +85,8 @@ is_antisymmetric: LEMMA p <= q AND q <= p =>  p = q
 
 is_transitive: LEMMA p <= q AND q <= r => p <= r
 
+AUTO_REWRITE+  is_reflexive,is_antisymmetric,is_transitive
+
 END p_order_rewrite
 
 
@@ -95,7 +97,7 @@ END p_order_rewrite
 partial_order[T:TYPE, <=:(partial_order?[T])]:THEORY
 BEGIN
 
-IMPORTING po_rewrite[T,<=] 
+IMPORTING p_order_rewrite[T,<=] 
 
 t1,t2 : VAR T
 
@@ -277,10 +279,6 @@ not(q)   :PRED[T] = (LAMBDA (u:T): NOT q(u));
 |>(p,q)  :bool = (FORALL (u:T): p(u) IMPLIES q(u));
 
 iff(p,q) :bool = (p |> q) AND (q |> p);
-
-
-
-<=> :(iff)
 
 abort(q):bool  = false
 
