@@ -21,10 +21,6 @@ IMPORTING monotonic_f[m,i,|-,|-],
 fun_E_set :TYPE = set[[i -> m]]
 fun_G_set :TYPE = set[[m -> i]]
 
-
-
-
-
 %{(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
 
 
@@ -64,7 +60,7 @@ fun_G_set :TYPE = set[[m -> i]]
 END refinement
 
 
-%%%%%%% PARTIAL ORDER REWRITING %%%%%%%%%
+ %%%%%%% PARTIAL ORDER REWRITING %%%%%%%%%
 
 po_rewrite[T : TYPE, <=:(partial_order?[T])]: THEORY
 BEGIN
