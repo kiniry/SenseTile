@@ -169,13 +169,11 @@ Thus, the objective set is different: we want to maintain an higly iterative and
 \section{Formal Specifications With JML}
 \label{sec:formal_specifications_using_jml}
 
-\todo{quick introduction}
+The Java Modeling Language (JML) is the de facto standard specification language for describing the behavioral properties of Java programs.  JML is a rich behavioral interface specification language (BISL) and thus focuses on the modular specification of classes and objects in which inheritance is used solely for behavioral subtyping~\cite{X}.   JML includes standard specification constructs like assumptions, assertions, axioms, and pre- and postconditions, framing clauses, and invariants.  It also includes a rich model-based specification layer that includes mathematical models, data refinements~\cite{X}, datagroups~\cite{X}, and many other advanced object-oriented specification features~\cite{advancedJMLpaper}.  Many tools, ranging from compilers to static checkers to full-functional verification systems support the JML language~\cite{STTTpaper}.
 
-\todo{examine language, really short introduction}
+JML is sometimes used in a Design-by-Contract style, where a specification is written from scratch, reusing existing APIs that have specifications of their own, and then an implementation is written conforming to that specification~\cite{DBCjml,DBC}.  The implementation is checked by whatever means appropriate using some subset of the aforementioned tools.  At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact, a process we call Contracting-the-Design.
 
-\todo{examine tools, included, JML2, and escluded, ESC/2, ones}
-
-
+The two tools used most frequently to check the correctness of implementations are the JML Runtime Assertion Checker (RAC) and the Extended Static Checker for Java, version 2 (ESC/Java2)~\cite{RAC,ESC}.  The former compiles executable assertions into runtime checks, thereby generating inline test code executed at runtime.  Using RAC is familiar for developers as unit testing is en vogue at the moment.  The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave (i.e., crash in a variety of ways) and conforms to its specification (lightweight functional correctness).  As ESC/Java2 is fully automated, it is not sound, nor does it cover the whole Java and JML languages, and is thus not complete, but there is support for warning the user about both of these situations~\cite{soundness,completeness}.
 
 % ======================================================================
 \section{Blending Formal And Agile Development}
