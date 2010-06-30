@@ -30,14 +30,14 @@ LATEXDIR=../../latex
 
 ${paper}.pdf:	${paper}.tex
 	export BIBINPUTS=".//:$(BIBDIR)//:"; \
-	export BSTINPUTS="$(LATEXDIR)//:"; \
-	export TEXINPUTS="$(LATEXDIR)//:"; \
+	export BSTINPUTS=".//:$(LATEXDIR)//:"; \
+	export TEXINPUTS=".//:$(LATEXDIR)//:"; \
 	rubber --pdf ${paper}
 
 ${talk}.pdf:	${talk}.tex
 	export BIBINPUTS=".//:$(BIBDIR)//:"; \
-	export BSTINPUTS="$(LATEXDIR)//:"; \
-	export TEXINPUTS="$(LATEXDIR)//:"; \
+	export BSTINPUTS=".//:$(LATEXDIR)//:"; \
+	export TEXINPUTS=".//:$(LATEXDIR)//:"; \
 	rubber --pdf ${talk}
 
 view:	${paper}.pdf
