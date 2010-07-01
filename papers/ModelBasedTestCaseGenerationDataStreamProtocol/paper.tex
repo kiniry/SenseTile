@@ -4,65 +4,69 @@
 % 2007-09-23 19:35:53Z dmz
 %
 
-\documentclass{article} \usepackage{times}
+\documentclass{article}
 
-\usepackage{ifpdf} \usepackage{a4wide} \usepackage{pdfsync}
+\usepackage{times}
+\usepackage{ifpdf}
+\usepackage{a4wide}
+\usepackage{pdfsync}
 
-\ifpdf \usepackage[pdftex]{graphicx} \else \usepackage{graphicx} \fi
-
-\usepackage{xspace} \usepackage{tabularx} \usepackage{epsfig}
-\usepackage{amsmath} \usepackage{amsfonts} \usepackage{amssymb}
-\usepackage{eucal} \usepackage{stmaryrd} \usepackage{float}
-\usepackage{listings} \input{jml-listings}
-\lstset{language=[JML]Java,xleftmargin=20pt,xrightmargin=20pt}
-
-\ifpdf \usepackage{epstopdf}
-\usepackage[pdftex,bookmarks=false,a4paper=false,
-plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,
-linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Joseph
-R. Kiniry and Vieri del Bianco"]{hyperref} \else
-\usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\ifpdf 
+  \usepackage[pdftex]{graphicx} 
+\else 
+  \usepackage{graphicx} 
 \fi
 
-\newcommand{\tablesize}{\footnotesize} \newcommand{\eg}{e.g.,\xspace}
-\newcommand{\ie}{i.e.,\xspace} \newcommand{\etc}{etc.\xspace}
-\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
-\newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3
-    \myhref{#1}{#1}}}
+\usepackage{xspace} 
+\usepackage{tabularx} 
+\usepackage{epsfig}
+\usepackage{amsmath} 
+\usepackage{amsfonts} 
+\usepackage{amssymb}
+\usepackage{eucal} 
+\usepackage{stmaryrd} 
+\usepackage{float}
+\usepackage{listings} 
 
+\input{jml-listings}
+\lstset{language=[JML]Java,xleftmargin=20pt,xrightmargin=20pt}
+
+\ifpdf 
+  \usepackage{epstopdf}
+  \usepackage[pdftex,bookmarks=false,a4paper=false,plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Joseph R. Kiniry and Vieri del Bianco"]{hyperref} 
+\else
+  \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\fi
+
+\newcommand{\tablesize}{\footnotesize} 
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace} 
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\myhref}[2]{\ifpdf\href{#1}{#2}\else\htmladdnormallinkfoot{#2}{#1}\fi}
+\newcommand{\myhreffootnote}[3]{\myhref{#1}{#2}\footnote{#3\myhref{#1}{#1}}}
 \newcommand{\lil}[1]{\texttt{\lstinline|#1|}}
 
-% \newcommand{\notev}[1]{\xspace$\textcolor{blue}{\omega^\textsf{vieri}}$\marginpar{\scriptsize\textsf{Vieri:}
-%     #1}}
-\newcommand{\notev}[1]{\xspace\marginpar{\scriptsize\textsf{Vieri:}
-    #1}}
-\newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:}
-    #1}}
-\newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:}
-    #1}}
+\newcommand{\notev}[1]{\xspace\marginpar{\scriptsize\textsf{Vieri:}#1}}
+\newcommand{\notej}[1]{\xspace$\frac{\varocircle}{\textsf{jk}}$\marginpar{\scriptsize\textsf{Joe:}#1}}
+\newcommand{\noted}[1]{\xspace$\textcolor{red}{\dagger^\textsf{dragan}}$\marginpar{\scriptsize\textsf{Dragan:}#1}}
 
 \newcommand{\todo}[1]{\texttt{\textbf{TODO:} #1}}
 
 \newcommand{\ST}{\emph{SenseTile}\xspace}
-\newcommand{\SB}{\emph{Sensor Board}\xspace} \newcommand{\STSB}{\ST
-  \SB\xspace} \newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
+\newcommand{\STs}{\emph{SenseTiles}\xspace}
+\newcommand{\SB}{\emph{Sensor Board}\xspace} 
+\newcommand{\STSB}{\ST \SB\xspace} 
+\newcommand{\STSBs}{\ST \emph{Sensor Boards}\xspace}
 \newcommand{\STPU}{\ST \emph{Processor Unit}\xspace}
 \newcommand{\STPUs}{\ST \emph{Processor Units}\xspace}
-\newcommand{\STU}{\ST \emph{Unit}\xspace} \newcommand{\STUs}{\ST
-  \emph{Unit}\xspace}
-
-\newcommand{\STs}{\emph{SenseTiles}\xspace}
+\newcommand{\STU}{\ST \emph{Unit}\xspace} 
+\newcommand{\STUs}{\ST \emph{Units}\xspace}
 
 \newcommand{\simulator}{\STSB \emph{Simulator}\xspace}
-
 \newcommand{\datastore}{\ST Scientific Datastore\xspace}
 \newcommand{\computefarm}{The \ST Scientific Compute Farm\xspace}
-\newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute
-  Server Farm\xspace} \newcommand{\sensorfarm}{The \STSBs\xspace}
-
-% ---------------------------------------------------------------------
-% New commands, macros, \etc
-% ---------------------------------------------------------------------
+\newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute Server Farm\xspace} 
+\newcommand{\sensorfarm}{The \STSBs\xspace}
 
 %% \input{kt}
 
@@ -214,20 +218,24 @@ JML and RAC tools provide a run time checker, a test generator, and do not requi
 \section{Agile Methodologies}
 \label{sec:agile_methodologies}
 
+% principles of agile methodologies
 Agile methodologies are all based on a highly iterative and incremental process.
 They share a common approach on team management, customer relation, simplification and removal of not needed artifacts and activities and importance of working solutions and customers satisfaction.
 The agile manifesto~\cite{Beck2001} summarizes the philosphy and principles shared by all agile methodologies.
 
-In the present context, focused on how to merge agile and formal practices, we are mainly interested in the verification practices used in agile methodologies.
+% verification practices in agile methodologies
 The agile manifesto does not introduce any specific techniques to be used in the development process, it describes agile methodologies from a very high abstraction level.
 Nevertheless most of the agile methodologies share a similar approach to artifacts verification.
-Functional test suites, to be used as precise requirements or user stories definition, are used in DSDM~\cite{Stapleton1997}, XP and Crystal Clear~\cite{Cockburn2004}, while unit tests and TDD are mentioned, whether not completely accepted, in most of the agile methodologies defined so far.
+Functional test suites, to be used as precise requirements or user stories definition, are used in DSDM~\cite{Stapleton1997}, XP and Crystal Clear~\cite{Cockburn2004}. 
+Unit tests and TDD are mentioned, whether not completely accepted, in most of the agile methodologies defined so far.
 
-High abstraction level test suites, functional tests, describe requirements, and actually bind together requirements documentation and system behaviour, the development cycle is one iteration long. 
-Low abstraction level test suites, unit tests, describe a module behaviour, and actually bind together code documentation, code and the contract imposed on the module, the development cycle is usually less than one day.
+% abstraction in test suites
+High level test suites, composed of functional tests, describe requirements and bind together requirements documentation and system behaviour; the associated development cycle is one iteration long. 
+Low level test suites, composed of unit tests, describe the modules behaviour and bind together code documentation, code and the contract imposed on the module; the associated development cycle is usually less than one day (it can be as short as a few minutes).
 
+% refactoring in iterative development
+Continuous refactoring~\cite{Fowler1999} enables an interative and incremental development, since the system architecture and design, whether explicitly specified or not, need to be cleaned up and modified, to accomodate new requirements, services and modules.
 Refactoring is possible and feasible because of the safety nets provided by the test suites, used as regression test suites.
-Continuous refactoring~\cite{Fowler1999} enables an interative and incremental development, since the system architecture and design, whether explicitly specified or not, needs to be cleaned up, after implementation, and modified, to accomodate new requirements, services and modules.
 The automated test suites guarantees that the functionalities and behaviour already implemented in the code are not compromised by the system refactorings.
 
 
@@ -236,16 +244,19 @@ The automated test suites guarantees that the functionalities and behaviour alre
 \section{Formal Specifications With JML}
 \label{sec:formal_specifications_using_jml}
 
+% JML introduction
 The Java Modeling Language (JML)\footnote{\myhref{http://www.cs.ucf.edu/~leavens/JML/}{The Java Modeling Language (JML)}} is the de facto standard specification language for describing the behavioral properties of Java programs.  
 JML is a rich behavioral interface specification language (BISL) and thus focuses on the modular specification of classes and objects in which inheritance is used solely for behavioral subtyping~\cite{X}. 
 JML includes standard specification constructs like assumptions, assertions, axioms, and pre- and postconditions, framing clauses, and invariants. 
 It also includes a rich model-based specification layer that includes mathematical models, data refinements~\cite{X}, datagroups~\cite{X}, and many other advanced object-oriented specification features~\cite{advancedJMLpaper}. 
 Many tools, ranging from compilers to static checkers to full-functional verification systems support the JML language~\cite{STTTpaper}.
 
+% using JML
 JML is sometimes used in a Design-by-Contract style, where a specification is written from scratch, reusing existing APIs that have specifications of their own, and then an implementation is written conforming to that specification~\cite{DBCjml,DBC}.  
 The implementation is checked by whatever means appropriate using some subset of the aforementioned tools.  
 At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact, a process called Contracting-the-Design.
 
+% JML tools
 The two tools used most frequently to check the correctness of implementations are the JML Runtime Assertion Checker (RAC) and the Extended Static Checker for Java, version 2 (ESC/Java2)~\cite{RAC,BurdyEtal05-STTT,ESC}.
 The former compiles executable assertions into runtime checks.  
 The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave (i.e., crash in a variety of ways) and conforms to its specification (lightweight functional correctness). 
@@ -253,37 +264,93 @@ As ESC/Java2 is fully automated, it is not sound, nor does it cover the whole Ja
 
 
 
+
+
 % ======================================================================
 \section{Blending Formal And Agile Development}
 \label{sec:blending_formal_and_agile_development}
 
-\todo{describe loop importance}
+% objectives, repeated
+The objective is to formally specify only parts of the system under development, in an incremental iterative process.
+Formal methodologies artifacts need to coexist with traditional agile development artifacts: requirements, expressed as functional tests or as formal specifications, hand made and generated tests, documentation, source code.
+The development process needs to guarantee consistency all over the involved artifacts.
 
-\todo{describe partial specification importance, and consequences}
+% composition of the two worlds
+Both Test Driven Development (TDD) and classical Formal specification driven development (FDD) guarantee consistency on all the involved artifacts. 
+TDD force an iterative development, whether FDD support it without forcing it.
+The development cycle adopted in TDD is shown in Figure \ref{fig:tdd_diagram} and the one adopted in classic FDD is shown in Figure \ref{fig:fdd_diagram}.
+It can be seen how unit tests in TDD are substituted in FDD by formal specifications supported by the verification environment, in our case the verification environment is the generated unit test suite.
+Formal specifications replace unit tests: they specify, document and verify the system under development.
 
-\todo{consequences: no complete formal specification, no theorem provers, no model checking, yes run time assertions, yes generated tests}
+\begin{figure}[ht]
+  \begin{minipage}[b]{0.49\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{diagrams/TDD_classic}
+    \caption{TDD development cycle.}
+    \label{fig:tdd_diagram}
+  \end{minipage}
+  \hspace{0.02\linewidth}
+  \begin{minipage}[b]{0.49\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{diagrams/FDD_classic}
+    \caption{FDD classic development cycle.}
+    \label{fig:fdd_diagram}
+  \end{minipage}
+\end{figure}
 
-\todo{we need both worlds, together}
+% composition is not enough
+FDD is used for the formal specified parts of the system, whether TDD is used for the remaining ones: a ``composition'' of formal and agile verification practices.
+Yet, it's not enough.
+There are several problem that still needs to be addressed.
+No communication between the two worlds is permitted, it's not defined how to formally specify a module after it was implemented and verified in a non formal way.
+A module only partially specified is a sort of hybrid that needs to be treated accordingly.
+Finally, in the FDD cycle shown in Figure \ref{fig:fdd_diagram}, the implicit assumption is that it is always possible to identify the correct formal specifications of the system, but this is usually not the case.
+Identify the correct formal specification is a difficult task, that needs to be supported and verified by the development process.
 
-\todo{FDD: formal specification driven development (formal -> hand made tests -> code, design, refactorings, run-time verification)}
+% FDD with hand made tests
+A partially specified module cannot be verified properly only through automatically generated tests.
+Hand made tests have to be used together with generated ones.
+Hand made tests verify complex behaviors that are not formally speified, or complex behaviours that are formally specified but cannot be replicated by the formal verification tools because of their inherent limits. 
+Limits in the formal verification tools need to be considered when deciding whether supporting the code with hand made tests, verification tools based on automatically generated tests~\cite{Glass2002} are not an exception.
+The development cycle to be used to blend formal specifications, hand made tests and code development is shown in Figure \ref{fig:fdd_hand_made_tests_diagram}: the formal specification drives the hand made tests, both hand made tests and the formal specification drive the code development.
 
-\todo{FDD: formal specification driven development (formal -> generated tests -> code, design, refactorings, run-time verification)}
+\begin{figure}[ht]
+  \begin{minipage}[b]{0.49\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{diagrams/FDD_hand_made_tests}
+    \caption{FDD development cycle with hand made tests.}
+    \label{fig:fdd_hand_made_tests_diagram}
+  \end{minipage}
+  \hspace{0.02\linewidth}
+  \begin{minipage}[b]{0.49\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{diagrams/TDF}
+    \caption{TDF development cycle.}
+    \label{fig:tdf_diagram}
+  \end{minipage}
+\end{figure}
 
-\todo{TDD: test driven development, classical TDD (hand made tests -> code, design, refactorings)}
+% test driven formal specification
+The opposite path still needs to be covered, moving incrementally from a tested code to a formally specified code.
+In this case, new hand made tests and existing working code drives the formal specification: Test DRiven Formal specification (TDF).
+The resulting development cycle to be used to incrementally add formal specifications to an existing working code is shown in Figure \ref{fig:tdf_diagram}.
 
-\todo{increase code with formal specifications, TDF: test driven formal specification (hand made tests -> formal, design, refactorings, partial run-time verification)}
+% all together belnds into a mole
+When the Mole verification practices are used together the initial objectives can be achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; complete freedom to decide what needs to be formally specified; the development cycles and the associated verification practice maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
 
-\todo{result: formal: on some parts of the system}
+\todo{if time available: reason about test harness, who is providing what}
 
-\todo{result: tests: hand made tests, generated tests}
+\todo{if time available: reason about RAC, when to use it and when not to use it}
 
-\todo{result: hand made test execution, some should pass with and without run-time verification, some only with run-time verification, some only without run-time verification}
+\todo{if time available: result: hand made test execution, some should pass with and without run-time verification, some only with run-time verification, some only without run-time verification}
+
+\todo{unrevealed problem (hook for a follow up paper): TDF does not work well when testing postconditions, works correctly only when testing preconditions. idea1 (complex): a mock+delegate object, that behaves as the original object, except for a specific call on a specific method. idea2 (bad, the pre and post needs to be maintained synchronized): use utility class, where the precondition of a method is \~ the postcondition of the tested one}
 
 
 
 % =====================================================================
-\section{\todo{the case study}}
-\label{sec:___}
+\section{``Mole'' verification practices applied}
+\label{sec:a_complex_case_study}
 
 \subsection{Data stream and protocol description}
 \label{subsec:data_stream_and_protocol_description}
@@ -304,13 +371,13 @@ This choice originates from a trade-off between two constraints: the efficiency 
 A packet is internally composed by frames. 
 A frame (82 frames in each packet) accommodate data from the fast and medium data rate streams (there are 4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
 Fast, medium and slow data rates have not a common multiple; a packet, to be capable to accommodate outputs at different rates, in a fixed structure, relies in two forms of redundancies, for slow and medium data rates:
-
 \begin{itemize}
 \item Slow data rates: slow data can be found at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
 \item Medium data rates: the 8 medium rate channels are multiplexed together into the medium data rate data sample of each frame. The medium data rate sample channel is a piece of info to be extracted from the frame description (frame metadata), including the possibility to have no data at all. 
 E.g. a frame contain a medium data rate sample from channel 0, the following frame a sample from channel 5, the following frame no sample at all, etc.
 \end{itemize}
 
+% single packet rules
 The single packet rules delimit the boundaries of the values obtainable from the packet: each defined sensor represented in the packet, as well as the metadata describing the \STSB and the packet and frame contents, are constrained by a range of acceptable values.
 There are also rules affecting more than one value (i.e. if a specific sensor is active the reading value has to be in a defined range), and rules specifying a correct sequence of frames (i.e. there can be only one switch in sampling rate in the frame sequence of a single packet).
 
@@ -325,25 +392,36 @@ The protocol is divided in various (thin) layers, and each of the layer has been
 
 \paragraph*{Packet byte structure specification}
 
-The unformal specification and verification is provided by a hand made test suite, composed of unit and integration tests; the tests specifies the behaviors of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
-The implementation is tricky: it checks for the sentinels repeatedly to be sufficiently confidant that the byte stream can be properly decomposed into a packet stream.
+% verification
+Verification is obtained through a hand made test suite, composed of unit and integration tests; the tests specifies the behaviors of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
+The implementation is tricky: it searchs for repeated patterns into a byte stream to be sufficiently confidant how the stream can be properly decomposed into packets.
+Besides, the packet byte structure is not stable: the internal byte structure changed several times during development.
+Therefore, packet byte structure is not formally specified.
 
-The specification can be used to verify a board simulator, but it cannot be used to check properties at run time.
+% development cycles
+The test suite are used to verify board simulators (low level), but it cannot be used to check properties at run time.
 Code and tests have been implemented using TDD.
 
 \paragraph*{Packet info structure specification}
 
-The specification is provided by hand made test suites and JML annatations. 
-It has been built starting from hand made tests only, and incrementally adding tests and later on, JML annotations.
+% verification
+Verification is provided by hand made test suite, JML annotations and generated unit test suite. 
+It has been built starting from hand made tests only (TDD development cycles).
+Later on JML annotations have been added incrementally, using a mix of mole practices: to move from hand made tests to formal specifications, TDF have been initially used; than all the mole practices have been used according to the artifacts involved.
 
-\todo{explain: test -> code, test + code -> formal specification, formal specification -> generated tests}
+% development cycles
+The test suites are used to verify board simulators (high level), RAC and JML annotations are used to check the formally specified properties at run time.
+Code and tests have been initially implemented using TDD, than using all the Mole verification practices.
 
 \paragraph*{Single packet rules}
 
-The specification is provided exclusively by the formal specification with JML language.
+% verification
+The verification is provided exclusively by the formal specification with JML language, combined with the generated unit test suite and hand made test suite to verify the most complex behaviour.
 It has been built starting from JML annoatations, supported by hand made tests when needed.
 
-\todo{formal specification -> test + generated tests + code}
+% development cycles
+The test suites are used to verify board simulators (high level), RAC and JML annotations are used to check most of the rules at run time.
+Code and tests have been implemented using both forms of FDD.
 
 
 
@@ -357,10 +435,7 @@ The simulators proved essential during development, since the physical board was
 % how many of them do we need?
 Theoretically a separate simulator is needed for each protocol layer, to specify, develop and test each layer in isolation.  
 But, because of limited resources and affort avilable, the layer structure was not matched by corresponding simulators.
-Two simulators are available.
-
-% simulators development
-Simulators have been built concurrently with the specification, the driver implementation, and the tests.
+Two simulators are available, they have been built concurrently with the specification, the driver implementation, and the tests.
 
 % simulators description
 The driver API is splitted in two abstraction layers: the general high level interfaces, that expose the main functionalities of the board and the main contents of the packets, and the lower level implementation that parse the data streams in and out the board, meant to translate the higher level instructions and data in properly formed packets.
@@ -408,8 +483,12 @@ A medium data rate stream sample is considered valid when \lil{isADCActive()} me
   float=htbp]
   /*@ 
       invariant ( 
-        \forall int channel; 0 <= channel && channel < Frame.ADC_CHANNELS; ( 
-          \num_of int i; 0<= i && i<(FRAMES-1); (
+        \forall int channel; 
+            0 <= channel && 
+            channel < Frame.ADC_CHANNELS; ( 
+          \num_of int i; 
+              0 <= i && 
+              i < (FRAMES-1); (
             (getFrame(i).isADCActive()) && 
             (getFrame(i).getADCChannel() == channel)
           ) 
@@ -442,8 +521,8 @@ This is needed to maintain a high decoupling of the packages, and is the result 
 \begin{figure}[htb!]
   \centering
   \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__Main}
-  \label{fig:class_diagram_main}
   \caption{Main packages class diagram.}
+  \label{fig:class_diagram_main}
 \end{figure}
 
 % the test package structure
@@ -454,8 +533,8 @@ For instance, package \lil{DriverT} contains abstract tests for the abstractions
 \begin{figure}[htb!]
   \centering
   \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__Test}
-  \label{fig:class_diagram_test}
   \caption{Test packages class diagram.}
+  \label{fig:class_diagram_test}
 \end{figure}
 
 \paragraph*{Generated tests}
@@ -469,8 +548,8 @@ The generated tests do not maintain the inheritance structure of the code and th
 \begin{figure}[htb!]
   \centering
   \includegraphics[scale=0.7]{UML_model/Class_Diagram__Structure__GeneratedTests}
-  \label{fig:class_diagram_generatedtest}
   \caption{Generated test packages class diagram.}
+  \label{fig:class_diagram_generatedtest}
 \end{figure}
 
 \paragraph*{On simulators, again}
@@ -483,9 +562,9 @@ For instance, in Figure \ref{fig:class_diagram_streamdriver_test} the test suite
 \begin{figure}[htb!]
   \centering
   \includegraphics[scale=0.4]{UML_model/Class_Diagram__Structure__StreamDriverT}
-  \label{fig:class_diagram_streamdriver_test}
   \caption{StreamDriver test packages class diagram: use of the stream
     simulator.}
+  \label{fig:class_diagram_streamdriver_test}
 \end{figure}
 
 % simulator importance
@@ -569,34 +648,47 @@ The test suites give their best when used in a combined approach: the generated 
 
 
 
-
-
-
-
-% =====================================================================
-\section{Related works}
-\label{sec:related_works}
-
-\todo{Out of scope: agile & formal used together, but not mixed}
-
-\todo{describe and reference ``Agile Formal Method Engineering.'', formal centric}
-
-\todo{describe and reference ``Formal Agility. How much of each?'', formal centric}
-
-\todo{Mixin with test substitution}
-
-
-
-% =====================================================================
 \section{Conclusions}
 \label{sec:conclusions}
 
+\todo{write conclusions}
 
+%% \nocite{ex1,ex2}
+\bibliographystyle{latex8} 
+\bibliography{%
+  extra,%
+  abbrev,%
+  ads,%
+  category,%
+  complexity,%
+  hypertext,%
+  icsr,%
+  knowledge,%
+  languages,%
+  linguistics,%
+  meta,%
+  metrics,%
+  misc,%
+  modeling,%
+  modeltheory,%
+  reuse,%
+  rewriting,%
+  softeng,%
+  specification,%
+  ssr,%
+  technology,%
+  theory,%
+  web,%
+  upcoming,%
+  upcoming_conferences,%
+  conferences,%
+  workshops,%
+  verification,%
+  escjava,%
+  jml,%
+  nijmegen}
 
-
-
-
-
+\newpage 
 
 \section{Extracts}
 
@@ -611,7 +703,7 @@ The software system parts not specified by the JML2 specification were specified
 
 % hand made unit tests purposes
 Hand made unit tests specifies the behavior not specified by formal specification; nevertheless this is not the only purpose they have.
-Hand made unit tests have been used to drive the development, since the Test Driven Development approach\cite{beck2003test} has been
+Hand made unit tests have been used to drive the development, since the Test Driven Development approach\cite{Beck2003} has been
 followed during development.
 
 % hand made unit tests suite structure
@@ -662,17 +754,14 @@ The distinctions and similarities are summarized in Table \ref{tab:test_harness}
   \caption{Hand made and generated tests harness.}
   \label{tab:test_harness}
   \begin{center}
-    \begin{tabular}{|l|l|l|}\hline
-      & \textbf{\textit{hand made}} & \textbf{\textit{JML}} \\\hline
-      \textbf{\textit{Stub}} & to be provided & to be provided\\\hline
-      \textbf{\textit{Driver}} & to be provided & automatic: 1 call\\\hline
-      \textbf{\textit{Oracle}} & to be provided & 
-      automatic: runtime assertion checker\\\hline
+    \begin{tabular}{|c|c|c|c|}\hline
+       & \textbf{\textit{hand made}} & \textbf{\textit{hand made + RAC}} & \textbf{\textit{generated}} \\\hline
+      \textbf{\textit{Stub}} & manual & manual & manual\\\hline
+      \textbf{\textit{Driver}} & manual & manual & automatic (1 call generation)\\\hline
+      \textbf{\textit{Oracle}} & manual & manual + automatic (RAC) & automatic (RAC)\\\hline
     \end{tabular}
   \end{center}
 \end{table}
-
-\todo{expand, test + RAC variations}
 
 % test execution time, reasons
 The execution time of the generated tests is influenced by:
@@ -740,135 +829,29 @@ However, the localized properties can be more complex and less intuitive and com
 This approach is not clean, since it requires adding and using new classes, unneeded by the core implementation, to verify the protocol.  It has the advantage of keeping the properties that have to be verified mostly unchanged.
 \end{itemize}
 
+\paragraph*{out of scope related works}
+
+\todo{Out of scope: agile and formal used together, but not mixed}
+
+\todo{describe and reference ``Agile Formal Method Engineering.'', formal centric}
+
+\todo{describe and reference ``Formal Agility. How much of each?'', formal centric}
+
+\todo{Mixin with test substitution}
+
+\paragraph*{case study related works}
+
+JML has been used previously to verify a communication protocol in \cite{Hubbers2004}, but the protocol is a smart card protocol, and it
+is well represented through state machines, which are then refined into JML properties.  
+The approach is in waterfall style; than the need to develop the protocol, the specification and the implementation concurrently is not addressed.  
+No hand made or generated test suites are used, the code is specified with JML assertions, refined by the state machine specifications, and then checked statically with ESC/Java2 static checker\cite{CokKiniry04} and at runtime with JML2 tools RAC\cite{BurdyEtal05-STTT}.
+
+The JML-JUnit automatic test suite generation tool has not been widely used or assessed. 
+It is described by its own creators in \cite{Cheon2002,Cheon2004,Cheon2005}; it has been used in \cite{Oriat2004} and \cite{Cheon2005}, but only as a stand alone test suite, and, more importantly, only against proof of concepts system, it has never be proved against real complex systems.  
+A brief assessment of the JML-JUnit tool has been made in \cite{Tan2004}, the analysis is based on injecting random generated errors in the source code, and then evaluating the ratio of the errors found by the test suite: the results shows that the JML-JUnit tool is not effective enough if used as a stand alone tool. 
+No attempts on running or evaluating the generated test suite alongside with an hand made test suite are made.
 
 
-
-
-% old paper
-\section{OLD, to be reused}
-
-% =====================================================================
-
-
-
-% =====================================================================
-\section{Related works}
-
-JML has been used previously to verify a communication protocol in
-\cite{Hubbers2004}, but the protocol is a smart card protocol, and it
-is well represented through state machines, which are then refined
-into JML properties.  The approach is in waterfall style; than the
-need to develop the protocol, the specification and the implementation
-concurrently is not addressed.  No hand made or generated test suites
-are used, the code is specified with JML assertions, refined by the
-state machine specifications, and then checked statically with
-ESC/Java2 static checker\cite{CokKiniry04} and at runtime with JML2
-tools RAC\cite{BurdyEtal05-STTT}.
-
-The JML-JUnit automatic test suite generation tool has not been widely
-used or assessed. It is described by its own creators in
-\cite{Cheon2002,Cheon2004,Cheon2005}; it has been used in
-\cite{Oriat2004} and \cite{Cheon2005}, but only as a stand alone test
-suite, and, more importantly, only against proof of concepts system,
-it has never be proved against real complex systems.  A brief
-assessment of the JML-JUnit tool has been made in \cite{Tan2004}, the
-analysis is based on injecting random generated errors in the source
-code, and then evaluating the ratio of the errors found by the test
-suite: the results shows that the JML-JUnit tool is not effective
-enough if used as a stand alone tool. No attempts on running or
-evaluating the generated test suite alongside with an hand made test
-suite are made.
-
-
-
-
-
-
-
-
-\section{Next papers}
-
-\paragraph*{TDS: Test Driven Specification}
-
-Approach:
-\begin{itemize}
-\item more specification used together: formal and not formal
-\item formal specification is not complete: it is just good
-  ``enough'', static checkers unfortunately cannot be used, since the
-  specification is partial
-\item use runtime assertion checker for formal specifications, on
-  tests
-\item use generated tests for formal specifications
-\end{itemize}
-
-Who drives what:
-\begin{itemize}
-\item specification (jml - formal specification or unit test -
-  examples fragments) driven development
-\item test driven specification
-\item formal specification is not complete: it is just good
-  ``enough'', static checkers unfortunately cannot be used, since the
-  specification is partial
-\item use runtime assertion checker for formal specifications, on
-  tests
-\item use generated tests for formal specifications
-\end{itemize}
-
-Benefits:
-\begin{itemize}
-\item real agile approach
-\item real formal approach
-\item use best of both worlds, do not try to use only on of them
-\end{itemize}
-
-Case example: actual paper, modified to fit the new parts, especially
-the test driven specification part.
-
-\paragraph*{BON}
-
-\todo{describe approach: high level informal specifications with BON,
-  iterative refinements of code, to distill test cases and formal
-  specification of the interfaces}
-
-
-
-
-% ======================================================================
-%% \nocite{ex1,ex2}
-\bibliographystyle{latex8} \bibliography{extra,%
-  abbrev,%
-  ads,%
-  category,%
-  complexity,%
-  hypertext,%
-  icsr,%
-  knowledge,%
-  languages,%
-  linguistics,%
-  meta,%
-  metrics,%
-  misc,%
-  modeling,%
-  modeltheory,%
-  reuse,%
-  rewriting,%
-  softeng,%
-  specification,%
-  ssr,%
-  technology,%
-  theory,%
-  web,%
-  upcoming,%
-  upcoming_conferences,%
-  conferences,%
-  workshops,%
-  verification,%
-  escjava,%
-  jml,%
-  nijmegen}
-
-% ======================================================================
-% Fin
 
 \end{document}
 
@@ -879,168 +862,3 @@ the test driven specification part.
 %%% eval: 
 %%% TeX-master: t
 %%% End: 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% =====================================================================
-\section{Data stream and protocol description}
-\label{sec:data_stream_and_protocol_description}
-
-\STSB and \STPU communicates via an Universal Serial Bus (USB)
-interface.  A proprietary protocol is used on top of the USB serial
-channels, the protocol is specified by
-FTDI\footnote{\myhref{http://www.ftdichip.com/}{FTDI web site}}; FTDI
-is the manufacturer of the USB controller chip used in the \STSB, the
-FT2232H\cite{ftdi_ft232h_2009}.
-
-The proprietary protocol enables the control and management of some of
-the functionalities in FT232H chip (such as internal EEPROM read and
-write, reset of the chip, etc.), as well as the definition of the
-communication protocol and properties to be used in the asynchronous
-channels (input and output channels) provided by FT232H.  These
-functionalities are accessed via an Application Program Interface, the
-API is provided by a driver developed directly by FTDI, which is
-available for various systems (Linux 32 and 64 bits, Mac OS, Windows)
-\cite{ftdi_d2xx_api_2009}.
-
-Finally, a custom protocol has been developed to manage the entire
-\STSB, built on top of the serial channels provided by the API.  The
-custom protocol is meant to be used to read sensor data observations,
-enable or disable sensors, configure on-board components (as the
-Field-Programmable Gate Array and the micro processor); the protocol
-main function is to read sensor data.
-
-The protocol is asynchronous and packet based, the packets have a
-fixed length.  The protocol has been divided in multiple layers to
-ease its formal description.  The rationale is the following: mixing
-up different abstraction levels of a protocol description can lead to
-overly complex and unmanageable descriptions, especially when dealing
-with formal ones.  The layers identified in protocol are the
-following:
-
-\begin{description}
-\item[Packet byte structure]: the internal representation of the
-  packet.
-\item[Packet info structure]: the meaningful fields contained in the
-  packets.
-\item[Single packet rules]: the content acceptable values, and how
-  they influence each other.
-\item[Packet sequence rules]: the content acceptable values, based on
-  values of previously received packets.
-\item[Packet input output asynchronous rules]: the content acceptable
-  values and reaction constraints on output packets, based on
-  previously transmitted input packets.
-\end{description}
-
-We will examine the output sensor data packet, since it is the most
-used and interesting one; we won't describe input or other output
-packets.  We will examine the first three layers, that is: the packet
-byte structure, the packet info structure and the single packet rules.
-
-The packet byte and info structures of the output sensor data packet
-reflect the board capabilities and built in sensors.  Essentially a
-single packet has to accommodate various types of data:
-
-\begin{itemize}
-\item Fast data rate streams: audio data, 48KHz (standard audio) or
-  96KHz (ultra audio).
-\item Medium data rate streams: 5KHz.
-\item Slow data rate streams: temperature, pression, accelerometer,
-  etc.; all these sensor have a data rate lower than 5 KHz.
-\item Metadatas: metadatas on sensors and board state.
-\end{itemize}
-
-The internal structure of the package (as we will see) is strictly
-fixed, even if the data streams have different data rates.  This
-choice originates from a trade-off between two constraints: the
-efficiency of the transmission (redundant data to be minimized) and
-the complexity to build a package (complexity to be minimized).  The
-complexity minimization constraint rationale is the following: the
-FPGA on the \STSB builds the packet, but the FPGA is also to be used
-for various other specific tasks; it is important to maintain the
-building packet code on the FPGA as simple and short as possible, to
-leave enough space to implement other tasks.  The Output sensor data
-packet structure is shown in Table \ref{tab:data_packet_structure},
-the packet total length is 1024 bytes (512 16 bit words).
-
-\begin{table}[htbp]
-  \caption{Output sensor data packet structure.}
-  \label{tab:data_packet_structure}
-  \begin{center}
-    \begin{tabular}{|c|l|}\hline
-      \textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
-      0-1 & sentinel\\\hline
-      2-7 & slow data\\\hline
-      8-11 & metadata: board state\\\hline
-      12-13 & reserved\\\hline
-      14-15 & metadata: board state\\\hline
-      16 & reserved\\\hline
-      17-22 & frame 1\\\hline
-      \ldots & \ldots\\\hline
-      503-508 & frame 82\\\hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-The frames accommodate data from the fast and medium data rate streams
-(there are 4 fast data rate stream and 8 medium data rate stream
-channels).  There are 82 frames in a packet.  The frame structure is
-shown in Table \ref{tab:frame_structure}.
-
-\begin{table}[htbp]
-  \caption{Output sensor data packet frame structure.}
-  \label{tab:frame_structure}
-  \begin{center}
-    \begin{tabular}{|c|l|}\hline
-      \textbf{\textit{index}} & \textbf{\textit{function}}\\\hline
-      0 & metadata: frame description\\\hline
-      1 & medium data rate data sample\\\hline
-      2-5 & fast data rate data samples\\\hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-Looking at the structure described and the data rates frequencies, it
-can be seen that there must be some subtle rule, to make all the
-figures to add up; that is, to be capable to accommodate three
-different rates outputs in a fixed structure, fixed length packet.
-The subtleties lies in two forms of redundancies, for slow and medium
-data rates:
-
-\begin{itemize}
-\item Slow data rates: slow data can be found at the beginning of each
-  packet, the data is simply repeated (that is, it is equal to the
-  previous packet in the stream) when no new data is available.
-\item Medium data rates: the 8 medium rate channels are multiplexed
-  together into the medium data rate data sample of each frame.  The
-  medium data rate sample channel is a piece of info to be extracted
-  from the frame description. Besides, the medium data rate data
-  sample could contain no data at all, this information is to be
-  extracted from the frame description. So, one frame could contain a
-  medium data rate sample from channel 0, the following frame a sample
-  from channel 5, the following frame no sample at all, etc.
-\end{itemize}
-
-The single packet rules delimit the boundaries of the values
-obtainable from the packet: each defined sensor represented in the
-packet, as well as the metadata describing the \STSB and the packet
-and frame contents, are constrained by a range of acceptable values.
-There are also rules affecting more than one value, these are
-essentially validity rules (i.e. if a specific sensor is active the
-reading value has to be in a defined range), and rules specifying a
-correct sequence of frames (i.e. there can be only one switch in
-sampling rate in the frame sequence of a single packet).
-
-
-
