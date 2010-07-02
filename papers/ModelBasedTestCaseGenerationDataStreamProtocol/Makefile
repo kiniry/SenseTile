@@ -25,14 +25,11 @@ all:	${paper}.pdf ${talk}.pdf
 
 talk: 	${talk}.ps ${talk}.pdf
 
-BIBDIR=../../bibliography
-LATEXDIR=../../latex
-
 ${paper}.pdf:	${paper}.tex
-	export BIBINPUTS=".//:$(BIBDIR)//:"; \
-	export BSTINPUTS=".//:$(LATEXDIR)//:"; \
-	export TEXINPUTS=".//:$(LATEXDIR)//:"; \
-	rubber --pdf ${paper}
+	export BIBINPUTS=".:/Users/josr/Sandboxes/svn/bibliography//"; \
+	export BSTINPUTS=".:/Users/josr/Sandboxes/svn/latex//:/Users/josr/Sandboxes/mobius_inria//::LNILaTeX-Vorlage//"; \
+	export TEXINPUTS=".:/Users/josr/Sandboxes/svn/latex//:/Users/josr/Sandboxes/mobius_inria/TexInputs//::LNILaTeX-Vorlage"; \
+	pdflatex ${paper} && pdflatex ${paper} && bibtex ${paper} && pdflatex ${paper} && pdflatex ${paper}
 
 ${talk}.pdf:	${talk}.tex
 	export BIBINPUTS=".//:$(BIBDIR)//:"; \
