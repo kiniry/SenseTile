@@ -1,8 +1,3 @@
-%
-% "Agile Formality: A Mole of Software Verification Practices"
-% for Agile Methods+Formal Methods 2010
-% Vieri del Bianco, Joseph Kiniry, Dragan Stosic
-%
 
 %\documentclass{article}
 \documentclass[english]{lni}
@@ -336,19 +331,21 @@ They share a common approach on team management, customer relation, simplificati
 The Agile Manifesto~\cite{Beck2001} summarizes the philosophy and principles shared by all agile methodologies.
 
 % verification practices in agile methodologies
-The agile manifesto does not introduce any specific techniques to be used in the development process, it describes agile methodologies from a very high abstraction level.
-Nevertheless most of the agile methodologies share a similar approach to artifacts verification.
+The Agile Manifesto does not suggest any specific development techniques, it describes agile methodologies from a very high abstraction level.
+Nevertheless, most agile methodologies share a similar approach to artifact verification.
 Functional test suites, to be used as precise requirements or user stories definition, are used in DSDM~\cite{Stapleton1997}, XP and Crystal Clear~\cite{Cockburn2004}. 
 Unit tests and TDD are mentioned, whether not completely accepted, in most of the agile methodologies defined so far.
 
 % abstraction in test suites
-High level test suites, composed of functional tests, describe requirements and bind together requirements documentation and system behaviour; the associated development cycle is one iteration long. 
-Low level test suites, composed of unit tests, describe the modules behaviour and bind together code documentation, code and the contract imposed on the module; the associated development cycle is usually less than one day (it can be as short as a few minutes).
+High level test suites, composed of functional tests, describe requirements and bind together requirements documentationand system behaviour: an informal requirement is supported by a set of functional tests. 
+The associated development cycle is one iteration long. 
+Low level test suites, composed of unit tests, describe the modules behaviour and bind together code documentation, code and the contract imposed on the module: unit tests represent the contract and the documentation. 
+The associated development cycle is less than one day (as short as a few minutes).
 
 % refactoring in iterative development
-Continuous refactoring~\cite{Fowler1999} enables an iterative and incremental development, since the system architecture and design, whether explicitly specified or not, need to be cleaned up and modified, to accommodate new requirements, services and modules.
+Continuous refactoring~\cite{Fowler1999} enables iterative and incremental development, since the system architecture and design, whether explicitly specified or not, must be cleaned up and modified, to accommodate new requirements, services and modules.
 Refactoring is possible and feasible because of the safety nets provided by the test suites, used as regression test suites.
-The automated test suites guarantees that the functionalities and behaviour already implemented in the code are not compromised by the system refactorings.
+Automated test suites guarantees that the functionalities and behaviour already implemented in the code are not compromised by refactorings.
 
 
 
@@ -383,15 +380,15 @@ As ESC/Java2 is fully automated, it is not sound, nor does it cover the whole Ja
 \label{sec:blending_formal_and_agile_development}
 
 % objectives, repeated
-The objective is to formally specify only parts of the system under development, in an incremental iterative process.
-Formal methodologies artifacts need to coexist with traditional agile development artifacts: requirements, expressed as functional tests or as formal specifications, handmade and generated tests, documentation, source code.
-The development process needs to guarantee consistency all over the involved artifacts.
+Our objective is to formally specify only parts of the system under development, in an incremental iterative process.
+Formal artifacts must coexist with informal ones: requirements, expressed as functional tests or as formal specifications, handmade and generated tests, documentation, source code.
+The development process needs to guarantee consistency over all the involved artifacts.
 
 % composition of the two worlds
-Both Test Driven Development (TDD) and classical Formal specification driven development (FDD) guarantee consistency on all the involved artifacts. 
-TDD force an iterative development, whether FDD support it without forcing it.
+Both Test Driven Development (TDD) and classical Formal specification Driven Development (FDD) guarantee consistency on all the involved artifacts. 
+Both TDD and FDD support iterative development.
 The development cycle adopted in TDD is shown in Figure \ref{fig:tdd_diagram} and the one adopted in classic FDD is shown in Figure \ref{fig:fdd_diagram}.
-It can be seen how unit tests in TDD are substituted in FDD by formal specifications supported by the verification environment, in our case the verification environment is the generated unit test suite.
+Unit tests, in TDD, are substituted, in FDD, by formal specifications supported by the verification environment, in our case the verification environment is the generated unit test suite.
 Formal specifications replace unit tests: they specify, document and verify the system under development.
 
 \begin{figure}[ht]
@@ -411,20 +408,21 @@ Formal specifications replace unit tests: they specify, document and verify the 
 \end{figure}
 
 % composition is not enough
+Is this enough to deal with formal and informal artifacts?
 FDD is used for the formal specified parts of the system, whether TDD is used for the remaining ones: a ``composition'' of formal and agile verification practices.
-Yet, it's not enough.
+Yet, it is not enough.
 There are several problem that still needs to be addressed.
-No communication between the two worlds is permitted, it's not defined how to formally specify a module after it was implemented and verified in a non formal way.
+No communication between the two worlds is permitted, it is not defined how to formally specify a module after it was implemented and verified in a non formal way.
 A module only partially specified is a sort of hybrid that needs to be treated accordingly.
-Finally, in the FDD cycle shown in Figure \ref{fig:fdd_diagram}, the implicit assumption is that it is always possible to identify the correct formal specifications of the system, but this is usually not the case.
-Identify the correct formal specification is a difficult task, that needs to be supported and verified by the development process.
+Finally, in the FDD cycle shown in Figure \ref{fig:fdd_diagram}, the implicit assumption is that it is always possible to identify the correct formal specifications of the system, but this is not always straighforward.
+Identify the correct formal specification is a difficult task that needs to be supported and verified by the development process.
 
 % FDD with handmade tests
 A partially specified module cannot be verified properly only through automatically generated tests.
-handmade tests have to be used together with generated ones.
-handmade tests verify complex behaviours that are not formally specified, or complex behaviours that are formally specified but cannot be replicated by the formal verification tools because of their inherent limits. 
-Limits in the formal verification tools need to be considered when deciding whether supporting the code with handmade tests, verification tools based on automatically generated tests~\cite{Glass2002} are not an exception.
-The development cycle to be used to blend formal specifications, handmade tests and code development is shown in Figure \ref{fig:fdd_hand_made_tests_diagram}: the formal specification drives the handmade tests, both handmade tests and the formal specification drive the code development.
+Handmade tests have to be used together with generated ones.
+Handmade tests verify complex behaviours that are not formally specified, or complex behaviours that are formally specified but cannot be replicated by the formal verification tools, because of the limits of the verification tools themselves. 
+The constraints imposed by formal verification tools~\cite{Glass2002} must be taken into account when deciding whether supporting the code with handmade tests, and verification tools based on automatically generated tests are not an exception.
+The development cycle able to blend formal specifications, handmade tests and code development is shown in Figure \ref{fig:fdd_hand_made_tests_diagram}: the formal specification drives the handmade tests, both handmade tests and the formal specification drive the code development.
 
 \begin{figure}[ht]
   \begin{minipage}[b]{0.49\linewidth}
@@ -444,11 +442,11 @@ The development cycle to be used to blend formal specifications, handmade tests 
 
 % test driven formal specification
 The opposite path still needs to be covered, moving incrementally from a tested code to a formally specified code.
-In this case, new handmade tests and existing working code drives the formal specification: Test Driven Formal specification (TDF).
+In this case, new handmade tests and existing working code drives the formal specification, this is what we call Test Driven Formal specification (TDF).
 The resulting development cycle to be used to incrementally add formal specifications to an existing working code is shown in Figure \ref{fig:tdf_diagram}.
 
 % all together belnds into a mole
-When the Mole verification practices are used together the initial objectives can be achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; complete freedom to decide what needs to be formally specified; the development cycles and the associated verification practice maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
+When the Mole verification practices are used together the initial objectives are achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; complete freedom to decide what is formally specified; the development cycles and the associated verification practices maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
 
 \todo{if time available: reason about test harness, who is providing what}
 
@@ -859,8 +857,8 @@ The software system parts not specified by the JML2 specification were specified
 \paragraph*{handmade unit tests}
 
 % handmade unit tests purposes
-handmade unit tests specifies the behaviour not specified by formal specification; nevertheless this is not the only purpose they have.
-handmade unit tests have been used to drive the development, since the Test Driven Development approach\cite{Beck2003} has been
+Handmade unit tests specifies the behaviour not specified by formal specification; nevertheless, this is not the only purpose they have.
+Handmade unit tests have been used to drive the development, since the Test Driven Development approach\cite{Beck2003} has been
 followed during development.
 
 % handmade unit tests suite structure
