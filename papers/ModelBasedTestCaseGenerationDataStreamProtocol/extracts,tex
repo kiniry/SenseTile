@@ -1,0 +1,180 @@
+ 
+
+\newpage 
+
+\section{Extracts}
+
+\paragraph*{limited resources}
+
+% effect of the limited resources on the formal specifications
+Hard constraints on driver delivery deadlines define the completeness level of the (\emph{just good enough}) specification.  
+In \STSB driver JML specifies very simple behaviours (method oriented) on the whole driver implementation, and more complex behaviour on the driver core interfaces.  
+The software system parts not specified by the JML2 specification were specified using handmade unit tests.
+
+\paragraph*{handmade unit tests}
+
+% handmade unit tests purposes
+Handmade unit tests specifies the behaviour not specified by formal specification; nevertheless, this is not the only purpose they have.
+Handmade unit tests have been used to drive the development, since the Test Driven Development approach\cite{Beck2003} has been
+followed during development.
+
+% handmade unit tests suite structure
+The handmade test suite primarily focuses on small features and use cases fragments that the system must implement, or for which an exceptional case has been specified. 
+A test case is a rough specification written in imperative style. 
+The common structure requires the objects initialization, followed by a sequence of method calls taking the objects into desired initial states; than the method under test is called and the objects states are finally inspected and verified. 
+Mock objects can be used to limit module dependencies. 
+The test suite should be composed only by unit tests, but usually some tests are more complex to be called proper unit tests; they can be seen as simple integration tests.
+
+
+\paragraph*{formal specification of the protocol}
+
+% why a state machine has not been used to formally specify the protocol
+\ST stream communication protocol is characterized by a well definite packet structure, and a well definite semantic on the packet contents.  
+On the other hand, in the protocol, there are no strong constraints on synchronization, since the communication channel is splitted in two (in and out) separate concurrent and asynchronous channels.
+The lack of hard synchronization constraints reduces the advantage to use a classical state machine based specification (as the one presented in \cite{Hubbers2004}), hence this option has been discarded during development.
+
+\paragraph{jml}
+
+% how jml generated tests work
+The test suite generated is a collection of fine grained unit tests.
+For each public method a set of tests is generated.
+The specified behaviour of the method is checked using the JML2 runtime assertion checker, hence, an oracle is not needed.  
+The generated tests send messages to the method under test, once the initial precondition check is passed (if it is not passed, the test is discarded), the test catch assertion violation exceptions; if a precondition is not met the test is not run, if the precondition is met the test is run and if the postcondition is not met an exception is fired and the test fails.
+The test data used to build the tests is the only part that is required to be provided by the user.
+
+\paragraph{unit tests}
+
+% how unit tests should work
+A proper stub, driver and oracle need to be identified for each method under test to obtain a proper unit test suite; stub, driver and oracle are the usual components found in the harness that enable test execution\cite{Binder1999}.  
+
+% what is needed to test a package
+To properly unit test a package, the following components need to be identified:
+\begin{description}
+\item[Stub or Skeleton]: a piece of code that simulates the activity of the modules that are not under tests.
+\item[Driver]: a piece of code that calls in a proper way the module under test.
+\item[Oracle]: a mechanism used for determining whether a test has passed or failed, comparing the output of the module under test to the output the oracle determines the module should have.
+\end{description}
+
+% junit
+In JUnit\footnote{\myhref{http://www.junit.org/}{JUnit}}, which is the framework used to manage the implementation and execution of handmade and generated unit tests, there is no clear distinction between drivers, stubs, and oracles; none-less, even if a proper distinction
+is not imposed by the framework, the conceptual distinction still holds.
+
+% who provides what: handmade vs generated
+handmade unit tests and JML generated tests differ in how test components are provided.
+The distinctions and similarities are summarized in Table \ref{tab:test_harness}.
+\begin{table}[htbp]
+  \caption{handmade and generated tests harness.}
+  \label{tab:test_harness}
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}\hline
+       & \textbf{\textit{handmade}} & \textbf{\textit{handmade + RAC}} & \textbf{\textit{generated}} \\\hline
+      \textbf{\textit{Stub}} & manual & manual & manual\\\hline
+      \textbf{\textit{Driver}} & manual & manual & automatic (1 call generation)\\\hline
+      \textbf{\textit{Oracle}} & manual & manual + automatic (RAC) & automatic (RAC)\\\hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+% test execution time, reasons
+The execution time of the generated tests is influenced by:
+\begin{itemize}
+\item The number of the generated tests. 
+This problem is not directly addressable, since it is the heart of the test suite generation creation method itself. 
+All the combinations of possible inputs for each method under test must be generated.
+\item The runtime assertion checker overhead. 
+Each test is executed while RAC checks all the relevant properties. 
+We can speculate that if the RAC assertions could be triggered on and off on single properties in a dynamic way (during runtime), a test suite would take advantage of this possibility, turning on the RAC only on the properties that have to be verified for the classes or methods under tests (and not for all the involved classes and methods); this could save time during the test suite execution.
+\end{itemize}
+
+% tests are helpful
+The generated test suite has been helpful to test the incrementally growing specifications and the finer details of each method, while the handmade one was helpful to verify the behaviour of complex methods calls on objects initialized to specific states. 
+
+% tests leads to a better design
+An handmade test suite force the code to be test oriented, which usually leads to a better quality and more modularized source code\cite{Binder1999}.
+
+% test harness
+\todo{reason about test harness, who is providing what}
+
+% reason on RAC
+\todo{reason about RAC, when to use it and when not to use it}
+
+\todo{if time available: result: handmade test execution, some should pass with and without run-time verification, some only with run-time verification, some only without run-time verification}
+
+
+
+\paragraph*{simulators and tests}
+
+% simulators and tests
+Simulators can be used to ease the tasks of developing the test harness components (Stub, Driver, Oracle).
+A simulator can be used as a stub, to replace a module needed by the module under test.
+A simulator can be used as a driver, stimulating the module under test.
+Finally, a simulator can be used as an oracle, simulating the module under test.
+
+% multiple simulators approach
+The multiple simulators approach is not new, since it has been often used in embedded systems software testing\cite{Broekman2002}.  
+This is a general approach that can (and should) be used to verify both the simulators built and the real systems.  
+It can be easily implemented only if the code has been structured following the dependency inversion principle\cite{Martin1996} (see Figure
+\ref{fig:class_diagram_main}).
+
+\paragraph*{prototype history}
+
+% tests and the first prototype, board side
+The first \STSB prototype was meant to build empty packets, but the packets were built in a way not consistent with the specification.  
+The board errors have been detected by simply using the driver implementation, the \lil{StreamDriver} package.
+
+% tests and the second prototype, driver side
+The second prototype was meant to build packets with values taken from real sensors installed on the board.  
+The only sensors that were not yet working were the sensors devoted to the fast rate data streams (audio sensors).  
+One error needed to be corrected in the driver implementation, because of a (rare) combinations of conditions that were not covered by the test cases, but that occasionally showed up during real use.
+One error have been discovered in the low-level system driver that the developed driver is using (the system driver is outside our development scope); to eliminate the error an upgrade of the low-level driver to a new unreleased version were necessary. 
+No other errors were detected on the driver side.
+
+% tests and the second prototype, board side
+The second prototype respected the packet byte structure specification, but was not fully compliant to the packet info structure specification and the single packet rules.
+The formal JML specifications and the runtime assertion checker enables the detection of these errors.
+4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found. 
+No other errors, except the mentioned ones, have been discovered.
+
+\paragraph*{future work}
+
+% problem with TDF and post conditions
+
+\todo{unrevealed problem (hook for a follow up paper): TDF does not work well when testing postconditions, works correctly only when testing preconditions. idea1 (complex): a mock+delegate object, that behaves as the original object, except for a specific call on a specific method. idea2 (bad, the pre and post must maintained synchronized): use utility class, where the precondition of a method is \~ the postcondition of the tested one}
+
+% problem on highest levels of the protocol
+The highest levels of the protocol could be problematic (see \ref{subsec:data_stream_and_protocol_description}: ``Packet sequence rules'' and ``Packet input output asynchronous rules''). 
+On these levels, the protocol properties regard sequences of packets, and testing them can be tricky, since the sequences of packets are not referred to explicitly, in the implementation.  
+
+% solutions on highest levels of the protocol
+Two possible strategies could be used:
+\begin{itemize}
+\item Translate the packet sequence properties in local packet properties (when possible).  
+The advantage is to have properties shown as the usual pre-conditions, post-conditions and invariants.  
+However, the localized properties can be more complex and less intuitive and comprehensible than the original ones; finally, some of the global properties could be impossible to translate.
+\item Use separate utility classes, meant to verify a sequence of packages.  
+This approach is not clean, since it requires adding and using new classes, unneeded by the core implementation, to verify the protocol.  It has the advantage of keeping the properties that have to be verified mostly unchanged.
+\end{itemize}
+
+\paragraph*{out of scope related works}
+
+\todo{Out of scope: agile and formal used together, but not mixed}
+
+\todo{describe and reference ``Agile Formal Method Engineering.'', formal centric}
+
+\todo{describe and reference ``Formal Agility. How much of each?'', formal centric}
+
+\todo{Mixin with test substitution}
+
+\paragraph*{case study related works}
+
+JML has been used previously to verify a communication protocol in \cite{Hubbers2004}, but the protocol is a smart card protocol, and it
+is well represented through state machines, which are then refined into JML properties.  
+The approach is in waterfall style; than the need to develop the protocol, the specification and the implementation concurrently is not addressed.  
+No handmade or generated test suites are used, the code is specified with JML assertions, refined by the state machine specifications, and then checked statically with ESC/Java2 static checker\cite{CokKiniry04} and at runtime with JML2 tools RAC\cite{BurdyEtal05-STTT}.
+
+The JML-JUnit automatic test suite generation tool has not been widely used or assessed. 
+It is described by its own creators in \cite{Cheon2002,Cheon2004,Cheon2005}; it has been used in \cite{Oriat2004} and \cite{Cheon2005}, but only as a stand alone test suite, and, more importantly, only against proof of concepts system, it has never be proved against real complex systems.  
+A brief assessment of the JML-JUnit tool has been made in \cite{Tan2004}, the analysis is based on injecting random generated errors in the source code, and then evaluating the ratio of the errors found by the test suite: the results shows that the JML-JUnit tool is not effective enough if used as a stand alone tool. 
+No attempts on running or evaluating the generated test suite alongside with an handmade test suite are made.
+
+

@@ -69,7 +69,7 @@
 
 \begin{document}
 
-\title{Agile Formality: A Mole of Software Engineering Practices}
+\title{Agile Formality: A ``Mole'' of Software Engineering Practices}
 
 \author{Vieri del Bianco and Dragan Stosic\\
   UCD CASL: Complex and Adaptive Systems Laboratory and\\
@@ -86,23 +86,11 @@
 
 \begin{abstract}
 
-  Members of the agile programming and formal methods communities do
-  not always see eye-to-eye.  These two communities often do not talk
-  to or learn from each other.  Only recently, as highlighted by the
-  September 2009 issue of IEEE Software, the IFIP workshop on
-  balancing agility and formalism in software engineering, and the
-  first edition of the first international workshop for formal methods
-  and agile methods, have ideas from the two communities begun to be
-  synthesized.  While the problem-solving approaches and psychological
-  attitudes of members of the two communities differ widely, we
-  exploit this clash of viewpoints, synthesizing a new development
-  processes that actually blends, rather than mashes together, best
-  practices from the two worlds.  This paper summarizes our process
-  and a supporting complex case study, showing that it is not only
-  possible, but tasty, to combine the ``chili pepper'' of formal
-  methods and the ``chocolate'' of agile programming, thus producing a
-  tasty ``mole'' (as in the highly-spices Mexican sauce) of software
-  engineering practices.
+Members of the agile programming and formal methods communities do not always see eye-to-eye.  
+These two communities often do not talk to or learn from each other.  
+Only recently, as highlighted by the September 2009 issue of IEEE Software, the IFIP workshop on balancing agility and formalism in software engineering, and the first edition of the international workshop for formal methods and agile methods, ideas from the two communities begun to be synthesized.  
+While the problem-solving approaches and psychological attitudes of members of the two communities differ widely, we exploit this clash of viewpoints, exploiting a new development processes that actually blends, rather than mashes together, best practices from the two worlds.  
+This paper summarizes our process and a supporting complex case study, showing that it is not only possible, but tasty, to combine the ``chili pepper'' of formal methods and the ``chocolate'' of agile programming, thus producing a tasty ``Mole'' (as in the highly-spices Mexican sauce) of software engineering practices.
 
 \end{abstract}
 
@@ -111,296 +99,200 @@
 \label{sec:introduction}
 
 % agile and formal difficult to blend: mind attitudes
+Agile and formal development methodologies usually do not blend together well.  
+This is because of several reasons, the most important of which is often characterized as a radical difference in psychological attitudes about software development.  
 
-Agile and formal development methodologies
-usually do not blend together well.  This is because of several
-reasons, the most important of which is often characterized as a
-radical difference in psychological attitudes about software
-development.  
+% FM
+Formal methodologists often favour an in-depth, think-first approach, where the problem is understood, formalized, and solved; usually, but not always, adopting a waterfall-style of development.  
+Once a formalization is developed, development and verification proceed, in an automated and interactive fashion.  
+Consequently, projects that use formal methodologies (FMs) typically focus on critical systems with fixed requirements and somewhat flexible deadlines (``We'll ship it when it is right.'').
 
-Formal methodologists often favour an in-depth, think-first approach,
-where the problem is understood, formalized, and solved; usually, but
-not always, adopting a waterfall-style of development.  Once a
-formalization is developed, development and verification proceeds, in
-an automated and interactive fashion.  Consequently, projects that use
-formal methodologies (FMs) typically focus on critical systems with
-fixed requirements and somewhat flexible deadlines (``We'll ship it
-when it is right.'')---systems in which if something goes wrong,
-someone dies or, directly or indirectly, looses a very large amount of
-money.
-
-Agile methodologists favour an highly incremental and iterative
-approach, specifically tailored to cope with changing requirements and
-precise deadlines.  In projects that use agile methodologies (AMs), it is
-often the case that the problem is only partially understood.  Thus,
-one focuses on the aspects of a system that must be implemented in the
-current development iteration.  The solution initially developed is
-usually not optimal at all, but as it is refined through continuous
-code refactorings, its quality and validity improve over time.  Test
-suites are used for several purposes, the most important of which are
-system verification, system documentation, and requirement
-specification, and they are strictly handmade.  AMs are typically used
-in development settings where changing requirements and rapid delivery
-of the product are paramount.
+% AM
+Agile methodologists favour an highly incremental and iterative approach, specifically tailored to cope with changing requirements and precise deadlines.  In projects that use agile methodologies (AMs), it is often the case that the problem is only partially understood.  
+Thus, one focuses on the aspects of a system that must be implemented in the current development iteration.  
+The solution initially developed is usually not optimal at all, but as it is refined through continuous code refactorings, its quality and validity improve over time.  
+Test suites are used for several purposes, the most important of which are system verification, system documentation, and requirement specification, and they are strictly handmade.  
+AMs are typically used in development settings where changing requirements and rapid delivery of the product are paramount.
 
 % problems would benefit form agile and formal mix, characterize the problem
+The two worlds seem irreconcilable.  
+Nevertheless, problems exist that would greatly benefit from both of them~\cite{Black2009}.  
+The problem class in which we have particular interest have \emph{unstable requirements}, are \emph{constrained by deadlines that cannot be postponed}, but also have \emph{subsystems that must be formally specified and verified}.
 
-The two worlds seem irreconcilable.  Nevertheless, there exist
-problems that would greatly benefit from both~\cite{Black2009}.  The
-problem class that in which we have particular interest have
-\emph{unstable requirements}, are \emph{constrained by deadlines that
-  cannot be postponed}, but also \emph{have subsystems that must be
-  formally specified and verified}.
-
-% terminology
 
 \subsection{Terminology}
 \label{sec:terminology}
 
-In this paper the IEEE 610~/cite{Jay1990} standard terminology for validation and
-verification is used.  Paraphrasing the standard
-slightly, \emph{verification} is the process of evaluating software to
-determine whether the products of a given development phase satisfy
-the conditions imposed at the start of that phase, according to the
-requirements and design specifications (``you build the system in the
-right way''); validation is the process of evaluating software during
-or at the end of the development process to determine whether it
-satisfies specified requirements ensuring it meets the user's needs
-(``you build the right system'').
+% terminology
+In this paper the IEEE 610~/cite{Jay1990} standard terminology for validation and verification is used.  
+Paraphrasing the standard slightly, \emph{verification} is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase, according to the requirements and design specifications (``you build the system in the
+right way''); \emph{validation} is the process of evaluating software during or at the end of the development process to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
 
-Within the formal methods community, verification means something much
-stronger, and validation something quite different, than in the IEEE
-610 standard.  Loosely, within the FM community, \emph{verification}
-means the use of formal methods to formally, statically (and usually
-modularly) verify that a system conforms to its specification (under
-all possible execution scenarios).  On the other hand,
-\emph{validation} means the use of traditional software engineering
-practices to check, statically or dynamically, that the system
-conforms to its specification (whether in the form of tests,
-requirements, etc.) by hand or via execution under some execution
-scenarios.
+Within the formal methods community, verification means something much stronger, and validation something quite different, than in the IEEE 610 standard.
+Loosely, within the FM community, \emph{verification} (in the paper \emph{formal verification}) means the use of formal methods to formally, statically (and usually modularly) verify that a system conforms to its specification (under all possible execution scenarios).  
+On the other hand, \emph{validation} (in ther paper \emph{formal validation}) means the use of traditional software engineering practices to check, statically or dynamically, that a system conforms to its specification (whether in the form of tests, requirements, etc.) by hand or via execution under some execution scenarios.
+In the present paper both perspectives are respected and acknowledged, with the attempt to be absolutely clear in using these terms unambigously.
+Additionally, ``...development of a system,'' more precisely means ``...analysis, design, development, verification, formal validation of a system''.
 
-As we come from both the AM and FM communities, we respect and
-acknowledge both perspectives and will attempt to be absolutely clear
-in our use of these terms in the following.
 
-Additionally, in the following when we informally say ``...development
-of a system,'' we more precisely mean ``...analysis, design,
-development, verification (both testing and formal verification), and
-validation of a system.''
 
 \subsection{Case Study}
 \label{sec:case-study}
 
-Proposing a new process with no supporting evidence is an
-uninteresting proposition.  A complex case study is mandatory to test
-bench a development process.  Our case study focuses on the
-development of a device driver to control and communicate with an
-embedded custom circuit board equipped with more than a dozen sensors.
-The communication protocol with the board is asynchronous and packet
-based and the board is novel and custom-designed.  The protocol is
-focused on controlling the board and reporting sensor measurements and
-board status.
+Proposing new practices with no supporting evidence is an uninteresting proposition.  
+A complex case study is mandatory to test bench the proposed practices.  
+Our case study focuses on the development of a device driver to control and communicate with an embedded custom circuit board equipped with more than a dozen sensors.
+The communication protocol with the board is asynchronous and packet-based and the board is novel and custom-designed.  
+The protocol is focused on controlling the board and reporting sensor measurements and board status.
 
-This software driver has been developed using our process while
-statisfying seemingly contradictory requirements: (1)~the protocol
-implementation must be thoroughly verified; (2)~parts of the protocol
-must be formally specified; (3)~a board simulator must be designed,
-implemented, and verified to match the specifications of, and actual
-behavior of, the physical circuit board; (4)~if board components
-change during development, the associated formal specifications and
-the simulator whose behavior reflects such changes must be updated
-accordingly; (5)~strict software delivery deadlines.  Consequently,
-these process requirements constitute an environment that benefits
-from both an agile and a formal approaches to software development.
+This software driver has been developed using our process while statisfying seemingly contradictory requirements: (1)~the protocol implementation must be thoroughly verified; (2)~parts of the protocol must be formally specified; (3)~a board simulator must be designed, implemented, and verified to match the specifications of, and actual behaviour of, the physical circuit board; (4)~if board components change during development, the associated formal specifications and the simulator whose behavior reflects such changes must be updated accordingly; (5)~strict software delivery deadlines.  
+Consequently, these process requirements constitute an environment that benefits from both agile and formal approaches to software development.
 
-Over the course of the past 18 months, an novel development process
-has been refined to cope with the contrasting requirements of the case
-study, blending agile and formal practices.  In the following we
-summarize this development process and report on its successful
-application to the case study, yielding several promising results.
+A novel development process has been drafted to cope with the contrasting requirements of the case study, blending agile and formal practices.  
+In the following the development process and the practices are summarized, and their successful application to the case study is reported, yielding several promising results.
+
+
 
 \subsection{Formal and Agile Integration}
 \label{subsec:formal_and_agile_integration}
 
 % what is needed, high-level
-To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the agile methodologies must be maintained, and formal verification  methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, verify the implementation against the specification), must be adapted to a highly iterative one.
+To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the agile methodologies must be maintained, and formal validation  methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, validate the implementation against the specification), must be adapted to a highly iterative one.
 
 % what must be considered: TDD
 The most common software verification practices in agile methodologies must be considered, when trying to integrate formal and agile methodologies, since they are a fundamental part of the development process. 
 The most significant verification practice is Test Driven Development (TDD)~\cite{Beck2003}, TDD is a software development technique, originally defined in Extreme Programming (XP)~\cite{Beck2004} methodology, characterized by writing unit tests before writing the code.
 Actually, the general technique, consisting in writing the tests before the code, is used at high abstraction levels as well, since user stories (the requirements) are translated into test cases (the functional tests) before implementation.
-The test driven approach is a cornerstone of XP, but it is so popular that have been adopted in many other agile methodologies as well.
+The test driven approach is a cornerstone of XP, but it is so popular that has been adopted in many other agile methodologies as well.
 It is also considered a good software development technique when used on its own, regardless of the enclosing development process.
 
 % test driven kinds
 The test driven approach relies on writing the tests before the actual implementation. 
 It is appliable in a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
-It ia appliable in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
+It is appliable in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
 
 % previous related work
 Some tentative attempts to reconcile formal and agile methodologies have been developed.
-The recurrent approach of the attempts consists in removing the handmade test suites, substituting them with different kinds of automated verification based on the system formal specification. 
-The automated verification can be as simple as enabling run time verification of assertions or automatically generating a test suite based on the system properties, or as complex as actually proving the whole system behaviour through static model and code checkers or theorem provers.
+The recurrent approach of the attempts consists in removing the handmade test suites, substituting them with different kinds of automated formal validation based on the system formal specification. 
+The automated validation can be as simple as enabling runtime verification of assertions or automatically generating a test suite based on the system properties, or as complex as actually proving the whole system behaviour through static model and code checkers or theorem provers (formal verification).
 
 % a quick analysis of the related works
 Eleftherakis and Cowling in~\cite{Eleftherakis2003} propose XFun, an iterative and incremental process to generate X-Machines models, an extension of Finite State Machines. 
 The development process impose a complete specification of the system, and its verification is done exclusively using the tools provided by the X-Machines formal methodology. 
-The development process proposed in~\cite{Herranz2003b} by Herranz and Moreno-Navarro is quite similar; they propose an iterative process to model a system using SLAM-SL, an object-oriented specification language, and its tools. 
+The development process proposed in~\cite{Herranz2003b} by Herranz and Moreno-Navarro is quite similar: they propose an iterative process to model a system using SLAM-SL, an object-oriented specification language, and its tools. 
 Some XP practices are fully adopted or considered compatible, as pair-programming, iterative and incremental development, system refactoring; while tests are completely replaced by the verification tools provided by the SLAM suite.
 A different formal methodology, but same approach, is found also in~\cite{Suhaib2005} where XFM methodology is explained.
 
 % previous work: a common approach
 As already mentioned, in all these attempts, the handmade test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
-The requisite to enable these approaches is, at least, a specification of the entire system under development to enable simple verification techniques as run time verification (obtained by assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
+The requisite to enable these approaches is, at least, a specification of the entire system under development to enable simple verification techniques as runtime verification (obtained by assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
 At most, a complete and sound system specification, usually supported by an appropriate formal language (to specify model and properties) and a constrained programming language, used to actually prove properties about the system under development~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
 
 % previous work: why is not satisfying
 The approach is simple: the verification, documentation and requirement specification purposes of the tests are moved on to the formal specifications, and a complete formal specification of the system under development is needed to apply these methodologies.
-The problem is that this requirement is hard to fulfil, since the effort required to write a complete formal specification of the system, in most real world complex cases, is usually greater than writing a suite of tests~/cite{Glass2002}.
+The problem is that this requirement is hard to fulfil, since the effort required to write a complete formal specification of the system, in most real world complex cases, is usually greater than writing a suite of tests~\cite{Glass2002}.
 If a complete formal specification is not built, all the previous methodologies share a common problem: the parts not formally specified are not verified at all.
-The parts not formally specified can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are not detailed nor enforced.
+These can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are neither detailed nor enforced.
 The loops and relations between the different development artifacts are the inner engine of many agile methodologies, they impose an iterative and incremental pace to the development process.
 
 % what we want to achieve
-The objectives we want to achieve are the following ones: freedom to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
+The objectives we want to achieve are the following: to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
 
 % how we want to achive it
 The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in agile methodologies (especially in XP), to solve this problem in an highly iterative development process.
 We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how handmade and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
-That is, we will show how to blend, and not compose, formal and agile verification practices: a Mole of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers and chocolate, served with meat.}
+That is, we will show how to blend, and not compose, formal validation and agile verification practices: a ``Mole'' of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers and chocolate, served with meat.}.
+
+
 
 \section{A Real and Complex Case Study: \\ Rapid Development in Small-scale Hardware Software Co-design}
 \label{subsec:a_real_and_complex_case_study}
 
-Mole practices are applied in the context of a real world case study
-that matches the problem requirements previously detailed: unstable
-requirements and development artifacts that need to be formally
-specified and verified.  The case study fits these needs.
+``Mole'' practices are applied in the context of a real world case study that matches the problem requirements previously detailed: unstable requirements and development artifacts that need to be formally specified and validated.  
 
 \subsection{The UCD CASL SenseTile System}
 \label{sec:ucd-casl-sensetile}
 
 % SenseTile introduction
-The \textbf{UCD CASL SenseTile System} is a large-scale,
-general-purpose sensor system developed at the University College
-Dublin in Dublin, Ireland.  Our facility provides a scalable and
-extensible infrastructure for performing in-depth investigation into
-both the specific and general issues in large-scale sensor networking.
-This system integrates a sensor platform, a datastore, and a compute
-farm.  The sensor platform is a custom-designed but inexpensive sensor
-platform (called the \ST) paired with general-purpose small-scale
-compute nodes, including everything from low-power PDAs to powerful
-touchscreen-based portable computers.  Besides containing over a dozen
-sensors packaged on the \ST itself, the board is expandable as well,
-as new sensors are added to it easily.
+The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose sensor system developed at the University College Dublin in Dublin, Ireland.  
+The facility provides a scalable and extensible infrastructure for performing in-depth investigation into both the specific and general issues in large-scale sensor networking. 
+This system integrates a sensor platform, a datastore, and a compute farm.  
+The sensor platform is a custom-designed but inexpensive sensor platform (called the \ST) paired with general-purpose small-scale compute nodes, including everything from low-power PDAs to powerful touchscreen-based portable computers.  
+Besides containing over a dozen sensors packaged on the \ST itself, the board is expandable as well, as new sensors are added to it easily.
 
 % case study: the sensor board development tasks
-The case study is focused in building the sensor board and its
-software driver concurrently.  Because of hard time constraints and
-the initial unavailability of the custom board, we must progress
-concurrently with all the development tasks, including:
-(1)~specification of the communication protocol; (2)~specification of
-the physical sensor board; (3)~development and fabrication of the
-physical board; (4)~development of the embedded software for the
-board; (5)~development of the communication protocol software driver
-the the board; and (6)~development of a software simulator of the
-board.
+The case study is focused in building the sensor board and its software driver concurrently.  
+Because of hard time constraints and the initial unavailability of the custom board, we must progress concurrently with all the development tasks, including: (1)~specification of the communication protocol; (2)~specification of the physical sensor board; (3)~development and fabrication of the physical board; (4)~development of the embedded software for the board; (5)~development of the communication protocol software driver of the board; and (6)~development of software simulators of the board.
 
 % what we have to do, what we outsourced, and the dependencies between tasks
-The development of the physical board, along with its embedded
-software (development tasks~2, 3, 4), is carried out by an third party
-under our guidance, thus it is not directly taken into account here.
-The specification of the communication protocol (development task~1)
-is a joint effort between ourselves and the third party, while the
-remaining tasks~(5, 6) are performed in isolation.  Dependencies are
-straightforward: the specification of the communication protocol~(1)
-is the most stable element, but it still depends on the sensor
-board~(2, 3, 4): large changes in the latter affect the former.
-Additionally, the driver and the simulator depends directly on the
-communication protocol.
+The development of the physical board, along with its embedded software (development tasks~2, 3, 4), is carried out by a third party under our guidance, thus it is not directly taken into account here. 
+The specification of the communication protocol (development task~1) is a joint effort between ourselves and the third party, while the remaining tasks~(5, 6) are performed in isolation.  
+Dependencies are straightforward: the specification of the communication protocol~(1) is the most stable element, but it still depends on the sensor board~(2, 3, 4): large changes in the latter affect the former.
+Additionally, the driver and the simulator depends directly on the communication protocol.
 
 % communication with external manufacturer
-Communication and synchronization with the external manufacturer is
-frequent but not optimal.  The main synchronization artifact is the
-protocol specification, which remains stable at high-level, but is
-changed frequently in the low-level details.  Since domain expertise
-is very different between the two teams, a common domain language is
-difficult to find and to agree upon.  Formal methodologies and
-programming platforms also differ.  Consequently, more for social and
-psychological reasons than technical ones, the informal specification
-of the communication protocol is the most reliable source of
-information.
+Communication and synchronization with the external manufacturer is frequent but not optimal.  
+The main synchronization artifact is the protocol specification, which remains stable at high-level, but is changed frequently in the low-level details.  
+A common domain language has been found and agreed upon, but the formal methodologies and programming platforms differs widely.  
+Consequently the informal specification of the communication protocol is the most reliable source of information.
+
+
 
 \subsubsection{Related Methodologies}
 \label{sec:relat-meth}
 
 % how the problem is usually managed
-There exist various approaches in literature addressing this kind of
-development constraints (rapid development in hardware software
-co-design), but all are focused on large-scale systems.  
+There exist various approaches in literature addressing this kind of development constraints (rapid development in hardware software co-design), but all are focused on large-scale systems.  
 
-The hardware-software formal co-design methodologies usually have
-several common development artifacts~\cite{Slomka2000, Hoffman2001}
-including a high-level specification of the system, a translation
-(refinement) of the high-level specification to low-level ones
-(hardware and software counterparts), the possibility to generate
-software code from the low-level specifications, a hardware simulator
-capable of simulating an hardware component based on hardware
-specification, the hardware component developed.
+% hardware-software
+The hardware-software formal co-design methodologies usually have several common development artifacts~\cite{Slomka2000, Hoffman2001} including a high-level specification of the system, a translation (refinement) of the high-level specification to low-level ones (hardware and software counterparts), the possibility to generate software code from the low-level specifications, a hardware simulator capable of simulating an hardware component based on hardware specification, the hardware component developed.
 
-When considering the development of the device and of its software
-driver as separate entities that possibly have to be developed
-concurrently, the existing approaches are similar to the ones seen in
-the case of hardware-software co-design~\cite{Valderrama1995,
-  Siegmund2002, Ryzhyk2009}, all of which focus on a specification
-that aims to be as complete.
+% device drivers
+When considering the development of the device and of its software driver as separate entities that possibly have to be developed concurrently, the existing approaches are similar to the ones seen in the case of hardware-software co-design~\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}, all of which focus on a specification that aims to be as complete as possible.
 
 % complete specification is not feasible
-A complete specification is not feasible nor convenient in our case.
-The protocol specification must be enhanced incrementally and its
-complete specification cannot be provided.  This makes the problem an
-ideal candidate to test the our ``mole'' of practices.
+A complete specification is neither feasible nor convenient in our case. 
+The protocol specification must be enhanced incrementally and its complete specification cannot be provided.  
+This makes the problem an ideal candidate to test our ``Mole'' of practices.
 
 % formal methodology constraints
-To perform this case study, an appropriate formal methodology must be
-chosen.  It must be able to support a specification that is built
-incrementally.  Consequently, formal methods that demand a complete
-specification must be avoided.  Additionally,
-to best synthesize with agile methods, the formal language must be
-able to automatically generate tests.  Finally, the formal method must
-be complemented by tools that support the verification of system
-properties both at design-time (via static analysis, for full
-functional verification of critical subsystems) and at run time (for
-dynamic validation for integration with TDD).
+To perform this case study, an appropriate formal methodology must be chosen.  
+It must be able to support a specification that is built incrementally.  
+Consequently: formal methods that demand a complete specification must be avoided; additionally, to best synthesize with agile methods, the formal language must be able to automatically generate tests; finally, the formal method must be complemented by tools that support the verification of system properties both at design-time (via static analysis, for full functional verification of critical subsystems) and at runtime (for dynamic validation for integration with TDD).
+
+\subsection{The Chosen Formal Methodology: Formal Specifications with JML}
 
 % the chosen formal methodology
-Driven by these requirements and our expertise, the Java programming
-language and platform were chosen for the implementation, the Java
-Modeling Language (JML)~\cite{LeavensBakerRuby-Prelim} and Business
-Object Notation (BON)~\cite{WaldenNerson95} are used to write formal
-specifications, and the BONc~\cite{BONc}, Beetlz~\cite{Beetlz},
-JML2~\cite{JML2,JML2common}, and Extended Static Checker for Java
-(ESC/Java2)~\cite{ESCJava2,KiniryCok04SmallCite} tool suites are used
-as supporting tools~\cite{BurdyEtal05-STTT}.  The JML2 tool suite
-includes runtime assertion checker~\cite{Cheon-Leavens02b} and a unit
-test generator~\cite{Cheon2002}.  The BONc tool supports validity
-checking of high-level requirements and architecture specifications,
-Beetlz supports reasoning about refinement between BON and JML
-specifications, and ESC/Java2 supports automatic, modular, static
-reasoning about the correctness of an implementation against its
-formal specification.  All four tool suites do not require a complete
-specification to be used effectively.
+Driven by these requirements and our expertise, the Java programming language and platform are chosen for the implementation, the Java Modeling Language (JML)~\cite{LeavensBakerRuby-Prelim} is used to write formal specifications, and JML2~\cite{JML2}, and Extended Static Checker for Java (ESC/Java2)~\cite{ESCJava2,KiniryCok04SmallCite} tool suites are used as supporting tools~\cite{BurdyEtal05-STTT}.  
+The JML2 tool suite includes runtime assertion checker~\cite{Cheon-Leavens02b} and a unit test generator~\cite{Cheon2002}.
+ESC/Java2 supports automatic, modular, static reasoning about the correctness of an implementation against its formal specification.
+These tool suites do not require a complete specification to be used effectively.
 
-\subsection{\todo{paper structure title}}
+% JML introduction
+JML is the de facto standard specification language for describing Java programs behaviour.  
+JML is a rich behavioural interface specification language (BISL) and thus focuses on the modular specification of classes and objects in which inheritance is used solely for behavioural subtyping~\cite{LeavensBakerRuby99}.  
+JML includes standard specification constructs like assumptions, assertions, axioms, and pre- and postconditions, framing clauses, and invariants.
+It also includes a rich model-based specification layer that includes mathematical models, data refinements, datagroups, and many other advanced object-oriented specification features~\cite{Chalin06}.  
+Many tools, ranging from compilers to static checkers to full-functional verification systems support the JML language~\cite{BurdyEtal05-STTT}.
 
-\todo{explain paper structure}
+% using JML
+JML is sometimes used in a Design-by-Contract style, where a specification is written from scratch, reusing existing APIs that have
+specifications of their own, and then an implementation is written conforming to that specification~\cite{Meyer92b}.  
+The implementation is checked by whatever means appropriate using some subset of the aforementioned tools.  
+At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact, a process called Contracting-the-Design.
+
+% JML tools
+The two tools used most frequently to check the correctness of implementations are the JML Runtime Assertion Checker (RAC) and the
+Extended Static Checker for Java, version 2 (ESC/Java2)~\cite{Cheon-Leavens02b,BurdyEtal05-STTT,KiniryCok04}.  
+The former compiles executable assertions into runtime checks.  
+The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave (i.e., crash in a variety of ways) and conforms to its specification (lightweight functional correctness).  
+As ESC/Java2 is fully automated, it is not sound, nor does it cover the whole Java and JML languages, and is thus not complete, but there is support for warning the user about both of these situations~\cite{KiniryEtal06}.
 
 
 
 % ======================================================================
-\section{Agile Methodologies}
-\label{sec:agile_methodologies}
+\section{Blending Formal And Agile Development}
+\label{sec:blending_formal_and_agile_development}
 
 % principles of agile methodologies
 Agile methodologies are all based on a highly iterative and incremental process.
@@ -414,9 +306,9 @@ Functional test suites, used as precise requirements or user stories definition,
 Unit tests and TDD are mentioned, and often completely accepted, in most of the agile methodologies defined so far.
 
 % abstraction in test suites
-High level test suites, composed of functional tests, describe requirements and bind together requirements documentationand system behaviour: an informal requirement is supported by a set of functional tests. 
+High level test suites, composed of functional tests, describe requirements and bind together requirement documentation and system behaviour: an informal requirement is supported by a set of functional tests. 
 The associated development cycle is one iteration long. 
-Low level test suites, composed of unit tests, describe the modules behaviour and bind together code documentation, code and the contract imposed on the module: unit tests represent the contract and the documentation. 
+Low level test suites, composed of unit tests, describe the module behaviour and bind together code documentation, code and the contract imposed on the module: unit tests represent the contract and the documentation. 
 The associated development cycle is less than one day (as short as a few minutes).
 
 % refactoring in iterative development
@@ -424,55 +316,7 @@ Continuous refactoring~\cite{Fowler1999} enables iterative and incremental devel
 Refactoring is possible and feasible because of the safety nets provided by the test suites, used as regression test suites.
 Automated test suites guarantees that the functionalities and behaviour already implemented in the code are not compromised by refactorings.
 
-
-
-% ======================================================================
-\section{Formal Specifications With JML}
-\label{sec:formal_specifications_using_jml}
-
-% JML introduction
-The Java Modeling Language (JML) is the de facto standard
-specification language for describing the behavioural properties of
-Java programs.  JML is a rich behavioural interface specification
-language (BISL) and thus focuses on the modular specification of
-classes and objects in which inheritance is used solely for
-behavioural subtyping~\cite{LeavensBakerRuby99}.  JML includes
-standard specification constructs like assumptions, assertions,
-axioms, and pre- and postconditions, framing clauses, and invariants.
-It also includes a rich model-based specification layer that includes
-mathematical models, data refinements~\cite{}, datagroups~\cite{}, and
-many other advanced object-oriented specification
-features~\cite{chalin06:_beyon_asser}.  Many tools, ranging from
-compilers to static checkers to full-functional verification systems
-support the JML language~\cite{BurdyEtal05-STTT}.
-
-% using JML
-JML is sometimes used in a Design-by-Contract style, where a
-specification is written from scratch, reusing existing APIs that have
-specifications of their own, and then an implementation is written
-conforming to that specification~\cite{Meyer92b}.  The
-implementation is checked by whatever means appropriate using some
-subset of the aforementioned tools.  At other times an existing piece
-of implemented and tested code is annotated with specifications
-after-the-fact, a process called Contracting-the-Design.
-
-% JML tools
-The two tools used most frequently to check the correctness of
-implementations are the JML Runtime Assertion Checker (RAC) and the
-Extended Static Checker for Java, version 2
-(ESC/Java2)~\cite{Cheon-Leavens02b,BurdyEtal05-STTT,KiniryCok04}.  The
-former compiles executable assertions into runtime checks.  The latter
-tool performs automated modular semantic static analysis to attempt to
-prove that the program under analysis does not misbehave (i.e., crash
-in a variety of ways) and conforms to its specification (lightweight
-functional correctness).  As ESC/Java2 is fully automated, it is not
-sound, nor does it cover the whole Java and JML languages, and is thus
-not complete, but there is support for warning the user about both of
-these situations~\cite{KiniryEtal06}.
-
-% ======================================================================
-\section{Blending Formal And Agile Development}
-\label{sec:blending_formal_and_agile_development}
+\subsection{``Mole'' practices}
 
 % objectives, repeated
 Our objective is to formally specify only parts of the system under development, in an incremental iterative process.
@@ -483,18 +327,18 @@ The development process needs to guarantee consistency over all the involved art
 Both Test Driven Development (TDD) and classical Formal specification Driven Development (FDD) guarantee consistency on all the involved artifacts. 
 Both TDD and FDD support iterative development.
 The development cycle adopted in TDD is shown in Figure \ref{fig:tdd_diagram} and the one adopted in classic FDD is shown in Figure \ref{fig:fdd_diagram}.
-Unit tests, in TDD, are substituted, in FDD, by formal specifications supported by the verification environment, in our case the verification environment is the generated unit test suite.
+Unit tests used in TDD are substituted  in FDD by formal specifications supported by the verification environment; in our case the verification environment is the generated unit test suite.
 Formal specifications replace unit tests: they specify, document and verify the system under development.
 
 \begin{figure}[ht]
-  \begin{minipage}[b]{0.49\linewidth}
+  \begin{minipage}[b]{0.48\linewidth}
     \centering
     \includegraphics[scale=0.5]{diagrams/TDD_classic}
     \caption{TDD development cycle.}
     \label{fig:tdd_diagram}
   \end{minipage}
   \hspace{0.02\linewidth}
-  \begin{minipage}[b]{0.49\linewidth}
+  \begin{minipage}[b]{0.48\linewidth}
     \centering
     \includegraphics[scale=0.5]{diagrams/FDD_classic}
     \caption{FDD classic development cycle.}
@@ -506,8 +350,8 @@ Formal specifications replace unit tests: they specify, document and verify the 
 Is this enough to deal with formal and informal artifacts?
 FDD is used for the formal specified parts of the system, whether TDD is used for the remaining ones: a ``composition'' of formal and agile verification practices.
 Yet, it is not enough.
-There are several problem that still needs to be addressed.
-No communication between the two worlds is permitted, it is not defined how to formally specify a module after it was implemented and verified in a non formal way.
+There are several problems that still need to be addressed.
+No communication between the two worlds is permitted, it is not defined how to formally specify a module after it has been implemented and verified in a non formal way.
 A module only partially specified is a sort of hybrid that must be treated accordingly.
 Finally, in the FDD cycle shown in Figure \ref{fig:fdd_diagram}, the implicit assumption is that it is always possible to identify the correct formal specifications of the system, but this is not always straighforward.
 Identify the correct formal specification is a difficult task, it has to be supported and verified by the development process.
@@ -517,17 +361,18 @@ A partially specified module cannot be verified properly only through automatica
 Handmade tests have to be used together with generated ones.
 Handmade tests verify complex behaviours that are not formally specified, or complex behaviours that are formally specified but cannot be replicated by the formal verification tools, because of the limits of the verification tools themselves. 
 The constraints imposed by formal verification tools~\cite{Glass2002} must be taken into account when deciding whether supporting the code with handmade tests, and verification tools based on automatically generated tests are not an exception.
-The development cycle able to blend formal specifications, handmade tests and code development is shown in Figure \ref{fig:fdd_hand_made_tests_diagram}: the formal specification drives the handmade tests, both handmade tests and the formal specification drive the code development.
+The development cycle able to blend formal specifications, handmade tests and code development is shown in Figure \ref{fig:fdd_hand_made_tests_diagram}: the formal specification drives the handmade tests. 
+Both handmade tests and the formal specification drive the code development.
 
 \begin{figure}[ht]
-  \begin{minipage}[b]{0.49\linewidth}
+  \begin{minipage}[b]{0.48\linewidth}
     \centering
     \includegraphics[scale=0.5]{diagrams/FDD_hand_made_tests}
     \caption{FDD development cycle with handmade tests.}
     \label{fig:fdd_hand_made_tests_diagram}
   \end{minipage}
   \hspace{0.02\linewidth}
-  \begin{minipage}[b]{0.49\linewidth}
+  \begin{minipage}[b]{0.48\linewidth}
     \centering
     \includegraphics[scale=0.5]{diagrams/TDF}
     \caption{TDF development cycle.}
@@ -540,16 +385,8 @@ The opposite path still needs to be covered, moving incrementally from a tested 
 In this case, new handmade tests and existing working code drives the formal specification, this is what we call Test Driven Formal specification (TDF).
 The resulting development cycle code is shown in Figure \ref{fig:tdf_diagram}, TDF is used to incrementally add formal specifications to an existing working system.
 
-% all together belnds into a mole
-When the Mole verification practices are used together the initial objectives are achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; complete freedom to decide what is formally specified; the development cycles and the associated verification practices maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
-
-\todo{if time available: reason about test harness, who is providing what}
-
-\todo{if time available: reason about RAC, when to use it and when not to use it}
-
-\todo{if time available: result: handmade test execution, some should pass with and without run-time verification, some only with run-time verification, some only without run-time verification}
-
-\todo{unrevealed problem (hook for a follow up paper): TDF does not work well when testing postconditions, works correctly only when testing preconditions. idea1 (complex): a mock+delegate object, that behaves as the original object, except for a specific call on a specific method. idea2 (bad, the pre and post must maintained synchronized): use utility class, where the precondition of a method is \~ the postcondition of the tested one}
+% all together blends into a mole
+When the ``Mole'' verification practices are used together the initial objectives are achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; the complete freedom to decide what is formally specified; the development cycles and the associated verification practices maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
 
 
 
@@ -561,7 +398,7 @@ When the Mole verification practices are used together the initial objectives ar
 \label{subsec:data_stream_and_protocol_description}
 
 % protocol layers
-The \SB protocol is asynchronous and packet based, the packets have a fixed length.  
+The \SB protocol is asynchronous and packet-based; the packets have a fixed length.  
 The protocol is separated in multiple layers to ease its implementation in the driver, since mixing up different abstraction levels usually leads to overly complex and unmanageable code.  
 The layers identified in protocol are the following: (1) packet byte structure: the internal representation of the packet; (2) packet info structure: the meaningful fields contained in the packets; (3) single packet rules: the content acceptable values, and how they influence each other; (4) packet sequence rules: the content acceptable values, based on values of previously received packets; (5) packet input output asynchronous rules: the content acceptable values and reaction constraints on output packets, based on previously transmitted input packets.
 For space reason, the first three layers are analyzed in the case study, considering only the output sensor data packet.
@@ -573,8 +410,8 @@ The internal structure of the packet is strictly fixed, even if the data streams
 This choice originates from a trade-off between two constraints: the efficiency of the transmission (redundant data to be minimized) and the complexity to build a packet (complexity to be minimized, since the processing capabilities in the \STSB are limited). 
 
 % packet internal structure: collection of frames
-A packet is internally composed by frames. 
-A frame (82 frames in each packet) accommodate data from the fast and medium data rate streams (there are 4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
+A packet is internally composed by 82 frames. 
+A frame accommodates data from the fast and medium data rate streams (there are 4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
 Fast, medium and slow data rates have not a common multiple; a packet, capable to accommodate outputs at different rates, in a fixed structure, relies in two forms of redundancies, for slow and medium data rates:
 \begin{itemize}
 \item Slow data rates: slow data is located at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
@@ -584,7 +421,7 @@ E.g. a frame contain a medium data rate sample from channel 0, the following fra
 
 % single packet rules
 The single packet rules delimit the boundaries of the values obtainable from the packet: each defined sensor represented in the packet, as well as the metadata describing the \STSB and the packet and frame contents, are constrained by a range of acceptable values.
-There are also rules affecting more than one value (i.e. if a specific sensor is active the reading value must be in a defined range), and rules specifying a correct sequence of frames (i.e. only one switch in sampling rate us allowed in the frame sequence of a single packet).
+There are also rules affecting more than one value (i.e. if a specific sensor is active the reading value must be in a defined range), and rules specifying a correct sequence of frames (i.e. only one switch in sampling rate is allowed in the frame sequence of a single packet).
 
 
 
@@ -593,40 +430,40 @@ There are also rules affecting more than one value (i.e. if a specific sensor is
 
 % protocol specification
 The specifications of the protocol are distilled and refined incrementally.
-The protocol is divided in various (thin) layers, and each of the layer has been verified with a different approach: some of the layers have been specified formally. 
+The protocol is divided in various (thin) layers, and each of the layer is verified with a different approach: some of the layers are specified formally. 
 
 \paragraph*{Packet byte structure specification}
 
 % verification
-Verification is obtained through a handmade test suite, composed of unit and integration tests; the tests specifies the behaviours of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
+Verification is obtained through an handmade test suite, composed of unit and integration tests; the tests specifies the behaviours of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
 The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confidant on how the stream is decomposed into packets.
 Besides, the packet byte structure is not stable: the internal byte structure changed several times during development.
 Therefore, packet byte structure is not formally specified.
 
 % development cycles
-The test suites are used to verify board simulators (low-level), but they cannot be used to check properties at run time.
-Code and tests have been implemented using TDD.
+The test suites are used to verify board simulators (low-level), but they cannot be used to check properties at runtime.
+Code and tests are implemented using TDD.
 
 \paragraph*{Packet info structure specification}
 
 % verification
 Verification is provided by handmade test suite, JML annotations and generated unit test suite. 
 It has been built starting from handmade tests only (TDD development cycles).
-Later on JML annotations have been added incrementally, using a mix of mole practices: to move from handmade tests to formal specifications, TDF have been initially used; than all the mole practices have been used according to the artifacts involved.
+Later on JML annotations have been added incrementally, using a mix of ``Mole'' practices: to move from handmade tests to formal specifications, TDF have been initially used; than all the ``Mole'' practices have been used according to the artifacts involved.
 
 % development cycles
-The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check the formally specified properties at run time.
-Code and tests have been initially implemented using TDD, than using all the Mole verification practices.
+The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check the formally specified properties at runtime.
+Code and tests have been initially implemented using TDD, than using all the ``Mole'' verification practices.
 
 \paragraph*{Single packet rules}
 
 % verification
 The verification is provided exclusively by the formal specification with JML language, combined with the generated unit test suite and handmade test suite to verify the most complex behaviour.
-It has been built starting from JML annotations, supported by handmade tests when needed.
+It is built starting from JML annotations, supported by handmade tests when needed.
 
 % development cycles
-The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check most of the rules at run time.
-Code and tests have been implemented using both forms of FDD.
+The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check most of the rules at runtime.
+Code and tests are implemented using both forms of FDD.
 
 
 
@@ -635,15 +472,15 @@ Code and tests have been implemented using both forms of FDD.
 
 % why simulators are useful
 Simulators are used to test parts of the system minimizing dependencies: a simulator can be used by upper layers, with no need to provide the functionalities of the lower layers. 
-The simulators proved essential during development, since the physical board was not available.
+The simulators proved essential during the development, since the physical board was not available.
 
 % how many of them do we need?
-Theoretically a separate simulator is needed for each protocol layer, to specify, develop and test each layer in isolation.  
-But, because of limited resources and effort available, the layer structure was not matched by corresponding simulators.
+Theoretically a separate simulator is needed for each protocol layer to specify, develop and test each layer in isolation.  
+But, because of limited resources and effort available, the layer structure is not matched by corresponding simulators.
 Two simulators are available, they have been built concurrently with the specification, the driver implementation, and the tests.
 
 % simulators description
-The driver API is splitted in two abstraction layers: the general high-level interfaces, that expose the main functionalities of the board and the main contents of the packets, and the lower level implementation that parse the data streams in and out the board, meant to translate the higher level instructions and data in properly formed packets.
+The driver API is splitted in two abstraction layers: the general high-level interface, that exposes the main functionalities of the board and the main contents of the packets, and the lower level implementation that parses the data streams in and out the board, meant to translate the higher level instructions and data in properly formed packets.
 The simulators are built according to these two abstraction layers.
 The high-level simulator implements the interfaces providing the methods to deal with an abstracted \SB: the simulator knows nothing
 about the details of the real format of the binary data streams.
@@ -657,7 +494,7 @@ The low-level simulator is capable to rebuild the \SB data streams: the in and o
 % a simple specification example
 The JML specifications are of varying complexities.  
 Some of them are rather simple, focusing on constraints that should hold when calling a method (the preconditions) and constraints on the return value (the very basic form of postconditions). 
-In listing \ref{lst:jml_example_simple} a simple JML specification example is shown, the method \lil{getTemperature} is declared \lil{/*@ pure @*/}, which means that it cannot change the state of any object (a postcondition), the specification also constraints the return value with a lower and upper bound (another postcondition).
+In listing \ref{lst:jml_example_simple} a simple JML specification example is shown, the method \lil{getTemperature} is declared \lil{/*@ pure @*/}, which means that it cannot change the state of any object (a postcondition); the specification also constraints the return value with a lower and upper bound (another postcondition).
 
 \begin{lstlisting}[
   caption={A simple specification with JML annotation: simple postconditions.},
@@ -708,14 +545,14 @@ A medium data rate stream sample is considered valid when \lil{isADCActive()} me
 \label{subsec:test_cases}
 
 % unit tests kinds
-The unit test cases that verify the protocol driver are of two kinds: handmade unit tests and automatically generated unit tests based on JML specifications; they are built to be used together, they are complementary.  
+The unit test cases that verify the protocol driver are of two kinds: handmade unit tests and automatically generated unit tests based on JML specifications; they are complementary and built to be used together.  
 
 % unit tests effectiveness
-The tests effectiveness is evaluated for each test suite; the evaluation is carried out in section \ref{subsec:test_cases_retrospectives}.
+The test effectiveness is evaluated for each test suite; the evaluation is carried out in section \ref{subsec:test_cases_retrospectives}.
 The test effectiveness evaluation considers three elements: effective results on piloting the real board (quantitative), code coverage
 (quantitative), development help and usefulness (qualitative).
 
-\paragraph*{handmade tests}
+\paragraph*{Handmade tests}
 
 % the driver package structure
 The package structure of the driver is shown in Figure \ref{fig:class_diagram_main}: two independent packages are defined (\lil{Stream} and \lil{Driver}).  
@@ -731,9 +568,9 @@ This is needed to maintain a high decoupling of the packages, and is the result 
 \end{figure}
 
 % the test package structure
-The test package structure, which is shown in Figure \ref{fig:class_diagram_test} reflects and mimics the code structure; the tests for an abstract package are abstract, and implemented by the package that tests a corresponding system implementation. 
-This is a well known test pattern (the Abstract Test Pattern~\cite{Thomas2004}) used to test that the contracts defined in the abstractions are respected in the several implementations.  
-For instance, package \lil{DriverT} contains abstract tests for the abstractions of package \lil{Driver}, package \lil{StreamDriverT} inherits the abstractions contained in \lil{DriverT} and makes them concrete, to test the corresponding implementation \lil{StreamDriver}; package \lil{StreamDriverT} also contains stand alone tests written specifically for the implementation contained in \lil{StreamDriver}.
+The test package structure, shown in Figure \ref{fig:class_diagram_test}, reflects and mimics the code structure; the tests for an abstract package are abstract, and implemented by the package that tests a corresponding system implementation. 
+This is a well known test pattern (the Abstract Test Pattern~\cite{Thomas2004}) used to test that the contracts defined in the abstractions are respected in all the implementations.  
+For instance, package \lil{DriverT} contains abstract tests for the abstractions of package \lil{Driver}, package \lil{StreamDriverT} inherits the abstractions of \lil{DriverT} and makes them concrete, to test the corresponding implementation \lil{StreamDriver}; package \lil{StreamDriverT} also contains stand alone tests written specifically for the implementation \lil{StreamDriver}.
 
 \begin{figure}[htb!]
   \centering
@@ -747,7 +584,7 @@ For instance, package \lil{DriverT} contains abstract tests for the abstractions
 % the generated test package structure
 The JML specifications are used to generate tests.
 The resulting test package structure is shown in Figure \ref{fig:class_diagram_generatedtest}.  
-The package dependencies are defined by the specifications; for instance, \lil{SimulatorDriverST} are generated tests, they test (hence use) the implementation \lil{SimulatorDriver}, and have been generated using the corresponding specification \lil{SimulatorDriverS}.  
+The package dependencies are defined by the specifications; for instance, \lil{SimulatorDriverST} are generated tests, they test the implementation \lil{SimulatorDriver}, and are generated using the corresponding specification \lil{SimulatorDriverS}.  
 The generated tests do not maintain the inheritance structure of the code and the specification.
 
 \begin{figure}[htb!]
@@ -760,9 +597,9 @@ The generated tests do not maintain the inheritance structure of the code and th
 \paragraph*{On simulators, again}
 
 % simulator roles in tests
-The simulators are used in the handmade test suits as stubs.
+The simulators are adopted in the handmade test suits as stubs.
 The resulting structure is shown in Figure \ref{fig:class_diagram_streamdriver_test}.  
-For instance, in Figure \ref{fig:class_diagram_streamdriver_test} the test suite \lil{StreamDriverT} is using the \lil{SimulatorStream} to properly simulate the \lil{Stream} used by \lil{StreamDriver}, which is the system under test.
+For instance, in Figure \ref{fig:class_diagram_streamdriver_test} the test suite \lil{StreamDriverT} is using the \lil{SimulatorStream} to properly simulate the \lil{Stream} parsed by \lil{StreamDriver}, which is the system under test.
 
 \begin{figure}[htb!]
   \centering
@@ -773,8 +610,8 @@ For instance, in Figure \ref{fig:class_diagram_streamdriver_test} the test suite
 \end{figure}
 
 % simulator importance
-The use of simulators to enable unit testing was essential to test the \STSB driver, since the physical board was not available.
-The simulators are used in both the handmade and the generated test suite; both the suites, to be executed, need a proper set of stubs.
+Simulators were essential to test the \STSB driver, since the physical board was not available.
+The simulators are adopted in both the handmade and the generated test suite; both the suites need a proper set of stubs in order to be executed.
 
 
 
@@ -783,24 +620,22 @@ The simulators are used in both the handmade and the generated test suite; both 
 
 % test suites sizes
 The handmade test suite is composed by over 140 tests, while the generated one is 100 times bigger, totalling over 14000 tests.
-The big number of generated tests are explained looking closely at how the generated tests are created by the JML framework. 
+The large number of generated tests are explained looking closely at how the generated tests are created by the JML framework. 
 The generated tests explore the possible input combinations on public methods, combining the type data ranges that are specified for the test suite (see \cite{Cheon-Leavens02} for more details on how the JML framework works on generating unit tests). 
 For instance, let's suppose a method \lil{m(int p1, int p2)} must be tested in a class \lil{C}; the data ranges specified for type \lil{int} are \lil{\{1,2,3\}} and for type \lil{C} are the instances \lil{\{c1,c2,c3,c4\}}. 
 The JML framework generates $24 = 3 \times 3 \times 4$ tests, since they are the combination of the data ranges involved (the data range of the parameters and the data range of the type owning the method under test). 
-Nevertheless, not all the generated tests are executed.
-A generated test is not executed, unless the preconditions of the called method are satisfied. 
+Nevertheless, not all the generated tests are executed: a generated test is not executed, unless the preconditions of the called method are satisfied. 
 Thus, depending on the preconditions specified for a method, the number of the generated tests that are actually executed in the test suite are significantly smaller compared to the total number of generated tests.
 
 % test execution time, values
-Test suites execution time are different, the handmade test suite, with the run time assertion checking active, runs completely in less than one minute on an average PC, while the generated test suite runs in more than 20 minutes (the rough ratio is $ 1 : 60 $). 
-Most of the time is spent on setting up the suite, only considering the real execution of the tests, with no suite setup, the execution time reduces to less than 4 minutes (the rough ratio is $ 1 : 10 $).
+Test suites execution time are different: the handmade test suite, with the runtime assertion checking active, runs completely in less than one minute on an average PC, while the generated test suite runs in more than 20 minutes (the rough ratio is $ 1 : 60 $). 
+Most of the time is spent on setting up the suite; only considering the real execution of the tests, with no suite setup, the execution time reduces to less than 4 minutes (the rough ratio is $ 1 : 10 $).
 
 % test effectiveness
-Code coverage metrics is used to compare in a quantitative way the effectiveness of the test suites. 
+Code coverage metrics are used to compare in a quantitative way the effectiveness of the test suites. 
 This is only an indicator, since it is accepted that code coverage alone cannot asses the quality of a test suite\cite{Marick1999,Chockler2006}.
-Various coverage metrics exist, the test suites are analyzed with statement code coverage (one of the simplest types)\footnote{The tool used to obtain statement code coverage metrics is \myhref{http://emma.sourceforge.net/}{Emma}.}: statement coverage reports whether each statement has been encountered during execution. 
-Statement code coverage is easy to implement, but lacks the capability to explore the control flow graph associated to the code, that is,
-decision branches are not explored. 
+Various coverage metrics exist, the test suites are analyzed with statement code coverage (one of the simplest types)\footnote{The tool used to obtain statement code coverage metrics is \myhref{http://emma.sourceforge.net/}{Emma}.}: statement coverage reports whether each statement is encountered during execution. 
+Statement code coverage is easy to implement, but lacks the capability to explore the control flow graph associated to the code, that is, decision branches are not explored. 
 The coverage results are reported in the Table \ref{tab:statement_code_coverage}.
 
 \begin{table}[htbp]
@@ -826,7 +661,7 @@ The coverage results are reported in the Table \ref{tab:statement_code_coverage}
 
 % <100 coverage measures, utility methods
 The coverage measures reported in Table \ref{tab:statement_code_coverage} do not reach 100\%. 
-This is because of two different effects: non public utility methods, and abstract methods in interfaces.
+This is because of the effects of both non public utility methods, and abstract methods in interfaces.
 The effect of non public methods (package Java visibility) is that these methods are taken into account as public and protected ones are, during code coverage calculation; these methods are not part of the interface, the system does not depend on them, they are only used in object initialization or in object setups performed during unit tests. 
 In fact there are package and private code blocks that are not reachable by construction from public and protected methods, and this is a precise characteristic reflecting the code architecture, meant to ease class instances setup and configuration for testing purposes. 
 The used statement coverage tool is not able to distinguish these code blocks, so this effect is unavoidable. 
@@ -846,9 +681,9 @@ A similar indication is provided by \lil{SimulatorDriver} package as well.
 
 % handmade unit test vs generated unit test
 The qualitative difference of the two test suites are understood observing how the suites are built. 
-An handmade unit test usually requires objects initialization (it involvs several methods call), the call to the method under test, and the following assertions to verify the expected states change on the objects involved. 
-A generated unit test has a more focused and limited scope: only one method call is performed in each test, it is difficult to explore complex behaviours. 
-With a complete specification, and specifying large enough data ranges, the generated tests achieves the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
+An handmade unit test usually requires objects initialization (it involves several method calls), the call to the method under test, and the following assertions to verify the expected state change on the objects involved. 
+A generated unit test has a more focused and limited scope: only one method call is performed in each test, therefore it is difficult to explore complex behaviours. 
+With a complete specification, and specifying large enough data ranges, the generated tests achieve the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
 The test suites give their best when used in a combined approach: the generated test suite, checking simpler and formalized behaviours, and the handmade, checking the more complex ones, whether formalized or not.  
 
 
@@ -868,7 +703,7 @@ No other errors were detected on the driver side.
 
 % tests and the second prototype, board side
 The second prototype respected the packet byte structure specification, but was not fully compliant to the packet info structure specification and the single packet rules.
-The formal JML specifications and the run time assertion checker correctly identified these errors.
+The formal JML specifications and the runtime assertion checker correctly identified these errors.
 4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found, and are expected to be corrected in the following release. 
 No other errors, except the mentioned ones, have been discovered up to now.
 
@@ -879,8 +714,8 @@ No other errors, except the mentioned ones, have been discovered up to now.
 
 % the problem
 In this paper we focus on a specific set of development problems that neither agile methodologies nor formal methodologies are completely confortable to cope with.
-The problems, we are interested in, are characterized by unstable requirements, by artifacts which must be formally specified and verified, and are constrained by deadlines that cannot be postponed.
-We propose a blend of agile and formal engineering practices, enclosed by an iterative and incremental development process: the Mole development process.
+The problems we are interested in are characterized by unstable requirements and artifacts which must be formally specified and verified, and are constrained by deadlines that cannot be postponed.
+We propose a blend of agile and formal engineering practices, enclosed by an iterative and incremental development process: the ``Mole'' development process.
 
 % Mole
 The verification practices proposed recreate the fast feedback development environment we find in Test Driven Development, used with formal and non formal artifacts.
@@ -890,187 +725,16 @@ A total of four practices are presented, two of them are conservative, following
 The practices have been applied succesfully to develop a driver for a custom embedded sensor board, equipped with board simulators and protocol verifiers. 
 The protocol and the board specifications were informal and unstable. 
 Yet a working software product was needed as soon as possible, with incrementally added functionality, and keeping it linked with the last specifications of the protocol and the board.
-Mole verification practices enabled us to keep in sink formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
+``Mole'' verification practices enabled us to keep in sink formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
 We developed handmade test suites, generated test suites and JML annotations, wich succesfully supported the verification of the driver and the simulators, and the board as well, when it was delivered.
 
 % extending Mole
 The practices are very general, and are appliable to different development languages and formal methodologies.
-One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at run time and partially automate the verification process of the formalized properties.
+One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at runtime and partially automate the verification process of the formalized properties.
 
 
 
-
-
-\todo{write conclusions}
-
-%\bibliographystyle{latex8} 
-%\bibliographystyle{lniguide} 
 \bibliography{extra,abbrev,ads,category,complexity,hypertext,icsr,knowledge,languages,linguistics,meta,metrics,misc,modeling,modeltheory,reuse,rewriting,softeng,specification,ssr,technology,theory,web,upcoming,upcoming_conferences,conferences,workshops,verification,escjava,jml,nijmegen}
-
-\newpage 
-
-\section{Extracts}
-
-\paragraph*{limited resources}
-
-% effect of the limited resources on the formal specifications
-Hard constraints on driver delivery deadlines define the completeness level of the (\emph{just good enough}) specification.  
-In \STSB driver JML specifies very simple behaviours (method oriented) on the whole driver implementation, and more complex behaviour on the driver core interfaces.  
-The software system parts not specified by the JML2 specification were specified using handmade unit tests.
-
-\paragraph*{handmade unit tests}
-
-% handmade unit tests purposes
-Handmade unit tests specifies the behaviour not specified by formal specification; nevertheless, this is not the only purpose they have.
-Handmade unit tests have been used to drive the development, since the Test Driven Development approach\cite{Beck2003} has been
-followed during development.
-
-% handmade unit tests suite structure
-The handmade test suite primarily focuses on small features and use cases fragments that the system must implement, or for which an exceptional case has been specified. 
-A test case is a rough specification written in imperative style. 
-The common structure requires the objects initialization, followed by a sequence of method calls taking the objects into desired initial states; than the method under test is called and the objects states are finally inspected and verified. 
-Mock objects can be used to limit module dependencies. 
-The test suite should be composed only by unit tests, but usually some tests are more complex to be called proper unit tests; they can be seen as simple integration tests.
-
-
-\paragraph*{formal specification of the protocol}
-
-% why a state machine has not been used to formally specify the protocol
-\ST stream communication protocol is characterized by a well definite packet structure, and a well definite semantic on the packet contents.  
-On the other hand, in the protocol, there are no strong constraints on synchronization, since the communication channel is splitted in two (in and out) separate concurrent and asynchronous channels.
-The lack of hard synchronization constraints reduces the advantage to use a classical state machine based specification (as the one presented in \cite{Hubbers2004}), hence this option has been discarded during development.
-
-\paragraph{jml}
-
-% how jml generated tests work
-The test suite generated is a collection of fine grained unit tests.
-For each public method a set of tests is generated.
-The specified behaviour of the method is checked using the JML2 run time assertion checker, hence, an oracle is not needed.  
-The generated tests send messages to the method under test, once the initial precondition check is passed (if it is not passed, the test is discarded), the test catch assertion violation exceptions; if a precondition is not met the test is not run, if the precondition is met the test is run and if the postcondition is not met an exception is fired and the test fails.
-The test data used to build the tests is the only part that is required to be provided by the user.
-
-\paragraph{unit tests}
-
-% how unit tests should work
-A proper stub, driver and oracle need to be identified for each method under test to obtain a proper unit test suite; stub, driver and oracle are the usual components found in the harness that enable test execution\cite{Binder1999}.  
-
-% what is needed to test a package
-To properly unit test a package, the following components need to be identified:
-\begin{description}
-\item[Stub or Skeleton]: a piece of code that simulates the activity of the modules that are not under tests.
-\item[Driver]: a piece of code that calls in a proper way the module under test.
-\item[Oracle]: a mechanism used for determining whether a test has passed or failed, comparing the output of the module under test to the output the oracle determines the module should have.
-\end{description}
-
-% junit
-In JUnit\footnote{\myhref{http://www.junit.org/}{JUnit}}, which is the framework used to manage the implementation and execution of handmade and generated unit tests, there is no clear distinction between drivers, stubs, and oracles; none-less, even if a proper distinction
-is not imposed by the framework, the conceptual distinction still holds.
-
-% who provides what: handmade vs generated
-handmade unit tests and JML generated tests differ in how test components are provided.
-The distinctions and similarities are summarized in Table \ref{tab:test_harness}.
-\begin{table}[htbp]
-  \caption{handmade and generated tests harness.}
-  \label{tab:test_harness}
-  \begin{center}
-    \begin{tabular}{|c|c|c|c|}\hline
-       & \textbf{\textit{handmade}} & \textbf{\textit{handmade + RAC}} & \textbf{\textit{generated}} \\\hline
-      \textbf{\textit{Stub}} & manual & manual & manual\\\hline
-      \textbf{\textit{Driver}} & manual & manual & automatic (1 call generation)\\\hline
-      \textbf{\textit{Oracle}} & manual & manual + automatic (RAC) & automatic (RAC)\\\hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-% test execution time, reasons
-The execution time of the generated tests is influenced by:
-\begin{itemize}
-\item The number of the generated tests. 
-This problem is not directly addressable, since it is the heart of the test suite generation creation method itself. 
-All the combinations of possible inputs for each method under test must be generated.
-\item The runtime assertion checker overhead. 
-Each test is executed while RAC checks all the relevant properties. 
-We can speculate that if the RAC assertions could be triggered on and off on single properties in a dynamic way (during runtime), a test suite would take advantage of this possibility, turning on the RAC only on the properties that have to be verified for the classes or methods under tests (and not for all the involved classes and methods); this could save time during the test suite execution.
-\end{itemize}
-
-% tests are helful
-The generated test suite has been helpful to test the incrementally growing specifications and the finer details of each method, while the handmade one was helpful to verify the behaviour of complex methods calls on objects initialized to specific states. 
-
-% tests leads to a better design
-An handmade test suite force the code to be test oriented, which usually leads to a better quality and more modularized source code\cite{Binder1999}.
-
-\paragraph*{simulators and tests}
-
-% simulators and tests
-Simulators can be used to ease the tasks of developing the test harness components (Stub, Driver, Oracle).
-A simulator can be used as a stub, to replace a module needed by the module under test.
-A simulator can be used as a driver, stimulating the module under test.
-Finally, a simulator can be used as an oracle, simulating the module under test.
-
-% multiple simulators approach
-The multiple simulators approach is not new, since it has been often used in embedded systems software testing\cite{Broekman2002}.  
-This is a general approach that can (and should) be used to verify both the simulators built and the real systems.  
-It can be easily implemented only if the code has been structured following the dependency inversion principle\cite{Martin1996} (see Figure
-\ref{fig:class_diagram_main}).
-
-\paragraph*{prototype history}
-
-% tests and the first prototype, board side
-The first \STSB prototype was meant to build empty packets, but the packets were built in a way not consistent with the specification.  
-The board errors have been detected by simply using the driver implementation, the \lil{StreamDriver} package.
-
-% tests and the second prototype, driver side
-The second prototype was meant to build packets with values taken from real sensors installed on the board.  
-The only sensors that were not yet working were the sensors devoted to the fast rate data streams (audio sensors).  
-One error needed to be corrected in the driver implementation, because of a (rare) combinations of conditions that were not covered by the test cases, but that occasionally showed up during real use.
-One error have been discovered in the low-level system driver that the developed driver is using (the system driver is outside our development scope); to eliminate the error an upgrade of the low-level driver to a new unreleased version were necessary. 
-No other errors were detected on the driver side.
-
-% tests and the second prototype, board side
-The second prototype respected the packet byte structure specification, but was not fully compliant to the packet info structure specification and the single packet rules.
-The formal JML specifications and the run time assertion checker enables the detection of these errors.
-4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found. 
-No other errors, except the mentioned ones, have been discovered.
-
-\paragraph*{future work}
-
-% problem on highest levels of the protocol
-The highest levels of the protocol could be problematic (see \ref{subsec:data_stream_and_protocol_description}: ``Packet sequence rules'' and ``Packet input output asynchronous rules''). 
-On these levels, the protocol properties regard sequences of packets, and testing them can be tricky, since the sequences of packets are not referred to explicitly, in the implementation.  
-
-% solutions on highest levels of the protocol
-Two possible strategies could be used:
-\begin{itemize}
-\item Translate the packet sequence properties in local packet properties (when possible).  
-The advantage is to have properties shown as the usual pre-conditions, post-conditions and invariants.  
-However, the localized properties can be more complex and less intuitive and comprehensible than the original ones; finally, some of the global properties could be impossible to translate.
-\item Use separate utility classes, meant to verify a sequence of packages.  
-This approach is not clean, since it requires adding and using new classes, unneeded by the core implementation, to verify the protocol.  It has the advantage of keeping the properties that have to be verified mostly unchanged.
-\end{itemize}
-
-\paragraph*{out of scope related works}
-
-\todo{Out of scope: agile and formal used together, but not mixed}
-
-\todo{describe and reference ``Agile Formal Method Engineering.'', formal centric}
-
-\todo{describe and reference ``Formal Agility. How much of each?'', formal centric}
-
-\todo{Mixin with test substitution}
-
-\paragraph*{case study related works}
-
-JML has been used previously to verify a communication protocol in \cite{Hubbers2004}, but the protocol is a smart card protocol, and it
-is well represented through state machines, which are then refined into JML properties.  
-The approach is in waterfall style; than the need to develop the protocol, the specification and the implementation concurrently is not addressed.  
-No handmade or generated test suites are used, the code is specified with JML assertions, refined by the state machine specifications, and then checked statically with ESC/Java2 static checker\cite{CokKiniry04} and at runtime with JML2 tools RAC\cite{BurdyEtal05-STTT}.
-
-The JML-JUnit automatic test suite generation tool has not been widely used or assessed. 
-It is described by its own creators in \cite{Cheon2002,Cheon2004,Cheon2005}; it has been used in \cite{Oriat2004} and \cite{Cheon2005}, but only as a stand alone test suite, and, more importantly, only against proof of concepts system, it has never be proved against real complex systems.  
-A brief assessment of the JML-JUnit tool has been made in \cite{Tan2004}, the analysis is based on injecting random generated errors in the source code, and then evaluating the ratio of the errors found by the test suite: the results shows that the JML-JUnit tool is not effective enough if used as a stand alone tool. 
-No attempts on running or evaluating the generated test suite alongside with an handmade test suite are made.
-
-
 
 \end{document}
 
