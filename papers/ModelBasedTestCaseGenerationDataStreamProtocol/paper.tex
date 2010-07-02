@@ -235,8 +235,8 @@ It is also considered a good software development technique when used on its own
 
 % test driven kinds
 The test driven approach relies on writing the tests before the actual implementation. 
-It can be applied in a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
-It can be applied in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
+It is appliable in a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
+It ia appliable in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
 
 % previous related work
 Some tentative attempts to reconcile formal and agile methodologies have been developed.
@@ -248,7 +248,7 @@ Eleftherakis and Cowling in~\cite{Eleftherakis2003} propose XFun, an iterative a
 The development process impose a complete specification of the system, and its verification is done exclusively using the tools provided by the X-Machines formal methodology. 
 The development process proposed in~\cite{Herranz2003b} by Herranz and Moreno-Navarro is quite similar; they propose an iterative process to model a system using SLAM-SL, an object-oriented specification language, and its tools. 
 Some XP practices are fully adopted or considered compatible, as pair-programming, iterative and incremental development, system refactoring; while tests are completely replaced by the verification tools provided by the SLAM suite.
-A different formal methodology, but same approach, can be found also in~\cite{Suhaib2005} where XFM methodology is explained.
+A different formal methodology, but same approach, is found also in~\cite{Suhaib2005} where XFM methodology is explained.
 
 % previous work: a common approach
 As already mentioned, in all these attempts, the handmade test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
@@ -562,7 +562,7 @@ When the Mole verification practices are used together the initial objectives ar
 
 % protocol layers
 The \SB protocol is asynchronous and packet based, the packets have a fixed length.  
-The protocol is separated in multiple layers to ease its implementation in the driver, since mixing up different abstraction levels can lead to overly complex and unmanageable code.  
+The protocol is separated in multiple layers to ease its implementation in the driver, since mixing up different abstraction levels usually leads to overly complex and unmanageable code.  
 The layers identified in protocol are the following: (1) packet byte structure: the internal representation of the packet; (2) packet info structure: the meaningful fields contained in the packets; (3) single packet rules: the content acceptable values, and how they influence each other; (4) packet sequence rules: the content acceptable values, based on values of previously received packets; (5) packet input output asynchronous rules: the content acceptable values and reaction constraints on output packets, based on previously transmitted input packets.
 For space reason, the first three layers are analyzed in the case study, considering only the output sensor data packet.
 
@@ -577,14 +577,14 @@ A packet is internally composed by frames.
 A frame (82 frames in each packet) accommodate data from the fast and medium data rate streams (there are 4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
 Fast, medium and slow data rates have not a common multiple; a packet, capable to accommodate outputs at different rates, in a fixed structure, relies in two forms of redundancies, for slow and medium data rates:
 \begin{itemize}
-\item Slow data rates: slow data can be found at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
+\item Slow data rates: slow data is located at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
 \item Medium data rates: the 8 medium rate channels are multiplexed together into the medium data rate data sample of each frame. The medium data rate sample channel is a piece of info extracted from the frame description (frame metadata), including the possibility to have no data at all. 
 E.g. a frame contain a medium data rate sample from channel 0, the following frame a sample from channel 5, the following frame no sample at all, etc.
 \end{itemize}
 
 % single packet rules
 The single packet rules delimit the boundaries of the values obtainable from the packet: each defined sensor represented in the packet, as well as the metadata describing the \STSB and the packet and frame contents, are constrained by a range of acceptable values.
-There are also rules affecting more than one value (i.e. if a specific sensor is active the reading value must be in a defined range), and rules specifying a correct sequence of frames (i.e. there can be only one switch in sampling rate in the frame sequence of a single packet).
+There are also rules affecting more than one value (i.e. if a specific sensor is active the reading value must be in a defined range), and rules specifying a correct sequence of frames (i.e. only one switch in sampling rate us allowed in the frame sequence of a single packet).
 
 
 
@@ -599,12 +599,12 @@ The protocol is divided in various (thin) layers, and each of the layer has been
 
 % verification
 Verification is obtained through a handmade test suite, composed of unit and integration tests; the tests specifies the behaviours of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
-The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confidant how the stream can be properly decomposed into packets.
+The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confidant on how the stream is decomposed into packets.
 Besides, the packet byte structure is not stable: the internal byte structure changed several times during development.
 Therefore, packet byte structure is not formally specified.
 
 % development cycles
-The test suite are used to verify board simulators (low-level), but it cannot be used to check properties at run time.
+The test suites are used to verify board simulators (low-level), but they cannot be used to check properties at run time.
 Code and tests have been implemented using TDD.
 
 \paragraph*{Packet info structure specification}
@@ -783,13 +783,13 @@ The simulators are used in both the handmade and the generated test suite; both 
 
 % test suites sizes
 The handmade test suite is composed by over 140 tests, while the generated one is 100 times bigger, totalling over 14000 tests.
-The big number of generated tests can be understood looking closely at how the generated tests are created by the JML framework. 
+The big number of generated tests are explained looking closely at how the generated tests are created by the JML framework. 
 The generated tests explore the possible input combinations on public methods, combining the type data ranges that are specified for the test suite (see \cite{Cheon-Leavens02} for more details on how the JML framework works on generating unit tests). 
-For instance, let's suppose we want to test a method \lil{m(int p1, int p2)} for a class \lil{C}; the data ranges specified for type \lil{int} are \lil{\{1,2,3\}} and for type \lil{C} are the instances \lil{\{c1,c2,c3,c4\}}. 
+For instance, let's suppose a method \lil{m(int p1, int p2)} must be tested in a class \lil{C}; the data ranges specified for type \lil{int} are \lil{\{1,2,3\}} and for type \lil{C} are the instances \lil{\{c1,c2,c3,c4\}}. 
 The JML framework generates $24 = 3 \times 3 \times 4$ tests, since they are the combination of the data ranges involved (the data range of the parameters and the data range of the type owning the method under test). 
 Nevertheless, not all the generated tests are executed.
 A generated test is not executed, unless the preconditions of the called method are satisfied. 
-Thus, depending on the preconditions specified for a method, the number of the generated tests that are actually executed in the test suite can be significantly smaller compared to the total number of generated tests.
+Thus, depending on the preconditions specified for a method, the number of the generated tests that are actually executed in the test suite are significantly smaller compared to the total number of generated tests.
 
 % test execution time, values
 Test suites execution time are different, the handmade test suite, with the run time assertion checking active, runs completely in less than one minute on an average PC, while the generated test suite runs in more than 20 minutes (the rough ratio is $ 1 : 60 $). 
@@ -829,7 +829,7 @@ The coverage measures reported in Table \ref{tab:statement_code_coverage} do not
 This is because of two different effects: non public utility methods, and abstract methods in interfaces.
 The effect of non public methods (package Java visibility) is that these methods are taken into account as public and protected ones are, during code coverage calculation; these methods are not part of the interface, the system does not depend on them, they are only used in object initialization or in object setups performed during unit tests. 
 In fact there are package and private code blocks that are not reachable by construction from public and protected methods, and this is a precise characteristic reflecting the code architecture, meant to ease class instances setup and configuration for testing purposes. 
-The used statement coverage tool cannot be configured to distinguish these code blocks, so this effect is unavoidable. 
+The used statement coverage tool is not able to distinguish these code blocks, so this effect is unavoidable. 
 The effect is mainly seen in low \lil{SimulatorDriver} code coverage figures: the \lil{SimulatorDriver} package has many utility non public methods.
 
 % <100 coverage measures, interfaces
@@ -845,10 +845,10 @@ This is a clear indication that one test suite is not completely overlapping the
 A similar indication is provided by \lil{SimulatorDriver} package as well.
 
 % handmade unit test vs generated unit test
-The qualitative difference of the two test suites can be understood observing how the suites are built. 
-An handmade unit test usually requires objects initialization (it can involve several methods call), the call to the method under test, and the following assertions to verify the expected states change on the objects involved. 
+The qualitative difference of the two test suites are understood observing how the suites are built. 
+An handmade unit test usually requires objects initialization (it involvs several methods call), the call to the method under test, and the following assertions to verify the expected states change on the objects involved. 
 A generated unit test has a more focused and limited scope: only one method call is performed in each test, it is difficult to explore complex behaviours. 
-With a complete specification, and specifying large enough data ranges, the generated tests can achieve the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
+With a complete specification, and specifying large enough data ranges, the generated tests achieves the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
 The test suites give their best when used in a combined approach: the generated test suite, checking simpler and formalized behaviours, and the handmade, checking the more complex ones, whether formalized or not.  
 
 
@@ -894,7 +894,7 @@ Mole verification practices enabled us to keep in sink formal specifications (JM
 We developed handmade test suites, generated test suites and JML annotations, wich succesfully supported the verification of the driver and the simulators, and the board as well, when it was delivered.
 
 % extending Mole
-The practices are very general, and can be applied to different development languages and formal methodologies.
+The practices are very general, and are appliable to different development languages and formal methodologies.
 One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at run time and partially automate the verification process of the formalized properties.
 
 
