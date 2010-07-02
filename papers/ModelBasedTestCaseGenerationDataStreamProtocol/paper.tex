@@ -183,6 +183,11 @@ As we come from both the AM and FM communities, we respect and
 acknowledge both perspectives and will attempt to be absolutely clear
 in our use of these terms in the following.
 
+Additionally, in the following when we informally say ``...development
+of a system,'' we more precisely mean ``...analysis, design,
+development, verification (both testing and formal verification), and
+validation of a system.''
+
 \subsection{Case Study}
 \label{sec:case-study}
 
@@ -197,14 +202,14 @@ focused on controlling the board and reporting sensor measurements and
 board status.
 
 This software driver has been developed using our process while
-statisfying seemingly contradictory requirements: (1) the protocol
-implementation must be thoroughly verified; (2) parts of the protocol
-must be formally specified; (3) a board simulator must be designed,
+statisfying seemingly contradictory requirements: (1)~the protocol
+implementation must be thoroughly verified; (2)~parts of the protocol
+must be formally specified; (3)~a board simulator must be designed,
 implemented, and verified to match the specifications of, and actual
-behavior of, the physical circuit board; (4) if board components
+behavior of, the physical circuit board; (4)~if board components
 change during development, the associated formal specifications and
 the simulator whose behavior reflects such changes must be updated
-accordingly; (5) strict software delivery deadlines.  Consequently,
+accordingly; (5)~strict software delivery deadlines.  Consequently,
 these process requirements constitute an environment that benefits
 from both an agile and a formal approaches to software development.
 
@@ -264,56 +269,127 @@ The main specific problem, by now never addressed, is how to connect development
 We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how handmade and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
 That is, we will show how to blend, and not compose, formal and agile verification practices: a Mole of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers and chocolate, served with meat.}
 
-Mole practices are applied in the context of a real world case study that matches the problem requirements previously detailed: unstable requirements and development artifacts that need to be formally specified and verified.
-The case study fits these needs.
-
-\subsection{A Real and Complex Case Study: \\ Rapid Development in Small-scale Hardware Software Co-design}
+\section{A Real and Complex Case Study: \\ Rapid Development in Small-scale Hardware Software Co-design}
 \label{subsec:a_real_and_complex_case_study}
 
+Mole practices are applied in the context of a real world case study
+that matches the problem requirements previously detailed: unstable
+requirements and development artifacts that need to be formally
+specified and verified.  The case study fits these needs.
+
+\subsection{The UCD CASL SenseTile System}
+\label{sec:ucd-casl-sensetile}
+
 % SenseTile introduction
-The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose sensor system developed at the University College Dublin in Dublin, Ireland.
-Our facility provide a scalable and extensible infrastructure for performing in-depth investigation of both the specific and general issues in large-scale sensor networking.
-This system integrates a sensor platform, a datastore, and a compute farm.  
-The sensor platform is a custom-designed, but inexpensive, sensor platform (called the \ST) paired with general-purpose small-scale compute nodes, including everything from low-power PDAs to powerful touchscreen-based portable computers.  
-There are over a dozen sensors packaged on the \ST itself, the board is expandable as well, new sensors can be added to it easily.
+The \textbf{UCD CASL SenseTile System} is a large-scale,
+general-purpose sensor system developed at the University College
+Dublin in Dublin, Ireland.  Our facility provides a scalable and
+extensible infrastructure for performing in-depth investigation into
+both the specific and general issues in large-scale sensor networking.
+This system integrates a sensor platform, a datastore, and a compute
+farm.  The sensor platform is a custom-designed but inexpensive sensor
+platform (called the \ST) paired with general-purpose small-scale
+compute nodes, including everything from low-power PDAs to powerful
+touchscreen-based portable computers.  Besides containing over a dozen
+sensors packaged on the \ST itself, the board is expandable as well,
+as new sensors are added to it easily.
 
 % case study: the sensor board development tasks
-The case study is focused in building the sensor board and its software driver concurrently.
-Because of hard time constraints, and the initial unavailability of the custom board, we need to progress concurrently with all the development tasks, which consist of: (1) specification of the communication protocol; (2) physical board specification; (3) physical board development; (4) development of the board embedded software; (5) communication protocol software driver development; (6) development of software simulators of the board.
+The case study is focused in building the sensor board and its
+software driver concurrently.  Because of hard time constraints and
+the initial unavailability of the custom board, we must progress
+concurrently with all the development tasks, including:
+(1)~specification of the communication protocol; (2)~specification of
+the physical sensor board; (3)~development and fabrication of the
+physical board; (4)~development of the embedded software for the
+board; (5)~development of the communication protocol software driver
+the the board; and (6)~development of a software simulator of the
+board.
 
 % what we have to do, what we outsourced, and the dependencies between tasks
-The development of the physical board, along with its embedded software (development tasks 2, 3, 4), is carried out by an external manufacturer, thus it is not directly taken into account here. 
-The specification of the communication protocol (development task 1) is a joint effort, while the remaining tasks (5, 6) can be developed in isolation.
-The dependencies are straightforward: the specification of the communication protocol (1) is the most stable element, but it still depends on the sensor board (2, 3, 4): big changes in the latter could affect the former.
-The driver and the simulators depends directly on the communication protocol.
+The development of the physical board, along with its embedded
+software (development tasks~2, 3, 4), is carried out by an third party
+under our guidance, thus it is not directly taken into account here.
+The specification of the communication protocol (development task~1)
+is a joint effort between ourselves and the third party, while the
+remaining tasks~(5, 6) are performed in isolation.  Dependencies are
+straightforward: the specification of the communication protocol~(1)
+is the most stable element, but it still depends on the sensor
+board~(2, 3, 4): large changes in the latter affect the former.
+Additionally, the driver and the simulator depends directly on the
+communication protocol.
 
 % communication with external manufacturer
-Communication and synchronization with the external manufacturer is frequent but not optimal.
-The main synchronization artifact is the protocol specification, that remain stable at high-level, but is changed frequently in the low-level details.
-Since domain expertise is very different, a common domain language is hard to find and to agree upon.
-Formal methodologies and programming platforms also differ.
-The informal specification of the communication protocol is the most reliable source of information.
+Communication and synchronization with the external manufacturer is
+frequent but not optimal.  The main synchronization artifact is the
+protocol specification, which remains stable at high-level, but is
+changed frequently in the low-level details.  Since domain expertise
+is very different between the two teams, a common domain language is
+difficult to find and to agree upon.  Formal methodologies and
+programming platforms also differ.  Consequently, more for social and
+psychological reasons than technical ones, the informal specification
+of the communication protocol is the most reliable source of
+information.
+
+\subsubsection{Related Methodologies}
+\label{sec:relat-meth}
 
 % how the problem is usually managed
-There exist various approaches in literature addressing this kind of development constraints (rapid development in hardware software
-co-design), but they are all focused on big-scale systems.
-The hardware software formal co-design methodologies usually have several common development artifacts~\cite{Slomka2000,Hoffman2001}: an high-level specification of the system, a translation (refinement) of the high-level specification to low-level ones (hardware and software counterparts), the possibility to generate software code from the low-level specifications, a hardware simulator capable of simulating an hardware component based on hardware specification, the hardware component developed.
-When considering the development of the device and of its software driver as separate entities that possibly have to be developed concurrently, the existing approaches are similar to the ones seen in the case of hardware software co-design~\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus on a specification that aims to be as complete as possible. 
+There exist various approaches in literature addressing this kind of
+development constraints (rapid development in hardware software
+co-design), but all are focused on large-scale systems.  
+
+The hardware-software formal co-design methodologies usually have
+several common development artifacts~\cite{Slomka2000, Hoffman2001}
+including a high-level specification of the system, a translation
+(refinement) of the high-level specification to low-level ones
+(hardware and software counterparts), the possibility to generate
+software code from the low-level specifications, a hardware simulator
+capable of simulating an hardware component based on hardware
+specification, the hardware component developed.
+
+When considering the development of the device and of its software
+driver as separate entities that possibly have to be developed
+concurrently, the existing approaches are similar to the ones seen in
+the case of hardware-software co-design~\cite{Valderrama1995,
+  Siegmund2002, Ryzhyk2009}, all of which focus on a specification
+that aims to be as complete.
 
 % complete specification is not feasible
-A specification as complete as possible is not feasible nor convenient in this case: the protocol specification have to be enhanced incrementally, and its complete specification cannot be provided.
-This makes the problem an ideal candidate to test the Mole practices.
+A complete specification is not feasible nor convenient in our case.
+The protocol specification must be enhanced incrementally and its
+complete specification cannot be provided.  This makes the problem an
+ideal candidate to test the our ``mole'' of practices.
 
 % formal methodology constraints
-An appropriate formal methodology needs to be chosen; it must be able to support a specification that is built incrementally and accompanied by tools that allow the verification of the system properties at run time.
-All the formal methods that require a complete specification to be used effectively must be avoided.
-The formal language should also be able to automatically generate tests.
+To perform this case study, an appropriate formal methodology must be
+chosen.  It must be able to support a specification that is built
+incrementally.  Consequently, formal methods that demand a complete
+specification to be used effectively must be avoided.  Additionally,
+to best synthesize with agile methods, the formal language must be
+able to automatically generate tests.  Finally, the formal method must
+be complemented by tools that support the verification of system
+properties both at design-time (via static analysis, for full
+functional verification of critical subsystems) and at run time (for
+dynamic validation for integration with TDD).
 
 % the chosen formal methodology
-Being Java the language chosen for the implementation, the Java Modeling Language (JML)~\cite{advancedJMLpaper}, accompanied by the JML Runtime Assertion Checker suite of tools~\cite{Cheon-Leavens02b}\footnote{\myhref{http://sourceforge.net/projects/jmlspecs/}{Common JML tools}} has been selected.
-JML and RAC tools provide a run time checker, a test generator, and do not require a complete specification to be used effectively.
-
-
+Driven by these requirements and our expertise, the Java programming
+language and platform were chosen for the implementation, the Java
+Modeling Language (JML)~\cite{LeavensBakerRuby-Prelim} and Business
+Object Notation (BON)~\cite{WaldenNerson95} are used to write formal
+specifications, and the BONc~\cite{BONc}, Beetlz~\cite{Beetlz},
+JML2~\cite{JML2,JML2common}, and Extended Static Checker for Java
+(ESC/Java2)~\cite{ESCJava2,KiniryCok04SmallCite} tool suites are used
+as supporting tools~\cite{BurdyEtal05-STTT}.  The JML2 tool suite
+includes runtime assertion checker~\cite{Cheon-Leavens02b} and a unit
+test generator~\cite{Cheon2002}.  The BONc tool supports validity
+checking of high-level requirements and architecture specifications,
+Beetlz supports reasoning about refinement between BON and JML
+specifications, and ESC/Java2 supports automatic, modular, static
+reasoning about the correctness of an implementation against its
+formal specification.  All four tool suites do not require a complete
+specification to be used effectively.
 
 \subsection{\todo{paper structure title}}
 
@@ -354,26 +430,44 @@ Automated test suites guarantees that the functionalities and behaviour already 
 \label{sec:formal_specifications_using_jml}
 
 % JML introduction
-The Java Modeling Language (JML)~\cite{JML2}\footnote{\myhref{http://www.cs.ucf.edu/~leavens/JML/}{The Java Modeling Language (JML)}} is the de facto standard specification language for describing the behavioural properties of Java programs.  
-JML is a rich behavioural interface specification language (BISL) and thus focuses on the modular specification of classes and objects in which inheritance is used solely for behavioural subtyping~\cite{X}. 
-JML includes standard specification constructs like assumptions, assertions, axioms, and pre- and postconditions, framing clauses, and invariants. 
-It also includes a rich model-based specification layer that includes mathematical models, data refinements~\cite{X}, datagroups~\cite{X}, and many other advanced object-oriented specification features~\cite{advancedJMLpaper}. 
-Many tools, ranging from compilers to static checkers to full-functional verification systems support the JML language~\cite{BurdyEtal05-STTT}.
+The Java Modeling Language (JML) is the de facto standard
+specification language for describing the behavioural properties of
+Java programs.  JML is a rich behavioural interface specification
+language (BISL) and thus focuses on the modular specification of
+classes and objects in which inheritance is used solely for
+behavioural subtyping~\cite{LeavensBakerRuby99}.  JML includes
+standard specification constructs like assumptions, assertions,
+axioms, and pre- and postconditions, framing clauses, and invariants.
+It also includes a rich model-based specification layer that includes
+mathematical models, data refinements~\cite{}, datagroups~\cite{}, and
+many other advanced object-oriented specification
+features~\cite{chalin06:_beyon_asser}.  Many tools, ranging from
+compilers to static checkers to full-functional verification systems
+support the JML language~\cite{BurdyEtal05-STTT}.
 
 % using JML
-JML is sometimes used in a Design-by-Contract style, where a specification is written from scratch, reusing existing APIs that have specifications of their own, and then an implementation is written conforming to that specification~\cite{DBCjml,DBC}.  
-The implementation is checked by whatever means appropriate using some subset of the aforementioned tools.  
-At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact, a process called Contracting-the-Design.
+JML is sometimes used in a Design-by-Contract style, where a
+specification is written from scratch, reusing existing APIs that have
+specifications of their own, and then an implementation is written
+conforming to that specification~\cite{Meyer92b}.  The
+implementation is checked by whatever means appropriate using some
+subset of the aforementioned tools.  At other times an existing piece
+of implemented and tested code is annotated with specifications
+after-the-fact, a process called Contracting-the-Design.
 
 % JML tools
-The two tools used most frequently to check the correctness of implementations are the JML Runtime Assertion Checker (RAC) and the Extended Static Checker for Java, version 2 (ESC/Java2)~\cite{Cheon-Leavens02b,BurdyEtal05-STTT,KiniryCok04}.
-The former compiles executable assertions into runtime checks.  
-The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave (i.e., crash in a variety of ways) and conforms to its specification (lightweight functional correctness). 
-As ESC/Java2 is fully automated, it is not sound, nor does it cover the whole Java and JML languages, and is thus not complete, but there is support for warning the user about both of these situations~\cite{KiniryEtal06}.
-
-
-
-
+The two tools used most frequently to check the correctness of
+implementations are the JML Runtime Assertion Checker (RAC) and the
+Extended Static Checker for Java, version 2
+(ESC/Java2)~\cite{Cheon-Leavens02b,BurdyEtal05-STTT,KiniryCok04}.  The
+former compiles executable assertions into runtime checks.  The latter
+tool performs automated modular semantic static analysis to attempt to
+prove that the program under analysis does not misbehave (i.e., crash
+in a variety of ways) and conforms to its specification (lightweight
+functional correctness).  As ESC/Java2 is fully automated, it is not
+sound, nor does it cover the whole Java and JML languages, and is thus
+not complete, but there is support for warning the user about both of
+these situations~\cite{KiniryEtal06}.
 
 % ======================================================================
 \section{Blending Formal And Agile Development}
@@ -810,38 +904,7 @@ One important constraint is on the formal methodology, that must be able to cope
 
 %\bibliographystyle{latex8} 
 %\bibliographystyle{lniguide} 
-\bibliography{%
-  extra,%
-  abbrev,%
-  ads,%
-  category,%
-  complexity,%
-  hypertext,%
-  icsr,%
-  knowledge,%
-  languages,%
-  linguistics,%
-  meta,%
-  metrics,%
-  misc,%
-  modeling,%
-  modeltheory,%
-  reuse,%
-  rewriting,%
-  softeng,%
-  specification,%
-  ssr,%
-  technology,%
-  theory,%
-  web,%
-  upcoming,%
-  upcoming_conferences,%
-  conferences,%
-  workshops,%
-  verification,%
-  escjava,%
-  jml,%
-  nijmegen}
+\bibliography{extra,abbrev,ads,category,complexity,hypertext,icsr,knowledge,languages,linguistics,meta,metrics,misc,modeling,modeltheory,reuse,rewriting,softeng,specification,ssr,technology,theory,web,upcoming,upcoming_conferences,conferences,workshops,verification,escjava,jml,nijmegen}
 
 \newpage 
 
