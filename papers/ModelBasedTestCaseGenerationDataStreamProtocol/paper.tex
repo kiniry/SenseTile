@@ -1,3 +1,8 @@
+%
+% "Agile Formality: A Mole of Software Verification Practices"
+% for Agile Methods+Formal Methods 2010
+% Vieri del Bianco, Joseph Kiniry, Dragan Stosic
+%
 
 %\documentclass{article}
 \documentclass[english]{lni}
@@ -30,7 +35,7 @@
 
 \ifpdf 
   \usepackage{epstopdf}
-  \usepackage[pdftex,bookmarks=false,a4paper=false,plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Joseph R. Kiniry and Vieri del Bianco"]{hyperref} 
+  \usepackage[pdftex,bookmarks=false,a4paper=true,plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Vieri del Bianco and Joseph R. Kiniry and Dragan Stosic"]{hyperref} 
 \else
   \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
@@ -71,35 +76,39 @@
 
 \title{Agile Formality: A Mole of Software Verification Practices}
 
-\author{Vieri del Bianco, Joseph R. Kiniry and Dragan Stosic\\
+\author{Vieri del Bianco and Dragan Stosic\\
   UCD CASL: Complex and Adaptive Systems Laboratory and\\
   School of Computer Science and Informatics,\\
-  University College Dublin,\\
-  Belfield, Dublin 4, Ireland,\\
-  vieri.delbianco@ucd.ie, kiniry@acm.org and dragan.stosic@gmail.com\\
+  University College Dublin, Ireland\\
+  \texttt{vieri.delbianco@ucd.ie} and \texttt{dragan.stosic@gmail.com}\\
+  \\
+  Joseph R.~Kiniry \\
+  IT University of Copenhagen, Denmark\\
+  \texttt{kiniry@itu.dk}
 }
 
 \maketitle
 
 \begin{abstract}
 
-Agile and formal people do not blend nicely. 
-These two communities do not talk to or learn from each other. 
-The problem-solving approaches and mind attitudes differ widely, but this clash of view points can be exploited into new development processes that actually blend, rather than fight, or simply compose, practices from the two worlds. 
-This paper summarizes a complex case study, showing that it is not only possible, but tasty, to combine the ``garlic'' of formal methods and the ``chocolate'' of agile programming: a ``Mole'' of software verification practices.
-
-A complex case study is the test bench of the development process. 
-The case study focuses on the development of a driver to pilot an embedded custom board equipped with more than a dozen sensors: the communication protocol with the board is asynchronous and packet based.
-The protocol is focused on controlling the board and reporting the sensors measurements and the board status.
-
-The software driver is developed fulfilling contrasting requirements: (1) the protocol implementation needs to be thoroughly verified; (2) the protocol, at least in some of its parts, needs to be formally specified; (3) a board simulator is built to match the specifications and the board behaviour; (4) if the board components changes during development, the formal specifications and the simulator reflect the changes accordingly; (5) strict software delivery deadlines. 
-The requirements build up an environment that benefits from both an agile and a formal approach to software development.
-
-An innovative development process is drafted to cope with the contrasting requirements of the case study, blending agile and formal practices; the development process has been successfully applied to the case study yielding promising results. 
+  Members of the agile programming and formal methods communities do
+  not always see eye-to-eye.  These two communities often do not talk
+  to or learn from each other.  Only recently, as highlighted by the
+  September 2009 issue of IEEE Software, the IFIP workshop on
+  balancing agility and formalism in software engineering, and the
+  first edition of the first international workshop for formal methods
+  and agile methods, have ideas from the two communities begun to be
+  synthesized.  While the problem-solving approaches and psychological
+  attitudes of members of the two communities differ widely, we
+  exploit this clash of viewpoints, synthesizing a new development
+  processes that actually blends, rather than mashes together, best
+  practices from the two worlds.  This paper summarizes our process
+  and a supporting complex case study, showing that it is not only
+  possible, but tasty, to combine the ``chili pepper'' of formal
+  methods and the ``chocolate'' of agile programming, thus producing a
+  tasty ``mole'' of software engineering practices.
 
 \end{abstract}
-
-
 
 % ======================================================================
 \section{Introduction}
@@ -120,6 +129,15 @@ The problems' class we are interested in need to have unstable requirements, to 
 % terminology
 In the paper the standard IEEE terminology~/cite{Jay1990} for validation and verification is used: verification is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase, according to the requirements and design specifications (``you build the system in the right way''); validation is the process of evaluating software during or at the end of the development process to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
 While with formal verification it is intended the formal proof on an abstract mathematical model of the system.
+
+A complex case study is the test bench of the development process. 
+The case study focuses on the development of a driver to pilot an embedded custom board equipped with more than a dozen sensors: the communication protocol with the board is asynchronous and packet based.
+The protocol is focused on controlling the board and reporting the sensors measurements and the board status.
+
+The software driver is developed fulfilling contrasting requirements: (1) the protocol implementation needs to be thoroughly verified; (2) the protocol, at least in some of its parts, needs to be formally specified; (3) a board simulator is built to match the specifications and the board behaviour; (4) if the board components changes during development, the formal specifications and the simulator reflect the changes accordingly; (5) strict software delivery deadlines. 
+The requirements build up an environment that benefits from both an agile and a formal approach to software development.
+
+An innovative development process is drafted to cope with the contrasting requirements of the case study, blending agile and formal practices; the development process has been successfully applied to the case study yielding promising results. 
 
 
 
@@ -156,7 +174,7 @@ A different formal methodology, but same approach, can be found also in~\cite{Su
 % previous work: a common approach
 As already mentioned, in all these attempts, the hand made test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
 The requisite to enable these approaches is, at least, a specification of the entire system under development to enable simple verification techniques as run time verification (obtained by assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
-At most, a complete and sound system specification, usually supported by an appropriate formal language (to specify model and properties) and a constrained programming language, to be able to actually prove properties about the system under development~/cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
+At most, a complete and sound system specification, usually supported by an appropriate formal language (to specify model and properties) and a constrained programming language, to be able to actually prove properties about the system under development~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
 
 % previous work: why is not satisfying
 The approach is simple: the verification, documentation and requirement specification purposes of the tests are moved on to the formal specifications, and a complete formal specification of the system under development is needed to apply these methodologies.
@@ -171,7 +189,7 @@ The objectives we want to achieve are the following ones: to be able to formally
 % how we want to achive it
 The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in agile methodologies (especially in XP), to solve this problem in an highly iterative development process.
 We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how hand made and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
-That is, we will show how to blend, and not compose, formal and agile verification practices: a Mole of verification practices.
+That is, we will show how to blend, and not compose, formal and agile verification practices: a Mole of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers and chocolate, served with meat.}
 
 Mole practices are applied in the context of a real world case study that matches the problem requirements previously detailed: unstable requirements and development artifacts that need to be formally specified and verified.
 The case study fits these needs.
