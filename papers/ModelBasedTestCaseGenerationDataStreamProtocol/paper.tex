@@ -1,8 +1,3 @@
-%
-% "The UCD CASL SenseTile System", for IEEE Pervasive Computing Joseph
-% R. Kiniry, Vieri del Bianco, Dragan Stosic $Id: paper.tex 2795
-% 2007-09-23 19:35:53Z dmz
-%
 
 %\documentclass{article}
 \documentclass[english]{lni}
@@ -70,9 +65,7 @@
 \newcommand{\computefarmlong}{UCD CASL \ST Software and Data Compute Server Farm\xspace} 
 \newcommand{\sensorfarm}{The \STSBs\xspace}
 
-%% \input{kt}
 
-% =====================================================================
 
 \begin{document}
 
@@ -90,13 +83,19 @@
 
 \begin{abstract}
 
-Agile and formal people do not amalgamate nicely. These two communities do not talk to or learn from each other. We recognize that the problem solving approaches and mind attitudes differ widely, but we strongly believe that this clash of view points can be exploited to grow new development process that actually blends, rather than fight or simply compose, practices from the two worlds. This paper summarizes a complex case study which shows that it is not only possible, but tasty, to combine the ``garlic'' of formal methods and the ``chocolate'' of agile programming... that is, a ``Mole'' of Software Verification Practices.
+Agile and formal people do not blend nicely. 
+These two communities do not talk to or learn from each other. 
+The problem-solving approaches and mind attitudes differ widely, but this clash of view points can be exploited into new development processes that actually blend, rather than fight, or simply compose, practices from the two worlds. 
+This paper summarizes a complex case study, showing that it is not only possible, but tasty, to combine the ``garlic'' of formal methods and the ``chocolate'' of agile programming: a ``Mole'' of software verification practices.
 
-A complex case study was used as a test bench of the development process. The case study focuses on the development of a driver to pilot an embedded custom board equipped with more than a dozen sensors: the communication protocol with the board is asynchronous and packet based. The communication is focused on controlling the sensors and reporting the sensors measurements.
+A complex case study is the test bench of the development process. 
+The case study focuses on the development of a driver to pilot an embedded custom board equipped with more than a dozen sensors: the communication protocol with the board is asynchronous and packet based.
+The protocol is focused on controlling the board and reporting the sensors measurements and the board status.
 
-The software driver have been developed fulfilling contrasting requirements: (1) the driver is formally specified, verified and validated; (2) a board simulator is built to match the specifications and the board behaviour; (3) if the board components is changed during development, the formal specifications and the simulator reflect the changes accordingly; (4) strict software delivery deadlines. The requirements build up an environment that could benefit from both an agile and a formal approach to software development and verification.
+The software driver is developed fulfilling contrasting requirements: (1) the protocol implementation needs to be thoroughly verified; (2) the protocol, at least in some of its parts, needs to be formally specified; (3) a board simulator is built to match the specifications and the board behaviour; (4) if the board components changes during development, the formal specifications and the simulator reflect the changes accordingly; (5) strict software delivery deadlines. 
+The requirements build up an environment that benefits from both an agile and a formal approach to software development.
 
-An innovative development process has been drafted to cope with the contrasting requirements of the case study, blending agile and formal verification practices; the development process has been successfully applied to the case study yielding promising results. 
+An innovative development process is drafted to cope with the contrasting requirements of the case study, blending agile and formal practices; the development process has been successfully applied to the case study yielding promising results. 
 
 \end{abstract}
 
@@ -118,24 +117,34 @@ Test suites are used for several purposes, the most important being verification
 The two worlds seem irreconcilable, nevertheless, there exist problems that would greatly benefit from both~\cite{Black2009}.
 The problems' class we are interested in need to have unstable requirements, to be constrained by deadlines that cannot be postponed, but also to be characterized by artifacts that need to be formally specified and verified.
 
+% terminology
+In the paper the standard IEEE terminology~/cite{Jay1990} for validation and verification is used: verification is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase, according to the requirements and design specifications (``you build the system in the right way''); validation is the process of evaluating software during or at the end of the development process to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
+While with formal verification it is intended the formal proof on an abstract mathematical model of the system.
+
 
 
 \subsection{Formal and agile integration}
 \label{subsec:formal_and_agile_integration}
 
-% what is needed, high level
+% what is needed, high-level
 To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the agile methodologies needs to be maintained, and formal verification  methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, verify the implementation against the specification), need to be adapted to a highly iterative one.
 
 % what needs to be considered: TDD
 The most common software verification practices in agile methodologies need to be considered, when trying to integrate formal and agile methodologies, since they are a fundamental part of the development process. 
 The most significant verification practice is Test Driven Development (TDD)~\cite{Beck2003}, TDD is a software development technique, originally defined in Extreme Programming (XP)~\cite{Beck2004} methodology, characterized by writing unit tests before writing the code.
 Actually, the general technique, consisting in writing the tests before the code, is used at high abstraction levels as well, since user stories (the requirements) are translated into test cases (the functional tests) before implementation.
-The test driven approach is a cornerstone of XP, it is so popular that have been adopted in other agile methodologies as well; also, it is considered a good software development technique to be used on its own, regardless of the enclosing development process.
-It is to be noted that, depending on the abstraction level, the test driven approach can introduce activities cycles that can be as long as a complete iteration (functional tests), or as short as a couple of minutes (small increment on a unit test).
+The test driven approach is a cornerstone of XP, but it is so popular that have been adopted in many other agile methodologies as well.
+Also, it is considered a good software development technique to be used on its own, regardless of the enclosing development process.
+
+% test driven kinds
+The test driven approach relies on writing the tests before the actual implementation. 
+It can be applied in a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
+It can be applied in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
 
 % previous related work
 Some tentative attempts to reconcile formal and agile methodologies have been developed.
-The recurrent approach of the attempts consists in removing the hand made test suites, substituting them with different kinds of automated verification based on the system formal specification; the automated verification can be as simple as enabling run time verification of assertions or automatically generating a test suite based on the system properties, or as complex as actually proving the whole system behaviour through static model and code checkers or theorem provers.
+The recurrent approach of the attempts consists in removing the hand made test suites, substituting them with different kinds of automated verification based on the system formal specification. 
+The automated verification can be as simple as enabling run time verification of assertions or automatically generating a test suite based on the system properties, or as complex as actually proving the whole system behaviour through static model and code checkers or theorem provers.
 
 % a quick analysis of the related works
 Eleftherakis and Cowling in~\cite{Eleftherakis2003} propose XFun, an iterative and incremental process to generate X-Machines models, an extension of Finite State Machines. 
@@ -151,16 +160,16 @@ At most, a complete and sound system specification, usually supported by an appr
 
 % previous work: why is not satisfying
 The approach is simple: the verification, documentation and requirement specification purposes of the tests are moved on to the formal specifications, and a complete formal specification of the system under development is needed to apply these methodologies.
-The problem is that this requirement is hard to fulfil, since the effort required to write a complete formal specification of the system, in most real world complex cases, is much greater than writing a suite of tests.
-If a complete formal specification is not built, all the previous methodologies share a common problem: the parts not formally specified are not verified.
-The parts not formally specified can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are not specified or completely lost.
+The problem is that this requirement is hard to fulfil, since the effort required to write a complete formal specification of the system, in most real world complex cases, is usually greater than writing a suite of tests~/cite{Glass2002}.
+If a complete formal specification is not built, all the previous methodologies share a common problem: the parts not formally specified are not verified at all.
+The parts not formally specified can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are not detailed nor enforced.
 The loops and relations between the different development artifacts are the inner engine of many agile methodologies, they impose an iterative and incremental pace to the development process.
 
 % what we want to achieve
 The objectives we want to achieve are the following ones: to be able to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
 
 % how we want to achive it
-The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in agile methodologies (especially in XP), to solve this problem.
+The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in agile methodologies (especially in XP), to solve this problem in an highly iterative development process.
 We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how hand made and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
 That is, we will show how to blend, and not compose, formal and agile verification practices: a Mole of verification practices.
 
@@ -169,19 +178,19 @@ The case study fits these needs.
 
 
 
-\subsection{A Real And Complex Case Study: Rapid Development In Small Scale Hardware Software Co-design}
+\subsection{A Real and Complex Case Study: Rapid Development in Small Scale Hardware Software Co-design}
 \label{subsec:a_real_and_complex_case_study}
 
 % SenseTile introduction
-The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose sensor system installed at the University College Dublin in Dublin, Ireland.
+The \textbf{UCD CASL SenseTile System} is a large-scale, general-purpose sensor system developed at the University College Dublin in Dublin, Ireland.
 Our facility provide a scalable and extensible infrastructure for performing in-depth investigation of both the specific and general issues in large-scale sensor networking.
 This system integrates a sensor platform, a datastore, and a compute farm.  
 The sensor platform is a custom-designed, but inexpensive, sensor platform (called the \ST) paired with general-purpose small-scale compute nodes, including everything from low-power PDAs to powerful touchscreen-based portable computers.  
 There are over a dozen sensors packaged on the \ST itself, the board is expandable as well, new sensors can be added to it easily.
 
 % case study: the sensor board development tasks
-The case study is focused in building the sensor board and its software driver side by side.
-Because of hard time constraints, and the initial unavailability of the custom board, we need to progress concurrently with all the development tasks, which consist of: (1) specification of the communication protocol; (2) physical board specification; (3) physical board; (4) board embedded software; (5) communication protocol software driver; (6) development of software simulators of the board.
+The case study is focused in building the sensor board and its software driver concurrently.
+Because of hard time constraints, and the initial unavailability of the custom board, we need to progress concurrently with all the development tasks, which consist of: (1) specification of the communication protocol; (2) physical board specification; (3) physical board development; (4) development of the board embedded software; (5) communication protocol software driver development; (6) development of software simulators of the board.
 
 % what we have to do, what we outsourced, and the dependencies between tasks
 The development of the physical board, along with its embedded software (development tasks 2, 3, 4), is carried out by an external manufacturer, thus it is not directly taken into account here. 
@@ -189,11 +198,18 @@ The specification of the communication protocol (development task 1) is a joint 
 The dependencies are straightforward: the specification of the communication protocol (1) is the most stable element, but it still depends on the sensor board (2, 3, 4): big changes in the latter could affect the former.
 The driver and the simulators depends directly on the communication protocol.
 
+% communication with external manufacturer
+Communication and synchronization with the external manufacturer is frequent but not optimal.
+The main synchronization artifact is the protocol specification, that remain stable at high-level, but is changed frequently in the low-level details.
+Since domain expertise is very different, a common domain language is hard to find and to agree upon.
+Formal methodologies and programming platforms also differ.
+The informal specification of the communication protocol is the most reliable source of information.
+
 % how the problem is usually managed
 There exist various approaches in literature addressing this kind of development constraints (rapid development in hardware software
 co-design), but they are all focused on big-scale systems.
-The hardware software formal co-design methodologies usually have several common development artifacts\cite{Slomka2000,Hoffman2001}: an high level specification of the system, a translation (refinement) of the high level specification to low level ones (hardware and software counterparts), the possibility to generate software code from the low level specifications, a hardware simulator capable of simulating an hardware component based on hardware specification, the hardware component developed.
-When considering the development of the device and of its software driver as separate entities, that possibly have to be developed concurrently, the existing approaches are similar to the ones seen in the case of hardware software co-design\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus on a specification that aims to be as complete as possible. 
+The hardware software formal co-design methodologies usually have several common development artifacts~\cite{Slomka2000,Hoffman2001}: an high-level specification of the system, a translation (refinement) of the high-level specification to low-level ones (hardware and software counterparts), the possibility to generate software code from the low-level specifications, a hardware simulator capable of simulating an hardware component based on hardware specification, the hardware component developed.
+When considering the development of the device and of its software driver as separate entities that possibly have to be developed concurrently, the existing approaches are similar to the ones seen in the case of hardware software co-design~\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}: they all focus on a specification that aims to be as complete as possible. 
 
 % complete specification is not feasible
 A specification as complete as possible is not feasible nor convenient in this case: the protocol specification have to be enhanced incrementally, and its complete specification cannot be provided.
@@ -222,8 +238,8 @@ JML and RAC tools provide a run time checker, a test generator, and do not requi
 
 % principles of agile methodologies
 Agile methodologies are all based on a highly iterative and incremental process.
-They share a common approach on team management, customer relation, simplification and removal of not needed artifacts and activities and importance of working solutions and customers satisfaction.
-The agile manifesto~\cite{Beck2001} summarizes the philosophy and principles shared by all agile methodologies.
+They share a common approach on team management, customer relation, simplification and removal of unnecessary artifacts and activities, they rate working solutions and custoemrs satisfaction as the most important indicators to be considered during development.
+The Agile Manifesto~\cite{Beck2001} summarizes the philosophy and principles shared by all agile methodologies.
 
 % verification practices in agile methodologies
 The agile manifesto does not introduce any specific techniques to be used in the development process, it describes agile methodologies from a very high abstraction level.
@@ -401,7 +417,7 @@ Besides, the packet byte structure is not stable: the internal byte structure ch
 Therefore, packet byte structure is not formally specified.
 
 % development cycles
-The test suite are used to verify board simulators (low level), but it cannot be used to check properties at run time.
+The test suite are used to verify board simulators (low-level), but it cannot be used to check properties at run time.
 Code and tests have been implemented using TDD.
 
 \paragraph*{Packet info structure specification}
@@ -412,7 +428,7 @@ It has been built starting from hand made tests only (TDD development cycles).
 Later on JML annotations have been added incrementally, using a mix of mole practices: to move from hand made tests to formal specifications, TDF have been initially used; than all the mole practices have been used according to the artifacts involved.
 
 % development cycles
-The test suites are used to verify board simulators (high level), RAC and JML annotations are used to check the formally specified properties at run time.
+The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check the formally specified properties at run time.
 Code and tests have been initially implemented using TDD, than using all the Mole verification practices.
 
 \paragraph*{Single packet rules}
@@ -422,7 +438,7 @@ The verification is provided exclusively by the formal specification with JML la
 It has been built starting from JML annotations, supported by hand made tests when needed.
 
 % development cycles
-The test suites are used to verify board simulators (high level), RAC and JML annotations are used to check most of the rules at run time.
+The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check most of the rules at run time.
 Code and tests have been implemented using both forms of FDD.
 
 
@@ -440,11 +456,11 @@ But, because of limited resources and effort available, the layer structure was 
 Two simulators are available, they have been built concurrently with the specification, the driver implementation, and the tests.
 
 % simulators description
-The driver API is splitted in two abstraction layers: the general high level interfaces, that expose the main functionalities of the board and the main contents of the packets, and the lower level implementation that parse the data streams in and out the board, meant to translate the higher level instructions and data in properly formed packets.
+The driver API is splitted in two abstraction layers: the general high-level interfaces, that expose the main functionalities of the board and the main contents of the packets, and the lower level implementation that parse the data streams in and out the board, meant to translate the higher level instructions and data in properly formed packets.
 The simulators are built according to these two abstraction layers.
-The high level simulator implements the interfaces providing the methods to deal with an abstracted \SB: the simulator knows nothing
+The high-level simulator implements the interfaces providing the methods to deal with an abstracted \SB: the simulator knows nothing
 about the details of the real format of the binary data streams.
-The low level simulator is capable to rebuild the \SB data streams: the in and out data streams are built exactly as the sensor board is expected to be able to parse or generate.
+The low-level simulator is capable to rebuild the \SB data streams: the in and out data streams are built exactly as the sensor board is expected to be able to parse or generate.
 
 
 
@@ -650,8 +666,53 @@ The test suites give their best when used in a combined approach: the generated 
 
 
 
+\paragraph*{Effectiveness on board delivery}
+
+% tests and the first prototype, board side
+The first \STSB prototype builds packets with no data, but the packets are built in a way not consistent with the specification.  
+The board errors are detected by simply using the driver implementation, the \lil{StreamDriver} package.
+
+% tests and the second prototype, driver side
+The second prototype builds packets with values taken from real sensors installed on the board.  
+The only sensors that are not working are the sensors devoted to the fast rate data streams (audio sensors).  
+One error needed to be corrected in the driver implementation, because of a (rare) combinations of conditions not initially covered by the test cases, but that occasionally showed up during real use.
+One error was discovered in the low-level system driver used by the developed driver (the system driver is outside our development scope): to eliminate the error, an upgrade of the low-level driver to a new beta version was necessary. 
+No other errors were detected on the driver side.
+
+% tests and the second prototype, board side
+The second prototype respected the packet byte structure specification, but was not fully compliant to the packet info structure specification and the single packet rules.
+The formal JML specifications and the run time assertion checker correctly identified these errors.
+4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found, and are expected to be corrected in the following releases. 
+No other errors, except the mentioned ones, have been discovered up to now.
+
+
+
 \section{Conclusions}
 \label{sec:conclusions}
+
+% the problem
+In this paper we focus on a specific set of development problems that neither agile methodologies nor formal methodologies are completely confortable to cope with.
+The problems, we are interested in, are characterized by unstable requirements, artifacts that need to be formally specified and verified, and are constrained by deadlines that cannot be postponed.
+We propose a blend of agile and formal verification practices, enclosed by an iterative and incremental development process: the Mole development process.
+
+% Mole
+The verification practices proposed recreate the fast feedback development environment we find in Test Driven Development, to be used with formal and non formal artifacts.
+A total of four practices are presented, two of them are conservative, following closely the development practices of agile and formal methodologies, while the other pair are inoovative, blending together elements from both worlds.
+
+% Mole at work
+The practices have been applied succesfully to develop a driver for a custom embedded sensor board, equipped with board simulators and protocol verifiers. 
+The protocol and the board specifications were informal and unstable. 
+Yet a working software product was needed as soon as possible, with incrementally added functionality, and keeping it linked with the last specifications of the protocol and the board.
+Mole verification practices enabled us to keep in sink formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
+We developed hand made test suites, generated test suites and JML annotations, wich succesfully supported the verification of the driver and the simulators, and the board as well, when it was delivered.
+
+% extending Mole
+The practices are very general, and can be applied to different development languages and formal methodologies.
+One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at run time and partially automate the verification process of the formalized properties.
+
+
+
+
 
 \todo{write conclusions}
 
@@ -806,7 +867,7 @@ The board errors have been detected by simply using the driver implementation, t
 The second prototype was meant to build packets with values taken from real sensors installed on the board.  
 The only sensors that were not yet working were the sensors devoted to the fast rate data streams (audio sensors).  
 One error needed to be corrected in the driver implementation, because of a (rare) combinations of conditions that were not covered by the test cases, but that occasionally showed up during real use.
-One error have been discovered in the low level system driver that the developed driver is using (the system driver is outside our development scope); to eliminate the error an upgrade of the low level driver to a new unreleased version were necessary. 
+One error have been discovered in the low-level system driver that the developed driver is using (the system driver is outside our development scope); to eliminate the error an upgrade of the low-level driver to a new unreleased version were necessary. 
 No other errors were detected on the driver side.
 
 % tests and the second prototype, board side
@@ -857,10 +918,3 @@ No attempts on running or evaluating the generated test suite alongside with an 
 
 \end{document}
 
-
-
-%%% Local Variables: 
-%%% mode: latex
-%%% eval: 
-%%% TeX-master: t
-%%% End: 
