@@ -1,58 +1,44 @@
 %%%%%%% REFINEMENT THEORY %%%%%%%%%
-refinement[i,m: TYPE]: THEORY
+refinement[m,i: TYPE+, (IMPORTING orders@directed_orders)
+                          le1:(directed_complete_partial_order?[m]),
+                          le2:(directed_complete_partial_order?[i])]: THEORY
+
 BEGIN
-IMPORTING refines_t
+IMPORTING scott@scott_continuity[m,i,le1,le2],
+          scott@scott[m,le1],
+          scott@scott[i,le2]
 
- mod: VAR m
- imp: VAR i
+ge:VAR [m -> i];
+ex:VAR [i -> m ];
 
- extract: [i -> m] = {e: [i -> m] | surjective?(e)}; 
- generate:[m -> i] = {g: [m -> i] | surjective?(g)};
+% extract function
+extract: [i -> m];
+% generate function
+generate:[m -> i]= {g:[m -> i] | scott_continuous?(g)};
 
- |-: PRED[[m,i]] = {(mod:m,imp:i) | generate(mod)= imp and mod = extract(imp)}
+% refinement relation
+|-:PRED[[m,i]] = {(mod:m, imp:i) | generate(mod)= imp AND extract(imp)=mod }
+ 
 
-  AUTO_REWRITE+ extract, generate,|-
+ax_representative : AXIOM FORALL (mod:m),(imp:i):
+                    EXISTS (eqM:equivalence[m], eqI:equivalence[i]):
+                     member(generate(mod),EquivClass(eqI)(imp)) 
+                     AND 
+                     member(extract(imp),EquivClass(eqM)(mod))
 
-  % model   |-   model'
-  %  /\ --------->|
-  %   |           |
-  %   |extract    |generate
-  %   |           |
-  %   |           |
-  %   |           V 
-  %   impl------->impl' 
-  %         |-
-         
-  
-  % model   |-   model'
-  %   | --------->/\
-  %   |           |
-  %   | generate  | extract
-  %   |           |
-  %   V --------->|
-  % impl  |-  impl'
+% ax_0: AXIOM  
+ax_refinement1: AXIOM FORALL (mod:m),(imp:i) : |-(mod,imp) IMPLIES
+                      EXISTS (g:[m->i],e:[i->m]) : 
+		   	   g(mod)=imp AND e(imp)=mod
 
 
-  %            model
-  %  ||          |      /\
-  % generate  |- |      ||
-  %  ||          |    extract
-  %  \/          |      ||
-  %            impl
+ax_refinement2: AXIOM FORALL (mod:m),(imp:i): 
+                      EXISTS (g:[m->i],e:[i->m]): 
+               	      |-(mod,g(mod)) AND  |-(e(imp),imp)
 
-  ax_model_implement: AXIOM ( FORALL(prm:PRED[m]): (FORALL (pri: PRED[i]): prm(mod) => pri(imp))) 
 
-%  lemma_comxp_ext_ge: LEMMA FORALL (mod:m ): o(extract,generate)(mod) = mod 
-%  lemma_comp_ge_ext: LEMMA FORALL (imp:i ): o(generate,extract)(imp) = imp 
-  
-%refinement_semantics[I,M: TYPE]: THEORY
-%BEGIN
-% left_adjoint: AXIOM = (FORALL r: refinement[I,M]):
-%                         (FORALL e: extract | ref?(e) = r):
-%                            (FORALL g: generate | ref?(g) = r):
-%                               (FORALL i: I)
-%                                  e(g(i)) = i
-%END refinement_semantics
+% how are the kernels of M and I induced by generate and extract 
+% (respectively) related to each other? 
 
 END refinement
 
@@ -64,10 +50,10 @@ END refinement
 %
 %set_refinement
 %
-set_refinement[T, R: TYPE]: THEORY
-BEGIN
-  IMPORTING refinement[set[T], set[R]]
-END set_refinement
+%set_refinement[T, R: TYPE]: THEORY
+%BEGIN
+%  IMPORTING refinement[set[T], set[R]]
+%END set_refinement
 
 
 
@@ -308,10 +294,6 @@ every_select: LEMMA every(p)(select(p)(r))
 
 
 END predicate_trans
-
-
-
-
 
 
 
