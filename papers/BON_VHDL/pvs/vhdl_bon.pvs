@@ -32,7 +32,10 @@ ref_triple?(rt:ref_triple_record): bool =
       g:generate=rt`g, 
       |-:ref=rt`r IN
              FORALL (mod:m, imp:i): 
-               ref_ex?(e,|-) AND ref_ge?(g,|-)AND
+               ref_ex?(e,|-)  AND 
+               ref_ge?(g,|-)  AND
+               |-(e(imp),imp) AND 
+               |-(mod,g(mod)) AND 
                |-(e(imp),g(mod))
                                    
 
@@ -44,7 +47,6 @@ lemma_model: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
 
 lemma_implementation: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
                             rt`r(rt`e(imp),imp) => imp = rt`g(rt`e(imp))
-
 
 lemma_ref_composition_mod : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
                             rt`r(mod,imp) => rt`r(o(rt`e,rt`g)(mod), imp) 
