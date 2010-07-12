@@ -1,51 +1,75 @@
-%%%%%%% REFINEMENT THEORY %%%%%%%%%
-refinement[m,i: TYPE+, (IMPORTING orders@directed_orders)
-                          le1:(directed_complete_partial_order?[m]),
-                          le2:(directed_complete_partial_order?[i])]: THEORY
-
+refinement[m,i: TYPE]: THEORY
 BEGIN
-IMPORTING scott@scott_continuity[m,i,le1,le2],
-          scott@scott[m,le1],
-          scott@scott[i,le2]
 
-ge:VAR [m -> i];
-ex:VAR [i -> m ];
+ mod: VAR m
+ imp: VAR i
 
-% extract function
-extract: [i -> m];
-% generate function
-generate:[m -> i]= {g:[m -> i] | scott_continuous?(g)};
-
-% refinement relation
-|-:PRED[[m,i]] = {(mod:m, imp:i) | generate(mod)= imp AND extract(imp)=mod }
+ extract  :TYPE  = [i -> m];  
+ generate :TYPE  = [m -> i];
+ ref: TYPE = PRED[[m,i]]
  
+ |-: VAR ref
+ e:  VAR extract
+ g:  VAR generate
 
-ax_representative : AXIOM FORALL (mod:m),(imp:i):
-                    EXISTS (eqM:equivalence[m], eqI:equivalence[i]):
-                     member(generate(mod),EquivClass(eqI)(imp)) 
-                     AND 
-                     member(extract(imp),EquivClass(eqM)(mod))
+graph_ex?(e):bool = FORALL (mod:m, imp:i) : graph(e)(imp,mod)
 
-% ax_0: AXIOM  
-ax_refinement1: AXIOM FORALL (mod:m),(imp:i) : |-(mod,imp) IMPLIES
-                      EXISTS (g:[m->i],e:[i->m]) : 
-		   	   g(mod)=imp AND e(imp)=mod
+graph_ge?(g):bool = FORALL (mod:m, imp:i) : graph(g)(mod,imp)
 
+ref_ex?(e,|-):bool = graph_ex?(e) AND  
+		     FORALL (imp:i):|-(e(imp),imp)
 
-ax_refinement2: AXIOM FORALL (mod:m),(imp:i): 
-                      EXISTS (g:[m->i],e:[i->m]): 
-               	      |-(mod,g(mod)) AND  |-(e(imp),imp)
+ref_ge?(g,|-):bool = graph_ge?(g) AND 
+		     FORALL (mod:m): |-(mod,g(mod)) 
 
 
-% how are the kernels of M and I induced by generate and extract 
-% (respectively) related to each other? 
+% triple refinement record definition 
+ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
+
+% this is a definition of a valid refinement triple 
+ref_triple?(rt:ref_triple_record): bool = 
+  LET e:extract= rt`e, 
+      g:generate=rt`g, 
+      |-:ref=rt`r IN
+             FORALL (mod:m, imp:i): 
+               ref_ex?(e,|-) AND ref_ge?(g,|-)AND
+               |-(e(imp),g(mod))
+                                   
+
+ref_triple_type: TYPE = (ref_triple?)
+
+% properties
+lemma_model: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
+                           rt`r(mod,rt`g(mod)) => mod = rt`e(rt`g(mod))
+
+lemma_implementation: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
+                            rt`r(rt`e(imp),imp) => imp = rt`g(rt`e(imp))
+
+
+lemma_ref_composition_mod : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
+                            rt`r(mod,imp) => rt`r(o(rt`e,rt`g)(mod), imp) 
+
+lemma_ref_composition_imp : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
+                            rt`r(mod,imp) => rt`r(mod, o(rt`g,rt`e)(imp)) 
+
+lemma_compositiion_mod_imp :LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
+                            rt`r(mod,imp) => rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp)) 
 
 END refinement
 
 
 
+ref_partial_order[ m,i :TYPE, 
+                    RI:(partial_order?[i]),
+                    RM:(partial_order?[m]) ]:THEORY
+BEGIN
+IMPORTING refinement[m,i],
+          partial_order[m,RM],
+          partial_order[i,RI],
+          QuotientDefinition[m],
+          QuotientDefinition[i]
 
-
+END ref_partial_order
 
 %
 %set_refinement
@@ -54,8 +78,6 @@ END refinement
 %BEGIN
 %  IMPORTING refinement[set[T], set[R]]
 %END set_refinement
-
-
 
 
 
