@@ -29,21 +29,21 @@ ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
 
 % this is a definition of a valid refinement triple 
 ref_triple?(rt:ref_triple_record): bool = 
-  LET e:extract= rt`e, 
-      g:generate=rt`g, 
-      |-:ref=rt`r IN
+  LET e:extract= rt`e, g:generate=rt`g, |-:ref=rt`r 
+               IN
                ref_ex?(e,|-)   AND 
                ref_ge?(g,|-)   AND 
                ref_ge_ex?(e,g,|-);
                                                
 ref_triple_type: TYPE = (ref_triple?)
 
-lemma_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
-                            rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
 
-lemma_composition_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
-                               rt`r(mod,imp) => 
-                               rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp))
+lemma_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                  rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
+
+lemma_com_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                      rt`r(mod,imp) => 
+                      rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp))
 
 END refinement
 
