@@ -1,53 +1,11 @@
 (refinement
- (lemma_model 0
-  (lemma_model-1 nil 3487946181 3488012666
-   ("" (skolem-typepred)
-    (("" (flatten)
-      (("" (expand "ref_triple?")
-        (("" (smash) (("" (grind) nil nil)) nil)) nil))
-      nil))
-    nil)
-   proved
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (extract type-eq-decl nil refinement nil)
-    (generate type-eq-decl nil refinement nil)
-    (m formal-type-decl nil refinement nil)
-    (i formal-type-decl nil refinement nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (ref_triple_record type-eq-decl nil refinement nil)
-    (ref_triple? const-decl "bool" refinement nil)
-    (ref_triple_type type-eq-decl nil refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
-    (ref_ge? const-decl "bool" refinement nil)
-    (ref_ge_ex? const-decl "bool" refinement nil))
-   143 100 t shostak))
- (lemma_implementation 0
-  (lemma_implementation-1 nil 3487948607 3488012670
-   ("" (grind) nil nil) proved
-   ((ref_ge_ex? const-decl "bool" refinement nil)
-    (ref_ge? const-decl "bool" refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
-    (ref_triple_type type-eq-decl nil refinement nil)
-    (ref_triple? const-decl "bool" refinement nil)
-    (ref_triple_record type-eq-decl nil refinement nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (i formal-type-decl nil refinement nil)
-    (m formal-type-decl nil refinement nil)
-    (generate type-eq-decl nil refinement nil)
-    (extract type-eq-decl nil refinement nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil))
-   121 80 t shostak))
  (lemma_ref_composition_mod 0
   (lemma_ref_composition_mod-1 nil 3487941463 3488012675
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "ref_triple?") (("" (grind) nil nil)) nil)) nil))
     nil)
-   proved
+   unfinished
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -66,7 +24,7 @@
    195 110 t shostak))
  (lemma_ref_composition_imp 0
   (lemma_ref_composition_imp-1 nil 3487948794 3488012679
-   ("" (grind) nil nil) proved
+   ("" (grind) nil nil) unchecked
    ((O const-decl "T3" function_props nil)
     (ref_ge_ex? const-decl "bool" refinement nil)
     (ref_ge? const-decl "bool" refinement nil)
@@ -88,7 +46,7 @@
    ("" (use "lemma_ref_composition_mod")
     (("" (use "lemma_ref_composition_imp") (("" (grind) nil nil)) nil))
     nil)
-   proved
+   unfinished
    ((lemma_ref_composition_imp formula-decl nil refinement nil)
     (ref_ex? const-decl "bool" refinement nil)
     (ref_ge? const-decl "bool" refinement nil)
@@ -235,26 +193,34 @@
     (ref_triple_type type-eq-decl nil refinement nil)
     (RI formal-const-decl "(partial_order?[i])" ref_partial_order nil)
     (member const-decl "bool" sets nil)
-    (ref_ge? const-decl "bool" refinement nil) nil
+    (ref_ge? const-decl "bool" refinement nil)
     (RM formal-const-decl "(partial_order?[m])" ref_partial_order nil)
     (partial_order? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil)
     (is_reflexive formula-decl nil p_order_rewrite nil)
-    (ref_ge_ex? const-decl "bool" refinement nil) nil
+    (ref_ge_ex? const-decl "bool" refinement nil)
     (graph const-decl "bool" functions nil)
     (EquivClass const-decl "set[T]" QuotientDefinition nil)
     (ref_ex? const-decl "bool" refinement nil))
    9277 620 t shostak))
  (lemma_eqClass_ref 0
-  (lemma_eqClass_ref-1 nil 3488006988 3488013113
-   ("" (auto-rewrite-defs :always? t)
-    (("" (assert :let-reduce? t :cases-rewrite? nil)
-      (("" (skolem-typepred)
-        (("" (flatten)
-          ((""
-            (assert :let-reduce? t :quant-simp? nil
-                    :implicit-typepreds? nil :cases-rewrite? nil)
-            (("" (flatten) (("" (grind) nil nil)) nil)) nil))
+  (lemma_eqClass_ref-1 nil 3488006988 3488016604
+   ("" (expand "member")
+    (("" (skolem-typepred)
+      (("" (prop)
+        (("" (expand "EquivClass")
+          (("" (expand "ref_triple?")
+            (("" (prop)
+              (("" (expand "ref_ex?")
+                (("" (expand "ref_ge?")
+                  (("" (expand "ref_ge_ex?")
+                    (("" (inst -3 "mod!1" "imp!1")
+                      (("" (prop) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
           nil))
         nil))
       nil))
@@ -271,12 +237,12 @@
     (ref_triple_record type-eq-decl nil refinement nil)
     (ref_triple? const-decl "bool" refinement nil)
     (ref_triple_type type-eq-decl nil refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
+    (EquivClass const-decl "set[T]" QuotientDefinition nil)
     (ref_ge? const-decl "bool" refinement nil)
     (ref_ge_ex? const-decl "bool" refinement nil)
-    (EquivClass const-decl "set[T]" QuotientDefinition nil)
+    (ref_ex? const-decl "bool" refinement nil)
     (member const-decl "bool" sets nil))
-   361 230 t shostak)))
+   127127 270 t shostak)))
 (p_order_rewrite
  (is_reflexive 0
   (is_reflexive-1 nil 3485877544 3486634656

@@ -14,10 +14,10 @@ BEGIN
 
  
 ref_ex?(e,|-):bool = FORALL (mod:m, imp:i):
-		     |-(mod,imp) => |-(e(imp),imp) AND mod = e(imp) 
+		     |-(mod,imp) => |-(e(imp),imp) 
 
 ref_ge?(g,|-):bool = FORALL (mod:m, imp:i):
-		     |-(mod,imp) => |-(mod,g(mod)) AND imp = g(mod)
+		     |-(mod,imp) => |-(mod,g(mod))
 
 ref_ge_ex?(e,g,|-) : bool = FORALL (mod:m, imp:i): 
 		     |-(mod,imp) => |-(e(imp),g(mod))
@@ -34,32 +34,8 @@ ref_triple?(rt:ref_triple_record): bool =
                ref_ex?(e,|-)   AND 
                ref_ge?(g,|-)   AND 
                ref_ge_ex?(e,g,|-);
- 
-               
-                               
+                                               
 ref_triple_type: TYPE = (ref_triple?)
-
-
-% properties
-lemma_model: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
-                            rt`r(mod,rt`g(mod)) => 
-                            mod = rt`e(rt`g(mod))
-
-lemma_implementation: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
-                            rt`r(rt`e(imp),imp) => 
-                            imp = rt`g(rt`e(imp))
-
-lemma_ref_composition_mod : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => 
-                            rt`r(o(rt`e,rt`g)(mod), imp) 
-
-lemma_ref_composition_imp : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => 
-                            rt`r(mod, o(rt`g,rt`e)(imp)) 
-
-lemma_compositiion_mod_imp :LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => 
-                            rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp)) 
 
 END refinement
 
