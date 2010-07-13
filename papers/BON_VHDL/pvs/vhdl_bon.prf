@@ -1,14 +1,13 @@
 (refinement
  (lemma_model 0
-  (lemma_model-1 nil 3487946181 3488003167
+  (lemma_model-1 nil 3487946181 3488007719
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "ref_triple?")
-        (("" (inst?) (("" (smash) (("" (grind) nil nil)) nil)) nil))
-        nil))
+        (("" (smash) (("" (grind) nil nil)) nil)) nil))
       nil))
     nil)
-   unchecked
+   proved
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -20,62 +19,39 @@
     (ref_triple_record type-eq-decl nil refinement nil)
     (ref_triple? const-decl "bool" refinement nil)
     (ref_triple_type type-eq-decl nil refinement nil)
-    (ref_ge? const-decl "bool" refinement nil)
-    (graph_ge? const-decl "bool" refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
+    (graph const-decl "bool" functions nil)
     (graph_ex? const-decl "bool" refinement nil)
-    (graph const-decl "bool" functions nil))
-   259 140 t shostak))
+    (ref_ex? const-decl "bool" refinement nil)
+    (graph_ge? const-decl "bool" refinement nil)
+    (ref_ge? const-decl "bool" refinement nil))
+   3576 140 t shostak))
  (lemma_implementation 0
-  (lemma_implementation-1 nil 3487948607 3487948611
-   ("" (grind) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (extract type-eq-decl nil refinement nil)
-    (generate type-eq-decl nil refinement nil)
-    (m formal-type-decl nil refinement nil)
-    (i formal-type-decl nil refinement nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (ref_triple_record type-eq-decl nil refinement nil)
-    (ref_triple? const-decl "bool" refinement nil)
-    (ref_triple_type type-eq-decl nil refinement nil)
-    (graph const-decl "bool" functions nil)
-    (graph_ex? const-decl "bool" refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
+  (lemma_implementation-1 nil 3487948607 3488007724
+   ("" (grind) nil nil) proved
+   ((ref_ge? const-decl "bool" refinement nil)
     (graph_ge? const-decl "bool" refinement nil)
-    (ref_ge? const-decl "bool" refinement nil))
-   4130 170 t shostak))
+    (ref_ex? const-decl "bool" refinement nil)
+    (graph_ex? const-decl "bool" refinement nil)
+    (graph const-decl "bool" functions nil)
+    (ref_triple_type type-eq-decl nil refinement nil)
+    (ref_triple? const-decl "bool" refinement nil)
+    (ref_triple_record type-eq-decl nil refinement nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (i formal-type-decl nil refinement nil)
+    (m formal-type-decl nil refinement nil)
+    (generate type-eq-decl nil refinement nil)
+    (extract type-eq-decl nil refinement nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   227 130 t shostak))
  (lemma_ref_composition_mod 0
-  (lemma_ref_composition_mod-1 nil 3487941463 3487948624
+  (lemma_ref_composition_mod-1 nil 3487941463 3488007733
    ("" (skolem-typepred)
     (("" (flatten)
-      (("" (expand "ref_triple?")
-        (("" (inst?) (("" (grind) nil nil)) nil)) nil))
-      nil))
+      (("" (expand "ref_triple?") (("" (grind) nil nil)) nil)) nil))
     nil)
-   unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (extract type-eq-decl nil refinement nil)
-    (generate type-eq-decl nil refinement nil)
-    (m formal-type-decl nil refinement nil)
-    (i formal-type-decl nil refinement nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (ref_triple_record type-eq-decl nil refinement nil)
-    (ref_triple? const-decl "bool" refinement nil)
-    (ref_triple_type type-eq-decl nil refinement nil)
-    (O const-decl "T3" function_props nil)
-    (graph const-decl "bool" functions nil)
-    (graph_ex? const-decl "bool" refinement nil)
-    (ref_ex? const-decl "bool" refinement nil)
-    (graph_ge? const-decl "bool" refinement nil)
-    (ref_ge? const-decl "bool" refinement nil))
-   6995 130 t shostak))
- (lemma_ref_composition_imp 0
-  (lemma_ref_composition_imp-1 nil 3487948794 3487948798
-   ("" (grind) nil nil) unchecked
+   proved
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -93,9 +69,9 @@
     (graph_ge? const-decl "bool" refinement nil)
     (ref_ge? const-decl "bool" refinement nil)
     (O const-decl "T3" function_props nil))
-   4354 160 t shostak))
- (lemma_compositiion_mod_imp 0
-  (lemma_compositiion_mod_imp-1 nil 3487948920 3488006262
+   3506 120 t shostak))
+ (lemma_ref_composition_imp 0
+  (lemma_ref_composition_imp-1 nil 3487948794 3488007738
    ("" (grind) nil nil) proved
    ((O const-decl "T3" function_props nil)
     (ref_ge? const-decl "bool" refinement nil)
@@ -114,7 +90,34 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   151 70 t shostak)))
+   247 160 t shostak))
+ (lemma_compositiion_mod_imp 0
+  (lemma_compositiion_mod_imp-1 nil 3487948920 3488008030
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "o ")
+        (("" (expand "ref_triple?")
+          (("" (prop)
+            (("" (inst -3 "rt!1`e(imp!1)" "rt!1`g(mod!1)") nil nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((O const-decl "T3" function_props nil)
+    (ref_triple_type type-eq-decl nil refinement nil)
+    (ref_triple? const-decl "bool" refinement nil)
+    (ref_triple_record type-eq-decl nil refinement nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (i formal-type-decl nil refinement nil)
+    (m formal-type-decl nil refinement nil)
+    (generate type-eq-decl nil refinement nil)
+    (extract type-eq-decl nil refinement nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   283733 240 t shostak)))
 (ref_partial_order
  (lemma_eqClass_members 0
   (lemma_eqClass_members-1 nil 3488005481 3488005630
@@ -287,7 +290,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)

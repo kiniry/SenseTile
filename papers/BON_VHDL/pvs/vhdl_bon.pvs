@@ -23,6 +23,7 @@ ref_ex?(e,|-):bool = graph_ex?(e) AND
 ref_ge?(g,|-):bool = graph_ge?(g) AND 
 		     FORALL (mod:m): |-(mod,g(mod)) 
 
+ref_ge_ex?(e,g,|-) : bool = FORALL (mod:m, imp:i): |-(e(imp),g(mod))
 
 % triple refinement record definition 
 ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
@@ -33,14 +34,13 @@ ref_triple?(rt:ref_triple_record): bool =
   LET e:extract= rt`e, 
       g:generate=rt`g, 
       |-:ref=rt`r IN
-             FORALL (mod:m, imp:i): 
                ref_ex?(e,|-)   AND 
                ref_ge?(g,|-)   AND 
-               |-(mod, g(mod)) AND
-               |-(e(imp),imp)  AND
-               |-(e(imp), g(mod))
-                                   
-
+               FORALL (mod:m, imp:i): 
+               |-(e(imp),g(mod));
+ 
+               
+                               
 ref_triple_type: TYPE = (ref_triple?)
 
 
