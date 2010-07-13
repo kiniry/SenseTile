@@ -46,19 +46,24 @@ ref_triple_type: TYPE = (ref_triple?)
 
 % properties
 lemma_model: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
-                           rt`r(mod,rt`g(mod)) => mod = rt`e(rt`g(mod))
+                            rt`r(mod,rt`g(mod)) => 
+                            mod = rt`e(rt`g(mod))
 
 lemma_implementation: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
-                            rt`r(rt`e(imp),imp) => imp = rt`g(rt`e(imp))
+                            rt`r(rt`e(imp),imp) => 
+                            imp = rt`g(rt`e(imp))
 
 lemma_ref_composition_mod : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => rt`r(o(rt`e,rt`g)(mod), imp) 
+                            rt`r(mod,imp) => 
+                            rt`r(o(rt`e,rt`g)(mod), imp) 
 
 lemma_ref_composition_imp : LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => rt`r(mod, o(rt`g,rt`e)(imp)) 
+                            rt`r(mod,imp) => 
+                            rt`r(mod, o(rt`g,rt`e)(imp)) 
 
 lemma_compositiion_mod_imp :LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):
-                            rt`r(mod,imp) => rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp)) 
+                            rt`r(mod,imp) => 
+                            rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp)) 
 
 END refinement
 
