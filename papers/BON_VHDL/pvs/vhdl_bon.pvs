@@ -34,9 +34,11 @@ ref_triple?(rt:ref_triple_record): bool =
       g:generate=rt`g, 
       |-:ref=rt`r IN
              FORALL (mod:m, imp:i): 
-               ref_ex?(e,|-)  AND 
-               ref_ge?(g,|-)  AND 
-              |-(e(imp), g(mod))
+               ref_ex?(e,|-)   AND 
+               ref_ge?(g,|-)   AND 
+               |-(mod, g(mod)) AND
+               |-(e(imp),imp)  AND
+               |-(e(imp), g(mod))
                                    
 
 ref_triple_type: TYPE = (ref_triple?)
@@ -72,9 +74,16 @@ IMPORTING refinement[m,i],
           QuotientDefinition[m],
           QuotientDefinition[i]
 
-eqClassModel : EquivClass(RM)(m)
+
+lemma_eqClass_members  :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):
+                              member(rt`e(imp), EquivClass(RM)(mod) ) AND
+                              member(rt`g(mod),EquivClass(RI)(imp) )
 
 
+lemma_represenantive_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                            member(rt`e(imp), EquivClass(RM)(mod) ) AND
+                            member(rt`g(mod),EquivClass(RI)(imp) ) =>
+                            rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
 END ref_partial_order
 
 %
