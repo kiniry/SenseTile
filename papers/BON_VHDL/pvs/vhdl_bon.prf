@@ -271,8 +271,8 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
    149146 920 t shostak))
- (lemma_represenantive_ref 0
-  (lemma_represenantive_ref-1 nil 3488006740 3488006847
+ (lemma_eqClass_ref 0
+  (lemma_eqClass_ref-1 nil 3488006988 3488006994
    ("" (auto-rewrite-defs :always? t)
     (("" (assert :let-reduce? t :cases-rewrite? nil)
       (("" (skolem-typepred)
@@ -306,7 +306,7 @@
     (ref_ge? const-decl "bool" refinement nil)
     (EquivClass const-decl "set[T]" QuotientDefinition nil)
     (member const-decl "bool" sets nil))
-   10397 210 t shostak)))
+   5721 190 t shostak)))
 (p_order_rewrite
  (is_reflexive 0
   (is_reflexive-1 nil 3485877544 3486634656
