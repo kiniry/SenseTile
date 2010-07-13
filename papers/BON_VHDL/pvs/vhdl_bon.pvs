@@ -12,6 +12,7 @@ BEGIN
  e:  VAR extract
  g:  VAR generate
 
+ 
 graph_ex?(e):bool = FORALL (mod:m, imp:i) : graph(e)(imp,mod)
 
 graph_ge?(g):bool = FORALL (mod:m, imp:i) : graph(g)(mod,imp)
@@ -26,6 +27,7 @@ ref_ge?(g,|-):bool = graph_ge?(g) AND
 % triple refinement record definition 
 ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
 
+
 % this is a definition of a valid refinement triple 
 ref_triple?(rt:ref_triple_record): bool = 
   LET e:extract= rt`e, 
@@ -33,13 +35,12 @@ ref_triple?(rt:ref_triple_record): bool =
       |-:ref=rt`r IN
              FORALL (mod:m, imp:i): 
                ref_ex?(e,|-)  AND 
-               ref_ge?(g,|-)  AND
-               |-(e(imp),imp) AND 
-               |-(mod,g(mod)) AND 
-               |-(e(imp),g(mod))
+               ref_ge?(g,|-)  AND 
+              |-(e(imp), g(mod))
                                    
 
 ref_triple_type: TYPE = (ref_triple?)
+
 
 % properties
 lemma_model: LEMMA FORALL (rt:ref_triple_type, mod:m, imp:i ):  
@@ -71,6 +72,9 @@ IMPORTING refinement[m,i],
           QuotientDefinition[m],
           QuotientDefinition[i]
 
+eqClassModel : EquivClass(RM)(m)
+
+
 END ref_partial_order
 
 %
@@ -98,8 +102,6 @@ is_transitive: LEMMA p <= q AND q <= r => p <= r
 AUTO_REWRITE+  is_reflexive,is_antisymmetric,is_transitive
 
 END p_order_rewrite
-
-
 
 
 
@@ -191,8 +193,6 @@ END partial_order
 
 
 
-
-
 %%%%%%% PARTIAL ORDER REWRITE LEMMAS %%%%%%%%%
 po_rewrite_lemmas[T: TYPE, <=: (partial_order?[T])]: THEORY
  BEGIN
@@ -217,8 +217,6 @@ po_rewrite_lemmas[T: TYPE, <=: (partial_order?[T])]: THEORY
 
   singleton_linear: LEMMA chain?(singleton(t1))
  END po_rewrite_lemmas
-
-
 
 
 
@@ -353,9 +351,6 @@ refines_antisymmetry: LEMMA refines?(c1,c) AND
 END refines_t
 
 
-
-
-
 %%%%%%% SEQUENTIAL COMPOSITION %%%%%%%%%
 seq_comp [T1, T2, T3, T4 :TYPE]:THEORY
 BEGIN IMPORTING refines_t 
@@ -393,10 +388,6 @@ eliminate_parentheses1 : LEMMA a1 o a2 o a3 = a1 o ( a2 o a3)
 eliminate_parentheses2 : LEMMA a1 o a2 o a3 = (a1 o  a2) o a3
 
 END seq_comp
-
-
-
-
 
 
 %%%%%%% FIXED POINTS %%%%%%%%%
