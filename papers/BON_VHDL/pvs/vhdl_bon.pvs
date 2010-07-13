@@ -36,8 +36,7 @@ ref_triple?(rt:ref_triple_record): bool =
       |-:ref=rt`r IN
                ref_ex?(e,|-)   AND 
                ref_ge?(g,|-)   AND 
-               FORALL (mod:m, imp:i): 
-               |-(e(imp),g(mod));
+               ref_ge_ex?(e,g,|-);
  
                
                                
