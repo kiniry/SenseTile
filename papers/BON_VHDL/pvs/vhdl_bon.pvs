@@ -1,3 +1,4 @@
+
 refinement[m,i: TYPE]: THEORY
 BEGIN
 
@@ -37,8 +38,14 @@ ref_triple?(rt:ref_triple_record): bool =
                                                
 ref_triple_type: TYPE = (ref_triple?)
 
-END refinement
+lemma_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                            rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
 
+lemma_composition_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                               rt`r(mod,imp) => 
+                               rt`r(o(rt`e,rt`g)(mod), o(rt`g,rt`e)(imp))
+
+END refinement
 
 
 ref_partial_order[ m,i :TYPE, 
@@ -51,16 +58,6 @@ IMPORTING refinement[m,i],
           QuotientDefinition[m],
           QuotientDefinition[i]
 
-
-lemma_eqClass_members  :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):
-                              member(rt`e(imp), EquivClass(RM)(mod) ) AND
-                              member(rt`g(mod),EquivClass(RI)(imp) )
-
-
-lemma_eqClass_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
-                            member(rt`e(imp), EquivClass(RM)(mod) ) AND
-                            member(rt`g(mod),EquivClass(RI)(imp) ) =>
-                            (rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod)))
 END ref_partial_order
 
 %
