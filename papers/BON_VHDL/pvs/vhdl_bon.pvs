@@ -83,7 +83,7 @@ lemma_eqClass_members  :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):
 lemma_represenantive_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
                             member(rt`e(imp), EquivClass(RM)(mod) ) AND
                             member(rt`g(mod),EquivClass(RI)(imp) ) =>
-                            rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
+                            (rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod)))
 END ref_partial_order
 
 %
