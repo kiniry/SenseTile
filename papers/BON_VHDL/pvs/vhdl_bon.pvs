@@ -13,17 +13,14 @@ BEGIN
  g:  VAR generate
 
  
-graph_ex?(e):bool = FORALL (mod:m, imp:i) : graph(e)(imp,mod)
+ref_ex?(e,|-):bool = FORALL (mod:m, imp:i):
+		     |-(mod,imp) => |-(e(imp),imp) AND mod = e(imp) 
 
-graph_ge?(g):bool = FORALL (mod:m, imp:i) : graph(g)(mod,imp)
+ref_ge?(g,|-):bool = FORALL (mod:m, imp:i):
+		     |-(mod,imp) => |-(mod,g(mod)) AND imp = g(mod)
 
-ref_ex?(e,|-):bool = graph_ex?(e) AND  
-		     FORALL (imp:i):EXISTS (mod:m): |-(e(imp),imp) AND mod= e(imp)
-
-ref_ge?(g,|-):bool = graph_ge?(g) AND 
-		     FORALL (mod:m):EXISTS (imp:i): |-(mod,g(mod)) AND g(mod)= imp 
-
-ref_ge_ex?(e,g,|-) : bool = FORALL (mod:m, imp:i): |-(mod,imp) => |-(e(imp),g(mod))
+ref_ge_ex?(e,g,|-) : bool = FORALL (mod:m, imp:i): 
+		     |-(mod,imp) => |-(e(imp),g(mod))
 
 % triple refinement record definition 
 ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
