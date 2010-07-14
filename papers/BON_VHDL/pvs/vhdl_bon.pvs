@@ -1,4 +1,4 @@
-%%%%%%% REFINEMENT THEORY - TWO FUNCTION  ONE RELATION %%%%%%%%%
+%%%%%%% REFINEMENT %%%%%%%%%
 refinement[m,i: TYPE]: THEORY
 BEGIN
  extract  :TYPE  = [i -> m];  
@@ -35,13 +35,23 @@ ref_triple_type: TYPE = (ref_triple?)
 
                                
 lemma_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
-                  rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod))
+                  rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod)) % -:)
 
 lemma_com_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):  
                        rt`r(mod,imp) =>
-                       rt`r(o(rt`e,rt`g)(mod),o(rt`g,rt`e)(imp))
+                       rt`r(o(rt`e,rt`g)(mod),o(rt`g,rt`e)(imp))  % -:)
 
 END refinement
+
+%%%%%%% REFINEMENT EXTRA %%%%%%%%%
+refinement_extra [m,i: TYPE, RM:(partial_order?[m]),
+                             RI:(partial_order?[i])]: THEORY
+BEGIN
+IMPORTING refinement[m,i]
+
+
+END refinement_extra
+
 
 
 %%%%%%% PARTIAL ORDER REWRITING %%%%%%%%%
