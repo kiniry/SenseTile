@@ -1,19 +1,58 @@
 (refinement
  (lemma_ref 0
-  (lemma_ref-1 nil 3488019194 3488019229
+  (lemma_ref-1 nil 3488019194 3488091056
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "ref_triple?")
         (("" (prop)
-          (("" (expand "ref_ge_ex?")
-            (("" (inst -3 "mod!1" "imp!1") (("" (prop) nil nil)) nil))
+          (("" (expand "ref_ex?")
+            (("" (expand "ref_ge?")
+              (("" (expand "ref_ge_ex?")
+                (("" (inst -3 "mod!1" "imp!1") (("" (prop) nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unfinished
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (extract type-eq-decl nil refinement nil)
+    (generate type-eq-decl nil refinement nil)
+    (m formal-type-decl nil refinement nil)
+    (i formal-type-decl nil refinement nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (ref_triple_record type-eq-decl nil refinement nil)
+    (ref_triple? const-decl "bool" refinement nil)
+    (ref_triple_type type-eq-decl nil refinement nil)
+    (ref_ex? const-decl "bool" refinement nil)
+    (ref_ge_ex? const-decl "bool" refinement nil)
+    (ref_ge? const-decl "bool" refinement nil))
+   178 60 t shostak))
+ (lemma_com_ref 0
+  (lemma_com_ref-1 nil 3488104167 3488104346
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "o ")
+        (("" (expand "ref_triple?")
+          (("" (prop)
+            (("" (use "lemma_ref")
+              (("" (prop)
+                (("" (use "lemma_ref") (("" (prop) nil nil)) nil))
+                nil))
+              nil))
             nil))
           nil))
         nil))
       nil))
     nil)
    proved
-   ((ref_ge_ex? const-decl "bool" refinement nil)
+   ((lemma_ref formula-decl nil refinement nil)
+    (O const-decl "T3" function_props nil)
     (ref_triple_type type-eq-decl nil refinement nil)
     (ref_triple? const-decl "bool" refinement nil)
     (ref_triple_record type-eq-decl nil refinement nil)
@@ -24,9 +63,144 @@
     (extract type-eq-decl nil refinement nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (ref_ge_ex? const-decl "bool" refinement nil)
+    (ref_ge? const-decl "bool" refinement nil)
+    (ref_ex? const-decl "bool" refinement nil))
+   178676 370 t shostak)))
+(ref_partial_order
+ (lemma_memeber_eq_right 0
+  (lemma_memeber_eq_right-1 nil 3488093353 3488093441
+   ("" (auto-rewrite-defs :always? true)
+    (("" (auto-rewrite-defs :always? t)
+      (("" (assert :let-reduce? t :cases-rewrite? nil)
+        (("" (skolem-typepred)
+          (("" (flatten)
+            ((""
+              (assert :let-reduce? t :quant-simp? nil
+                      :implicit-typepreds? nil :cases-rewrite? nil)
+              (("" (bddsimp)
+                (("" (inst? :if-match t :polarity? nil)
+                  ((""
+                    (assert :let-reduce? t :quant-simp? nil
+                            :implicit-typepreds? nil :cases-rewrite?
+                            nil)
+                    (("" (inst? :if-match t :polarity? nil)
+                      (("" (bddsimp)
+                        (("" (inst? :if-match t :polarity? nil)
+                          ((""
+                            (assert :let-reduce? t :quant-simp? nil
+                                    :implicit-typepreds? nil
+                                    :cases-rewrite? nil)
+                            (("" (inst? :if-match t :polarity? nil)
+                              ((""
+                                (bddsimp)
+                                ((""
+                                  (inst? :if-match t :polarity? nil)
+                                  ((""
+                                    (assert
+                                     :let-reduce?
+                                     t
+                                     :quant-simp?
+                                     nil
+                                     :implicit-typepreds?
+                                     nil
+                                     :cases-rewrite?
+                                     nil)
+                                    ((""
+                                      (inst?
+                                       :if-match
+                                       t
+                                       :polarity?
+                                       nil)
+                                      ((""
+                                        (bddsimp)
+                                        (("1"
+                                          (inst?
+                                           :if-match
+                                           t
+                                           :polarity?
+                                           nil)
+                                          (("1"
+                                            (replace*)
+                                            (("1"
+                                              (assert
+                                               :let-reduce?
+                                               t
+                                               :quant-simp?
+                                               nil
+                                               :implicit-typepreds?
+                                               nil
+                                               :cases-rewrite?
+                                               nil)
+                                              nil
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (inst?
+                                           :if-match
+                                           t
+                                           :polarity?
+                                           nil)
+                                          (("2"
+                                            (replace*)
+                                            (("2"
+                                              (assert
+                                               :let-reduce?
+                                               t
+                                               :quant-simp?
+                                               nil
+                                               :implicit-typepreds?
+                                               nil
+                                               :cases-rewrite?
+                                               nil)
+                                              nil
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unfinished
+   ((member const-decl "bool" sets nil)
+    (EquivClass const-decl "set[T]" QuotientDefinition nil)
+    (right_inverse? const-decl "bool" function_inverse_def nil)
+    (is_reflexive formula-decl nil p_order_rewrite nil)
+    (pred type-eq-decl nil defined_types nil)
+    (partial_order? const-decl "bool" orders nil)
+    (RI formal-const-decl "(partial_order?[i])" ref_partial_order nil)
+    (ref_ge_ex? const-decl "bool" refinement nil)
+    (ref_ge? const-decl "bool" refinement nil)
+    (ref_ex? const-decl "bool" refinement nil)
+    (ref_triple_type type-eq-decl nil refinement nil)
+    (ref_triple? const-decl "bool" refinement nil)
+    (ref_triple_record type-eq-decl nil refinement nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (generate type-eq-decl nil refinement nil)
+    (extract type-eq-decl nil refinement nil)
+    (i formal-type-decl nil ref_partial_order nil)
+    (m formal-type-decl nil ref_partial_order nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   35189 20 t shostak)))
-(ref_partial_order)
+   21042 490 t shostak)))
 (p_order_rewrite
  (is_reflexive 0
   (is_reflexive-1 nil 3485877544 3486634656
@@ -513,7 +687,7 @@
    59252 70 t shostak)))
 (pointwise_ext
  (pointwise_is_partial_order 0
-  (pointwise_is_partial_order-1 nil 3486638494 3486639328
+  (pointwise_is_partial_order-1 nil 3486638494 3488024048
    ("" (expand "partial_order?")
     (("" (prop)
       (("1" (expand "preorder?")
@@ -633,20 +807,20 @@
       nil))
     nil)
    untried
-   ((le formal-const-decl "(partial_order?[C])" pointwise_ext nil)
-    (pred type-eq-decl nil defined_types nil)
-    (C formal-nonempty-type-decl nil pointwise_ext nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (antisymmetric? const-decl "bool" relations nil)
-    (D formal-nonempty-type-decl nil pointwise_ext nil)
-    (transitive? const-decl "bool" relations nil)
-    (<= const-decl "bool" pointwise_ext nil)
-    (reflexive? const-decl "bool" relations nil)
+   ((partial_order? const-decl "bool" orders nil)
     (preorder? const-decl "bool" orders nil)
-    (partial_order? const-decl "bool" orders nil))
-   834006 250 t shostak))
+    (reflexive? const-decl "bool" relations nil)
+    (<= const-decl "bool" pointwise_ext nil)
+    (transitive? const-decl "bool" relations nil)
+    (D formal-nonempty-type-decl nil pointwise_ext nil)
+    (antisymmetric? const-decl "bool" relations nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (C formal-nonempty-type-decl nil pointwise_ext nil)
+    (pred type-eq-decl nil defined_types nil)
+    (le formal-const-decl "(partial_order?[C])" pointwise_ext nil))
+   2756 480 t shostak))
  (lesseqp_TCC1 0
   (lesseqp_TCC1-1 nil 3486634621 nil ("" (judgement-tcc) nil nil)
    unchecked nil nil nil nil nil)))
@@ -733,7 +907,7 @@
     (PRED type-eq-decl nil defined_types nil))
    62 30 t shostak))
  (implies_transitivity 0
-  (implies_transitivity-1 nil 3484562343 3485868590
+  (implies_transitivity-1 nil 3484562343 3488021885
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (assert)
@@ -744,8 +918,10 @@
         nil))
       nil))
     nil)
-   untried ((\|> const-decl "bool" predicate_trans nil)) 38 30 t
-   shostak))
+   untried
+   ((\|> const-decl "bool" predicate_trans nil)
+    (T formal-type-decl nil predicate_trans nil))
+   482 70 t shostak))
  (implies_antisymmetry 0
   (implies_antisymmetry-1 nil 3485421497 3485868590
    ("" (skolem-typepred)
@@ -889,7 +1065,7 @@
     (monotonic? const-decl "bool" refines_t nil))
    16412 30 t shostak))
  (seq_monotonic 0
-  (seq_monotonic-1 nil 3485435587 3485436213
+  (seq_monotonic-1 nil 3485435587 3488023709
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "monotonic?")
@@ -903,15 +1079,15 @@
       nil))
     nil)
    untried
-   ((O const-decl "T3" function_props nil)
-    (p_transf type-eq-decl nil refines_t nil)
-    (T3 formal-type-decl nil seq_comp nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((monotonic? const-decl "bool" refines_t nil)
     (T2 formal-type-decl nil seq_comp nil)
-    (monotonic? const-decl "bool" refines_t nil))
-   213392 100 t shostak))
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (T3 formal-type-decl nil seq_comp nil)
+    (p_transf type-eq-decl nil refines_t nil)
+    (O const-decl "T3" function_props nil))
+   489 100 t shostak))
  (seq_mono_refinement 0
   (seq_mono_refinement-1 nil 3485430586 3485438284
    ("" (skosimp*)
@@ -972,7 +1148,7 @@
     (T3 formal-type-decl nil seq_comp nil))
    188816 130 t shostak))
  (seq_mono_refinement2 0
-  (seq_mono_refinement2-1 nil 3485439914 3485440967
+  (seq_mono_refinement2-1 nil 3485439914 3488023996
    ("" (skolem-typepred)
     (("" (flatten)
       (("" (expand "refines?")
@@ -1023,7 +1199,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T3 formal-type-decl nil seq_comp nil))
-   81971 120 t shostak))
+   1057 220 t shostak))
  (seq_extensionality 0
   (seq_extensionality-1 nil 3485438429 3485438466
    ("" (skolem-typepred)
@@ -1241,7 +1417,7 @@
     (\|> const-decl "bool" predicate_trans nil))
    69739 40 t shostak))
  (fix_point_mono 0
-  (fix_point_mono-1 nil 3485683918 3486288248
+  (fix_point_mono-1 nil 3485683918 3488024014
    ("" (skolem!)
     (("" (flatten)
       (("" (rewrite "|>" 1)
@@ -1287,13 +1463,13 @@
       nil))
     nil)
    untried
-   ((glb const-decl "PRED[T]" fixed_point nil)
-    (T formal-type-decl nil fixed_point nil)
-    (fix const-decl "PRED[T]" fixed_point nil)
-    (p_transf type-eq-decl nil refines_t nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+   ((\|> const-decl "bool" predicate_trans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (\|> const-decl "bool" predicate_trans nil))
-   37377 90 t shostak)))
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (p_transf type-eq-decl nil refines_t nil)
+    (fix const-decl "PRED[T]" fixed_point nil)
+    (T formal-type-decl nil fixed_point nil)
+    (glb const-decl "PRED[T]" fixed_point nil))
+   278 90 t shostak)))
 
