@@ -1,18 +1,8 @@
 %%%%%%% REFINEMENT %%%%%%%%%
-<<<<<<< .mine
-refinement[m,i: TYPE+]: THEORY
-=======
 refinement[m, i: TYPE]: THEORY
->>>>>>> .r914
 BEGIN
-<<<<<<< .mine
- 
- extract  :TYPE  = [i -> m];  
- generate :TYPE  = [m -> i];
-=======
  extract: TYPE = [i -> m]
  generate: TYPE = [m -> i]
->>>>>>> .r914
  ref: TYPE = PRED[[m,i]]
 
  |-: VAR ref
