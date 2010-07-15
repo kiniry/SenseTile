@@ -1,45 +1,39 @@
 %%%%%%% REFINEMENT %%%%%%%%%
-refinement[m,i: TYPE]: THEORY
+refinement[m, i: TYPE]: THEORY
 BEGIN
- extract  :TYPE  = [i -> m];  
- generate :TYPE  = [m -> i];
+ extract: TYPE = [i -> m]
+ generate: TYPE = [m -> i]
  ref: TYPE = PRED[[m,i]]
- 
+
  |-: VAR ref
- e:  VAR extract
- g:  VAR generate
-
+ e: VAR extract
+ g: VAR generate
  
-ref_ex?(e,|-):bool = FORALL (mod:m, imp:i):
-		     |-(mod,imp) => |-(e(imp),imp) 
+ ref_ex?(e, |-):bool = FORALL (imp: i): |-(e(imp), imp) 
 
-ref_ge?(g,|-):bool = FORALL (mod:m, imp:i):
-		     |-(mod,imp) => |-(mod,g(mod)) 
+ ref_ge?(g, |-):bool = FORALL (mod:m): |-(mod, g(mod)) 
 
-ref_ge_ex?(e,g,|-) : bool = FORALL (mod:m, imp:i): 
-		     |-(mod,imp) => |-(e(imp),g(mod))  
+ ref_ge_ex?(e, g, |-) : bool = FORALL (mod:m, imp:i): % LEMMA
+                                 |-(mod, imp) => |-(e(imp), g(mod))  
                     
-% Triple refinement record definition 
-ref_triple_record: TYPE = [#e:extract, g:generate, r:PRED[[m,i]]#]
+ % Triple refinement record definition 
+ ref_triple_record: TYPE = [# e:extract, g:generate, r:ref #]
 
+ % This is a definition of a valid refinement triple 
+ ref_triple?(rt:ref_triple_record): bool = 
+   LET e:extract = rt`e, g:generate = rt`g, |-:ref = rt`r IN
+               ref_ex?(e, |-) AND
+               ref_ge?(g, |-) AND
+               ref_ge_ex?(e, g, |-)
 
-% This is a definition of a valid refinement triple 
-ref_triple?(rt:ref_triple_record): bool = 
-  LET e:extract= rt`e, g:generate=rt`g, |-:ref=rt`r 
-               IN
-               ref_ex?(e,|-)   AND 
-               ref_ge?(g,|-)   AND 
-               ref_ge_ex?(e,g,|-)
-                                               
-ref_triple_type: TYPE = (ref_triple?)
-
+ ref_triple_type: TYPE = (ref_triple?)
                                
-lemma_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
-                  rt`r(mod,imp) => rt`r(rt`e(imp),rt`g(mod)) % -:)
+ lemma_ref: LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type): 
+                    rt`r(mod, imp) => rt`r(rt`e(imp), rt`g(mod)) % -:)
 
-lemma_com_ref :LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):  
-                       rt`r(mod,imp) =>
-                       rt`r(o(rt`e,rt`g)(mod),o(rt`g,rt`e)(imp))  % -:)
+ lemma_com_ref: LEMMA FORALL (mod:m, imp:i, rt:ref_triple_type):  
+                       rt`r(mod, imp) =>
+                       rt`r(o(rt`e, rt`g)(mod),o(rt`g, rt`e)(imp))  % -:)
 
 END refinement
 
