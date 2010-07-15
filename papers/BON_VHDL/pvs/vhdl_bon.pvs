@@ -1,8 +1,18 @@
 %%%%%%% REFINEMENT %%%%%%%%%
+<<<<<<< .mine
+refinement[m,i: TYPE+]: THEORY
+=======
 refinement[m, i: TYPE]: THEORY
+>>>>>>> .r914
 BEGIN
+<<<<<<< .mine
+ 
+ extract  :TYPE  = [i -> m];  
+ generate :TYPE  = [m -> i];
+=======
  extract: TYPE = [i -> m]
  generate: TYPE = [m -> i]
+>>>>>>> .r914
  ref: TYPE = PRED[[m,i]]
 
  |-: VAR ref
@@ -38,14 +48,43 @@ BEGIN
 END refinement
 
 %%%%%%% REFINEMENT EXTRA %%%%%%%%%
-refinement_extra [m,i: TYPE, RM:(partial_order?[m]),
+refinement_extra [m,i: TYPE+, RM:(partial_order?[m]),
                              RI:(partial_order?[i])]: THEORY
 BEGIN
-IMPORTING refinement[m,i]
+IMPORTING QuotientDefinition[m],
+          QuotientDefinition[i],
+          refinement[m,i]
 
+mod : VAR m;
+imp : VAR i;
+
+==: (equivalence?[m]) % should be a EquivalenceKernel(generate)
+eqI: (equivalence?[i]) % should be a EquivalenceKernel(extract)
+
+EquivClass(mod) : set[m] = { modz:m | RM(mod, modz) }
+EquivClass(imp) : set[i] = { impz:i | RI(imp, impz) }
+
+setM: TYPE = {A: setof[m] | EXISTS mod: A = EquivClass(mod)}
+setI: TYPE = {B: setof[i] | EXISTS imp: B = EquivClass(imp)}
+
+repM(A: setM): (A) = epsilon(A)
+repI(B: setI): (B) = epsilon(B)
+
+CONVERSION  repM,repI
+
+equiv_class_covers: LEMMA FORALL (mod:m): EXISTS (A: setM): member(mod, A)
+
+equiv_class_separates: LEMMA FORALL (mod1, mod2:m):
+       NOT(mod1 ==  mod2) => disjoint?(EquivClass(mod1), EquivClass(mod2))
+
+
+%% crucial property
+%%
+%%
+%% FORALL (mod1, mod2: m): eqvivalent_relationM(mod1,mod2) IMPLIES equivalent_relationI(g(mod1),g(mod2))
+%% FORALL (imp1, imp2: i): eqvivalent_relationI(imp1,imp2) IMPLIES equivalent_relationM(e(imp1),e(imp2))
 
 END refinement_extra
-
 
 
 %%%%%%% PARTIAL ORDER REWRITING %%%%%%%%%
