@@ -1,0 +1,109 @@
+refinement[T, U: TYPE,
+           (IMPORTING relations[T]) ==: equivalence,
+           (IMPORTING relations[U]) ==: relations[U].equivalence,
+           gen: [T->U],
+           ext: [U->T],
+           |-: predicate[[T, U]]]: THEORY
+BEGIN
+  ASSUMING
+    t, t0, t1: VAR T
+    u, u0, u1: VAR U
+    
+    generate_consistent_with_refinement: ASSUMPTION t |- gen(t)
+
+    extract_consistent_with_refinement: ASSUMPTION ext(u) |- u
+
+    ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t)) == t
+    gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) == u
+
+    ref_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
+                                    u0 == u1 IMPLIES t0 == t1
+
+  ENDASSUMING
+END refinement
+
+complex_refinement[T, U: TYPE,
+                   |=: predicate[[T, predicate[T]]],
+                   |=: predicate[[U, predicate[U]]]]: THEORY
+BEGIN
+END complex_refinement
+
+singleton_example: THEORY
+BEGIN
+  % refinement between singleton types
+  T0: TYPE = {t}
+  U0: TYPE = {u}
+  IMPORTING relations[T0], relations[U0]
+
+  ==(t0, t1: T0): bool = true;
+  ==(u0, u1: U0): bool = true;
+  g0: [T0->U0] = (LAMBDA (t0: T0): u)
+  e0: [U0->T0] = (LAMBDA (u0: U0): t)
+  ref0: predicate[[T0, U0]] = (LAMBDA (p: [T0, U0]): true)
+
+  IMPORTING refinement[T0, U0, ==, ==, g0, e0, ref0]
+END singleton_example
+
+finite_nats_trivial: THEORY
+BEGIN
+  % refinement between finite sets of nats with trivial equivalence
+  T1: TYPE = below(3) % { 0, 1, 2 }
+  U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
+  IMPORTING relations[T1], relations[U1]
+  ==(t0, t1: T1): bool = t0 = t1;
+  ==(u0, u1: U1): bool = u0 = u1;
+  g1: [T1->U1] = (LAMBDA (t: T1): 2*t)
+  e1: [U1->T1] = (LAMBDA (u: U1): u/2)
+  ref1: predicate[[T1, U1]] =
+    (LAMBDA (p: [T1, U1]): 2*p`1 = p`2 OR 2*p`1+1 = p`2)
+
+  IMPORTING refinement[T1, U1, ==, ==, g1, e1, ref1]
+END finite_nats_trivial
+
+finite_nats_non_trivial: THEORY
+BEGIN
+  % refinement between finite sets of nats with non-trivial equivalence
+  T2: TYPE = below(4) % { 0, 1, 2, 3 }
+  U2: TYPE = below(10) % { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
+  IMPORTING relations[T2], relations[U2]
+  ==(t0, t1: T2): bool = even?(t0) AND even?(t1);
+  ==(u0, u1: U2): bool = odd?(u0) AND odd?(u1)
+  g2: [T2->U2] = (LAMBDA (t: T2): 3*t)
+  e2: [U2->T2] = (LAMBDA (u: U2): u/3)
+  ref2: predicate[[T2, U2]] =
+    (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
+
+  IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
+END finite_nats_non_trivial
+
+infinite_nats_non_trivial: THEORY
+BEGIN
+  % refinement between infinite sets of nats with non-trivial equivalence
+  T3: TYPE = {n: nat | even?(n)}
+  U3: TYPE = {n: nat | odd?(n)}
+  IMPORTING relations[T3], relations[U3]
+  equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2; % adjacent evens are in equiv class
+  % {0,2} {4,6} {8,10} {12,14} ...
+  equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2; % pairs of odds are in equiv class
+  % {1,3} {5,7} {9,11} {13,15} ...
+  g3: [T3->U3] = (LAMBDA (t: T3): t + 1)
+  e3: [U3->T3] = (LAMBDA (u: U3): u - 1)
+  % note that 0 |- 1 and 0 |- 3 and 2 |- 1 and 2 |- 3 etc.
+  ref3: predicate[[T3, U3]] =
+    (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2 OR
+                           (equivT(p`1 + 2, p`1) AND % leftmost element of pair of T3s
+                            equivU(p`2 - 2, p`2) AND % rightmost element of U3s
+                            (p`1 + 3 = p`2)) OR
+                           (equivT(p`1 - 2, p`1) AND % rightmost element of pair of T3s
+                            equivU(p`2 - 2, p`2) AND % rightmost element of U3s
+                            (p`1 + 1 = p`2)))
+
+  IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
+END infinite_nats_non_trivial
+
+simplest_examples: THEORY
+BEGIN
+  IMPORTING singleton_example, finite_nats_trivial,
+            finite_nats_non_trivial, infinite_nats_non_trivial
+
+END simplest_examples
