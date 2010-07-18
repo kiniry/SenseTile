@@ -23,9 +23,18 @@ BEGIN
 END refinement
 
 complex_refinement[T, U: TYPE,
+                   (IMPORTING relations[T]) ==: equivalence,
+                   (IMPORTING relations[U]) ==: relations[U].equivalence,
+                   gen: [T -> U],
+                   ext: [U -> T],
+                   |-: predicate[[T, U]],
                    |=: predicate[[T, predicate[T]]],
                    |=: predicate[[U, predicate[U]]]]: THEORY
 BEGIN
+  IMPORTING refinement[T, U,
+                       ==,
+                       ==,
+                       gen, ext, |-]
 END complex_refinement
 
 singleton_example: THEORY
