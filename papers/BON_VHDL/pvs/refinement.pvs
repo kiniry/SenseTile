@@ -16,26 +16,37 @@ BEGIN
     ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t)) == t
     gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) == u
 
-    ref_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
+    gen_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
+                                    t0 == t1 IMPLIES u0 == u1
+    ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 == u1 IMPLIES t0 == t1
 
   ENDASSUMING
 END refinement
 
-complex_refinement[T, U: TYPE,
-                   (IMPORTING relations[T]) ==: equivalence,
-                   (IMPORTING relations[U]) ==: relations[U].equivalence,
-                   gen: [T -> U],
-                   ext: [U -> T],
-                   |-: predicate[[T, U]],
-                   |=: predicate[[T, predicate[T]]],
-                   |=: predicate[[U, predicate[U]]]]: THEORY
+refinement_model_theory[T, U: TYPE,
+                        (IMPORTING relations[T]) ==: equivalence,
+                        (IMPORTING relations[U]) ==: relations[U].equivalence,
+                        gen: [T -> U],
+                        ext: [U -> T],
+                        |-: predicate[[T, U]],
+                        [||]: [predicate[T] -> predicate[U]],
+                        |=: predicate[[T, predicate[T]]],
+                        |=: predicate[[U, predicate[U]]]]: THEORY
 BEGIN
+  ASSUMING
   IMPORTING refinement[T, U,
                        ==,
                        ==,
                        gen, ext, |-]
-END complex_refinement
+    p: VAR predicate[T]
+    q: VAR predicate[U]
+    t: VAR T
+    u: VAR U
+
+    interpretation_preserves_validity: ASSUMPTION (t |= p) IMPLIES (u |= [|p|])
+  ENDASSUMING
+END refinement_model_theory
 
 singleton_example: THEORY
 BEGIN
