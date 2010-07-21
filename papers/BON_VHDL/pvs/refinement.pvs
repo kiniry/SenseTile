@@ -19,9 +19,14 @@ BEGIN
     gen_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
                                     t0 == t1 IMPLIES u0 == u1
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
-                                    u0 == u1 IMPLIES t0 == t1
+                                    u0 == u1 IMPLIES t0 == t1  
 
-  ENDASSUMING
+   % gen_iff_assumption : ASSUMPTION t == t0 iff  gen(t) == gen(t0)
+   % ext_iff_assumption : ASSUMPTION ext(u) == ext(u0) iff u == u0   
+
+
+ ENDASSUMING
+
 END refinement
 
 refinement_model_theory[T, U: TYPE,
@@ -78,6 +83,7 @@ BEGIN
     (LAMBDA (p: [T1, U1]): 2*p`1 = p`2 OR 2*p`1+1 = p`2)
 
   IMPORTING refinement[T1, U1, ==, ==, g1, e1, ref1]
+
 END finite_nats_trivial
 
 finite_nats_non_trivial: THEORY
@@ -94,6 +100,8 @@ BEGIN
     (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
 
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
+
+  
 END finite_nats_non_trivial
 
 infinite_nats_non_trivial: THEORY
@@ -101,7 +109,7 @@ BEGIN
   % refinement between infinite sets of nats with non-trivial equivalence
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
-  IMPORTING relations[T3], relations[U3]
+    IMPORTING relations[T3], relations[U3]
   equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2; % adjacent evens are in equiv class
   % {0,2} {4,6} {8,10} {12,14} ...
   equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2; % pairs of odds are in equiv class
@@ -119,6 +127,7 @@ BEGIN
                             (p`1 + 1 = p`2)))
 
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
+  
 END infinite_nats_non_trivial
 
 infinite_to_finite: THEORY
@@ -131,6 +140,9 @@ BEGIN
   g4: [T4 -> U4] = (LAMBDA (t: T4): rem(10)(t))
   e4: [U4 -> T4] = (LAMBDA (u: U4): u)
   ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): rem(10)(p`1) = p`2)
+  
+  IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
+   
 END infinite_to_finite
 
 finite_to_infinite: THEORY
@@ -143,6 +155,9 @@ BEGIN
   g5: [T5 -> U5] = (LAMBDA (t: T5): IF t THEN 0 ELSE 1 ENDIF)
   e5: [U5 -> T5] = (LAMBDA (u: U5): even?(u))
   ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): p`1 = even?(p`2))
+
+  IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
+
 END finite_to_infinite
 
 simplest_examples: THEORY

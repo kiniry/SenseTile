@@ -68,12 +68,6 @@ equiv_class_separates: LEMMA FORALL (mod1, mod2:m):
        NOT(mod1 ==  mod2) => disjoint?(EquivClass(mod1), EquivClass(mod2))
 
 
-%% crucial property
-%%
-%%
-%% FORALL (mod1, mod2: m): eqvivalent_relationM(mod1,mod2) IMPLIES equivalent_relationI(g(mod1),g(mod2))
-%% FORALL (imp1, imp2: i): eqvivalent_relationI(imp1,imp2) IMPLIES equivalent_relationM(e(imp1),e(imp2))
-
 END refinement_extra
 
 
