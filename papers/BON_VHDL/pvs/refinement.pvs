@@ -71,6 +71,7 @@ END singleton_example
 
 finite_nats_trivial: THEORY
 BEGIN
+  IMPORTING ints@div
   % refinement between finite sets of nats with trivial equivalence
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
@@ -78,7 +79,7 @@ BEGIN
   ==(t0, t1: T1): bool = t0 = t1;
   ==(u0, u1: U1): bool = u0 = u1;
   g1: [T1 -> U1] = (LAMBDA (t: T1): 2*t)
-  e1: [U1 -> T1] = (LAMBDA (u: U1): u/2)
+  e1: [U1 -> T1] = (LAMBDA (u: U1): div(u,2))
   ref1: predicate[[T1, U1]] =
     (LAMBDA (p: [T1, U1]): 2*p`1 = p`2 OR 2*p`1+1 = p`2)
 
@@ -88,6 +89,7 @@ END finite_nats_trivial
 
 finite_nats_non_trivial: THEORY
 BEGIN
+  IMPORTING ints@div
   % refinement between finite sets of nats with non-trivial equivalence
   T2: TYPE = below(4) % { 0, 1, 2, 3 }
   U2: TYPE = below(10) % { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
@@ -95,7 +97,7 @@ BEGIN
   ==(t0, t1: T2): bool = even?(t0) AND even?(t1);
   ==(u0, u1: U2): bool = odd?(u0) AND odd?(u1)
   g2: [T2 -> U2] = (LAMBDA (t: T2): 3*t)
-  e2: [U2 -> T2] = (LAMBDA (u: U2): u/3)
+  e2: [U2 -> T2] = (LAMBDA (u: U2): div(u,3))
   ref2: predicate[[T2, U2]] =
     (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
 
@@ -110,9 +112,13 @@ BEGIN
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
     IMPORTING relations[T3], relations[U3]
-  equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2; % adjacent evens are in equiv class
+  % adjacent evens are in equiv class
+  equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2 AND
+    (EXISTS (o: nat | odd?(o)): 2*o = t0 OR 2*o = t1);
   % {0,2} {4,6} {8,10} {12,14} ...
-  equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2; % pairs of odds are in equiv class
+  % pairs of odds are in equiv class
+  equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2 AND
+    (EXISTS (e: nat | even?(e)): 2*e-1 = u0 OR 2*e-1 = u1);
   % {1,3} {5,7} {9,11} {13,15} ...
   g3: [T3 -> U3] = (LAMBDA (t: T3): t + 1)
   e3: [U3 -> T3] = (LAMBDA (u: U3): u - 1)
