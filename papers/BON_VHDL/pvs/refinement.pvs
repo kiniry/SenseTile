@@ -1,3 +1,7 @@
+% A theory of higher-order refinement.
+% Joe Kiniry, Dragan Stosic, and Fintan Fairmichael
+% July 2010
+
 refinement[T, U: TYPE,
            (IMPORTING relations[T]) ==: equivalence,
            (IMPORTING relations[U]) ==: relations[U].equivalence,
@@ -35,10 +39,7 @@ refinement_model_theory[T, U: TYPE,
                         |=: predicate[[U, predicate[U]]]]: THEORY
 BEGIN
   ASSUMING
-  IMPORTING refinement[T, U,
-                       ==,
-                       ==,
-                       gen, ext, |-]
+  IMPORTING refinement[T, U, ==, ==, gen, ext, |-]
     p: VAR predicate[T]
     q: VAR predicate[U]
     t: VAR T
@@ -48,9 +49,15 @@ BEGIN
   ENDASSUMING
 END refinement_model_theory
 
+% What follows is an series of increasingly complex theories that
+% highlight different kinds of types between which we define
+% refinements.  These are meant to be used for pedagogical and
+% illustrative purposes as well as for unit testing the theories.
+
+% Refinement between singleton types, the simplest types we can
+% witness in PVS since functions and predicates are total.
 singleton_example: THEORY
 BEGIN
-  % refinement between singleton types
   T0: TYPE = {t}
   U0: TYPE = {u}
   IMPORTING relations[T0], relations[U0]
@@ -64,10 +71,10 @@ BEGIN
   IMPORTING refinement[T0, U0, ==, ==, g0, e0, ref0]
 END singleton_example
 
+% Refinement between finite sets of nats with trivial equivalence.
 finite_nats_trivial: THEORY
 BEGIN
   IMPORTING ints@div
-  % refinement between finite sets of nats with trivial equivalence
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
   IMPORTING relations[T1], relations[U1]
@@ -82,10 +89,10 @@ BEGIN
 
 END finite_nats_trivial
 
+% Refinement between finite sets of nats with non-trivial equivalence.
 finite_nats_non_trivial: THEORY
 BEGIN
   IMPORTING ints@div
-  % refinement between finite sets of nats with non-trivial equivalence
   T2: TYPE = below(4) % { 0, 1, 2, 3 }
   U2: TYPE = below(10) % { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
   IMPORTING relations[T2], relations[U2]
@@ -97,13 +104,11 @@ BEGIN
     (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
 
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
-
-  
 END finite_nats_non_trivial
 
+% Refinement between infinite sets of nats with non-trivial equivalence.
 infinite_nats_non_trivial: THEORY
 BEGIN
-  % refinement between infinite sets of nats with non-trivial equivalence
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
     IMPORTING relations[T3], relations[U3]
@@ -121,16 +126,17 @@ BEGIN
   ref3: predicate[[T3, U3]] =
     (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2 OR
                            (equivT(p`1 + 2, p`1) AND % leftmost element of pair of T3s
-                            equivU(p`2 - 2, p`2) AND % rightmost element of U3s
+                            (p`2 /= 1 IMPLIES equivU(p`2 - 2, p`2)) AND % rightmost element of U3s
                             (p`1 + 3 = p`2)) OR
-                           (equivT(p`1 - 2, p`1) AND % rightmost element of pair of T3s
-                            equivU(p`2 - 2, p`2) AND % rightmost element of U3s
+                           ((p`1 /= 0 IMPLIES equivT(p`1 - 2, p`1)) AND % rightmost element of pair of T3s
+                            (p`2 /= 1 IMPLIES equivU(p`2 - 2, p`2)) AND % rightmost element of U3s
                             (p`1 + 1 = p`2)))
 
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
-  
 END infinite_nats_non_trivial
 
+% Refinement between an infinite set of nats and a finite set with
+% non-trivial equivalence.
 infinite_to_finite: THEORY
 BEGIN
   T4: TYPE = nat
@@ -143,9 +149,10 @@ BEGIN
   ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): rem(10)(p`1) = p`2)
   
   IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
-   
 END infinite_to_finite
 
+% Refinement between a finite set of nats and an infinite set of nats
+% with non-trivial equivalence.
 finite_to_infinite: THEORY
 BEGIN
   T5: TYPE = bool
@@ -158,9 +165,9 @@ BEGIN
   ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): p`1 = even?(p`2))
 
   IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
-
 END finite_to_infinite
 
+% The collection of all simple examples.
 simplest_examples: THEORY
 BEGIN
   IMPORTING singleton_example, finite_nats_trivial,
