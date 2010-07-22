@@ -19,7 +19,7 @@ psfiles =	$(foreach texfile,$(texfiles),\
 pdffiles =	$(foreach texfile,$(texfiles),\
 		$(subst .tex,.pdf,$(texfile)))
 
-.PHONY: all talk archive
+.PHONY: all talk archive proof
 
 all:	${paper}.pdf ${talk}.pdf
 
@@ -39,6 +39,17 @@ ${talk}.pdf:	${talk}.tex
 
 view:	${paper}.pdf
 	open -a Skim.app ${paper}.pdf
+
+# Check style:
+proof:
+	echo "weasel words: "
+	sh ~/bin/weasels.sh *.tex
+	echo
+	echo "passive voice: "
+	sh ~/bin/passive.sh *.tex
+	echo
+	echo "duplicates: "
+	perl ~/bin/dups.pl *.tex
 
 cleanup:
 	rm -f _region_* *.aux *.log *# *~
