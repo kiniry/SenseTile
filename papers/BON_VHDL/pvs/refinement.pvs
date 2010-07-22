@@ -20,11 +20,6 @@ BEGIN
                                     t0 == t1 IMPLIES u0 == u1
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 == u1 IMPLIES t0 == t1  
-
-   % gen_iff_assumption : ASSUMPTION t == t0 iff  gen(t) == gen(t0)
-   % ext_iff_assumption : ASSUMPTION ext(u) == ext(u0) iff u == u0   
-
-
  ENDASSUMING
 
 END refinement
