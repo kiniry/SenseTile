@@ -25,6 +25,10 @@ BEGIN
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 == u1 IMPLIES t0 == t1  
  ENDASSUMING
+% property proved by first 3 tests theories
+ lemma_ref_composition: LEMMA FORALL ((t:T),(u:U)): 
+                     |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
+
 
 END refinement
 
@@ -86,6 +90,8 @@ BEGIN
     (LAMBDA (p: [T1, U1]): 2*p`1 = p`2 OR 2*p`1+1 = p`2)
 
   IMPORTING refinement[T1, U1, ==, ==, g1, e1, ref1]
+% lemma_ref_composition: LEMMA FORALL ((t:T1),(u:U1)): 
+%                        ref1(t,u) IMPLIES ref1(e1(g1(t)),g1(e1(u)))  proved :)
 
 END finite_nats_trivial
 
@@ -128,8 +134,9 @@ BEGIN
 
 
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
-
-
+%   lemma_ref_composition: LEMMA FORALL ((t:T2),(u:U2)): 
+%                          ref2(t,u) IMPLIES ref2(e2(g2(t)),g2(e2(u)))  proved :)
+   
 END finite_nats_non_trivial
 
 
@@ -142,19 +149,19 @@ BEGIN
   % adjacent evens are in equiv class
   
   
-  equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2 AND
-          (EXISTS (o: nat | even?(o)): 
-          (2*o = t0 AND 2*o +2 = t1) OR 
-          (2*o+2 = t0 AND  2*o = t1))
+  equivT(t0, t1: T3): bool = abs(t0 - t1) <= 2  AND
+         (EXISTS (o: nat | even?(o)): 
+         (2*o = t0 AND 2*o +2 = t1) OR 
+         (2*o+2 = t0 AND  2*o = t1))
 
   % {0,2} {4,6} {8,10} {12,14} ...
   % pairs of odds are in equiv class 
   
   
-  equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2 AND
-          (EXISTS (e: nat | odd?(e)): 
-          (2*e -1 = u0 AND 2*e+1 = u1) OR 
-          (2*e+ 1 = u0 AND 2*e - 1 = u1));
+  equivU(u0, u1: U3): bool = abs(u0 - u1) <= 2  AND
+         (EXISTS (e: nat | odd?(e)): 
+         (2*e -1 = u0 AND 2*e+1 = u1) OR 
+         (2*e+ 1 = u0 AND 2*e - 1 = u1));
   % {1,3} {5,7} {9,11} {13,15} ...
   
   
