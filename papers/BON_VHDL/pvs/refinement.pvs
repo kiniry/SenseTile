@@ -29,6 +29,13 @@ BEGIN
  lemma_ref_composition: LEMMA FORALL ((t:T),(u:U)): 
                      |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
 
+% property proved by first 3 tests theories
+ lemma_ref_equal : LEMMA FORALL (u0,u1:U),(t0,t1 : T) :  
+                 gen(t0)== gen(t1) AND 
+                 t1 == t0          IMPLIES 
+                 |-(t0,gen(t0)) = |-(t1,gen(t1))
+
+
 
 END refinement
 
@@ -93,6 +100,11 @@ BEGIN
 % lemma_ref_composition: LEMMA FORALL ((t:T1),(u:U1)): 
 %                        ref1(t,u) IMPLIES ref1(e1(g1(t)),g1(e1(u)))  proved :)
 
+% lemma_ref_equal : LEMMA FORALL (u0,u1:U1),(t0,t1 : T1) :  
+%                   g1(t0)== g1(t1) AND 
+%                   t1 == t0  IMPLIES 
+%                   ref1(t0,g1(t0)) = ref1(t1,g1(t1))
+    
 END finite_nats_trivial
 
 % Refinement between finite sets of nats with non-trivial equivalence.
@@ -105,10 +117,10 @@ BEGIN
   U2: TYPE = below(22)% {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21} 
   IMPORTING relations[T2], relations[U2]
 
-  ==(t0, t1: T2): bool =  t0=t1      OR % {0,0},{0,4},{4,0},
-                          t0 + 4= t1 OR % {1,1},{1,5},{5,1},
-                           t1 +4 = t0;  % {2,2},{2,6},{6,2},
-                                        % {3,3},{3,7},{7,3}
+  ==(t0, t1: T2): bool =  t0 = t1      OR % {0,0},{0,4},{4,0},
+                          t0 + 4 = t1  OR % {1,1},{1,5},{5,1},
+                          t1 + 4 = t0;    % {2,2},{2,6},{6,2},
+                                          % {3,3},{3,7},{7,3}
                            
 
 % EquivClass/div(elem,3)=0 {0,1,2}   <=> EquivClass/div(elem,3)=4 {12,13,14} AND
@@ -136,6 +148,12 @@ BEGIN
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
 %   lemma_ref_composition: LEMMA FORALL ((t:T2),(u:U2)): 
 %                          ref2(t,u) IMPLIES ref2(e2(g2(t)),g2(e2(u)))  proved :)
+  
+%  lemma_ref_equal : LEMMA FORALL (u0,u1:U2),(t0,t1 : T2) :  
+%                 g2(t0)== g2(t1) AND 
+%                 t1 == t0  IMPLIES 
+%                 ref2(t0,g2(t0)) = ref2(t1,g2(t1))
+ 
    
 END finite_nats_non_trivial
 
