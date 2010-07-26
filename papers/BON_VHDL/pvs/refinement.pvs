@@ -216,13 +216,17 @@ END infinite_to_finite
 
 % Refinement between a finite set of nats and an infinite set of nats
 % with non-trivial equivalence.
+% Nte that:
+% Consider the set of integers and define two elements as being related if they 
+% are both even numbers. This relation is clearly symmetric and transitive, 
+% but in view of the existence of odd numbers, it is not reflexive.
 finite_to_infinite: THEORY
 BEGIN
   T5: TYPE = bool
   U5: TYPE = nat
   importing relations[T5], relations[U5]
   equivT(t0, t1: T5): bool = t0 = t1
-  equivU(u0, u1: U5): bool = even?(u0) and even?(u1)
+  equivU(u0, u1: U5): bool = (even?(u0) and even?(u1))
   g5: [T5 -> U5] = (LAMBDA (t: T5): IF t THEN 0 ELSE 1 ENDIF)
   e5: [U5 -> T5] = (LAMBDA (u: U5): even?(u))
   ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): p`1 = even?(p`2))
