@@ -1,0 +1,295 @@
+(refinement)
+(refinement_model_theory
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(singleton_example
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488787669 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488787669 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488787669 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(finite_nats_trivial
+ (g1_TCC1 0
+  (g1_TCC1-1 nil 3488788908 nil ("" (subtype-tcc) nil nil) unfinished
+   nil nil nil nil nil))
+ (e1_TCC1 0
+  (e1_TCC1-1 nil 3488788908 3488788980 ("" (subtype-tcc) nil nil)
+   proved-complete
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (U1 type-eq-decl nil finite_nats_trivial nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   376 100 t nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488788908 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488788908 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488788908 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(finite_nats_non_trivial
+ (g2_TCC1 0
+  (g2_TCC1-1 nil 3488788853 nil ("" (subtype-tcc) nil nil) unfinished
+   nil nil nil nil nil))
+ (e2_TCC1 0
+  (e2_TCC1-1 nil 3488788853 nil ("" (subtype-tcc) nil nil) unfinished
+   nil nil nil nil nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488788853 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488788853 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488788853 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(infinite_nats_non_trivial
+ (g3_TCC1 0
+  (g3_TCC1-1 nil 3488788870 nil ("" (subtype-tcc) nil nil) unchecked
+   nil nil nil nil nil))
+ (e3_TCC1 0
+  (e3_TCC1-1 nil 3488788870 nil ("" (subtype-tcc) nil nil) unchecked
+   nil nil nil nil nil))
+ (ref3_TCC1 0
+  (ref3_TCC1-1 nil 3488788870 nil ("" (subtype-tcc) nil nil) unchecked
+   nil nil nil nil nil))
+ (ref3_TCC2 0
+  (ref3_TCC2-1 nil 3488788870 nil ("" (subtype-tcc) nil nil) unfinished
+   nil nil nil nil nil))
+ (ref3_TCC3 0
+  (ref3_TCC3-1 nil 3488788870 3488790113
+   ("" (subtype-tcc)
+    (("1" (postpone) nil nil) ("2" (postpone) nil nil)
+     ("3" (postpone) nil nil))
+    nil)
+   unfinished nil 573968 310 t nil))
+ (ref3_TCC4 0
+  (ref3_TCC4-1 nil 3488788870 nil ("" (subtype-tcc) nil nil) unfinished
+   nil nil nil nil nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488788870 3489398067
+   ("" (expand "equivT")
+    (("" (expand "equivalence?")
+      (("" (split)
+        (("1" (expand "reflexive?") (("1" (propax) nil nil)) nil)
+         ("2" (expand "symmetric?")
+          (("2" (expand "max")
+            (("2" (expand "abs")
+              (("2" (skosimp)
+                (("2" (lift-if)
+                  (("2" (split)
+                    (("1" (grind) nil nil) ("2" (grind) nil nil)) nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("3" (expand "transitive?")
+          (("3" (assert)
+            (("3" (skosimp)
+              (("3" (prop)
+                (("1" (assert) nil nil) ("2" (assert) nil nil)
+                 ("3" (assert) nil nil) ("4" (assert) nil nil)
+                 ("5" (assert) nil nil) ("6" (assert) nil nil)
+                 ("7" (expand "max")
+                  (("7" (lift-if)
+                    (("7" (expand "abs")
+                      (("7" (split)
+                        (("1" (flatten)
+                          (("1" (assert)
+                            (("1" (split)
+                              (("1"
+                                (flatten)
+                                (("1"
+                                  (assert)
+                                  (("1" (postpone) nil nil))
+                                  nil))
+                                nil)
+                               ("2" (postpone) nil nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (postpone) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("8" (postpone) nil nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unfinished nil 1046654 880 t nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488788870 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488788870 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(infinite_to_finite
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488787670 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488787670 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(finite_to_infinite
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488787670 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3488787670 nil ("" (subtype-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
+(simplest_examples)
+
