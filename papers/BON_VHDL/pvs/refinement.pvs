@@ -212,7 +212,7 @@ BEGIN
   U5: TYPE = nat
   importing relations[T5], relations[U5]
   equivT(t0, t1: T5): bool = t0 = t1
-  equivU(u0, u1: U5): bool = (even?(u0) and even?(u1)) or
+  equivU(u0, u1: U5): bool = (even?(u0) and even?(u1)) xor
                              (odd?(u0) and odd?(u1))
   g5: [T5 -> U5] = (LAMBDA (t: T5): IF t THEN 0 ELSE 1 ENDIF)
   e5: [U5 -> T5] = (LAMBDA (u: U5): even?(u))
