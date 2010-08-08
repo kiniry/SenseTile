@@ -7,7 +7,7 @@
 %
 \ProvidesClass{lni}[2004/13/07 v0.41, by Robert Tolksdorf, Berlin]
 
-\newif\ifpdf\ifx\pdfoutput\undefined\pdffalse\else\pdfoutput=1\pdftrue\fi
+%\newif\ifpdf\ifx\pdfoutput\undefined\pdffalse\else\pdfoutput=1\pdftrue\fi
 
 % Satzspiegelposition gem‰ﬂ LNI-Herausgeberrichtlinien (Korrektur von Thomas.Kuehne@mcs.vuw.ac.nz)
 \setlength{\hoffset}{-0,2cm}% correct left margin from 4.4cm to 4.2cm
