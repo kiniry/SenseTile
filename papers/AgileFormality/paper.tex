@@ -1,12 +1,12 @@
 
-%\documentclass{article}
-\documentclass[english]{lni}
+%\documentclass[english]{lni}
+\documentclass{article}
 \usepackage{latin1}
 
 \usepackage{times}
-%\usepackage{ifpdf}
+\usepackage{ifpdf}
 \usepackage{a4wide}
-\usepackage{pdfsync}
+%\usepackage{pdfsync}
 
 \ifpdf 
   \usepackage[pdftex]{graphicx} 
@@ -15,13 +15,13 @@
 \fi
 
 \usepackage{xspace} 
-\usepackage{tabularx} 
-\usepackage{epsfig}
-\usepackage{amsmath} 
-\usepackage{amsfonts} 
-\usepackage{amssymb}
-\usepackage{eucal} 
-\usepackage{stmaryrd} 
+%\usepackage{tabularx} 
+%\usepackage{epsfig}
+%\usepackage{amsmath} 
+%\usepackage{amsfonts} 
+%\usepackage{amssymb}
+%\usepackage{eucal} 
+%\usepackage{stmaryrd} 
 \usepackage{float}
 \usepackage{listings} 
 
@@ -34,6 +34,7 @@
 \else
   \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
+
 
 \newcommand{\tablesize}{\footnotesize} 
 \newcommand{\eg}{e.g.,\xspace}
@@ -732,7 +733,7 @@ We developed handmade test suites, generated test suites and JML annotations, wi
 The practices are very general, and are appliable to different development languages and formal methodologies.
 One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at runtime and partially automate the verification process of the formalized properties.
 
-
+\bibliographystyle{lni}
 
 \bibliography{extra,abbrev,ads,category,complexity,hypertext,icsr,knowledge,languages,linguistics,meta,metrics,misc,modeling,modeltheory,reuse,rewriting,softeng,specification,ssr,technology,theory,web,upcoming,upcoming_conferences,conferences,workshops,verification,escjava,jml,nijmegen}
 
