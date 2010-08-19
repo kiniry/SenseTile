@@ -87,11 +87,11 @@
 
 \begin{abstract}
 
-Members of the agile programming and formal methods communities do not always see eye-to-eye.  
+Members of the agile programming and formal methods communities do not always see face-to-face.  
 These two communities often do not talk to or learn from each other.  
 Only recently, as highlighted by the September 2009 issue of IEEE Software, the IFIP workshop on balancing agility and formalism in software engineering, and the first edition of the international workshop for formal methods and agile methods, ideas from the two communities begun to be synthesized.  
 While the problem-solving approaches and psychological attitudes of members of the two communities differ widely, we exploit this clash of viewpoints, exploiting a new development processes that actually blends, rather than mashes together, best practices from the two worlds.  
-This paper summarizes our process and a supporting complex case study, showing that it is not only possible, but tasty, to combine the ``chili pepper'' of formal methods and the ``chocolate'' of agile programming, thus producing a tasty ``Mole'' (as in the highly-spices Mexican sauce) of software engineering practices.
+This paper summarizes our process and a supporting complex case study, showing that it is not only possible, but tasty, to combine the ``chili pepper'' of formal methods and the ``chocolate'' of agile programming, thus producing a tasty ``Mole'' (as in the highly-spiced Mexican sauce) of software engineering practices.
 
 \end{abstract}
 
@@ -124,15 +124,23 @@ The problem class in which we have particular interest have \emph{unstable requi
 \subsection{Terminology}
 \label{sec:terminology}
 
-% terminology
+% IEEE terminology
 In this paper the IEEE 610~/cite{Jay1990} standard terminology for validation and verification is used.  
-Paraphrasing the standard slightly, \emph{verification} is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase, according to the requirements and design specifications (``you build the system in the
-right way''); \emph{validation} is the process of evaluating software during or at the end of the development process to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
+Paraphrasing the standard slightly, \emph{verification} is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase, according to the requirements and design specifications (``you build the system in the right way''); \emph{validation} is the process of evaluating software during or at the end of the development process to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
 
+% FM terminology
 Within the formal methods community, verification means something much stronger, and validation something quite different, than in the IEEE 610 standard.
-Loosely, within the FM community, \emph{verification} (in the paper \emph{formal verification}) means the use of formal methods to formally, statically (and usually modularly) verify that a system conforms to its specification (under all possible execution scenarios).  
-On the other hand, \emph{validation} (in ther paper \emph{formal validation}) means the use of traditional software engineering practices to check, statically or dynamically, that a system conforms to its specification (whether in the form of tests, requirements, etc.) by hand or via execution under some execution scenarios.
-In the present paper both perspectives are respected and acknowledged, with the attempt to be absolutely clear in using these terms unambigously.
+Loosely, within the FM community, \emph{verification} (in the paper \emph{formal verification}) means the use of formal methods to formally, statically verify that a system conforms to its specification.
+On the other hand, \emph{validation} (in the paper \emph{formal validation}) means the use of traditional software engineering practices to check, statically or dynamically, that a system conforms to its specification (whether in the form of tests, requirements, etc.) by hand or via execution under some execution scenarios.
+In the present paper both perspectives are respected and acknowledged.
+
+% tests terminology
+Tests are usually classified by dichotomies: unit vs. functional, black-box vs. white-box, testing vs. design, tester vs. coder. 
+Yet testing doesn’t always fit in the dichotomies, especially in the case of agile testing approaches~/cite{Beck2007}.
+Black-box vs. white-box dichotomy is particularly problematic, since the box boundaries change the perspective.
+In the paper, functional tests are always black-box tests, coverage tests are always white-box tests, generated tests are always black-box tests (the box is the module specified); other strict rules do not hold.
+
+% development terminology
 Additionally, ``...development of a system,'' more precisely means ``...analysis, design, development, verification, formal validation of a system''.
 
 
@@ -158,7 +166,7 @@ In the following the development process and the practices are summarized, and t
 \label{subsec:formal_and_agile_integration}
 
 % what is needed, high-level
-To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the agile methodologies must be maintained, and formal validation  methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, validate the implementation against the specification), must be adapted to a highly iterative one.
+To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the agile methodologies must be maintained, and formal validation methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, validate the implementation against the specification), must be adapted to a highly iterative one.
 
 % what must be considered: TDD
 The most common software verification practices in agile methodologies must be considered, when trying to integrate formal and agile methodologies, since they are a fundamental part of the development process. 
@@ -169,8 +177,8 @@ It is also considered a good software development technique when used on its own
 
 % test driven kinds
 The test driven approach relies on writing the tests before the actual implementation. 
-It is appliable in a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
-It is appliable in a large scale as well (requirements immediately translated into functional tests), yeilding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
+It is applicable to a very small scale (Test Driven Development) yielding to activity cycles as short as a few minutes.
+It is applicable to a large scale as well (requirements immediately translated into functional tests), yielding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
 
 % previous related work
 Some tentative attempts to reconcile formal and agile methodologies have been developed.
@@ -185,9 +193,9 @@ Some XP practices are fully adopted or considered compatible, as pair-programmin
 A different formal methodology, but same approach, is found also in~\cite{Suhaib2005} where XFM methodology is explained.
 
 % previous work: a common approach
-As already mentioned, in all these attempts, the handmade test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
-The requisite to enable these approaches is, at least, a specification of the entire system under development to enable simple verification techniques as runtime verification (obtained by assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
-At most, a complete and sound system specification, usually supported by an appropriate formal language (to specify model and properties) and a constrained programming language, used to actually prove properties about the system under development~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
+As already mentioned, in all these attempts, the test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
+The requisite to enable these approaches is, at least, a specification of all the relevant aspects of the system under development, to enable simple verification techniques such as runtime verification (obtained by assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
+At most, a complete and sound system specification, usually supported by an appropriate formal language (to specify model and properties) and a constrained programming language, used to statically prove properties about the system~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
 
 % previous work: why is not satisfying
 The approach is simple: the verification, documentation and requirement specification purposes of the tests are moved on to the formal specifications, and a complete formal specification of the system under development is needed to apply these methodologies.
@@ -196,13 +204,20 @@ If a complete formal specification is not built, all the previous methodologies 
 These can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are neither detailed nor enforced.
 The loops and relations between the different development artifacts are the inner engine of many agile methodologies, they impose an iterative and incremental pace to the development process.
 
+% outsider
+Liu in~\cite{Liu2010} takes a different approach where SOFL methodology~\cite{Liu2004} is merged into agile processes. 
+SOFL methodology is based on a three step specification approach: (1) informal specification, (2) semi-formal specification, (3) formal specification. 
+The agile adaptation consists mainly in shorter loops between activities, and into a reduced set of formal specifications.
+The formal specifications are used only to help understanding ambiguous statements in the semi-formal specification, and are not maintened while the system evolves; testing and inspections are based on the semi-formal specification.
+The formal specification are partial, which is interesting, but used only for documentation purposes and than discarded.
+
 % what we want to achieve
-The objectives we want to achieve are the following: to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
+The objectives we want to achieve are the following ones: to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
 
 % how we want to achive it
 The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in agile methodologies (especially in XP), to solve this problem in an highly iterative development process.
 We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how handmade and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
-That is, we will show how to blend, and not compose, formal validation and agile verification practices: a ``Mole'' of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers and chocolate, served with meat.}.
+That is, we will show how to blend, and not compose, formal validation and agile verification practices: a ``Mole'' of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers (agile) and chocolate (formal), served with meat (working system).}.
 
 
 
@@ -355,7 +370,7 @@ There are several problems that still need to be addressed.
 No communication between the two worlds is permitted, it is not defined how to formally specify a module after it has been implemented and verified in a non formal way.
 A module only partially specified is a sort of hybrid that must be treated accordingly.
 Finally, in the FDD cycle shown in Figure \ref{fig:fdd_diagram}, the implicit assumption is that it is always possible to identify the correct formal specifications of the system, but this is not always straighforward.
-Identify the correct formal specification is a difficult task, it has to be supported and verified by the development process.
+Identifying the correct formal specification is a difficult task, it has to be supported and verified by the development process.
 
 % FDD with handmade tests
 A partially specified module cannot be verified properly only through automatically generated tests.
@@ -437,7 +452,7 @@ The protocol is divided in various (thin) layers, and each of the layer is verif
 
 % verification
 Verification is obtained through an handmade test suite, composed of unit and integration tests; the tests specifies the behaviours of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
-The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confidant on how the stream is decomposed into packets.
+The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confident on how the stream is decomposed into packets.
 Besides, the packet byte structure is not stable: the internal byte structure changed several times during development.
 Therefore, packet byte structure is not formally specified.
 
@@ -633,7 +648,7 @@ Test suites execution time are different: the handmade test suite, with the runt
 Most of the time is spent on setting up the suite; only considering the real execution of the tests, with no suite setup, the execution time reduces to less than 4 minutes (the rough ratio is $ 1 : 10 $).
 
 % test effectiveness
-Code coverage metrics are used to compare in a quantitative way the effectiveness of the test suites. 
+Code coverage metrics (white-box testing) are used to compare in a quantitative way the effectiveness of the test suites. 
 This is only an indicator, since it is accepted that code coverage alone cannot asses the quality of a test suite\cite{Marick1999,Chockler2006}.
 Various coverage metrics exist, the test suites are analyzed with statement code coverage (one of the simplest types)\footnote{The tool used to obtain statement code coverage metrics is \myhref{http://emma.sourceforge.net/}{Emma}.}: statement coverage reports whether each statement is encountered during execution. 
 Statement code coverage is easy to implement, but lacks the capability to explore the control flow graph associated to the code, that is, decision branches are not explored. 
@@ -720,17 +735,17 @@ We propose a blend of agile and formal engineering practices, enclosed by an ite
 
 % Mole
 The verification practices proposed recreate the fast feedback development environment we find in Test Driven Development, used with formal and non formal artifacts.
-A total of four practices are presented, two of them are conservative, following closely the development practices of agile and formal methodologies, while the other pair are inoovative, blending together elements from both worlds.
+A total of four practices are presented, two of them are conservative, following closely the development practices of agile and formal methodologies, while the other pair are innovative, blending together elements from both worlds.
 
 % Mole at work
 The practices have been applied succesfully to develop a driver for a custom embedded sensor board, equipped with board simulators and protocol verifiers. 
 The protocol and the board specifications were informal and unstable. 
 Yet a working software product was needed as soon as possible, with incrementally added functionality, and keeping it linked with the last specifications of the protocol and the board.
-``Mole'' verification practices enabled us to keep in sink formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
+``Mole'' verification practices enabled us to keep in sync formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
 We developed handmade test suites, generated test suites and JML annotations, wich succesfully supported the verification of the driver and the simulators, and the board as well, when it was delivered.
 
 % extending Mole
-The practices are very general, and are appliable to different development languages and formal methodologies.
+The practices are very general, and are applicable to different development languages and formal methodologies.
 One important constraint is on the formal methodology, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at runtime and partially automate the verification process of the formalized properties.
 
 \bibliographystyle{lni}
