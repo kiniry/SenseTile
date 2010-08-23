@@ -1,6 +1,4 @@
-
-%\documentclass[english]{lni}
-\documentclass{article}
+\documentclass[english]{lni}
 \usepackage{latin1}
 
 %\usepackage{times}
@@ -73,11 +71,8 @@
 \title{Agile Formality: A ``Mole'' of Software Engineering Practices}
 
 \author{Vieri del Bianco and Dragan Stosic\\
-  UCD CASL: Complex and Adaptive Systems Laboratory and\\
-  School of Computer Science and Informatics,\\
   University College Dublin, Ireland\\
   \texttt{vieri.delbianco@ucd.ie} and \texttt{dragan.stosic@gmail.com}\\
-  \\
   Joseph R.~Kiniry \\
   IT University of Copenhagen, Denmark\\
   \texttt{kiniry@itu.dk}
@@ -95,7 +90,8 @@ This paper summarizes our process and a supporting complex case study, showing t
 
 \end{abstract}
 
-% ======================================================================
+
+
 \section{Introduction}
 \label{sec:introduction}
 
@@ -267,22 +263,23 @@ A complete specification is neither feasible nor convenient in our case.
 The protocol specification must be enhanced incrementally and its complete specification cannot be provided.  
 This makes the problem an ideal candidate to test our ``Mole'' of practices.
 
+
+
 \subsection{The Chosen Formal Methodology: Formal Specifications with JML}
 
 % formal methodology constraints
-To perform this case study, an appropriate FM must be chosen.  
+An appropriate FM must be chosen.  
 It must be able to support a specification that is built incrementally, consequently formal methods that demand a complete specification must be avoided.
 It must be able to automatically generate tests.
 And finally the formal method must be complemented by tools that support the verification of system properties at runtime.
 
 % the chosen formal methodology
-Driven by these requirements and our expertise, the Java programming language and platform are chosen for the implementation, the Java Modeling Language (JML)~\cite{LeavensBakerRuby-Prelim} is used to write formal specifications, and JML2~\cite{JML2} tool suite is used as supporting tool~\cite{BurdyEtal05-STTT}.  
+The Java programming language and platform are chosen for the implementation, the Java Modeling Language (JML)~\cite{LeavensBakerRuby-Prelim} is used to write formal specifications, and JML2~\cite{JML2} tool suite is used as supporting tool~\cite{BurdyEtal05-STTT}.  
 The JML2 tool suite includes runtime assertion checker~\cite{Cheon-Leavens02b} and a unit test generator~\cite{Cheon2002}.
 A complete specification is not required to use JML2 tool suite effectively.
 
 % JML introduction
-JML is the de facto standard specification language for describing Java programs behaviour.  
-JML is a rich behavioural interface specification language (BISL) and thus focuses on the modular specification of classes and objects in which inheritance is used solely for behavioural subtyping~\cite{LeavensBakerRuby99}.  
+JML is a rich behavioural interface specification language (BISL) and focuses on the modular specification of classes and objects~\cite{LeavensBakerRuby99}.  
 JML includes standard specification constructs like assumptions, assertions, axioms, and pre- and postconditions, framing clauses, and invariants.
 It also includes a rich model-based specification layer that includes mathematical models, data refinements, datagroups, and many other advanced object-oriented specification features~\cite{Chalin06}.  
 Many tools, ranging from compilers to static checkers to full-functional verification systems support the JML language~\cite{BurdyEtal05-STTT}.
@@ -290,14 +287,13 @@ Many tools, ranging from compilers to static checkers to full-functional verific
 % using JML
 JML is sometimes used in a Design-by-Contract style, where a specification is written from scratch, reusing existing APIs that have
 specifications of their own, and then an implementation is written conforming to that specification~\cite{Meyer92b}.  
-The implementation is checked by whatever means appropriate using some subset of the aforementioned tools.  
-At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact, a process called Contracting-the-Design.
+At other times an existing piece of implemented and tested code is annotated with specifications after-the-fact.
 
 % JML tools
 The two tools used most frequently to check the correctness of implementations are the JML Runtime Assertion Checker (RAC) and the
 Extended Static Checker for Java, version 2 (ESC/Java2)~\cite{Cheon-Leavens02b,BurdyEtal05-STTT,KiniryCok04}.  
 The former compiles executable assertions into runtime checks.  
-The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave (i.e., crash in a variety of ways) and conforms to its specification (lightweight functional correctness).  
+The latter tool performs automated modular semantic static analysis to attempt to prove that the program under analysis does not misbehave and conforms to its specification (lightweight functional correctness).  
 
 
 
@@ -402,7 +398,7 @@ When the ``Mole'' verification practices are used together the initial objective
 \section{``Mole'' verification practices applied}
 \label{sec:a_complex_case_study}
 
-\subsection{Data stream and protocol description}
+\subsection{Data stream, protocol description and protocol specification}
 \label{subsec:data_stream_and_protocol_description}
 
 % protocol layers
@@ -414,18 +410,17 @@ The first three layers are analyzed in the case study, considering only the outp
 % packet structure
 The packet byte and info structure of the output sensor data packet reflect the board capabilities and built in sensors. 
 A single packet has to accommodate various types of data: fast, medium and slow data rate streams, together with metadata describing the sensors and the board state.
-The internal structure of the packet is strictly fixed, even if the data streams have different data rates. 
-This choice originates from a trade-off between two constraints: the efficiency of the transmission (redundant data to be minimized) and the complexity to build a packet (complexity to be minimized, since the processing capabilities in the \STSB are limited). 
+The internal structure of the packet is strictly fixed. 
 
 % packet internal structure: collection of frames
 A packet is internally composed by 82 frames. 
-A frame accommodates data from the fast and medium data rate streams (there are 4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
-Fast, medium and slow data rates have not a common multiple; a packet, capable to accommodate outputs at different rates, in a fixed structure, relies in two forms of redundancies, for slow and medium data rates:
-\begin{itemize}
-\item Slow data rates: slow data is located at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
-\item Medium data rates: the 8 medium rate channels are multiplexed together into the medium data rate data sample of each frame. The medium data rate sample channel is a piece of info extracted from the frame description (frame metadata), including the possibility to have no data at all. 
-E.g. a frame contain a medium data rate sample from channel 0, the following frame a sample from channel 5, the following frame no sample at all, etc.
-\end{itemize}
+A frame accommodates data from the fast and medium data rate streams (4 fast data rate stream and 8 medium data rate stream channels) and theirs associated metadata.
+%Fast, medium and slow data rates have not a common multiple; a packet, capable to accommodate outputs at different rates, in a fixed structure, relies in two forms of redundancies, for slow and medium data rates:
+%\begin{itemize}
+%\item Slow data rates: slow data is located at the beginning of each packet, the data is simply repeated (it is equal to the previous packet in the stream) when no new data is available.
+%\item Medium data rates: the 8 medium rate channels are multiplexed together into the medium data rate data sample of each frame. The medium data rate sample channel is a piece of info extracted from the frame description (frame metadata), including the possibility to have no data at all. 
+%E.g. a frame contain a medium data rate sample from channel 0, the following frame a sample from channel 5, the following frame no sample at all, etc.
+%\end{itemize}
 
 % single packet rules
 The single packet rules delimit the boundaries of the values obtainable from the packet: each defined sensor represented in the packet, as well as the metadata describing the \STSB and the packet and frame contents, are constrained by a range of acceptable values.
@@ -433,8 +428,8 @@ There are also rules affecting more than one value, and rules specifying a corre
 
 
 
-\subsection{Data stream and protocol specification}
-\label{subsec:data_stream_and_protocol_specification}
+%\subsection{Data stream and protocol specification}
+%\label{subsec:data_stream_and_protocol_specification}
 
 % protocol specification
 The specifications of the protocol are distilled and refined incrementally.
@@ -444,8 +439,8 @@ The protocol is divided in various (thin) layers, and each of the layer is verif
 
 % verification
 Verification is obtained through an handmade test suite, composed of unit and integration tests; the tests specifies the behaviours of the implementation, which is capable of recognizing the proper packet structure in a binary data stream. 
-The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confident on how the stream is decomposed into packets.
-Besides, the packet byte structure is not stable: the internal byte structure changed several times during development.
+%The implementation is tricky: it searches for repeated patterns into a byte stream to be sufficiently confident on how the stream is decomposed into packets.
+The packet byte structure is not stable: the internal byte structure changed several times during development.
 Therefore, packet byte structure is informally specified.
 
 % development cycles
@@ -475,12 +470,12 @@ Code and tests are implemented using both forms of FDD.
 
 
 
-\subsection{On simulators}
-\label{subsec:on_simulators}
+\paragraph*{On simulators}
+%\label{subsec:on_simulators}
 
 % why simulators are useful
 Simulators are used to test parts of the system minimizing dependencies: a simulator can be used by upper layers, with no need to provide the functionalities of the lower layers. 
-The simulators proved essential during the development, since the physical board was not available. 
+%The simulators proved essential during the development, since the physical board was not available. 
 
 % simulators description
 The layer structure is not matched by the corresponding simulators.
@@ -595,10 +590,10 @@ The resulting test package structure is closely related and reflects the overall
 %  \label{fig:class_diagram_generatedtest}
 %\end{figure}
 
-\paragraph*{On simulators, again}
+\paragraph*{On simulators}
 
 % simulator roles in tests
-The simulators are adopted in the handmade test suits as stubs.
+Simulators are adopted in the handmade test suits as stubs.
 The resulting structure is shown in Figure \ref{fig:class_diagram_streamdriver_test}.  
 For instance, in Figure \ref{fig:class_diagram_streamdriver_test} the test suite \lil{StreamDriverT} is using the \lil{SimulatorStream} to properly simulate the \lil{Stream} parsed by \lil{StreamDriver}, which is the system under test.
 
@@ -635,7 +630,6 @@ Most of the time is spent on setting up the suite; only considering the real exe
 Code coverage metrics (white-box testing) are used to compare in a quantitative way the effectiveness of the test suites. 
 This is only an indicator, since it is accepted that code coverage alone cannot asses the quality of a test suite\cite{Marick1999,Chockler2006}.
 Various coverage metrics exist, the test suites are analyzed with statement code coverage (one of the simplest types)\footnote{The tool used to obtain statement code coverage metrics is \myhref{http://emma.sourceforge.net/}{Emma}.}: statement coverage reports whether each statement is encountered during execution. 
-Statement code coverage is easy to implement, but lacks the capability to explore the control flow graph associated to the code, that is, decision branches are not explored. 
 The coverage results are reported in the Table \ref{tab:statement_code_coverage}.
 
 \begin{table}[htbp]
@@ -656,21 +650,21 @@ The coverage results are reported in the Table \ref{tab:statement_code_coverage}
 
 
 
-\subsection{Retrospective on test cases effectiveness}
-\label{subsec:test_cases_retrospectives}
+%\subsection{Retrospective on test cases effectiveness}
+%\label{subsec:test_cases_retrospectives}
 
 % <100 coverage measures, utility methods
 The coverage measures reported in Table \ref{tab:statement_code_coverage} do not reach 100\%. 
 This is because of the effects of both non public utility methods, and abstract methods in interfaces.
 The effect of non public methods (package Java visibility) is that these methods are taken into account as public and protected ones are, during code coverage calculation; these methods are not part of the interface, the system does not depend on them, they are only used in object initialization or in object setups performed during unit tests. 
-In fact there are package and private code blocks that are not reachable by construction from public and protected methods, and this is a precise characteristic reflecting the code architecture, meant to ease class instances setup and configuration for testing purposes (white box testing). 
-The used statement coverage tool is not able to distinguish these code blocks, so this effect is unavoidable. 
+%In fact there are package and private code blocks that are not reachable by construction from public and protected methods, and this is a precise characteristic reflecting the code architecture, meant to ease class instances setup and configuration for testing purposes (white box testing). 
+%The used statement coverage tool is not able to distinguish these code blocks, so this effect is unavoidable. 
 The effect is mainly seen in low \lil{SimulatorDriver} code coverage figures: the \lil{SimulatorDriver} package has many utility non public methods.
 
 % <100 coverage measures, interfaces
 Regarding interfaces, an interface contains no statements, so when an interface method is called, it is the method of the implementation class used that is actually covered.
 This effect is visible in \lil{Driver} coverage figures: \lil{Driver} package contains interfaces (that are not counted at all) and some very simple real class (exceptions) that are not thoroughly tested. 
-The net result is extremely low statement code coverage figures because the very simple classes are the only ones that are actually covered. 
+%The net result is extremely low statement code coverage figures because the very simple classes are the only ones that are actually covered. 
 
 % code coverage interpretation
 The statement code coverage figures show that the test suites do a good job on the most important package, the \lil{StreamDriver}. 
@@ -683,7 +677,7 @@ A similar indication is provided by \lil{SimulatorDriver} package as well.
 The qualitative difference of the two test suites are understood observing how the suites are built. 
 An handmade unit test usually requires objects initialization, one or more method calls to the modules under test, and the following assertions to verify the expected state change on the modules involved. 
 A generated unit test has a more focused and limited scope: only one method call is performed in each test, therefore it is difficult to explore complex behaviours. 
-Theoretically with a complete specification, and specifying large enough data ranges, the generated tests achieve the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
+%Theoretically with a complete specification, and specifying large enough data ranges, the generated tests achieve the same expressive power as the handmade ones; but the specification is not complete, and a large enough data ranges is long to develop.
 The test suites give their best when used in a combined approach: the generated test suite, checking simpler and formalized behaviours, and the handmade, checking the more complex ones, whether formalized or not.  
 
 
@@ -692,20 +686,48 @@ The test suites give their best when used in a combined approach: the generated 
 
 % tests and the first prototype, board side
 The first \STSB prototype builds packets with no data, but the packets are built in a way not consistent with the specification.  
-The board errors are detected by simply using the driver implementation, the \lil{StreamDriver} package.
+The board errors are detected by using the driver implementation, the \lil{StreamDriver} package.
 
 % tests and the second prototype, driver side
 The second prototype builds packets with values taken from real sensors installed on the board.  
 The only sensors that are not working are the sensors devoted to the fast rate data streams (audio sensors).  
 One error needed to be corrected in the driver implementation, because of a (rare) combinations of conditions not initially covered by the test cases, but that occasionally showed up during real use.
-One error was discovered in the low-level system driver used by the developed driver (the system driver is outside our development scope): to eliminate the error, an upgrade of the low-level driver to a new beta version was necessary. 
-No other errors were detected on the driver side.
+%One error was discovered in the low-level system driver used by the developed driver (the system driver is outside our development scope): to eliminate the error, an upgrade of the low-level driver to a new beta version was necessary. 
+%No other errors were detected on the driver side.
 
 % tests and the second prototype, board side
 The second prototype respected the packet byte structure specification, but was not fully compliant to the packet info structure specification and the single packet rules.
+It also randomly generated completely invalid packets when overheated.
 The formal JML specifications and the runtime assertion checker correctly identified these errors.
-4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found, and are expected to be corrected in the following release. 
-No other errors, except the mentioned ones, have been discovered up to now.
+4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found, as well as the invalid packets. 
+
+
+
+\section{Retrospective on ''Mole`` practices effectiveness}
+\label{subsec:test_cases_retrospectives}
+
+% preconditions on projects
+''Mole`` practices are very easy to be applied and work with.
+Many projects could benefit from the practices, not only the unstable ones that requires a certain level of formality.
+Even projects with no formal specification requirements at all could benefit from the practices, since some system properties are easy to specify and could actually reduce the test suites development effort.
+
+% precondition on formal methodology and associated formal suite
+The cornerstone of the practices is the FM with its supporting tools, and the precondition on the tools are not easy to be fulfilled.
+Methodology that require a complete formalization are impossibile to be applied.
+Beside, it is not clear if a tool suite that does not provide a run time verification environment could be used succesfully, not it is clear whether formal methods not based on the contract paradigma (preconditions and postconditions) could be applied at all.
+These are open questions that will nedd to be addressed in future works to assess the real appliability of the ''Mole`` practices.
+
+% when to use what
+There no strict rules to determine which of the ''Mole`` practices to use to face a specific problem, but only advices.
+TDD if we don't need anu specification, FDD with generated tests if the specification are not too difficult and the scenario is simple enough to be covered by generated tests, FDD with hand made tests if the scenarios is complex, TDF when the specification is complex.
+The experience gathered is yet not enogh to distill idioms or patterns.
+
+% what is working and what is not
+FDD with hand made tests is amazing, it is as natural to work with as TDD. 
+FDD with generated tests can be annoying because of the time needed to run the test suite, often only part of the test suite is executed so that the development loops take not too long.
+TDF is great with complex preconditions, but really difficult with postconditions, especially if the soecification is made on top of already existing code. 
+When developing postconditions after code, the test is not expected to fail, hence the feedback is limited and the specification could not be as strict as it was needed. 
+In this specific case TDF effectiveness is limited.
 
 
 
@@ -732,7 +754,7 @@ We developed handmade test suites, generated test suites and JML annotations, wi
 The practices are very general, and are applicable to different development languages and FMs.
 One important constraint is on the FM, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at runtime and partially automate the verification process of the formalized properties.
 
-\bibliographystyle{lni}
+%\bibliographystyle{lni}
 
 \bibliography{extra,abbrev,ads,category,complexity,hypertext,icsr,knowledge,languages,linguistics,meta,metrics,misc,modeling,modeltheory,reuse,rewriting,softeng,specification,ssr,technology,theory,web,upcoming,upcoming_conferences,conferences,workshops,verification,escjava,jml,nijmegen}
 
