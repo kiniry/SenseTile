@@ -21,7 +21,7 @@ pdffiles =	$(foreach texfile,$(texfiles),\
 
 .PHONY: all talk archive proof
 
-all:	${paper}.pdf ${talk}.pdf
+all:	${paper}.pdf
 
 talk: 	${talk}.ps ${talk}.pdf
 
