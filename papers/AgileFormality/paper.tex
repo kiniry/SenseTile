@@ -28,7 +28,10 @@
 
 \ifpdf 
   \usepackage{epstopdf}
-  \usepackage[pdftex,bookmarks=false,a4paper=true,plainpages=false,naturalnames=true, colorlinks=true,pdfstartview=FitV,linkcolor=blue,citecolor=blue,urlcolor=blue, pdfauthor="Vieri del Bianco and Joseph R. Kiniry and Dragan Stosic"]{hyperref} 
+  \usepackage[pdftex,bookmarks=false,a4paper=true,plainpages=false,naturalnames=true,
+  colorlinks=true,pdfstartview=FitV,linkcolor=blue,citecolor=blue,urlcolor=blue,
+  pdfauthor="Vieri del Bianco and Joseph R. Kiniry and Dragan
+  Stosic"]{hyperref} 
 \else
   \usepackage[dvips,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \fi
@@ -57,6 +60,7 @@
 \newcommand{\STPUs}{\ST \emph{Processor Units}\xspace}
 \newcommand{\STU}{\ST \emph{Unit}\xspace} 
 \newcommand{\STUs}{\ST \emph{Units}\xspace}
+\newcommand{\mole}{``\emph{Mole}''\xspace}
 
 \newcommand{\simulator}{\STSB \emph{Simulator}\xspace}
 \newcommand{\datastore}{\ST Scientific Datastore\xspace}
@@ -68,11 +72,12 @@
 
 \begin{document}
 
-\title{Agile Formality: A ``Mole'' of Software Engineering Practices}
+\title{Agile Formality: A \mole of\\Software Engineering Practices}
 
 \author{Vieri del Bianco and Dragan Stosic\\
   University College Dublin, Ireland\\
   \texttt{vieri.delbianco@ucd.ie} and \texttt{dragan.stosic@gmail.com}\\
+  \\
   Joseph R.~Kiniry \\
   IT University of Copenhagen, Denmark\\
   \texttt{kiniry@itu.dk}
@@ -82,143 +87,282 @@
 
 \begin{abstract}
 
-Members of the agile programming and formal methods communities do not always see face-to-face.  
-These two communities often do not talk to or learn from each other.  
-Only recently, as highlighted by the September 2009 issue of IEEE Software, the IFIP workshop on balancing agility and formalism in software engineering, and the first edition of the international workshop for formal methods and agile methods, ideas from the two communities begun to be synthesized.  
-While the problem-solving approaches and psychological attitudes of members of the two communities differ widely, we exploit this clash of viewpoints, exploiting a new development processes that actually blends, rather than mashes together, best practices from the two worlds.  
-This paper summarizes our process and a supporting complex case study, showing that it is not only possible, but tasty, to combine the ``chili pepper'' of formal methods and the ``chocolate'' of agile programming, thus producing a tasty ``Mole'' (as in the highly-spiced Mexican sauce) of software engineering practices.
+  Members of the agile programming and formal methods communities do
+  not always see eye-to-eye.  These two communities often do not talk
+  to or learn from each other.  Only recently, as highlighted by the
+  September 2009 issue of IEEE Software, the IFIP workshop on
+  balancing agility and formalism in software engineering, and the
+  first edition of the international workshop for formal methods and
+  agile methods, ideas from the two communities begun synthesize.
+  While the problem-solving approaches and psychological attitudes of
+  members of the two communities differ widely, we exploit this clash
+  of viewpoints, creating a new development processes that actually
+  blends, rather than mashes together, best practices from the two
+  worlds.  This paper summarizes our process and a supporting complex
+  case study, showing that it is not only possible, but tasty, to
+  combine the ``chili pepper'' of formal methods and the ``chocolate''
+  of agile programming, thus producing a tasty \mole (as in the
+  highly-spiced Mexican sauce) of software engineering practices.
 
 \end{abstract}
-
-
 
 \section{Introduction}
 \label{sec:introduction}
 
 % agile and formal difficult to blend: mind attitudes
-Agile and formal development methodologies usually do not blend together well.  
-This is because of several reasons, the most important of which is often characterized as a radical difference in psychological attitudes about software development.  
+Agile and formal development methodologies usually do not blend
+together well.  This is because of several reasons, the most important
+of which is often characterized as a radical difference in
+psychological attitudes about software development.
 
 % FM
-Formal methodologists often favour an in-depth, think-first approach, where the problem is understood, formalized, and solved; usually, but not always, adopting a waterfall-style of development.  
-Once a formalization is developed, development and verification proceed, in an automated and interactive fashion.  
-Consequently, projects that use formal methodologies (FMs) typically focus on critical systems with fixed requirements and somewhat flexible deadlines (``We'll ship it when it is right.'').
+Formal methodologists often favour an in-depth, think-first approach,
+where the problem is understood, formalized, and solved; usually, but
+not always, adopting a waterfall-style of development.  Once a
+formalization is developed, development and verification proceed in an
+automated and interactive fashion.  Consequently, projects that use
+formal methodologies (FMs) typically focus on critical systems with
+fixed requirements and somewhat flexible deadlines (``We'll ship it
+when it is right.'').
 
 % AM
-Agile methodologists favour an highly incremental and iterative approach, specifically tailored to cope with changing requirements and precise deadlines.  
-In projects that use agile methodologies (AMs), it is often the case that the problem is only partially understood, focusing only on the aspects that must be implemented in the current development iteration.  
-The solution initially developed is usually not optimal, but as it is refined through continuous code refactorings, its quality and validity improve.  
-Test suites are used for several purposes: the most important are system verification, system documentation, and requirement specification, and they are strictly handmade.  
-AMs are typically used in development settings where changing requirements and rapid delivery of the product are paramount.
+Agile methodologists favour an highly incremental and iterative
+approach, specifically tailored to cope with changing requirements and
+precise deadlines.  In projects that use agile methodologies (AMs), it
+is often the case that the problem is only partially understood, and
+there is a focus only on the aspects that must be implemented in the
+current development iteration.  The solution initially developed is
+usually not optimal, but as it is refined through continuous code
+refactorings, its quality and validity improve.  Test suites are used
+for several purposes, the most important of which are system
+verification, system documentation, and requirement specification, and
+they are strictly handmade.  AMs are typically used in development
+settings where changing requirements and rapid delivery of the product
+are paramount.
 
 % problems would benefit form agile and formal mix, characterize the problem
-The two worlds seem irreconcilable.  
-Nevertheless, problems exist that would greatly benefit from both of them~\cite{Black2009}.  
-The problem class in which we have particular interest have \emph{unstable requirements}, are \emph{constrained by deadlines that cannot be postponed}, but also have \emph{subsystems that must be formally specified and verified}.
-
+The two worlds seem irreconcilable.  Nevertheless, problems exist that
+would greatly benefit from both of them~\cite{Black2009}.  The problem
+class in which we have particular interest have \emph{unstable
+  requirements}, are \emph{constrained by deadlines that cannot be
+  postponed}, but also have \emph{subsystems that must be formally
+  specified and verified}.
 
 \subsection{Terminology}
 \label{sec:terminology}
 
 % IEEE terminology
-In this paper the IEEE 610~\cite{Jay1990} standard terminology for validation and verification is used.  
-Paraphrasing the standard, \emph{verification} is the process of evaluating software to determine whether the products of a given development phase satisfy the conditions imposed, according to the specifications (``you build the system in the right way''); \emph{validation} is the process of evaluating software to determine whether it satisfies specified requirements ensuring it meets the user's needs (``you build the right system'').
+In this paper the IEEE 610~\cite{Jay1990} standard terminology for
+validation and verification is used.  Paraphrasing the standard,
+\emph{verification} is the process of evaluating software to determine
+whether the products of a given development phase satisfy the
+conditions imposed, according to the specifications (``you build the
+system in the right way''); \emph{validation} is the process of
+evaluating software to determine whether it satisfies specified
+requirements ensuring it meets the user's needs (``you build the right
+system'').
 
 % FM terminology
-Within the FMs community, verification and validation have different meanings than in the IEEE 610 standard.
-Loosely \emph{verification} (in the paper \emph{formal verification}) means the use of formal methods to formally, statically verify that a system conforms to its specification; \emph{validation} (in the paper \emph{formal validation}) means the use of traditional software engineering practices to check, statically or dynamically, that a system conforms to its specification (whether in the form of tests, requirements, etc.) by hand or via execution under some execution scenarios.
-In the present paper both perspectives are respected and acknowledged.
+Within the FMs community, verification and validation have different
+meanings than in the IEEE 610 standard.  Loosely \emph{verification}
+(in the paper \emph{formal verification}) means the use of formal
+methods to formally, statically verify that a system conforms to its
+specification; \emph{validation} (in the paper \emph{formal
+  validation}) means the use of traditional software engineering
+practices to check, statically or dynamically, that a system conforms
+to its specification (whether in the form of tests, requirements,
+etc.) by hand or via execution under some execution scenarios.  In the
+present paper both perspectives are respected and acknowledged.
 
 % tests terminology
-Tests are usually classified by dichotomies: unit vs. functional, black-box vs. white-box, testing vs. design, tester vs. coder. 
-Yet testing doesn't always fit in the dichotomies, especially in the case of agile testing approaches~\cite{Beck2007}.
-Black-box vs. white-box dichotomy is particularly problematic, since the box boundaries change the perspective.
-In the paper, functional tests are always black-box tests, coverage tests are always white-box tests, generated tests are always black-box tests (the box is the module specified); other strict rules do not hold.
+Tests are usually classified by dichotomies: unit vs. functional,
+black-box vs. white-box, testing vs. design, tester vs. coder.  Yet
+testing does not always fit into these dichotomies, especially in the
+case of agile testing approaches~\cite{Beck2007}.  The black-box
+vs. white-box dichotomy is particularly problematic, since box
+boundaries change one's perspective.  In this paper, functional tests
+are always black-box tests, coverage tests are always white-box tests,
+generated tests are always black-box tests (the box is the module
+specified); other strict rules do not hold.
 
 % development terminology
-Additionally, ``...development of a system,'' more precisely means ``...analysis, design, development, verification, formal validation of a system''.
-
-
+Additionally, ``...development of a system,'' more precisely means
+``...analysis, design, development, verification, formal validation of
+a system.''
 
 \subsection{Case Study}
 \label{sec:case-study}
 
-Proposing new practices with no supporting evidence is an uninteresting proposition.  
-A complex case study is mandatory to test bench the proposed practices.  
-Our case study focuses on the development of a device driver to control and communicate with an embedded custom circuit board equipped with more than a dozen sensors.
-The communication protocol with the board is asynchronous and packet-based and the board is novel and custom-designed.  
-The protocol is focused on controlling the board and reporting sensor measurements and board status.
+Proposing new practices with no supporting evidence is an
+uninteresting proposition.  A complex case study is mandatory to
+test-bench the proposed practices.  Our case study focuses on the
+development of a device driver to control and communicate with an
+embedded custom circuit board equipped with more than a dozen sensors.
+The communication protocol with the board is asynchronous and
+packet-based and the board is novel and custom-designed.  The protocol
+is focused on controlling the board and reporting sensor measurements
+and board status.
 
-This software driver has been developed using our process while statisfying seemingly contradictory requirements: (1)~the protocol implementation must be thoroughly verified; (2)~parts of the protocol must be formally specified; (3)~a board simulator must be designed, implemented, and verified to match the specifications of, and actual behaviour of, the physical circuit board; (4)~if board components change during development, the associated formal specifications and the simulator whose behavior reflects such changes must be updated accordingly; (5)~strict software delivery deadlines.  
-Consequently, these process requirements constitute an environment that benefits from both agile and formal approaches to software development.
+This software driver has been developed using our process while
+satisfying seemingly contradictory requirements: (1)~the protocol
+implementation must be thoroughly verified; (2)~parts of the protocol
+must be formally specified; (3)~a board simulator must be designed,
+implemented, and verified to match the specifications of, and actual
+behaviour of, the physical circuit board; (4)~if board components
+change during development, the associated formal specifications and
+the simulator whose behavior reflects such changes must be updated
+accordingly; (5)~there are strict software delivery deadlines.
+Consequently, these process requirements constitute an environment
+that benefits from both agile and formal approaches to software
+development.
 
-A novel development process has been drafted to cope with the contrasting requirements of the case study, blending agile and formal practices.  
-In the following the development process and the practices are summarized, and their successful application to the case study is reported, yielding several promising results.
-
-
+A novel development process has been drafted to cope with the
+contrasting requirements of the case study, blending agile and formal
+practices.  In the following, the development process and the practices
+are summarized, and their successful application to the case study is
+reported, yielding several promising results.
 
 \subsection{Formal and Agile Integration}
 \label{subsec:formal_and_agile_integration}
 
 % what is needed, high-level
-To enable the integration of the two worlds, the highly iterative and incremental approach found in most of the AMs must be maintained, and formal validation methodologies, traditionally used in a waterfall development process (formally specify the system, implement the system, validate the implementation against the specification), must be adapted to a highly iterative one.
+To enable the integration of the two worlds, the highly iterative and
+incremental approach found in most of the AMs must be maintained, and
+formal validation methodologies, traditionally used in a waterfall
+development process (formally specify the system, implement the
+system, validate the implementation against the specification) must
+be adapted to a highly iterative one.
 
 % what must be considered: TDD
-The most common software verification practices in AMs must be considered, when trying to integrate FMs and AMs, since they are a fundamental part of the development process. 
-The most significant verification related practice is Test Driven Development (TDD)~\cite{Beck2003}: TDD is a software development technique, originally defined in Extreme Programming (XP)~\cite{Beck2004} methodology, characterized by writing unit tests before writing the code.
+The most common software verification practices in AMs must be
+considered when trying to integrate FMs and AMs since they are a
+fundamental part of the development process.  The most significant
+verification related practice is Test Driven Development
+(TDD)~\cite{Beck2003}.  TDD is a software development technique,
+originally defined in the Extreme Programming (XP)~\cite{Beck2004}
+methodology and is characterized by a process that focuses on writing
+unit tests for a module before writing the code of said module.
 
 % test driven kinds
-The test driven approach relies on writing the tests before the actual implementation. 
-It is applicable to a very small scale (TDD) yielding to activity cycles as short as a few minutes.
-It is applicable to a large scale as well (requirements immediately translated into functional tests), yielding to activity cycles as long as a full delivery iteration (usually no longer than a couple of months).
-The test driven approach is a cornerstone of XP, but it is so popular that has been adopted in many other AMs as well.
-It is also considered a good software development technique when used on its own, regardless of the enclosing development process.
+The test driven approach relies on writing tests before
+implementations.  It is applicable to a scall and large-scale cycles.
+In the former case, very small scale TDD yields activity cycles as
+short as a few minutes.  In the latter, requirements are immediately
+translated into functional tests resulting in activity cycles as long
+as a full delivery iteration, which is usually no longer than a couple
+of months.  The test driven approach is a cornerstone of XP, but it is
+so popular that has been adopted in many other AMs as well.  It is
+also considered a good software development technique when used on its
+own, as it pre-dates XP and AMs considerably, regardless of the
+enclosing development process.
 
 % previous related work
-Some tentative attempts to reconcile FMs and AMs have been developed.
-The recurrent approach of the attempts consists in removing the handmade test suites, substituting them with different kinds of automated formal validation based on the system formal specification. 
-The automated validation can be as simple as enabling runtime verification of assertions or automatically generating a test suite based on the system properties, or as complex as actually proving the whole system behaviour through static model and code checkers or theorem provers (formal verification).
+Some tentative attempts to reconcile FMs and AMs have been developed
+by others.  The reoccuring theme of these attempts is that idea that
+handmade test suites are no longer used, but instead are replaced by
+different kinds of automated formal validation based on a system-level
+formal specification.  Automated validation can be as simple as
+enabling runtime checking of assertions or automatically generating a
+test suite based on the system properties, or as complex as proving
+the whole system's behaviour through formal verification.
 
 % a quick analysis of the related works
-Eleftherakis and Cowling in~\cite{Eleftherakis2003} propose XFun, an iterative and incremental process to generate X-Machines models, an extension of Finite State Machines. 
-The development process impose a complete specification of the system, and its verification is done exclusively using the tools provided by the X-Machines FM. 
-The development process proposed in~\cite{Herranz2003b} by Herranz and Moreno-Navarro is quite similar: they propose an iterative process to model a system using SLAM-SL, an object-oriented specification language, and its tools. 
-Some XP practices are fully adopted or considered compatible, as pair-programming, iterative and incremental development, system refactoring; while tests are completely replaced by the verification tools provided by the SLAM suite.
-A different FM, but same approach, is found also in~\cite{Suhaib2005} where XFM methodology is explained.
+Eleftherakis and Cowling in~\cite{Eleftherakis2003} propose XFun, an
+iterative and incremental process to generate X-Machines models, an
+extension of Finite State Machines.  The development process impose a
+complete specification of the system, and its verification is done
+exclusively using the tools provided by the X-Machines FM.  The
+development process proposed by Herranz and
+Moreno-Navarro~\cite{Herranz2003b} is quite similar.  They propose an
+iterative process to model a system using SLAM-SL, an object-oriented
+specification language supported by tools.  Some XP practices are
+fully adopted or considered compatible, like pair-programming,
+iterative and incremental development, and system refactoring; while
+tests are completely replaced by the verification tools provided by
+the SLAM suite.  A different FM, but similar approach, is found also
+in the work of Suhaib~\cite{Suhaib2005} where the XFM methodology is
+used.
 
 % previous work: a common approach
-As already mentioned, in all these attempts, the test suites are automatically generated using the system formal specification, or completely replaced by theorem provers or static checkers. 
-The requisite to enable these approaches is, at minimum, a specification of all the relevant aspects of the system under development, to enable simple verification techniques such as runtime verification (assertions and design by contract~\cite{Meyer1997} preconditions, postconditions and invariants) and test suites automatic generation~\cite{Cheon2002,Cheon2004,Cheon2005}.
-Whether a complete and sound system specification, supported by an appropriate formal language (to specify model and properties) and a constrained programming language, can be able to statically prove properties about the system~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
+As already mentioned, in all of these attempts, test suites are
+automatically generated using the system formal specification, or are
+completely replaced by formal verification, typically through the use
+of theorem provers and/or static checkers.  The major precondition on
+the use of these approaches is, at the minimum, a specification of all
+the relevant aspects of the system under development.  Such a
+specification enables simple verification techniques such as runtime
+checking (via assertions and design by contract~\cite{Meyer1997} using
+preconditions, postconditions and invariants) and the automatic
+generation of test suites~\cite{Cheon2002,Cheon2004,Cheon2005}.  Via a
+complete and sound system specification, supported by an appropriate
+formal language (to specify the system model and its properties)
+coupled with a (possibly restricted) programming language, one can
+statically prove properties about the system using a variety of tools
+and
+techniques~\cite{CatanoHuisman02,DetlefsNelsonSaxe2005,KiniryCok04}.
 
 % previous work: why is not satisfying
-The approach is simple: the verification, documentation and requirement specification purposes of the tests are moved on to the formal specifications, and a complete formal specification of the system under development is needed to apply these methodologies.
-The problem is that this requirement is hard to fulfil, since the effort required to write a complete formal specification of the system, in most real world complex cases, is usually greater than writing a suite of tests~\cite{Glass2002}.
-If a complete formal specification is not built, all the previous methodologies share a common problem: the parts informally specified are not verified at all.
-These can obviously be verified with the traditional methods, but the loops between development artifacts and related activities (code, tests, design, refactoring) are neither detailed nor enforced.
-The loops and relations between the different development artifacts are the inner engine of many AMs, they impose an iterative and incremental pace to the development process.
+The underlying idea of this approach is simple: what was once the
+purpose of handwritten tests (verification, documentation, and
+requirement specification) are now the responsibility of the formal
+specifications, and a complete formal specification of the system
+under development is needed to apply these methodologies.  The problem
+is that this requirement is very difficult to fulfill since the effort
+required to write a complete formal specification of the system in
+most real-world complex cases is usually greater than writing a suite
+of tests~\cite{Glass2002}.  
+
+If a complete formal specification is not available, all of the
+previous methodologies share a common problem: the parts informally
+specified are not verified at all.  These parts of the system are
+consequently verified with traditional methods, but the connections
+between development artifacts and related activities (code, tests,
+design, refactoring) are neither detailed nor enforced.  This is
+problematic, as the loops and relations between the different
+development artifacts are the inner engine of many AMs, as they impose
+an iterative and incremental pace to the development process.
 
 % outsider
-Liu in~\cite{Liu2010} takes a different approach where SOFL methodology~\cite{Liu2004} is merged into agile processes. 
-SOFL methodology is based on a three step specification approach: (1) informal specification, (2) semi-formal specification, (3) formal specification. 
-The agile adaptation consists mainly in shorter loops between activities, and into a reduced set of formal specifications.
-The formal specifications are used only to help understanding ambiguous statements in the semi-formal specification, and are not maintened while the system evolves; testing and inspections are based on the semi-formal specification.
-The formal specification are partial, which is interesting, but used only for documentation purposes and than discarded, they are not used at all in the verification of the system.
+Liu takes a different approach wherein the SOFL
+methodology~\cite{Liu2004} is merged into agile
+processes~\cite{Liu2010}.  The SOFL methodology is based on a three
+step specification approach: (1) informal specification, (2)
+semi-formal specification, (3) formal specification.  The agile
+adaptation consists mainly in introducing shorter loops between
+activities and reducing the size of the set of formal specifications.
+The formal specifications are used only to help understand ambiguous
+statements in the semi-formal specification and are not maintained
+while the system evolves.  Testing and inspections are based on the
+semi-formal specification.  The formal specification are partial and
+are only used for documentation purposes and then discarded---they are
+not used at all in the verification of the system.
 
 % what we want to achieve
-The objectives we want to achieve are the following ones: to formally specify only parts of the system, in order to cope with constrained resources and unstable requirements; to draft an highly iterative and incremental development process that blends formal and agile practices.
+In contrast, our objective is to formally specify only those parts of
+the system that must be verified (in order to cope with constrained
+resources and unstable requirements) and to develop and refine a
+highly iterative and incremental development process that blends
+formal and agile practices.
 
 % how we want to achive it
-The main specific problem, by now never addressed, is how to connect development artifacts of the two worlds together: we will define activity cycles, similar to what is found in AMs (especially in XP), to solve this problem in an highly iterative development process.
-We will show how tests can drive the formal specification, how the formal specifications can drive tests and code development, how handmade and automated tests can coexist and support each other, how the unspecified parts of the system can be incrementally specified.
-That is, we will show how to blend, and not compose, formal validation and agile verification practices: a ``Mole'' of verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly spiced Mexican sauce made chiefly from chili peppers (agile) and chocolate (formal), served with meat (working system).}.
-
-
+The main open problem unaddressed in the literature is how to connect
+development artifacts of the two worlds of FMs and AMs together.  To
+answer this challenge we define activity cycles, similar to what is
+found in AMs (especially in XP), to solve this problem in an highly
+iterative development process.  We show how tests drive the formal
+specification, how the formal specifications drive test and code
+development, how handmade and automated tests coexist and support each
+other, how the unspecified parts of the system are incrementally
+specified.  That is, we show how to blend, and not just tack together,
+formal validation and agile verification practices: a \mole of
+verification practices\footnote{A mole (\emph{'m\=ol\=a}) is a highly
+  spiced Mexican sauce made chiefly from chili peppers (agile) and
+  chocolate (formal), served with meat (working system).}.
 
 \section{A Real and Complex Case Study: \\ Rapid Development in Small-scale Hardware Software Co-design}
 \label{subsec:a_real_and_complex_case_study}
 
-``Mole'' practices are applied in the context of a real world case study that matches the problem requirements previously detailed: unstable requirements and development artifacts that need to be formally specified and validated.  
+\mole practices are applied in the context of a real world case study that matches the problem requirements previously detailed: unstable requirements and development artifacts that need to be formally specified and validated.  
 
 \subsection{The UCD CASL SenseTile System}
 \label{sec:ucd-casl-sensetile}
@@ -261,7 +405,7 @@ The hardware-software formal co-design methodologies usually have several common
 When considering the development of the device and of its software driver as separate entities that possibly have to be developed concurrently, the existing approaches are similar to the ones seen in the case of hardware-software co-design~\cite{Valderrama1995,Siegmund2002,Ryzhyk2009}, all of which focus on a specification that aims to be as complete as possible.
 A complete specification is neither feasible nor convenient in our case. 
 The protocol specification must be enhanced incrementally and its complete specification cannot be provided.  
-This makes the problem an ideal candidate to test our ``Mole'' of practices.
+This makes the problem an ideal candidate to test our \mole of practices.
 
 
 
@@ -322,7 +466,7 @@ The associated development cycle is less than one day (as short as a few minutes
 Continuous refactoring~\cite{Fowler1999} enables iterative and incremental development, since the system architecture and design, whether explicitly specified or not, must be cleaned up and modified, to accommodate new requirements, services and modules.
 Refactoring is possible and feasible because of the safety nets provided by the test suites, used as regression test suites.
 
-\subsection{``Mole'' practices}
+\subsection{\mole Practices}
 
 % objectives, repeated
 Our objective is to formally specify only parts of the system under development, in an incremental iterative process.
@@ -390,15 +534,15 @@ In this case, new handmade tests and existing working code drives the formal spe
 The resulting development cycle code is shown in Figure \ref{fig:tdf_diagram}, TDF is used to incrementally add formal specifications to an existing working system.
 
 % all together blends into a mole
-When the ``Mole'' verification practices are used together the initial objectives are achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; the complete freedom to decide what is formally specified; the development cycles and the associated verification practices maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
+When the \mole verification practices are used together the initial objectives are achieved: an incremental and iterative process, where development pace is defined by very short development cycles similar to TDD; the complete freedom to decide what is formally specified; the development cycles and the associated verification practices maintain the corresponding artifacts involved consistent, the correct development cycle is determined by the formality of the artifacts involved, ranging from pure development cycles, shown in Figure \ref{fig:tdd_diagram} and \ref{fig:fdd_diagram}, to blended ones, shown in Figure \ref{fig:fdd_hand_made_tests_diagram} and \ref{fig:tdf_diagram}.
 
 
 
 % =====================================================================
-\section{``Mole'' verification practices applied}
+\section{\mole Verification Practices Applied}
 \label{sec:a_complex_case_study}
 
-\subsection{Data stream, protocol description and protocol specification}
+\subsection{Data Stream, Protocol Description and Protocol Specification}
 \label{subsec:data_stream_and_protocol_description}
 
 % protocol layers
@@ -452,11 +596,11 @@ Code and tests are implemented using TDD.
 % verification
 Verification is provided by handmade test suite, JML annotations and generated unit test suite. 
 It has been built starting from handmade tests only (TDD development cycles).
-Later on JML annotations have been added incrementally, using a mix of ``Mole'' practices: to move from handmade tests to formal specifications, TDF have been initially used; than all the ``Mole'' practices have been used according to the artifacts involved.
+Later on JML annotations have been added incrementally, using a mix of \mole practices: to move from handmade tests to formal specifications, TDF have been initially used; than all the \mole practices have been used according to the artifacts involved.
 
 % development cycles
 The test suites are used to verify board simulators (high-level), RAC and JML annotations are used to check the formally specified properties at runtime.
-Code and tests have been initially implemented using TDD, than using all the ``Mole'' verification practices.
+Code and tests have been initially implemented using TDD, than using all the \mole verification practices.
 
 \paragraph*{Single packet rules}
 
@@ -486,7 +630,7 @@ The low-level simulator is capable to rebuild the \SB data streams: the in and o
 
 
 
-\subsection{JML specification examples}
+\subsection{JML Specification Examples}
 \label{subsec:a_jml_specification_example}
 
 % a simple specification example
@@ -539,7 +683,7 @@ A medium data rate stream sample is considered valid when \lil{isADCActive()} me
 
 
 
-\subsection{Test cases}
+\subsection{Test Cases}
 \label{subsec:test_cases}
 
 % unit tests kinds
@@ -610,7 +754,7 @@ The simulators are adopted in both the handmade and the generated test suite; bo
 
 
 
-\subsection{Test cases on the job}
+\subsection{Test Cases on the Job}
 \label{subsec:test_cases_on_the_job}
 
 % test suites sizes
@@ -701,58 +845,105 @@ It also randomly generated completely invalid packets when overheated.
 The formal JML specifications and the runtime assertion checker correctly identified these errors.
 4 protocol errors regarding the packet info structure specification, and 2 protocol errors regarding the single packet rules were found, as well as the invalid packets. 
 
-
-
-\section{Retrospective on ''Mole`` practices effectiveness}
+\section{Retrospective on \mole Practices Effectiveness}
 \label{subsec:test_cases_retrospectives}
 
 % preconditions on projects
-''Mole`` practices are very easy to be applied and work with.
-Many projects could benefit from the practices, not only the unstable ones that requires a certain level of formality.
-Even projects with no formal specification requirements at all could benefit from the practices, since some system properties are easy to specify and could actually reduce the test suites development effort.
+We believe that \mole practices are relatively easy to introduce and
+use.  Many kinds of projects could benefit from these practices, not
+only those that have unstable requirements but also demands for a
+certain level of formality.  Even projects with no requirements for
+formal specification at all benefit from these practices, since some
+simple or obvious system properties are easy to specify and, though
+their introduction, there is a corresponding reduction in the test
+suite development effort.
 
 % precondition on formal methodology and associated formal suite
-The cornerstone of the practices is the FM with its supporting tools, and the precondition on the tools are not easy to be fulfilled.
-Methodology that require a complete formalization are impossibile to be applied.
-Beside, it is not clear if a tool suite that does not provide a run time verification environment could be used succesfully, not it is clear whether formal methods not based on the contract paradigma (preconditions and postconditions) could be applied at all.
-These are open questions that will nedd to be addressed in future works to assess the real appliability of the ''Mole`` practices.
+The cornerstone of the practices is the formal methodology and its
+supporting tools, and the precondition on the tools' utility is not
+always easily fulfilled.  Methodologies that require a complete
+formalization are nearly impossibile to apply.  In addition, it is not
+clear if a tool suite that does not provide a runtime verification,
+either via runtime checking or simulation, can be broadly used
+succesfully, nor it is clear whether formal methods that are not based
+on the contract paradigm are useful in this context.  These are open
+questions that will need to be addressed in the future to determine
+the broad, concrete applicability of the \mole practices.
 
 % when to use what
-There no strict rules to determine which of the ''Mole`` practices to use to face a specific problem, but only advices.
-TDD if we don't need anu specification, FDD with generated tests if the specification are not too difficult and the scenario is simple enough to be covered by generated tests, FDD with hand made tests if the scenarios is complex, TDF when the specification is complex.
-The experience gathered is yet not enogh to distill idioms or patterns.
+There are no strict rules to determine which of the \mole practices to
+use when facing a specific problem.  We have found that experience
+trumps cookbooks, so we can only give some advice.  We suggesting
+using TDD there is no need for any specifications at all, FDD with
+generated tests if the specification are not too difficult and system
+scenarios is simple enough to be covered by generated tests, FDD with
+hand made tests if the scenarios are complex, and TDF when the
+specification is complex.  We feel that the experience we have
+gathered is not yet enough to distill richer idioms or patterns---such
+is future work.
 
 % what is working and what is not
-FDD with hand made tests is amazing, it is as natural to work with as TDD. 
-FDD with generated tests can be annoying because of the time needed to run the test suite, often only part of the test suite is executed so that the development loops take not too long.
-TDF is great with complex preconditions, but really difficult with postconditions, especially if the soecification is made on top of already existing code. 
-When developing postconditions after code, the test is not expected to fail, hence the feedback is limited and the specification could not be as strict as it was needed. 
-In this specific case TDF effectiveness is limited.
-
-
+Upon reflect, we find that the end result obtained via combining FDD
+with hand made tests is remarkable, as it is as natural to work with
+as TDD.  FDD with generated tests is sometimes annoying because of the
+time needed to run the full test suite, thus often only part of the
+test suite is executed so that the development loops do not take too
+long.  TDF is great for complex preconditions, but really difficult
+with postconditions, especially if the specification is written for
+existing code.  When writing after code, the corresponding test is not
+expected to fail, hence the feedback is limited and the contract is
+often not as strong as needed.  In this specific case, TDF
+effectiveness is limited.
 
 \section{Conclusions}
 \label{sec:conclusions}
 
 % the problem
-In this paper we focus on a specific set of development problems that neither agile methodologies nor FMs are completely confortable to cope with.
-The problems we are interested in are characterized by unstable requirements and artifacts which must be formally specified and verified, and are constrained by deadlines that cannot be postponed.
-We propose a blend of agile and formal engineering practices, enclosed by an iterative and incremental development process: the ``Mole'' development process.
+In this paper we focus on a specific set of development challenges
+with which neither AMs nor FMs are completely confortable.  The
+challenges are characterized by unstable requirements combined with
+artifacts that must be formally specified and verified all while the
+development team is constrained by deadlines that cannot be postponed.
+We propose a blend of agile and formal engineering practices, enclosed
+by an iterative and incremental development process: the \mole
+development process.
 
 % Mole
-The verification practices proposed recreate the fast feedback development environment we find in Test Driven Development, used with formal and informal artifacts.
-A total of four practices are presented, two of them are conservative, following closely the development practices of FMs and AMs, while the other pair are innovative, blending together elements from both worlds.
+The verification practices described in this paper recreate the fast
+feedback development environment we find in Test Driven Development in
+the presence of formal and informal artifacts.  A total of four
+practices are presented---two of them are conservative, following
+closely the development practices of formal methodologies and agile
+methodologies, while the other pair are innovative, blending together
+elements from both worlds.
 
 % Mole at work
-The practices have been applied succesfully to develop a driver for a custom embedded sensor board, equipped with board simulators and protocol verifiers. 
-The protocol and the board specifications were informal and unstable. 
-Yet a working software product was needed as soon as possible, with incrementally added functionality, and keeping it linked with the last specifications of the protocol and the board.
-``Mole'' verification practices enabled us to keep in sync formal specifications (JML annotations), informal specifications (test suites) and source code, through very fast and short development cycles.
-We developed handmade test suites, generated test suites and JML annotations, wich succesfully supported the verification of the driver and the simulators, and the board as well, when it was delivered.
+The practices have been applied succesfully to develop a driver for a
+custom embedded sensor board equipped with board simulators and
+protocol verifiers.  And, while the protocol and the board
+specifications were informal and unstable, a working software product
+was needed as soon as possible, with incrementally added
+functionality, and ensuring that the software and hardware products
+were linked via the last specifications of the protocol and the board.
+\mole verification practices enabled us to keep in sync formal
+specifications (JML annotations), informal specifications (test
+suites), and source code through very rapid, short development cycles.
+We developed handmade test suites and generated test suites and JML
+annotations, all of which successfully supported the verification of
+the software driver and the simulators, as well as the hardware board
+when it was delivered.  In fact, the resulting system had no flaws, as
+it worked correctly the very first time it was plugged in to the
+prototype hardware.
 
 % extending Mole
-The practices are very general, and are applicable to different development languages and FMs.
-One important constraint is on the FM, that must be able to cope with partial specifications; another constraint is on the tools available, that must be able to verify the system properties at runtime and partially automate the verification process of the formalized properties.
+The practices we describe are general and are applicable to different
+development languages and formal methodologies.  One important
+constraint is on the formal methodology is that it must cope with
+partial specifications.  Another constraint is on the tools available,
+which must verify system properties at runtime and partially automate
+the verification process of the formalized properties.
+
+TODO POP!
 
 %\bibliographystyle{lni}
 
@@ -760,3 +951,148 @@ One important constraint is on the FM, that must be able to cope with partial sp
 
 \end{document}
 
+%=====================================================================
+% hi Joe
+
+% what about having the chat next week?
+% on thursday, maybe?
+
+% here are my comments on the reviewers:
+
+% ---------------------------- REVIEW 1 --------------------------
+% OVERALL RATING: 3 (strong accept)
+
+% > This paper successfully bridges the gab between both worlds. I would be i=
+% nteresting to read at bit more about the gained experience with the techniq=
+% ues based on the presented case study (what was easy what difficult).
+
+% agree. to be included
+
+% > Furthermore I recommend that the authors work out a bit more detailed the=
+%  prerequisites to apply a mixture of formal and agile techniques (e.g. by m=
+% eans of a list of "thesis"). This would stimulate the discussion!
+
+% agree. to be included. it's already there, but not clear and polished enoug=
+% h
+
+
+% ---------------------------- REVIEW 2 --------------------------
+% OVERALL RATING: 2 (accept)
+
+% > The authors use the (somewhat formal) JML technology and introduce their =
+% TDF-methodology as a variant of more classic development cycles.
+
+% why "somewhat"?
+
+% > Content-wise it must be said that, given the amount of material in the te=
+% xt, the conclusions drawn and lessons learnt are a bit 'thin'. E.g. Does TD=
+% F really work? what is your experience?
+
+% partial agree. to be expanded, in the line of the previous comments
+
+% > It seems that the format of the printed area (text height and width) is n=
+% ot in accordance with the other conference contributions. When reformatted,=
+%  the already long paper will probably get longer. The (too large) wordiness=
+%  of the paper could perhaps be reduced somewhat to compensate.
+
+% uh
+% I used thir template... I'm "almost" sure
+% I'll double check this
+% maybe some following format options
+
+% > page 1, abstract: 'not always see eye to eye' seems an inappropriate way =
+% of stating 'do not meet face to face'.
+% > page 1, abstract end: highly-spices -> highly-spiced
+% > page 2, line 2: citation problem
+% > page 2, line 12: 'ther'?
+% > page 3, line 8 and 10: appliable in -> applicable to?
+% > page 3, line 8: yeilding -> yielding
+% > page 3, middle: .... the handmade test suites are automatically generated=
+%  .... ?
+% > page 3, the same section: the last two sentences seem crippled; split the=
+% m up!
+% > page 6, line -5: Identify -> Identifying
+% > page 9, line 1: confidant -> confident
+% > page 15, line 6: inoovative -> innovative
+% > page 15, line 12: in sink -> in sync
+% > page 17, last line: litt ref in disorder
+
+% ok
+
+% > Summing up the editorial part: Please use a spelling checker and perhaps =
+% some review by a native speaker
+% could help sharpening (and shortening) some sentences.
+
+% well... I've used a spell checker!
+% but we have to reread it once the modifications are in place
+
+% ---------------------------- REVIEW 3 --------------------------
+% OVERALL RATING: 2 (accept)
+
+% > they do not mention Liu's work on the SOFL foraml engineering method for =
+% software development that have been xtensively studies over the last 15 yea=
+% rs with the aim to solve the similar problem. In particular, the recent pap=
+% er on the application of SOFL to achieve agile process has provided a very =
+% different approach from the mentioned approaches
+% > Shaoying Liu, ``An Approach to Applying SOFL for Agile Process and Its Ap=
+% plication in Developing a Test Support Tool'', Innovations in Systems and S=
+% oftware Engineering, Springer London, 22 December, DOI 10.1007/s11334-0114-=
+% 3.
+
+% ok
+% to be read and analyzed
+
+% ---------------------------- REVIEW 4 --------------------------
+% OVERALL RATING: 1 (weak accept)
+
+% > I did find it disturbing that the paper never clearly distinguishes betwe=
+% en structural and functional testing . This is an
+% important distinction as it potentially evidences different types of proble=
+% ms.
+
+% I'll rewrite some parts to make the distinction clear
+
+% > Moreover, there is a distinct difference between automatically generated =
+% tests and manually produced tests as to how well they apply to one or the o=
+% ther.
+
+% the distinction is clear in the paper... I don't understand this
+
+% > The overall description of how AM and FM are merged is not that persuasiv=
+% e, as a result. In particular, Figure 2 does not
+% convey much nor profound value in its current incarnation and description.
+
+% mmhh
+% not much that can be done here... I think
+% how can we be more "persuasive"?
+
+% > It would help if the authors would more specifically address what type of=
+%  tests the JML specification helps generate. In the
+% case study, it is a structural coverage type test.
+
+% mmhh
+% I've explained this
+% it would take me pages to go into specific details... and I've cited
+% works where this is explained
+
+% > All that said, it is a bit unclear as to where the presented work is actu=
+% ally pushing the boundaries of the current state of
+% the field, other than in actually presenting the approach as an FM+AM hybri=
+% d.
+
+% we are actually talking about FM+AM hybrids... that IS the filed,
+% so... what's this question about?
+
+% > As a suggestion, then, it could be good if the verbosity and obtusity of =
+% the article is reduced
+
+% ok...
+
+% > and a more formal and incisive treatise is presented.
+
+% no idea how to do this
+% nor I'm sure I really want to do this
+
+
+% --=20
+% Vieri del Bianco
