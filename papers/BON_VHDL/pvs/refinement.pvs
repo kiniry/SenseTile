@@ -1,5 +1,4 @@
 % A theory of higher-order refinement.
-% Joe Kiniry, Dragan Stosic, and Fintan Fairmichael
 % July 2010
 
 refinement[T, U: TYPE,
@@ -25,11 +24,11 @@ BEGIN
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 == u1 IMPLIES t0 == t1  
  ENDASSUMING
-% property proved by first 3 tests theories
+% property proved by  4 tests theories
  lemma_ref_composition: LEMMA FORALL ((t:T),(u:U)): 
                      |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
 
-% property proved by first 3 tests theories
+% property proved by  4 tests theories
  lemma_ref_equal : LEMMA FORALL (u0,u1:U),(t0,t1 : T) :  
                  gen(t0)== gen(t1) AND 
                  t1 == t0          IMPLIES 
@@ -184,21 +183,49 @@ BEGIN
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nats_non_trivial
 
+
+% Refinement between two  infinite sets of nats
+% trivial equivalence.
+infinite_to_infinite_trivial: THEORY
+BEGIN
+   IMPORTING ints@div
+  T4: TYPE = nat
+  U4: TYPE = nat
+  importing relations[T4], relations[U4]
+  equivT(t0, t1: T4): bool = div(t0,10) = div(t1,10)
+  equivU(u0, u1: U4): bool = u0 = u1
+  g4: [T4 -> U4] = (LAMBDA (t: T4): div(t,10))
+  e4: [U4 -> T4] = (LAMBDA (u: U4): 10*u)
+  ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): div(p`1,10) = p`2)
+
+%  lemma_ref_composition: LEMMA FORALL ((t:T4),(u:U4)): 
+%                          ref4(t,u) IMPLIES ref4(e4(g4(t)),g4(e4(u)))
+  
+%  lemma_ref_equal : LEMMA FORALL (u0,u1:U4),(t0,t1 : T4) :  
+%                  equivU(g4(t0),g4(t1)) AND 
+%                 equivT(t1,t0)  IMPLIES 
+%                 ref4(t0,g4(t0)) = ref4(t1,g4(t1))
+  
+  IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
+END infinite_to_infinite_trivial
+
+
 % Refinement between an infinite set of nats and a finite set with
 % non-trivial equivalence.
 infinite_to_finite: THEORY
 BEGIN
-  T4: TYPE = nat
-  U4: TYPE = below(10)
-  importing relations[T4], relations[U4]
-  equivT(t0, t1: T4): bool = rem(10)(t0) = rem(10)(t1)
-  equivU(u0, u1: U4): bool = u0 = u1
-  g4: [T4 -> U4] = (LAMBDA (t: T4): rem(10)(t))
-  e4: [U4 -> T4] = (LAMBDA (u: U4): u)
-  ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): rem(10)(p`1) = p`2)
+  T5: TYPE = nat
+  U5: TYPE = below(10)
+  importing relations[T5], relations[U5]
+  equivT(t0, t1: T5): bool = rem(10)(t0) = rem(10)(t1)
+  equivU(u0, u1: U5): bool = u0 = u1
+  g5: [T5 -> U5] = (LAMBDA (t: T5): rem(10)(t))
+  e5: [U5 -> T5] = (LAMBDA (u: U5): u)
+  ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): rem(10)(p`1) = p`2)
   
-  IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
+  IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
 END infinite_to_finite
+
 
 % Refinement between a finite set of nats and an infinite set of nats
 % with non-trivial equivalence.
@@ -208,17 +235,17 @@ END infinite_to_finite
 % but in view of the existence of odd numbers, it is not reflexive.
 finite_to_infinite: THEORY
 BEGIN
-  T5: TYPE = bool
-  U5: TYPE = nat
-  importing relations[T5], relations[U5]
-  equivT(t0, t1: T5): bool = t0 = t1
-  equivU(u0, u1: U5): bool = (even?(u0) and even?(u1)) xor
+  T6: TYPE = bool
+  U6: TYPE = nat
+  importing relations[T6], relations[U6]
+  equivT(t0, t1: T6): bool = t0 = t1
+  equivU(u0, u1: U6): bool = (even?(u0) and even?(u1)) xor
                              (odd?(u0) and odd?(u1))
-  g5: [T5 -> U5] = (LAMBDA (t: T5): IF t THEN 0 ELSE 1 ENDIF)
-  e5: [U5 -> T5] = (LAMBDA (u: U5): even?(u))
-  ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): p`1 = even?(p`2))
+  g6: [T6 -> U6] = (LAMBDA (t: T6): IF t THEN 0 ELSE 1 ENDIF)
+  e6: [U6 -> T6] = (LAMBDA (u: U6): even?(u))
+  ref6: predicate[[T6, U6]] = (LAMBDA (p: [T6, U6]): p`1 = even?(p`2))
 
-  IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
+  IMPORTING refinement[T6, U6, equivT, equivU , g6, e6, ref6]
 END finite_to_infinite
 
 % The collection of all simple examples.
@@ -226,6 +253,6 @@ simplest_examples: THEORY
 BEGIN
   IMPORTING singleton_example, finite_nats_trivial,
             finite_nats_non_trivial, infinite_nats_non_trivial,
-            infinite_to_finite, finite_to_infinite
+            infinite_to_infinite_trivial,infinite_to_finite, finite_to_infinite
 
 END simplest_examples
