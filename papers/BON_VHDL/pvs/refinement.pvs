@@ -1,6 +1,5 @@
 % A theory of higher-order refinement.
 % July 2010
-
 refinement[T, U: TYPE,
            (IMPORTING relations[T]) ==: equivalence,
            (IMPORTING relations[U]) ==: relations[U].equivalence,
@@ -34,9 +33,8 @@ BEGIN
                  t1 == t0          IMPLIES 
                  |-(t0,gen(t0)) = |-(t1,gen(t1))
 
-
-
 END refinement
+
 
 refinement_model_theory[T, U: TYPE,
                         (IMPORTING relations[T]) ==: equivalence,
@@ -58,6 +56,7 @@ BEGIN
     interpretation_preserves_validity: ASSUMPTION (t |= p) IMPLIES (u |= [|p|])
   ENDASSUMING
 END refinement_model_theory
+
 
 % What follows is an series of increasingly complex theories that
 % highlight different kinds of types between which we define
@@ -81,6 +80,8 @@ BEGIN
   IMPORTING refinement[T0, U0, ==, ==, g0, e0, ref0]
 END singleton_example
 
+
+
 % Refinement between finite sets of nats with trivial equivalence.
 finite_nats_trivial: THEORY
 BEGIN
@@ -96,6 +97,7 @@ BEGIN
     (LAMBDA (p: [T1, U1]): 2*p`1 = p`2 OR 2*p`1+1 = p`2)
 
   IMPORTING refinement[T1, U1, ==, ==, g1, e1, ref1]
+% proved lemmas
 % lemma_ref_composition: LEMMA FORALL ((t:T1),(u:U1)): 
 %                        ref1(t,u) IMPLIES ref1(e1(g1(t)),g1(e1(u)))  proved :)
 
@@ -106,8 +108,10 @@ BEGIN
     
 END finite_nats_trivial
 
-% Refinement between finite sets of nats with non-trivial equivalence.
 
+
+% Refinement between finite sets of nats with non-trivial equivalence.
+% Hand-proved. 
 finite_nats_non_trivial: THEORY
 BEGIN
   IMPORTING ints@div
@@ -143,6 +147,8 @@ BEGIN
     (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
 
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
+
+% proved lemmas
 %   lemma_ref_composition: LEMMA FORALL ((t:T2),(u:U2)): 
 %                          ref2(t,u) IMPLIES ref2(e2(g2(t)),g2(e2(u)))  proved :)
   
@@ -152,6 +158,8 @@ BEGIN
 %                 ref2(t0,g2(t0)) = ref2(t1,g2(t1))
    
 END finite_nats_non_trivial
+
+
 
 % Refinement between infinite sets of nats with non-trivial equivalence.
 infinite_nats_non_trivial: THEORY
@@ -183,7 +191,6 @@ BEGIN
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nats_non_trivial
 
-
 % Refinement between two  infinite sets of nats
 % trivial equivalence.
 infinite_to_infinite_trivial: THEORY
@@ -198,6 +205,7 @@ BEGIN
   e4: [U4 -> T4] = (LAMBDA (u: U4): 10*u)
   ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): div(p`1,10) = p`2)
 
+% proved lemmas
 %  lemma_ref_composition: LEMMA FORALL ((t:T4),(u:U4)): 
 %                          ref4(t,u) IMPLIES ref4(e4(g4(t)),g4(e4(u)))
   
@@ -239,7 +247,7 @@ BEGIN
   U6: TYPE = nat
   importing relations[T6], relations[U6]
   equivT(t0, t1: T6): bool = t0 = t1
-  equivU(u0, u1: U6): bool = (even?(u0) and even?(u1)) xor
+  equivU(u0, u1: U6): bool = (even?(u0) and even?(u1)) OR
                              (odd?(u0) and odd?(u1))
   g6: [T6 -> U6] = (LAMBDA (t: T6): IF t THEN 0 ELSE 1 ENDIF)
   e6: [U6 -> T6] = (LAMBDA (u: U6): even?(u))
@@ -247,6 +255,38 @@ BEGIN
 
   IMPORTING refinement[T6, U6, equivT, equivU , g6, e6, ref6]
 END finite_to_infinite
+
+
+finite_to_infinite_modified: THEORY
+BEGIN
+  T7: TYPE = below(1)
+
+  U7: TYPE = nat
+
+  IMPORTING relations[T7], relations[U7]
+  
+  equivT(t0, t1: T7): bool = t0 = t1 
+  
+  equivU(u0, u1: U7): bool = rem(1)(u0) = rem(1)(u1) OR rem(0)(u0) = rem(0)(u1)    
+
+  g7: [T7 -> U7] = (LAMBDA (t: T7): t )
+
+  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (rem(1)(u)=1) THEN 1 ELSE 0 ENDIF )
+
+  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): 
+                              (p`1) = rem(1)(p`2) OR (p`1) = rem(0)(p`2) )
+
+ % proved lemmas
+ % lemma_ref_composition: LEMMA FORALL ((t:T7),(u:U7)): 
+ %                         ref7(t,u) IMPLIES ref7(e7(g7(t)),g7(e7(u)))
+  
+ % lemma_ref_equal : LEMMA FORALL (u0,u1:U7),(t0,t1 : T7) :  
+ %                 equivU(g7(t0),g7(t1)) AND 
+ %                equivT(t1,t0)  IMPLIES 
+ %                ref7(t0,g7(t0)) = ref7(t1,g7(t1))
+
+  IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
+END finite_to_infinite_modified
 
 % The collection of all simple examples.
 simplest_examples: THEORY
