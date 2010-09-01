@@ -7,6 +7,7 @@ refinement[T, U: TYPE,
            ext: [U -> T],
            |-: predicate[[T, U]]]: THEORY
 BEGIN
+ 
   ASSUMING
     t, t0, t1: VAR T
     u, u0, u1: VAR U
@@ -22,23 +23,40 @@ BEGIN
     gen_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
                                     t0 == t1 IMPLIES u0 == u1
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
-                                    u0 == u1 IMPLIES t0 == t1  
+                                    u0 == u1 IMPLIES t0 == t1
+      
  ENDASSUMING
-% property proved in  5 tests theories
+
  lemma_ref_composition: LEMMA FORALL ((t:T),(u:U)): 
                      |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
 
-% property proved in  5 tests theories
+
  lemma_gen_ref_equal : LEMMA FORALL (u0,u1:U),(t0,t1 : T) :  
                        gen(t0)== gen(t1) AND 
                        t1 == t0          IMPLIES 
                        |-(t0,gen(t0)) = |-(t1,gen(t1))
 
-% property proved in  5 tests theories
+
  lemma_ext_ref_equal : LEMMA FORALL (u0,u1:U),(t0,t1 : T) :  
                        ext(u0)== ext(u1) AND 
                        u1 == u0          IMPLIES 
                        |-(ext(u0),u0) = |-(ext(u1),u1)
+
+ lemma_equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                              u0 == gen(t0) AND 
+                              t0 == ext(u0) AND 
+                              |-(t0,u0)  IMPLIES |-(ext(u0),gen(t0))
+
+ lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                              u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
+                              t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
+                              |-(t0,u0)  IMPLIES |-(ext(u0),gen(t0))
+
+ lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                              u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
+                              t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
+                              |-(t0,u0)  IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
+                                                        QuotientDefinition[U].repEC(==)(gen(t0)))
 
 END refinement
 
@@ -92,12 +110,15 @@ END singleton_example
 % Refinement between finite sets of nats with trivial equivalence.
 finite_nats_trivial: THEORY
 BEGIN
-  IMPORTING ints@div
+  
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
-  IMPORTING relations[T1], relations[U1]
+  
+  IMPORTING ints@div, relations[T1], relations[U1],QuotientDefinition[T1],QuotientDefinition[U1]; 
+  
   ==(t0, t1: T1): bool = t0 = t1;
   ==(u0, u1: U1): bool = div(u0,2) = div(u1,2);
+  
   g1: [T1 -> U1] = (LAMBDA (t: T1): 2*t)
   e1: [U1 -> T1] = (LAMBDA (u: U1): div(u,2))
   ref1: predicate[[T1, U1]] =
@@ -117,7 +138,25 @@ BEGIN
 %                       u1 == u0          IMPLIES 
 %                       ref1(e1(u0),u0) = ref1(e1(u1),u1)
    
-END finite_nats_trivial
+%lemma_equivalence_ref_impl: LEMMA FORALL(t0:T1),(u0:U1):
+%                              u0 == g1(t0) AND 
+%                              t0 == e1(u0) AND 
+%                              ref1(t0,u0)  IMPLIES ref1(e1(u0),g1(t0))
+
+lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T1),(u0:U1):
+                              u0 == QuotientDefinition[U1].repEC(==)(g1(t0)) AND 
+                              t0 == QuotientDefinition[T1].repEC(==)(e1(u0)) AND 
+                              ref1(t0,u0)  IMPLIES ref1(e1(u0),g1(t0))
+
+
+
+lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T1),(u0:U1):
+                              u0 == QuotientDefinition[U1].repEC(==)(g1(t0)) AND 
+                              t0 == QuotientDefinition[T1].repEC(==)(e1(u0)) AND 
+                              ref1(t0,u0)  IMPLIES ref1(QuotientDefinition[T1].repEC(==)(e1(u0)),
+                                                        QuotientDefinition[U1].repEC(==)(g1(t0)))
+                                                            
+END finite_nats_trivial 
 
 
 
@@ -129,7 +168,7 @@ BEGIN
 
   T2: TYPE = below(8) % { 0,1,2,3,4,5,6,7}
   U2: TYPE = below(22)% {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21} 
-  IMPORTING relations[T2], relations[U2]
+  IMPORTING relations[T2], relations[U2],QuotientDefinition[T2],QuotientDefinition[U2];
 
   ==(t0, t1: T2): bool =  t0 = t1      OR % {0,0},{0,4},{4,0},
                           t0 + 4 = t1  OR % {1,1},{1,5},{5,1},
@@ -160,18 +199,36 @@ BEGIN
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
 
 % proved lemmas
-%   lemma_ref_composition: LEMMA FORALL ((t:T2),(u:U2)): 
+% lemma_ref_composition: LEMMA FORALL ((t:T2),(u:U2)): 
 %                          ref2(t,u) IMPLIES ref2(e2(g2(t)),g2(e2(u)))  proved :)
   
-%  lemma_gen_ref_equal : LEMMA FORALL (u0,u1:U2),(t0,t1 : T2) :  
-%                 g2(t0)== g2(t1) AND 
-%                 t1 == t0  IMPLIES 
-%                 ref2(t0,g2(t0)) = ref2(t1,g2(t1))
+%lemma_gen_ref_equal : LEMMA FORALL (u0,u1:U2),(t0,t1 : T2) :  
+%                        g2(t0)== g2(t1) AND 
+%                        t1 == t0  IMPLIES 
+%                        ref2(t0,g2(t0)) = ref2(t1,g2(t1))
 
 %lemma_ext_ref_equal : LEMMA FORALL (u0,u1:U2),(t0,t1 : T2) :  
-%                 e2(u0)== e2(u1) AND 
-%                 u1 == u0          IMPLIES 
-%                 ref2(e2(u0),u0) = ref2(e2(u1),u1)
+%                        e2(u0)== e2(u1) AND 
+%                        u1 == u0          IMPLIES 
+%                        ref2(e2(u0),u0) = ref2(e2(u1),u1)
+
+%lemma_equivalence_ref_impl:LEMMA FORALL(t0:T2),(u0:U2):
+%                             u0 == g2(t0) AND 
+%                             t0 == e2(u0) AND 
+%                             ref2(t0,u0) IMPLIES ref2(e2(u0),g2(t0))
+
+
+
+lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T2),(u0:U2):
+                              u0 == QuotientDefinition[U2].repEC(==)(g2(t0)) AND 
+                              t0 == QuotientDefinition[T2].repEC(==)(e2(u0)) AND 
+                              ref2(t0,u0)  IMPLIES ref2(e2(u0),g2(t0))
+
+lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T2),(u0:U2):
+                              u0 == QuotientDefinition[U2].repEC(==)(g2(t0)) AND 
+                              t0 == QuotientDefinition[T2].repEC(==)(e2(u0)) AND 
+                              ref2(t0,u0)  IMPLIES ref2(QuotientDefinition[T2].repEC(==)(e2(u0)),
+                                                        QuotientDefinition[U2].repEC(==)(g2(t0)))
    
 END finite_nats_non_trivial
 
@@ -182,7 +239,7 @@ infinite_nats_non_trivial: THEORY
 BEGIN
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
-    IMPORTING relations[T3], relations[U3]
+    IMPORTING relations[T3], relations[U3];
   % adjacent evens are in equiv class
   equivT(t0, t1: T3): bool = t0 = t1 OR
     (abs(t0 - t1) = 2 AND (EXISTS (o: nat | odd?(o)): 2*o = max(t0, t1)));
@@ -214,7 +271,8 @@ BEGIN
    IMPORTING ints@div
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
-    IMPORTING relations[T3], relations[U3]
+    IMPORTING relations[T3], relations[U3],
+              QuotientDefinition[T3],QuotientDefinition[U3];
   % adjacent evens are in equiv class
   equivT(t0, t1: T3): bool = (t0 = t1) OR  
                              ((div(t0,2)= div(t1,2)));
@@ -228,6 +286,24 @@ BEGIN
  
   ref3: predicate[[T3, U3]] = (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2)
 
+ % lemma_equivalence_ref_impl: LEMMA FORALL(t0:T3),(u0:U3):
+ %                             equivU(u0,g3(t0)) AND 
+ %                             equivT(t0,e3(u0)) AND 
+ %                             ref3(t0,u0) IMPLIES ref3(e3(u0),g3(t0))
+ 
+
+lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T3),(u0:U3):
+                              equivU(u0,QuotientDefinition[U3].repEC(equivU)(g3(t0))) AND 
+                              equivT(t0,QuotientDefinition[T3].repEC(equivT)(e3(u0))) AND 
+                              ref3(t0,u0)  IMPLIES ref3(e3(u0),g3(t0))
+
+lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T3),(u0:U3):
+                              equivU(u0,QuotientDefinition[U3].repEC(equivU)(g3(t0))) AND 
+                              equivT(t0,QuotientDefinition[T3].repEC(equivT)(e3(u0))) AND 
+                              ref3(t0,u0)  IMPLIES ref3(QuotientDefinition[T3].repEC(equivT)(e3(u0)),
+                                                        QuotientDefinition[U3].repEC(equivU)(g3(t0)))
+
+
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nn_trivial_modified
 
@@ -238,7 +314,8 @@ BEGIN
    IMPORTING ints@div
   T4: TYPE = nat
   U4: TYPE = nat
-  importing relations[T4], relations[U4]
+  importing relations[T4], relations[U4],
+            QuotientDefinition[T4],QuotientDefinition[U4];
   equivT(t0, t1: T4): bool = div(t0,10) = div(t1,10)
   equivU(u0, u1: U4): bool = u0 = u1
   g4: [T4 -> U4] = (LAMBDA (t: T4): div(t,10))
@@ -258,6 +335,23 @@ BEGIN
 %                        equivT(e4(u0),e4(u1)) AND 
 %                        equivU(u1,u0)          IMPLIES 
 %                        ref4(e4(u0),u0) = ref4(e4(u1),u1)
+
+%lemma_equivalence_ref_impl: LEMMA FORALL(t0:T4),(u0:U4):
+%                              equivU(u0,g4(t0)) AND 
+%                              equivT(t0,e4(u0)) AND 
+%                              ref4(t0,u0) IMPLIES ref4(e4(u0),g4(t0))
+
+
+lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T4),(u0:U4):
+                              equivU(u0,QuotientDefinition[U4].repEC(equivU)(g4(t0))) AND 
+                              equivT(t0,QuotientDefinition[T4].repEC(equivT)(e4(u0))) AND 
+                              ref4(t0,u0)  IMPLIES ref4(e4(u0),g4(t0))
+
+lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T4),(u0:U4):
+                              equivU(u0,QuotientDefinition[U4].repEC(equivU)(g4(t0))) AND 
+                              equivT(t0,QuotientDefinition[T4].repEC(equivT)(e4(u0))) AND 
+                              ref4(t0,u0)  IMPLIES ref4(QuotientDefinition[T4].repEC(equivT)(e4(u0)),
+                                                        QuotientDefinition[U4].repEC(equivU)(g4(t0)))
 
   
   IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
@@ -312,7 +406,8 @@ BEGIN
 
   U7: TYPE = nat
 
-  IMPORTING relations[T7], relations[U7]
+  IMPORTING relations[T7], relations[U7],
+            QuotientDefinition[T7],QuotientDefinition[U7];
   
   equivT(t0, t1: T7): bool = t0 = t1 
   
@@ -328,7 +423,6 @@ BEGIN
  % proved lemmas
  % lemma_ref_composition: LEMMA FORALL ((t:T7),(u:U7)): 
  %                         ref7(t,u) IMPLIES ref7(e7(g7(t)),g7(e7(u)))
-  
  % lemma_gen_ref_equal : LEMMA FORALL (u0,u1:U7),(t0,t1 : T7) :  
  %                       equivU(g7(t0),g7(t1)) AND 
  %                       equivT(t1,t0)  IMPLIES 
@@ -338,6 +432,22 @@ BEGIN
  %                       equivT(e7(u0),e7(u1)) AND 
  %                       equivU(u1,u0)          IMPLIES 
  %                       ref7(e7(u0),u0) = ref7(e7(u1),u1)
+ %lemma_equivalence_ref_impl: LEMMA FORALL(t0:T7),(u0:U7):
+ %                             equivU(u0,g7(t0)) AND 
+ %                             equivT(t0,e7(u0)) AND 
+ %                             ref7(t0,u0) IMPLIES ref7(e7(u0),g7(t0))
+
+ 
+ lemma_rep_equiv_ref_impl: LEMMA FORALL(t0:T7),(u0:U7):
+                              equivU(u0,QuotientDefinition[U7].repEC(equivU)(g7(t0))) AND 
+                              equivT(t0,QuotientDefinition[T7].repEC(equivT)(e7(u0))) AND 
+                              ref7(t0,u0)  IMPLIES ref7(e7(u0),g7(t0))
+
+ lemma_rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T7),(u0:U7):
+                              equivU(u0,QuotientDefinition[U7].repEC(equivU)(g7(t0))) AND 
+                              equivT(t0,QuotientDefinition[T7].repEC(equivT)(e7(u0))) AND 
+                              ref7(t0,u0)  IMPLIES ref7(QuotientDefinition[T7].repEC(equivT)(e7(u0)),
+                                                        QuotientDefinition[U7].repEC(equivU)(g7(t0)))
 
   IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END finite_to_infinite_modified
