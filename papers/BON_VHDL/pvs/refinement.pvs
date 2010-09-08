@@ -197,11 +197,10 @@ BEGIN
   U3: TYPE = {n: nat | odd?(n)}
     IMPORTING relations[T3], relations[U3],
               QuotientDefinition[T3],QuotientDefinition[U3];
-  % adjacent evens are in equiv class
-  equivT(t0, t1: T3): bool = abs(div(t0,2) - div(t1,2)) <= 1;
+
+  equivT(t0, t1: T3): bool = rem(4)(t0) = rem(4)(t1);
  
-  % pairs of odds are in equiv class
-  equivU(u0, u1: U3): bool = abs(div(u0,2) - div(u1,2)) <= 1;
+  equivU(u0, u1: U3): bool = rem(4)(u0-1) = rem(4)(u1-1);
   
   g3: [T3 -> U3] = (LAMBDA (t: T3): t+1)
   e3: [U3 -> T3] = (LAMBDA (u: U3): u-1)
