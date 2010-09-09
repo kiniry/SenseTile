@@ -100,7 +100,8 @@ BEGIN
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
   
-  IMPORTING ints@div, relations[T1], relations[U1],QuotientDefinition[T1],QuotientDefinition[U1]; 
+  IMPORTING ints@div, relations[T1], relations[U1],
+QuotientDefinition[T1],QuotientDefinition[U1]; 
   
   ==(t0, t1: T1): bool = t0 = t1;
   ==(u0, u1: U1): bool = div(u0,2) = div(u1,2);
@@ -124,7 +125,8 @@ BEGIN
 
   T2: TYPE = below(8) % { 0,1,2,3,4,5,6,7}
   U2: TYPE = below(22)% {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21} 
-  IMPORTING relations[T2], relations[U2],QuotientDefinition[T2],QuotientDefinition[U2];
+  IMPORTING relations[T2], relations[U2],
+QuotientDefinition[T2],QuotientDefinition[U2];
 
   ==(t0, t1: T2): bool =  t0 = t1      OR % {0,0},{0,4},{4,0},
                           t0 + 4 = t1  OR % {1,1},{1,5},{5,1},
@@ -189,7 +191,7 @@ BEGIN
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nats_non_trivial
 
-% Added by Dragan AUG 31 
+% Added by Dragan SEP 9 
 infinite_nn_trivial_modified: THEORY
 BEGIN
    IMPORTING ints@div
@@ -235,10 +237,10 @@ BEGIN
   T5: TYPE = nat
   U5: TYPE = below(10)
   importing relations[T5], relations[U5]
-  equivT(t0, t1: T5): bool = rem(10)(t0) = rem(10)(t1)
-  equivU(u0, u1: U5): bool = u0 = u1
-  g5: [T5 -> U5] = (LAMBDA (t: T5): rem(10)(t))
-  e5: [U5 -> T5] = (LAMBDA (u: U5): u)
+  equivT(t0, t1: T5): bool = t0 = t1 OR rem(10)(t0) = rem(10)(t1)
+  equivU(u0, u1: U5): bool = u0 = u1;
+  g5: [T5 -> U5] = LAMBDA (t: T5): rem(10)(t)
+  e5: [U5 -> T5] = LAMBDA (u: U5) : u
   ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): rem(10)(p`1) = p`2)
   
   IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
@@ -279,14 +281,13 @@ BEGIN
   equivT(t0, t1: T7): bool = t0 = t1 
 
   % INCORRECT DEFINITION  
-  equivU(u0, u1: U7): bool = rem(1)(u0) = rem(1)(u1) OR rem(0)(u0) = rem(0)(u1)    
+  equivU(u0, u1: U7): bool = rem(1)(u0) = rem(1)(u1)    
 
   g7: [T7 -> U7] = (LAMBDA (t: T7): t )
 
-  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (rem(1)(u)=1) THEN 1 ELSE 0 ENDIF )
+  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (rem(1)(u) = 1 ) THEN 1 ELSE 0 ENDIF )
 
-  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): 
-                              (p`1) = rem(1)(p`2) OR (p`1) = rem(0)(p`2) )
+  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): (p`1) = rem(1)(p`2))
 
   IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END finite_to_infinite_modified
