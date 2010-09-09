@@ -61,6 +61,7 @@ refinement_model_theory[T, U: TYPE,
 BEGIN
   ASSUMING
   IMPORTING refinement[T, U, ==, ==, gen, ext, |-]
+
     p: VAR predicate[T]
     q: VAR predicate[U]
     t: VAR T
@@ -69,7 +70,6 @@ BEGIN
     interpretation_preserves_validity: ASSUMPTION (t |= p) IMPLIES (u |= [|p|])
   ENDASSUMING
 END refinement_model_theory
-
 
 % What follows is an series of increasingly complex theories that
 % highlight different kinds of types between which we define
@@ -96,12 +96,11 @@ END singleton_example
 % Refinement between finite sets of nats with trivial equivalence.
 finite_nats_trivial: THEORY
 BEGIN
-  
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
   
   IMPORTING ints@div, relations[T1], relations[U1],
-QuotientDefinition[T1],QuotientDefinition[U1]; 
+            QuotientDefinition[T1], QuotientDefinition[U1]; 
   
   ==(t0, t1: T1): bool = t0 = t1;
   ==(u0, u1: U1): bool = div(u0,2) = div(u1,2);
@@ -126,7 +125,7 @@ BEGIN
   T2: TYPE = below(8) % { 0,1,2,3,4,5,6,7}
   U2: TYPE = below(22)% {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21} 
   IMPORTING relations[T2], relations[U2],
-QuotientDefinition[T2],QuotientDefinition[U2];
+            QuotientDefinition[T2], QuotientDefinition[U2];
 
   ==(t0, t1: T2): bool =  t0 = t1      OR % {0,0},{0,4},{4,0},
                           t0 + 4 = t1  OR % {1,1},{1,5},{5,1},
@@ -158,15 +157,14 @@ QuotientDefinition[T2],QuotientDefinition[U2];
    
 END finite_nats_non_trivial
 
-
-
 % Refinement between infinite sets of nats with non-trivial equivalence.
 % PROBLEMATIC
 infinite_nats_non_trivial: THEORY
 BEGIN
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
-    IMPORTING relations[T3], relations[U3];
+  IMPORTING relations[T3], relations[U3];
+
   % adjacent evens are in equiv class
   equivT(t0, t1: T3): bool = t0 = t1 OR
     (abs(t0 - t1) = 2 AND (EXISTS (o: nat | odd?(o)): 2*o = max(t0, t1)));
@@ -191,14 +189,15 @@ BEGIN
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nats_non_trivial
 
-% Added by Dragan SEP 9 
-infinite_nn_trivial_modified: THEORY
+% Refinement between infinite sets of nats with a finite number of
+% equivalence classes.  Added by Dragan SEP 9.
+infinite_nats_finite_equivalence_classes: THEORY
 BEGIN
-   IMPORTING ints@div
+  IMPORTING ints@div
   T3: TYPE = {n: nat | even?(n)}
   U3: TYPE = {n: nat | odd?(n)}
-    IMPORTING relations[T3], relations[U3],
-              QuotientDefinition[T3],QuotientDefinition[U3];
+  IMPORTING relations[T3], relations[U3],
+            QuotientDefinition[T3], QuotientDefinition[U3];
 
   equivT(t0, t1: T3): bool = rem(4)(t0) = rem(4)(t1);
  
@@ -210,16 +209,19 @@ BEGIN
   ref3: predicate[[T3, U3]] = (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2)
 
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
-END infinite_nn_trivial_modified
+END infinite_nats_finite_equivalence_classes
 
-% Added by Dragan AUG 31 
+% Refinement between infinite sets of nats with a infinite number of
+% equivalence classes in one type and an infinite number of trivial
+% equivalance classes.  Added by Dragan AUG 31.
 infinite_to_infinite_trivial: THEORY
 BEGIN
-   IMPORTING ints@div
+  IMPORTING ints@div
   T4: TYPE = nat
   U4: TYPE = nat
-  importing relations[T4], relations[U4],
-            QuotientDefinition[T4],QuotientDefinition[U4];
+  IMPORTING relations[T4], relations[U4],
+            QuotientDefinition[T4], QuotientDefinition[U4];
+
   equivT(t0, t1: T4): bool = div(t0,10) = div(t1,10)
   equivU(u0, u1: U4): bool = u0 = u1
   g4: [T4 -> U4] = (LAMBDA (t: T4): div(t,10))
@@ -272,11 +274,9 @@ END finite_to_infinite
 finite_to_infinite_modified: THEORY
 BEGIN
   T7: TYPE = below(1)
-
   U7: TYPE = nat
-
   IMPORTING relations[T7], relations[U7],
-            QuotientDefinition[T7],QuotientDefinition[U7];
+            QuotientDefinition[T7], QuotientDefinition[U7];
   
   equivT(t0, t1: T7): bool = t0 = t1 
 
