@@ -248,13 +248,7 @@ BEGIN
   IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
 END infinite_to_finite
 
-% Refinement between a finite set of nats and an infinite set of nats
-% with non-trivial equivalence.
-% Nte that:
-% Consider the set of integers and define two elements as being related if they 
-% are both even numbers. This relation is clearly symmetric and transitive, 
-% but in view of the existence of odd numbers, it is not reflexive.
-% PROBLEMATIC
+% Added by Dragan SEP 10 
 finite_to_infinite: THEORY
 BEGIN
   T6: TYPE = bool
@@ -268,27 +262,6 @@ BEGIN
 
   IMPORTING refinement[T6, U6, equivT, equivU , g6, e6, ref6]
 END finite_to_infinite
-
-% Added by Dragan SEP 10 
-finite_to_infinite_modified: THEORY
-BEGIN
-  T7: TYPE = bool
-  U7: TYPE = nat
-  IMPORTING relations[T7], relations[U7],
-            QuotientDefinition[T7], QuotientDefinition[U7];
-  
-  equivT(t0, t1: T7): bool = t0 = t1 
-  
-  equivU(u0, u1: U7): bool = even?(u0)= even?(u1)    
-
-  g7: [T7 -> U7] = (LAMBDA (t: T7):  IF (t) THEN 0 ELSE 1 ENDIF)
-
-  e7: [U7 -> T7] = (LAMBDA (u: U7): even?(u))
-
-  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): p`1 = even?(p`2))
-
-  IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
-END finite_to_infinite_modified
 
 % The collection of all simple examples.
 simplest_examples: THEORY
