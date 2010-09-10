@@ -268,6 +268,7 @@ simplest_examples: THEORY
 BEGIN
   IMPORTING singleton_example, finite_nats_trivial,
             finite_nats_non_trivial, infinite_nats_non_trivial,
-            infinite_to_infinite_trivial,infinite_to_finite, finite_to_infinite
+            infinite_to_infinite_trivial,infinite_to_finite, finite_to_infinite,
+            infinite_nats_finite_equivalence_classes
 
 END simplest_examples
