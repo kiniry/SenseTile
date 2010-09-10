@@ -261,8 +261,7 @@ BEGIN
   U6: TYPE = nat
   importing relations[T6], relations[U6]
   equivT(t0, t1: T6): bool = t0 = t1
-  equivU(u0, u1: U6): bool = (even?(u0) and even?(u1)) OR
-                             (odd?(u0) and odd?(u1))
+  equivU(u0, u1: U6): bool = even?(u0) =  even?(u1) 
   g6: [T6 -> U6] = (LAMBDA (t: T6): IF t THEN 0 ELSE 1 ENDIF)
   e6: [U6 -> T6] = (LAMBDA (u: U6): even?(u))
   ref6: predicate[[T6, U6]] = (LAMBDA (p: [T6, U6]): p`1 = even?(p`2))
@@ -270,24 +269,23 @@ BEGIN
   IMPORTING refinement[T6, U6, equivT, equivU , g6, e6, ref6]
 END finite_to_infinite
 
-% Added by Dragan AUG 31 
+% Added by Dragan SEP 10 
 finite_to_infinite_modified: THEORY
 BEGIN
-  T7: TYPE = below(1)
+  T7: TYPE = bool
   U7: TYPE = nat
   IMPORTING relations[T7], relations[U7],
             QuotientDefinition[T7], QuotientDefinition[U7];
   
   equivT(t0, t1: T7): bool = t0 = t1 
+  
+  equivU(u0, u1: U7): bool = even?(u0)= even?(u1)    
 
-  % INCORRECT DEFINITION  
-  equivU(u0, u1: U7): bool = rem(1)(u0) = rem(1)(u1)    
+  g7: [T7 -> U7] = (LAMBDA (t: T7):  IF (t) THEN 0 ELSE 1 ENDIF)
 
-  g7: [T7 -> U7] = (LAMBDA (t: T7): t )
+  e7: [U7 -> T7] = (LAMBDA (u: U7): even?(u))
 
-  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (rem(1)(u) = 1 ) THEN 1 ELSE 0 ENDIF )
-
-  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): (p`1) = rem(1)(p`2))
+  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): p`1 = even?(p`2))
 
   IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END finite_to_infinite_modified
