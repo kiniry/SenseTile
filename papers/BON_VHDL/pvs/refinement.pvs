@@ -31,9 +31,18 @@ BEGIN
       
  ENDASSUMING
 
+
+ref_extract_generate_equal: LEMMA FORALL((t0:T),(u0:U)):
+                             u0 == gen(t0) AND 
+                             t0 == ext(u0) IMPLIES ext(u0) == ext(gen(t0))
+
+
+ref_generate_extract_equal: LEMMA FORALL((t0:T),(u0:U)):
+                             u0 == gen(t0) AND 
+                             t0 == ext(u0) IMPLIES gen(t0) == gen(ext(u0))
+
  ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
                         |-(t,u) IMPLIES |-(ext(gen(t)),u)  % -:)
-
 
  ref_right_composition: LEMMA FORALL ((t:T),(u:U)): 
                         |-(t,u) IMPLIES |-(t,gen(ext(u)))  % -:)
@@ -46,6 +55,7 @@ BEGIN
                              t0 == ext(u0) AND 
                              |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
 
+ 
  rep_equiv_ref_impl: LEMMA FORALL(t0:T),(u0:U):
                            u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
                            t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
