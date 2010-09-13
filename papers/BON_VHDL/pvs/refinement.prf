@@ -1,10 +1,75 @@
 (refinement
- (rep_equiv_ext_ref_impl 0
-  (rep_equiv_ext_ref_impl-1 nil 3492956686 3492956721
-   ("" (grind)
-    (("" (auto-rewrite-defs :always? t) (("" (postpone) nil nil)) nil))
+ (ext_preserves_equiv 0
+  (ext_preserves_equiv-1 nil 3493218719 3493218762
+   ("" (auto-rewrite-defs :always? true)
+    (("" (assert) (("" (grind) (("" (postpone) nil nil)) nil)) nil))
     nil)
-   untried nil 34605 170 t shostak)))
+   unchecked nil 42951 80 t shostak))
+ (ref_left_composition 0
+  (ref_left_composition-1 nil 3493221933 3493366992
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (rewrite "extract_generate_consistent_with_refinement") nil
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((U formal-type-decl nil refinement nil)
+    (T formal-type-decl nil refinement nil)
+    (extract_generate_consistent_with_refinement formula-decl nil
+     refinement nil))
+   34651 30 t shostak))
+ (ref_right_composition 0
+  (ref_right_composition-1 nil 3493223332 3493367028
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (rewrite "generate_extract_consistent_with_refinement") nil
+        nil))
+      nil))
+    nil)
+   unchecked
+   ((U formal-type-decl nil refinement nil)
+    (T formal-type-decl nil refinement nil)
+    (generate_extract_consistent_with_refinement formula-decl nil
+     refinement nil))
+   26700 10 t shostak))
+ (ref_composition 0
+  (ref_composition-1 nil 3493216667 3493223269
+   ("" (skosimp)
+    (("" (use "ref_left_composition")
+      (("" (use "ref_right_composition") (("" (grind) nil nil)) nil))
+      nil))
+    nil)
+   unchecked
+   ((ref_left_composition formula-decl nil refinement nil)
+    (ext formal-const-decl "[U -> T]" refinement nil)
+    (gen formal-const-decl "[T -> U]" refinement nil)
+    (U formal-type-decl nil refinement nil)
+    (T formal-type-decl nil refinement nil)
+    (ref_right_composition formula-decl nil refinement nil))
+   33633 40 t shostak))
+ (equivaletnce_ref_impl 0
+  (equivaletnce_ref_impl-1 nil 3493367374 3493368318
+   ("" (auto-rewrite-defs :always? true)
+    (("" (assert)
+      (("" (grind)
+        (("" (use "generate_consistent_with_refinement")
+          (("" (use "extract_consistent_with_refinement")
+            (("" (use "extract_generate_consistent_with_refinement")
+              (("" (use "generate_extract_consistent_with_refinement")
+                (("" (grind) (("" (postpone) nil nil)) nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   unfinished nil 943835 300 t shostak))
+ (rep_equiv_ref_impl 0
+  (rep_equiv_ref_impl-1 nil 3493368335 3493368378
+   ("" (grind)
+    (("" (expand "EquivClass") (("" (postpone) nil nil)) nil)) nil)
+   unfinished nil 43368 130 t shostak)))
 (refinement_model_theory
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3488787669 3493127412
@@ -23,7 +88,13 @@
    ("" (assuming-tcc) nil nil) unchecked nil 104 60 nil nil))
  (IMP_refinement_TCC6 0
   (IMP_refinement_TCC6-1 nil 3488787669 3493127413
-   ("" (assuming-tcc) nil nil) unchecked nil 80 60 nil nil)))
+   ("" (assuming-tcc) nil nil) unchecked nil 80 60 nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3493366951 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3493366951 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil)))
 (singleton_example
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3488787669 3493127413
@@ -72,7 +143,13 @@
  (IMP_refinement_TCC8 0
   (IMP_refinement_TCC8-1 nil 3488787669 3493127413
    ("" (assuming-tcc) nil nil) unchecked
-   ((e0 const-decl "[U0 -> T0]" singleton_example nil)) 9 0 nil nil)))
+   ((e0 const-decl "[U0 -> T0]" singleton_example nil)) 9 0 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366951 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366951 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (finite_nats_trivial
  (g1_TCC1 0
   (g1_TCC1-1 nil 3488788908 3493127413 ("" (subtype-tcc) nil nil)
@@ -384,7 +461,13 @@
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   217 180 nil nil)))
+   217 180 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366951 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366951 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (finite_nats_non_trivial
  (g2_TCC1 0
   (g2_TCC1-1 nil 3488788853 3493127415 ("" (subtype-tcc) nil nil)
@@ -642,7 +725,13 @@
    928 840 nil nil))
  (IMP_refinement_TCC8 0
   (IMP_refinement_TCC8-1 nil 3488788853 3493127419
-   ("" (assuming-tcc) nil nil) unchecked nil 530 480 nil nil)))
+   ("" (assuming-tcc) nil nil) unchecked nil 530 480 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366952 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366952 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (infinite_nats_non_trivial
  (g3_TCC1 0
   (g3_TCC1-1 nil 3488788870 3493127419 ("" (subtype-tcc) nil nil)
@@ -826,7 +915,13 @@
    ("" (assuming-tcc) nil nil) unchecked nil 1327 1240 nil nil))
  (IMP_refinement_TCC8 0
   (IMP_refinement_TCC8-1 nil 3488788870 3493127440
-   ("" (assuming-tcc) nil nil) unchecked nil 1996 1810 nil nil)))
+   ("" (assuming-tcc) nil nil) unchecked nil 1996 1810 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (infinite_nats_finite_equivalence_classes
  (g3_TCC1 0
   (g3_TCC1-1 nil 3493116210 3493127440 ("" (subtype-tcc) nil nil)
@@ -1044,7 +1139,13 @@
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil))
-   146 130 nil nil)))
+   146 130 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (infinite_to_infinite_trivial
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3492947826 3493127442
@@ -1317,7 +1418,13 @@
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   345 320 nil nil)))
+   345 320 nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (infinite_to_finite
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3488787670 3493128856
@@ -1416,7 +1523,13 @@
    unchecked nil nil nil nil nil))
  (IMP_refinement_TCC8 0
   (IMP_refinement_TCC8-1 nil 3488787670 nil ("" (assuming-tcc) nil nil)
-   unchecked nil nil nil nil nil)))
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (finite_to_infinite
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3488787670 3493127449
@@ -1581,11 +1694,17 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   125 60 t nil)))
+   125 60 t nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (infinite_to_finite_modified
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3493133393 3493133864
-   ("" (subtype-tcc) nil nil) proved
+   ("" (subtype-tcc) nil nil) unchecked
    ((equivalence? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
     (symmetric? const-decl "bool" relations nil)
@@ -1610,7 +1729,7 @@
    397 210 t nil))
  (IMP_refinement_TCC2 0
   (IMP_refinement_TCC2-1 nil 3493133393 3493133868
-   ("" (subtype-tcc) nil nil) proved
+   ("" (subtype-tcc) nil nil) unchecked
    ((equivalence? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
     (symmetric? const-decl "bool" relations nil)
@@ -1624,7 +1743,7 @@
       (("" (smash) (("1" (grind) nil nil) ("2" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (T7 type-eq-decl nil infinite_to_finite_modified nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -1653,7 +1772,7 @@
     (("" (expand "ref7") (("" (smash) (("" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (e7 const-decl "[U7 -> T7]" infinite_to_finite_modified nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1718,13 +1837,24 @@
     (g7 const-decl "[T7 -> U7]" infinite_to_finite_modified nil))
    5922 80 t nil))
  (IMP_refinement_TCC7 0
-  (IMP_refinement_TCC7-1 nil 3493133393 3493133466
-   ("" (assuming-tcc) (("" (expand "g7") (("" (smash) nil nil)) nil))
+  (IMP_refinement_TCC7-1 nil 3493133393 3493368494
+   ("" (skolem-typepred)
+    (("" (expand "equivT")
+      (("" (expand "e7")
+        (("" (smash)
+          (("1" (grind) nil nil) ("2" (grind) nil nil)
+           ("3" (grind) nil nil))
+          nil))
+        nil))
+      nil))
     nil)
-   unchecked
-   ((even? const-decl "bool" integers nil)
-    (equivT const-decl "bool" infinite_to_finite_modified nil)
-    (equivU const-decl "bool" infinite_to_finite_modified nil)
+   proved
+   ((equivT const-decl "bool" infinite_to_finite_modified nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (g7 const-decl "[T7 -> U7]" infinite_to_finite_modified nil)
+    (even? const-decl "bool" integers nil)
+    (e7 const-decl "[U7 -> T7]" infinite_to_finite_modified nil)
     (T7 type-eq-decl nil infinite_to_finite_modified nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -1739,19 +1869,41 @@
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   36782 850 t nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3493133393 3493368453
+   ("" (assuming-tcc)
+    (("" (expand "g7") (("" (smash) (("" (grind) nil nil)) nil)) nil))
+    nil)
+   proved
+   ((even? const-decl "bool" integers nil)
+    (equivU const-decl "bool" infinite_to_finite_modified nil)
+    (e7 const-decl "[U7 -> T7]" infinite_to_finite_modified nil)
+    (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (g7 const-decl "[T7 -> U7]" infinite_to_finite_modified nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil))
-   9097 430 t nil))
- (IMP_refinement_TCC8 0
-  (IMP_refinement_TCC8-1 nil 3493133393 nil ("" (assuming-tcc) nil nil)
-   unchecked nil nil nil nil nil)))
+    (g7 const-decl "[T7 -> U7]" infinite_to_finite_modified nil))
+   15324 330 t nil))
+ (IMP_refinement_TCC9 0
+  (IMP_refinement_TCC9-1 nil 3493366953 nil ("" (assuming-tcc) nil nil)
+   unfinished nil nil nil nil nil))
+ (IMP_refinement_TCC10 0
+  (IMP_refinement_TCC10-1 nil 3493366953 nil
+   ("" (assuming-tcc) nil nil) unfinished nil nil nil nil nil)))
 (simplest_examples)
 

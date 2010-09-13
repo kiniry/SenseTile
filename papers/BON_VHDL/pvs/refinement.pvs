@@ -16,7 +16,11 @@ BEGIN
 
     extract_consistent_with_refinement: ASSUMPTION ext(u) |- u
 
-    ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t)) == t
+    extract_generate_consistent_with_refinement: ASSUMPTION ext(gen(t)) |- u
+
+    generate_extract_consistent_with_refinement: ASSUMPTION t |- gen(ext(u))   
+    
+    ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t))== t
 
     gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) == u
 
@@ -27,10 +31,17 @@ BEGIN
       
  ENDASSUMING
 
+ ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
+                        |-(t,u) IMPLIES |-(ext(gen(t)),u)
+
+
+ ref_right_composition: LEMMA FORALL ((t:T),(u:U)): 
+                        |-(t,u) IMPLIES |-(t,gen(ext(u)))
+
  ref_composition: LEMMA FORALL ((t:T),(u:U)): 
                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
 
- equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+ equivaletnce_ref_impl: LEMMA FORALL(t0:T),(u0:U):
                              u0 == gen(t0) AND 
                              t0 == ext(u0) AND 
                              |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
