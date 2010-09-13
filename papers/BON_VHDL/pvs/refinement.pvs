@@ -32,14 +32,14 @@ BEGIN
  ENDASSUMING
 
  ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
-                        |-(t,u) IMPLIES |-(ext(gen(t)),u)
+                        |-(t,u) IMPLIES |-(ext(gen(t)),u)  % -:)
 
 
  ref_right_composition: LEMMA FORALL ((t:T),(u:U)): 
-                        |-(t,u) IMPLIES |-(t,gen(ext(u)))
+                        |-(t,u) IMPLIES |-(t,gen(ext(u)))  % -:)
 
  ref_composition: LEMMA FORALL ((t:T),(u:U)): 
-                        |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))
+                        |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))  % -:)
 
  equivaletnce_ref_impl: LEMMA FORALL(t0:T),(u0:U):
                              u0 == gen(t0) AND 
