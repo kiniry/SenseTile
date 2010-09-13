@@ -34,12 +34,12 @@ BEGIN
 
 ref_extract_generate_equal: LEMMA FORALL((t0:T),(u0:U)):
                              u0 == gen(t0) AND 
-                             t0 == ext(u0) IMPLIES ext(u0) == ext(gen(t0))
+                             t0 == ext(u0) IMPLIES ext(u0) == ext(gen(t0)) % -:)
 
 
 ref_generate_extract_equal: LEMMA FORALL((t0:T),(u0:U)):
                              u0 == gen(t0) AND 
-                             t0 == ext(u0) IMPLIES gen(t0) == gen(ext(u0))
+                             t0 == ext(u0) IMPLIES gen(t0) == gen(ext(u0)) % -:)
 
  ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
                         |-(t,u) IMPLIES |-(ext(gen(t)),u)  % -:)
