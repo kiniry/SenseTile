@@ -7,7 +7,6 @@ refinement[T, U: TYPE,
            ext: [U -> T],
            |-: predicate[[T, U]]]: THEORY
 BEGIN
- 
   ASSUMING
     t, t0, t1: VAR T
     u, u0, u1: VAR U
@@ -16,38 +15,35 @@ BEGIN
 
     extract_consistent_with_refinement: ASSUMPTION ext(u) |- u
 
- 
-    ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t))== t
+    ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t)) == t
 
     gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) == u
 
     gen_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
                                     t0 == t1 IMPLIES u0 == u1
+
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 == u1 IMPLIES t0 == t1
-      
  ENDASSUMING
 
+ ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
+                                   u == gen(t) AND t == ext(u)
+                                   IMPLIES ext(u) == ext(gen(t)) % -:)
 
-ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
-                             u == gen(t) AND 
-                             t == ext(u) IMPLIES ext(u) == ext(gen(t)) % -:)
-
-
-ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
-                             u == gen(t) AND 
-                             t == ext(u) IMPLIES gen(t) == gen(ext(u)) % -:)
+ ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
+                                   u == gen(t) AND t == ext(u)
+                                   IMPLIES gen(t) == gen(ext(u)) % -:)
 
  ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
-                        |-(t,u) IMPLIES |-(ext(gen(t)),u) 
+                             |-(t,u) IMPLIES |-(ext(gen(t)),u) 
 
  ref_right_composition: LEMMA FORALL ((t:T),(u:U)): 
-                        |-(t,u) IMPLIES |-(t,gen(ext(u)))
+                              |-(t,u) IMPLIES |-(t,gen(ext(u)))
 
  ref_composition: LEMMA FORALL ((t:T),(u:U)): 
                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))  % -:)
 
- equivaletnce_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+ equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
                              u0 == gen(t0) AND 
                              t0 == ext(u0) AND 
                              |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
@@ -59,13 +55,11 @@ ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
                            |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
 
  rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                         u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
-                         t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
-                         |-(t0,u0) IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
-                                               QuotientDefinition[U].repEC(==)(gen(t0)))
-
+                               u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
+                               t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
+                               |-(t0,u0) IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
+                                                    QuotientDefinition[U].repEC(==)(gen(t0)))
 END refinement
-
 
 refinement_model_theory[T, U: TYPE,
                         (IMPORTING relations[T]) ==: equivalence,
@@ -96,7 +90,7 @@ END refinement_model_theory
 
 % Refinement between singleton types, the simplest types we can
 % witness in PVS since functions and predicates are total.
-singleton_example: THEORY
+singleton_example: THEORY % F x F
 BEGIN
   T0: TYPE = {t}
   U0: TYPE = {u}
@@ -112,11 +106,10 @@ BEGIN
 END singleton_example
 
 % Refinement between finite sets of nats with trivial equivalence.
-finite_nats_trivial: THEORY
+finite_nats_trivial: THEORY % F x F (non-trivial)
 BEGIN
   T1: TYPE = below(3) % { 0, 1, 2 }
   U1: TYPE = below(6) % { 0, 1, 2, 3, 4, 5 }
-  
   IMPORTING ints@div, relations[T1], relations[U1],
             QuotientDefinition[T1], QuotientDefinition[U1]; 
   
@@ -132,11 +125,8 @@ BEGIN
 
 END finite_nats_trivial 
 
-
-
 % Refinement between finite sets of nats with non-trivial equivalence.
-% Hand-proved. 
-finite_nats_non_trivial: THEORY
+finite_nats_non_trivial: THEORY % F x F (equivalence interesting)
 BEGIN
   IMPORTING ints@div
 
@@ -172,44 +162,16 @@ BEGIN
     (LAMBDA (p: [T2, U2]): 3*p`1 = p`2 OR 3*p`1+1 = p`2 OR 3*p`1+2 = p`2)
 
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
-   
 END finite_nats_non_trivial
 
-% Refinement between infinite sets of nats with non-trivial equivalence.
-% PROBLEMATIC
-infinite_nats_non_trivial: THEORY
-BEGIN
-  T3: TYPE = {n: nat | even?(n)}
-  U3: TYPE = {n: nat | odd?(n)}
-  IMPORTING relations[T3], relations[U3];
+% @TODO Missing theory to exercise I x I (infinite equiv. x finite equiv.)
+% possibly dual to infinite_to_infinite_trivial
 
-  % adjacent evens are in equiv class
-  equivT(t0, t1: T3): bool = t0 = t1 OR
-    (abs(t0 - t1) = 2 AND (EXISTS (o: nat | odd?(o)): 2*o = max(t0, t1)));
-  % {0,2} {4,6} {8,10} {12,14} ...
-  % pairs of odds are in equiv class
-  equivU(u0, u1: U3): bool = u0 = u1 OR
-    abs(u0 - u1) = 2 AND (EXISTS (e: nat | even?(e)): 2*e+1 = min(u0,u1));
-  % {1,3} {5,7} {9,11} {13,15} ...
-  
-  g3: [T3 -> U3] = (LAMBDA (t: T3): t + 1)
-  e3: [U3 -> T3] = (LAMBDA (u: U3): u - 1)
-  % note that 0 |- 1 and 0 |- 3 and 2 |- 1 and 2 |- 3 etc.
-  ref3: predicate[[T3, U3]] =
-    (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2 OR
-                           (equivT(p`1 + 2, p`1) AND % leftmost element of pair of T3s
-                            (p`2 /= 1 IMPLIES equivU(p`2 - 2, p`2)) AND % rightmost element of U3s
-                            (p`1 + 3 = p`2)) OR
-                           ((p`1 /= 0 IMPLIES equivT(p`1 - 2, p`1)) AND % rightmost element of pair of T3s
-                            (p`2 /= 1 IMPLIES equivU(p`2 - 2, p`2)) AND % rightmost element of U3s
-                            (p`1 + 1 = p`2)))
-
-  IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
-END infinite_nats_non_trivial
+% @TODO Missing theory to exercise I x I (infinite equiv. x infinite equiv.)
 
 % Refinement between infinite sets of nats with a finite number of
-% equivalence classes.  Added by Dragan SEP 9.
-infinite_nats_finite_equivalence_classes: THEORY
+% equivalence classes.
+infinite_nats_finite_equivalence_classes: THEORY % I x I (finite equiv. x finite equiv.)
 BEGIN
   IMPORTING ints@div
   T3: TYPE = {n: nat | even?(n)}
@@ -218,21 +180,18 @@ BEGIN
             QuotientDefinition[T3], QuotientDefinition[U3];
 
   equivT(t0, t1: T3): bool = rem(4)(t0) = rem(4)(t1);
- 
   equivU(u0, u1: U3): bool = rem(4)(u0-1) = rem(4)(u1-1);
-  
   g3: [T3 -> U3] = (LAMBDA (t: T3): t+1)
   e3: [U3 -> T3] = (LAMBDA (u: U3): u-1)
- 
   ref3: predicate[[T3, U3]] = (LAMBDA (p: [T3, U3]): p`1 + 1 = p`2)
 
   IMPORTING refinement[T3, U3, equivT, equivU, g3, e3, ref3]
 END infinite_nats_finite_equivalence_classes
 
-% Refinement between infinite sets of nats with a infinite number of
+% Refinement between infinite sets of nats with a finite number of
 % equivalence classes in one type and an infinite number of trivial
-% equivalance classes.  Added by Dragan AUG 31.
-infinite_to_infinite_trivial: THEORY
+% equivalance classes in the other.
+infinite_to_infinite_trivial: THEORY % I x I (finite equiv. x infinite equiv.)
 BEGIN
   IMPORTING ints@div
   T4: TYPE = nat
@@ -249,31 +208,16 @@ BEGIN
   IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
 END infinite_to_infinite_trivial
 
-% Refinement between an infinite set of nats and a finite set with
-% non-trivial equivalence.
-% PROBLEMATIC
-infinite_to_finite: THEORY
-BEGIN
-  T5: TYPE = nat
-  U5: TYPE = below(2)
-  importing relations[T5], relations[U5]
-  equivT(t0, t1: T5): bool = rem(2)(t0) = rem(2)(t1)
-  equivU(u0, u1: U5): bool = u0 = u1;
-  g5: [T5 -> U5] = LAMBDA (t: T5): IF rem(2)(t)=0 THEN 0 ELSE 1 ENDIF
-  e5: [U5 -> T5] = LAMBDA (u: U5) : IF u=0 THEN 0 ELSE 1 ENDIF
-  ref5: predicate[[T5, U5]] = (LAMBDA (p: [T5, U5]): rem(2)(p`1) = p`2)
-  
-  IMPORTING refinement[T5, U5, equivT, equivU , g5, e5, ref5]
-END infinite_to_finite
-
+% @TODO Dragan - Write up summary of this theory as above.
 % Added by Dragan SEP 10 
-finite_to_infinite: THEORY
+finite_to_infinite: THEORY % F x I (finite equiv. x finite equiv.)
 BEGIN
   T6: TYPE = bool
   U6: TYPE = nat
-  importing relations[T6], relations[U6]
+  IMPORTING relations[T6], relations[U6]
+
   equivT(t0, t1: T6): bool = t0 = t1
-  equivU(u0, u1: U6): bool = even?(u0) =  even?(u1) 
+  equivU(u0, u1: U6): bool = even?(u0) = even?(u1)
   g6: [T6 -> U6] = (LAMBDA (t: T6): IF t THEN 0 ELSE 1 ENDIF)
   e6: [U6 -> T6] = (LAMBDA (u: U6): even?(u))
   ref6: predicate[[T6, U6]] = (LAMBDA (p: [T6, U6]): p`1 = even?(p`2))
@@ -281,27 +225,26 @@ BEGIN
   IMPORTING refinement[T6, U6, equivT, equivU , g6, e6, ref6]
 END finite_to_infinite
 
-
-
-infinite_to_finite_modified: THEORY
+% @TODO Dragan - Write up summary of this theory as above.
+infinite_to_finite_modified: THEORY % I x F (finite equiv. x finite equiv.)
 BEGIN
   T7: TYPE = nat
   U7: TYPE = {0,1}
   IMPORTING relations[T7], relations[U7],
             QuotientDefinition[T7], QuotientDefinition[U7];
  
-  equivT(t0, t1: T7): bool =  even?(t0)= even?(t1)
- 
+  equivT(t0, t1: T7): bool = even?(t0) = even?(t1)
   equivU(u0, u1: U7): bool = u0 = u1   
-
-  g7: [T7 -> U7] = (LAMBDA (t: T7):  IF (even?(t)) THEN 0 ELSE 1 ENDIF  )
-
-  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (u=0) THEN 0 ELSE 1 ENDIF)
-
-  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]): IF (even?(p`1))THEN p`2 = 0 ELSE p`2 = 1 ENDIF)
-
+  g7: [T7 -> U7] = (LAMBDA (t: T7):  IF (even?(t)) THEN 0 ELSE 1 ENDIF)
+  e7: [U7 -> T7] = (LAMBDA (u: U7): IF (u = 0) THEN 0 ELSE 1 ENDIF)
+  ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]):
+                               IF (even?(p`1)) THEN p`2 = 0 ELSE p`2 = 1 ENDIF)
   IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END infinite_to_finite_modified
+
+% @TODO Missing F x I (finite equiv. x infinite equiv.)
+
+% @TODO Missing I x F (infinite equiv. x finite equiv.)
 
 % The collection of all simple examples.
 simplest_examples: THEORY
