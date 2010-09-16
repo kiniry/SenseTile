@@ -2,7 +2,7 @@
 % July 2010
 refinement[T, U: TYPE,
            (IMPORTING relations[T]) ==: equivalence,
-           (IMPORTING relations[U]) ==: relations[U].equivalence,
+           (IMPORTING relations[U]) ##: relations[U].equivalence,
            gen: [T -> U],
            ext: [U -> T],
            |-: predicate[[T, U]]]: THEORY
@@ -17,22 +17,22 @@ BEGIN
 
     ext_is_left_inv_of_gen: ASSUMPTION ext(gen(t)) == t
 
-    gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) == u
+    gen_is_left_inv_of_ext: ASSUMPTION gen(ext(u)) ## u
 
     gen_preserves_equiv: ASSUMPTION u0 = gen(t0) AND u1 = gen(t1) AND
-                                    t0 == t1 IMPLIES u0 == u1
+                                    t0 == t1 IMPLIES u0 ## u1
 
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
-                                    u0 == u1 IMPLIES t0 == t1
+                                    u0 ## u1 IMPLIES t0 == t1
  ENDASSUMING
 
  ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
-                                   u == gen(t) AND t == ext(u)
+                                   u ## gen(t) AND t == ext(u)
                                    IMPLIES ext(u) == ext(gen(t)) % -:)
 
  ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
-                                   u == gen(t) AND t == ext(u)
-                                   IMPLIES gen(t) == gen(ext(u)) % -:)
+                                   u ## gen(t) AND t == ext(u)
+                                   IMPLIES gen(t) ## gen(ext(u)) % -:)
 
  ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
                              |-(t,u) IMPLIES |-(ext(gen(t)),u) 
@@ -44,21 +44,21 @@ BEGIN
                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))  % -:)
 
  equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                             u0 == gen(t0) AND 
+                             u0 ## gen(t0) AND 
                              t0 == ext(u0) AND 
                              |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
 
  
  rep_equiv_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                           u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
+                           u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
                            t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
                            |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
 
  rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                               u0 == QuotientDefinition[U].repEC(==)(gen(t0)) AND 
+                               u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
                                t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
                                |-(t0,u0) IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
-                                                    QuotientDefinition[U].repEC(==)(gen(t0)))
+                                                    QuotientDefinition[U].repEC( ## )(gen(t0)))
 END refinement
 
 refinement_model_theory[T, U: TYPE,
@@ -250,8 +250,8 @@ END infinite_to_finite_modified
 simplest_examples: THEORY
 BEGIN
   IMPORTING singleton_example, finite_nats_trivial,
-            finite_nats_non_trivial, infinite_nats_non_trivial,
-            infinite_to_infinite_trivial,infinite_to_finite, finite_to_infinite,
+            finite_nats_non_trivial, 
+             infinite_to_infinite_trivial, finite_to_infinite,
             infinite_nats_finite_equivalence_classes
 
 END simplest_examples
