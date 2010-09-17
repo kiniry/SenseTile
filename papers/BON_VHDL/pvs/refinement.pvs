@@ -164,8 +164,27 @@ BEGIN
   IMPORTING refinement[T2, U2, ==, ==, g2, e2, ref2]
 END finite_nats_non_trivial
 
-% @TODO Missing theory to exercise I x I (infinite equiv. x finite equiv.)
-% possibly dual to infinite_to_infinite_trivial
+% Refinement between infinite number of trivial equivalance classes  
+% in one type and ininfinite sets of nats with a finite number of
+% equivalence classes in the other.
+infinite_to_infinite_infinite_equival_finite_equival_classes: THEORY % I x I (infinite equiv. x finite equiv)
+BEGIN
+  IMPORTING ints@div
+  T4: TYPE = nat
+  U4: TYPE = nat
+  IMPORTING relations[T4], relations[U4],
+            QuotientDefinition[T4], QuotientDefinition[U4];
+
+  equivT(t0, t1: T4): bool = t0 = t1
+  equivU(u0, u1: U4): bool = div(u0,10) = div(u1,10)
+  g4: [T4 -> U4] = (LAMBDA (t: T4): 10*t)
+  e4: [U4 -> T4] = (LAMBDA (u: U4): div(u,10))
+  ref4: predicate[[T4, U4]] = (LAMBDA (p: [T4, U4]): p`1=div(p`2,10))
+
+  IMPORTING refinement[T4, U4, equivT, equivU , g4, e4, ref4]
+END infinite_to_infinite_infinite_equival_finite_equival_classes
+
+
 
 % @TODO Missing theory to exercise I x I (infinite equiv. x infinite equiv.)
 
@@ -253,7 +272,8 @@ BEGIN
             finite_nats_non_trivial, 
              infinite_to_infinite_trivial, finite_to_infinite,
             infinite_nats_finite_equivalence_classes,
-            infinite_to_finite_finite_equival_finite_equival_classes
+            infinite_to_finite_finite_equival_finite_equival_classes,
+            infinite_to_infinite_infinite_equival_finite_equival_classes
 
 
 END simplest_examples
