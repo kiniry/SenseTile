@@ -278,10 +278,6 @@ BEGIN
   IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END infinite_to_finite_finite_equival_finite_equival_classes
 
-
-
-
-
 % @TODO Missing I x F (infinite equiv. x finite equiv.)
 
 infinite_to_finite_infinite_equival_finite_equival_classes: THEORY % I x F (infinite equiv. x finite equiv.)
