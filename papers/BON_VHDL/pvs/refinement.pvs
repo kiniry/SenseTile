@@ -312,7 +312,8 @@ BEGIN
              infinite_to_infinite_trivial, finite_to_infinite,
             infinite_nats_finite_equivalence_classes,
             infinite_to_finite_finite_equival_finite_equival_classes,
-            infinite_to_infinite_infinite_equival_finite_equival_classes
+            infinite_to_infinite_infinite_equival_finite_equival_classes,
+            infinite_to_finite_infinite_equival_finite_equival_classes
 
 
 END simplest_examples
