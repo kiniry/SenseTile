@@ -287,8 +287,8 @@ BEGIN
   IMPORTING relations[T7], relations[U7],
             QuotientDefinition[T7], QuotientDefinition[U7];
  
-  equivT(t0, t1: T7): bool = odd?(t0 +1) = even?(t1) OR even?(t0) = even?(t1)  % check with Joe !
-  equivU(u0, u1: U7): bool = odd?(u0 +1) = even?(u1)  
+  equivT(t0, t1: T7): bool = odd?(t0+1) = even?(t1) OR even?(t0) = even?(t1)  % check with Joe !
+  equivU(u0, u1: U7): bool = odd?(u0+1) = even?(u1)  
   g7: [T7 -> U7] = (LAMBDA (t: T7): IF (even?(t)) THEN 0 ELSE 1 ENDIF  )
   e7: [U7 -> T7] = (LAMBDA (u: U7): IF ( even?(u)) THEN 0 ELSE 1 ENDIF)
   ref7: predicate[[T7, U7]] = (LAMBDA (p: [T7, U7]):
