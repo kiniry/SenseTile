@@ -25,22 +25,35 @@ BEGIN
     ext_preserves_equiv: ASSUMPTION t0 = ext(u0) AND t1 = ext(u1) AND
                                     u0 ## u1 IMPLIES t0 == t1
  ENDASSUMING
+ 
+  equal_ext_to_equality :LEMMA FORALL((t:T),(u:U)):
+                                   u = gen(t) AND t = ext(u)
+                                   IMPLIES ext(u)== ext(gen(t))  % -:)
 
- ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
+
+  ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
                                    u ## gen(t) AND t == ext(u)
                                    IMPLIES ext(u) == ext(gen(t)) % -:)
 
- ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
+
+  equal_gen_to_equality :LEMMA FORALL((t:T),(u:U)):
+                                   u = gen(t) AND t= ext(u)
+                                   IMPLIES gen(t)## gen(ext(u)) % -:)
+
+  ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
                                    u ## gen(t) AND t == ext(u)
                                    IMPLIES gen(t) ## gen(ext(u)) % -:)
 
- ref_left_composition: LEMMA FORALL ((t:T),(u:U)): 
+  ref_left_composition: LEMMA FORALL ((t:T),(u:U)):
+                              u = gen(t) AND 
                              |-(t,u) IMPLIES |-(ext(gen(t)),u) 
 
- ref_right_composition: LEMMA FORALL ((t:T),(u:U)): 
+  ref_right_composition: LEMMA FORALL ((t:T),(u:U)):
+                               t = ext(u) AND 
                               |-(t,u) IMPLIES |-(t,gen(ext(u)))
 
- ref_composition: LEMMA FORALL ((t:T),(u:U)): 
+ ref_composition: LEMMA FORALL ((t:T),(u:U)):
+                        u = gen(t) AND t= ext(u) AND 
                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u)))  % -:)
 
  equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
@@ -296,9 +309,22 @@ BEGIN
  IMPORTING refinement[T7, U7, equivT, equivU , g7, e7, ref7]
 END infinite_to_finite_infinite_equival_finite_equival_classes
 
-
 % @TODO Missing F x I (finite equiv. x infinite equiv.)
-
+finite_to_infinite_finite_equival_infinite_equival_classes: THEORY % F x I (finite equiv. x infinite equiv.)
+BEGIN
+  T8: TYPE = {(n:nat)| n < 2 }
+  U8: TYPE = nat
+  IMPORTING relations[T8], relations[U8],
+            QuotientDefinition[T8], QuotientDefinition[U8];
+ 
+  equivT(t0, t1: T8): bool = odd?(t0+1) = even?(t1) % check with Joe !
+  equivU(u0, u1: U8): bool = odd?(u0+1) = even?(u1) OR even?(u0) = even?(u1)  
+  g8: [T8 -> U8] = (LAMBDA (t: T8): IF (even?(t)) THEN 0 ELSE 1 ENDIF  )
+  e8: [U8 -> T8] = (LAMBDA (u: U8): IF ( even?(u)) THEN 0 ELSE 1 ENDIF)
+  ref8: predicate[[T8, U8]] = (LAMBDA (p: [T8, U8]):
+                               IF ( even?(p`2)) THEN p`1 = 0 ELSE p`1 = 1 ENDIF)
+ IMPORTING refinement[T8, U8, equivT, equivU , g8, e8, ref8]
+END finite_to_infinite_finite_equival_infinite_equival_classes
 
 % The collection of all simple examples.
 simplest_examples: THEORY
@@ -309,7 +335,8 @@ BEGIN
             infinite_nats_finite_equivalence_classes,
             infinite_to_finite_finite_equival_finite_equival_classes,
             infinite_to_infinite_infinite_equival_finite_equival_classes,
-            infinite_to_finite_infinite_equival_finite_equival_classes
-
+            infinite_to_finite_infinite_equival_finite_equival_classes,
+            finite_to_infinite_finite_equival_infinite_equival_classes
+               
 
 END simplest_examples

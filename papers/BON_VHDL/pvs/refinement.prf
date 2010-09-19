@@ -5,6 +5,21 @@
     (("" (assert) (("" (grind) (("" (postpone) nil nil)) nil)) nil))
     nil)
    unchecked nil 42951 80 t shostak))
+ (equal_ext_to_equality 0
+  (equal_ext_to_equality-1 nil 3493805906 3493805969
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (use "ext_is_left_inv_of_gen")
+        (("" (auto-rewrite-defs :always? t)
+          (("" (assert :let-reduce? t :cases-rewrite? nil) nil nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   untried
+   ((T formal-type-decl nil refinement nil)
+    (ext_is_left_inv_of_gen formula-decl nil refinement nil))
+   62792 110 t shostak))
  (ref_extract_generate_equal 0
   (ref_extract_generate_equal-1 nil 3493376461 3493445387
    ("" (use "ext_preserves_equiv")
@@ -20,8 +35,19 @@
     (T formal-type-decl nil refinement nil)
     (ext_preserves_equiv formula-decl nil refinement nil))
    54571 490 t shostak))
+ (equal_gen_to_equality 0
+  (equal_gen_to_equality-1 nil 3493806154 3493806204
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (use "gen_is_left_inv_of_ext") (("" (assert) nil nil)) nil))
+      nil))
+    nil)
+   untried
+   ((U formal-type-decl nil refinement nil)
+    (gen_is_left_inv_of_ext formula-decl nil refinement nil))
+   50803 70 t shostak))
  (ref_generate_extract_equal 0
-  (ref_generate_extract_equal-1 nil 3493376524 3493705882
+  (ref_generate_extract_equal-1 nil 3493376524 3493802505
    ("" (skosimp)
     (("" (lemma "gen_preserves_equiv")
       (("" (inst - "t!1" "ext(u!1)" "gen(t!1)" "gen(ext(u!1))")
@@ -34,42 +60,67 @@
     (ext formal-const-decl "[U -> T]" refinement nil)
     (gen formal-const-decl "[T -> U]" refinement nil)
     (gen_preserves_equiv formula-decl nil refinement nil))
-   238 80 t shostak))
+   91 20 t shostak))
  (ref_left_composition 0
-  (ref_left_composition-1 nil 3493221933 3493706548
-   ("" (skolem-typepred)
+  (ref_left_composition-1 nil 3493221933 3493809713
+   ("" (skolem!)
     (("" (flatten)
-      (("" (expand "left_inverse?")
-        (("" (inst - "t!1") (("" (grind) nil nil)) nil)) nil))
+      (("" (use "generate_consistent_with_refinement")
+        (("" (case "u!1=gen(t!1)")
+          (("1" (replace*)
+            (("1" (use "extract_consistent_with_refinement") nil nil))
+            nil)
+           ("2" (propax) nil nil))
+          nil))
+        nil))
       nil))
     nil)
    unchecked
-   ((left_inverse? const-decl "bool" function_inverse_def nil)
-    (T formal-type-decl nil refinement nil))
-   115036 270 t shostak))
+   ((generate_consistent_with_refinement formula-decl nil refinement
+     nil)
+    (T formal-type-decl nil refinement nil)
+    (extract_consistent_with_refinement formula-decl nil refinement
+     nil)
+    (U formal-type-decl nil refinement nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (gen formal-const-decl "[T -> U]" refinement nil))
+   3180 80 t shostak))
  (ref_right_composition 0
-  (ref_right_composition-1 nil 3493223332 3493536156
-   ("" (skolem-typepred) (("" (flatten) (("" (grind) nil nil)) nil))
+  (ref_right_composition-1 nil 3493223332 3493903363
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (grind)
+        (("" (use "generate_consistent_with_refinement") nil nil))
+        nil))
+      nil))
     nil)
-   unchecked
-   ((right_inverse? const-decl "bool" function_inverse_def nil)
-    (U formal-type-decl nil refinement nil))
-   2717 50 t shostak))
+   proved
+   ((generate_consistent_with_refinement formula-decl nil refinement
+     nil)
+    (T formal-type-decl nil refinement nil)
+    (U formal-type-decl nil refinement nil)
+    (ext formal-const-decl "[U -> T]" refinement nil))
+   222 120 t shostak))
  (ref_composition 0
-  (ref_composition-1 nil 3493216667 3493223269
+  (ref_composition-1 nil 3493216667 3493903371
    ("" (skosimp)
     (("" (use "ref_left_composition")
       (("" (use "ref_right_composition") (("" (grind) nil nil)) nil))
       nil))
     nil)
-   unfinished
-   ((ref_left_composition formula-decl nil refinement nil)
-    (ext formal-const-decl "[U -> T]" refinement nil)
-    (gen formal-const-decl "[T -> U]" refinement nil)
-    (U formal-type-decl nil refinement nil)
+   proved
+   ((ref_right_composition formula-decl nil refinement nil)
     (T formal-type-decl nil refinement nil)
-    (ref_right_composition formula-decl nil refinement nil))
-   33633 40 t shostak))
+    (U formal-type-decl nil refinement nil)
+    (gen formal-const-decl "[T -> U]" refinement nil)
+    (ext formal-const-decl "[U -> T]" refinement nil)
+    (ref_left_composition formula-decl nil refinement nil))
+   150 60 t shostak))
+ (equivalence_ref_impl 0
+  (equivalence_ref_impl-1 nil 3493809819 3493809844
+   ("" (grind) (("" (postpone) nil nil)) nil) untried nil 24983 60 t
+   shostak))
  (rep_equiv_ref_impl 0
   (rep_equiv_ref_impl-1 nil 3493368335 3493377287
    ("" (grind)
@@ -460,55 +511,29 @@
    217 180 nil nil)))
 (finite_nats_non_trivial
  (g2_TCC1 0
-  (g2_TCC1-1 nil 3488788853 3493732374 ("" (subtype-tcc) nil nil)
-   unchecked nil 59 10 t nil))
+  (g2_TCC1-1 nil 3488788853 3493800336 ("" (subtype-tcc) nil nil)
+   unchecked nil 122 50 t nil))
  (e2_TCC1 0
-  (e2_TCC1-1 nil 3488788853 3493127415 ("" (subtype-tcc) nil nil)
+  (e2_TCC1-1 nil 3488788853 3493800340 ("" (subtype-tcc) nil nil)
    unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (< const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (U2 type-eq-decl nil finite_nats_non_trivial nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (sgn const-decl "int" real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (div const-decl "integer" div "ints/")
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   156 130 nil nil))
- (IMP_refinement_TCC1 0
-  (IMP_refinement_TCC1-1 nil 3488788853 3493127416
-   ("" (subtype-tcc) nil nil) unchecked
-   ((int_minus_int_is_int application-judgement "int" integers nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (T2 type-eq-decl nil finite_nats_non_trivial nil)
+    (U2 type-eq-decl nil finite_nats_non_trivial nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -524,12 +549,38 @@
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (reflexive? const-decl "bool" relations nil)
-    (symmetric? const-decl "bool" relations nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   238 150 t nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3488788853 3493800350
+   ("" (subtype-tcc) nil nil) unchecked
+   ((equivalence? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
-    (equivalence? const-decl "bool" relations nil))
-   645 540 nil nil))
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (< const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (T2 type-eq-decl nil finite_nats_non_trivial nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil))
+   851 660 t nil))
  (IMP_refinement_TCC2 0
   (IMP_refinement_TCC2-1 nil 3488788853 3493732459
    ("" (subtype-tcc)
@@ -537,7 +588,7 @@
      ("2" (expand "abs") (("2" (smash) nil nil)) nil))
     nil)
    unchecked
-   (nil (reflexive? const-decl "bool" relations nil)
+   ((reflexive? const-decl "bool" relations nil)
     (sgn const-decl "int" real_defs nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -545,7 +596,7 @@
     (symmetric? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
     (equivalence? const-decl "bool" relations nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil) nil
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
@@ -641,7 +692,7 @@
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    nil (e2 const-decl "[U2 -> T2]" finite_nats_non_trivial nil)
+    (e2 const-decl "[U2 -> T2]" finite_nats_non_trivial nil)
     (div const-decl "integer" div "ints/")
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -676,7 +727,7 @@
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil) nil
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
@@ -690,7 +741,7 @@
     (e2 const-decl "[U2 -> T2]" finite_nats_non_trivial nil)
     (g2 const-decl "[T2 -> U2]" finite_nats_non_trivial nil)
     (sgn_nat_rew formula-decl nil abs_rews "ints/")
-    (abs_nat_rew formula-decl nil abs_rews "ints/") nil
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
@@ -746,7 +797,7 @@
      real_defs nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (int_minus_int_is_int application-judgement "int" integers nil) nil
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
@@ -756,11 +807,11 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (g2 const-decl "[T2 -> U2]" finite_nats_non_trivial nil) nil
+    (g2 const-decl "[T2 -> U2]" finite_nats_non_trivial nil)
     (sgn const-decl "int" real_defs nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (div const-decl "integer" div "ints/") nil
+    (div const-decl "integer" div "ints/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
    4417 1390 t nil))
@@ -773,13 +824,13 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (div const-decl "integer" div "ints/")
-    (e2 const-decl "[U2 -> T2]" finite_nats_non_trivial nil) nil nil
+    (e2 const-decl "[U2 -> T2]" finite_nats_non_trivial nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil) nil
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (U2 type-eq-decl nil finite_nats_non_trivial nil)
     (T2 type-eq-decl nil finite_nats_non_trivial nil)
@@ -1291,79 +1342,24 @@
    121 60 t nil)))
 (infinite_nats_finite_equivalence_classes
  (g3_TCC1 0
-  (g3_TCC1-1 nil 3493116210 3493127440 ("" (subtype-tcc) nil nil)
+  (g3_TCC1-1 nil 3493116210 3493800495 ("" (subtype-tcc) nil nil)
    unchecked
-   ((posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers
-     nil))
-   58 60 nil nil))
+   ((odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
+   102 60 t nil))
  (e3_TCC1 0
-  (e3_TCC1-1 nil 3493116210 3493127440 ("" (subtype-tcc) nil nil)
+  (e3_TCC1-1 nil 3493116210 3493800499 ("" (subtype-tcc) nil nil)
    unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (odd? const-decl "bool" integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil))
-   153 130 nil nil))
- (IMP_refinement_TCC1 0
-  (IMP_refinement_TCC1-1 nil 3493116210 3493127440
-   ("" (subtype-tcc) nil nil) unchecked
-   ((T3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (even? const-decl "bool" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
-     nil)
-    (reflexive? const-decl "bool" relations nil)
-    (symmetric? const-decl "bool" relations nil)
-    (transitive? const-decl "bool" relations nil)
-    (equivalence? const-decl "bool" relations nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   216 180 nil nil))
- (IMP_refinement_TCC2 0
-  (IMP_refinement_TCC2-1 nil 3493116210 3493127441
-   ("" (subtype-tcc) nil nil) unchecked
    ((odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1380,92 +1376,136 @@
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
+    (boolean nonempty-type-decl nil booleans nil))
+   197 140 t nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3493116210 3493800502
+   ("" (subtype-tcc) nil nil) unchecked
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (reflexive? const-decl "bool" relations nil)
-    (symmetric? const-decl "bool" relations nil)
-    (transitive? const-decl "bool" relations nil)
     (equivalence? const-decl "bool" relations nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   229 200 nil nil))
- (IMP_refinement_TCC3 0
-  (IMP_refinement_TCC3-1 nil 3493116210 3493127441
-   ("" (assuming-tcc) nil nil) unchecked
-   ((g3 const-decl "[T3 -> U3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (ref3 const-decl "predicate[[T3, U3]]"
-     infinite_nats_finite_equivalence_classes nil))
-   12 10 nil nil))
- (IMP_refinement_TCC4 0
-  (IMP_refinement_TCC4-1 nil 3493116210 3493127441
-   ("" (assuming-tcc) nil nil) unchecked
-   ((e3 const-decl "[U3 -> T3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (ref3 const-decl "predicate[[T3, U3]]"
-     infinite_nats_finite_equivalence_classes nil))
-   11 10 nil nil))
- (IMP_refinement_TCC5 0
-  (IMP_refinement_TCC5-1 nil 3493116210 3493127441
-   ("" (assuming-tcc) nil nil) unchecked
-   ((g3 const-decl "[T3 -> U3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (e3 const-decl "[U3 -> T3]"
-     infinite_nats_finite_equivalence_classes nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
     (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
      nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (even? const-decl "bool" integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (T3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil))
+   261 210 t nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3493116210 3493800506
+   ("" (subtype-tcc) nil nil) unchecked
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
-     nil))
-   67 70 nil nil))
- (IMP_refinement_TCC6 0
-  (IMP_refinement_TCC6-1 nil 3493116210 3493127441
-   ("" (assuming-tcc) nil nil) unchecked
-   ((e3 const-decl "[U3 -> T3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (g3 const-decl "[T3 -> U3]"
-     infinite_nats_finite_equivalence_classes nil)
+     nil)
+    (equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
     (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
      nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil))
-   68 70 nil nil))
- (IMP_refinement_TCC7 0
-  (IMP_refinement_TCC7-1 nil 3493116210 3493546581
-   ("" (assuming-tcc) nil nil) unchecked
-   ((odd? const-decl "bool" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (bijective? const-decl "bool" functions nil)
-    (injective? const-decl "bool" functions nil)
-    (e3 const-decl "[U3 -> T3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (surjective? const-decl "bool" functions nil)
-    (g3 const-decl "[T3 -> U3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
-     nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (odd? const-decl "bool" integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
+     nil))
+   297 220 t nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3493116210 3493800509
+   ("" (assuming-tcc) nil nil) unchecked
+   ((ref3 const-decl "predicate[[T3, U3]]"
+     infinite_nats_finite_equivalence_classes nil)
+    (g3 const-decl "[T3 -> U3]"
+     infinite_nats_finite_equivalence_classes nil))
+   39 10 t nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3493116210 3493800514
+   ("" (assuming-tcc) nil nil) unchecked
+   ((ref3 const-decl "predicate[[T3, U3]]"
+     infinite_nats_finite_equivalence_classes nil)
+    (e3 const-decl "[U3 -> T3]"
+     infinite_nats_finite_equivalence_classes nil))
+   26 20 t nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3493116210 3493800517
+   ("" (assuming-tcc) nil nil) unchecked
+   ((even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
+     nil)
+    (e3 const-decl "[U3 -> T3]"
+     infinite_nats_finite_equivalence_classes nil)
+    (g3 const-decl "[T3 -> U3]"
+     infinite_nats_finite_equivalence_classes nil))
+   145 80 t nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3493116210 3493800521
+   ("" (assuming-tcc) nil nil) unchecked
+   ((even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
+     nil)
+    (g3 const-decl "[T3 -> U3]"
+     infinite_nats_finite_equivalence_classes nil)
+    (e3 const-decl "[U3 -> T3]"
+     infinite_nats_finite_equivalence_classes nil))
+   91 80 t nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3493116210 3493800525
+   ("" (assuming-tcc) nil nil) unchecked
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
+     nil)
+    (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
+     nil)
+    (g3 const-decl "[T3 -> U3]"
+     infinite_nats_finite_equivalence_classes nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
+    (odd? const-decl "bool" integers nil)
     (T3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1483,44 +1523,44 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   2030 930 t nil))
+   305 220 t nil))
  (IMP_refinement_TCC8 0
-  (IMP_refinement_TCC8-1 nil 3493116210 3493127441
+  (IMP_refinement_TCC8-1 nil 3493116210 3493800529
    ("" (assuming-tcc) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (even? const-decl "bool" integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
-    (odd? const-decl "bool" integers nil)
-    (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
-    (e3 const-decl "[U3 -> T3]"
-     infinite_nats_finite_equivalence_classes nil)
-    (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (equivT const-decl "bool" infinite_nats_finite_equivalence_classes
      nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+    (equivU const-decl "bool" infinite_nats_finite_equivalence_classes
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   146 130 nil nil)))
+    (e3 const-decl "[U3 -> T3]"
+     infinite_nats_finite_equivalence_classes nil)
+    (U3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
+    (odd? const-decl "bool" integers nil)
+    (T3 type-eq-decl nil infinite_nats_finite_equivalence_classes nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (even? const-decl "bool" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   171 150 t nil)))
 (infinite_to_infinite_trivial
  (IMP_refinement_TCC1 0
-  (IMP_refinement_TCC1-1 nil 3492947826 3493127442
-   ("" (subtype-tcc) nil nil) unchecked
+  (IMP_refinement_TCC1-1 nil 3492947826 3493800412
+   ("" (assuming-tcc) nil nil) unchecked
    ((T4 type-eq-decl nil infinite_to_infinite_trivial nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -1550,246 +1590,246 @@
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   304 250 nil nil))
+   9221 290 t nil))
  (IMP_refinement_TCC2 0
-  (IMP_refinement_TCC2-1 nil 3492947826 3493127442
+  (IMP_refinement_TCC2-1 nil 3492947826 3493800417
    ("" (subtype-tcc) nil nil) unchecked
-   ((T4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (>= const-decl "bool" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
-    (reflexive? const-decl "bool" relations nil)
-    (symmetric? const-decl "bool" relations nil)
+   ((equivalence? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
-    (equivalence? const-decl "bool" relations nil))
-   99 80 nil nil))
- (IMP_refinement_TCC3 0
-  (IMP_refinement_TCC3-1 nil 3492947826 3493127442
-   ("" (assuming-tcc) nil nil) unchecked
-   ((sgn const-decl "int" real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (div const-decl "integer" div "ints/")
-    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
-    (ref4 const-decl "predicate[[T4, U4]]" infinite_to_infinite_trivial
-     nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil))
-   67 70 nil nil))
- (IMP_refinement_TCC4 0
-  (IMP_refinement_TCC4-1 nil 3492947826 3493127442
-   ("" (assuming-tcc) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (ref4 const-decl "predicate[[T4, U4]]" infinite_to_infinite_trivial
-     nil)
-    (div const-decl "integer" div "ints/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (sgn const-decl "int" real_defs nil)
-    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   228 210 nil nil))
- (IMP_refinement_TCC5 0
-  (IMP_refinement_TCC5-1 nil 3492947826 3493127442
-   ("" (assuming-tcc) nil nil) unchecked
-   ((T4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (>= const-decl "bool" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (sgn const-decl "int" real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (div const-decl "integer" div "ints/")
-    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
-    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
-    (sgn_nat_rew formula-decl nil abs_rews "ints/")
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
-    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (T4 type-eq-decl nil infinite_to_infinite_trivial nil))
+   167 100 t nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3492947826 3493800422
+   ("" (assuming-tcc) nil nil) unchecked
+   ((int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
+    (ref4 const-decl "predicate[[T4, U4]]" infinite_to_infinite_trivial
+     nil)
+    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil))
+   148 70 t nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3492947826 3493800426
+   ("" (assuming-tcc) nil nil) unchecked
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
+    (sgn const-decl "int" real_defs nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (div const-decl "integer" div "ints/")
+    (ref4 const-decl "predicate[[T4, U4]]" infinite_to_infinite_trivial
+     nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   398 260 t nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3492947826 3493800431
+   ("" (assuming-tcc) nil nil) unchecked
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   285 270 nil nil))
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
+    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (T4 type-eq-decl nil infinite_to_infinite_trivial nil))
+   389 260 t nil))
  (IMP_refinement_TCC6 0
-  (IMP_refinement_TCC6-1 nil 3492947826 3493127442
+  (IMP_refinement_TCC6-1 nil 3492947826 3493800436
    ("" (assuming-tcc) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
-    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
-    (div const-decl "integer" div "ints/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (sgn const-decl "int" real_defs nil)
-    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   224 200 nil nil))
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
+    (sgn const-decl "int" real_defs nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (div const-decl "integer" div "ints/")
+    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
+    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   286 220 t nil))
  (IMP_refinement_TCC7 0
-  (IMP_refinement_TCC7-1 nil 3492947826 3493127443
+  (IMP_refinement_TCC7-1 nil 3492947826 3493800440
    ("" (assuming-tcc) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (T4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (sgn const-decl "int" real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (div const-decl "integer" div "ints/")
-    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
-    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
-    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   286 200 nil nil))
- (IMP_refinement_TCC8 0
-  (IMP_refinement_TCC8-1 nil 3492947826 3493127443
-   ("" (assuming-tcc) nil nil) unchecked
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
+    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
+    (g4 const-decl "[T4 -> U4]" infinite_to_infinite_trivial nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil)
+    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (T4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (T4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   283 160 t nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3492947826 3493800444
+   ("" (assuming-tcc) nil nil) unchecked
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (sgn const-decl "int" real_defs nil)
+    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
+    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (e4 const-decl "[U4 -> T4]" infinite_to_infinite_trivial nil)
-    (equivU const-decl "bool" infinite_to_infinite_trivial nil)
-    (sgn const-decl "int" real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (div const-decl "integer" div "ints/")
-    (equivT const-decl "bool" infinite_to_infinite_trivial nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   345 320 nil nil)))
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (U4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (T4 type-eq-decl nil infinite_to_infinite_trivial nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   409 320 t nil)))
 (finite_to_infinite
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3488787670 3493127449
@@ -1865,12 +1905,12 @@
      integers nil))
    194 150 t nil))
  (IMP_refinement_TCC4 0
-  (IMP_refinement_TCC4-1 nil 3488787670 3493127464
+  (IMP_refinement_TCC4-1 nil 3488787670 3493800294
    ("" (assuming-tcc) nil nil) unchecked
-   ((ref6 const-decl "predicate[[T6, U6]]" finite_to_infinite nil)
+   ((even? const-decl "bool" integers nil)
     (e6 const-decl "[U6 -> T6]" finite_to_infinite nil)
-    (even? const-decl "bool" integers nil))
-   34 20 t nil))
+    (ref6 const-decl "predicate[[T6, U6]]" finite_to_infinite nil))
+   11912 20 t nil))
  (IMP_refinement_TCC5 0
   (IMP_refinement_TCC5-1 nil 3488787670 3493133292 ("" (grind) nil nil)
    unchecked
@@ -1911,7 +1951,7 @@
     (boolean nonempty-type-decl nil booleans nil))
    13486 40 t nil))
  (IMP_refinement_TCC7 0
-  (IMP_refinement_TCC7-1 nil 3488787670 3493127478
+  (IMP_refinement_TCC7-1 nil 3488787670 3493800311
    ("" (assuming-tcc) nil nil) unchecked
    ((equivU const-decl "bool" finite_to_infinite nil)
     (even? const-decl "bool" integers nil)
@@ -1931,9 +1971,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   90 50 t nil))
+   94 50 t nil))
  (IMP_refinement_TCC8 0
-  (IMP_refinement_TCC8-1 nil 3488787670 3493127484
+  (IMP_refinement_TCC8-1 nil 3488787670 3493800316
    ("" (assuming-tcc) nil nil) unchecked
    ((equivT const-decl "bool" finite_to_infinite nil)
     (equivU const-decl "bool" finite_to_infinite nil)
@@ -1954,11 +1994,35 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   125 60 t nil)))
-(infinite_to_finite_finite_equival_finite_equival_classes)
+   118 70 t nil)))
+(infinite_to_finite_finite_equival_finite_equival_classes
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3493802504 nil ("" (subtype-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3493802504 nil ("" (subtype-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3493802504 nil ("" (assuming-tcc) nil nil)
+   unchecked nil nil nil nil nil)))
 (infinite_to_finite_infinite_equival_finite_equival_classes
  (IMP_refinement_TCC1 0
-  (IMP_refinement_TCC1-1 nil 3493717741 3493800198
+  (IMP_refinement_TCC1-1 nil 3493717741 3493800556
    ("" (expand "equivalence?")
     (("" (prop)
       (("1" (expand "reflexive?")
@@ -2005,25 +2069,25 @@
         nil))
       nil))
     nil)
-   proved
-   ((equivT const-decl "bool"
-     infinite_to_finite_infinite_equival_finite_equival_classes nil)
-    (reflexive? const-decl "bool" relations nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+   unchecked
+   ((equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (even? const-decl "bool" integers nil)
+    (odd? const-decl "bool" integers nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (odd? const-decl "bool" integers nil)
-    (even? const-decl "bool" integers nil)
-    (symmetric? const-decl "bool" relations nil)
-    (transitive? const-decl "bool" relations nil)
-    (equivalence? const-decl "bool" relations nil))
-   117491 360 t nil))
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivT const-decl "bool"
+     infinite_to_finite_infinite_equival_finite_equival_classes nil))
+   1902 630 t nil))
  (IMP_refinement_TCC2 0
   (IMP_refinement_TCC2-1 nil 3493717741 3493796389
-   ("" (subtype-tcc) nil nil) proved
+   ("" (subtype-tcc) nil nil) unchecked
    ((mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -2067,7 +2131,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (T7 type-eq-decl nil
      infinite_to_finite_infinite_equival_finite_equival_classes nil)
@@ -2098,7 +2162,7 @@
     (("" (expand "ref7") (("" (smash) (("" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (U7 type-eq-decl nil
      infinite_to_finite_infinite_equival_finite_equival_classes nil)
@@ -2162,7 +2226,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2228,7 +2292,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivU const-decl "bool"
@@ -2298,7 +2362,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivT const-decl "bool"
@@ -2362,7 +2426,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2402,5 +2466,346 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
    1089 540 t nil)))
+(finite_to_infinite_finite_equival_infinite_equival_classes
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3493904101 3493904110
+   ("" (subtype-tcc) nil nil) proved
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (even? const-decl "bool" integers nil)
+    (odd? const-decl "bool" integers nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivT const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (T8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   431 340 t nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3493904101 3493904114
+   ("" (subtype-tcc) nil nil) proved
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivU const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even? const-decl "bool" integers nil)
+    (odd? const-decl "bool" integers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (< const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (U8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil))
+   361 270 t nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3493904101 3493904144
+   ("" (assuming-tcc)
+    (("" (expand "ref8")
+      (("" (smash)
+        (("1" (expand "g8") (("1" (smash) nil nil)) nil)
+         ("2" (expand "g8") (("2" (smash) nil nil)) nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((even? const-decl "bool" integers nil)
+    (T8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (g8 const-decl "[T8 -> U8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (ref8 const-decl "predicate[[T8, U8]]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil))
+   26696 120 t nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3493904101 3493904243
+   ("" (assuming-tcc)
+    (("" (expand "ref8") (("" (smash) (("" (grind) nil nil)) nil))
+      nil))
+    nil)
+   proved
+   ((even? const-decl "bool" integers nil)
+    (U8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (e8 const-decl "[U8 -> T8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (ref8 const-decl "predicate[[T8, U8]]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil))
+   13910 530 t nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3493904101 3493904393
+   ("" (skolem!)
+    (("" (expand "equivT")
+      (("" (prop)
+        (("" (iff)
+          (("" (prop)
+            (("1" (expand "even?")
+              (("1" (expand "odd?")
+                (("1" (smash) (("1" (grind) nil nil)) nil)) nil))
+              nil)
+             ("2" (smash)
+              (("2" (expand "odd?")
+                (("2" (expand "even?")
+                  (("2" (smash)
+                    (("2" (expand "e8")
+                      (("2" (smash)
+                        (("1" (grind) nil nil) ("2" (grind) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (equivT const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even? const-decl "bool" integers nil)
+    (e8 const-decl "[U8 -> T8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (g8 const-decl "[T8 -> U8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (odd? const-decl "bool" integers nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil))
+   145332 1110 t nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3493904101 3493904963
+   ("" (skolem!)
+    (("" (expand "equivU")
+      (("" (iff)
+        (("" (prop)
+          (("1" (expand "odd?")
+            (("1" (expand "even?")
+              (("1" (expand "g8")
+                (("1" (smash)
+                  (("1" (inst + "0") (("1" (grind) nil nil)) nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (expand "odd?")
+            (("2" (expand "even?")
+              (("2" (expand "g8")
+                (("2" (smash)
+                  (("1" (inst + "0") (("1" (grind) nil nil)) nil)
+                   ("2" (grind) nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (equivU const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even? const-decl "bool" integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (e8 const-decl "[U8 -> T8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (g8 const-decl "[T8 -> U8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (odd? const-decl "bool" integers nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (U8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (NOT const-decl "[bool -> bool]" booleans nil))
+   144204 1060 t nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3493904101 3493904615
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (expand "equivT")
+        (("" (expand "equivU")
+          (("" (iff)
+            (("" (prop)
+              (("1" (expand "odd?")
+                (("1" (expand "even?")
+                  (("1" (expand "g8")
+                    (("1" (smash)
+                      (("1" (grind) nil nil) ("2" (grind) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (grind) nil nil) ("3" (grind) nil nil)
+               ("4" (grind) nil nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((equivU const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even? const-decl "bool" integers nil)
+    (g8 const-decl "[T8 -> U8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (odd? const-decl "bool" integers nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (equivT const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
+   60966 2240 t nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3493904101 3493904813
+   ("" (skolem!)
+    (("" (flatten)
+      (("" (expand "equivU")
+        (("" (expand "equivT")
+          (("" (iff)
+            (("" (expand "e8")
+              (("" (prop)
+                (("1" (iff)
+                  (("1" (smash)
+                    (("1" (expand "odd?")
+                      (("1" (expand "even?") (("1" (propax) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (expand "even?")
+                  (("2" (expand "odd?") (("2" (smash) nil nil)) nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((equivT const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (e8 const-decl "[U8 -> T8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (odd? const-decl "bool" integers nil)
+    (even? const-decl "bool" integers nil)
+    (equivU const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
+   53773 1580 t nil)))
 (simplest_examples)
 
