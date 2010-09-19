@@ -16,25 +16,25 @@
         nil))
       nil))
     nil)
-   untried
+   unfinished
    ((T formal-type-decl nil refinement nil)
     (ext_is_left_inv_of_gen formula-decl nil refinement nil))
    62792 110 t shostak))
  (ref_extract_generate_equal 0
-  (ref_extract_generate_equal-1 nil 3493376461 3493445387
+  (ref_extract_generate_equal-1 nil 3493376461 3493910052
    ("" (use "ext_preserves_equiv")
     (("" (skosimp)
       (("" (inst - "ext(u!1)" "ext(gen(t!1))" "u!1" "gen(t!1)")
         (("" (prop) nil nil)) nil))
       nil))
     nil)
-   unfinished
-   ((gen formal-const-decl "[T -> U]" refinement nil)
-    (ext formal-const-decl "[U -> T]" refinement nil)
-    (U formal-type-decl nil refinement nil)
+   proved
+   ((ext_preserves_equiv formula-decl nil refinement nil)
     (T formal-type-decl nil refinement nil)
-    (ext_preserves_equiv formula-decl nil refinement nil))
-   54571 490 t shostak))
+    (U formal-type-decl nil refinement nil)
+    (ext formal-const-decl "[U -> T]" refinement nil)
+    (gen formal-const-decl "[T -> U]" refinement nil))
+   359 190 t shostak))
  (equal_gen_to_equality 0
   (equal_gen_to_equality-1 nil 3493806154 3493806204
    ("" (skolem!)
@@ -42,25 +42,25 @@
       (("" (use "gen_is_left_inv_of_ext") (("" (assert) nil nil)) nil))
       nil))
     nil)
-   untried
+   unfinished
    ((U formal-type-decl nil refinement nil)
     (gen_is_left_inv_of_ext formula-decl nil refinement nil))
    50803 70 t shostak))
  (ref_generate_extract_equal 0
-  (ref_generate_extract_equal-1 nil 3493376524 3493802505
+  (ref_generate_extract_equal-1 nil 3493376524 3493910083
    ("" (skosimp)
     (("" (lemma "gen_preserves_equiv")
       (("" (inst - "t!1" "ext(u!1)" "gen(t!1)" "gen(ext(u!1))")
         (("" (prop) nil nil)) nil))
       nil))
     nil)
-   unfinished
+   proved
    ((T formal-type-decl nil refinement nil)
     (U formal-type-decl nil refinement nil)
     (ext formal-const-decl "[U -> T]" refinement nil)
     (gen formal-const-decl "[T -> U]" refinement nil)
     (gen_preserves_equiv formula-decl nil refinement nil))
-   91 20 t shostak))
+   102 20 t shostak))
  (ref_left_composition 0
   (ref_left_composition-1 nil 3493221933 3493809713
    ("" (skolem!)
@@ -95,7 +95,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((generate_consistent_with_refinement formula-decl nil refinement
      nil)
     (T formal-type-decl nil refinement nil)
@@ -109,7 +109,7 @@
       (("" (use "ref_right_composition") (("" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((ref_right_composition formula-decl nil refinement nil)
     (T formal-type-decl nil refinement nil)
     (U formal-type-decl nil refinement nil)
@@ -118,9 +118,8 @@
     (ref_left_composition formula-decl nil refinement nil))
    150 60 t shostak))
  (equivalence_ref_impl 0
-  (equivalence_ref_impl-1 nil 3493809819 3493809844
-   ("" (grind) (("" (postpone) nil nil)) nil) untried nil 24983 60 t
-   shostak))
+  (equivalence_ref_impl-1 nil 3493809819 3493909960
+   ("" (grind) nil nil) unfinished nil 116222 160 t shostak))
  (rep_equiv_ref_impl 0
   (rep_equiv_ref_impl-1 nil 3493368335 3493377287
    ("" (grind)
@@ -2467,9 +2466,86 @@
      integers nil))
    1089 540 t nil)))
 (finite_to_infinite_finite_equival_infinite_equival_classes
+ (rep_equiv_ext_ref_impl_TCC1 0
+  (rep_equiv_ext_ref_impl_TCC1-1 nil 3493910344 nil
+   ("" (subtype-tcc) nil nil) nil nil nil nil nil nil))
+ (rep_equiv_ext_ref_impl_TCC2 0
+  (rep_equiv_ext_ref_impl_TCC2-1 nil 3493910344 nil
+   ("" (subtype-tcc) nil nil) nil nil nil nil nil nil))
+ (rep_equiv_ext_ref_impl 0
+  (rep_equiv_ext_ref_impl-1 nil 3493910349 3493910437
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "ref8")
+        (("" (expand "equivU")
+          (("" (smash)
+            (("1" (expand "even?")
+              (("1" (expand "equivT")
+                (("1" (smash) (("1" (grind) nil nil)) nil)) nil))
+              nil)
+             ("2" (expand "equivT")
+              (("2" (expand "even?")
+                (("2" (smash) (("2" (grind) nil nil)) nil)) nil))
+              nil)
+             ("3" (expand "even?")
+              (("3" (expand "equivT")
+                (("3" (smash) (("3" (grind) nil nil)) nil)) nil))
+              nil)
+             ("4" (grind) nil nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (equivU const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (even? const-decl "bool" integers nil)
+    (g8 const-decl "[T8 -> U8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (repEC const-decl "T" QuotientDefinition nil)
+    (choose const-decl "(p)" sets nil)
+    (e8 const-decl "[U8 -> T8]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (odd? const-decl "bool" integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (equivT const-decl "bool"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (ref8 const-decl "predicate[[T8, U8]]"
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (U8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (T8 type-eq-decl nil
+     finite_to_infinite_finite_equival_infinite_equival_classes nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (< const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   72956 1190 t shostak))
  (IMP_refinement_TCC1 0
   (IMP_refinement_TCC1-1 nil 3493904101 3493904110
-   ("" (subtype-tcc) nil nil) proved
+   ("" (subtype-tcc) nil nil) unchecked
    ((mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -2505,7 +2581,7 @@
    431 340 t nil))
  (IMP_refinement_TCC2 0
   (IMP_refinement_TCC2-1 nil 3493904101 3493904114
-   ("" (subtype-tcc) nil nil) proved
+   ("" (subtype-tcc) nil nil) unchecked
    ((mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -2549,7 +2625,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (T8 type-eq-decl nil
      finite_to_infinite_finite_equival_infinite_equival_classes nil)
@@ -2580,7 +2656,7 @@
     (("" (expand "ref8") (("" (smash) (("" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((even? const-decl "bool" integers nil)
     (U8 type-eq-decl nil
      finite_to_infinite_finite_equival_infinite_equival_classes nil)
@@ -2642,7 +2718,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivT const-decl "bool"
@@ -2687,7 +2763,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivU const-decl "bool"
@@ -2748,7 +2824,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((equivU const-decl "bool"
      finite_to_infinite_finite_equival_infinite_equival_classes nil)
     (even? const-decl "bool" integers nil)
@@ -2763,49 +2839,6 @@
      finite_to_infinite_finite_equival_infinite_equival_classes nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   60966 2240 t nil))
- (IMP_refinement_TCC8 0
-  (IMP_refinement_TCC8-1 nil 3493904101 3493904813
-   ("" (skolem!)
-    (("" (flatten)
-      (("" (expand "equivU")
-        (("" (expand "equivT")
-          (("" (iff)
-            (("" (expand "e8")
-              (("" (prop)
-                (("1" (iff)
-                  (("1" (smash)
-                    (("1" (expand "odd?")
-                      (("1" (expand "even?") (("1" (propax) nil nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil)
-                 ("2" (expand "even?")
-                  (("2" (expand "odd?") (("2" (smash) nil nil)) nil))
-                  nil))
-                nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   proved
-   ((equivT const-decl "bool"
-     finite_to_infinite_finite_equival_infinite_equival_classes nil)
-    (e8 const-decl "[U8 -> T8]"
-     finite_to_infinite_finite_equival_infinite_equival_classes nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (odd? const-decl "bool" integers nil)
-    (even? const-decl "bool" integers nil)
-    (equivU const-decl "bool"
-     finite_to_infinite_finite_equival_infinite_equival_classes nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil))
-   53773 1580 t nil)))
+   60966 2240 t nil)))
 (simplest_examples)
 
