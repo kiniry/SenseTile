@@ -5,6 +5,20 @@
     (("" (assert) (("" (grind) (("" (postpone) nil nil)) nil)) nil))
     nil)
    unchecked nil 42951 80 t shostak))
+ (equality_to_equal 0
+  (equality_to_equal-1 nil 3493999528 3493999711
+   ("" (skolem-typepred)
+    (("" (inst?)
+      (("" (inst?)
+        (("" (prop) (("" (replace*) (("" (grind) nil nil)) nil)) nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((T formal-type-decl nil refinement nil)
+    (gen formal-const-decl "[T -> U]" refinement nil)
+    (U formal-type-decl nil refinement nil))
+   48343 100 t shostak))
  (equal_ext_to_equality 0
   (equal_ext_to_equality-1 nil 3493805906 3493993609
    ("" (skolem!)
@@ -16,7 +30,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((ext_is_left_inv_of_gen formula-decl nil refinement nil)
     (T formal-type-decl nil refinement nil))
    145 80 t shostak))
@@ -90,7 +104,7 @@
       (("" (use "ref_right_composition") (("" (grind) nil nil)) nil))
       nil))
     nil)
-   proved
+   unchecked
    ((ref_right_composition formula-decl nil refinement nil)
     (T formal-type-decl nil refinement nil)
     (U formal-type-decl nil refinement nil)
@@ -2650,7 +2664,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivU const-decl "bool"
@@ -2708,7 +2722,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivT const-decl "bool"
@@ -2756,7 +2770,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (equivU const-decl "bool"
