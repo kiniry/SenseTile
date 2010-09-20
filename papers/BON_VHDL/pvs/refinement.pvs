@@ -26,10 +26,9 @@ BEGIN
                                     u0 ## u1 IMPLIES t0 == t1
 
     eqviv_preserves_equal_in_domain: ASSUMPTION t0 == ext(gen(t0)) 
-                                     AND EXISTS(t:T): t = ext(gen(t0))
-
+                                     AND EXISTS(t:T): t = ext(gen(t0)) 
     eqviv_preserves_equal_in_codomain: ASSUMPTION u0 ## gen(ext(u0)) 
-                                     AND EXISTS(u:U): u = gen(ext(u0))
+                                     AND EXISTS(u:U): u = gen(ext(u0)) 
  ENDASSUMING
 
   equal_ext_to_equality :LEMMA FORALL((t:T),(u:U)):
@@ -51,15 +50,12 @@ BEGIN
                                    IMPLIES gen(t) ## gen(ext(u)) % -:)
 
   ref_left_composition: LEMMA FORALL ((t:T),(u:U)):
-                              u = gen(t) AND 
                              |-(t,u) IMPLIES |-(ext(gen(t)),u) 
 
   ref_right_composition: LEMMA FORALL ((t:T),(u:U)):
-                               t = ext(u) AND 
                               |-(t,u) IMPLIES |-(t,gen(ext(u)))
 
  ref_composition: LEMMA FORALL ((t:T),(u:U)):
-                        u = gen(t) AND t= ext(u) AND 
                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u))) 
 
  equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
