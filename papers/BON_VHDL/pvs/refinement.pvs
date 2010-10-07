@@ -26,52 +26,47 @@ BEGIN
                                     u0 ## u1 IMPLIES t0 == t1
  ENDASSUMING
 
-  equal_ext_to_equality :LEMMA FORALL((t:T),(u:U)):
-                                   u = gen(t) AND t = ext(u)
-                                   IMPLIES ext(u)== ext(gen(t))     %-:)
-
+  equal_ext_to_equality: LEMMA FORALL((t:T),(u:U)):
+                               u = gen(t) AND t = ext(u)
+                               IMPLIES ext(u)== ext(gen(t)) %-:)
 
   ref_extract_generate_equal: LEMMA FORALL((t:T),(u:U)):
-                                   u ## gen(t) AND t == ext(u)
-                                   IMPLIES ext(u) == ext(gen(t))    %-:)
+                                    u ## gen(t) AND t == ext(u)
+                                    IMPLIES ext(u) == ext(gen(t)) %-:)
 
-
-  equal_gen_to_equality :LEMMA FORALL((t:T),(u:U)):
-                                   u = gen(t) AND t= ext(u)
-                                   IMPLIES gen(t)## gen(ext(u))     %-:)
+  equal_gen_to_equality: LEMMA FORALL((t:T),(u:U)):
+                               u = gen(t) AND t= ext(u)
+                               IMPLIES gen(t)## gen(ext(u)) %-:)
 
   ref_generate_extract_equal: LEMMA FORALL((t:T),(u:U)):
-                                   u ## gen(t) AND t == ext(u)
-                                   IMPLIES gen(t) ## gen(ext(u))    %-:)
+                                    u ## gen(t) AND t == ext(u)
+                                    IMPLIES gen(t) ## gen(ext(u)) %-:)
 
   ref_left_composition: LEMMA FORALL ((t:T),(u:U)):
-                             u = gen(t) AND
-                             |-(t,u) IMPLIES |-(ext(gen(t)),u)      %-:) ?
+                              u = gen(t) AND |-(t,u) IMPLIES |-(ext(gen(t)),u) %-:) ?
 
   ref_right_composition: LEMMA FORALL ((t:T),(u:U)):
-                               t = ext(u) AND
-                              |-(t,u) IMPLIES |-(t,gen(ext(u)))     %-:) ?
+                               t = ext(u) AND |-(t,u) IMPLIES |-(t,gen(ext(u))) %-:) ?
 
- ref_composition: LEMMA FORALL ((t:T),(u:U)):
-                        u = gen(t) AND t = ext(u) AND
-                        |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u))) %-:) ?
+  ref_composition: LEMMA FORALL ((t:T),(u:U)):
+                         u = gen(t) AND t = ext(u) AND
+                         |-(t,u) IMPLIES |-(ext(gen(t)),gen(ext(u))) %-:) ?
 
- equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                             u0 ## gen(t0) AND 
-                             t0 == ext(u0) AND 
-                             |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
-
+  equivalence_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                              u0 ## gen(t0) AND 
+                              t0 == ext(u0) AND 
+                              |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
  
- rep_equiv_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                           u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
-                           t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
-                           |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
+  rep_equiv_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                            u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
+                            t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
+                            |-(t0,u0) IMPLIES |-(ext(u0),gen(t0))
 
- rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T),(u0:U):
-                               u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
-                               t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
-                               |-(t0,u0) IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
-                                                    QuotientDefinition[U].repEC( ## )(gen(t0)))
+  rep_equiv_ext_ref_impl: LEMMA FORALL(t0:T),(u0:U):
+                                u0 ## QuotientDefinition[U].repEC( ## )(gen(t0)) AND 
+                                t0 == QuotientDefinition[T].repEC(==)(ext(u0)) AND 
+                                |-(t0,u0) IMPLIES |-(QuotientDefinition[T].repEC(==)(ext(u0)),
+                                                     QuotientDefinition[U].repEC( ## )(gen(t0)))
 END refinement
 
 refinement_model_theory[T, U: TYPE,
@@ -319,24 +314,125 @@ BEGIN
  
   equivT(t0, t1: T8): bool = odd?(t0+1) = even?(t1) % check with Joe !
   equivU(u0, u1: U8): bool = odd?(u0+1) = even?(u1) OR even?(u0) = even?(u1)  
-  g8: [T8 -> U8] = (LAMBDA (t: T8): IF (even?(t)) THEN 0 ELSE 1 ENDIF  )
-  e8: [U8 -> T8] = (LAMBDA (u: U8): IF ( even?(u)) THEN 0 ELSE 1 ENDIF)
+  g8: [T8 -> U8] = (LAMBDA (t: T8): IF (even?(t)) THEN 0 ELSE 1 ENDIF)
+  e8: [U8 -> T8] = (LAMBDA (u: U8): IF (even?(u)) THEN 0 ELSE 1 ENDIF)
   ref8: predicate[[T8, U8]] = (LAMBDA (p: [T8, U8]):
-                               IF ( even?(p`2)) THEN p`1 = 0 ELSE p`1 = 1 ENDIF)
+                               IF (even?(p`2)) THEN p`1 = 0 ELSE p`1 = 1 ENDIF)
  IMPORTING refinement[T8, U8, equivT, equivU , g8, e8, ref8]
 END finite_to_infinite_finite_equival_infinite_equival_classes
+
+% skipping reals and rationals
+% strings, characters, bits
+
+trivial_tuple_refinement: THEORY
+BEGIN
+  T9: TYPE = [bool, nat]
+  U9: TYPE = [nat, bool]
+  IMPORTING relations[T9], relations[U9];
+  equivT(t0, t1: T9): bool = true
+  equivU(u0, u1: U9): bool = true
+  g9: [T9 -> U9]% = (LAMBDA (t: T9): true)
+  e9: [U9 -> T9]% = (LAMBDA (u: U9): true)
+  ref9: predicate[[T9, U9]] = (LAMBDA (p: [T9, U9]):
+                               true)
+ IMPORTING refinement[T9, U9, equivT, equivU , g9, e9, ref9]
+END trivial_tuple_refinement
+
+two_to_three_tuple_refinement: THEORY
+BEGIN
+  S10: TYPE+ = { white, black }
+  W10: TYPE
+  T10: TYPE = [bool, nat]
+  U10: TYPE = [S10, rational, W10]
+  IMPORTING relations[T10], relations[U10];
+  equivT(t0, t1: T10): bool = true
+  equivU(u0, u1: U10): bool = true
+  g10: [T10 -> U10]% = (LAMBDA (t: T10): true)
+  e10: [U10 -> T10]% = (LAMBDA (u: U10): true)
+  ref10: predicate[[T10, U10]] = (LAMBDA (p: [T10, U10]):
+                                  true)
+ IMPORTING refinement[T10, U10, equivT, equivU , g10, e10, ref10]
+END two_to_three_tuple_refinement
+
+% would love to define a dependent tuple type but we cannot do that in PVS
+dependent_tuple_refinement: THEORY
+BEGIN
+  T: TYPE % T is a tuple type of length k
+  U: TYPE
+END dependent_tuple_refinement
+
+trivial_record_refinement: THEORY
+BEGIN
+  T11: TYPE = [# a:bool, b:nat #]
+  U11: TYPE = [# c:nat, d:bool #]
+  IMPORTING relations[T11], relations[U11];
+  equivT(t0, t1: T11): bool = true
+  equivU(u0, u1: U11): bool = true
+  g11: [T11 -> U11]% = (LAMBDA (t: T11): true)
+  e11: [U11 -> T11]% = (LAMBDA (u: U11): true)
+  ref11: predicate[[T11, U11]] = (LAMBDA (p: [T11, U11]):
+                               true)
+ IMPORTING refinement[T11, U11, equivT, equivU , g11, e11, ref11]
+END trivial_record_refinement
+
+% connect tuples to function types
+
+function_refinement: THEORY
+BEGIN
+END function_refinement
+
+sequence_refinement: THEORY
+BEGIN
+END sequence_refinement
+
+list_refinement: THEORY
+BEGIN
+END list_refinement
+
+% would love to define a dependent datatype but we cannot do so in PVS
+datatypes_refinement: THEORY
+BEGIN
+END datatypes_refinement
+
+predicate_refinement: THEORY
+BEGIN
+END predicate_refinement
+
+relation_refinement: THEORY
+BEGIN
+END relation_refinement
+
+indexed_sets_refinement: THEORY
+BEGIN
+END indexed_sets_refinement
+
+nested_sets_refinement: THEORY
+BEGIN
+END nested_sets_refinement
+
+subtype_refinement: THEORY
+BEGIN
+END subtype_refinement
+
+dependent_type_refinement: THEORY
+BEGIN
+END dependent_type_refinement
 
 % The collection of all simple examples.
 simplest_examples: THEORY
 BEGIN
   IMPORTING singleton_example, finite_nats_trivial,
             finite_nats_non_trivial, 
-             infinite_to_infinite_trivial, finite_to_infinite,
+            infinite_to_infinite_trivial, finite_to_infinite,
             infinite_nats_finite_equivalence_classes,
             infinite_to_finite_finite_equival_finite_equival_classes,
             infinite_to_infinite_infinite_equival_finite_equival_classes,
             infinite_to_finite_infinite_equival_finite_equival_classes,
             finite_to_infinite_finite_equival_infinite_equival_classes
-               
-
 END simplest_examples
+
+intermediate_examples: THEORY
+BEGIN
+  IMPORTING trivial_tuple_refinement, two_to_three_tuple_refinement, 
+            dependent_type_refinement, trivial_record_refinement
+END intermediate_examples
