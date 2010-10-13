@@ -326,17 +326,47 @@ END finite_to_infinite_finite_equival_infinite_equival_classes
 
 trivial_tuple_refinement: THEORY
 BEGIN
-  T9: TYPE = [bool, nat]
-  U9: TYPE = [nat, bool]
+  T9: TYPE = [bool, below(2)]
+  U9: TYPE = [below(2), bool]
   IMPORTING relations[T9], relations[U9];
   equivT(t0, t1: T9): bool = true
   equivU(u0, u1: U9): bool = true
-  g9: [T9 -> U9]% = (LAMBDA (t: T9): true)
-  e9: [U9 -> T9]% = (LAMBDA (u: U9): true)
-  ref9: predicate[[T9, U9]] = (LAMBDA (p: [T9, U9]):
-                               true)
+  g9: [T9 -> U9] = (LAMBDA (t: T9): IF(t`1 =true AND t`2 = 0)THEN (0,true)
+                                    ELSE (1,false) ENDIF )
+  e9: [U9 -> T9] = (LAMBDA (u: U9): IF (u`1 = 0 AND u`2= true)THEN (true,0) 
+                                    ELSE(false,1) ENDIF)
+  ref9: predicate[[T9, U9]] = (LAMBDA (p: [T9, U9]):true)
  IMPORTING refinement[T9, U9, equivT, equivU , g9, e9, ref9]
 END trivial_tuple_refinement
+
+
+
+
+finite_nats_tuple_trivial: THEORY % F x F (non-trivial)
+BEGIN
+               % 0,  1,  2   
+               %0,1,2,3,4,5
+  T10: TYPE = [below(3),below(6)]
+               % 0,  1,  2,  3,  4,   5       
+               %0,1,2,3,4,5,6,7,8,9,10,11
+  U10: TYPE = [below(6),below(12)] 
+  IMPORTING ints@div, relations[T10], relations[U10]; 
+  
+  equivT(t0, t1: T10): bool = t0`1 = t1`1 AND t0`2 = t1`2;
+  equivU(u0, u1: U10): bool = div(u0`1,2) = div(u1`1,2) AND div(u0`2,2) = div(u1`2,2);
+  
+  g10: [T10 -> U10] = (LAMBDA (t: T10): (2*t`1,2*t`2))
+  e10: [U10 -> T10] = (LAMBDA (u: U10): (div(u`1,2),div(u`2,2)))
+
+  ref10: predicate[[T10, U10]] =
+     LAMBDA (p: [T10, U10]): (p`1)`1 = div((p`2)`1,2) AND (p`1)`2 = div((p`2)`2,2)
+
+  IMPORTING refinement[T10, U10, equivT, equivU, g10, e10, ref10]
+
+END finite_nats_tuple_trivial 
+
+
+
 
 two_to_three_tuple_refinement: THEORY
 BEGIN
@@ -359,20 +389,12 @@ dependent_tuple_refinement: THEORY
 BEGIN
   T: TYPE % T is a tuple type of length k
   U: TYPE
+
 END dependent_tuple_refinement
 
 trivial_record_refinement: THEORY
 BEGIN
-  T11: TYPE = [# a:bool, b:nat #]
-  U11: TYPE = [# c:nat, d:bool #]
-  IMPORTING relations[T11], relations[U11];
-  equivT(t0, t1: T11): bool = true
-  equivU(u0, u1: U11): bool = true
-  g11: [T11 -> U11]% = (LAMBDA (t: T11): true)
-  e11: [U11 -> T11]% = (LAMBDA (u: U11): true)
-  ref11: predicate[[T11, U11]] = (LAMBDA (p: [T11, U11]):
-                               true)
- IMPORTING refinement[T11, U11, equivT, equivU , g11, e11, ref11]
+
 END trivial_record_refinement
 
 % connect tuples to function types
