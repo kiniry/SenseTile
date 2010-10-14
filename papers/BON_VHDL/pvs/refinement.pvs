@@ -406,11 +406,11 @@ BEGIN
   U13: TYPE = [{n: nat | odd?(n)},{n: nat | even?(n)}]
   IMPORTING relations[T13], relations[U13];
 
-  equivT(t0, t1: T13): bool = rem(4)(t0) = rem(4)(t1);
-  equivU(u0, u1: U13): bool = rem(4)(u0-1) = rem(4)(u1-1);
-  g13: [T13 -> U13] = (LAMBDA (t: T13): t+1)
-  e13: [U13 -> T13] = (LAMBDA (u: U13): u-1)
-  ref13: predicate[[T13, U13]] = (LAMBDA (p: [T13, U13]): p`1 + 1 = p`2)
+  equivT(t0, t1: T13): bool = rem(4)((t0)`1)= rem(4)((t1)`1) AND rem(4)((t0)`2-1) = rem(4)((t1)`2-1);
+  equivU(u0, u1: U13): bool = rem(4)((u0)`1-1) = rem(4)((u1)`1-1) AND rem(4)((u0)`2)=rem(4)((u1)`2);
+  g13: [T13 -> U13] = (LAMBDA (t: T13): (t`1+1, t`2-1))
+  e13: [U13 -> T13] = (LAMBDA (u: U13): (u`1-1, u`2+1))
+  ref13: predicate[[T13, U13]] = (LAMBDA (p: [T13, U13]): (p`1)`1 + 1 = (p`2)`1 AND (p`1)`2 - 1 = (p`2)`2)
 
   IMPORTING refinement[T13, U13, equivT, equivU, g13, e13, ref13]
 END infinite_nats_finite_tuples_equivalence_classes

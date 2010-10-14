@@ -3480,6 +3480,220 @@
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
    384 250 t nil)))
+(infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+ (e12_TCC1 0
+  (e12_TCC1-1 nil 3496033769 3496033781 ("" (subtype-tcc) nil nil)
+   proved
+   ((int_minus_int_is_int application-judgement "int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   76 20 t nil))
+ (e12_TCC2 0
+  (e12_TCC2-1 nil 3496033769 3496033777 ("" (subtype-tcc) nil nil)
+   proved
+   ((int_minus_int_is_int application-judgement "int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   109 20 t nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3496033769 3496033787
+   ("" (subtype-tcc) nil nil) proved
+   ((equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   162 70 t nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3496033769 3496033791
+   ("" (subtype-tcc) nil nil) proved
+   ((equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   150 80 t nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3496033769 3496033796
+   ("" (assuming-tcc) nil nil) proved
+   ((ref12 const-decl "predicate[[T12, U12]]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (g12 const-decl "[T12 -> U12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   88 20 t nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3496033769 3496033801
+   ("" (assuming-tcc) nil nil) proved
+   ((ref12 const-decl "predicate[[T12, U12]]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (e12 const-decl "[U12 -> T12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   78 20 t nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3496033769 3496033805
+   ("" (assuming-tcc) nil nil) proved
+   ((equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (e12 const-decl "[U12 -> T12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (g12 const-decl "[T12 -> U12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   50 20 t nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3496033769 3496033809
+   ("" (assuming-tcc) nil nil) proved
+   ((equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (g12 const-decl "[T12 -> U12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (e12 const-decl "[U12 -> T12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   67 10 t nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3496033769 3496033814
+   ("" (assuming-tcc) nil nil) proved
+   ((equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (g12 const-decl "[T12 -> U12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   116 40 t nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3496033769 3496033819
+   ("" (assuming-tcc) nil nil) proved
+   ((equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil)
+    (e12 const-decl "[U12 -> T12]"
+     infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+     nil))
+   121 30 t nil)))
+(infinite_nats_finite_tuples_equivalence_classes
+ (g13_TCC1 0
+  (g13_TCC1-1 nil 3496041900 3496041912 ("" (subtype-tcc) nil nil)
+   proved
+   ((odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
+   104 40 t nil))
+ (g13_TCC2 0
+  (g13_TCC2-1 nil 3496041900 3496042003
+   ("" (subtype-tcc)
+    (("" (typepred "t!1`2")
+      (("" (expand "odd?") (("" (propax) nil nil)) nil)) nil))
+    nil)
+   proved
+   ((odd_minus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (odd? const-decl "bool" integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (even? const-decl "bool" integers nil)
+    (T13 type-eq-decl nil
+     infinite_nats_finite_tuples_equivalence_classes nil))
+   22934 90 t nil))
+ (e13_TCC1 0
+  (e13_TCC1-1 nil 3496041900 3496042025
+   ("" (subtype-tcc)
+    (("" (typepred "u!1`1")
+      (("" (expand "odd?") (("" (propax) nil nil)) nil)) nil))
+    nil)
+   proved
+   ((odd_minus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (odd? const-decl "bool" integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (even? const-decl "bool" integers nil)
+    (U13 type-eq-decl nil
+     infinite_nats_finite_tuples_equivalence_classes nil))
+   17141 90 t nil))
+ (e13_TCC2 0
+  (e13_TCC2-1 nil 3496041900 nil ("" (subtype-tcc) nil nil) nil nil nil
+   nil nil nil))
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3496041900 nil ("" (subtype-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3496041900 nil ("" (subtype-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3496041900 nil ("" (assuming-tcc) nil nil)
+   nil nil nil nil nil nil)))
 (two_to_three_tuple_refinement
  (g10_TCC1 0
   (g10_TCC1-1 nil 3495902842 nil ("" (existence-tcc) nil nil) unchecked
