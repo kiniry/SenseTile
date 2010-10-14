@@ -415,11 +415,28 @@ BEGIN
   IMPORTING refinement[T13, U13, equivT, equivU, g13, e13, ref13]
 END infinite_nats_finite_tuples_equivalence_classes
 
+% @jrk Only work on tuples until you can answer these questions.
+% 1. So, what properties of tuples make them different than simple
+% types?
+% 2. Characterize equivalance classes on tuples; what makes them
+% different than those on simple types?
+% 3. Characterize extract and generate functions on tuples; what makes
+% them different than those on simple types?
+% 4. Characterize refinement relations on tuples; what makes them
+% different than those on simple types?
 
+% @jrk Only work on records until you can answer these questions.
+% 1. So, what properties of records make them different than simple
+% types?
+% 2. Characterize equivalance classes on records; what makes them
+% different than those on simple types?
+% 3. Characterize extract and generate functions on records; what makes
+% them different than those on simple types?
+% 4. Characterize refinement relations on records; what makes them
+% different than those on simple types?
 
-
-
-
+% @jrk What makes tuples *fundamentally different* than records wrt
+% refinement?
 
 two_to_three_tuple_refinement: THEORY
 BEGIN
