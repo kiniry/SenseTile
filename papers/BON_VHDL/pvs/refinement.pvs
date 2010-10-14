@@ -340,8 +340,6 @@ BEGIN
 END trivial_tuple_refinement
 
 
-
-
 finite_nats_tuple_trivial: THEORY % F x F (non-trivial)
 BEGIN
                % 0,  1,  2   
@@ -364,6 +362,61 @@ BEGIN
   IMPORTING refinement[T10, U10, equivT, equivU, g10, e10, ref10]
 
 END finite_nats_tuple_trivial 
+
+
+% I x I (infinite equiv. x finite equiv)
+infinite_to_infinite_tuples_infinite_equival_finite_equival_classes: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T11: TYPE = [nat,nat]
+  U11: TYPE = [nat,nat]
+  IMPORTING relations[T11], relations[U11];
+
+  equivT(t0, t1: T11): bool = t0`1 = t1`1 AND t0`2 = t1`2
+  equivU(u0, u1: U11): bool = div(u0`1,10) = div(u1`1,10) AND div(u0`2,10) = div(u1`2,10)
+  g11: [T11 -> U11] = (LAMBDA (t: T11): (10*t`1,10*t`2))
+  e11: [U11 -> T11] = (LAMBDA (u: U11): (div(u`1,10),div(u`2,10)))
+  ref11: predicate[[T11, U11]] = (LAMBDA (p: [T11, U11]): (p`1)`1 = div((p`2)`1,10) AND (p`1)`2 = div((p`2)`2,10))
+
+  IMPORTING refinement[T11, U11, equivT, equivU , g11, e11, ref11]
+END infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+
+% I x I (infinite equiv. x infinite equiv)
+infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes: THEORY 
+BEGIN
+  T12: TYPE = [nat,nat]
+  U12: TYPE = [posnat,posnat]
+  IMPORTING relations[T12], relations[U12];
+
+  equivT(t0, t1: T12): bool =  t0`1 = t1`1 AND t0`2 = t1`2 
+  equivU(u0, u1: U12): bool =  u0`1 = u1`1 AND u0`2 = u1`2
+  g12: [T12 -> U12] = (LAMBDA (t: T12): (t`1+1,t`2+1))
+  e12: [U12 -> T12] = (LAMBDA (u: U12): (u`1-1, u`2-1))
+  ref12: predicate[[T12, U12]] = (LAMBDA (p: [T12, U12]): (p`1)`1+1= (p`2)`1 AND (p`2)`2 -1 = (p`1)`2)
+
+  IMPORTING refinement[T12, U12, equivT, equivU , g12, e12, ref12]
+END infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
+
+
+% I x I (finite equiv. x finite equiv.)
+infinite_nats_finite_tuples_equivalence_classes: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T13: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U13: TYPE = [{n: nat | odd?(n)},{n: nat | even?(n)}]
+  IMPORTING relations[T13], relations[U13];
+
+  equivT(t0, t1: T13): bool = rem(4)(t0) = rem(4)(t1);
+  equivU(u0, u1: U13): bool = rem(4)(u0-1) = rem(4)(u1-1);
+  g13: [T13 -> U13] = (LAMBDA (t: T13): t+1)
+  e13: [U13 -> T13] = (LAMBDA (u: U13): u-1)
+  ref13: predicate[[T13, U13]] = (LAMBDA (p: [T13, U13]): p`1 + 1 = p`2)
+
+  IMPORTING refinement[T13, U13, equivT, equivU, g13, e13, ref13]
+END infinite_nats_finite_tuples_equivalence_classes
+
+
+
 
 
 

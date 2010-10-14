@@ -3021,7 +3021,7 @@
    564 450 t nil))
  (IMP_refinement_TCC3 0
   (IMP_refinement_TCC3-1 nil 3495909195 3495986687
-   ("" (assuming-tcc) nil nil) proved
+   ("" (assuming-tcc) nil nil) unchecked
    ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
@@ -3055,7 +3055,7 @@
         nil))
       nil))
     nil)
-   proved
+   unchecked
    ((e10 const-decl "[U10 -> T10]" finite_nats_tuple_trivial nil)
     (ref10 const-decl "predicate[[T10, U10]]" finite_nats_tuple_trivial
      nil))
@@ -3253,6 +3253,233 @@
     (e10 const-decl "[U10 -> T10]" finite_nats_tuple_trivial nil)
     (equivT const-decl "bool" finite_nats_tuple_trivial nil))
    1401 1010 t nil)))
+(infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+ (IMP_refinement_TCC1 0
+  (IMP_refinement_TCC1-1 nil 3496031729 3496031744
+   ("" (subtype-tcc) nil nil) proved
+   ((equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil))
+   267 130 t nil))
+ (IMP_refinement_TCC2 0
+  (IMP_refinement_TCC2-1 nil 3496031729 3496031749
+   ("" (subtype-tcc) nil nil) proved
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivalence? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (symmetric? const-decl "bool" relations nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (reflexive? const-decl "bool" relations nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil))
+   550 370 t nil))
+ (IMP_refinement_TCC3 0
+  (IMP_refinement_TCC3-1 nil 3496031729 3496031754
+   ("" (assuming-tcc) nil nil) proved
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (ref11 const-decl "predicate[[T11, U11]]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (g11 const-decl "[T11 -> U11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil))
+   386 240 t nil))
+ (IMP_refinement_TCC4 0
+  (IMP_refinement_TCC4-1 nil 3496031729 3496031759
+   ("" (assuming-tcc) nil nil) proved
+   ((int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (ref11 const-decl "predicate[[T11, U11]]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (e11 const-decl "[U11 -> T11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/"))
+   134 70 t nil))
+ (IMP_refinement_TCC5 0
+  (IMP_refinement_TCC5-1 nil 3496031729 3496031765
+   ("" (assuming-tcc) nil nil) proved
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (e11 const-decl "[U11 -> T11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (g11 const-decl "[T11 -> U11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil))
+   362 250 t nil))
+ (IMP_refinement_TCC6 0
+  (IMP_refinement_TCC6-1 nil 3496031729 3496031770
+   ("" (assuming-tcc) nil nil) proved
+   ((mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (g11 const-decl "[T11 -> U11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (e11 const-decl "[U11 -> T11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil))
+   436 320 t nil))
+ (IMP_refinement_TCC7 0
+  (IMP_refinement_TCC7-1 nil 3496031729 3496031885
+   ("" (skolem-typepred)
+    (("" (flatten)
+      (("" (expand "g11")
+        (("" (expand "equivT")
+          (("" (expand "equivU")
+            (("" (prop)
+              (("1" (expand "div")
+                (("1" (expand "sgn") (("1" (smash) nil nil)) nil)) nil)
+               ("2" (expand "div")
+                (("2" (expand "sgn") (("2" (smash) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   proved
+   ((equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (sgn const-decl "int" real_defs nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (div const-decl "integer" div "ints/")
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (g11 const-decl "[T11 -> U11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil))
+   74391 830 t nil))
+ (IMP_refinement_TCC8 0
+  (IMP_refinement_TCC8-1 nil 3496031729 3496031800
+   ("" (assuming-tcc) nil nil) proved
+   ((nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (equivT const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (equivU const-decl "bool"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (e11 const-decl "[U11 -> T11]"
+     infinite_to_infinite_tuples_infinite_equival_finite_equival_classes
+     nil)
+    (div const-decl "integer" div "ints/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (sgn const-decl "int" real_defs nil)
+    (sgn_nat_rew formula-decl nil abs_rews "ints/")
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil))
+   384 250 t nil)))
 (two_to_three_tuple_refinement
  (g10_TCC1 0
   (g10_TCC1-1 nil 3495902842 nil ("" (existence-tcc) nil nil) unchecked
