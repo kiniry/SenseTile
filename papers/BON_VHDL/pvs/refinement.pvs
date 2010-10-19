@@ -415,9 +415,29 @@ BEGIN
   IMPORTING refinement[T13, U13, equivT, equivU, g13, e13, ref13]
 END infinite_nats_finite_tuples_equivalence_classes
 
+
+tuples_commute_domain_co_domain: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T14: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U14: TYPE = [{n: nat | odd?(n)},{n: nat | even?(n)}]
+  IMPORTING relations[T14], relations[U14];
+
+  equivT(t0, t1: T14): bool =  t0`1 = t1`1 AND t0`2 = t1`2;
+  equivU(u0, u1: U14): bool = u0`1 = u1`1 AND u0`2 = u1`2;
+  g14: [T14 -> U14] = (LAMBDA (t: T14): (t`2, t`1))
+  e14: [U14 -> T14] = (LAMBDA (u: U14): (u`2, u`1))
+  ref14: predicate[[T14, U14]] = (LAMBDA (p: [T14, U14]): 
+  	 		       (p`1)`1  = (p`2)`2 AND (p`1)`2 = (p`2)`1)
+
+  IMPORTING refinement[T14, U14, equivT, equivU, g14, e14, ref14]
+END tuples_commute_domain_co_domain
+
 % @jrk Only work on tuples until you can answer these questions.
 % 1. So, what properties of tuples make them different than simple
 % types?
+% @DS Tuples are essentially immutable lists.
+
 % 2. Characterize equivalance classes on tuples; what makes them
 % different than those on simple types?
 % 3. Characterize extract and generate functions on tuples; what makes
@@ -520,7 +540,14 @@ BEGIN
             infinite_to_finite_finite_equival_finite_equival_classes,
             infinite_to_infinite_infinite_equival_finite_equival_classes,
             infinite_to_finite_infinite_equival_finite_equival_classes,
-            finite_to_infinite_finite_equival_infinite_equival_classes
+            finite_to_infinite_finite_equival_infinite_equival_classes,
+            trivial_tuple_refinement,infinite_nats_finite_tuples_equivalence_classes,
+            infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes,
+            infinite_to_infinite_tuples_infinite_equival_finite_equival_classes,
+            trivial_tuple_refinement
+            
+
+
 END simplest_examples
 
 intermediate_examples: THEORY
