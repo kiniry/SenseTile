@@ -399,6 +399,7 @@ END infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes
 
 
 % I x I (finite equiv. x finite equiv.)
+% Tuples_as_immutable_lists_of_equivalence_classes
 infinite_nats_finite_tuples_equivalence_classes: THEORY 
 BEGIN
   IMPORTING ints@div
@@ -406,11 +407,14 @@ BEGIN
   U13: TYPE = [{n: nat | odd?(n)},{n: nat | even?(n)}]
   IMPORTING relations[T13], relations[U13];
 
-  equivT(t0, t1: T13): bool = rem(4)((t0)`1)= rem(4)((t1)`1) AND rem(4)((t0)`2-1) = rem(4)((t1)`2-1);
-  equivU(u0, u1: U13): bool = rem(4)((u0)`1-1) = rem(4)((u1)`1-1) AND rem(4)((u0)`2)=rem(4)((u1)`2);
+  equivT(t0, t1: T13): bool = rem(4)((t0)`1)=
+  	     	       rem(4)((t1)`1) AND rem(4)((t0)`2-1) = rem(4)((t1)`2-1);
+  equivU(u0, u1: U13): bool = rem(4)((u0)`1-1) = 
+  	     	       rem(4)((u1)`1-1) AND rem(4)((u0)`2)=rem(4)((u1)`2);
   g13: [T13 -> U13] = (LAMBDA (t: T13): (t`1+1, t`2-1))
   e13: [U13 -> T13] = (LAMBDA (u: U13): (u`1-1, u`2+1))
-  ref13: predicate[[T13, U13]] = (LAMBDA (p: [T13, U13]): (p`1)`1 + 1 = (p`2)`1 AND (p`1)`2 - 1 = (p`2)`2)
+  ref13: predicate[[T13, U13]] = (LAMBDA (p: [T13, U13]): 
+  	 		         (p`1)`1 + 1 = (p`2)`1 AND (p`1)`2 - 1 = (p`2)`2)
 
   IMPORTING refinement[T13, U13, equivT, equivU, g13, e13, ref13]
 END infinite_nats_finite_tuples_equivalence_classes
@@ -433,11 +437,126 @@ BEGIN
   IMPORTING refinement[T14, U14, equivT, equivU, g14, e14, ref14]
 END tuples_commute_domain_co_domain
 
+
+tuples_same_equivalence_relation_same_domain_co_domain: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T15: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U15: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  IMPORTING relations[T15], relations[U15];
+
+  equivT(t0, t1: T15): bool = even?(t0`1) AND  even?(t1`1)OR
+                               odd?(t0`2) AND  odd?(t1`2);
+
+  equivU(u0, u1: U15): bool = even?(u0`1) AND  even?(u1`1)OR 
+                               odd?(u0`2) AND  odd?(u1`2);
+
+  g15: [T15 -> U15] = (LAMBDA (t: T15): (t`1, t`2))
+  e15: [U15 -> T15] = (LAMBDA (u: U15): (u`1, u`2))
+  ref15: predicate[[T15, U15]] = (LAMBDA (p: [T15, U15]): 
+  	 		       (p`1)`1  = (p`2)`1 AND (p`1)`2 = (p`2)`2)
+
+  IMPORTING refinement[T15, U15, equivT, equivU, g15, e15, ref15]
+END tuples_same_equivalence_relation_same_domain_co_domain
+
+
+tuples_same_equiv_rel_same_domain_co_domain_ref_is_depended_type: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T16: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U16: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  IMPORTING relations[T16], relations[U16];
+
+  equivT(t0, t1: T16): bool = even?(t0`1) AND  even?(t1`1)OR
+                               odd?(t0`2) AND  odd?(t1`2);
+
+  equivU(u0, u1: U16): bool = even?(u0`1) AND  even?(u1`1)OR 
+                               odd?(u0`2) AND  odd?(u1`2);
+
+  g16: [T16 -> U16] = (LAMBDA (t: T16): (t`1, t`2))
+  e16: [U16 -> T16] = (LAMBDA (u: U16): (u`1, u`2))
+  ref16: predicate[[T16, U16]] = (LAMBDA (p: [T16, U16]): 
+  	 		       (p`1)`1  = (e16(p`2))`1 AND (p`1)`2 = (g16(p`2))`2)
+
+  IMPORTING refinement[T16, U16, equivT, equivU, g16, e16, ref16]
+END tuples_same_equiv_rel_same_domain_co_domain_ref_is_depended_type
+
+
+tuples_same_equivalence_rel_same_domain_co_domain_commutes_projections: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T17: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U17: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  IMPORTING relations[T17], relations[U17];
+
+  equivT(t0, t1: T17): bool = even?(t0`1) AND  even?(t1`1)OR
+                               odd?(t0`2) AND  odd?(t1`2);
+
+  equivU(u0, u1: U17): bool = even?(u0`1) AND  even?(u1`1)OR 
+                               odd?(u0`2) AND  odd?(u1`2);
+
+  g17: [T17 -> U17] = (LAMBDA (t: T17): (t`2-1,t`1+1))
+  e17: [U17 -> T17] = (LAMBDA (u: U17): (u`2-1, u`1+1))
+
+  ref17: predicate[[T17, U17]] = (LAMBDA (p: [T17, U17]): 
+  	 		       (p`1)`1  = (p`2)`2-1 AND (p`1)`2 = (p`2)`1+1)
+
+  IMPORTING refinement[T17, U17, equivT, equivU, g17, e17, ref17]
+END tuples_same_equivalence_rel_same_domain_co_domain_commutes_projections
+
+
+
+% cannot prove gen_preserves_equiv 
+tuples_same_equivalence_relation_commutes_domain_co_domain: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T18: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U18: TYPE = [{n: nat | odd?(n)},{n: nat | even?(n)}]
+  IMPORTING relations[T18], relations[U18];
+
+  equivT(t0, t1: T18): bool = even?(t0`1) =  even?(t1`1) AND
+                               odd?(t0`2) =  odd?(t1`2);
+
+  equivU(u0, u1: U18): bool = even?(u0`1) =  even?(u1`1) AND
+                               odd?(u0`2) =  odd?(u1`2);
+
+  g18: [T18 -> U18] = (LAMBDA (t: T18): (t`1+1, t`2-1))
+  e18: [U18 -> T18] = (LAMBDA (u: U18): (u`1-1, u`2+1))
+
+  ref18: predicate[[T18, U18]] = (LAMBDA (p: [T18, U18]): 
+  	 		       (p`1)`1+1  = (p`2)`1 AND (p`1)`2-1 = (p`2)`2)
+
+  IMPORTING refinement[T18, U18, equivT, equivU, g18, e18, ref18]
+END tuples_same_equivalence_relation_commutes_domain_co_domain
+
+
+tuples_commutes_equivalence_relation_commutes_domain_co_domain: THEORY 
+BEGIN
+  IMPORTING ints@div
+  T19: TYPE = [{n: nat | even?(n)},{n: nat | odd?(n)}]
+  U19: TYPE = [{n: nat | odd?(n)},{n: nat  | even?(n)}]
+  IMPORTING relations[T19], relations[U19];
+
+  equivT(t0, t1: T19): bool = even?(t0`1) AND  even?(t1`1) OR  
+  	     	       	      odd?(t0`2) AND  odd?(t1`2);
+  equivU(u0, u1: U19): bool = odd?(u0`1) AND  odd?(u1`1) OR 
+  	     	       	      even?(u0`2) AND  even?(u1`2);
+
+  g19: [T19 -> U19] = (LAMBDA (t: T19): (t`2, t`1))
+  e19: [U19 -> T19] = (LAMBDA (u: U19): (u`2, u`1))
+  % refinement relation depends of g18 & e18
+  ref19: predicate[[T19, U19]] = (LAMBDA (p: [T19, U19]): 
+  	 		       (p`1)`1  = (p`2)`2 AND (p`1)`2 = (p`2)`1)
+
+  IMPORTING refinement[T19, U19, equivT, equivU, g19, e19, ref19]
+END tuples_commutes_equivalence_relation_commutes_domain_co_domain
+
+
+
+
 % @jrk Only work on tuples until you can answer these questions.
 % 1. So, what properties of tuples make them different than simple
 % types?
-% @DS Tuples are essentially immutable lists.
-
 % 2. Characterize equivalance classes on tuples; what makes them
 % different than those on simple types?
 % 3. Characterize extract and generate functions on tuples; what makes
@@ -493,7 +612,7 @@ function_refinement: THEORY
 BEGIN
 END function_refinement
 
-sequence_refinement: THEORY
+ sequence_refinement: THEORY
 BEGIN
 END sequence_refinement
 
@@ -544,7 +663,7 @@ BEGIN
             trivial_tuple_refinement,infinite_nats_finite_tuples_equivalence_classes,
             infinite_to_infinite_tuples_infinite_equival_infinite_equival_classes,
             infinite_to_infinite_tuples_infinite_equival_finite_equival_classes,
-            trivial_tuple_refinement
+            trivial_tuple_refinement,tuples_commute_domain_co_domain
             
 
 
